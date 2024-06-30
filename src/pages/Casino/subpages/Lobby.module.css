@@ -1,0 +1,3 @@
+.NewIcon path:not(:first-child) {
+    fill: #fff !important;
+}

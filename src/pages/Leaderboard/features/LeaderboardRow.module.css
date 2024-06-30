@@ -1,0 +1,117 @@
+.TableRow {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 600;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+
+    --color-end: #213241;
+    --position-1-border: #ffcf52;
+    --position-1-color: rgba(255, 192, 27, 0.2);
+    --position-2-border: #87a0b5;
+    --position-2-color: rgba(131, 189, 238, 0.2);
+    --position-3-border: #cc7b5c;
+    --position-3-color: rgba(238, 85, 26, 0.2);
+    --position-4-border: #33c16c;
+    --position-4-color: rgba(18, 255, 141, 0.12941176470588237);
+    --position-5-border: #83aacc;
+    --position-5-color: #263a4b;
+}
+
+.TableRow.Position1 {
+    --color-start: var(--position-1-color);
+    --color-border: var(--position-1-border);
+}
+.TableRow.Position2 {
+    --color-start: var(--position-2-color);
+    --color-border: var(--position-2-border);
+}
+.TableRow.Position3 {
+    --color-start: var(--position-3-color);
+    --color-border: var(--position-3-border);
+}
+.TableRow.Position4 {
+    --color-start: var(--position-4-color);
+    --color-border: var(--position-4-border);
+}
+.TableRow.Position5 {
+    --color-start: var(--position-5-color);
+    --color-border: var(--position-5-border);
+}
+
+.PositionColumn {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum' on;
+}
+
+.TableRow td:first-child .CellContent {
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+    padding-left: 0.875rem;
+}
+
+.CellContent {
+    display: flex;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: flex-start;
+    background-color: var(--db-duelbits-gray);
+}
+.PositionColumn .CellContent.HasPosition {
+    background: linear-gradient(90deg, var(--color-border) 3px, var(--color-start) 4px);
+}
+.PlayerColumn .CellContent.HasPosition {
+    background: linear-gradient(90deg, var(--color-start), var(--color-end));
+}
+.PrizeColumn .CellContent,
+.WageredColumn .CellContent {
+    justify-content: center;
+    background: var(--color-end);
+}
+
+.DisplayName {
+    max-width: 20rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.CoinsIcon {
+    margin-right: 0.375rem;
+    height: 1rem;
+    width: 1rem;
+    flex-shrink: 0;
+}
+
+.BitsAmount {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.BitsAmount span {
+    margin-top: 0.125rem;
+    font-size: 10px;
+    color: var(--db-gray-5);
+}
+
+/* Media */
+@media (min-width: 640px) {
+    .TableRow {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+    .CellContent {
+        height: 2.75rem;
+    }
+    .DisplayName {
+        max-width: 64rem;
+    }
+    .CoinsIcon {
+        margin-right: 0.375rem;
+    }
+    .BitsAmount span {
+        font-size: 0.75rem;
+        line-height: 1rem;
+    }
+}

@@ -1,0 +1,38 @@
+.NumberBadge {
+    --min-badge-width: 0.5rem;
+    display: flex;
+    height: 1rem;
+    width: auto;
+    min-width: var(--min-badge-width);
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    background-color: var(--db-brand-green);
+    padding-left: 0.375rem;
+    padding-right: 0.375rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    line-height: 1;
+    letter-spacing: 0.025em;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.Floating.NumberBadge {
+    position: absolute;
+    right: -0.5rem;
+    top: -0.125rem;
+    height: 1rem;
+    width: 1rem;
+}
+
+.JustifyRight.NumberBadge {
+    margin-left: auto;
+}
+
+@media (min-width: 640px) {
+    .Floating.NumberBadge {
+        right: -0.125rem;
+    }
+}

@@ -1,0 +1,38 @@
+.ChatContainer {
+    position: fixed;
+    top: 0;
+    z-index: 2000;
+    height: 100%;
+    width: 100%;
+    background-color: var(--db-gray-6);
+}
+
+.ChatContainer header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+}
+
+.ChatContainer header svg path {
+    fill: var(--db-brand-green);
+}
+
+.ChatContainer header p {
+    font-weight: 600;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.ChatContainer header > button {
+    position: absolute;
+    right: 0.75rem;
+    top: 1.25rem;
+}
+
+.ChatContainer header > button svg path {
+    fill: #fff;
+}

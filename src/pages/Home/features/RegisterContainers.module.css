@@ -1,0 +1,125 @@
+.StepContainer {
+    display: flex;
+    height: 46px;
+    width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
+    --tw-bg-opacity: 1;
+    background-color: rgb(33 50 65 / var(--tw-bg-opacity));
+}
+
+.SignupTextContainer {
+    position: absolute;
+    top: 10%;
+    left: 5%;
+    z-index: 10;
+    text-align: center;
+    font-size: 27px;
+    font-weight: 300;
+    text-transform: uppercase;
+    line-height: 1;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.SingleStep {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.StepText {
+    font-size: 13px;
+    font-weight: 400;
+    text-transform: uppercase;
+    --tw-text-opacity: 1;
+    color: rgb(251 251 251 / var(--tw-text-opacity));
+}
+.StepText strong {
+    font-weight: 700;
+}
+
+.SignUpTextV1 {
+    font-weight: 800;
+}
+
+.SignUpTextV2 {
+    display: block;
+    font-size: 40px;
+    font-weight: 800;
+    --tw-text-opacity: 1;
+    color: rgb(136 251 195 / var(--tw-text-opacity));
+}
+
+.RegisterButton {
+    display: flex;
+    height: 48px;
+    width: 330px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border-style: none;
+    --tw-bg-opacity: 1;
+    background-color: rgb(71 200 122 / var(--tw-bg-opacity));
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.LoginWithWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.LoginWith {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.25;
+    text-transform: none;
+}
+
+@container (min-width: 1033px) {
+    .LoginWithWrapper {
+        width: 330px;
+    }
+}
+
+@container (max-width: 578px) {
+    .StepContainer {
+        padding-top: 76px;
+    }
+}
+
+@container (max-width: 978px) {
+    .StepContainer {
+        box-sizing: initial;
+    }
+    .SignupTextContainer {
+        top: auto;
+        bottom: 56px;
+        right: 0;
+        left: 0;
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+    .SignUpTextV2 {
+        font-size: 30px;
+    }
+    .RegisterButton {
+        margin: 0.25rem auto 0.5rem;
+        height: 44px;
+        width: 240px;
+    }
+    .StepText {
+        text-align: left;
+        font-size: 9px;
+    }
+    .StepText strong {
+        display: block;
+    }
+}

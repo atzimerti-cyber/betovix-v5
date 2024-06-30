@@ -1,0 +1,43 @@
+/* Sponsorships */
+.ImageContainer {
+    position: relative;
+    display: block;
+    width: 100%;
+}
+
+.BannerBackground {
+    position: relative;
+    aspect-ratio: 1200 / 311;
+    width: 100%;
+}
+.BannerBackground img {
+    height: 100%;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+.SponsorLogo {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    height: 36px;
+    width: auto;
+}
+
+/* Media */
+@container (max-width: 978px) {
+    .BannerBackground {
+        aspect-ratio: auto;
+        height: auto;
+    }
+    .SponsorLogo {
+        top: 0.5rem;
+        left: 1rem;
+        right: auto;
+    }
+    .BannerBackground img {
+        width: 100%;
+        object-fit: cover !important;
+        object-position: 78%;
+        min-height: 242px;
+    }
+}

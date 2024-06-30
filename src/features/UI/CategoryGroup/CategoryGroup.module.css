@@ -1,0 +1,57 @@
+.CategoryGroup {
+    background-color: var(--db-duelbits-gray);
+    margin-bottom: 0.25rem;
+}
+
+.Title {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    height: 2.5rem;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    line-height: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.Title svg {
+    height: 0.75rem;
+    width: 0.75rem;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+    --tw-rotate: 0deg;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.Title svg path {
+    fill: #fff;
+}
+
+.Closed .Title svg {
+    --tw-rotate: 180deg;
+}
+
+.Closed ul {
+    grid-row-start: 2;
+    overflow: hidden;
+    max-height: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    cursor: unset;
+    transition: padding 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
+@media (min-width: 768px) {
+    .Title {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+}

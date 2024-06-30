@@ -1,0 +1,49 @@
+.Dropdown {
+    right: 0;
+    visibility: hidden;
+    position: absolute;
+    z-index: 50;
+    opacity: 0;
+    transform-origin: top;
+    --tw-scale-x: 0.95;
+    --tw-scale-y: 0.95;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color,
+        -webkit-backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter,
+        -webkit-text-decoration-color, -webkit-backdrop-filter;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.Dropdown.Visible {
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    visibility: visible;
+    opacity: 1;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.ArrowIcon {
+    position: relative;
+    top: 0.5rem;
+    left: 75%;
+    margin-top: -0.5rem;
+    height: 1.5rem;
+    width: 1.5rem;
+}
+
+.Dropdown > ul {
+    width: 9rem;
+    border-radius: 0.25rem;
+    background-color: var(--db-gray-6);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    color: var(--db-white-primary);
+    --tw-shadow: var(--db-dropdown-shadow);
+    --tw-shadow-colored: var(--db-dropdown-shadow);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent), var(--tw-ring-shadow, 0 0 transparent), var(--tw-shadow);
+}

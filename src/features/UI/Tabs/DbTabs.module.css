@@ -1,0 +1,77 @@
+.DbTabs {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.TitleArea {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-block: 0px 16px;
+    position: relative;
+}
+.TitleArea::after {
+    background: rgb(42, 65, 74);
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 1px;
+    z-index: 1;
+}
+
+.TitleGroup {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    flex: 1 1 0%;
+    gap: 4px;
+    -webkit-box-pack: center;
+    justify-content: center;
+}
+
+.TitleText {
+    margin-inline: 4px;
+    font-size: 14px;
+}
+
+.Tab {
+    appearance: none;
+    background: none;
+    border: none;
+    border-block-end: 1px solid transparent;
+    border-radius: 4px 4px 0px 0px;
+    color: var(--db-white-primary);
+    cursor: pointer;
+    fill: var(--db-brand-green);
+    font: inherit;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    margin: 0px;
+    overflow: hidden;
+    padding-inline: 16px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+    height: 40px;
+    z-index: 3;
+}
+
+.Tab.Active {
+    color: rgb(51, 193, 108);
+    border-block-end-color: rgb(51, 193, 108);
+}
+
+.TabContent {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    min-height: 0px;
+}

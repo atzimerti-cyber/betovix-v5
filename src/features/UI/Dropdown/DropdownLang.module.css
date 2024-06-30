@@ -1,0 +1,166 @@
+.Dropdown {
+    position: relative;
+    display: inline-block;
+    width: calc(100% - 2rem);
+}
+
+.Dropdown > button {
+    width: 100%;
+    min-height: 2rem;
+    height: 2.5rem !important;
+    justify-content: space-between !important;
+    border: 0;
+    outline: 0;
+
+    padding-left: 1rem;
+    padding-right: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+.DropdownContent {
+    visibility: hidden;
+    position: absolute;
+    z-index: 50;
+    opacity: 0;
+    transform-origin: top;
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color,
+        -webkit-backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter,
+        -webkit-text-decoration-color, -webkit-backdrop-filter;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* .Dropdown:focus-within .DropdownContent {
+    --tw-scale-x: 1;
+    --tw-scale-y: 1;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+} */
+
+.Dropdown.Visible .DropdownContent {
+    visibility: visible;
+    opacity: 1;
+}
+
+.Top.Dropdown .DropdownContent {
+    bottom: 100%;
+    top: auto;
+    transform-origin: bottom;
+}
+
+.DropdownContent li:first-child,
+.DropdownContent li:first-child a {
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    border-bottom-right-radius: unset;
+    border-bottom-left-radius: unset;
+}
+.DropdownContent li:last-child,
+.DropdownContent li:last-child a {
+    border-top-left-radius: unset;
+    border-top-right-radius: unset;
+    border-bottom-right-radius: inherit;
+    border-bottom-left-radius: inherit;
+}
+
+.DropdownContent li a:hover {
+    background-color: hsl(var(--bc) / var(--tw-bg-opacity));
+    --tw-bg-opacity: 0.1;
+}
+
+.DropdownContent li a:active {
+    --tw-bg-opacity: 1 !important;
+    background-color: hsl(var(--p) / var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: hsl(var(--pc) / var(--tw-text-opacity));
+    --tw-bg-opacity: 0.1;
+}
+
+.LangDropdownMenu {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    margin-bottom: 0.5rem;
+    background-color: var(--db-gray-4) !important;
+    width: 9rem;
+    border-radius: 0.25rem;
+    background-color: var(--db-gray-6);
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    color: var(--db-white-primary);
+    --tw-shadow: var(--db-dropdown-shadow);
+    --tw-shadow-colored: var(--db-dropdown-shadow);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent), var(--tw-ring-shadow, 0 0 transparent), var(--tw-shadow);
+}
+
+.LangDropdownMenu li a {
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    color: currentColor;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color,
+        -webkit-backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter,
+        -webkit-text-decoration-color, -webkit-backdrop-filter;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    user-select: none;
+    align-items: center;
+    display: flex;
+    text-decoration: inherit;
+}
+.LangItem {
+    border-radius: 2px;
+    display: grid;
+    place-items: center;
+    font-size: 20px;
+    width: 1em;
+    height: 0.75em;
+    overflow: hidden;
+    position: relative;
+}
+.LangItem:before {
+    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+    content: '';
+    position: absolute;
+    inset: 0px;
+}
+.Flag {
+    max-width: 100%;
+    height: auto;
+}
+
+.Dropdown button svg {
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+}
+
+.Closed button {
+    padding: 0.5rem;
+}
+
+.Visible button svg {
+    --tw-rotate: 180deg;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@media (min-width: 768px) {
+    .Dropdown > button {
+        margin-top: 0.5rem;
+    }
+    .LangDropdownMenu {
+        margin-bottom: 0;
+    }
+}

@@ -1,0 +1,53 @@
+.Score {
+    margin-inline: 2px 0px;
+    text-align: center;
+    white-space: nowrap;
+    min-width: 20px;
+    opacity: 0.7;
+}
+.Score:first-child {
+    opacity: 1;
+}
+
+.Score.Flash {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+    animation: 0.5s ease-in-out 0s infinite normal none running flashScore;
+    color: rgb(248, 214, 72) !important;
+    margin-inline: 2px;
+}
+
+.Score.WithEmptyDash::before {
+    color: rgb(113, 142, 152);
+    content: '–';
+}
+
+/* .Score.FlashUp {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+    animation: 0.5s ease-in-out 0s infinite normal none running flashScore;
+    color: rgb(248, 214, 72);
+    margin-inline: 2px;
+}
+.Score.FlashDown {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+    animation: 0.5s ease-in-out 0s infinite normal none running flashScore;
+    color: rgb(205, 92, 92);
+    margin-inline: 2px;
+} */
+
+@keyframes flashScore {
+    0% {
+        transform: scale(0.9);
+    }
+    30% {
+        transform: scale(1.1);
+    }
+    40% {
+        transform: scale(1.2);
+    }
+    100% {
+        transform: scale(1);
+    }
+}

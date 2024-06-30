@@ -1,0 +1,229 @@
+.DropdownWrapper {
+    flex-grow: 1;
+    width: calc(50% - 1em);
+    position: relative;
+    display: inline-block;
+}
+
+.DropdownInner {
+    background-color: var(--db-gray-4);
+    border-width: 1px;
+    border-radius: 0.375rem;
+    border-style: none;
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-color: transparent;
+    transition-duration: 0.2s;
+    height: 100%;
+}
+.DropdownInner > input {
+    cursor: pointer;
+    padding-right: 2rem;
+    width: 100%;
+    text-overflow: ellipsis;
+    flex-grow: 1;
+    resize: none;
+    overflow: hidden;
+    background-color: initial;
+    padding: 0.75rem;
+    padding-right: 2rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+    font-size: 0.75rem;
+}
+.DropdownInner > input::placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+.DropdownInner > input::-webkit-input-placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+.DropdownInner > input::-moz-placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+.DropdownInner > input:-ms-input-placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+.DropdownInner > input:-moz-placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+
+.DropdownInner .RightIcon {
+    right: 1rem;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    --tw-translate-y: -50%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.DropdownInner .RightIcon svg {
+    height: 1.25rem;
+    width: 1.25rem;
+}
+
+.DropdownItem.Active {
+    border-right: 2px solid var(--db-brand-green);
+    background-color: var(--db-gray-2);
+}
+.DropdownItem.Active:hover {
+    background-color: #405363;
+}
+
+.Placeholder {
+    color: var(--db-body-subheading);
+}
+
+.TopElement {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.SearchContainer {
+    border-color: var(--db-gray-1);
+    border-width: 1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: var(--db-gray-4);
+    transition-duration: 0.2s;
+}
+.MenuTitle {
+    padding: 0.625rem 0.75rem;
+}
+
+.ClearLabel {
+    border-color: var(--db-gray-1);
+    cursor: pointer;
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+    padding-right: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    line-height: 0.75rem;
+}
+.ClearLabel.Disabled {
+    cursor: auto;
+    color: var(--db-gray-4);
+}
+.SelectedCount {
+    margin-left: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    --tw-numeric-spacing: tabular-nums;
+    font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+    color: var(--db-brand-green);
+}
+.ClearLabel.Disabled .SelectedCount {
+    cursor: auto;
+    color: var(--db-gray-4);
+}
+
+.SearchContainer input {
+    background-color: var(--db-gray-1);
+    padding-left: 40px !important;
+    flex-grow: 1;
+    resize: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0.75rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.SearchContainer input:hover {
+    background-color: var(--db-gray-4);
+}
+
+.SearchContainer input[type='search']::-webkit-search-decoration,
+.SearchContainer input[type='search']::-webkit-search-cancel-button,
+.SearchContainer input[type='search']::-webkit-search-results-button,
+.SearchContainer input[type='search']::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+}
+
+.SearchContainer input::placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+.SearchContainer input::-webkit-input-placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+.SearchContainer input::-moz-placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+.SearchContainer input:-ms-input-placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+.SearchContainer input:-moz-placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+
+.LeftIcon {
+    left: 0.75rem !important;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    --tw-translate-y: -50%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.LeftIcon svg {
+    left: 0.75rem !important;
+    height: 0.75rem !important;
+    width: 0.75rem !important;
+}
+
+.VendorOption a {
+    display: flex;
+    user-select: none;
+    align-items: center;
+    cursor: pointer;
+    gap: 0.75rem;
+    padding: 0.625rem 0.75rem;
+
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter,
+        -webkit-text-decoration-color, -webkit-backdrop-filter;
+    transition-duration: 0.2s;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.VendorOption a:hover {
+    background-color: hsl(var(--bc) / var(--tw-bg-opacity));
+    --tw-bg-opacity: 0.1;
+}
+.VendorOption.Active {
+    border-right-width: 2px;
+    border-color: var(--db-brand-green);
+    background-color: var(--db-gray-2);
+}
+
+.Checkbox path {
+    fill: var(--db-gray-3);
+}
+
+.VendorOption.Active .Checkbox path {
+    fill: var(--db-brand-green);
+}
+
+.Count {
+    margin-left: 0.25rem;
+    color: var(--db-brand-green);
+}
+
+/* Media */
+@media (min-width: 640px) {
+    .DropdownInner input {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+}

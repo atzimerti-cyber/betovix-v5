@@ -1,0 +1,132 @@
+.Betslip {
+    height: 100%;
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    user-select: none;
+}
+
+.TabsWrapper {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    min-height: 0px;
+}
+
+.Content {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    min-height: 0px;
+}
+
+.BetContent {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-height: 0px;
+    position: relative;
+}
+
+.BetGroup {
+    display: flex;
+    flex: 1 1 0px;
+    flex-direction: column;
+    min-height: 0px;
+    overflow: auto;
+    padding-inline: 14px;
+    scroll-behavior: smooth;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+}
+
+.BetOverview {
+    background: var(--db-gray-6);
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 0%;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+    z-index: 10;
+}
+
+.BetButton {
+    appearance: none;
+    background: rgb(46, 163, 96);
+    border: none;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-size: 16px;
+    margin-block: 0px 14px;
+    margin-inline: 14px;
+    overflow: hidden;
+    position: relative;
+    text-shadow: rgba(41, 39, 33, 0.2) 0px 1px 4px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s, outline 0s ease 0s, outline-offset 0s ease 0s;
+    height: 48px;
+}
+.BetButton:not(:disabled)::before {
+    animation: 3.6s ease 0s infinite normal none running wlstx;
+    content: '';
+    position: absolute;
+    inset: 0px;
+    opacity: 1;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+    z-index: 1;
+}
+.BetButton:hover::before {
+    opacity: 0;
+}
+
+.BetButton:hover {
+    background: rgb(51, 193, 108);
+}
+
+.BetButton:disabled {
+    background: var(--db-gray-1);
+    pointer-events: none;
+}
+
+.BetButton span {
+    display: flex;
+    flex: 1 1 0%;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    position: relative;
+    height: 100%;
+    z-index: 3;
+}
+
+.CoinsIcon {
+    filter: drop-shadow(rgba(41, 39, 33, 0.2) 0px 1px 6px);
+    fill: rgb(255, 207, 82);
+    flex: 0 0 16px;
+    width: 16px;
+    height: 16px;
+    margin-inline: 8px 4px;
+}
+
+.BetButton > div > svg circle {
+    stroke: var(--db-brand-green);
+}
+
+@keyframes wlstx {
+    0%,
+    100% {
+        background: rgb(37, 140, 78);
+    }
+    50% {
+        background: rgb(44, 167, 93);
+    }
+}

@@ -1,0 +1,45 @@
+.Market {
+    display: flex;
+    flex-direction: column;
+    scroll-margin-block-start: 80px;
+}
+.Market.MarketRow {
+    margin: 8px;
+    padding: 0;
+}
+
+.Market > section {
+    margin-top: 0;
+}
+
+.MarketName {
+    color: rgb(255, 255, 255);
+    font-size: 13px;
+    text-align: center;
+    line-height: 1;
+}
+
+.MarketContainer {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin: 8px;
+}
+
+.MarketGroup {
+    width: 100%;
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+}
+.ThreeParts.MarketGroup {
+    grid-template-columns: 1fr 25% 1fr;
+}
+
+@container (max-width: 860px) {
+    .MarketName {
+        margin-block: 0px 4px;
+    }
+}

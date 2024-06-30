@@ -1,0 +1,55 @@
+.Crypto {
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    width: 100%;
+    max-width: 640px;
+    gap: 0.5rem;
+    padding: 1rem 0.75rem;
+}
+
+.Title {
+    display: flex;
+    align-items: center;
+}
+
+.Title svg {
+    margin-right: 0.5rem;
+    height: 1.25rem;
+    width: 1.25rem;
+}
+.Title h1 {
+    font-size: 0.875rem;
+    font-weight: 800;
+    line-height: 1.25rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.CardsContainer {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.SearchSection {
+    margin-left: -0.625rem;
+    margin-right: -0.625rem;
+    display: block;
+    flex-grow: 1;
+    background-color: var(--db-gray-6);
+    padding: 0.5rem;
+}
+
+@media (min-width: 640px) {
+    .Crypto {
+        gap: 0.625rem;
+        padding: 1.25rem;
+    }
+    .Title h1 {
+        font-size: 1.125rem;
+        line-height: 1.75rem;
+    }
+    .CardsContainer {
+        gap: 0.625rem;
+    }
+}

@@ -1,0 +1,19 @@
+.Autoheight {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.4s;
+}
+
+.AutoheightContent {
+    overflow: hidden;
+    opacity: 0;
+}
+
+.Autoheight.Show {
+    grid-template-rows: 1fr;
+}
+
+.Autoheight.Show .AutoheightContent {
+    opacity: 1;
+    transition: opacity 0.4s 0.2s;
+}

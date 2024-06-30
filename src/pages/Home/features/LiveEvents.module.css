@@ -1,0 +1,5 @@
+.SlideContainer {
+    height: 146px;
+    width: 100%;
+    transition: transform 0.2s linear;
+}

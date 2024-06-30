@@ -1,0 +1,97 @@
+.BetReceipt {
+    animation: 0.3s ease 0s 1 normal backwards running gydbdh;
+    background: var(--db-gray-1);
+    border-radius: 8px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 16px 8px -4px;
+    color: rgb(255, 255, 255);
+    display: flex;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    font-size: 16px;
+    flex: 0 0 250px;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-block: 12px;
+    margin-inline: 14px;
+}
+
+.BetSuccessIcon {
+    fill: rgb(51, 193, 108);
+    flex: 0 0 32px;
+    margin: 24px auto 0px;
+    width: 32px;
+    height: 32px;
+}
+
+.BetSuccessText {
+    margin-block: 10px 24px;
+    margin-inline: auto;
+}
+
+.AddPreviousButton {
+    appearance: none;
+    background: rgb(51, 193, 108);
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    border: 1px solid rgb(51, 193, 108);
+    border-radius: 4px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-size: 16px;
+    margin-block: 0px 4px;
+    margin-inline: 24px;
+    text-shadow: rgba(41, 39, 33, 0.2) 0px 1px 4px;
+    height: 40px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+}
+
+.ShareButton {
+    appearance: none;
+    background: none;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    border: 1px solid rgb(51, 193, 108);
+    border-radius: 4px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-size: 16px;
+    margin-block: 0px 4px;
+    margin-inline: 24px;
+    text-shadow: rgba(41, 39, 33, 0.2) 0px 1px 4px;
+    height: 40px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+}
+
+.OkButton {
+    appearance: none;
+    background: none;
+    border: none;
+    color: rgb(129, 165, 178);
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-size: 12px;
+    margin-inline: auto;
+    padding-inline: 20px;
+    height: 36px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+}
+
+@keyframes gydbdh {
+    0% {
+        opacity: 0;
+        margin-block-end: -274px;
+    }
+}

@@ -1,0 +1,92 @@
+.TabContent {
+    --tw-translate-y: 3rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    opacity: 0;
+    background-color: initial;
+    padding: 1.25rem;
+    position: relative;
+}
+
+.TabContent > .Form {
+    display: grid;
+    justify-content: center;
+    gap: 1.5rem;
+    grid-template-columns: minmax(0, 400px);
+}
+
+.Title {
+    margin-bottom: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.FormGroup {
+    border-radius: 0.5rem;
+    background-color: var(--db-gray-2);
+    padding: 0.75rem;
+}
+
+.FormGroup:not(:last-child) {
+    margin-bottom: 1rem;
+}
+
+.Text {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    color: var(--db-body-text);
+}
+.Text {
+    margin-bottom: 0.75rem;
+}
+
+.FormGroup > :not(:last-child) {
+    margin-bottom: 0.75rem;
+}
+
+.ToggleContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+}
+.ToggleContainer > label {
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.ToggleContainer > div {
+    margin-left: auto;
+    display: block;
+}
+.ToggleContainer > div > div {
+    height: 1.25rem;
+    width: 2.75rem;
+    padding: 0.125rem;
+}
+.ToggleContainer > div > div > div {
+    width: 1rem;
+}
+
+@media (min-width: 768px) {
+    .TabContent {
+        background-color: var(--db-duelbits-gray);
+        padding: 3rem 2.5rem;
+    }
+    .TabContent > .Form {
+        gap: 1rem;
+        grid-template-columns: repeat(2, minmax(250px, 360px));
+    }
+    .Title {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+    .Text {
+        font-size: 0.875rem;
+        line-height: 1.25rem;
+    }
+}

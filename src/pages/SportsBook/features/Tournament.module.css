@@ -1,0 +1,6 @@
+.TournamentContent {
+    display: flex;
+    flex-direction: column;
+    /* margin-block: 0px 8px; */
+    margin-inline: 8px;
+}

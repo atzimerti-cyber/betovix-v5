@@ -1,0 +1,32 @@
+.TabsWrapper {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    background-color: var(--db-gray-6);
+}
+
+.TabContent {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.InnerContainer {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    animation: slide-up 0.2s forwards;
+}
+
+.InnerContainer > button {
+    position: absolute;
+    top: 1.25rem;
+    right: 1rem;
+}
+
+.RightContainer {
+    height: 100%;
+}
+
+.RightContainer > div {
+    height: 100%;
+}

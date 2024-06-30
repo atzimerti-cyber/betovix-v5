@@ -1,0 +1,62 @@
+.Chat {
+    height: 100%;
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+}
+
+.Divider {
+    height: 40px;
+}
+
+.ClosedWrapper {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-height: 0px;
+    position: relative;
+}
+
+.Closed {
+    cursor: default;
+    pointer-events: none;
+
+    appearance: none;
+    background: none;
+    border: none;
+    display: flex;
+    font-size: 14px;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-block: 0px 144px;
+    position: absolute;
+    inset: 0px;
+    width: 100%;
+}
+
+.Closed svg {
+    fill: rgb(35, 54, 61);
+    width: 96px;
+    height: 96px;
+}
+
+.ClosedTitle {
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    margin-block: 24px 4px;
+}
+
+.ClosedText {
+    margin: 4px;
+    animation: 0.3s ease 0s 1 normal backwards running _iJJWSU_rsh7t_1;
+    color: rgb(129, 165, 178);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 28px;
+}

@@ -1,0 +1,116 @@
+:global(.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar) {
+    display: none;
+}
+
+:global(.react-horizontal-scrolling-menu--scroll-container) {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+}
+
+.Item {
+    display: flex;
+    flex-direction: row;
+    animation-timeline: auto;
+    animation-range-start: normal;
+    animation-range-end: normal;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    text-align: left;
+    font-size: 12px;
+    margin-right: 3px;
+    display: flex;
+    flex-direction: row;
+    animation: 0.3s ease-out 0.210938s 1 normal backwards running iJJWSU;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    text-align: left;
+    border-bottom: 1px solid var(--db-gray-4);
+    padding: 0px 10px;
+    font-size: 12px;
+    margin-right: 3px;
+    line-height: 13px;
+    flex: 0 0 auto;
+    color: var(--db-white-primary);
+    fill: var(--db-white-primary);
+    height: 45px;
+    width: auto;
+    margin-inline-end: 3px;
+    z-index: 3;
+
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-style: inherit;
+    font-variant-ligatures: inherit;
+    font-variant-caps: inherit;
+    font-variant-east-asian: inherit;
+    font-variant-alternates: inherit;
+    font-variant-position: inherit;
+    font-weight: inherit;
+    font-stretch: inherit;
+    font-family: inherit;
+    font-optical-sizing: inherit;
+    font-kerning: inherit;
+    font-variation-settings: inherit;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+    user-select: none;
+    white-space: nowrap;
+    border-bottom: solid 1px transparent;
+
+    transition: color 0.3s;
+}
+
+.SportIcon {
+    margin-right: 8px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+}
+.SportIcon svg {
+    width: 20px;
+    height: 20px;
+}
+.SportIcon svg path {
+    fill: rgb(82, 116, 144);
+}
+
+.SportName {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.SportCount {
+    font-variant-numeric: normal;
+    font-feature-settings: 'tnum' 0;
+    position: absolute;
+    top: 4px;
+    left: 34px;
+    transform: translateX(-50%);
+}
+
+.Item.Selected {
+    border-bottom-color: var(--db-brand-green);
+    color: var(--db-brand-green);
+    fill: var(--db-brand-green);
+}
+
+.LightColor .Item:not(.Selected) {
+    color: rgb(177, 197, 204);
+}
+.LightColor .Item:not(.Selected):hover {
+    color: #fff;
+}

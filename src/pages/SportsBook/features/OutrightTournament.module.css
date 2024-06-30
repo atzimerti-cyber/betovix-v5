@@ -1,0 +1,71 @@
+.TournamentContent {
+    display: flex;
+    flex-direction: column;
+    margin-block: 0px 8px;
+    margin-inline: 8px;
+}
+
+.Tournament {
+    display: flex;
+    margin: 0px 10px;
+    padding: 10px 0px;
+    position: relative;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.SectionName {
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    overflow: hidden;
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    flex-basis: auto;
+}
+
+.Row {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    min-height: 24px;
+}
+
+.OutrightsLink {
+    color: rgb(255, 255, 255);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.SportIcon {
+    display: flex;
+    fill: rgb(255, 255, 255);
+    width: 16px;
+    height: 16px;
+}
+
+.MarketsNum {
+    display: block;
+}
+
+:global(.IsMobile) :local(.MarketsNum) {
+    display: none;
+}
+
+.ExtraMarkets {
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-width: 40px;
+}
+
+.ExtraMarketsLink {
+    white-space: nowrap;
+    margin: 0 auto;
+}

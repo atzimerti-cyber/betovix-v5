@@ -1,0 +1,50 @@
+.ModalHeader {
+    position: relative;
+    display: flex;
+    height: 2.75rem;
+    flex-shrink: 0;
+}
+.ModalHeaderStart {
+    display: flex;
+    align-items: center;
+    padding-left: 0.625rem;
+}
+.ModalHeaderCenter {
+    display: none;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+}
+.ModalHeaderCenter svg path {
+    fill: var(--db-brand-green);
+}
+.ModalHeaderCenter h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.ModalHeaderRight {
+    position: absolute;
+    right: 0;
+    top: 0;
+    display: flex;
+    height: 100%;
+    align-items: center;
+    gap: 0.5rem;
+    padding-right: 0.5rem;
+}
+
+@media (min-width: 640px) {
+    .ModalHeader {
+        height: 3.5rem;
+    }
+    .ModalHeaderStart {
+        display: none;
+    }
+    .ModalHeaderCenter {
+        display: flex;
+    }
+}

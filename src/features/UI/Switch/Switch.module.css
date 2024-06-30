@@ -1,0 +1,53 @@
+.Switch {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+.SwitchIcon {
+    display: grid;
+    height: 1rem;
+    width: 2.25rem;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 9999px;
+    background-color: var(--db-gray-5);
+    padding: 0.125rem;
+    color: var(--db-brand-green);
+    transition: grid-template-columns 0.2s;
+    grid-template-columns: 0fr -webkit-min-content;
+    grid-template-columns: 0fr min-content;
+    outline: none !important;
+}
+
+.SwitchHandle {
+    height: 100%;
+    width: 0.75rem;
+    border-radius: 9999px;
+    background-color: var(--db-duelbits-gray);
+    grid-column: 2;
+}
+
+.Switch.Active .SwitchIcon {
+    background-color: var(--db-brand-green);
+    color: var(--db-gray-5);
+    grid-template-columns: 1fr -webkit-min-content;
+    grid-template-columns: 1fr min-content;
+}
+
+.Switch label {
+    font-weight: 300;
+    cursor: pointer;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.Hidden {
+    pointer-events: none;
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    opacity: 0.1;
+}

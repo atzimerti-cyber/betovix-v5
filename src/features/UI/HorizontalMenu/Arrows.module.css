@@ -1,0 +1,79 @@
+.MenuArrowButton {
+    appearance: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-style: inherit;
+    font-variant-ligatures: inherit;
+    font-variant-caps: inherit;
+    font-variant-east-asian: inherit;
+    font-variant-alternates: inherit;
+    font-variant-position: inherit;
+    font-weight: inherit;
+    font-stretch: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    font-family: inherit;
+    font-optical-sizing: inherit;
+    font-kerning: inherit;
+    font-variation-settings: inherit;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+    overflow: hidden;
+    padding: 0px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+    user-select: none;
+    white-space: nowrap;
+
+    fill: rgb(113, 142, 152);
+    position: absolute;
+    top: 0px;
+    z-index: 10;
+    bottom: 1px;
+    padding-block-end: 1px;
+}
+
+.LeftArrow.MenuArrowButton {
+    background: linear-gradient(-90deg, transparent, var(--db-dark-1) 14px);
+    left: -1px;
+
+    bottom: 0px;
+    border-bottom: 1px solid rgb(32, 49, 56);
+}
+
+.RightArrow.MenuArrowButton {
+    background: linear-gradient(90deg, transparent, var(--db-dark-1) 14px);
+    right: -1px;
+
+    bottom: 0px;
+    border-bottom: 1px solid rgb(32, 49, 56);
+}
+
+.MenuArrowButton:hover {
+    fill: #fff;
+}
+
+.MenuArrowButton svg {
+    margin-inline: 10px 4px;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+}
+
+.MenuArrowButton:disabled {
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s, visibility 0s ease 0.3s;
+}
+.LeftArrow.MenuArrowButton:disabled {
+    transform: translateX(-50%);
+}
+.RightArrow.MenuArrowButton:disabled {
+    transform: translateX(50%);
+}
