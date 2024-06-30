@@ -1,0 +1,37 @@
+.Systems {
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-height: 30%;
+    overflow: auto;
+}
+
+.Header {
+    display: flex;
+    gap: 10px;
+}
+.Header > span {
+    flex: 1;
+    color: #fff;
+}
+
+.SystemRow {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.SystemRow > span,
+.SystemRow > div {
+    flex: 1;
+    color: var(--db-body-text);
+}
+.SystemRow > div {
+    height: 30px;
+    position: relative;
+}
+
+.CheckboxWrapper {
+    display: flex;
+    align-items: center;
+}

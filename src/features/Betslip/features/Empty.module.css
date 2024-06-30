@@ -1,0 +1,92 @@
+.Empty {
+    cursor: pointer;
+    animation: 0.3s ease 0s 1 normal backwards running iJJWSU;
+    appearance: none;
+    background: none;
+    border: none;
+    display: flex;
+    font-size: 14px;
+    flex-direction: column;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    padding-block: 0px 144px;
+    position: absolute;
+    inset: 0px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+    width: 100%;
+}
+.Empty.Disabled {
+    cursor: default;
+    pointer-events: none;
+}
+.EmptytextContainer {
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    line-height: 26px;
+    min-height: fit-content;
+    margin-top: 80px;
+}
+.GotoSports {
+    border-radius: 14px;
+    color: rgb(255, 255, 255);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-inline: -2px;
+    padding-inline: 8px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+    height: 100%;
+}
+.Empty:hover .GotoSports {
+    background: rgb(33, 50, 56);
+    margin-inline: 4px;
+}
+
+.Empty > svg {
+    fill: rgb(35, 54, 61);
+    width: 96px;
+    height: 96px;
+}
+
+.EmptyTitle {
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    margin-block: 24px 4px;
+}
+.EmptyText {
+    margin: 4px;
+    animation: 0.3s ease 0s 1 normal backwards running iJJWSU;
+    color: rgb(129, 165, 178);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 28px;
+}
+
+.GotoSports {
+    border-radius: 14px;
+    color: rgb(255, 255, 255);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-inline: -2px;
+    padding-inline: 8px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+    height: 100%;
+}
+.GotoSports svg {
+    fill: rgb(113, 142, 152);
+    margin-inline: 0px 6px;
+    width: 16px;
+    height: 16px;
+}
+
+.Empty.ShowingReceipt {
+    padding-block-end: 394px;
+}

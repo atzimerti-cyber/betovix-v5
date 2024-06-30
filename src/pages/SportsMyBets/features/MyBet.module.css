@@ -1,0 +1,281 @@
+.MyBet {
+    width: calc(50% - 9px);
+    background: var(--db-gray-1);
+    border-radius: 0px 0px 4px 4px;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.3s ease 0s, transform 0.3s ease 0s;
+    animation: 0.4s ease 0s 1 normal backwards running exbcPT;
+    height: fit-content;
+    min-height: unset;
+}
+.MyBet.IsOpen {
+    min-height: 300px;
+    height: unset;
+}
+
+.HeaderSection {
+    background: var(--db-gray-4);
+    border-radius: 4px 4px 0px 0px;
+    height: 40px;
+    width: 100%;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.DetailsContainer {
+    min-height: 205px;
+}
+
+.Title {
+    font-weight: 700;
+    white-space: pre-wrap;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.Title > svg {
+    margin-inline-end: 4px;
+}
+
+.Title .Stake {
+    color: rgb(255, 255, 255);
+}
+.Title .Type {
+    color: rgb(255, 255, 255);
+    text-transform: capitalize;
+}
+.Title .OddsWrapper {
+    color: rgb(255, 207, 82);
+    display: flex;
+}
+.Title .Odds {
+    color: var(--db-white-primary);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+    font-weight: 600;
+}
+
+.BetStatusContainer {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.Circle {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.Status {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 20px;
+    color: rgb(255, 255, 255);
+}
+
+.ArrowIcon {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease 0s;
+    margin-left: 10px;
+}
+.MyBet.IsOpen .ArrowIcon {
+    transform: scaleY(-1);
+}
+.ArrowIcon svg {
+    fill: #fff;
+}
+
+.CashoutSection {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.Separator {
+    border-bottom: 1px solid var(--db-dark-1);
+    width: 96%;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: auto;
+}
+
+.PotentialReturnsSection {
+    display: flex;
+    flex-direction: column;
+    max-width: 60%;
+}
+
+.CashoutButtonSection {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.TicketContainer {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.TicketContainerLabel {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgb(84, 116, 128);
+}
+
+.TicketContainerValue {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgb(255, 255, 255);
+}
+
+.CashoutButton {
+    height: 36px;
+    box-sizing: border-box;
+    background: rgb(46, 163, 96);
+    border-radius: 4px;
+    padding: 2%;
+    font-family: 'Proxima Nova';
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+.CashoutButton:hover {
+    background-color: rgb(60, 210, 120);
+}
+
+.CopyIcon {
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.Copied {
+    align-self: flex-end;
+}
+
+.CashoutButtonSection.NoCashoutButton {
+    align-self: flex-end;
+}
+
+.ConfirmCashoutWrapper {
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.CancelButton {
+    height: 36px;
+    box-sizing: border-box;
+    background: rgb(51, 77, 87);
+    border-radius: 4px;
+    font-family: 'Proxima Nova';
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+}
+
+.ConfirmButton {
+    height: 36px;
+    box-sizing: border-box;
+    background: rgb(46, 163, 96);
+    border-radius: 4px;
+    font-family: 'Proxima Nova';
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+.CoinsContainer {
+    display: flex;
+    flex-direction: row;
+}
+.CoinsContainer svg {
+    margin-inline-end: 4px;
+}
+.CoinsContainer span {
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgb(255, 255, 255);
+}
+
+.Payout {
+    color: rgb(51, 193, 108);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.CashoutSuspended {
+    height: 36px;
+    box-sizing: border-box;
+    padding: 2%;
+    color: rgb(246, 168, 0);
+    font-weight: 700;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    align-items: center;
+    background: rgba(246, 168, 0, 0.08);
+    border-radius: 4px;
+}
+
+.SpinnerWrapper {
+    position: relative;
+}
+.SpinnerWrapper > div {
+    position: relative;
+    margin-right: unset;
+}
+
+.CashoutSuccess {
+    height: 36px;
+    box-sizing: border-box;
+    padding: 2%;
+    color: rgb(46, 163, 96);
+    font-weight: 700;
+    outline: none;
+    border: none;
+    display: flex;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    align-items: center;
+    background: rgba(46, 163, 96, 0.08);
+    border-radius: 4px;
+}
+
+/* Media */
+@media screen and (max-width: 900px) {
+    .MyBet {
+        width: 100%;
+        min-height: 0px;
+        height: fit-content;
+    }
+}

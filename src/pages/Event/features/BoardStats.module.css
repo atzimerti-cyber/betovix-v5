@@ -1,0 +1,58 @@
+.StatSection {
+    display: flex;
+    flex: 0 1 0%;
+    flex-direction: column;
+}
+
+.Header {
+    background: var(--db-gray-4);
+    color: rgb(113, 142, 152);
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex: 0 0 56px;
+    padding-inline: 10px;
+    white-space: nowrap;
+}
+.Header.Green {
+    color: rgb(51, 193, 108);
+}
+
+.ContentRow.Green > div {
+    color: rgb(51, 193, 108);
+}
+
+.Content {
+    background: var(--db-gray-1);
+    color: rgb(255, 255, 255);
+    position: relative;
+}
+
+.StatSection:last-child .Header {
+    padding-inline-end: 26px;
+}
+.StatSection:last-child .Content {
+    padding-inline: 7px;
+    padding-inline-end: 26px;
+}
+
+.ContentRow {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 48px;
+    border-bottom: 1px solid rgb(41, 63, 71);
+    transition: color 0.3s ease 0s;
+}
+
+.ContentRow > div {
+    flex: 1 1 0%;
+    text-align: center;
+}
+
+.HeaderIcon {
+    fill: rgb(51, 193, 108);
+    width: 16px;
+    height: 16px;
+}

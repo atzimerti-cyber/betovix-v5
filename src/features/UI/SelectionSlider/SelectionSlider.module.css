@@ -1,0 +1,29 @@
+:local(.SelectionSlider) :global(.rc-slider-rail) {
+    background-color: var(--db-gray-11);
+    height: 3px;
+}
+
+:local(.SelectionSlider) :global(.rc-slider-track) {
+    display: none;
+    left: 0%;
+    right: auto;
+    width: 30%;
+}
+
+:local(.SelectionSlider) :global(.rc-slider-handle) {
+    background-color: var(--db-gray-5);
+    border-radius: 0px;
+    border: none;
+}
+
+:local(.SelectionSlider) :global(.rc-slider-handle:active) {
+    box-shadow: 0 0 5px #57c5f7;
+}
+
+:local(.SelectionSlider) :global(.rc-slider-handle:focus-visible) {
+    box-shadow: none;
+}
+:local(.SelectionSlider) :global(.rc-slider-handle-dragging) {
+    border: none !important;
+    box-shadow: 0 0 5px #57c5f7 !important;
+}

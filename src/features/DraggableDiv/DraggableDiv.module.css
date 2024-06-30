@@ -1,0 +1,11 @@
+.DraggableDiv {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.DraggableDiv::-webkit-scrollbar {
+    width: 0; /* For Chrome, Safari, and Opera */
+    display: none; /* Hide scrollbar */
+}

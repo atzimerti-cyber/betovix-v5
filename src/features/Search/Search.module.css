@@ -1,0 +1,123 @@
+.SearchContainer {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-color: transparent;
+    background-color: var(--db-gray-1);
+
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.5rem;
+    border-color: transparent;
+    background-color: var(--db-gray-1);
+    border-radius: 0.375rem;
+    border-width: 1px;
+    border-style: solid;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition-duration: 0.2s;
+}
+
+.SearchContainer input {
+    background-color: transparent;
+    border-radius: 0.375rem;
+    border-width: 1px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition-duration: 0.2s;
+    width: 100%;
+    outline: none;
+    border: none;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    flex-grow: 1;
+    resize: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    padding: 0.75rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.RightIcon {
+    right: 1rem;
+    line-height: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    --tw-translate-y: -50%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.RightIcon svg {
+    height: 0.75rem;
+    width: 0.75rem;
+}
+.RightIcon svg path {
+    fill: var(--db-body-subheading);
+}
+
+.SearchContainer input[type='search']::-webkit-search-decoration,
+.SearchContainer input[type='search']::-webkit-search-cancel-button,
+.SearchContainer input[type='search']::-webkit-search-results-button,
+.SearchContainer input[type='search']::-webkit-search-results-decoration {
+    -webkit-appearance: none;
+}
+
+.SearchContainer input::placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+.SearchContainer input::-webkit-input-placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+.SearchContainer input::-moz-placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+.SearchContainer input:-ms-input-placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+.SearchContainer input:-moz-placeholder {
+    color: var(--db-body-subheading);
+    opacity: 1;
+}
+
+.SearchContainer:focus-within,
+.SearchContainer:hover {
+    border-color: var(--db-brand-green);
+    background-color: var(--db-duelbits-gray);
+}
+
+.DeleteIcon {
+    cursor: pointer;
+    z-index: 10;
+    pointer-events: all;
+}
+
+/* Closed sidemenu */
+.SearchContainer.Hide {
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    min-height: 2.25rem;
+}
+
+.SearchContainer.Hide > input {
+    display: none;
+}
+.SearchContainer.Hide .RightIcon {
+    right: unset;
+}
+.SearchContainer.Hide .RightIcon svg {
+    height: 1rem;
+    width: 1rem;
+}
+.SearchContainer.Hide:hover {
+    border-color: var(--db-brand-green);
+}

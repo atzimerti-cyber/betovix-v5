@@ -1,0 +1,27 @@
+.NotAuthenticated {
+    width: 100%;
+    height: calc(-298px + 100vh);
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 0.75rem;
+}
+
+.NotAuthenticated > div {
+    margin: auto;
+}
+
+.NotAuthenticated h1 {
+    font-size: 42px;
+    color: rgb(255, 255, 255);
+    line-height: 35px;
+    font-weight: 800;
+}
+.NotAuthenticated h2 {
+    color: rgb(23, 204, 93);
+    font-size: 35px;
+    font-weight: 800;
+}

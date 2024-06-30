@@ -1,0 +1,19 @@
+.ImageNotFound {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background-color: var(--db-gray-3);
+    color: var(--db-gray-5);
+}
+
+.ImageNotFound svg {
+    height: 2rem;
+    width: 2rem;
+}
+.ImageNotFound svg path {
+    fill: var(--db-gray-5);
+}

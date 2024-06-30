@@ -1,0 +1,37 @@
+import { Swiper } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import { Autoplay, Pagination } from 'swiper/modules';
+
+import classes from './BigSwiper.module.css';
+
+const BigSwiper = (props) => {
+    let modules = [Pagination];
+    if (props.autoplay) modules.push(Autoplay);
+
+    return (
+        <div className={classes.MainSwiperWrapper}>
+            <Swiper
+                slidesPerView={props.slidesPerView}
+                spaceBetween={30}
+                autoplay={
+                    props.autoplay
+                        ? {
+                              delay: props.delay || 6000,
+                              disableOnInteraction: false,
+                          }
+                        : null
+                }
+                pagination={{
+                    clickable: true,
+                }}
+                modules={modules}
+                className={classes.MainSwiper}
+            >
+                {props.children}
+            </Swiper>
+        </div>
+    );
+};
+
+export default BigSwiper;

@@ -1,0 +1,48 @@
+.BetCalculation {
+    display: flex;
+    color: rgb(255, 255, 255);
+    fill: rgb(255, 207, 82);
+    font-size: 15px;
+    line-height: 1.5;
+    margin: 14px;
+    margin-block-end: 10px;
+    flex-direction: column;
+}
+
+.BetCalculation * {
+    display: flex;
+}
+
+.TotalStake,
+.TotalPayout,
+.TotalBonus {
+    margin-inline: 2px;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.TotalBonus {
+    color: rgb(255, 207, 82);
+}
+
+.Value {
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(255, 207, 82);
+}
+.Value > svg {
+    flex: 0 0 14px;
+    width: 14px;
+    height: 14px;
+    margin-inline: 0px 8px;
+}
+
+.AmountArea {
+    height: 36px;
+    position: relative;
+    background: var(--db-gray-1);
+    display: flex;
+    flex: 1 0 36px;
+    margin-block: 0px 10px;
+    align-items: center;
+}

@@ -1,0 +1,167 @@
+.LoginModal {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: calc(100% - 20px);
+    --tw-translate-y: -0.5rem;
+    --tw-scale-x: 0.9;
+    --tw-scale-y: 0.9;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    background-color: var(--db-gray-6);
+    opacity: 0;
+    animation: slide 0.2s ease-out forwards;
+
+    display: flex;
+    min-height: min(100%, var(--db-modal-auth-height));
+    flex-direction: column;
+}
+
+.ModalContent {
+    display: grid;
+    height: 100%;
+    width: 275px;
+    flex-grow: 1;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    padding: 0;
+
+    max-height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0;
+}
+
+/* Left part */
+.PromoSection {
+    position: relative;
+    background-color: var(--db-duelbits-gray);
+}
+
+.FormSection {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--db-gray-6);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+}
+
+.FormSection > div:first-child > div button svg {
+    height: 1.25rem;
+    width: 1.25rem;
+}
+
+.ImageContainer {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 272 / 296;
+}
+
+.ImageContainer img {
+    width: 100%;
+    height: 100%;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+.PromoText {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    font-weight: 300;
+    text-transform: uppercase;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.RakebackText {
+    font-size: 1rem;
+    line-height: 1;
+}
+.RakebackText span:first-child,
+.RakebackText span:nth-child(2) {
+    font-weight: 800;
+}
+.RakebackText span:last-child {
+    display: block;
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    font-weight: 800;
+    color: var(--db-green-2);
+}
+
+.PromoText svg {
+    margin-top: 0.25rem;
+    margin-bottom: 0.75rem;
+    height: 2.5rem;
+}
+
+.SponsorText {
+    font-family: Byker, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-size: 11px;
+    line-height: 1;
+}
+.SponsorText > span {
+    display: block;
+    font-weight: 800;
+}
+
+.Acknowledgement {
+    margin-top: 0.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.25;
+    color: var(--db-gray-5);
+}
+.Acknowledgement b {
+    color: var(--db-brand-green);
+}
+
+:global(.IsMobile) :local(.Acknowledgement) {
+    margin-top: unset;
+    padding-left: unset;
+    padding-right: unset;
+}
+
+/* Right part */
+.FormSection {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--db-gray-6);
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+}
+
+.Tabs {
+    position: relative;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+.Tablist {
+    display: flex;
+}
+
+.TabContent {
+    height: 100%;
+    overflow: hidden;
+}
+
+@keyframes slide {
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+/* Media */
+@media (min-width: 768px) {
+    .ModalContent {
+        width: 550px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}

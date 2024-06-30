@@ -1,0 +1,26 @@
+.Dropdown {
+    width: auto;
+    position: absolute;
+    background-color: var(--db-gray-1);
+    border-radius: 3px;
+    box-shadow: rgba(24, 36, 40, 0.6) 0px 5px 8px;
+    z-index: 200;
+    margin-top: 10px;
+
+    top: 48px;
+    left: 0px;
+    min-width: 140px;
+}
+
+.Dropdown::before {
+    content: '';
+    display: block;
+    width: 0px;
+    height: 0px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 7px solid rgb(36, 54, 61);
+    position: absolute;
+    top: -7px;
+    left: 13px;
+}

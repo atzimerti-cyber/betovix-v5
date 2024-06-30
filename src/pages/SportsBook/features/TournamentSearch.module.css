@@ -1,0 +1,14 @@
+.TournamentSearch {
+    background: var(--db-gray-1);
+    border-radius: 8px;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 36px;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+    display: flex;
+}
+
+.WithSearch.TournamentSearch {
+    margin: 0px 15px;
+}

@@ -1,0 +1,47 @@
+import { useRef, useEffect } from 'react';
+
+import classes from './MainButton.module.css';
+import Spinner from '../Spinner/Spinner';
+
+const MainButton = (props) => {
+    const timeoutRef = useRef(null);
+
+    let elClasses = [classes.MainButton];
+
+    if (props.color === 'primary') elClasses.push(classes.Primary);
+    else if (props.color === 'secondary') elClasses.push(classes.Secondary);
+    else if (props.color === 'transparent') elClasses.push(classes.Transparent);
+    else if (props.color === 'dark') elClasses.push(classes.Dark);
+
+    if (props.size === 'small') elClasses.push(classes.Small);
+
+    if (props.active) elClasses.push(classes.Active);
+    if (props.disabled) elClasses.push(classes.Disabled);
+    if (props.loading) {
+        elClasses.push(classes.Loading);
+        elClasses.push(classes.Disabled);
+    }
+
+    const onClick = (e) => {
+        e.preventDefault();
+        timeoutRef.current = setTimeout(props.onClick, 150);
+    };
+
+    useEffect(() => {
+        return () => clearTimeout(timeoutRef.current);
+    }, []);
+
+    return (
+        <button
+            onClick={onClick}
+            className={elClasses.join(' ')}
+            data-tooltip-id={props.dataTooltipId}
+            data-tooltip-content={props.dataTooltipContent}
+            disabled={props.disabled}
+        >
+            {props.loading ? <Spinner /> : props.children}
+        </button>
+    );
+};
+
+export default MainButton;

@@ -1,0 +1,41 @@
+.PageContent {
+    padding: 0px 10px 40px;
+    max-width: 1220px;
+    width: 100%;
+    container-type: inline-size;
+}
+
+.SportsBook {
+    grid-column: span 2 / span 2;
+    width: 100%;
+    padding-bottom: 0;
+}
+
+.MenuWrapper {
+    border-radius: 60px;
+    background: linear-gradient(rgba(30, 45, 59, 0.9) 80%, rgb(30, 45, 59));
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-inline: -24px;
+    padding-block: 16px 24px;
+    padding-inline: 24px;
+    position: sticky;
+    top: 0px;
+    z-index: 900;
+}
+.MenuWrapper > div {
+    margin-left: unset;
+    margin-right: unset;
+    width: 100%;
+}
+
+.Content > section {
+    margin-top: 0;
+}
+
+@media (min-width: 768px) {
+    .PageContent {
+        z-index: 10;
+    }
+}

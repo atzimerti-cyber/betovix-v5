@@ -1,0 +1,52 @@
+.Market {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.MarketContainer {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin: 8px;
+}
+
+.MarketGroup {
+    width: 100%;
+    display: grid;
+    gap: 8px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.ListVisibilityButton {
+    display: flex;
+    font-size: 12px;
+    color: var(--db-body-text);
+    -webkit-box-align: center;
+    align-items: center;
+    margin-left: 8px;
+    white-space: nowrap;
+}
+
+.HideList {
+    display: flex;
+    width: 100%;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
+
+.HideList .ListVisibilityButton {
+    text-align: right;
+    padding-right: 8px;
+}
+
+.SliderContainer {
+    margin: 14px 8px 12px;
+}

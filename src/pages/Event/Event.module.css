@@ -1,0 +1,154 @@
+.PageContent {
+    padding: 0px 10px 40px;
+    max-width: 1220px;
+    width: 100%;
+    container-type: inline-size;
+}
+
+.Event {
+    grid-column: span 2 / span 2;
+    width: 100%;
+    padding-bottom: 0;
+}
+
+.MenuWrapper {
+    border-radius: 60px;
+    background: linear-gradient(rgba(30, 45, 59, 0.9) 80%, rgb(30, 45, 59));
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-inline: -24px;
+    padding-block: 16px 24px;
+    padding-inline: 24px;
+    position: sticky;
+    top: 0px;
+    z-index: 900;
+}
+.MenuWrapper > div {
+    margin-left: unset;
+    margin-right: unset;
+    width: 100%;
+}
+
+.Content {
+    margin-top: 0.625rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+.TopArea {
+    margin-block: 0px 16px;
+}
+
+.TopArea > :first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.TopArea > :last-child {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.EventPage {
+    display: flex;
+    flex-flow: row-reverse;
+    gap: 16px;
+}
+
+.EventTitle {
+    position: absolute;
+    clip: rect(0px, 0px, 0px, 0px);
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.Side {
+    position: sticky;
+    top: 74px;
+    height: fit-content;
+}
+
+.Side.Pregame .EventTracker {
+    height: 2155px;
+}
+
+.EventTracker {
+    width: 440px;
+    min-width: 440px;
+    background: var(--db-gray-7);
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+}
+.EventTracker iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.Main {
+    flex: 1 1 0%;
+    min-width: 0px;
+}
+
+.Box {
+    background-color: rgba(var(--db-gray-4), 0.5);
+    background-position: 100% 50%;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 182px;
+    overflow: hidden;
+    padding: 16px;
+    gap: 16px;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+@media (min-width: 640px) {
+    .Content {
+        margin-top: 0.875rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .PageContent {
+        z-index: 10;
+    }
+}
+
+@container (max-width: 860px) {
+    .EventPage {
+        display: flex;
+        flex-flow: column;
+        gap: 16px;
+    }
+    .Side {
+        position: static;
+    }
+    .EventTracker {
+        min-width: unset;
+        width: 100%;
+    }
+    .Side.Pregame .EventTracker {
+        aspect-ratio: 7 / 4;
+        height: unset;
+    }
+    .TopArea {
+        display: none;
+        /* margin-block: 0px 1px; */
+    }
+    .MenuWrapper {
+        position: static;
+        padding-block: 16px 4px;
+        margin-inline: -16px;
+        padding-inline: 16px;
+    }
+    .Content {
+        margin-top: 0;
+        gap: 0;
+    }
+}

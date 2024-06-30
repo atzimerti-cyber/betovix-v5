@@ -1,0 +1,42 @@
+.NavItem,
+.ModalItem {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    border-radius: 0.375rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+    white-space: nowrap;
+}
+.ModalItem {
+    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+}
+.ModalItem:hover {
+    transform: scale(1.05);
+}
+
+.NavItem svg,
+.ModalItem svg {
+    margin-right: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+    flex-shrink: 0;
+}
+
+.NavItem svg path,
+.ModalItem svg path {
+    fill: var(--db-gray-5);
+}
+
+.ActiveItem {
+    background-color: var(--db-gray-4);
+}
+.NavItem:hover {
+    background-color: var(--db-gray-3);
+}
+
+.ActiveItem svg path {
+    fill: #fff;
+}

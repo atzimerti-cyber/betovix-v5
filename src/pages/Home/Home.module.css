@@ -1,0 +1,53 @@
+.PageContent {
+    padding: 0px 10px 40px;
+    max-width: 1220px;
+    width: 100%;
+    container-type: inline-size;
+}
+
+.Home {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.NewIcon path:not(:first-child) {
+    fill: #fff !important;
+}
+
+.BannersContent {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.375rem;
+}
+
+.VipContainer {
+    position: absolute;
+    top: 25%;
+    left: 2%;
+    z-index: 10;
+    width: 100%;
+    max-width: 433px;
+}
+
+.BannersContent.AdjustMargins {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    margin-top: -1rem;
+}
+
+.BannersContent.AdjustMargins > div:first-child {
+    margin-left: unset;
+    margin-right: unset;
+    margin-top: unset;
+}
+
+@media (min-width: 768px) {
+    .Home {
+        gap: 22px;
+    }
+    .PageContent {
+        z-index: 10;
+    }
+}

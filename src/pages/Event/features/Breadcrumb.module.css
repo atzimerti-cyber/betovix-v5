@@ -1,0 +1,189 @@
+.Breadcrumb {
+    background: var(--db-gray-1);
+    box-sizing: border-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 8px 4px;
+    width: 100%;
+    height: 56px;
+}
+
+.Breadcrumb > :first-child {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.Breadcrumb > :last-child {
+    border-bottom-left-radius: 8px;
+    max-width: 100%;
+    border-bottom-right-radius: 8px;
+}
+
+.Crumb,
+.NoPaddingCrumb {
+    background-color: var(--db-gray-4);
+    border-radius: 8px;
+    color: rgb(255, 255, 255);
+    fill: rgb(255, 255, 255);
+    cursor: pointer;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 40px;
+    margin-inline: 4px;
+    padding: 0px 8px 0px 14px;
+    position: relative;
+    transition: all 0.3s ease 0s;
+}
+
+.NoPaddingCrumb {
+    padding: 0;
+}
+
+.NoPaddingCrumb > button {
+    padding: 0px 8px 0px 14px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    max-width: 100%;
+    height: 100%;
+}
+.NoPaddingCrumb > button:hover {
+    background-color: rgb(51, 65, 76);
+}
+
+.Crumb.BackButton {
+    width: 40px;
+    overflow: hidden;
+    padding: 0px;
+}
+
+.Crumb:hover {
+    background-color: rgb(51, 65, 76);
+}
+
+.BackIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: 0 0 1.5rem;
+}
+
+.SportIcon {
+    margin-inline-end: 0.75em;
+}
+.SportIcon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: 0 0 1.5rem;
+}
+.SportName {
+    margin-inline-end: 0.5em;
+}
+
+.ArrowIcon {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: 0 0 1.5rem;
+}
+
+.DropdownWrapper {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+    z-index: 90;
+}
+.DropdownWrapper button svg:first-child {
+    width: 18px;
+    height: 18px;
+    margin-inline: -2px 8px;
+}
+.DropdownWrapper button svg:last-child {
+    width: 18px;
+    height: 18px;
+    margin-inline: 4px 0px;
+    transition: transform 0.2s ease 0s;
+}
+.DropdownWrapper.Show button svg:last-child {
+    transform: scaleY(-1);
+}
+
+.DropdownMenu {
+    white-space: nowrap;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+
+    background: rgb(49, 75, 97);
+    border-radius: 0 0px 8px 8px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 8px 16px -8px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    padding: 0px 0px 8px;
+    transform-origin: 100% 0px;
+    max-height: 368px;
+    min-width: 260px;
+    z-index: 90;
+}
+
+.DropdownItem {
+    padding-inline-start: 1.5em;
+    cursor: pointer;
+    padding: 0.75em 1.5em;
+    transition: all 0.3s ease 0s;
+    color: #fff;
+
+    border-radius: 0px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    margin: 8px 0px 0px;
+    padding: 0px 2px 0px 8px;
+    min-height: 40px;
+    padding-inline: 0.75em;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease 0s;
+}
+.DropdownItem:first-child {
+    border-radius: 3px 3px 0px 0px;
+}
+.DropdownItem:last-child {
+    border-radius: 0px 0px 3px 3px;
+    border-bottom: 0px !important;
+}
+.DropdownItem:hover {
+    background-color: rgb(51, 65, 76);
+}
+.DropdownItem.Active {
+    background-color: rgb(51, 65, 76);
+}
+
+.NoPaddingCrumb > div {
+    top: calc(100% - 1px);
+    margin: 0;
+}
+.NoPaddingCrumb > div::before {
+    display: none;
+}
+
+.SportItemIcon {
+    margin-inline: 0px 1.25em;
+    height: 100%;
+    width: 16px;
+}
+.SportItemIcon > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: 0 0 1.5rem;
+}
+
+.NoPaddingCrumb.DropdownOpen > button {
+    border-radius: 8px 8px 0px 0px;
+}

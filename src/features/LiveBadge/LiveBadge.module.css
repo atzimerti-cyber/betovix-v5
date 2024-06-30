@@ -1,0 +1,30 @@
+.LiveBadge {
+    animation: 6s ease 0s infinite normal none running jQMcyq;
+    background: var(--db-purple-text);
+    border-radius: 2px;
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-inline-end: 0.5rem;
+    padding: 0px 0.33rem;
+    text-shadow: rgba(41, 39, 33, 0.19) 0px 1px 2px;
+    white-space: nowrap;
+}
+
+@keyframes jQMcyq {
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+
+    10%,
+    90% {
+        opacity: 1;
+    }
+
+    40%,
+    60% {
+        box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em, rgba(200, 49, 231, 0.8) 0px 0px 0.5em;
+    }
+}

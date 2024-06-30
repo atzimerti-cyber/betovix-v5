@@ -1,0 +1,83 @@
+.Tabs {
+    justify-content: stretch;
+    gap: 0;
+    display: flex;
+    width: 100%;
+}
+
+.Tab {
+    position: relative;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+
+    flex-grow: 1;
+    height: 3rem;
+    border-radius: 0;
+    border-bottom-color: var(--db-gray-4);
+    background-color: initial;
+    padding: 0.25rem 1rem;
+    --tw-text-opacity: 1;
+    border-bottom-width: 1px;
+}
+
+.Tab:hover {
+    background-color: var(--db-duelbits-gray);
+}
+
+.Tab.Active {
+    border-bottom-color: var(--db-brand-green);
+    color: var(--db-brand-green);
+    background-color: initial;
+}
+
+.Tab svg {
+    display: none;
+    margin-right: 0.5rem;
+    width: 100%;
+    max-width: 1em;
+}
+.Tab svg path {
+    fill: var(--db-gray-5);
+}
+.Tab.Active svg path {
+    fill: var(--db-brand-green);
+}
+
+.Tab p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1;
+}
+
+@media (min-width: 768px) {
+    .Tabs {
+        flex-shrink: 0;
+        flex-direction: column;
+        gap: 0.75rem;
+        width: 170px;
+        display: flex;
+    }
+    .Tab {
+        justify-content: flex-start;
+        border-bottom: 0;
+        padding: 0 1rem;
+        border-radius: 0.375rem;
+        height: 2.5rem;
+        padding-left: 1rem;
+        padding-right: 1rem;
+        flex-grow: unset;
+    }
+    .Tab.Active {
+        background-color: var(--db-gray-4);
+        color: rgb(255 255 255 / var(--tw-text-opacity));
+    }
+    .Tab.Active:hover {
+        background-color: var(--db-gray-7);
+    }
+    .Tab svg {
+        display: inline-block;
+    }
+}

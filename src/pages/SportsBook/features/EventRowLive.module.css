@@ -1,0 +1,193 @@
+.EventRow {
+    border-block-end: 1px solid rgb(38, 54, 58);
+    display: flex;
+    margin: 0px 10px;
+    padding: 10px 0px;
+    position: relative;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.Info {
+    flex-basis: 250px;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    overflow: hidden;
+
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+}
+
+.RowTop {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-height: 32px;
+}
+
+.EventTime {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+    display: flex;
+    font-size: 13px;
+    -webkit-box-align: center;
+    align-items: center;
+    height: 2rem;
+}
+
+.Time {
+    color: var(--db-body-text);
+    min-width: 0px;
+}
+
+.IconWrapper {
+    gap: 8px;
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: start;
+    align-items: start;
+}
+
+.IconContainer {
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: end;
+    align-items: end;
+    margin: 0px;
+    width: auto;
+    gap: 8px;
+    cursor: pointer;
+}
+.IconContainer > svg {
+    fill: var(--db-brand-color);
+}
+
+.ExtraMarkets {
+    white-space: nowrap;
+    padding: 0px;
+}
+
+.RowBottom {
+    min-height: 48px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.TeamGroup {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    min-width: 0px;
+}
+
+.Team {
+    color: rgb(255, 255, 255);
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    height: 26px;
+}
+
+.LogoWrapper {
+    margin-inline-end: 8px;
+}
+
+.CompetitorName {
+    margin-inline: 0px auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.ScoreGroup {
+    color: rgb(51, 193, 108);
+    display: flex;
+}
+
+.ScoreGroup > div:first-child {
+    opacity: 1;
+}
+
+.ServerBox {
+    position: absolute;
+    top: 42px;
+    left: -10px;
+}
+
+.ServerIndicator {
+    background: rgb(62, 235, 131);
+    border-radius: 50%;
+    margin: 10px 0px;
+    transition: transform 0.4s cubic-bezier(0.5, -0.5, 0.5, 1.5) 0s;
+    width: 6px;
+    height: 6px;
+    transform: translateY(26px);
+}
+
+/* Outcome */
+.Outcome {
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+
+    flex: 1 1 0%;
+    margin: 0px 12px;
+}
+
+.OutcomeHeaders {
+    display: none;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column: 1 / span 3;
+    padding: 6px 0px;
+}
+
+.LiveBadge {
+    animation: 6s ease 0s infinite normal none running jQMcyq;
+    background: var(--db-purple-text);
+    border-radius: 2px;
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-inline-end: 0.5rem;
+    padding: 0px 0.33rem;
+    text-shadow: rgba(41, 39, 33, 0.19) 0px 1px 2px;
+    white-space: nowrap;
+}
+
+@keyframes jQMcyq {
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+    10%,
+    90% {
+        opacity: 1;
+    }
+    40%,
+    60% {
+        box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em, rgba(200, 49, 231, 0.8) 0px 0px 0.5em;
+    }
+}
+
+@container (max-width: 860px) {
+    .EventRow {
+        flex-wrap: wrap;
+        padding: 8px 0px;
+    }
+    .Info {
+        flex: 0 0 100% !important;
+    }
+    .Outcome {
+        flex: 0 0 100% !important;
+    }
+}

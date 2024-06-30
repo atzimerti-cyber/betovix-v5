@@ -1,0 +1,30 @@
+.MarketsMenu {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    margin-block: 0px 16px;
+    position: relative;
+}
+
+.MarketSelection {
+    position: relative;
+    height: 45px;
+    width: 100%;
+}
+
+.MarketSelection::after {
+    background: rgb(42, 65, 74);
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 1px;
+    z-index: 1;
+}
+
+.MenuContent {
+    width: 100%;
+}

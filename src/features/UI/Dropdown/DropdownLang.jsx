@@ -1,0 +1,66 @@
+import { useRef, useCallback, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
+import classes from './DropdownLang.module.css';
+import useClickOutside from '../../../hooks/useClickOutside';
+import MainButton from '../Buttons/MainButton';
+import CaretDownIcon from '../../../assets/svgs/caret-down.svg?react';
+import { getTranslations } from '../../InitApp/initAppAsyncActions';
+
+const DropdownLang = (props) => {
+    const dispatch = useDispatch();
+    const dropdownRef = useRef();
+
+    const fullLeftContainer = useSelector((state) => state.layout.fullLeftContainer);
+    const lang = useSelector((state) => state.app.lang);
+    const availableLangs = useSelector((state) => state.app.availableLangs);
+
+    const [dropdownVisible, setDropdownVisible] = useState(false);
+
+    const close = useCallback(() => setDropdownVisible(false), []);
+    useClickOutside(dropdownRef, close);
+
+    let elClasses = [classes.Dropdown];
+    if (props.openTo === 'top') elClasses.push(classes.Top);
+    if (dropdownVisible) elClasses.push(classes.Visible);
+    if (!fullLeftContainer) elClasses.push(classes.Closed);
+
+    const onSelectLang = (lang) => {
+        dispatch(getTranslations(lang));
+        setDropdownVisible(false);
+    };
+
+    return (
+        <div ref={dropdownRef} className={elClasses.join(' ')}>
+            <MainButton onClick={() => setDropdownVisible(!dropdownVisible)}>
+                {fullLeftContainer ? (
+                    lang.label
+                ) : (
+                    <div className={classes.LangItem}>
+                        <img src={lang.flag} loading='lazy' alt={`${lang.id} flag`} className={classes.Flag} />
+                    </div>
+                )}
+                <CaretDownIcon />
+            </MainButton>
+
+            <div className={classes.DropdownContent}>
+                <ul className={classes.LangDropdownMenu}>
+                    {availableLangs.map((availableLang) => {
+                        return (
+                            <li key={availableLang.id} onClick={() => onSelectLang(availableLang)}>
+                                <a>
+                                    <div className={classes.LangItem}>
+                                        <img src={availableLang.flag} loading='lazy' alt={`${availableLang.id} flag`} className={classes.Flag} />
+                                    </div>
+                                    <span>{availableLang.label}</span>
+                                </a>
+                            </li>
+                        );
+                    })}
+                </ul>
+            </div>
+        </div>
+    );
+};
+
+export default DropdownLang;

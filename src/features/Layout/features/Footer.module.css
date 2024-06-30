@@ -1,0 +1,172 @@
+.Footer {
+    width: 100%;
+    --tw-bg-opacity: 1;
+    background-color: rgb(24 36 47 / var(--tw-bg-opacity));
+    padding: 0.75rem 0.75rem 4rem;
+}
+
+.LinksContainer {
+    margin-left: auto;
+    margin-right: auto;
+    display: grid;
+    max-width: 942px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.LinksLayout {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.LinksLayout h2 {
+    margin-bottom: 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.LinksLayout a {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-transform: capitalize;
+    line-height: 1.75rem;
+    color: var(--db-body-text);
+}
+.LinksLayout.Social {
+    display: none;
+}
+.PlusEighteen {
+    margin-top: 0.5rem;
+    height: 2.25rem;
+    width: 2.25rem;
+}
+
+.SocialSm {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.SocialSm a svg {
+    margin: 0;
+    height: 1rem;
+    width: 1rem;
+}
+
+.SocialSm a svg path {
+    fill: var(--db-white-primary);
+}
+
+.CurrenciesContainer {
+    margin: 2rem auto;
+    display: flex;
+    max-width: 943px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+.CurrencyItem {
+    position: relative;
+    height: 2rem;
+    width: 2rem;
+    cursor: pointer;
+}
+.CurrencyItem svg {
+    height: 100%;
+    width: 100%;
+}
+.CurrencyItem svg:first-of-type,
+.CurrencyItem svg:last-of-type {
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.15s;
+}
+.CurrencyItem svg:first-of-type {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.CurrencyItem svg:last-of-type {
+    opacity: 0;
+}
+.CurrencyItem:hover svg:first-of-type {
+    opacity: 0;
+}
+.CurrencyItem:hover svg:last-of-type {
+    opacity: 1;
+}
+
+.SponsorContainer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+.SponsorContainer img {
+    height: 3.5rem;
+    object-fit: contain;
+    object-position: top;
+}
+
+.InfoContainer {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+}
+.InfoContainer span {
+    max-width: 80rem;
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    color: var(--db-gray-5);
+}
+
+.InfoContainer > svg {
+    width: 9rem;
+}
+
+@media (min-width: 640px) {
+    .InfoContainer {
+        margin-top: 54px;
+    }
+    .SponsorContainer img {
+        height: 5rem;
+    }
+    .CurrenciesContainer {
+        margin-top: 2.25rem;
+        margin-bottom: 3rem;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .CurrencyItem {
+        height: 40px;
+        width: 40px;
+    }
+    .LinksContainer {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .SocialSm {
+        display: none;
+    }
+    .LinksLayout.Social {
+        display: flex;
+    }
+}
+
+@media (min-width: 768px) {
+    .Footer {
+        padding-top: 30px;
+        padding-bottom: 1.25rem;
+    }
+}

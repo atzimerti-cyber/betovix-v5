@@ -1,0 +1,206 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+
+import MenuBurgerIcon from '../../../assets/svgs/menu-burger.svg?react';
+import SearchIcon from '../../../assets/svgs/search.svg?react';
+import CasinoIcon from '../../../assets/svgs/casino.svg?react';
+import SportsIcon from '../../../assets/svgs/sports.svg?react';
+import Chat2Icon from '../../../assets/svgs/chat2.svg?react';
+import BetslipIcon from '../../../assets/svgs/betslip.svg?react';
+import Paper2Icon from '../../../assets/svgs/paper2.svg?react';
+import PlayIcon from '../../../assets/svgs/play.svg?react';
+import LeaderIcon from '../../../assets/svgs/leader.svg?react';
+import PricesIcon from '../../../assets/svgs/prices.svg?react';
+import classes from './Bottombar.module.css';
+import { layoutActions } from '../layoutSlice';
+import useBasePath from '../../../hooks/useBasePath';
+import { formatNumberTo } from '../../../utils/custom';
+import { translate } from '../../../utils/translations';
+
+const Bottombar = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const basepath = useBasePath();
+
+    const slips = useSelector((state) => state.betslip.slips);
+    const user = useSelector((state) => state.login.user);
+    const initDataLoaded = useSelector((state) => state.app.initDataLoaded);
+    const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+    const permissions = useSelector((state) => state.login.permissions);
+
+    const getMultiplier = () => {
+        let totalMultiplier = 1;
+        slips.forEach((slip) => {
+            totalMultiplier = totalMultiplier * slip.Odd;
+        });
+        return formatNumberTo(totalMultiplier);
+    };
+
+    const addParamsToUrl = (modal, tab) => {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set('modal', modal);
+        if (tab) searchParams.set('tab', tab);
+
+        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+    };
+
+    const [menuButtonsIndexes, setMenuButtonsIndexes] = useState([]);
+
+    const allButtons = [
+        <button key={1} type='button' className={classes.BottomMenuItem} onClick={() => dispatch(layoutActions.setFullLeftContainer(true))}>
+            <MenuBurgerIcon className={classes.WithStroke} />
+            <span className={classes.Label}>{translate('Menu')}</span>
+        </button>,
+        <button key={2} type='button' className={classes.BottomMenuItem} onClick={() => addParamsToUrl('search')}>
+            <SearchIcon className={classes.WithStroke} />
+            <span className={classes.Label}>{translate('Search')}</span>
+        </button>,
+        <button key={3} type='button' className={classes.BottomMenuItem} onClick={() => navigate('/sportsbook')}>
+            <SportsIcon className={classes.WithFill} />
+            <span className={classes.Label}>{translate('Sports')}</span>
+        </button>,
+        <button
+            key={4}
+            type='button'
+            className={location.pathname.includes('/casino') ? [classes.BottomMenuItem, classes.Active].join(' ') : classes.BottomMenuItem}
+            onClick={() => navigate('/casino/lobby')}
+        >
+            <CasinoIcon className={classes.WithFill} />
+            <span className={classes.Label}>{translate('Casino')}</span>
+        </button>,
+        <button
+            key={5}
+            type='button'
+            className={location.pathname.includes('/sportsbook/mybets') ? [classes.BottomMenuItem, classes.Active].join(' ') : classes.BottomMenuItem}
+            onClick={() => navigate('/sportsbook/mybets')}
+        >
+            <Paper2Icon className={classes.WithFill} />
+            <span className={classes.Label}>{translate('My Bets')}</span>
+        </button>,
+        <button key={6} type='button' className={classes.BottomMenuItem} onClick={() => dispatch(layoutActions.setShowRightContainer(true))}>
+            <BetslipIcon className={classes.WithFill} />
+
+            <motion.div
+                key={slips.length}
+                className={classes.OddsBubble}
+                initial={{ y: -50 }}
+                animate={{ y: [-55, -50] }}
+                transition={{ times: [0.2, 0.4], ease: 'linear' }}
+            >
+                @{getMultiplier()}
+            </motion.div>
+
+            <span className={classes.Label}>{translate('Betslip')}</span>
+            <div className={classes.SlipsNum}>{slips.length}</div>
+        </button>,
+        <button
+            key={7}
+            type='button'
+            className={location.pathname.includes('/sportsbook/live') ? [classes.BottomMenuItem, classes.Active].join(' ') : classes.BottomMenuItem}
+            onClick={() => navigate('/sportsbook/live')}
+        >
+            <PlayIcon className={classes.WithFill} />
+            <span className={classes.Label}>{translate('In Play')}</span>
+        </button>,
+        <button
+            key={8}
+            type='button'
+            className={location.pathname.includes('/leaderboard') ? [classes.BottomMenuItem, classes.Active].join(' ') : classes.BottomMenuItem}
+            onClick={() => navigate('/leaderboard')}
+        >
+            <LeaderIcon className={classes.WithFill} />
+            <span className={classes.Label}>{translate('Leaderboard')}</span>
+        </button>,
+        <button
+            key={9}
+            type='button'
+            className={location.pathname.includes('/crypto') ? [classes.BottomMenuItem, classes.Active].join(' ') : classes.BottomMenuItem}
+            onClick={() => navigate('/crypto')}
+        >
+            <PricesIcon className={classes.WithFill} />
+            <span className={classes.Label}>{translate('Crypto Prices')}</span>
+        </button>,
+
+        <button
+            key={10}
+            type='button'
+            className={classes.BottomMenuItem}
+            onClick={() => {
+                dispatch(layoutActions.setShowRight('chat'));
+                dispatch(layoutActions.setShowRightContainer(true));
+            }}
+        >
+            <Chat2Icon className={classes.WithFill} />
+            <span className={classes.Label}>{translate('Chat')}</span>
+        </button>,
+    ];
+
+    useEffect(() => {
+        if (!initDataLoaded) return;
+
+        let allButtonsObj = {
+            menu: 0,
+            search: 1,
+            sports: 2,
+            casino: 3,
+            mybets: 4,
+            betslip: 5,
+            inplay: 6,
+            leader: 7,
+            crypto: 8,
+            chat: 9,
+        };
+
+        // Remove buttons depending on the perimissions
+        if (!permissions.AllowToSports) {
+            delete allButtonsObj['sports'];
+            delete allButtonsObj['mybets'];
+            delete allButtonsObj['betslip'];
+            delete allButtonsObj['inplay'];
+        }
+        if (!permissions.AllowToCasino && !permissions.AllowToSlots) {
+            delete allButtonsObj['search'];
+            delete allButtonsObj['casino'];
+        }
+
+        // Remove buttons depending on the route
+        if (slips.length > 0) delete allButtonsObj['mybets'];
+        else delete allButtonsObj['betslip'];
+
+        if (basepath.includes('sportsbook') || basepath.includes('event')) {
+            delete allButtonsObj['search'];
+            delete allButtonsObj['sports'];
+            delete allButtonsObj['crypto'];
+        } else if (basepath.includes('casino/game')) {
+            delete allButtonsObj['mybets'];
+            delete allButtonsObj['betslip'];
+            delete allButtonsObj['inplay'];
+        } else if (basepath.includes('casino')) {
+            delete allButtonsObj['mybets'];
+            delete allButtonsObj['betslip'];
+            delete allButtonsObj['inplay'];
+            delete allButtonsObj['casino'];
+        }
+
+        const allButtonsIndexes = Object.values(allButtonsObj).sort((a, b) => a - b);
+        let firstFiveItems = allButtonsIndexes.slice(0, 4);
+        firstFiveItems.push(9); // Add chat in the end
+
+        setMenuButtonsIndexes(firstFiveItems);
+    }, [location.pathname, slips.length, lang.id, user?.AccountId, initDataLoaded]);
+
+    return (
+        <div className={classes.Bottombar}>
+            {allButtons.map((menuButton, index) => {
+                if (!menuButtonsIndexes.includes(index)) return null;
+                return menuButton;
+            })}
+        </div>
+    );
+};
+
+export default Bottombar;

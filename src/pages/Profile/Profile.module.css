@@ -1,0 +1,55 @@
+.PageContent {
+    padding: 0px 10px 40px;
+    max-width: 1220px;
+    width: 100%;
+    container-type: inline-size;
+}
+
+.PageTitle {
+    color: white;
+    font-weight: 900;
+    font-size: 14px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 22px 0px;
+}
+
+.PageTitle svg {
+    width: 16px;
+    margin-right: 8px;
+}
+
+.TabsContainer {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    background-color: var(--db-duelbits-gray);
+}
+
+.TabPanel {
+    overflow: hidden;
+}
+
+@keyframes slideUp {
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@media (min-width: 768px) {
+    .PageContent {
+        z-index: 10;
+    }
+    .TabPanel {
+        flex-grow: 1;
+    }
+    .Container {
+        display: flex;
+    }
+    .TabsContainer {
+        margin-left: 0;
+        margin-right: 0;
+        background-color: var(--db-gray-6);
+    }
+}

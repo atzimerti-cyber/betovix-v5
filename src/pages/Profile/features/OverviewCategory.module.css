@@ -1,0 +1,52 @@
+.OverviewCategory {
+    position: relative;
+    overflow: hidden;
+    border-radius: 9999px;
+    background-color: var(--db-gray-3);
+    height: 26px;
+}
+
+.CategoryProgress {
+    --progress: 0%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: block;
+    height: 100%;
+    background-color: var(--db-purple-box);
+    width: var(--progress);
+    border-radius: inherit;
+}
+
+.CategoryContent {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    align-items: center;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+.CategoryText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+}
+
+.CategoryText:first-child {
+    margin-right: auto;
+}
+
+.CategoryContent > svg {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+    flex-shrink: 0;
+}

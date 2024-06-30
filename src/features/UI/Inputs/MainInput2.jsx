@@ -1,0 +1,24 @@
+import classes from './MainInput2.module.css';
+
+const MainInput2 = (props) => {
+    let elClasses = [classes.InputContainer];
+
+    if (props.textPosition === 'right') elClasses.push(classes.TextRight);
+
+    return (
+        <div className={elClasses.join(' ')}>
+            <input
+                className={classes.MainInput}
+                type={props.type}
+                name={props.name}
+                autoComplete='off'
+                placeholder={props.placeholder}
+                value={props.value}
+                onChange={(e) => props.onChange(e.target.value)}
+                onBlur={props.onBlur ? props.onBlur : null}
+            />
+        </div>
+    );
+};
+
+export default MainInput2;

@@ -1,0 +1,32 @@
+.PageContent {
+    padding: 0px 10px 40px;
+    max-width: 1220px;
+    width: 100%;
+    container-type: inline-size;
+}
+
+.Casino {
+    grid-column: span 2 / span 2;
+    width: 100%;
+    padding-bottom: 0;
+    padding-top: 1rem;
+}
+
+.Content {
+    margin-top: 0.625rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+@media (min-width: 640px) {
+    .Content {
+        margin-top: 0.875rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .PageContent {
+        z-index: 10;
+    }
+}

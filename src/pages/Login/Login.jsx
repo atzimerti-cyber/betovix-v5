@@ -1,0 +1,123 @@
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
+
+import GoogleIcon from '../../assets/svgs/google.svg?react';
+import SteamIcon from '../../assets/svgs/steam.svg?react';
+import MainInput from '../../features/UI/Inputs/MainInput';
+import MainButton from '../../features/UI/Buttons/MainButton';
+import classes from './Login.module.css';
+import { login } from './loginAsyncActions';
+import AlternativeMethods from './features/AlternativeMethods';
+import { translate } from '../../utils/translations';
+
+const Login = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+    const loginLoading = useSelector((state) => state.login.loginLoading);
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
+    const [loginInfo, setLoginInfo] = useState({
+        Provider: 1,
+        Username: '',
+        Password: '',
+        RememberMe: false,
+        Ip: 1,
+        '2fa': '',
+    });
+    const [isLoginDisabled, setIsLoginDisabled] = useState(true);
+
+    useEffect(() => {
+        if (loginInfo.Username && loginInfo.Password) setIsLoginDisabled(false);
+        else setIsLoginDisabled(true);
+    }, [loginInfo.Username, loginInfo.Password]);
+
+    const updateLoginInfo = (property, value) => {
+        setLoginInfo({ ...loginInfo, [property]: value });
+    };
+
+    const changeTab = (tab) => {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set('modal', 'auth');
+        searchParams.set('tab', tab);
+
+        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+    };
+
+    return (
+        <form className={classes.Form}>
+            <label htmlFor='Username'>{translate('Email Address')}</label>
+            <div className={classes.InputOuter}>
+                <MainInput
+                    role='textbox'
+                    type='text'
+                    name='Username'
+                    placeholder={translate('Type your Email')}
+                    value={loginInfo.Username}
+                    onChange={(value) => updateLoginInfo('Username', value)}
+                />
+            </div>
+
+            <label htmlFor='Password'>{translate('Password')}</label>
+            <div className={classes.InputOuter}>
+                <MainInput
+                    role='textbox'
+                    type='password'
+                    name='Password'
+                    placeholder={translate('Type your password')}
+                    value={loginInfo.Password}
+                    onChange={(value) => updateLoginInfo('Password', value)}
+                />
+            </div>
+
+            <label htmlFor='twoFactor'>{translate('2FA Code (If enabled)')}</label>
+            <div className={classes.InputOuter}>
+                <MainInput
+                    role='textbox'
+                    type='number'
+                    name='twoFactor'
+                    inputmode='decimal'
+                    value={loginInfo['2fa']}
+                    onChange={(value) => updateLoginInfo('2fa', value)}
+                />
+            </div>
+
+            <MainButton
+                loading={loginLoading}
+                color='primary'
+                disabled={isLoginDisabled}
+                onClick={() => {
+                    dispatch(login(loginInfo, navigate, location.pathname));
+                }}
+            >
+                {translate('Login')}
+            </MainButton>
+
+            <p className={classes.LoginWith}>{translate('or login with')}</p>
+
+            <AlternativeMethods />
+
+            <MainButton color='transparent' onClick={() => changeTab('forgot-password')}>
+                {translate('Forgot password')}
+            </MainButton>
+
+            <div className={classes.CaptchaText}>
+                {translate('This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.')}
+            </div>
+            {isMobile && (
+                <div className={classes.Acknowledgement}>
+                    {translate('By accessing this site I attest that I am at least 18 years old and have read and agree with the')}{' '}
+                    <Link to='/terms' target='_blank' rel='noreferrer'>
+                        <b>{translate('Terms of Service')}</b>.
+                    </Link>
+                </div>
+            )}
+        </form>
+    );
+};
+
+export default Login;

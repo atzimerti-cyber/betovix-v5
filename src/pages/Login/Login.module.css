@@ -1,0 +1,154 @@
+.Form {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    padding-top: 0.75rem;
+}
+.Form > label {
+    margin-bottom: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 300;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.Form .InputOuter {
+    margin-bottom: 0.5rem;
+    border-radius: 0.125rem;
+    border-color: var(--db-gray-2);
+}
+
+.LoginWith {
+    margin-bottom: 0.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.Form button {
+    margin-bottom: 0.5rem;
+    height: 2.5rem;
+    border-radius: 0.375rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    min-height: 2rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
+}
+
+.CaptchaText {
+    margin-top: 0.5rem;
+    width: 100%;
+    border-top-color: var(--db-gray-2);
+    padding-top: 0.25rem;
+    text-align: center;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 1.25;
+    color: var(--db-gray-5);
+    border-top-width: 1px;
+}
+
+.Required {
+    color: var(--db-gray-5);
+    font-size: 0.9rem;
+    margin-inline: 0.25ch;
+    transition: color 0.3s;
+}
+.Required.Fulfilled {
+    color: var(--db-brand-green);
+}
+
+.Acknowledgement {
+    margin-top: 0.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    text-align: center;
+    font-size: 10px;
+    line-height: 1.25;
+    color: var(--db-gray-5);
+}
+.Acknowledgement b {
+    color: var(--db-brand-green);
+}
+
+:global(.IsMobile) :local(.Acknowledgement) {
+    margin-top: unset;
+    padding-left: unset;
+    padding-right: unset;
+}
+
+.Container {
+    margin-bottom: 1rem;
+}
+
+.FormValidationMessage {
+    animation: fadeIn 0.3s backwards;
+    color: var(--db-red-primary);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+    margin-block: 0.375rem 0;
+    margin-inline: 0.25em;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+}
+
+.ShowPasswordIcon line {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.ShowPasswordIcon.ShowLine line {
+    opacity: 1;
+}
+
+.PasswordCheckContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem;
+    margin-block: 0 0.25rem;
+    margin-block-start: 0.25rem;
+}
+
+.PasswordMessage {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--db-gray-5);
+    transition: color 0.3s;
+}
+.PasswordMessage svg {
+    width: 0.75rem;
+    height: 0.75rem;
+}
+.PasswordMessage svg path {
+    fill: var(--db-gray-800);
+}
+
+.PasswordText {
+    line-height: 0.75rem;
+}
+
+.PasswordMessage.IsValid {
+    color: var(--db-brand-green);
+}
+
+.PasswordMessage.IsValid svg path {
+    fill: #33c16c;
+}
+
+/* Media */
+@media (min-width: 640px) {
+    .CaptchaText {
+        margin-top: auto;
+    }
+}
