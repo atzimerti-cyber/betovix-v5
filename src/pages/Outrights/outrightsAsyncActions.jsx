@@ -5,6 +5,7 @@ import { sportsbookActions } from '../SportsBook/sportsbookSlice';
 import { appActions } from '../../features/InitApp/appSlice';
 import { getLang } from '../../utils/storage';
 import { outrightsActions } from './outrightsSlice';
+import { childsNotExist } from '../../utils/custom';
 
 export const getEvent = (sportId, eventId, signal) => {
     return async (dispatch, getState) => {
@@ -40,7 +41,12 @@ export const getEvent = (sportId, eventId, signal) => {
             const selectedSport = sports.find((s) => s.Id === sportId);
             dispatch(sportsbookActions.setSelectedSport(selectedSport));
 
-            dispatch(sportsbookActions.setSportMarketTree({ sportId: sportId, value: responses[0].data.Contents }));
+            const emptyTree = responses[0].data.Contents === 'Not found' || childsNotExist(responses[0].data.Contents) ? true : false;
+            if (emptyTree) {
+            } else {
+                dispatch(sportsbookActions.setSportMarketTree({ sportId: sportId, value: responses[0].data.Contents }));
+            }
+
             dispatch(outrightsActions.setEvent(responses[1].data.Contents));
         } catch (error) {
             const message = error?.message ? error.message : error;

@@ -53,15 +53,17 @@ const Board = (props) => {
                         </div>
                     </div>
 
-                    <div className={classes.ContentRow}>
-                        <div className={classes.TeamText}>
-                            <div className={classes.LogoWrapper}>
-                                <TeamLogo teamId={props.event?.Info.AwayTeamId} sportName={props.event?.Info.SportName.International} />
+                    {props.event?.Info?.AwayTeamName && (
+                        <div className={classes.ContentRow}>
+                            <div className={classes.TeamText}>
+                                <div className={classes.LogoWrapper}>
+                                    <TeamLogo teamId={props.event?.Info.AwayTeamId} sportName={props.event?.Info.SportName.International} />
+                                </div>
+                                <div className={classes.Name}>{translateNameWithLang(props.event?.Info.AwayTeamName)}</div>
+                                <div className={classes.ScoreGroup}></div>
                             </div>
-                            <div className={classes.Name}>{translateNameWithLang(props.event?.Info.AwayTeamName)}</div>
-                            <div className={classes.ScoreGroup}></div>
                         </div>
-                    </div>
+                    )}
                 </div>
             </div>
 

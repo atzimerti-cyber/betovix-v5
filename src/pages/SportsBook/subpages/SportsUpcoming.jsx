@@ -16,7 +16,7 @@ import CategoriesTournaments from '../features/CategoriesTournaments';
 import { getSportMarketTree } from '../sportsbookAsyncActions';
 import { translate } from '../../../utils/translations';
 
-const SportsHome = () => {
+const SportsUpcoming = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const params = useParams();
@@ -30,6 +30,7 @@ const SportsHome = () => {
 
     const categories = useSelector((state) => state.sportsUpcoming.categories);
     const sports = useSelector((state) => state.sportsbook.sports);
+    const allSports = useSelector((state) => state.app.allSports);
     const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
 
     const [categoriesArr, setCategoriesArr] = useState(null);
@@ -69,6 +70,8 @@ const SportsHome = () => {
             navigate(`/sportsbook/upcoming/${sport.Name?.International.toLowerCase().replace(/ /g, '-')}`, { replace: true });
         } else sport = sports.find((s) => s.slug === sportParam);
 
+        if (!sport) sport = allSports.find((s) => s.slug === sportParam);
+
         dispatch(sportsbookActions.setSelectedSport(sport));
     }, [sports?.length, sportParam]);
 
@@ -97,7 +100,7 @@ const SportsHome = () => {
             });
         }
 
-        selectedSport.Categories.forEach((category) => {
+        selectedSport?.Categories?.forEach((category) => {
             if (category.Counters['5D'] === 0) return; // Don't add categories which don't have any game (5D is the max Counters)
 
             const isPopular = topCategories.includes(category.Id);
@@ -282,4 +285,4 @@ const SportsHome = () => {
     );
 };
 
-export default SportsHome;
+export default SportsUpcoming;

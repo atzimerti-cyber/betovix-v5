@@ -9,7 +9,7 @@ import Market from './Market';
 import { sportsbookActions } from '../sportsbookSlice';
 
 import TeamLogo from '../../../features/TeamLogo/TeamLogo';
-import { translate } from '../../../utils/translations';
+import { translateNameWithLang } from '../../../utils/translations';
 
 const EventRow = (props) => {
     const dispatch = useDispatch();
@@ -61,21 +61,23 @@ const EventRow = (props) => {
                             <div className={classes.LogoWrapper}>
                                 <TeamLogo teamId={props.event.Info.HomeTeamId} isHome={true} sportName={props.event.Info.SportName.International} />
                             </div>
-                            <div className={classes.CompetitorName}>{translate(props.event.Info.HomeTeamName.International)}</div>
+                            <div className={classes.CompetitorName}>{translateNameWithLang(props.event.Info.HomeTeamName)}</div>
                             <div className={classes.ScoreGroup}>
                                 <div className={classes.Score}></div>
                             </div>
                         </div>
 
-                        <div className={classes.Team}>
-                            <div className={classes.LogoWrapper}>
-                                <TeamLogo teamId={props.event.Info.AwayTeamId} isHome={false} sportName={props.event.Info.SportName.International} />
+                        {props.event.Info?.AwayTeamName && (
+                            <div className={classes.Team}>
+                                <div className={classes.LogoWrapper}>
+                                    <TeamLogo teamId={props.event.Info.AwayTeamId} isHome={false} sportName={props.event.Info.SportName.International} />
+                                </div>
+                                <div className={classes.CompetitorName}>{translateNameWithLang(props.event.Info.AwayTeamName)}</div>
+                                <div className={classes.ScoreGroup}>
+                                    <div className={classes.Score}></div>
+                                </div>
                             </div>
-                            <div className={classes.CompetitorName}>{translate(props.event.Info.AwayTeamName.International)}</div>
-                            <div className={classes.ScoreGroup}>
-                                <div className={classes.Score}></div>
-                            </div>
-                        </div>
+                        )}
                     </div>
                 </div>
             </Link>
