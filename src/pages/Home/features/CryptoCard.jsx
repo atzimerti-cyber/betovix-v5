@@ -5,11 +5,13 @@ import classes from './CryptoCard.module.css';
 import { addThousandsSeparator } from '../../../utils/custom';
 
 const CryptoCard = (props) => {
-    const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
+    //const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
     const crypto = useSelector((state) => state.crypto.crypto);
 
     const [currentPrice, setCurrentPrice] = useState({ price: null, diff: null });
 
+
+    ////////////////////////k
     useEffect(() => {
         console.log(crypto);
         if (crypto && Array.isArray(crypto)) {
@@ -25,13 +27,15 @@ const CryptoCard = (props) => {
         }
     }, [crypto]);
 
-    ////////////////////////
+
     const calculateDiff = (prevPrice, newPrice) => {
         if (!prevPrice || !newPrice) return 0;
         return ((newPrice - prevPrice) / prevPrice) * 100;
     };
     /////////////////////////////////////////////////
 
+
+    ///gk
     // useEffect(() => {
     //     if (props.item.id === 'ERC-20' || props.item.id === 'BEP-20') {
     //         setCurrentPrice({ price: 1, diff: 0 });
@@ -50,10 +54,10 @@ const CryptoCard = (props) => {
     return (
         <>
             <div className={classes.ImageContainer}>
-                <img src={props.item.icon} loading='lazy' alt='Ethereum' />
+                <img src={props.item.Logo} loading='lazy' alt='Ethereum' />
             </div>
             {props.item.network && <div className={classes.Network}>({props.item.network})</div>}
-            {currentPrice.price && 
+            {currentPrice.price &&
                 <span className={classes.Price}>${currentPrice.price > 0.01 ? addThousandsSeparator(currentPrice.price) : parseFloat((currentPrice.price).toFixed(6))}</span>}
             {/* <span>${currentPrice.price > 0.01 ? addThousandsSeparator(currentPrice.price) : currentPrice.price}</span> */}
             <span className={currentPrice.diff < 0 ? [classes.Delta, classes.Lower].join(' ') : classes.Delta}>

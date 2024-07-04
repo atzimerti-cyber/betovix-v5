@@ -71,6 +71,10 @@ const initialState = {
     lang: { id: 'en', label: 'English', flag: 'https://cdn.jsdelivr.net/npm/flag-icons@6.6.6/flags/4x3/gb.svg' },
     translations: null,
     menuItems: [],
+    //////////////////
+    casinoMenuItems: [],
+    sportsMenuItems: [],
+    //////////////////
     selectedOddsFormat: 'Decimal',
     oddsFormatOptions: ['Decimal', 'American', 'Fractional', 'Indonesian', 'Malay', 'Hong Kong'],
     settings: {
@@ -141,6 +145,14 @@ export const appSlice = createSlice({
         setMenuItems: (state, action) => {
             state.menuItems = action.payload;
         },
+        ///////////////////
+        setCasinoMenuItems: (state, action) => {
+            state.casinoMenuItems = action.payload;
+        },
+        setSportsMenuItems: (state, action) => {
+            state.sportsMenuItems = action.payload;
+        },
+        ///////////////////
         setSettings: (state, action) => {
             state.settings = action.payload;
         },

@@ -61,7 +61,7 @@
 
 .DropdownContent ul {
     max-height: 18rem;
-    width: 9rem;
+    width: 10rem;
     flex-wrap: nowrap;
     overflow-x: hidden;
     background-color: var(--db-gray-4);
