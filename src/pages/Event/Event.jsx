@@ -210,9 +210,11 @@ const Event = () => {
                             <span>{translate('Event not found or has ended')}</span>
                         ) : (
                             <div className={classes.EventPage}>
-                                <h1 className={classes.EventTitle}>{`${translateNameWithLang(event?.Info.HomeTeamName)} vs ${translateNameWithLang(
-                                    event?.Info.AwayTeamName
-                                )}`}</h1>
+                                <h1 className={classes.EventTitle}>
+                                    {event?.Info.AwayTeamName
+                                        ? `${translateNameWithLang(event?.Info.HomeTeamName)} vs ${translateNameWithLang(event?.Info.AwayTeamName)}`
+                                        : translateNameWithLang(event?.Info.HomeTeamName)}
+                                </h1>
 
                                 <aside className={isLive ? classes.Side : [classes.Side, classes.Pregame].join(' ')}>
                                     <div className={classes.EventTracker} style={height ? { height: height + 'px' } : null}>

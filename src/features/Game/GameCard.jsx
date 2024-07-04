@@ -82,12 +82,15 @@ const GameCard = (props) => {
                     <div className={classes.TeamName}>{translateNameWithLang(props.game.Info.HomeTeamName)}</div>
                 </div>
                 <div className={classes.MiddleText}>{getScore()}</div>
-                <div className={classes.TeamAway}>
-                    <div className={classes.TeamLogoWrapper}>
-                        <TeamLogo teamId={props.game.Info.AwayTeamId} isHome={false} sportName={props.game.Info.SportName.International} />
+
+                {props.game.Info.AwayTeamName && (
+                    <div className={classes.TeamAway}>
+                        <div className={classes.TeamLogoWrapper}>
+                            <TeamLogo teamId={props.game.Info.AwayTeamId} isHome={false} sportName={props.game.Info.SportName.International} />
+                        </div>
+                        <div className={classes.TeamName}>{translateNameWithLang(props.game.Info.AwayTeamName)}</div>
                     </div>
-                    <div className={classes.TeamName}>{translateNameWithLang(props.game.Info.AwayTeamName)}</div>
-                </div>
+                )}
             </div>
 
             <div className={classes.OddsContainer}>

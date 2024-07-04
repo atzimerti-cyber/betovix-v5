@@ -254,3 +254,21 @@ export function getTranslation(property, translationsObj) {
     if (!translated) translated = property;
     return translated;
 }
+
+export function childsNotExist(obj) {
+    // Base case: check if childs exists and its length is 0
+    if (!obj.childs || obj.childs.length === 0) {
+        return true;
+    }
+
+    // Recursive case: iterate through the childs array
+    if (childsNotExist(obj.childs[0])) {
+        return true;
+    }
+
+    // we have market with children
+    if (obj.type === 'market') return false;
+
+    // We haven't reached the market children
+    return false;
+}

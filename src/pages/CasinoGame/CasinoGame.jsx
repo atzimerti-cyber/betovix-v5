@@ -51,7 +51,7 @@ const CasinoGame = () => {
             dispatch(casinoActions.setShowCasinoGame(false));
             dispatch(appActions.setBarLoading(false));
         };
-    }, [isDemo, user]);
+    }, [isDemo, user?.AccountId]);
 
     const addParamsToUrl = (modal, tab) => {
         const searchParams = new URLSearchParams(location.search);

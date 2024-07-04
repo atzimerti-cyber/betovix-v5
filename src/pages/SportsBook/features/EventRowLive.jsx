@@ -9,7 +9,7 @@ import { sportsbookActions } from '../sportsbookSlice';
 import TeamLogo from '../../../features/TeamLogo/TeamLogo';
 import { formatTimeString } from '../../../utils/custom';
 import FlashingScore from './FlashingScore';
-import { translate } from '../../../utils/translations';
+import { translate, translateNameWithLang } from '../../../utils/translations';
 
 const EventRowLive = (props) => {
     const dispatch = useDispatch();
@@ -157,17 +157,19 @@ const EventRowLive = (props) => {
                             <div className={classes.LogoWrapper}>
                                 <TeamLogo teamId={event.Info.HomeTeamId} isHome={true} sportName={event.Info.SportName.International} />
                             </div>
-                            <div className={classes.CompetitorName}>{translate(event.Info.HomeTeamName.International)}</div>
+                            <div className={classes.CompetitorName}>{translateNameWithLang(event.Info.HomeTeamName)}</div>
                             <div className={classes.ScoreGroup}>{getScoreGroup('home')}</div>
                         </div>
 
-                        <div className={classes.Team}>
-                            <div className={classes.LogoWrapper}>
-                                <TeamLogo teamId={event.Info.AwayTeamId} isHome={false} sportName={event.Info.SportName.International} />
+                        {event.Info.AwayTeamName && (
+                            <div className={classes.Team}>
+                                <div className={classes.LogoWrapper}>
+                                    <TeamLogo teamId={event.Info.AwayTeamId} isHome={false} sportName={event.Info.SportName.International} />
+                                </div>
+                                <div className={classes.CompetitorName}>{translateNameWithLang(event.Info.AwayTeamName)}</div>
+                                <div className={classes.ScoreGroup}>{getScoreGroup('away')}</div>
                             </div>
-                            <div className={classes.CompetitorName}>{translate(event.Info.AwayTeamName.International)}</div>
-                            <div className={classes.ScoreGroup}>{getScoreGroup('away')}</div>
-                        </div>
+                        )}
                     </div>
                 </div>
             </Link>

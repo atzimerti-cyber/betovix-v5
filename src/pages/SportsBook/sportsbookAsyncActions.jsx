@@ -8,6 +8,7 @@ import { sportsOutrightsActions } from './subpages/sportsOutrightsSlice';
 import { sportsLiveActions } from './subpages/sportsLiveSlice';
 import { getLang } from '../../utils/storage';
 import NoImageIcon from '../../assets/svgs/no-image.svg?react';
+import { childsNotExist } from '../../utils/custom';
 
 export const initSportsbook = (signal) => {
     return async (dispatch) => {
@@ -137,10 +138,14 @@ export const getSportMarketTree = (sportId, signal) => {
                     baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
                 }
             );
-
             if (response.data && response.data.Status && response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
-            dispatch(sportsbookActions.setSportMarketTree({ sportId: sportId, value: response.data.Contents }));
+            const emptyTree = response.data.Contents === 'Not found' || childsNotExist(response.data.Contents) ? true : false;
+
+            if (emptyTree) {
+            } else {
+                dispatch(sportsbookActions.setSportMarketTree({ sportId: sportId, value: response.data.Contents }));
+            }
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
