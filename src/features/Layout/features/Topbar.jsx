@@ -99,7 +99,7 @@ const Topbar = () => {
                     </>
                 )}
 
-                <MainButton color='primary' size='small' onClick={() => addParamsToUrl('cashier', 'buy-crypto')}>
+                <MainButton color='bv-light-green' size='small' onClick={() => addParamsToUrl('cashier', 'buy-crypto')}>
                     <CreditCardIcon />
                     <span>Buy crypto</span>
                 </MainButton>

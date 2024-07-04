@@ -1,6 +1,8 @@
 .CategoryGroup {
     background-color: var(--db-duelbits-gray);
     margin-bottom: 0.25rem;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
 }
 
 .Title {

@@ -51,6 +51,21 @@
     background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity));
 }
 
+.BVixLGreen.MainButton {
+    --tw-border-opacity: 1;
+    border-color: hsl(var(--blg) / var(--tw-border-opacity));
+    --tw-bg-opacity: 1;
+    background-color: hsl(var(--blg) / var(--tw-bg-opacity));
+    --tw-text-opacity: 1;
+    color: hsl(var(--pc) / var(--tw-text-opacity));
+}
+.BVixLGreen.MainButton:hover {
+    --tw-border-opacity: 1;
+    border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
+    --tw-bg-opacity: 1;
+    background-color: hsl(var(--pf, var(--p)) / var(--tw-bg-opacity));
+}
+
 .Primary.MainButton {
     --tw-border-opacity: 1;
     border-color: hsl(var(--p) / var(--tw-border-opacity));

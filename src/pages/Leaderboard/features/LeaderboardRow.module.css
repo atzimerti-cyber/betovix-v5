@@ -5,7 +5,8 @@
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
 
-    --color-end: #213241;
+    --color-end: #1a4661fc;
+    /* --color-end: #213241; */
     --position-1-border: #ffcf52;
     --position-1-color: rgba(255, 192, 27, 0.2);
     --position-2-border: #87a0b5;
@@ -55,8 +56,10 @@
     height: 2.5rem;
     align-items: center;
     justify-content: flex-start;
-    background-color: var(--db-duelbits-gray);
+    background-color: var(--color-end);
+    /* background-color: var(--db-duelbits-gray); */
 }
+
 .PositionColumn .CellContent.HasPosition {
     background: linear-gradient(90deg, var(--color-border) 3px, var(--color-start) 4px);
 }
@@ -67,6 +70,11 @@
 .WageredColumn .CellContent {
     justify-content: center;
     background: var(--color-end);
+}
+
+.WageredColumn .CellContent{
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
 }
 
 .DisplayName {

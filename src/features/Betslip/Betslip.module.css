@@ -55,7 +55,7 @@
 
 .BetButton {
     appearance: none;
-    background: rgb(46, 163, 96);
+    background: var(--db-brand-green);
     border: none;
     color: rgb(255, 255, 255);
     cursor: pointer;
@@ -89,10 +89,12 @@
 
 .BetButton:hover {
     background: rgb(51, 193, 108);
+    /* background: rgb(51, 193, 108); */
 }
 
 .BetButton:disabled {
-    background: var(--db-gray-1);
+    background: var(--db-gray-12);
+    /* background: var(--db-gray-1); */
     pointer-events: none;
 }
 
