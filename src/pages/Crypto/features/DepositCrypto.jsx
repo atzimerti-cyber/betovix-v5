@@ -44,6 +44,7 @@ const DepositCrypto = () => {
         return () => dispatch(cryptoActions.resetCurrency());
     }, []);
 
+    //////k
     useEffect(() => {
         if (!crypto) return;
 
@@ -51,10 +52,10 @@ const DepositCrypto = () => {
         const filteredCryptocurrencies = [];
 
         crypto.forEach((item) => {
-            if (item.network) {
+            if (item.Code) {
                 // Only set the first occurrence for items with 'network'
-                if (!firstOccurrenceMap[item.label]) {
-                    firstOccurrenceMap[item.label] = item;
+                if (!firstOccurrenceMap[item.Name]) {
+                    firstOccurrenceMap[item.Name] = item;
                 }
             } else {
                 // Immediately include items without 'network'
@@ -70,30 +71,84 @@ const DepositCrypto = () => {
         setCryptoOptions(filteredCryptocurrencies);
     }, [crypto]);
 
+    /////////////////gk
+    // useEffect(() => {
+    //     if (!crypto) return;
+
+    //     const firstOccurrenceMap = {};
+    //     const filteredCryptocurrencies = [];
+
+    //     crypto.forEach((item) => {
+    //         if (item.network) {
+    //             // Only set the first occurrence for items with 'network'
+    //             if (!firstOccurrenceMap[item.label]) {
+    //                 firstOccurrenceMap[item.label] = item;
+    //             }
+    //         } else {
+    //             // Immediately include items without 'network'
+    //             filteredCryptocurrencies.push(item);
+    //         }
+    //     });
+
+    //     // Add the first occurrences from the map to the filtered list
+    //     Object.values(firstOccurrenceMap).forEach((item) => {
+    //         filteredCryptocurrencies.push(item);
+    //     });
+
+    //     setCryptoOptions(filteredCryptocurrencies);
+    // }, [crypto]);
+
+    //////////k
     useEffect(() => {
         if (!selectedCurrency) return;
+
+        console.log("Selected Currency:", selectedCurrency);
 
         const controller = new AbortController();
         const signal = controller.signal;
 
         dispatch(getDepositAddress(signal));
-    }, [selectedCurrency?.label]);
+    }, [selectedCurrency?.Id]);
 
     const getNetworks = (item) => {
         let networks = [];
 
         crypto.forEach((c) => {
-            if (c.label === item.label && c.network) networks.push({ id: c.id, label: c.network });
+            if (c.Name === item.Name && c.Code) networks.push({ id: c.Id, label: c.Code });
         });
 
         return networks;
     };
 
+    //////gk
+    // useEffect(() => {
+    //     if (!selectedCurrency) return;
+
+    //     const controller = new AbortController();
+    //     const signal = controller.signal;
+
+    //     dispatch(getDepositAddress(signal));
+    // }, [selectedCurrency?.label]);
+
+    // const getNetworks = (item) => {
+    //     let networks = [];
+
+    //     crypto.forEach((c) => {
+    //         if (c.label === item.label && c.network) networks.push({ id: c.id, label: c.network });
+    //     });
+
+    //     return networks;
+    // };
+
     const selectCurrency = (option) => {
         dispatch(cryptoActions.setSelectedCurrency(option));
         const network = option.network || option.label;
-        dispatch(cryptoActions.setSelectedNetwork({ id: option.id, label: network }));
+        dispatch(cryptoActions.setSelectedNetwork({ id: option.Id, label: network }));
     };
+
+    //For Dropdown4
+    const formattedSelectedCurrency = selectedCurrency ? { label: selectedCurrency.Name, ...selectedCurrency } : null;
+    const formattedCryptoOptions = cryptoOptions.map(option => ({ label: option.Name, ...option }));
 
     return (
         <>
@@ -118,20 +173,27 @@ const DepositCrypto = () => {
                 </div>
                 <div className={classes.Dropdown}>
                     <Dropdown4
-                        icon={selectedCurrency?.icon}
-                        options={cryptoOptions}
+                        icon={selectedCurrency?.Logo}
+                        options={formattedCryptoOptions}
+                        // options={cryptoOptions}
                         withSearch
                         onSelect={(option) => selectCurrency(option)}
-                        placeholder={translate('Select a Crypto')}
-                        selected={selectedCurrency}
+                        selected={formattedSelectedCurrency}
+                        // selected={selectedCurrency}
+                        // placeholder={translate('Select a Crypto')}
+                        placeholder={selectedCurrency ? selectedCurrency.Name : translate('Select a Crypto')}
+                        // placeholder={translate('Select a Crypto')}
+                        
                     />
 
                     <Dropdown4
-                        disabled={!selectedCurrency?.network}
-                        options={selectedCurrency?.network ? getNetworks(selectedCurrency) : []}
+                        // disabled={!selectedCurrency?.network}
+                        // options={selectedCurrency?.network ? getNetworks(selectedCurrency) : []}
+                        options={selectedCurrency?.Code ? getNetworks(selectedCurrency) : []}
                         onSelect={(network) => dispatch(cryptoActions.setSelectedNetwork(network))}
                         selected={selectedNetwork}
-                        placeholder={selectedCurrency ? selectedCurrency.label : translate('Network')}
+                        placeholder={selectedNetwork ? selectedNetwork.Code : translate('Select Network')}
+                        // placeholder={selectedCurrency ? selectedCurrency.Code : translate('Network')}
                     />
                 </div>
             </div>
@@ -146,7 +208,7 @@ const DepositCrypto = () => {
 
             <div className={classes.BtcAddressContainer}>
                 <label>
-                    {translate('Your')} {selectedCurrency?.short} {translate('deposit address')}
+                    {translate('Your')} {selectedCurrency?.Name} {translate('deposit address')}
                 </label>
                 <CopyToClipboardCont text={depositAddress} />
             </div>
@@ -167,8 +229,8 @@ const DepositCrypto = () => {
                             {translate('Your')} {selectedCurrency?.short} {translate('deposit address')}
                         </h2>
                         <p>
-                            {`${translate('This address accepts only')} ${selectedCurrency?.short}, 
-                            ${translate('transferring here any other coin will result in fund loss')}. ${translate('Copy')} ${selectedCurrency?.short} 
+                            {`${translate('This address accepts only')} ${selectedCurrency?.Name}, 
+                            ${translate('transferring here any other coin will result in fund loss')}. ${translate('Copy')} ${selectedCurrency?.Name} 
                             ${translate('address here')}:`}
                         </p>
                     </div>

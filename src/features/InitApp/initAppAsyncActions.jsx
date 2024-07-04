@@ -40,6 +40,8 @@ export const loadInitData = (isMobile) => {
     return async (dispatch, getState) => {
         try {
             // Init menu
+            let casinoMenuItems = [];
+            let sportsMenuItems = [];
             let allMenuItems = [];
 
             // Storage items
@@ -135,7 +137,8 @@ export const loadInitData = (isMobile) => {
 
                 if (Array.isArray(responsesCasino[0].data.Contents)) dispatch(appActions.setAllCasinoVendors(responsesCasino[0].data.Contents));
 
-                allMenuItems.push({
+
+                casinoMenuItems.push({
                     category: { id: 1, label: 'Casino', visible: true },
                     items: [
                         {
@@ -164,6 +167,36 @@ export const loadInitData = (isMobile) => {
                         },
                     ],
                 });
+
+                // allMenuItems.push({
+                //     category: { id: 1, label: 'Casino', visible: true },
+                //     items: [
+                //         {
+                //             id: 1,
+                //             label: 'Lobby',
+                //             icon: <HomeIcon />,
+                //             page: 'casino/lobby',
+                //         },
+                //         {
+                //             id: 2,
+                //             label: 'Slots',
+                //             icon: <SlotsIcon />,
+                //             page: 'casino/slots',
+                //         },
+                //         {
+                //             id: 3,
+                //             label: 'Live Casino',
+                //             icon: <BlackjackIcon />,
+                //             page: 'casino/live',
+                //         },
+                //         {
+                //             id: 4,
+                //             label: 'Favorites',
+                //             icon: <HeartIcon />,
+                //             page: 'casino/favorites',
+                //         },
+                //     ],
+                // });
             }
 
             // Sports
@@ -219,7 +252,7 @@ export const loadInitData = (isMobile) => {
                         page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
                     });
                 });
-                allMenuItems.push(topTournamentsMenu);
+                sportsMenuItems.push(topTournamentsMenu);
 
                 let topSportsMenu = { category: { id: 3, label: 'Top Sports', visible: true }, items: [] };
                 topSports.forEach((topSport) => {
@@ -230,7 +263,7 @@ export const loadInitData = (isMobile) => {
                         page: `sportsbook/home/${topSport.slug}`,
                     });
                 });
-                allMenuItems.push(topSportsMenu);
+                sportsMenuItems.push(topSportsMenu);
 
                 let alphabeticalAllSports = [...updatedSports];
                 alphabeticalAllSports.sort((a, b) => a.Name.International.localeCompare(b.Name.International));
@@ -243,7 +276,44 @@ export const loadInitData = (isMobile) => {
                         page: `sportsbook/home/${sport.slug}`,
                     });
                 });
-                allMenuItems.push(allSportsMenu);
+                sportsMenuItems.push(allSportsMenu);
+
+                // // For menu
+                // let topTournamentsMenu = { category: { id: 2, label: 'Top Tournaments', visible: true }, items: [] };
+                // topTournaments.SubCategs[0].Items.forEach((topTournament) => {
+                //     const value = topTournament.Value.split(',');
+                //     topTournamentsMenu.items.push({
+                //         id: topTournament.Value,
+                //         label: topTournament.Par2 + ' ' + topTournament.Name,
+                //         icon: sportIcons[topTournaments.SubCategs[0].SubCateg.Name],
+                //         page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
+                //     });
+                // });
+                // allMenuItems.push(topTournamentsMenu);
+
+                // let topSportsMenu = { category: { id: 3, label: 'Top Sports', visible: true }, items: [] };
+                // topSports.forEach((topSport) => {
+                //     topSportsMenu.items.push({
+                //         id: topSport.Id,
+                //         label: topSport.Name.International,
+                //         icon: topSport.icon,
+                //         page: `sportsbook/home/${topSport.slug}`,
+                //     });
+                // });
+                // allMenuItems.push(topSportsMenu);
+
+                // let alphabeticalAllSports = [...updatedSports];
+                // alphabeticalAllSports.sort((a, b) => a.Name.International.localeCompare(b.Name.International));
+                // let allSportsMenu = { category: { id: 4, label: 'All Sports', visible: false }, items: [] };
+                // alphabeticalAllSports.forEach((sport) => {
+                //     allSportsMenu.items.push({
+                //         id: sport.Id,
+                //         label: sport.Name.International,
+                //         icon: sport.icon,
+                //         page: `sportsbook/home/${sport.slug}`,
+                //     });
+                // });
+                // allMenuItems.push(allSportsMenu);
             }
 
             // Rest of menu items
@@ -288,6 +358,8 @@ export const loadInitData = (isMobile) => {
                 ],
             });
 
+            dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
+            dispatch(appActions.setSportsMenuItems(sportsMenuItems));
             dispatch(appActions.setMenuItems(allMenuItems));
             dispatch(appActions.setInitDataLoaded(true));
         } catch (error) {

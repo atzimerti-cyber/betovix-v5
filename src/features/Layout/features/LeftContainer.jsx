@@ -30,6 +30,10 @@ const LeftContainer = memo(function () {
 
     const permissions = useSelector((state) => state.login.permissions);
     const menuItems = useSelector((state) => state.app.menuItems);
+    ///////////
+    const casinoMenuItems = useSelector((state) => state.app.casinoMenuItems);
+    const sportsMenuItems = useSelector((state) => state.app.sportsMenuItems);
+    ////////////
     const user = useSelector((state) => state.login.user);
     const searchString = useSelector((state) => state.search.searchString);
     const fullLeftContainer = useSelector((state) => state.layout.fullLeftContainer);
@@ -96,19 +100,71 @@ const LeftContainer = memo(function () {
                     {isMobile && <CloseButton timesIcon onClick={() => dispatch(layoutActions.setFullLeftContainer(false))} />}
                 </div>
 
-                {pathnameNoParams !== '/sportsbook' && !isMobile && (permissions.AllowToCasino || permissions.AllowToSlots) && (
-                    <Search
-                        placeholder={translate('Search Casino')}
-                        hide={!fullLeftContainer}
-                        dataTooltipId='left-menu-tooltip'
-                        dataTooltipContent={translate('Search Casino')}
-                        value={searchString}
-                        onChange={(value) => {
-                            dispatch(searchActions.setSearchString(value));
-                            if (value !== '') navigate('/search');
-                        }}
-                    />
+                {/* CasinoMenu */}
+                {pathnameNoParams !== '/sportsbook' && pathnameNoParams !== '/sportsbook/tournament' && !isMobile && (permissions.AllowToCasino || permissions.AllowToSlots) && (
+                    <>
+                        <Search
+                            placeholder={translate('Search Casino')}
+                            hide={!fullLeftContainer}
+                            dataTooltipId='left-menu-tooltip'
+                            dataTooltipContent={translate('Search Casino')}
+                            value={searchString}
+                            onChange={(value) => {
+                                dispatch(searchActions.setSearchString(value));
+                                if (value !== '') navigate('/search');
+                            }}
+                        />
+                        {/* casinoMenuItems */}
+                        {casinoMenuItems.map((casinoMenuItem, index) => {
+                            if (casinoMenuItem.category) {
+                                if (fullLeftContainer) {
+                                    return (
+                                        <CategoryGroup key={index} category={casinoMenuItem.category} hide={fullLeftContainer}>
+                                            {getItems(casinoMenuItem, index, casinoMenuItem.category.id)}
+                                        </CategoryGroup>
+                                    );
+                                } else {
+                                    return (
+                                        <div className={classes.Grouped} key={index}>
+                                            <div className={classes.SideMenuDivider}></div>
+                                            {getItems(casinoMenuItem, index, casinoMenuItem.category.id)}
+                                        </div>
+                                    );
+                                }
+                            } else {
+                                return getItems(casinoMenuItem, index, 0);
+                            }
+                        })}
+                    </>
                 )}
+
+                {/* SportsMenu */}
+                {pathnameNoParams !== '/casino' && pathnameNoParams !== '/search' && !isMobile && (permissions.AllowToSports) && (
+                    <>
+                        {/* SportsMenuItems */}
+                        {sportsMenuItems.map((menuItem, index) => {
+                            if (menuItem.category) {
+                                if (fullLeftContainer) {
+                                    return (
+                                        <CategoryGroup key={index} category={menuItem.category} hide={fullLeftContainer}>
+                                            {getItems(menuItem, index, menuItem.category.id)}
+                                        </CategoryGroup>
+                                    );
+                                } else {
+                                    return (
+                                        <div className={classes.Grouped} key={index}>
+                                            <div className={classes.SideMenuDivider}></div>
+                                            {getItems(menuItem, index, menuItem.category.id)}
+                                        </div>
+                                    );
+                                }
+                            } else {
+                                return getItems(menuItem, index, 0);
+                            }
+                        })}
+                    </>
+                )}
+
 
                 {menuItems.map((menuItem, index) => {
                     if (menuItem.category) {

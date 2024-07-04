@@ -54,10 +54,18 @@ const Deposit = () => {
     };
 
     const selectCurrency = (option) => {
+        console.log(option);
         dispatch(cryptoActions.setSelectedCurrency(option));
-        const network = option.network || option.label;
-        dispatch(cryptoActions.setSelectedNetwork({ id: option.id, label: network }));
+        const network = option.Code;
+        dispatch(cryptoActions.setSelectedNetwork({ id: option.Id, label: network }));
     };
+
+    //////////////////////////gk
+    // const selectCurrency = (option) => {
+    //     dispatch(cryptoActions.setSelectedCurrency(option));
+    //     const network = option.network || option.label;
+    //     dispatch(cryptoActions.setSelectedNetwork({ id: option.id, label: network }));
+    // };
 
     let elClasses = [classes.PaymentVerticalWrapper];
     if (method === 'crypto') elClasses.push(classes.Crypto);
@@ -87,7 +95,7 @@ const Deposit = () => {
                                             }}
                                             disabled={item.available === false}
                                         >
-                                            <img src={item.icon} loading='lazy' alt={item.Code} />
+                                            <img src={item.Logo} loading='lazy' alt={item.Code} />
                                             <h2>{item.Name}</h2>
                                             {item.Rate &&
                                             <h3>${ item.Rate > 0.01 ? addThousandsSeparator(item.Rate) : parseFloat(item.Rate.toFixed(6))}</h3>}

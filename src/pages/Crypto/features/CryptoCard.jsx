@@ -12,8 +12,8 @@ const CryptoCard = (props) => {
     const dispatch = useDispatch();
 
     const crypto = useSelector((state) => state.crypto.crypto);
-    // const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
     const user = useSelector((state) => state.login.user);
+    // const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
 
     const [currentPrice, setCurrentPrice] = useState({ price: null, diff: null });
 
@@ -89,7 +89,7 @@ const CryptoCard = (props) => {
     };
 
     return (
-        <div className={classes.CryptoCard} style={{ '--crypto-color': '#41a364a3' }} onClick={onClick}>
+        <div className={classes.CryptoCard} style={{ '--crypto-color': '#2d6541a3' }} onClick={onClick}>
             <div className={classes.LogoContainer}>
                 <div className={classes.ImageContainer}>
                     <img src={props.item.Logo} loading='lazy' alt={props.item.Code} />
