@@ -26,7 +26,11 @@ const LiveStream = (props) => {
 
     return (
         <DraggableBox
-            title={`${translateNameWithLang(props.showVideoFor.Info.HomeTeamName)} vs ${translateNameWithLang(props.showVideoFor.Info.AwayTeamName)}`}
+            title={
+                props.showVideoFor.Info.AwayTeamName
+                    ? `${translateNameWithLang(props.showVideoFor.Info.HomeTeamName)} vs ${translateNameWithLang(props.showVideoFor.Info.AwayTeamName)}`
+                    : translateNameWithLang(props.showVideoFor.Info.HomeTeamName)
+            }
             onClose={() => dispatch(sportsbookActions.setShowVideoFor(null))}
         >
             <div className={classes.Container}>

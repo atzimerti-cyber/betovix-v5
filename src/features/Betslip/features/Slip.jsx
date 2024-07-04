@@ -70,7 +70,7 @@ const Slip = (props) => {
 
     const getOddsLabel = () => {
         if (props.slip.FieldName.International === 'W1' || props.slip.FieldName.International === '1') return translateNameWithLang(props.slip.HomeTeamName);
-        else if (props.slip.FieldName.International === 'W2' || props.slip.FieldName.International === '2')
+        else if (props.slip.AwayTeamName && (props.slip.FieldName.International === 'W2' || props.slip.FieldName.International === '2'))
             return translateNameWithLang(props.slip.AwayTeamName);
         else if (props.slip.FieldName.International === 'x' || props.slip.FieldName.International === 'X') return translate('Draw');
 

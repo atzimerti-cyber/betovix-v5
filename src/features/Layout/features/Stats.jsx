@@ -28,7 +28,11 @@ const Stats = (props) => {
 
     return (
         <DraggableBox
-            title={`${translateNameWithLang(props.showStatsFor.Info.HomeTeamName)} vs ${translateNameWithLang(props.showStatsFor.Info.AwayTeamName)}`}
+            title={
+                props.showStatsFor.Info.AwayTeamName
+                    ? `${translateNameWithLang(props.showStatsFor.Info.HomeTeamName)} vs ${translateNameWithLang(props.showStatsFor.Info.AwayTeamName)}`
+                    : translateNameWithLang(props.showStatsFor.Info.HomeTeamName)
+            }
             onClose={() => dispatch(sportsbookActions.setShowStatsFor(null))}
             height={height}
         >

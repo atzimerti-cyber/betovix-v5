@@ -5,7 +5,7 @@ import { eventActions } from './eventSlice';
 import { sportsbookActions } from '../SportsBook/sportsbookSlice';
 import { appActions } from '../../features/InitApp/appSlice';
 import { getLang } from '../../utils/storage';
-import { getSportMarketTreeObj, getSportMarketTreeObjFromMarkets } from '../../utils/custom';
+import { getSportMarketTreeObj, getSportMarketTreeObjFromMarkets, childsNotExist } from '../../utils/custom';
 
 export const getEvent = (sportId, eventId, signal) => {
     return async (dispatch, getState) => {
@@ -41,8 +41,7 @@ export const getEvent = (sportId, eventId, signal) => {
             dispatch(sportsbookActions.setSelectedSport(selectedSport));
 
             // Check if empty tree
-            const emptyTree =
-                responses[0].data.Contents === 'Not found' || responses[0].data.Contents?.childs[0]?.childs[0]?.childs?.length === 0 ? true : false;
+            const emptyTree = responses[0].data.Contents === 'Not found' || childsNotExist(responses[0].data.Contents) ? true : false;
 
             let sportMarketTreeObj;
             if (emptyTree) {
@@ -94,8 +93,9 @@ export const getLiveEvent = (sportId, eventId, signal) => {
             dispatch(sportsbookActions.setSelectedSport(selectedSport));
 
             // Check if empty tree
-            const emptyTree =
-                responses[0].data.Contents === 'Not found' || responses[0].data.Contents?.childs[0]?.childs[0]?.childs?.length === 0 ? true : false;
+            const emptyTree = responses[0].data.Contents === 'Not found' || childsNotExist(responses[0].data.Contents) ? true : false;
+            // const emptyTree =
+            //     responses[0].data.Contents === 'Not found' || responses[0].data.Contents?.childs[0]?.childs[0]?.childs?.length === 0 ? true : false;
 
             let sportMarketTreeObj;
             if (emptyTree) {

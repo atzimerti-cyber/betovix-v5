@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ import { getSportMarketTree } from '../sportsbookAsyncActions';
 import ShimmerIcon from '../../../features/UI/Shimmer/shimmer.svg?react';
 import OutrightCategory from '../features/OutrightCategory';
 import OutrightCategoriesTournaments from '../features/OutrightCategoriesTournaments';
-import { translate, translateNameWithLang } from '../../../utils/translations';
+import { translate } from '../../../utils/translations';
 
 const SportsOutrights = () => {
     const dispatch = useDispatch();
@@ -25,6 +25,7 @@ const SportsOutrights = () => {
     const tournamentSearchString = useSelector((state) => state.sportsbook.tournamentSearchString);
     const categories = useSelector((state) => state.sportsOutrights.categories);
     const sports = useSelector((state) => state.sportsbook.sports);
+    const allSports = useSelector((state) => state.app.allSports);
     const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
     const sportIcons = useSelector((state) => state.app.sportIcons);
     const sportMarketTree = useSelector((state) => state.sportsbook.sportMarketTree);
@@ -62,6 +63,8 @@ const SportsOutrights = () => {
             navigate(`/sportsbook/outrights/${sport.Name?.International.toLowerCase().replace(/ /g, '-')}`, { replace: true });
         } else sport = sports.find((s) => s.slug === sportParam);
 
+        if (!sport) sport = allSports.find((s) => s.slug === sportParam);
+
         dispatch(sportsbookActions.setSelectedSport(sport));
     }, [sports?.length, sportParam]);
 
@@ -86,7 +89,7 @@ const SportsOutrights = () => {
             });
         }
 
-        selectedSport.Categories.forEach((category) => {
+        selectedSport?.Categories?.forEach((category) => {
             //if (category.Counters['5D'] === 0) return; // Don't add categories which don't have any game (5D is the max Counters)
 
             const isPopular = topCategories.includes(category.Id);
