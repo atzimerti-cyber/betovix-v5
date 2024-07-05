@@ -19,7 +19,7 @@ const Deposit = () => {
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const crypto = useSelector((state) => state.crypto.crypto);
-    const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
+    //const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
 
     const query = new URLSearchParams(location.search);
     const method = query.get('method');

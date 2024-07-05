@@ -12,13 +12,13 @@
 }
 
 .MenuWrapper {
-    border-radius: 60px;
+    border-radius: 0px;
     background: linear-gradient(rgba(30, 45, 59, 0.9) 80%, rgb(30, 45, 59));
     display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;
     margin-inline: -24px;
-    padding-block: 16px 24px;
+    padding-block: 16px 10px;
     padding-inline: 24px;
     position: sticky;
     top: 0px;

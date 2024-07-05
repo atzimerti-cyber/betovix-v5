@@ -10,7 +10,7 @@
     right: 0;
     bottom: 0;
     width: 100px;
-    background: linear-gradient(90deg, transparent, #1e2d3b);
+    background: var(--db-dark-1);
     pointer-events: none;
     z-index: 2;
 }

@@ -23,7 +23,7 @@ const WithdrawCrypto = () => {
     const selectedCurrency = useSelector((state) => state.crypto.selectedCurrency);
     const selectedNetwork = useSelector((state) => state.crypto.selectedNetwork);
     const crypto = useSelector((state) => state.crypto.crypto);
-    const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
+    // const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
     const user = useSelector((state) => state.login.user);
 
     const [cryptoOptions, setCryptoOptions] = useState([]);
