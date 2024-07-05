@@ -101,7 +101,7 @@ const CryptoCard = (props) => {
 
             <div className={classes.PriceContainer}>
                 {currentPrice.price && 
-                <p className={classes.Price}>${currentPrice.price > 0.01 ? addThousandsSeparator(currentPrice.price) : parseFloat((currentPrice.price).toFixed(6))}</p>}
+                <p className={classes.Price}>€{currentPrice.price > 0.01 ? addThousandsSeparator(currentPrice.price) : parseFloat((currentPrice.price).toFixed(6))}</p>}
                 <p className={currentPrice.diff < 0 ? [classes.Delta, classes.Lower].join(' ') : classes.Delta}>
                     {currentPrice.diff >= 0 && '+'}
                     {addThousandsSeparator(currentPrice.diff)}%

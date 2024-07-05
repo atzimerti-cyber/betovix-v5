@@ -8,10 +8,14 @@ import User2Icon from '../../assets/svgs/user2.svg?react';
 import GlobeIcon from '../../assets/svgs/globe.svg?react';
 import Settings2Icon from '../../assets/svgs/settings2.svg?react';
 import CheckFilledIcon from '../../assets/svgs/check-filled.svg?react';
+import LogoSmallIcon from '../../assets/svgs/logo-small.svg?react';
 import TabsVertical from '../../features/UI/Tabs/TabsVertical';
 import Overview from './features/Overview';
 import Settings from './features/Settings';
 import Verification from './features/Verification';
+
+import Hero from './features/Hero';
+
 import BarLoading from '../../features/UI/BarLoading/BarLoading';
 import { translate } from '../../utils/translations';
 
@@ -46,6 +50,7 @@ const Profile = () => {
                         <TabsVertical
                             tabs={[
                                 { id: 'overview', label: translate('Overview'), icon: <GlobeIcon />, active: selectedTab === 'overview' },
+                                { id: 'heroes', label: translate('Heroes'), icon: <LogoSmallIcon />, active: selectedTab === 'heroes' },
                                 { id: 'settings', label: translate('Settings'), icon: <Settings2Icon />, active: selectedTab === 'settings' },
                                 { id: 'verification', label: translate('Verification'), icon: <CheckFilledIcon />, active: selectedTab === 'verification' },
                             ]}
@@ -55,6 +60,7 @@ const Profile = () => {
 
                         <div className={classes.TabPanel}>
                             {selectedTab === 'overview' && <Overview />}
+                            {selectedTab === 'heroes' && <Hero />}
                             {selectedTab === 'settings' && <Settings />}
                             {selectedTab === 'verification' && <Verification />}
                         </div>

@@ -98,7 +98,7 @@ const Deposit = () => {
                                             <img src={item.Logo} loading='lazy' alt={item.Code} />
                                             <h2>{item.Name}</h2>
                                             {item.Rate &&
-                                            <h3>${ item.Rate > 0.01 ? addThousandsSeparator(item.Rate) : parseFloat(item.Rate.toFixed(6))}</h3>}
+                                            <h3>€{ item.Rate > 0.01 ? addThousandsSeparator(item.Rate) : parseFloat(item.Rate.toFixed(6))}</h3>}
                                         </MainButton>
                                         {/* <MainButton
                                             color='transparent'
