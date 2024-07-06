@@ -8,6 +8,9 @@ import LoginModal from './Modals/LoginModal';
 import OddsFormatModal from './Modals/OddsFormatModal';
 import VipModal from './Modals/VipModal';
 import SearchModal from './Modals/SearchModal';
+
+import AchievementModal from './Modals/AchievementModal';
+
 import { modalActions } from './modalSlice';
 import { useEffect } from 'react';
 
@@ -55,6 +58,7 @@ const ModalRoot = () => {
     else if (modal === 'odds-format') modalPage = <OddsFormatModal />;
     else if (modal === 'vip') modalPage = <VipModal />;
     else if (modal === 'search') modalPage = <SearchModal />;
+    else if (modal === 'achievement') modalPage = <AchievementModal />;
 
     return (
         <div className={classes.ModalRoot} id='modal-root'>

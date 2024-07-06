@@ -12,7 +12,6 @@ import Milestones from '../../../features/ModalRoot/features/Milestones';
 import LogoSmallIcon from '../../../assets/svgs/logo-small.svg?react';
 import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 import { getOverview } from '../profileAsyncActions';
-import { profileActions } from '../profileSlice';
 import DecorationDiv from '../../../features/DecorationDiv/DecorationDiv';
 import OverviewCategory from './OverviewCategory';
 import { millisecondsToDateStr } from '../../../utils/custom';
@@ -50,7 +49,7 @@ const Hero = () => {
             <p className={classes.OverviewTitle}>{translate('Heroes')}</p>
 
             <div className={classes.GridContainer}>
-                <div className={classes.UserClassContainer}>
+                <div className={classes.DisplayContainer}>
                     {/* <div className={classes.LevelContainer}>
                         <div className={classes.LevelBadge}>
                             <div>{user?.level}</div>
@@ -103,7 +102,7 @@ const Hero = () => {
                 </div>
             </div>
 
-            <div className={classes.GamesContainer}>
+            <div className={classes.HeroesContainer}>
                 <HeroDisplaySwiper title='Heroes' icon={<LogoSmallIcon />} items={heroes} />
             </div>
         </motion.div>
