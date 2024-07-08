@@ -20,9 +20,13 @@ import { translate } from '../../../utils/translations';
 import { modalActions } from '../../../features/ModalRoot/modalSlice';
 import levels from '../../../dummyData/levels';
 import rewards from '../../../dummyData/rewards';
+import MainButton from '../../../features/UI/Buttons/MainButton';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Hero = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
@@ -34,6 +38,14 @@ const Hero = () => {
 
     dispatch(modalActions.setLevels(levels));
     dispatch(modalActions.setRewards(rewards));
+
+    const addParamsToUrl = (modal, tab) => {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set('modal', modal);
+        if (tab) searchParams.set('tab', tab);
+
+        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+    };
 
     // useEffect(() => {
     //     const controller = new AbortController();
@@ -50,20 +62,16 @@ const Hero = () => {
 
             <div className={classes.GridContainer}>
                 <div className={classes.DisplayContainer}>
-                    {/* <div className={classes.LevelContainer}>
-                        <div className={classes.LevelBadge}>
-                            <div>{user?.level}</div>
-                        </div>
-                    </div>
-                    <p className={classes.Username}>{user?.Username}</p>
-                    <p className={classes.MemberSince}>
-                        {translate('Member since')} {millisecondsToDateStr(user?.registered)}
-                    </p> */}
                     <div className={classes.ImageContainer}>
                         <img src={selectedHero.icontb} loading='lazy' alt={selectedHero.name} />
                     </div>
                 </div>
 
+                <div className={classes.SelectHeroBtn}>
+                    <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
+                        <span>Select Hero</span>
+                    </MainButton>
+                </div>
                 <section className={classes.LevelUpSection}>
                     <div className={classes.LevelUpMilestone}>
                         <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
@@ -98,6 +106,9 @@ const Hero = () => {
                     <OverviewCategory title='Monthly' percentage='0%' bits={0} />
                     <OverviewCategory title='Leaderboard' percentage='0%' bits={90} />
                     <OverviewCategory title='Level up bonus' percentage='0%' bits={0} />
+                    <OverviewCategory title='Other' percentage='0%' bits={0} />
+                    <OverviewCategory title='Other' percentage='0%' bits={0} />
+                    <OverviewCategory title='Other' percentage='0%' bits={0} />
                     <OverviewCategory title='Other' percentage='0%' bits={0} />
                 </div>
             </div>

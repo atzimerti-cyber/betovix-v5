@@ -7,7 +7,7 @@ import ModalHeader from '../features/ModalHeader';
 import Tabs from '../../UI/Tabs/Tabs';
 import Deposit from '../../../pages/Crypto/features/Deposit';
 import Withdraw from '../../../pages/Crypto/features/Withdraw';
-import BuyCrypto from '../../../pages/Crypto/features/BuyCrypto';
+//import BuyCrypto from '../../../pages/Crypto/features/BuyCrypto';
 
 const CashierModal = (props) => {
     const navigate = useNavigate();
@@ -35,7 +35,7 @@ const CashierModal = (props) => {
                     tabs={[
                         { id: 'deposit', label: 'Deposit', active: selectedTab === 'deposit' },
                         { id: 'withdraw', label: 'Withdraw', active: selectedTab === 'withdraw' },
-                        { id: 'buy-crypto', label: 'Buy Crypto', active: selectedTab === 'buy-crypto' },
+                        // { id: 'buy-crypto', label: 'Buy Crypto', active: selectedTab === 'buy-crypto' },
                     ]}
                     onChangeTab={(tab) => changeTab(tab)}
                     // onChangeTab={(tab) => setSelectedTab(tab)}
@@ -49,9 +49,9 @@ const CashierModal = (props) => {
                     <div className={selectedTab === 'withdraw' ? [classes.TabContent, classes.Active].join(' ') : classes.TabContent}>
                         {selectedTab === 'withdraw' && <Withdraw />}
                     </div>
-                    <div className={selectedTab === 'buy-crypto' ? [classes.TabContent, classes.Active].join(' ') : classes.TabContent}>
+                    {/* <div className={selectedTab === 'buy-crypto' ? [classes.TabContent, classes.Active].join(' ') : classes.TabContent}>
                         {selectedTab === 'buy-crypto' && <BuyCrypto />}
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </div>

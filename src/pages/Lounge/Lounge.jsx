@@ -15,8 +15,8 @@ const Lounge = () => {
     };
 
     return (
-        <MainButton color='tomato' onClick={() => addParamsToUrl('achievement')}>
-           
+        <MainButton color='bv-light-green' onClick={() => addParamsToUrl('achievement')}>
+           <span>Achievement Modal</span>
         </MainButton>
     )
 };

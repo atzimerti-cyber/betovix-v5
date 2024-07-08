@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import classes from './AchievementModal.module.css';
+import classes from './HeroConfirmation.module.css';
 
-import LevelUpIcon from '../../../assets/svgs/level-up.svg?react';
+import WarningIcon from '../../../assets/svgs/warning.svg?react'
 
 import CloseButton from '../../UI/Buttons/CloseButton';
 
 import { translate } from '../../../utils/translations';
+import MainButton from '../../UI/Buttons/MainButton';
 
 
 const AchievementModal = () => {
@@ -19,25 +20,18 @@ const AchievementModal = () => {
     const user = useSelector((state) => state.login.user);
     const selectedHero = useSelector((state) => state.profile.selectedHero);
 
-    // useEffect(() => {
-    //     const controller = new AbortController();
-    //     const signal = controller.signal;
 
-    //     dispatch(getVip(signal));
-
-    //     return () => dispatch(modalActions.setLevels(null));
-    // }, []);
 
     return (
-        <div className={classes.AchievementModal}>
+        <div className={classes.ConfirmationModal}>
             <div className={classes.ModalContent}>
                 <div className={classes.BackgroundContainer}>
                     <div className={classes.TopContent}>
                         <header>
                             <div className={classes.Center}>
                                 <h1 className={classes.Title}>
-                                    <LevelUpIcon />
-                                    {translate('Level Up!')}
+                                    <WarningIcon className={classes.WarningIcon}/>
+                                    {translate('Warning!')}
                                 </h1>
                             </div>
                             <div className={classes.Right}>
@@ -46,14 +40,19 @@ const AchievementModal = () => {
                         </header>
                     </div>
                 </div>
-
                 <div className={classes.MainContent}>
-                   
+                    <p className={classes.Message}>
+                        {translate('Once you select a hero, you cannot go back! Are you sure you want to select this hero?')}
+                    </p>
                 </div>
-            </div>
-
-            <div className={classes.ImageContainer}>
-            <img src={selectedHero.icontb} loading='lazy' alt={selectedHero.name} />
+                <div className={classes.Buttons}>
+                    <MainButton color='bv-light-green'>
+                        <span>YES, I am sure</span>
+                    </MainButton>
+                    <MainButton color='dark' onClick={() => navigate(location.pathname)}>
+                        <span>NO, go back</span>
+                    </MainButton>
+                </div>
             </div>
         </div>
     );

@@ -54,11 +54,22 @@ const Deposit = () => {
     };
 
     const selectCurrency = (option) => {
-        console.log(option);
         dispatch(cryptoActions.setSelectedCurrency(option));
-        const network = option.Code;
-        dispatch(cryptoActions.setSelectedNetwork({ id: option.Id, label: network }));
+        const network = option.network || option.label;
+        dispatch(cryptoActions.setSelectedNetwork({ id: option.id, label: network }));
     };
+
+    const uniqueCrypto = [];
+    const names = new Set();
+
+    crypto.forEach((item) => {
+        if (!names.has(item.Name)) {
+            names.add(item.Name);
+            if (item.AllowDeposit) {
+                uniqueCrypto.push(item);
+            }
+        }
+    });
 
     //////////////////////////gk
     // const selectCurrency = (option) => {
@@ -77,7 +88,7 @@ const Deposit = () => {
                 <div className={classes.Grid}>
                     {crypto && (
                         <>
-                            {crypto.map((item) => {
+                            {uniqueCrypto.map((item) => {
                                 if (item.id === 'BEP-20') return null;
 
                                 return (
@@ -98,7 +109,7 @@ const Deposit = () => {
                                             <img src={item.Logo} loading='lazy' alt={item.Code} />
                                             <h2>{item.Name}</h2>
                                             {item.Rate &&
-                                            <h3>€{ item.Rate > 0.01 ? addThousandsSeparator(item.Rate) : parseFloat(item.Rate.toFixed(6))}</h3>}
+                                                <h3>€{item.Rate > 0.01 ? addThousandsSeparator(item.Rate) : parseFloat(item.Rate.toFixed(6))}</h3>}
                                         </MainButton>
                                         {/* <MainButton
                                             color='transparent'

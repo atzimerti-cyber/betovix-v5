@@ -10,6 +10,7 @@ import VipModal from './Modals/VipModal';
 import SearchModal from './Modals/SearchModal';
 
 import AchievementModal from './Modals/AchievementModal';
+import HeroConfirmation from './Modals/HeroConfirmation'
 
 import { modalActions } from './modalSlice';
 import { useEffect } from 'react';
@@ -59,6 +60,7 @@ const ModalRoot = () => {
     else if (modal === 'vip') modalPage = <VipModal />;
     else if (modal === 'search') modalPage = <SearchModal />;
     else if (modal === 'achievement') modalPage = <AchievementModal />;
+    else if (modal === 'hero-confirm') modalPage = <HeroConfirmation />;
 
     return (
         <div className={classes.ModalRoot} id='modal-root'>

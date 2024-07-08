@@ -1,7 +1,7 @@
 import { toast } from 'react-toastify';
 
-import axiosApi from '../../axios-api';
 import { getLang } from '../../utils/storage';
+import axiosApi from '../../axios-api';
 import { profileActions } from './profileSlice';
 
 export const getOverview = (signal) => {
@@ -29,3 +29,58 @@ export const getOverview = (signal) => {
         }
     };
 };
+
+export const getHeroes = (signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.post(
+                `/Payments/PostData?action=GetPaymentMethods&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                {},
+                {
+                    signal: signal,
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch heroes');
+           
+            const heroes = response.data.Contents;
+            console.log("All Heroes:", heroes);
+            dispatch(profileActions.setHeroes(heroes));
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
+export const getLevels = (signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.post(
+                `/Payments/PostData?action=GetPaymentMethods&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                {
+                    data: `{"Id":""}`,
+                },
+                {
+                    signal: signal,
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch heroes');
+           
+            const levels = response.data.Contents;
+            console.log("All Levels:", levels);
+            dispatch(profileActions.setHeroes(levels));
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
