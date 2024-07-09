@@ -32,6 +32,7 @@ const initialState = {
     selectedCurrency: null,
     selectedNetwork: null,
     depositAddress: '',
+    qrCodeImage: ''
 };
 
 export const cryptoSlice = createSlice({
@@ -65,6 +66,9 @@ export const cryptoSlice = createSlice({
         setDepositAddress: (state, action) => {
             state.depositAddress = action.payload;
         },
+        setQRCodeImage: (state, action) => {
+            state.qrCodeImage = action.payload;
+        }
     },
 });
 

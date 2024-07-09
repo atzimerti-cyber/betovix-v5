@@ -25,6 +25,7 @@ const DepositCrypto = () => {
     const selectedNetwork = useSelector((state) => state.crypto.selectedNetwork);
     const crypto = useSelector((state) => state.crypto.crypto);
     const depositAddress = useSelector((state) => state.crypto.depositAddress);
+    const qrImage = useSelector((state) => state.crypto.qrCodeImage);
     const user = useSelector((state) => state.login.user);
 
     const [cryptoOptions, setCryptoOptions] = useState([]);
@@ -142,7 +143,7 @@ const DepositCrypto = () => {
 
     const selectCurrency = (option) => {
         dispatch(cryptoActions.setSelectedCurrency(option));
-        const network = option.network || option.label;
+        const network = option.Code || option.label;
         dispatch(cryptoActions.setSelectedNetwork({ id: option.Id, label: network }));
     };
 

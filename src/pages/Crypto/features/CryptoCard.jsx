@@ -15,61 +15,29 @@ const CryptoCard = (props) => {
     const user = useSelector((state) => state.login.user);
     // const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
 
-    const [currentPrice, setCurrentPrice] = useState({ price: null, diff: null });
+    const [currentPrice, setCurrentPrice] = useState({ price: 0.00, diff: 0.00 });
 
-    useEffect(() => {
-        console.log(crypto);
-        if (crypto && Array.isArray(crypto)) {
-            const cryptoCoin = crypto.find(cryptoItem => cryptoItem.Code === props.item.Code);
-
-            if (cryptoCoin) {
-                setCurrentPrice(prevState => ({
-                    ...prevState,
-                    price: cryptoCoin.Rate,
-                    diff: calculateDiff(prevState.price, cryptoCoin.Rate)
-                }));
-            }
-        }
-    }, [crypto]);
-
-    //With getCryptoPrices
     // useEffect(() => {
-    //     console.log(cryptoPrices);
-    //     if (cryptoPrices && Array.isArray(cryptoPrices)) {
-    //         const crypto = cryptoPrices.find(item => item.Code === props.item.short);
+    //     console.log("useEffect triggered", crypto);
+    //     if (crypto && Array.isArray(crypto)) {
+    //         console.log("crypto array", crypto);
+    //         const cryptoCoin = crypto.find(cryptoItem => cryptoItem.Code === props.item.Code);
+    //         console.log("Found cryptoCoin", cryptoCoin);
 
-    //         if (crypto) {
+    //         if (cryptoCoin) {
     //             setCurrentPrice(prevState => ({
     //                 ...prevState,
-    //                 price: crypto.Rate,
-    //                 diff: calculateDiff(prevState.price, crypto.Rate)
+    //                 price: cryptoCoin.Rate,
+    //                 diff: calculateDiff(prevState.price, cryptoCoin.Rate)
     //             }));
     //         }
     //     }
-    // }, [cryptoPrices, props.item.short]);
+    // }, [crypto]);
     
-
-    ////////////////////////
     const calculateDiff = (prevPrice, newPrice) => {
         if (!prevPrice || !newPrice) return 0;
         return ((newPrice - prevPrice) / prevPrice) * 100;
     };
-    /////////////////////////////////////////////////
-
-    // useEffect(() => {
-    //     if (props.item.id === 'ERC-20' || props.item.id === 'BEP-20') {
-    //         setCurrentPrice({ price: 1, diff: 0 });
-    //         return;
-    //     }
-
-    //     if (!cryptoPrices['1min'][props.item.id]) return;
-
-    //     const price24hr = cryptoPrices['24hr'][props.item.id];
-    //     const price1min = cryptoPrices['1min'][props.item.id];
-    //     const diff = 100 * (1 - price24hr / price1min);
-
-    //     setCurrentPrice({ price: price1min, diff: diff });
-    // }, [cryptoPrices['1min'][props.item.id]]);
 
     const navigateToModal = (modal, tab, method) => {
         const searchParams = new URLSearchParams(location.search);
@@ -84,6 +52,7 @@ const CryptoCard = (props) => {
     const onClick = () => {
         if (user) {
             dispatch(cryptoActions.setSelectedCurrency(props.item));
+            dispatch(cryptoActions.setSelectedNetwork(props.Code));
             navigateToModal('cashier', 'deposit', 'crypto');
         } else navigateToModal('auth', 'login');
     };
@@ -100,8 +69,10 @@ const CryptoCard = (props) => {
             </div>
 
             <div className={classes.PriceContainer}>
-                {currentPrice.price && 
-                <p className={classes.Price}>€{currentPrice.price > 0.01 ? addThousandsSeparator(currentPrice.price) : parseFloat((currentPrice.price).toFixed(6))}</p>}
+            {props.item.Rate &&
+                <span className={classes.Price}>${props.item.Rate > 0.01 ? addThousandsSeparator(props.item.Rate) : parseFloat((props.item.Rate).toFixed(6))}</span>}
+                {/* {currentPrice.price && 
+                <p className={classes.Price}>€{currentPrice.price > 0.01 ? addThousandsSeparator(currentPrice.price) : parseFloat((currentPrice.price).toFixed(6))}</p>} */}
                 <p className={currentPrice.diff < 0 ? [classes.Delta, classes.Lower].join(' ') : classes.Delta}>
                     {currentPrice.diff >= 0 && '+'}
                     {addThousandsSeparator(currentPrice.diff)}%

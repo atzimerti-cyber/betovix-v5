@@ -102,7 +102,7 @@ const Login = () => {
             <AlternativeMethods />
 
             <MainButton color='transparent' onClick={() => changeTab('forgot-password')}>
-                {translate('Forgot password')}
+                {translate('Forgot your password?')}
             </MainButton>
 
             <div className={classes.CaptchaText}>

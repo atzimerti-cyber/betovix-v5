@@ -98,7 +98,8 @@
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
+    /* white-space: nowrap; */
+    white-space: normal;
 }
 
 .PaymentButtonContainer > button h3 {
@@ -133,11 +134,11 @@
 }
 
 @media (min-width: 640px) {
-    .PaymentOptionsWrapper,
+    /* .PaymentOptionsWrapper,
     .DepositCryptoWrapper,
     .DepositFiatWrapper {
         overflow: visible;
-    }
+    } */
     .DepositFiatWrapper {
         padding-left: 1.5rem;
         padding-right: 1.5rem;

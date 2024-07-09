@@ -32,6 +32,19 @@ const MainButton = (props) => {
         return () => clearTimeout(timeoutRef.current);
     }, []);
 
+    const {
+        color,
+        size,
+        active,
+        disabled,
+        loading,
+        dataTooltipId,
+        dataTooltipContent,
+        children,
+        onClick: propsOnClick,
+        ...rest
+    } = props;
+
     return (
         <button
             onClick={onClick}

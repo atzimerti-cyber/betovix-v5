@@ -55,8 +55,8 @@ const Deposit = () => {
 
     const selectCurrency = (option) => {
         dispatch(cryptoActions.setSelectedCurrency(option));
-        const network = option.network || option.label;
-        dispatch(cryptoActions.setSelectedNetwork({ id: option.id, label: network }));
+        const network = option.Code || option.label;
+        dispatch(cryptoActions.setSelectedNetwork({ id: option.Id, label: network }));
     };
 
     const uniqueCrypto = [];
@@ -92,7 +92,7 @@ const Deposit = () => {
                                 if (item.id === 'BEP-20') return null;
 
                                 return (
-                                    <div key={item.id} className={[classes.PaymentButtonContainer, classes.CryptoCoin].join(' ')}>
+                                    <div key={item.Id} className={[classes.PaymentButtonContainer, classes.CryptoCoin].join(' ')}>
                                         {item.available === false && (
                                             <div className={classes.PaymentDisabledOverlay}>
                                                 <span>{translate('Temporarily unavailable')}</span>

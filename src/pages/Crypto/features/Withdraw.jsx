@@ -48,9 +48,15 @@ const Withdraw = () => {
 
     const selectCurrency = (option) => {
         dispatch(cryptoActions.setSelectedCurrency(option));
-        const network = option.network || option.label;
-        dispatch(cryptoActions.setSelectedNetwork({ id: option.id, label: network }));
+        const network = option.Code || option.label;
+        dispatch(cryptoActions.setSelectedNetwork({ id: option.Id, label: network }));
     };
+
+    // const selectCurrency = (option) => {
+    //     dispatch(cryptoActions.setSelectedCurrency(option));
+    //     const network = option.network || option.label;
+    //     dispatch(cryptoActions.setSelectedNetwork({ id: option.id, label: network }));
+    // };
 
     const uniqueCrypto = [];
     const names = new Set();

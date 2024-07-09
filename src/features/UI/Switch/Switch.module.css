@@ -11,7 +11,7 @@
     cursor: pointer;
     overflow: hidden;
     border-radius: 9999px;
-    background-color: var(--db-gray-5);
+    background-color: var(--db-white-hover);
     padding: 0.125rem;
     color: var(--db-brand-green);
     transition: grid-template-columns 0.2s;

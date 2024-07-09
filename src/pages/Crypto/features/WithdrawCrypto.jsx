@@ -53,10 +53,10 @@ const WithdrawCrypto = () => {
         const filteredCryptocurrencies = [];
 
         crypto.forEach((item) => {
-            if (item.network) {
+            if (item.Code) {
                 // Only set the first occurrence for items with 'network'
-                if (!firstOccurrenceMap[item.label]) {
-                    firstOccurrenceMap[item.label] = item;
+                if (!firstOccurrenceMap[item.Name]) {
+                    firstOccurrenceMap[item.Name] = item;
                 }
             } else {
                 // Immediately include items without 'network'
@@ -72,31 +72,81 @@ const WithdrawCrypto = () => {
         setCryptoOptions(filteredCryptocurrencies);
     }, [crypto]);
 
+    //////////////////gk
+    // useEffect(() => {
+    //     if (!crypto) return;
+
+    //     const firstOccurrenceMap = {};
+    //     const filteredCryptocurrencies = [];
+
+    //     crypto.forEach((item) => {
+    //         if (item.network) {
+    //             // Only set the first occurrence for items with 'network'
+    //             if (!firstOccurrenceMap[item.label]) {
+    //                 firstOccurrenceMap[item.label] = item;
+    //             }
+    //         } else {
+    //             // Immediately include items without 'network'
+    //             filteredCryptocurrencies.push(item);
+    //         }
+    //     });
+
+    //     // Add the first occurrences from the map to the filtered list
+    //     Object.values(firstOccurrenceMap).forEach((item) => {
+    //         filteredCryptocurrencies.push(item);
+    //     });
+
+    //     setCryptoOptions(filteredCryptocurrencies);
+    // }, [crypto]);
+
     useEffect(() => {
         setCoinsBalance('0.00');
         setCryptoBalance('0.00000000');
     }, [selectedCurrency?.label]);
 
+
     const getNetworks = (item) => {
         let networks = [];
 
         crypto.forEach((c) => {
-            if (c.label === item.label && c.network) networks.push({ id: c.id, label: c.network });
+            if (c.Name === item.Name && c.Code) networks.push({ id: c.Id, label: c.Code });
         });
 
         return networks;
     };
 
+    //////////gk
+    // const getNetworks = (item) => {
+    //     let networks = [];
+
+    //     crypto.forEach((c) => {
+    //         if (c.label === item.label && c.network) networks.push({ id: c.id, label: c.network });
+    //     });
+
+    //     return networks;
+    // };
+
     const selectCurrency = (option) => {
         dispatch(cryptoActions.setSelectedCurrency(option));
-        const network = option.network || option.label;
+        const network = option.Code || option.label;
         dispatch(cryptoActions.setSelectedNetwork({ id: option.id, label: network }));
     };
 
     const updateBalance = (type, value) => {
-        const valueNum = parseFloat(value);
-        if (valueNum <= 0 || isNaN(valueNum)) return;
-        if (valueNum < 0.01) return;
+        //const valueNum = parseFloat(value);
+        let valueNum;
+        if (isNaN(value)){
+            valueNum = 0;
+        }else{
+            valueNum = value;
+        }
+        // if (value > balance) {
+        //     return
+        // } else {
+        //     valueNum = value;
+        // }
+
+        // if (valueNum <= 0 || isNaN(valueNum) || valueNum < 0.01 ) return;
 
         if (!selectedCurrency) {
             setCoinsBalance('0.00');
@@ -106,13 +156,12 @@ const WithdrawCrypto = () => {
 
         let coinsValue;
         let cryptoValue;
+        const foundPrice = selectedCurrency.Rate;
 
-        if (selectedCurrency.short === 'USDT') {
+        if (selectedCurrency.Code.startsWith('USDT')) {
             coinsValue = valueNum;
             cryptoValue = valueNum;
         } else {
-            const foundPrice = cryptoPrices['1min'][selectedCurrency.id];
-
             if (type === 'coins') {
                 coinsValue = valueNum;
                 cryptoValue = valueNum / foundPrice;
@@ -122,14 +171,36 @@ const WithdrawCrypto = () => {
             }
         }
 
-        setCoinsBalance(coinsValue.toFixed(2));
-        setCryptoBalance(cryptoValue.toFixed(8));
+        // if (selectedCurrency.short === 'USDT') {
+        //     coinsValue = valueNum;
+        //     cryptoValue = valueNum;
+        // } else {
+        //     const foundPrice = cryptoPrices['1min'][selectedCurrency.id];
+
+        //     if (type === 'coins') {
+        //         coinsValue = valueNum;
+        //         cryptoValue = valueNum / foundPrice;
+        //     } else {
+        //         cryptoValue = valueNum;
+        //         coinsValue = foundPrice * valueNum;
+        //     }
+        // }
+
+        setCoinsBalance(coinsValue);
+        setCryptoBalance(cryptoValue);
+
+        // setCoinsBalance(coinsValue.toFixed(2));
+        // setCryptoBalance(cryptoValue.toFixed(8));
     };
 
     const handleAmountBlur = () => {
         setCoinsBalance(addThousandsSeparator(coinsBalance));
-        setCryptoBalance(addThousandsSeparator(cryptoBalance, 8));
+        setCryptoBalance(addThousandsSeparator(cryptoBalance, 18));
     };
+
+    //For Dropdown4
+    const formattedSelectedCurrency = selectedCurrency ? { label: selectedCurrency.Name, ...selectedCurrency } : null;
+    const formattedCryptoOptions = cryptoOptions.map(option => ({ label: option.Name, ...option }));
 
     return (
         <>
@@ -154,20 +225,32 @@ const WithdrawCrypto = () => {
                 </div>
                 <div className={classes.Dropdown}>
                     <Dropdown4
-                        icon={selectedCurrency?.icon}
-                        options={cryptoOptions}
+                        icon={selectedCurrency?.Logo}
+                        options={formattedCryptoOptions}
                         withSearch
                         onSelect={(option) => selectCurrency(option)}
-                        placeholder={translate('Select a Crypto')}
-                        selected={selectedCurrency}
+                        selected={formattedSelectedCurrency}
+                        placeholder={selectedCurrency ? selectedCurrency.Name : translate('Select a Crypto')}
+
+                    // icon={selectedCurrency?.icon}
+                    // options={cryptoOptions}
+                    // withSearch
+                    // onSelect={(option) => selectCurrency(option)}
+                    // placeholder={translate('Select a Crypto')}
+                    // selected={selectedCurrency}
                     />
 
                     <Dropdown4
-                        disabled={!selectedCurrency?.network}
-                        options={selectedCurrency?.network ? getNetworks(selectedCurrency) : []}
+                        options={selectedCurrency?.Code ? getNetworks(selectedCurrency) : []}
                         onSelect={(network) => dispatch(cryptoActions.setSelectedNetwork(network))}
                         selected={selectedNetwork}
-                        placeholder={selectedCurrency ? selectedCurrency.label : translate('Network')}
+                        placeholder={selectedNetwork ? selectedNetwork.label : translate('Select Network')}
+
+                    // disabled={!selectedCurrency?.network}
+                    // options={selectedCurrency?.network ? getNetworks(selectedCurrency) : []}
+                    // onSelect={(network) => dispatch(cryptoActions.setSelectedNetwork(network))}
+                    // selected={selectedNetwork}
+                    // placeholder={selectedCurrency ? selectedCurrency.label : translate('Network')}
                     />
                 </div>
             </div>
@@ -182,7 +265,7 @@ const WithdrawCrypto = () => {
 
             <div className={classes.BtcAddressContainer}>
                 <label>
-                    {translate('Your')} {selectedCurrency?.short} {translate('withdraw address')}
+                    {translate('Your')} {selectedCurrency?.Name} {translate('withdraw address')}
                 </label>
                 <MainInput2 type='text' name='Widthdraw address' value={withdrawAddress} onChange={(value) => setWithdrawAddress(value)} />
             </div>
@@ -212,7 +295,7 @@ const WithdrawCrypto = () => {
                         onBlur={() => handleAmountBlur()}
                     />
                     {selectedCurrency ? (
-                        <img src={selectedCurrency.icon} loading='lazy' alt={selectedCurrency.label} />
+                        <img src={selectedCurrency.Logo} loading='lazy' alt={selectedCurrency.Code} />
                     ) : (
                         <div className={classes.CryptoContainerLoader}></div>
                     )}
@@ -220,10 +303,11 @@ const WithdrawCrypto = () => {
             </div>
 
             <div className={classes.ButtonWrapper}>
-                <MainButton color='primary' disabled={!selectedCurrency || withdrawAddress === ''}>
+                <MainButton color='primary' disabled={!selectedCurrency || withdrawAddress === '' || coinsBalance > user.Wallet.Balance || coinsBalance == 0 || !selectedNetwork}>
                     {translate('Submit Withdrawal')}
                 </MainButton>
             </div>
+
 
             {selectedCurrency && <div className={classes.WithdrawAdditionalInfo}>{translate('Min. withdrawal = $50, Estimated fees:')}</div>}
         </>
