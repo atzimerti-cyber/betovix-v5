@@ -80,10 +80,10 @@ const Withdraw = () => {
                     {crypto && (
                         <>
                             {uniqueCrypto.map((item) => {
-                                if (item.id === 'BEP-20') return null;
+                                if (item.Code === 'BEP-20') return null;
 
                                 return (
-                                    <div key={item.id} className={[classes.PaymentButtonContainer, classes.CryptoCoin].join(' ')}>
+                                    <div key={item.Id} className={[classes.PaymentButtonContainer, classes.CryptoCoin].join(' ')}>
                                         {item.available === false && (
                                             <div className={classes.PaymentDisabledOverlay}>
                                                 <span>{translate('Temporarily unavailable')}</span>

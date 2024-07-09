@@ -52,11 +52,11 @@ const CryptoCard = (props) => {
     const onClick = () => {
         if (user) {
             dispatch(cryptoActions.setSelectedCurrency(props.item));
-            dispatch(cryptoActions.setSelectedNetwork(props.Code));
+            
             navigateToModal('cashier', 'deposit', 'crypto');
         } else navigateToModal('auth', 'login');
     };
-
+//dispatch(cryptoActions.setSelectedNetwork(props.item.Code));
     return (
         <div className={classes.CryptoCard} style={{ '--crypto-color': '#2d6541a3' }} onClick={onClick}>
             <div className={classes.LogoContainer}>

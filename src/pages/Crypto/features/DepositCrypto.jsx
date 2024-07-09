@@ -104,6 +104,7 @@ const DepositCrypto = () => {
         if (!selectedCurrency) return;
 
         console.log("Selected Currency:", selectedCurrency);
+        console.log("Selected Network:", selectedNetwork);
 
         const controller = new AbortController();
         const signal = controller.signal;
@@ -193,7 +194,7 @@ const DepositCrypto = () => {
                         options={selectedCurrency?.Code ? getNetworks(selectedCurrency) : []}
                         onSelect={(network) => dispatch(cryptoActions.setSelectedNetwork(network))}
                         selected={selectedNetwork}
-                        placeholder={selectedNetwork ? selectedNetwork.Code : translate('Select Network')}
+                        placeholder={selectedNetwork ? selectedNetwork : translate('Select Network')}
                         // placeholder={selectedCurrency ? selectedCurrency.Code : translate('Network')}
                     />
                 </div>
