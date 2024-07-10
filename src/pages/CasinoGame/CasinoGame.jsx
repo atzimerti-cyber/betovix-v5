@@ -22,7 +22,7 @@ const CasinoGame = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const gameContentRef = useRef(null);
-    const { type, id, brandgameid, name } = useParams();
+    const { type, providername, id, brandgameid, name } = useParams();
 
     const [isExpanded, setIsExpanded] = useState(false);
     const [isFullScreen, setIsFullScreen] = useState(false);
@@ -42,8 +42,8 @@ const CasinoGame = () => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        if (type === 'live') dispatch(getLiveVendorGame(id, brandgameid, name, isDemo, signal));
-        else dispatch(getVendorGame(id, brandgameid, name, isDemo, signal));
+        if (type === 'live') dispatch(getLiveVendorGame(providername, id, brandgameid, name, isDemo, signal));
+        else dispatch(getVendorGame(providername, id, brandgameid, name, isDemo, signal));
 
         return () => {
             controller.abort();
@@ -119,7 +119,8 @@ const CasinoGame = () => {
                                 <iframe
                                     className={classes.GameIframe}
                                     src={casinoGame.url}
-                                    allow='autoplay; clipboard-write; geolocation;camera;microphone'
+                                    allow='autoplay; clipboard-write;'
+                                    // allow='autoplay; clipboard-write; geolocation;camera;microphone'
                                     width='100%'
                                     height='100%'
                                 ></iframe>

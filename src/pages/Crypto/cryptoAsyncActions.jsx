@@ -62,12 +62,13 @@ export const getDepositAddress = (signal) => {
         try {
             const state = getState();
             const coin = state.crypto.selectedCurrency;
+            const network = state.crypto.selectedNetwork;
             const lang = getLang();
 
             const response = await axiosApi.post(
                 `/Payments/PostData?action=HandlePaymentMethod&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
                 {
-                    data: `{ "Name":"${coin.Provider}", "curr": "${coin.Code}" }`,
+                    data: `{ "Name":"${coin.Provider}", "curr": "${network.label}" }`,
                 },
                 {
                     signal: signal,

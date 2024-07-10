@@ -131,6 +131,15 @@
     background-color: hsla(0, 0%, 100%, 0.10196078431372549);
 }
 
+.Dropdown.RedBorder {
+    border: 1px solid rgb(180, 43, 43);
+    border-radius: 0.5rem;
+}
+
+.PlaceholderRed {
+    color: rgb(231, 104, 104);
+}
+
 @media (min-width: 640px) {
     .Label {
         gap: 0.75rem;

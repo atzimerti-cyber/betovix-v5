@@ -92,6 +92,7 @@ const FavoriteGames = () => {
         const sorted = getSorted(updatedGamesObj);
 
         setGamesObj(sorted);
+        console.log(gamesObj);
     }, [filteredGames, selectedProviders, debSearchString, sorting]);
 
     const getSorted = (updatedGamesObj) => {

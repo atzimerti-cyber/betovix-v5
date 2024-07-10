@@ -12,7 +12,8 @@ const CasinoGameCard = (props) => {
 
     return (
         <li>
-            <Link to={`/casino/game/${gameType}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}`}>
+            <Link to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}`}>
+            {/* <Link to={`/casino/game/${gameType}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}`}> */}
                 <article className={classes.GameCard}>
                     <div className={classes.ImageContainer}>
                         {!isLoaded && <LoaderPlaceholder />}

@@ -113,32 +113,85 @@ export const removeFavoriteCasino = (gameId) => {
     };
 };
 
-export const getVendorGame = (id, brandgameid, gameName, isDemo, signal) => {
+export const getVendorGame = (providername, id, brandgameid, gameName, isDemo, signal) => {
     return async (dispatch) => {
         try {
             dispatch(appActions.setBarLoading(true));
             const lang = getLang();
 
-            const requests = [
-                axiosApi.get(`MyCasino/GetGame?id=${id}&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`, {
-                    signal: signal,
-                    baseURLOverride: import.meta.env.VITE_CASINO_BASE,
-                }),
-                axiosApi.get(
-                    `CasinoVegas/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=false&lang=${lang.id}&lobbyUrl=${
-                        import.meta.env.VITE_HOME_URL
-                    }/casino&siteid=${import.meta.env.VITE_SITE_ID}`,
-                    { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_BASE }
-                ),
-            ];
-            const responses = await Promise.all(requests);
-            responses.forEach((response) => {
-                if (response.data.Status.StatusCode !== 200) throw Error();
-            });
+            let requests = [];
+            var game;
+            var gameUrl;
+            var urlObj;
 
-            const game = responses[0].data.Contents;
-            const urlObj = JSON.parse(responses[1].data.Contents);
-            const gameUrl = urlObj.url;
+            if (providername === "Softion") {
+                requests = [
+                    axiosApi.get(
+                        `Casino${providername}/GetGame?gameid=${id}&gamename=${gameName}&demo=${isDemo}&IsBonus=false&lang=${lang.id}&lobbyUrl=${import.meta.env.VITE_HOME_URL
+                        }/casino&siteid=${import.meta.env.VITE_SITE_ID}`,
+                        { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_BASE }
+                    ),
+                ];
+
+                const responses = await Promise.all(requests);
+                responses.forEach((response) => {
+                    if (response.data.Status.StatusCode !== 200) throw Error();
+                });
+                //game = responses[0].data.Contents;
+                gameUrl = responses[0].data.Contents;
+
+            } else if (providername === "Vegas" || providername === "Amarix") {
+                requests = [
+                    axiosApi.get(
+                        `Casino${providername}/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=false&lang=${lang.id}&lobbyUrl=${import.meta.env.VITE_HOME_URL
+                        }/casino&siteid=${import.meta.env.VITE_SITE_ID}`,
+                        { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_BASE }
+                    ),
+                ];
+
+                const responses = await Promise.all(requests);
+                responses.forEach((response) => {
+                    if (response.data.Status.StatusCode !== 200) throw Error();
+                });
+
+                if (providername === "Amarix") {
+                    gameUrl = responses[0].data.Contents;
+                } else if (providername === "Vegas") {
+                    urlObj = (JSON.parse(responses[0].data.Contents));
+                    gameUrl = urlObj.url;
+                }
+                //game = responses[0].data.Contents;
+            } else if (providername === "Aviatrix") {
+                requests = [
+                    axiosApi.get(
+                        `Casino${providername}/Get${providername}Game?gameid=${id}&gamename=${gameName}&demo=${isDemo}&IsBonus=false&lang=${lang.id}&lobbyUrl=${import.meta.env.VITE_HOME_URL
+                        }/casino&siteid=${import.meta.env.VITE_SITE_ID}`,
+                        { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_BASE }
+                    ),
+                ];
+
+                const responses = await Promise.all(requests);
+                responses.forEach((response) => {
+                    if (response.data.Status.StatusCode !== 200) throw Error();
+                });
+                //game = responses[0].data.Contents;
+                gameUrl = responses[0].data.Contents;
+            } else if (providername === "MultiGames") {
+                requests = [
+                    axiosApi.get(
+                        `${providername}/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=false&lang=${lang.id}&lobbyUrl=${import.meta.env.VITE_HOME_URL
+                        }/casino&siteid=${import.meta.env.VITE_SITE_ID}`,
+                        { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_BASE }
+                    ),
+                ];
+
+                const responses = await Promise.all(requests);
+                responses.forEach((response) => {
+                    if (response.data.Status.StatusCode !== 200) throw Error();
+                });
+                //game = responses[0].data.Contents;
+                gameUrl = responses[0].data.Contents;
+            }
 
             dispatch(casinoActions.setCasinoGame({ game: game, url: gameUrl }));
             dispatch(appActions.setBarLoading(false));
@@ -149,31 +202,48 @@ export const getVendorGame = (id, brandgameid, gameName, isDemo, signal) => {
     };
 };
 
-export const getLiveVendorGame = (id, gameId, gameName, isDemo, signal) => {
+export const getLiveVendorGame = (providername, id, brandgameid, gameName, isDemo, signal) => {
     return async (dispatch) => {
         try {
             dispatch(appActions.setBarLoading(true));
             const lang = getLang();
 
-            const requests = [
-                axiosApi.get(`MyCasino/GetGame?id=${id}&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`, {
-                    signal: signal,
-                    baseURLOverride: import.meta.env.VITE_CASINO_BASE,
-                }),
-                axiosApi.get(
-                    `MultiGames/GetGame?gameid=${gameId}&gamename=${gameName}&demo=${isDemo}&IsBonus=false&lang=${lang.id}&lobbyUrl=${
-                        import.meta.env.VITE_HOME_URL
-                    }&siteid=${import.meta.env.VITE_SITE_ID}`,
-                    { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_BASE }
-                ),
-            ];
-            const responses = await Promise.all(requests);
-            responses.forEach((response) => {
-                if (response.data.Status.StatusCode !== 200) throw Error();
-            });
+            let requests = [];
+            var game;
+            var gameUrl;
+            //var urlObj;
 
-            const game = responses[0].data.Contents;
-            const gameUrl = responses[1].data.Contents;
+            if (providername === "MultiGames") {
+                requests = [
+                    axiosApi.get(
+                        `${providername}/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=false&lang=${lang.id}&lobbyUrl=${import.meta.env.VITE_HOME_URL
+                        }/casino&siteid=${import.meta.env.VITE_SITE_ID}`,
+                        { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_BASE }
+                    ),
+                ];
+
+                const responses = await Promise.all(requests);
+                responses.forEach((response) => {
+                    if (response.data.Status.StatusCode !== 200) throw Error();
+                });
+                //game = responses[0].data.Contents;
+                gameUrl = responses[0].data.Contents;
+
+            } else if (providername === "Beter") {
+                requests = [
+                    axiosApi.get(
+                        `Casino${providername}/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=false&lang=${lang.id}&lobbyUrl=${import.meta.env.VITE_HOME_URL
+                        }/casino&siteid=${import.meta.env.VITE_SITE_ID}`,
+                        { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_BASE }
+                    ),
+                ];
+
+                const responses = await Promise.all(requests);
+                responses.forEach((response) => {
+                    if (response.data.Status.StatusCode !== 200) throw Error();
+                });
+                gameUrl = responses[0].data.Contents;
+            }
 
             dispatch(casinoActions.setCasinoGame({ game: game, url: gameUrl }));
             dispatch(appActions.setBarLoading(false));

@@ -68,7 +68,8 @@ const SwiperWithOverlay = (props) => {
                         return (
                             <SwiperSlide key={item.Data.Id}>
                                 <div className={classes.SlideContainer}>
-                                    <Link to={`/casino/game/${gameType}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}`}>
+                                    <Link to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}`}>
+                                    {/* <Link to={`/casino/game/${gameType}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}`}> */}
                                         <article className={classes.Card}>
                                             <div className={classes.ImageContainer}>
                                                 {loadedImages.includes(index) === false && <LoaderPlaceholder />}

@@ -31,10 +31,7 @@ import { setLang } from '../../utils/storage';
 import { ticketActions } from '../Ticket/ticketSlice';
 import { betslipActions } from '../Betslip/betslipSlice';
 
-/////
 import { getCrypto } from '../../pages/Crypto/cryptoAsyncActions';
-/////
-import cryptoPrices from '../../dummyData/cryptoPrices';
 
 export const loadInitData = (isMobile) => {
     return async (dispatch, getState) => {

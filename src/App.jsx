@@ -41,7 +41,8 @@ function App() {
                             ),
                         },
                         {
-                            path: '/casino/game/:type/:id/:brandgameid/:name',
+                            // path: '/casino/game/:type/:id/:brandgameid/:name',
+                            path: '/casino/game/:type/:providername/:id/:brandgameid/:name',
                             element: (
                                 <Suspense fallback={<PageFallback />}>
                                     <HasPermission checkPermissions={['AllowToCasino', 'AllowToSlots']}>

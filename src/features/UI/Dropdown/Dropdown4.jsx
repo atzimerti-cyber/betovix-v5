@@ -52,11 +52,13 @@ const Dropdown4 = (props) => {
     }, []);
 
     return (
-        <div className={classes.Dropdown}>
+        <div className={`${classes.Dropdown} ${!props.selected ? classes.RedBorder : ''}`}>
             <DsButton color='transparent' disabled={props.disabled} onClick={onButtonClick}>
                 <div className={classes.Label}>
                     {props.icon && <img src={props.icon} loading='lazy' alt={props.placeholder} />}
-                    <span>{props.selected ? props.selected.label : props.placeholder}</span>
+                    <span className={!props.selected ? classes.PlaceholderRed : ''}>
+                        {props.selected ? props.selected.label : props.placeholder}
+                    </span>
                 </div>
                 <CaretDownIcon className={classes.DownArrow} />
             </DsButton>

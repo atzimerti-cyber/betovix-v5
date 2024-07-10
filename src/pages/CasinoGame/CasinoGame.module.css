@@ -18,6 +18,7 @@
 }
 .CasinoGameWrapper.Expanded .Placeholder {
     height: calc(-185px + 100vh);
+    /* height: calc(-185px + 100vh); */
 }
 
 .Header {
@@ -33,7 +34,8 @@
 
 .Placeholder {
     position: relative;
-    --aspect-ratio: (55/31);
+    --aspect-ratio: (45/31);
+    /* --aspect-ratio: (55/31); */
 }
 .Placeholder::before {
     height: 0px;

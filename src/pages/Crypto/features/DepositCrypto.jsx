@@ -109,8 +109,11 @@ const DepositCrypto = () => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        dispatch(getDepositAddress(signal));
-    }, [selectedCurrency?.Id]);
+        if (selectedNetwork) {
+            dispatch(getDepositAddress(signal));
+        }
+
+    }, [selectedCurrency?.Id, selectedNetwork]);
 
     const getNetworks = (item) => {
         let networks = [];
@@ -184,8 +187,8 @@ const DepositCrypto = () => {
                         // selected={selectedCurrency}
                         // placeholder={translate('Select a Crypto')}
                         placeholder={selectedCurrency ? selectedCurrency.Name : translate('Select a Crypto')}
-                        // placeholder={translate('Select a Crypto')}
-                        
+                    // placeholder={translate('Select a Crypto')}
+
                     />
 
                     <Dropdown4
@@ -195,7 +198,7 @@ const DepositCrypto = () => {
                         onSelect={(network) => dispatch(cryptoActions.setSelectedNetwork(network))}
                         selected={selectedNetwork}
                         placeholder={selectedNetwork ? selectedNetwork : translate('Select Network')}
-                        // placeholder={selectedCurrency ? selectedCurrency.Code : translate('Network')}
+                    // placeholder={selectedCurrency ? selectedCurrency.Code : translate('Network')}
                     />
                 </div>
             </div>

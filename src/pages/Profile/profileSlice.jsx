@@ -19,7 +19,7 @@ const initialState = {
         { id: 3, name: "Lee", icon: lee, icontb: leetb, description: "the Dragon Warrior" },
         { id: 4, name: "Jack", icon: jack, icontb: jacktb, description: "the Jackaroo" },
         { id: 5, name: "Sam", icon: sam, icontb: samtb, description: "the Eagle" },
-        { id: 6, name: "Nia", icon: "", icontb: "", description: "the Numbian" },
+        { id: 6, name: "Nia", icon: "", icontb: "", description: "the Numbian Queen" },
     ],
     selectedHero: { id: 1, name: "Erik", icon: erik, icontb: eriktb, description: "the Viking" },
     heroLevels: [],
