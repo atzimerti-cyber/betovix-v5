@@ -95,12 +95,15 @@ const Home = () => {
 
                 <Crypto />
 
-                {user && (permissions.AllowToCasino || permissions.AllowToSlots) ? (
+                {permissions.AllowToSports && (
                     <>
-                        <SwiperWithOverlay title='Recently Played' icon={<ClockIcon />} items={filteredGames.recentGames?.Data} />
-                        <SwiperWithOverlay title='Favorites' icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} />
+                        <LiveEvents />
+
+                        <div ref={divs[0].ref}>
+                            <TopEvents />
+                        </div>
                     </>
-                ) : null}
+                )}
 
                 {permissions.AllowToCasino || permissions.AllowToSlots ? (
                     <SwiperWithOverlay
@@ -111,15 +114,13 @@ const Home = () => {
                     />
                 ) : null}
 
-                {permissions.AllowToSports && (
+                {user && (permissions.AllowToCasino || permissions.AllowToSlots) ? (
                     <>
-                        <LiveEvents />
-
-                        <div ref={divs[0].ref}>
-                            <TopEvents />
-                        </div>
+                        <SwiperWithOverlay title='Recently Played' icon={<ClockIcon />} items={filteredGames.recentGames?.Data} />
+                        <SwiperWithOverlay title='Favorites' icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} />
                     </>
-                )}
+                ) : null}
+
             </div>
         </div>
     );

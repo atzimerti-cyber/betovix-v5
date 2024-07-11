@@ -18,10 +18,12 @@ import { millisecondsToDateStr } from '../../../utils/custom';
 import { translate } from '../../../utils/translations';
 
 import { modalActions } from '../../../features/ModalRoot/modalSlice';
+import { profileActions } from '../profileSlice'; 
 import levels from '../../../dummyData/levels';
 import rewards from '../../../dummyData/rewards';
 import MainButton from '../../../features/UI/Buttons/MainButton';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { getHeroes } from '../profileAsyncActions';
 
 const Hero = () => {
     const dispatch = useDispatch();
@@ -36,8 +38,8 @@ const Hero = () => {
 
     const [activeLevel, setActiveLevel] = useState(user?.level);
 
-    dispatch(modalActions.setLevels(levels));
-    dispatch(modalActions.setRewards(rewards));
+    //dispatch(modalActions.setLevels(levels));
+    //dispatch(modalActions.setRewards(rewards));
 
     const addParamsToUrl = (modal, tab) => {
         const searchParams = new URLSearchParams(location.search);
@@ -47,14 +49,14 @@ const Hero = () => {
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     };
 
-    // useEffect(() => {
-    //     const controller = new AbortController();
-    //     const signal = controller.signal;
+    useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
 
-    //     dispatch(getOverview(signal));
+        dispatch(getHeroes(signal));
 
-    //     return () => dispatch(profileActions.setTopGames(null));
-    // }, []);
+        return () => dispatch(profileActions.setTopGames(null));
+    }, []);
 
     return (
         <motion.div className={classes.TabContent} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.2 }}>

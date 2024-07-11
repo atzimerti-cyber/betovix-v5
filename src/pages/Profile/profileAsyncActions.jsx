@@ -35,16 +35,16 @@ export const getHeroes = (signal) => {
         try {
             const lang = getLang();
 
-            const response = await axiosApi.post(
-                `/Payments/PostData?action=GetPaymentMethods&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
-                {},
+            const response = await axiosApi.get(
+                `/Gamification/GetAllHeroes`,
                 {
                     signal: signal,
                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
                 }
             );
 
-            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch heroes');
+            // if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch heroes');
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
            
             const heroes = response.data.Contents;
             console.log("All Heroes:", heroes);
