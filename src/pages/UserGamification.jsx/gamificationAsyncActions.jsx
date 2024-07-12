@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { getLang } from '../../utils/storage';
 import axiosApi from '../../axios-api';
 import { gamificationActions } from './userGamificationSlice';
+import { modalActions } from '../../features/ModalRoot/modalSlice';
 
 export const getHeroes = (signal) => {
     return async (dispatch) => {
@@ -21,18 +22,31 @@ export const getHeroes = (signal) => {
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
            
             console.log(response.data.Contents);
-            response.data.Contents.sort((a, b) => a.name.localeCompare(b.name));
+            //response.data.Contents.sort((a, b) => a.Hero.name.localeCompare(b.Hero.name));
 
             const heroes = response.data.Contents.map(hero => ({
-                banner: hero.metadata.PreviewImage,
-                id: hero.id,
-                icon: hero.metadata.CloseUp,
-                description: hero.description,
+                banner: hero.Hero.metadata.PreviewImage,
+                id: hero.Hero.id,
+                icon: hero.Hero.metadata.CloseUp,
+                description: hero.Hero.description,
                 metadata: {
-                    HeroName: hero.metadata.HeroName,
-                    HeroSubName: hero.metadata.HeroSubName,
-                    isHero: hero.metadata.isHero
-                }
+                    HeroName: hero.Hero.metadata.HeroName,
+                    HeroSubName: hero.Hero.metadata.HeroSubName,
+                    isHero: hero.Hero.metadata.isHero
+                },
+                levels: hero.Levels.map(level => ({
+                    id: level.Levels.id,
+                    icon: level.Levels.icon,
+                    name: level.Levels.name,
+                    description: level.Levels.description,
+                    milestones: level.Milestone.map(milestone => ({
+                        id: milestone.id,
+                        icon: milestone.icon,
+                        spaceName: milestone.spaceName,
+                        name: milestone.name,
+                        description: milestone.description,
+                      }))
+                  }))
             }));
 
             console.log("Filtered Heroes:", heroes);

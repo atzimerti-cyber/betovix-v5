@@ -8,6 +8,7 @@ import VideoIcon from '../../../assets/svgs/video.svg?react';
 import classes from './LiveEvents.module.css';
 import SkeletonGame from '../../../features/UI/Skeletons/SkeletonGame';
 import GameCard from '../../../features/Game/GameCard';
+import { translate } from '../../../utils/translations';
 
 const LiveEvents = () => {
     const liveState = useSelector((state) => state.live.liveState);
@@ -31,7 +32,7 @@ const LiveEvents = () => {
             slidesPerView={slidesPerView}
             slidesPerGroup={slidesPerGroup}
             icon={<VideoIcon />}
-            title={<Link to='/sportsbook/live'>Live Events</Link>}
+            title={<Link to='/sportsbook/live'>{translate('Live Events')}</Link>}
             viewAll='/sportsbook/live'
         >
             {liveState

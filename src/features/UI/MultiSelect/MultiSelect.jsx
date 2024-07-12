@@ -7,6 +7,7 @@ import Dropdown3 from '../Dropdown/Dropdown3';
 import SearchIcon from '../../../assets/svgs/search.svg?react';
 import CheckboxEmptyIcon from '../../../assets/svgs/checkbox-empty.svg?react';
 import CheckboxIcon from '../../../assets/svgs/checkbox.svg?react';
+import { translate } from '../../../utils/translations';
 
 const MultiSelect = (props) => {
     const [showDropdown, setShowDropdown] = useState(false);
@@ -63,7 +64,7 @@ const MultiSelect = (props) => {
                                         className={selectedOptions.length > 0 ? classes.ClearLabel : [classes.ClearLabel, classes.Disabled].join(' ')}
                                         onClick={() => setSelectedOptions([])}
                                     >
-                                        Clear Selection
+                                        {translate('Clear Selection')}
                                         <span className={classes.SelectedCount}>{selectedOptions.length > 0 ? '(' + selectedOptions.length + ')' : '(0)'}</span>
                                     </div>
                                 </div>

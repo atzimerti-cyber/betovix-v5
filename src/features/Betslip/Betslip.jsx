@@ -216,9 +216,9 @@ const Betslip = memo(function (props) {
             <div className={classes.TabsWrapper}>
                 <Tabs
                     tabs={[
-                        { id: 'Single', label: 'Single', active: betType === 'Single' },
-                        { id: 'Multiple', label: 'Multi', active: betType === 'Multiple' },
-                        { id: 'System', label: 'System', active: betType === 'System' },
+                        { id: 'Single', label: translate('Single'), active: betType === 'Single' },
+                        { id: 'Multiple', label: translate('Multi'), active: betType === 'Multiple' },
+                        { id: 'System', label: translate('System'), active: betType === 'System' },
                     ]}
                     onChangeTab={(tab) => onChangeTab(tab)}
                     type='buttons'

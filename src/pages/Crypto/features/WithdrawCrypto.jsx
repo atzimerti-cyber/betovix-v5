@@ -135,9 +135,9 @@ const WithdrawCrypto = () => {
     const updateBalance = (type, value) => {
         //const valueNum = parseFloat(value);
         let valueNum;
-        if (isNaN(value)){
+        if (isNaN(value)) {
             valueNum = 0;
-        }else{
+        } else {
             valueNum = value;
         }
         // if (value > balance) {
@@ -194,6 +194,19 @@ const WithdrawCrypto = () => {
     };
 
     const handleAmountBlur = () => {
+        const addThousandsSeparator = (number, decimals = 2) => {
+            if (typeof number === 'number') {
+                number = number.toFixed(decimals);
+            }
+            const parts = number.split('.');
+            const integerPart = parts[0];
+            const decimalPart = parts.length > 1 ? parts[1] : '';
+
+            const withCommas = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
+            return decimalPart ? `${withCommas}.${decimalPart}` : withCommas;
+        };
+
         setCoinsBalance(addThousandsSeparator(coinsBalance));
         setCryptoBalance(addThousandsSeparator(cryptoBalance, 18));
     };
