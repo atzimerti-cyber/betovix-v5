@@ -79,8 +79,8 @@ const HeroSwiperWithOverlay = (props) => {
 
                                     </article>
                                     <div className={classes.HeroName}>
-                                        <p className={classes.Name}>{item.name}</p>
-                                        <p className={classes.Desc}>{item.description}</p>
+                                        <p className={classes.Name}>{item.metadata.HeroName}</p>
+                                        <p className={classes.Desc}>{item.metadata.HeroSubName}</p>
                                     </div>
                                 </div>
                             </SwiperSlide>

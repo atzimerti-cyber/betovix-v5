@@ -14,7 +14,8 @@ import Overview from './features/Overview';
 import Settings from './features/Settings';
 import Verification from './features/Verification';
 
-import Hero from './features/Hero';
+//import Hero from './features/Hero';
+import Heroes from '../UserGamification.jsx/features/Heroes';
 
 import BarLoading from '../../features/UI/BarLoading/BarLoading';
 import { translate } from '../../utils/translations';
@@ -60,7 +61,8 @@ const Profile = () => {
 
                         <div className={classes.TabPanel}>
                             {selectedTab === 'overview' && <Overview />}
-                            {selectedTab === 'heroes' && <Hero />}
+                            {selectedTab === 'heroes' && <Heroes />}
+                            {/* {selectedTab === 'heroes' && <Hero />} */}
                             {selectedTab === 'settings' && <Settings />}
                             {selectedTab === 'verification' && <Verification />}
                         </div>
