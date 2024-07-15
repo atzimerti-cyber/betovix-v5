@@ -7,6 +7,8 @@ import CashierModal from './Modals/CashierModal';
 import LoginModal from './Modals/LoginModal';
 import OddsFormatModal from './Modals/OddsFormatModal';
 import VipModal from './Modals/VipModal';
+import BonusModal from './Modals/BonusModal';
+
 import SearchModal from './Modals/SearchModal';
 
 import AchievementModal from './Modals/AchievementModal';
@@ -58,6 +60,10 @@ const ModalRoot = () => {
     } else if (modal === 'auth') modalPage = <LoginModal tab={tab} onClose={returnToPrevious} />;
     else if (modal === 'odds-format') modalPage = <OddsFormatModal />;
     else if (modal === 'vip') modalPage = <VipModal />;
+    else if (modal === 'bonus') {
+        if (user) modalPage = <BonusModal/>;
+        else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;
+    }
     else if (modal === 'search') modalPage = <SearchModal />;
     else if (modal === 'achievement') modalPage = <AchievementModal />;
     else if (modal === 'hero-confirm') modalPage = <HeroConfirmation />;

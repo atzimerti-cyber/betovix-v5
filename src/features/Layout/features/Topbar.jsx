@@ -115,6 +115,11 @@ const Topbar = () => {
                                 </div>
                                 <div className={classes.VipIconContainer}></div>
                             </MainButton>
+                            <MainButton color='transparent' onClick={() => addParamsToUrl('bonus')}>
+                                <div className={classes.BonusButton}>
+                                    <div className={classes.BonusButtonColir}>Bonus</div>
+                                </div>
+                            </MainButton>
                             <div className={classes.DropDownWrapper}>
                                 <div className={classes.DropDownLabel} onClick={() => dispatch(layoutActions.setUserDropdownVisible(!userDropdownVisible))}>
                                     <MainButton color='transparent'>
