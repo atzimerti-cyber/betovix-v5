@@ -10,15 +10,27 @@ import CloseButton from '../../UI/Buttons/CloseButton';
 
 import { translate } from '../../../utils/translations';
 import MainButton from '../../UI/Buttons/MainButton';
+import { selectedHero } from '../../../pages/UserGamification.jsx/gamificationAsyncActions';
+import { gamificationActions } from '../../../pages/UserGamification.jsx/userGamificationSlice';
 
 
-const AchievementModal = () => {
+const HeroConfirmationModal = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
 
     const user = useSelector((state) => state.login.user);
-    const selectedHero = useSelector((state) => state.profile.selectedHero);
+    const displayedHeroAction = useSelector((state) => state.gamification.displayedHero.metadata.action)
+    const displayedHero = useSelector((state) => state.gamification.displayedHero)
+
+    const handleButtonClick = () => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        dispatch(selectedHero(displayedHeroAction, signal));
+        dispatch(gamificationActions.setSelectedHero(displayedHero));
+        navigate(location.pathname);
+    };
 
 
 
@@ -46,7 +58,7 @@ const AchievementModal = () => {
                     </p>
                 </div>
                 <div className={classes.Buttons}>
-                    <MainButton color='bv-light-green'>
+                    <MainButton color='bv-light-green' onClick={handleButtonClick}>
                         <span>YES, I am sure</span>
                     </MainButton>
                     <MainButton color='dark' onClick={() => navigate(location.pathname)}>
@@ -58,4 +70,4 @@ const AchievementModal = () => {
     );
 };
 
-export default AchievementModal;
+export default HeroConfirmationModal;

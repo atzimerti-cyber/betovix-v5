@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
@@ -8,17 +8,14 @@ import classes from './Heroes.module.css';
 
 import MainButton from '../../../features/UI/Buttons/MainButton';
 import HeroDisplaySwiper from '../../../features/UI/MainSwiper/HeroDisplaySwiper';
-import Levels from '../../../features/ModalRoot/features/Levels';
-import Milestones from '../../../features/ModalRoot/features/Milestones';
 import LogoSmallIcon from '../../../assets/svgs/logo-small.svg?react';
 
+import Levels from './Levels';
+import Milestones from './Milestones';
+
 import { getHeroes } from '../gamificationAsyncActions';
-import { gamificationActions } from '../userGamificationSlice';
 
-
-import OverviewCategory from '../../Profile/features/OverviewCategory';
-
-const Heroes = () => {
+const Heroes = React.memo(() => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -26,14 +23,11 @@ const Heroes = () => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
     const heroes = useSelector((state) => state.gamification.heroes);
-    const user = useSelector((state) => state.login.user);
-    //const selectedHero = useSelector((state) => state.profile.selectedHero);
-    const selectedHero = useSelector((state) => state.gamification.selectedHero);
+    //const user = useSelector((state) => state.login.user);
+    const displayedHero = useSelector((state) => state.gamification.displayedHero);
 
-    const [activeLevel, setActiveLevel] = useState(user?.level);
+    const [activeLevel, setActiveLevel] = useState(null);
 
-    //dispatch(modalActions.setLevels(levels));
-    //dispatch(modalActions.setRewards(rewards));
 
     const addParamsToUrl = (modal, tab) => {
         const searchParams = new URLSearchParams(location.search);
@@ -50,16 +44,55 @@ const Heroes = () => {
         dispatch(getHeroes(signal));
 
         return () => { };
-    }, []);
+    }, [dispatch]);
+
+    useEffect(() => {
+        if (displayedHero && Object.keys(displayedHero).length > 0) {
+            setActiveLevel(displayedHero.levels[0]?.id);
+        }
+    }, [displayedHero]);
+
+    //   console.log(activeLevel);
+    //   console.log(displayedHero);
 
     return (
         <motion.div className={classes.TabContent} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.2 }}>
-            <p className={classes.OverviewTitle}>{translate('Heroes')}</p>
+            {/* <p className={classes.OverviewTitle}>{translate('Heroes')}</p> */}
 
-            <div className={classes.GridContainer}>
+            {displayedHero && Object.keys(displayedHero).length > 0 && (
+                <div className={classes.GridContainer}>
+                    <div className={classes.DisplayContainer}>
+                        <div className={classes.ImageContainer}>
+                            <img src={displayedHero.banner} loading='lazy' alt={displayedHero.name} />
+                        </div>
+                    </div>
+
+                    <div className={classes.SelectHeroBtn}>
+                        <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
+                            <span>Select Hero</span>
+                        </MainButton>
+                    </div>
+
+                    <section className={classes.LevelUpSection}>
+                        <div className={classes.LevelUpMilestone}>
+                            <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
+                            <Milestones activeLevel={activeLevel} />
+                        </div>
+                    </section>
+
+                    <div className={classes.HeroDescription}>
+                        <p className={classes.DescTitle}>{translate(displayedHero.metadata.HeroName + ' ' + displayedHero.metadata.HeroSubName)}</p>
+                        <div className={classes.ImageContainer}>
+                            <p className={classes.Description}>{translate(displayedHero.description)}</p>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {/* <div className={classes.GridContainer}>
                 <div className={classes.DisplayContainer}>
                     <div className={classes.ImageContainer}>
-                        <img src={selectedHero.banner} loading='lazy' alt={selectedHero.HeroName} />
+                        <img src={displayedHero.banner} loading='lazy' alt={displayedHero.metadata.HeroName} />
                     </div>
                 </div>
 
@@ -77,31 +110,19 @@ const Heroes = () => {
                 </section>
 
                 <div className={classes.HeroDescription}>
-                    <p className={classes.DescTitle}>{translate('Description')}</p>
+                    <p className={classes.DescTitle}>{translate(displayedHero.metadata.HeroName + ' ' + displayedHero.metadata.HeroSubName)}</p>
                     <div className={classes.ImageContainer}>
-                        <p className={classes.Description}>{selectedHero.description}</p>
+                        <p className={classes.Description}>{translate(displayedHero.description)}</p>
                     </div>
                 </div>
-
-                {/* <div className={classes.Rewards}>
-                    <OverviewCategory title='Instant' percentage='20%' bits={20} />
-                    <OverviewCategory title='Daily' percentage='0%' bits={0} />
-                    <OverviewCategory title='Weekly' percentage='0%' bits={0} />
-                    <OverviewCategory title='Monthly' percentage='0%' bits={0} />
-                    <OverviewCategory title='Leaderboard' percentage='0%' bits={90} />
-                    <OverviewCategory title='Level up bonus' percentage='0%' bits={0} />
-                    <OverviewCategory title='Other' percentage='0%' bits={0} />
-                    <OverviewCategory title='Other' percentage='0%' bits={0} />
-                    <OverviewCategory title='Other' percentage='0%' bits={0} />
-                    <OverviewCategory title='Other' percentage='0%' bits={0} />
-                </div> */}
-            </div>
+            </div> */}
 
             <div className={classes.HeroesContainer}>
                 <HeroDisplaySwiper title='Heroes' icon={<LogoSmallIcon />} items={heroes} />
             </div>
         </motion.div>
     );
-};
+});
+
 
 export default Heroes;

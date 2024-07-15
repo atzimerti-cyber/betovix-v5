@@ -3,11 +3,12 @@ import { toast } from 'react-toastify';
 import { getLang } from '../../utils/storage';
 import axiosApi from '../../axios-api';
 import { gamificationActions } from './userGamificationSlice';
-import { modalActions } from '../../features/ModalRoot/modalSlice';
+import { appActions } from '../../features/InitApp/appSlice';
 
 export const getHeroes = (signal) => {
     return async (dispatch) => {
         try {
+            dispatch(appActions.setBarLoading(true));
             const lang = getLang();
 
             const response = await axiosApi.get(
@@ -18,11 +19,7 @@ export const getHeroes = (signal) => {
                 }
             );
 
-            // if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch heroes');
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
-           
-            console.log(response.data.Contents);
-            //response.data.Contents.sort((a, b) => a.Hero.name.localeCompare(b.Hero.name));
 
             const heroes = response.data.Contents.map(hero => ({
                 banner: hero.Hero.metadata.PreviewImage,
@@ -32,26 +29,54 @@ export const getHeroes = (signal) => {
                 metadata: {
                     HeroName: hero.Hero.metadata.HeroName,
                     HeroSubName: hero.Hero.metadata.HeroSubName,
-                    isHero: hero.Hero.metadata.isHero
+                    isHero: hero.Hero.metadata.isHero,
+                    action: hero.Hero.metadata.action,
                 },
                 levels: hero.Levels.map(level => ({
-                    id: level.Levels.id,
-                    icon: level.Levels.icon,
-                    name: level.Levels.name,
-                    description: level.Levels.description,
-                    milestones: level.Milestone.map(milestone => ({
+                    id: level.Level.id,
+                    icon: level.Level.icon,
+                    name: level.Level.metadata.Name,
+                    description: level.Level.description,
+                    milestones: level.Milestones.map(milestone => ({
                         id: milestone.id,
                         icon: milestone.icon,
                         spaceName: milestone.spaceName,
-                        name: milestone.name,
+                        name: milestone.metadata?.Name,
                         description: milestone.description,
                       }))
+                      .sort((a, b) => a.name.localeCompare(b.name))
                   }))
+                  .sort((a, b) => a.name.localeCompare(b.name))
             }));
+           
 
             console.log("Filtered Heroes:", heroes);
             dispatch(gamificationActions.setHeroes(heroes));
-            dispatch(gamificationActions.setSelectedHero(heroes[0]));
+            dispatch(gamificationActions.setDisplayedHero(heroes[0]));
+            dispatch(appActions.setBarLoading(false));
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+            dispatch(appActions.setBarLoading(false));
+        }
+    };
+};
+
+export const selectedHero = (displayedHeroAction, signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.get(
+                `/Gamification/SelectHero?action=${displayedHeroAction}`,
+                {
+                    signal: signal,
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
+
+            
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
