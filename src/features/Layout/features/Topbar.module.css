@@ -143,6 +143,7 @@
     top: 0;
     left: 0;
     display: flex;
+    gap: .5rem;
     height: 100%;
     width: 100%;
     flex-grow: 0;
@@ -165,7 +166,37 @@
     align-items: center;
     padding: 0;
 }
+.BonusButtonContainer {
+    position: relative;
+    display: inline-block;
+}
 
+.BonusButtonContainer > button {
+    border-width: 1px;
+    border-color: transparent;
+    background-color: initial;
+    color: currentColor;
+    height: 2rem;
+    min-height: 2rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    border: solid 1px transparent;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    flex-wrap: nowrap !important;
+    gap: 0.5rem;
+    --tw-text-opacity: 1 !important;
+    color: rgb(255 255 255 / 1) !important;
+    padding: 0;
+    max-width: 160px;
+    flex-wrap: nowrap !important;
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+}
+.BonusButtonContainer svg {
+   height: 1rem;
+   width: 1rem;
+}
 .NoUserHeaderRight > button {
     gap: 0.5rem;
     --tw-text-opacity: 1;
@@ -252,11 +283,11 @@
     display: flex;
     height: 1.25rem;
     width: auto;
-    min-width: var(--min-badge-width);
+    /* min-width: var(--min-badge-width); */
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    border-radius: 9999px;
+    border-radius: 50%;
     background-color: var(--db-brand-green);
     padding-left: 0.375rem;
     padding-right: 0.375rem;
@@ -271,7 +302,7 @@
 .FloatingBadge {
     position: absolute;
     right: -0.5rem;
-    top: -0.125rem;
+    top: -0.2rem;
     height: 1rem;
     width: 1rem;
 }

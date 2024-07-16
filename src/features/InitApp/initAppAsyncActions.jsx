@@ -22,7 +22,6 @@ import PaperIcon from '../../assets/svgs/paper.svg?react';
 import PricesIcon from '../../assets/svgs/prices.svg?react';
 import StarOutlineIcon from '../../assets/svgs/star-outline.svg?react';
 import AlphaIcon from '../../assets/svgs/alpha.svg?react';
-
 import { getAccessToken } from '../../utils/auth';
 import { loginActions } from '../../pages/Login/loginSlice';
 import { cryptoActions } from '../../pages/Crypto/cryptoSlice';
@@ -78,7 +77,7 @@ export const loadInitData = (isMobile) => {
             let user = null;
             if (token) {
                 const response = await axiosApi.get(`login/State/?lang=en&siteid=${import.meta.env.VITE_SITE_ID}`, {
-                    baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
                 });
                 if (response.data.Status.StatusCode !== 200) dispatch(loginActions.logout());
                 else {
@@ -93,6 +92,7 @@ export const loadInitData = (isMobile) => {
                         // registered: 1712505696754,
                     };
                     dispatch(loginActions.setUser(user));
+                    dispatch(layoutActions.setAvailableBonus(user));
                 }
             }
 

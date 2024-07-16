@@ -5,6 +5,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import classes from './Topbar.module.css';
 import UserIcon from '../../../assets/svgs/user.svg?react';
+import GiftIcon from '../../../assets/svgs/gift.svg?react';
 import BellIcon from '../../../assets/svgs/bell.svg?react';
 import WalletIcon from '../../../assets/svgs/wallet.svg?react';
 import CreditCardIcon from '../../../assets/svgs/credit-card.svg?react';
@@ -15,6 +16,8 @@ import LogoSmall from '../../../assets/svgs/logo-small.svg?react';
 import MenuBurgerIcon from '../../../assets/svgs/menu-burger.svg?react';
 import MainButton from '../../UI/Buttons/MainButton';
 import Dropdown from '../../UI/Dropdown/Dropdown';
+import NumberBadge from '../../UI/Badges/NumberBudge';
+import { translate } from '../../../utils/translations';
 import { layoutActions } from '../layoutSlice';
 import MenuItems from './MenuItems';
 import { addThousandsSeparator } from '../../../utils/custom';
@@ -30,6 +33,7 @@ const Topbar = () => {
     const fullLeftContainer = useSelector((state) => state.layout.fullLeftContainer);
     const userDropdownVisible = useSelector((state) => state.layout.userDropdownVisible);
     const user = useSelector((state) => state.login.user);
+    const availableBonus = useSelector((state) => state.layout.availableBonus);
 
     const [balanceInteger, setBalanceInteger] = useState(0);
     const [balanceDecimal, setBalanceDecimal] = useState('00');
@@ -115,11 +119,13 @@ const Topbar = () => {
                                 </div>
                                 <div className={classes.VipIconContainer}></div>
                             </MainButton>
-                            <MainButton color='transparent' onClick={() => addParamsToUrl('bonus')}>
-                                <div className={classes.BonusButton}>
-                                    <div className={classes.BonusButtonColir}>Bonus</div>
-                                </div>
-                            </MainButton>
+                            <div className={classes.BonusButtonContainer}>
+                                    <MainButton className={classes.BonusButton} color='transparent' onClick={() => addParamsToUrl('bonus')}>
+                                        <GiftIcon />
+                                        <div className={classes.BonusButtonColor}>{translate('Bonus')}</div>
+                                    </MainButton>
+                                    {availableBonus > 0 && <NumberBadge number={availableBonus} floating justifyRight />}
+                            </div>
                             <div className={classes.DropDownWrapper}>
                                 <div className={classes.DropDownLabel} onClick={() => dispatch(layoutActions.setUserDropdownVisible(!userDropdownVisible))}>
                                     <MainButton color='transparent'>

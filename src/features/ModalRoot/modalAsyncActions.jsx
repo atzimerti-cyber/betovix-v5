@@ -7,13 +7,13 @@ import { modalActions } from './modalSlice';
 import levels from '../../dummyData/levels';
 import rewards from '../../dummyData/rewards';
 
-export const getBonuses = (signal) => {
+export const getBonuses = (signal, status) => {
     return async (dispatch) => {
         try {
            
             dispatch(modalActions.setLoading(true));
             const response = await axiosApi.get(
-                `/BonusForAccount/GetMyBonusesByStatus?status=2`,
+                `/BonusForAccount/GetMyBonusesByStatus?status=${status}`,
                 {
                     signal: signal,
                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
@@ -21,7 +21,7 @@ export const getBonuses = (signal) => {
             );
 
             if (response.data.Status.StatusCode !== 200) throw new Error('Failed to fetch bonuses');
-            dispatch(modalActions.setBonuses(response.data.Bonuses)); // Make sure to define this in your modalSlice
+            dispatch(modalActions.setBonuses(response.data.Contents)); 
             dispatch(modalActions.setLoading(false));
         } catch (error) {
             const message = error?.message || 'Error fetching bonuses';

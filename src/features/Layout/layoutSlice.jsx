@@ -14,6 +14,7 @@ const initialState = {
     userDropdownVisible: false,
     pageNotAuthorized: false,
     scrollToTop: 1,
+    availableBonus: 0,
 };
 
 export const layoutSlice = createSlice({
@@ -48,6 +49,9 @@ export const layoutSlice = createSlice({
         },
         setScrollToTop: (state) => {
             state.scrollToTop += 1;
+        },
+        setAvailableBonus: (state, action) => {
+            state.availableBonus = action.payload.AvailableBonusCount;
         },
     },
 });

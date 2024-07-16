@@ -167,7 +167,19 @@
    align-items: center;
    justify-content: flex-end;
 }
-
+.bonusesBodyWrapper {
+   padding-top: 25px;
+}
+.noBonus {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   /* color: #fff; */
+   font-weight: 700;
+   height: auto;
+   flex-direction: column;
+   gap: 20px;
+}
 header {
    display: grid;
    height: var(--db-modal-header-height);
@@ -180,6 +192,12 @@ header .Center {
    align-items: center;
    justify-content: center;
    grid-column: 2;
+   svg {
+      margin-right: 0.5rem;
+      height: 1.3rem;
+      width: 1.3rem;
+      flex-shrink: 0;
+   }
 }
 
 header .Right {
@@ -206,317 +224,19 @@ header .Right {
         border: 0;
    }
 }
- .bonusesBody .re-call-apis {
-    font-size: 18px;
-    position: absolute;
-    right: 20px;
-    top: 15px;
-}
- .bonusesBody .re-call-apis > i {
-    cursor: pointer;
-}
  .bonusesBody > .bonusesBodyWrapper {
     min-height: 300px;
     display: flex;
     padding: 15px;
 }
- .bonusesBody > .bonusesBodyWrapper .noBonus {
-    padding-left: 10px;
-}
+
 @media (max-width: 768px) {
      .bonusesBody > .bonusesBodyWrapper {
         padding: 15px 5px 35px 5px;
    }
 }
- .bonusesBody > .bonusesBodyWrapper > .bonusesList {
+.bonusesList {
     width: 100%;
     display: flex;
     flex-flow: column;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem {
-    border: 1px solid #d2d2d2;
-    min-height: 200px;
-    display: flex;
-    flex-flow: column;
-    position: relative;
-    background-color: #e9e7e7;
-    margin-top: 25px;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent {
-    min-height: 160px;
-    padding: 15px;
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    border-bottom: 1px solid #d2d2d2;
-}
-@media (max-width: 768px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent {
-        flex-direction: column;
-        padding: 10px 0;
-   }
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusItemImage {
-    display: flex;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusItemImage img {
-    height: 115px;
-    width: 160px;
-    border-radius: 8px;
-}
-@media (max-width: 768px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusItemImage img {
-        width: 45%;
-   }
-}
-@media (max-width: 500px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusItemImage img {
-        width: 75%;
-   }
-}
-@media (max-width: 768px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusItemImage {
-        justify-content: center;
-   }
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer {
-    width: 100%;
-    display: flex;
-    flex-flow: column;
-    padding-left: 20px;
-    overflow-x: auto;
-}
-@media (max-width: 768px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer {
-        margin-top: 10px;
-        padding: 0 5px;
-   }
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle h3 {
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 5px;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle .bonusDate {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    flex-wrap: wrap;
-    gap: 5px;
-}
-@media (max-width: 660px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle .bonusDate {
-        flex-direction: column;
-        align-items: normal;
-   }
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle .bonusDate > div {
-    padding: 3px 5px;
-    border-radius: 5px;
-    font-size: 12px;
-    background: #333;
-    color: #fff;
-    font-weight: 700;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content {
-    height: 70%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 110px;
-}
-@media (max-width: 500px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content {
-        min-height: 90px;
-   }
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper {
-    display: flex;
-    width: 95%;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .endValue,  .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .startValue {
-    display: flex;
-    justify-content: center;
-    margin: 0 10px;
-}
-@media (max-width: 500px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper .startValue {
-        position: absolute;
-        left: 0;
-        top: -25px;
-   }
-}
-@media (max-width: 500px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper .endValue {
-        position: absolute;
-        right: 0;
-        top: -25px;
-   }
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine {
-    width: 90%;
-    height: 10px;
-    border-radius: 30px;
-    box-shadow: 0 0 0 6px rgba(181, 176, 176, 0.59);
-    display: flex;
-}
-@media (max-width: 768px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine {
-        height: 20px;
-   }
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine > .waged {
-    background: #efc100;
-    border-radius: 30px 0 0 30px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine > .waged .progressMob {
-    display: none;
-    font-weight: 700;
-    font-size: 12px;
-}
-@media (max-width: 500px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine > .waged .progressMob {
-        display: block;
-   }
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine > .waged > .wagedAmount {
-    position: absolute;
-    right: -60px;
-    top: -35px;
-    min-width: 120px;
-    display: flex;
-    justify-content: center;
-    height: 25px;
-    align-items: center;
-    background: #efc100;
-    white-space: nowrap;
-    padding: 0 13px;
-}
-@media (max-width: 500px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine > .waged > .wagedAmount {
-        display: none;
-   }
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine > .waged > .wagedAmount:after {
-    content: "";
-    clip-path: polygon(50% 100%, 0 0, 100% 0);
-    background: #efc100;
-    width: 20px;
-    height: 13px;
-    position: absolute;
-    bottom: -10px;
-}
-@media (max-width: 500px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine > .waged > .wagedAmount:after {
-        display: none;
-   }
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine > .remaining {
-    background: #333;
-    border-radius: 0 30px 30px 0;
-    position: relative;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine > .remaining > .remainingAmount {
-    position: absolute;
-    right: calc(50% - 70px);
-    min-width: 140px;
-    bottom: -35px;
-    display: flex;
-    justify-content: center;
-    height: 25px;
-    align-items: center;
-    background: #e10000;
-    color: #fff;
-    padding: 0 13px;
-    white-space: nowrap;
-}
-@media (max-width: 500px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine > .remaining > .remainingAmount {
-        display: none;
-   }
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine > .remaining > .remainingAmount:after {
-    content: "";
-    clip-path: polygon(50% 100%, 0 0, 100% 0);
-    background: #e10000;
-    width: 20px;
-    height: 13px;
-    position: absolute;
-    bottom: 22px;
-    transform: rotate(180deg);
-}
-@media (max-width: 500px) {
-     .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem > .bonusItemContent > .bonusContentContainer .wagering-content > .wageringLineWrapper > .wageringLine > .remaining > .remainingAmount:after {
-        display: none;
-   }
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem .bonusWrapperBtns .bonusItemClaim {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem .bonusWrapperBtns .bonusItemClaim .claimBtn {
-    padding: 8px 25px;
-    margin: 5px;
-    background: #15973a;
-    color: #fff;
-    font-size: 15px;
-    font-weight: 700;
-    border-radius: 5px;
-    cursor: pointer;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem .bonusWrapperBtns .bonusItemClaim .claimBtn:hover {
-    background: #339f52;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem .bonusWrapperBtns .bonusItemError {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem .bonusWrapperBtns .bonusItemError .errorBtn {
-    padding: 10px 25px;
-    margin: 5px;
-    color: red;
-    font-size: 15px;
-    font-weight: 700;
-}
- .bonusesBody > .bonusesBodyWrapper > .bonusesList > .bonusItem .bonusWrapperBtns .bonusItemError.redeemed .errorBtn {
-    color: #00b30f;
-}
-@media (max-width: 1200px) {
-    .bonusesBodyWrapper {
-        padding: 10px;
-   }
-    .bonusItem {
-        margin-top: 20px;
-   }
-}
-@media (max-width: 768px) {
-    .bonusesBodyWrapper {
-        flex-direction: column;
-   }
-    .bonusItem {
-        margin-top: 15px;
-   }
-}
-@media (max-width: 480px) {
-    .bonusesBodyWrapper {
-        padding: 5px;
-   }
-    .bonusItem {
-        margin-top: 10px;
-   }
 }
