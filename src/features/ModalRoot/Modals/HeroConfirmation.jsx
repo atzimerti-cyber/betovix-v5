@@ -54,6 +54,7 @@ const HeroConfirmationModal = () => {
                 </div>
                 <div className={classes.MainContent}>
                     <p className={classes.Message}>
+                        {translate(`You picked ${displayedHero.metadata.HeroName} ${displayedHero.metadata.HeroSubName}.`)}<br></br>
                         {translate('Once you select a hero, you cannot go back! Are you sure you want to select this hero?')}
                     </p>
                 </div>

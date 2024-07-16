@@ -43,7 +43,6 @@ const Heroes = React.memo(() => {
 
         dispatch(getHeroes(signal));
 
-        return () => { };
     }, [dispatch]);
 
     useEffect(() => {

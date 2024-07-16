@@ -24,7 +24,7 @@ const Levels = (props) => {
                                       <div className={classes.LevelCard}>
                                           <div className={classes.LevelHeader}>
                                               <div className={classes.IconContainer}>
-                                                  <div className={`CardLevel CardLevel${level.id}`}></div>
+                                                  <div className={`CardLevel CardLevel`}></div>
                                               </div>
                                               <p className={classes.LevelName}>{level.name}</p>
                                           </div>
