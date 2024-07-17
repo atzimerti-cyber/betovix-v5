@@ -17,7 +17,8 @@ const MilestoneCard = (props) => {
         >
             <div className={classes.Background}>
                 <div className={classes.ImageContainer}>
-                    {props.index === 0 || props.nextLevel ? (
+                    {/* {props.index === 0 || props.nextLevel ? ( */}
+                    {props.nextLevel ? (
                         <div className={`CardLevel CardLevel${props.level.id}`}></div>
                     ) : (
                         <div className={classes.ImageInner}>
@@ -28,20 +29,32 @@ const MilestoneCard = (props) => {
             </div>
             <div className={classes.Content}>
                 <div>
-                    <p className={props.level.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
-                        {props.level.name}
-                        <span>{props.label}</span>
-                    </p>
                     {props.needed && (
                         <p className={classes.WageredNeeded}>
                             <CoinsIcon />
                             {formatNumberTo(props.needed)} wager needed
                         </p>
                     )}
+
+                    {props.nextLevel && (
+                        <p className={props.level.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
+                            {props.level.name}
+                            {/* <span>{props.label}</span> */}
+                        </p>
+                    )}
+                    <p className={props.level.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
+                        {/* {props.level.name} */}
+                        <span>{props.label}</span>
+                    </p>
                 </div>
                 {!props.complete && !props.nextLevel && (
                     <DsButton locked color='transparent'>
                         Not yet unlocked
+                    </DsButton>
+                )}
+                {props.nextLevel && (
+                    <DsButton disabled>
+                       LEVEL UP
                     </DsButton>
                 )}
             </div>

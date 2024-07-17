@@ -22,6 +22,7 @@ export const getHeroes = (signal) => {
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
             const heroes = response.data.Contents.map(hero => ({
+                name: hero.Hero.name,
                 banner: hero.Hero.metadata.PreviewImage,
                 id: hero.Hero.id,
                 icon: hero.Hero.metadata.CloseUp,
@@ -40,14 +41,14 @@ export const getHeroes = (signal) => {
                     milestones: level.Milestones.map(milestone => ({
                         id: milestone.id,
                         icon: milestone.icon,
-                        spaceName: milestone.spaceName,
-                        name: milestone.metadata?.Name,
+                        name: milestone.metadata.Name,
                         description: milestone.description,
                       }))
                       .sort((a, b) => a.name.localeCompare(b.name))
                   }))
                   .sort((a, b) => a.name.localeCompare(b.name))
-            }));
+            }))
+            .sort((a, b) => a.name.localeCompare(b.name));
            
 
             console.log("Filtered Heroes:", heroes);

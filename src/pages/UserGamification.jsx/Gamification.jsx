@@ -21,7 +21,7 @@ const Gamification = () => {
     };
 
     const dispatch = useDispatch();
-    const [showTab, setShowTab] = useState('heroes');
+    const [showTab, setShowTab] = useState('progress');
 
     // useEffect(() => {
     //     return () => dispatch(myBetsActions.reset());
@@ -35,14 +35,14 @@ const Gamification = () => {
                 <div className={classes.Content}>
                     <DbTabs
                         tabs={[
-                            { id: 'activeBets', label: 'Your Progress', active: showTab === 'heroes' },
-                            // { id: 'settledBets', label: '', active: showTab === 'settledBets' },
+                            { id: 'progress', label: 'Your Progress', active: showTab === 'progress' },
+                            { id: 'other', label: 'Other', active: showTab === 'other' },
                         ]}
                         onChangeTab={(tab) => setShowTab(tab)}
                         titleGroupStyle={{ justifyContent: 'flex-start' }}
                     >
                         
-                        <GamificationProgress isActive={showTab === 'heroes' ? true : false} />
+                        <GamificationProgress isActive={showTab === 'progress' ? true : false} />
                     </DbTabs>
                 </div>
             </div>

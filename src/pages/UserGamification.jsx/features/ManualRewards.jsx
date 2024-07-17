@@ -9,7 +9,7 @@ import Calendar30dIcon from '../../../assets/svgs/calendar-30d.svg?react';
 import InfinityIcon from '../../../assets/svgs/infinity.svg?react';
 import { translate } from '../../../utils/translations';
 
-const Bits = (props) => {
+const ManualRewards = (props) => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const rewards = useSelector((state) => state.modal.rewards);
     const user = useSelector((state) => state.login.user);
@@ -198,4 +198,4 @@ const Bits = (props) => {
     );
 };
 
-export default Bits;
+export default ManualRewards;

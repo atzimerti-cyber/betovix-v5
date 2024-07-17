@@ -7,7 +7,7 @@ import ManualRewards from './ManualRewards';
 
 const Levels = (props) => {
     const displayedHeroLevels = useSelector((state) => state.gamification.displayedHero.levels);
-    console.log("rewards", props.activeLevel);
+    //console.log("rewards", props.activeLevel);
 
     return (
         <div className={classes.Rewards}>

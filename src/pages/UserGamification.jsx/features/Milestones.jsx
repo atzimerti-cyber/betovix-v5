@@ -33,9 +33,11 @@ const Milestones = (props) => {
         } else {
             setThisLevelIndex(displayedHeroLevels[0]);
         }
-        // console.log("mesa sto milestone", thisLevelIndex)
-        // console.log("AAAAAAAAAAAAAAAAAAAAAAAAA", displayedHeroLevels[thisLevelIndex].milestones)
+
     }, [props.activeLevel]);
+
+    console.log("mesa sto milestone, AUTO TO LEVEL", thisLevelIndex);
+    console.log("poso", displayedHeroLevels[thisLevelIndex]?.milestones);
 
     const getProgress = () => {
         // if (!levels) return 0;
@@ -54,8 +56,8 @@ const Milestones = (props) => {
         // let progress = 100 * (userWagered / levelMaxWagered);
 
         // if (progress > 100) progress = 100;
-
-        // return progress;
+        let progress = 50;
+        return progress;
     };
 
     const getNeeded = (milestone) => {
@@ -84,11 +86,11 @@ const Milestones = (props) => {
                                                 />
                                             ))}
 
-                                            {thisLevelIndex < displayedHeroLevels.length - 1 && (
+                                            {thisLevelIndex < displayedHeroLevels.length && (
                                                 <LevelDiamond
                                                     // key={`${displayedHeroLevels[thisLevelIndex].id}_${displayedHeroLevels[thisLevelIndex].milestones[displayedHeroLevels[thisLevelIndex].milestones.length]
                                                     //     }`}
-                                                    key={displayedHeroLevels[thisLevelIndex + 1].id}
+                                                    key={displayedHeroLevels[thisLevelIndex].id}
                                                     // complete={
                                                     //     user?.wagered >=
                                                     //     displayedHeroLevels[thisLevelIndex + 1].milestones[displayedHeroLevels[thisLevelIndex + 1].milestones.length - 1]
@@ -115,19 +117,19 @@ const Milestones = (props) => {
                                                 index={index}
                                                 //complete={user?.wagered >= milestone.wagered}
                                                 level={displayedHeroLevels[thisLevelIndex]}
-                                                // needed={
-                                                //     currentMilestone &&
-                                                //         currentMilestone.level === displayedHeroLevels[thisLevelIndex].level &&
-                                                //         currentMilestone.milestone === milestone.milestone
-                                                //         ? getNeeded(milestone)
-                                                //         : null
-                                                // }
+                                            // needed={
+                                            //     currentMilestone &&
+                                            //         currentMilestone.level === displayedHeroLevels[thisLevelIndex].level &&
+                                            //         currentMilestone.milestone === milestone.milestone
+                                            //         ? getNeeded(milestone)
+                                            //         : null
+                                            // }
                                             />
                                         ))}
 
-                                        {thisLevelIndex < displayedHeroLevels.length - 1 && (
+                                        {thisLevelIndex < displayedHeroLevels.length && (
                                             <MilestoneCard
-                                                key={`${displayedHeroLevels[thisLevelIndex + 1].id}_locked`}
+                                                key={`${displayedHeroLevels[thisLevelIndex].id}_locked`}
                                                 // key={`${displayedHeroLevels[thisLevelIndex].level}_${displayedHeroLevels[thisLevelIndex].milestones[displayedHeroLevels[thisLevelIndex].milestones.length]
                                                 //     }`}
                                                 label='Locked'
@@ -137,7 +139,7 @@ const Milestones = (props) => {
                                                 //     displayedHeroLevels[thisLevelIndex + 1].milestones[displayedHeroLevels[thisLevelIndex + 1].milestones.length - 1]
                                                 //         .wagered
                                                 // }
-                                                level={displayedHeroLevels[thisLevelIndex + 1]}
+                                                level={displayedHeroLevels[thisLevelIndex]}
                                                 nextLevel
                                             />
                                         )}

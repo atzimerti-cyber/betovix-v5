@@ -22,6 +22,8 @@ import PaperIcon from '../../assets/svgs/paper.svg?react';
 import PricesIcon from '../../assets/svgs/prices.svg?react';
 import StarOutlineIcon from '../../assets/svgs/star-outline.svg?react';
 import AlphaIcon from '../../assets/svgs/alpha.svg?react';
+import LogoSmall from '../../assets/svgs/logo-small.svg?react';
+import LogoSmall1C from '../../assets/svgs/logo-small-oneColor.svg?react';
 
 import { getAccessToken } from '../../utils/auth';
 import { loginActions } from '../../pages/Login/loginSlice';
@@ -315,7 +317,7 @@ export const loadInitData = (isMobile) => {
 
             // Rest of menu items
             allMenuItems.push({
-                category: { id: 5, label: 'VIP', visible: false },
+                category: { id: 5, label: 'Gamification', visible: false },
                 items: [
                     {
                         id: 1,
@@ -325,8 +327,8 @@ export const loadInitData = (isMobile) => {
                     },
                     {
                         id: 2,
-                        label: `Ace's Lounge`,
-                        icon: <StarOutlineIcon />,
+                        label: `Your Progress`,
+                        icon: <LogoSmall1C color="#FF0000"/>, 
                         page: 'lounge',
                     },
                 ],

@@ -82,7 +82,8 @@ const Heroes = React.memo(() => {
                     <div className={classes.HeroDescription}>
                         <p className={classes.DescTitle}>{translate(displayedHero.metadata.HeroName + ' ' + displayedHero.metadata.HeroSubName)}</p>
                         <div className={classes.ImageContainer}>
-                            <p className={classes.Description}>{translate(displayedHero.description)}</p>
+                        <p className={classes.Description}>{displayedHero.description.replace(/<\/?p>/g, "")}</p>
+                            {/* <p className={classes.Description}>{translate(displayedHero.description)}</p> */}
                         </div>
                     </div>
                 </div>

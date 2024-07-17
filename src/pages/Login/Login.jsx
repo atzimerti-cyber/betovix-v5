@@ -55,6 +55,7 @@ const Login = () => {
                 <MainInput
                     role='textbox'
                     type='text'
+                    id='Username'
                     name='Username'
                     placeholder={translate('Type your Email')}
                     value={loginInfo.Username}
@@ -67,10 +68,12 @@ const Login = () => {
                 <MainInput
                     role='textbox'
                     type='password'
+                    id='Password'
                     name='Password'
                     placeholder={translate('Type your password')}
                     value={loginInfo.Password}
                     onChange={(value) => updateLoginInfo('Password', value)}
+                    noAutoComplete={false}
                 />
             </div>
 
@@ -79,6 +82,7 @@ const Login = () => {
                 <MainInput
                     role='textbox'
                     type='number'
+                    id='twoFactor'
                     name='twoFactor'
                     inputmode='decimal'
                     value={loginInfo['2fa']}

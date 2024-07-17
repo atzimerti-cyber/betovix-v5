@@ -78,6 +78,7 @@
     line-height: 1;
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
+    margin-bottom: 0.2rem;
 }
 .Title.LongTitle {
     font-size: 0.75rem;

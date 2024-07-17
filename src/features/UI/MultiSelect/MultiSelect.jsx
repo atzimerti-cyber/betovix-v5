@@ -51,7 +51,7 @@ const MultiSelect = (props) => {
     return (
         <div className={classes.DropdownWrapper}>
             <div className={classes.DropdownInner}>
-                <input readOnly role='textbox' value={getValue()} placeholder={props.placeholder} onClick={() => setShowDropdown(!showDropdown)} />
+                <input id={props.id} readOnly role='textbox' value={getValue()} placeholder={props.placeholder} onClick={() => setShowDropdown(!showDropdown)} />
                 <span className={classes.RightIcon}>{props.icon}</span>
 
                 <AnimatePresence>
@@ -71,7 +71,7 @@ const MultiSelect = (props) => {
 
                                 <div className={classes.SearchContainer}>
                                     <span className={classes.LeftIcon}>{<SearchIcon />}</span>
-                                    <input type='textBox' value={searchString} placeholder='Search' onChange={(e) => setSearchString(e.target.value)} />
+                                    <input id='search' type='textBox' value={searchString} placeholder='Search' onChange={(e) => setSearchString(e.target.value)} />
                                 </div>
 
                                 {filteredOptions.map((option, index) => (

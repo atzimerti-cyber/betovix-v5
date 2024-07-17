@@ -72,33 +72,6 @@ const WithdrawCrypto = () => {
         setCryptoOptions(filteredCryptocurrencies);
     }, [crypto]);
 
-    //////////////////gk
-    // useEffect(() => {
-    //     if (!crypto) return;
-
-    //     const firstOccurrenceMap = {};
-    //     const filteredCryptocurrencies = [];
-
-    //     crypto.forEach((item) => {
-    //         if (item.network) {
-    //             // Only set the first occurrence for items with 'network'
-    //             if (!firstOccurrenceMap[item.label]) {
-    //                 firstOccurrenceMap[item.label] = item;
-    //             }
-    //         } else {
-    //             // Immediately include items without 'network'
-    //             filteredCryptocurrencies.push(item);
-    //         }
-    //     });
-
-    //     // Add the first occurrences from the map to the filtered list
-    //     Object.values(firstOccurrenceMap).forEach((item) => {
-    //         filteredCryptocurrencies.push(item);
-    //     });
-
-    //     setCryptoOptions(filteredCryptocurrencies);
-    // }, [crypto]);
-
     useEffect(() => {
         setCoinsBalance('0.00');
         setCryptoBalance('0.00000000');
@@ -114,17 +87,6 @@ const WithdrawCrypto = () => {
 
         return networks;
     };
-
-    //////////gk
-    // const getNetworks = (item) => {
-    //     let networks = [];
-
-    //     crypto.forEach((c) => {
-    //         if (c.label === item.label && c.network) networks.push({ id: c.id, label: c.network });
-    //     });
-
-    //     return networks;
-    // };
 
     const selectCurrency = (option) => {
         dispatch(cryptoActions.setSelectedCurrency(option));
@@ -277,10 +239,10 @@ const WithdrawCrypto = () => {
             </div>
 
             <div className={classes.BtcAddressContainer}>
-                <label>
+                <label htmlFor='withdraw-container'>
                     {translate('Your')} {selectedCurrency?.Name} {translate('withdraw address')}
                 </label>
-                <MainInput2 type='text' name='Widthdraw address' value={withdrawAddress} onChange={(value) => setWithdrawAddress(value)} />
+                <MainInput2 id='withdraw-container' type='text' name='Widthdraw address' value={withdrawAddress} onChange={(value) => setWithdrawAddress(value)} />
             </div>
 
             <div className={classes.WithdrawComparisonContainer}>
