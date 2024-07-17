@@ -122,8 +122,14 @@ const InitApp = () => {
             }
 
             if (updateObj.U) {
-                const updatedHeaders = getUpdatedHeaders(updateObj.U, liveState);
-                dispatch(liveActions.updateHeadersProps(updatedHeaders));
+                const updatedHeaders = getUpdatedHeaders(updateObj.U, liveStateRef.current);
+                // dispatch(liveActions.updateHeadersProps(updatedHeaders));
+
+                Object.keys(updatedHeaders).forEach((key) => {
+                    const matchId = parseInt(key);
+                    const updatedHeader = updatedHeaders[key];
+                    dispatch(liveActions.updateHeadersProps({ matchId: matchId, updatedHeader: updatedHeader }));
+                });
             }
             if (updateObj.Alives) dispatch(liveActions.checkAlives(updateObj.Alives));
         });
@@ -145,8 +151,17 @@ const InitApp = () => {
             const decompressedString = lzString.decompressFromUTF16(message);
             const updateObj = JSON.parse(decompressedString);
             if (!updateObj) return;
-            dispatch(liveActions.updateLiveHeader(updateObj));
+            // dispatch(liveActions.updateLiveHeader(updateObj));
+
+            updateObj.forEach((headerItem) => {
+                dispatch(liveActions.updateLiveHeader(headerItem));
+            });
         });
+        // liveConnection.on('onOddsChangeFull', (message) => {
+        //     const decompressedString = lzString.decompressFromUTF16(message);
+        //     const updateObj = JSON.parse(decompressedString);
+        //     if (!updateObj) return;
+        // });
 
         liveConnection.start();
         dispatch(liveActions.setLiveConnection(liveConnection));

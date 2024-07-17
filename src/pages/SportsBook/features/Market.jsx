@@ -19,10 +19,8 @@ const Market = (props) => {
     };
 
     useEffect(() => {
-        if (!sportMarketTree) return;
-
         // Add a dummy market, if there is no market.
-        if (!props.market) {
+        if (!props.market && sportMarketTree) {
             const defaultMarket = sportMarketTree.childs[0].childs[0].childs[0];
             if (!defaultMarket) return;
 
