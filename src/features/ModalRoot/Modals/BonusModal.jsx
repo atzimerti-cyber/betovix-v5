@@ -5,8 +5,8 @@ import { getBonuses } from '../modalAsyncActions';
 import CloseButton from '../../UI/Buttons/CloseButton';
 import StarBonusIcon from '../../../assets/svgs/bonus.webp';
 import BonusIcon from '../../../assets/svgs/gift-box.svg?react';
-import NoBonusIcon from '../../../assets/svgs/NoBonusIcon.svg?react';
 import BonusItem from '../features/BonusItem';
+import NoBonusItem from '../features/NoBonusItem';
 
 import { modalActions } from '../modalSlice';
 import { translate } from '../../../utils/translations';
@@ -26,7 +26,7 @@ const BonusModal = () => {
         dispatch(getBonuses(signal, 1));
 
         return () => dispatch(modalActions.setBonuses(null));
-    }, []);
+    }, [dispatch]);
 
     const handleTabClick = (tab, status) => {
         setActiveTab(tab);
@@ -102,16 +102,12 @@ const BonusModal = () => {
                    <div className={classes.bonusesContainer}>
              
                         <div className={classes.bonusesBodyWrapper}>
-                              {bonuses.length === 0 ? (
-                              
-                        <div className={classes.noBonus}>  
-                            <NoBonusIcon/>
-                            {translate('No Available Bonus')}
-                         </div>
+                            {bonuses.length === 0 ? (
+                              <NoBonusItem/>
                     ) : (
                         <div className={classes.bonusesList}>
                         {bonuses.map((bonus) => (
-                            <BonusItem key={bonus.Id} bonus={bonus} />
+                            <BonusItem key={bonus.Id} bonus={bonus} handleTabClick={handleTabClick}/>
                         ))}
                     </div>
                     )}

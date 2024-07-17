@@ -13,7 +13,7 @@ export const getBonuses = (signal, status) => {
            
             dispatch(modalActions.setLoading(true));
             const response = await axiosApi.get(
-                `/BonusForAccount/GetMyBonusesByStatus?status=${status}`,
+                `/BonusForAccount/GetMyBonusesByStatus?status=${status}&lang=en&siteid=${import.meta.env.VITE_SITE_ID}`,
                 {
                     signal: signal,
                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
@@ -31,15 +31,28 @@ export const getBonuses = (signal, status) => {
     };
 };
 
-export const claimBonus = (bonusId) => {
+export const claimBonus = (signal,bonusId, callback) => {
     return async (dispatch) => {
         try {
-            const response = await axiosApi.post(`/api/bonuses/claim/${bonusId}`);
+            dispatch(modalActions.setLoading(true));
+            const response = await axiosApi.get(
+                `/BonusForAccount/ClaimBonus?bonusFaId=${bonusId}&lang=en&siteid=${import.meta.env.VITE_SITE_ID}`,
+                {
+                    signal: signal,
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+
             if (response.data.Status.StatusCode !== 200) throw new Error('Failed to claim bonus');
-            dispatch(modalActions.removeBonus(bonusId)); // Make sure to define this in your modalSlice
+            dispatch(modalActions.setLoading(false));
+
             toast.success('Bonus claimed successfully!');
+            if (callback) callback();
         } catch (error) {
-            toast.error('Failed to claim bonus');
+            const message = error?.message || 'Error claiming bonus';
+            if (error?.code !== 'ERR_CANCELED') toast.error(message);
+
+            dispatch(modalActions.setLoading(false));
         }
     };
 };

@@ -36,7 +36,10 @@
     --db-gold-primary: #ffcf52;
     --db-red-primary: #bb3c4b;
     --db-like: #c13333;
+    --db-cancelled: #c13333;
     --db-error: #ec5750;
+    --db-pending: #dfa032;
+    --db-available: #21abc1;
     --db-modal-auth-height: 506px;
     --db-chat-width: 330px;
     --db-left-menu-width: 260px;

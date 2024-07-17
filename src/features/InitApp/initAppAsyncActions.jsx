@@ -93,6 +93,7 @@ export const loadInitData = (isMobile) => {
                     };
                     dispatch(loginActions.setUser(user));
                     dispatch(layoutActions.setAvailableBonus(user));
+                    dispatch(layoutActions.setAvailableBonusBalance(user));
                 }
             }
 

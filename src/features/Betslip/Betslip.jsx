@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, memo } from 'react';
+import { useEffect, useState, useMemo, useRef, memo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
@@ -14,6 +14,7 @@ import { betslipActions } from './betslipSlice';
 import { getTicketUpdates, placeBet } from './betslipAsyncActions';
 import { translate } from '../../utils/translations';
 import Systems from './features/Systems';
+import { layoutActions } from '../Layout/layoutSlice';
 import { addThousandsSeparator } from '../../utils/custom';
 import { getTicketFromStorage, getTicketChangesSettings } from '../../utils/storage';
 import BetReceipt from './features/BetReceipt';
@@ -38,6 +39,9 @@ const Betslip = memo(function (props) {
     const showReceiptFor = useSelector((state) => state.betslip.showReceiptFor);
     const liveState = useSelector((state) => state.live.liveState);
     const placingBetLoading = useSelector((state) => state.betslip.placingBetLoading);
+    const bonusBalance = useSelector((state) => state.layout.bonusBalance);
+
+    const [isBonus, setIsBonus] = useState(false);
 
     const addParamsToUrl = (modal, tab) => {
         const searchParams = new URLSearchParams(location.search);
@@ -211,6 +215,21 @@ const Betslip = memo(function (props) {
         dispatch(placeBet(payload, slips, amounts, betType));
     };
 
+    const bonusButton = useMemo(() => {
+        if (user && slips.length && betslip.totalStake && betslip.totalStake > 0 && bonusBalance && bonusBalance >= betslip.totalStake) {
+            return (
+                <div className={classes.BonusButton}>
+                    <label className={classes.bonusContainer}>
+                        {translate('Play With Bonus')}
+                        <input type="checkbox"/>
+                        <span className={classes.checkMark} />
+                    </label>
+                </div>
+            );
+        }
+        return null;
+    }, [user?.AccountId, slips?.length, betslip?.totalStake, bonusBalance, isBonus]);
+
     return (
         <section className={classes.Betslip}>
             <div className={classes.TabsWrapper}>
@@ -243,7 +262,7 @@ const Betslip = memo(function (props) {
                         <div className={classes.BetOverview}>
                             <BetError />
                             {slips.length > 0 && <BetCalculation />}
-
+                            {bonusButton}
                             {betButton}
                         </div>
 

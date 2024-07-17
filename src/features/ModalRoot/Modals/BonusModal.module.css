@@ -170,16 +170,7 @@
 .bonusesBodyWrapper {
    padding-top: 25px;
 }
-.noBonus {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   /* color: #fff; */
-   font-weight: 700;
-   height: auto;
-   flex-direction: column;
-   gap: 20px;
-}
+
 header {
    display: grid;
    height: var(--db-modal-header-height);

@@ -53,6 +53,9 @@ export const layoutSlice = createSlice({
         setAvailableBonus: (state, action) => {
             state.availableBonus = action.payload.AvailableBonusCount;
         },
+        setAvailableBonusBalance: (state, action) => {
+            state.bonusBalance = action.payload.TotalBonusBalance;
+        },
     },
 });
 
