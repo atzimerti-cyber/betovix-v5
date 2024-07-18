@@ -6,7 +6,20 @@
 .SlideContainer:not(.Loading):hover {
     transform: translateY(-2%);
 }
-
+.isBonus {
+    width: 100%;
+}
+.isBonus button {
+    background: 0 0;
+    color: var(--db-brand-green);
+    border: 1px dashed var(--db-brand-green);
+    width: 100%;
+    font-weight: 700;
+    font-size: 12px;
+    margin-top: 3px;
+    border-radius: 5px;
+    padding: 3px;
+}
 .Card {
     width: 100%;
     aspect-ratio: 6 / 4;

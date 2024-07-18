@@ -39,11 +39,14 @@ const CasinoGame = () => {
         if (user) dispatch(casinoActions.setShowCasinoGame(true));
         else dispatch(casinoActions.setShowCasinoGame(false));
 
+        const searchParams = new URLSearchParams(location.search);
+        const isBonus = searchParams.get('isBonus');
+
         const controller = new AbortController();
         const signal = controller.signal;
 
-        if (type === 'live') dispatch(getLiveVendorGame(providername, id, brandgameid, name, isDemo, signal));
-        else dispatch(getVendorGame(providername, id, brandgameid, name, isDemo, signal));
+        if (type === 'live') dispatch(getLiveVendorGame(providername, id, brandgameid, name, isDemo, signal, isBonus));
+        else dispatch(getVendorGame(providername, id, brandgameid, name, isDemo, signal, isBonus));
 
         return () => {
             controller.abort();

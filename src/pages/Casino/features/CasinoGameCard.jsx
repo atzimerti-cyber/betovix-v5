@@ -17,6 +17,7 @@ const CasinoGameCard = (props) => {
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const user = useSelector((state) => state.login.user);
+    const bonusBalance = useSelector((state) => state.layout.bonusBalance);
 
     const onToggleFavorite = () => {
         if (!user) {
@@ -37,7 +38,7 @@ const CasinoGameCard = (props) => {
 
     return (
         <div className={classes.SlideContainer}>
-            <Link to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}`}>
+            <Link to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}?isBonus=false`}>
                 <article className={classes.Card}>
                     <div className={classes.ImageContainer}>
                         {!isLoaded && <LoaderPlaceholder />}
@@ -62,6 +63,15 @@ const CasinoGameCard = (props) => {
                     </div>
                 </article>
             </Link>
+            {bonusBalance > 0 && (
+                <Link to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}?isBonus=true`}>
+                    <div className={classes.isBonus}>
+                        <button className={classes.bonusContainer}>
+                            {translate('Play With Bonus')}
+                        </button>
+                    </div>
+                </Link>
+            )}
         </div>
     );
 };

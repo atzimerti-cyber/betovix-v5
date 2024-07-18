@@ -33,6 +33,18 @@
    }
 }
 
+@media (max-width: 1024px) {
+   .bonusesContainer {
+      min-height: 250px;
+ }
+}
+
+@media (max-width: 1024px) {
+   ._BonusModal_1dv9g_1 {
+       margin-top: 0;
+       width: 100%;
+   }
+}
  .loader-slick {
     background-color: #fff;
     height: 4px;
@@ -160,6 +172,11 @@
       top: 90px;
       height: 151px;
       width: 155px;
+   }
+}
+@media (max-width: 1024px) {
+   .ImageContainer {
+      display: none;
    }
 }
 .Right {
