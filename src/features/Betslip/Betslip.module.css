@@ -82,7 +82,7 @@
     height: 18px; 
     border: 2px solid white; 
     border-radius: 4px; 
-    margin-left: auto; 
+    margin-right: auto; 
     position: relative;
     transition: background-color 0.3s; 
 }

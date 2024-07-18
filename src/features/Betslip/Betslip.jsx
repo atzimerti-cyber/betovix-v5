@@ -161,7 +161,7 @@ const Betslip = memo(function (props) {
                 </button>
             );
         }
-    }, [user?.AccountId, betError, slips?.length, betslip?.totalStake, placingBetLoading]);
+    }, [user?.AccountId, betError, slips?.length, betslip?.totalStake, placingBetLoading, isBonus]);
 
     const onChangeTab = (tab) => {
         slips.forEach((slip, index) => {
@@ -206,7 +206,7 @@ const Betslip = memo(function (props) {
             stakes: ticket.stakes,
             points: points,
             acceptChanges: ticketChangesSettings.oddChanges === '2' ? true : false,
-            IsBonus: false, // TODO: This should be changed (see bonus in pick777),
+            IsBonus: isBonus, // TODO: This should be changed (see bonus in pick777),
             providerId: 1, // TODO: should this come from settings?
         };
 
@@ -220,15 +220,20 @@ const Betslip = memo(function (props) {
             return (
                 <div className={classes.BonusButton}>
                     <label className={classes.bonusContainer}>
-                        {translate('Play With Bonus')}
-                        <input type="checkbox"/>
+                        <input
+                            checked={isBonus} 
+                            onChange={e => setIsBonus(e.target.checked)} 
+                            type="checkbox"
+                        />
                         <span className={classes.checkMark} />
+                        {translate('Play With Bonus')}
                     </label>
                 </div>
             );
         }
         return null;
     }, [user?.AccountId, slips?.length, betslip?.totalStake, bonusBalance, isBonus]);
+
 
     return (
         <section className={classes.Betslip}>

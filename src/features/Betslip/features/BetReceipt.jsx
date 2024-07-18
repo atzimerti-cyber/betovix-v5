@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import classes from './BetReceipt.module.css';
@@ -13,11 +13,17 @@ const BetReceipt = memo(function () {
     const slips = useSelector((state) => state.betslip.slips);
     const showReceiptFor = useSelector((state) => state.betslip.showReceiptFor);
 
-    useSelector(() => {
+    // useSelector(() => {
+    //     if (!slips.length) return;
+
+    //     dispatch(betslipActions.setShowReceiptFor(null));
+    // }, [slips.length]);
+
+    useEffect(() => {
         if (!slips.length) return;
 
         dispatch(betslipActions.setShowReceiptFor(null));
-    }, [slips.length]);
+    }, [slips.length, dispatch]);
 
     const restoreTicket = () => {
         if (!showReceiptFor) return;
