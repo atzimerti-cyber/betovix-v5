@@ -278,3 +278,51 @@ export function getEventsToAdd(updateObj, liveState, incompleteDataEvents, isInf
 
     return { add: eventsToAdd, incomplete: incompleteEvents };
 }
+
+export function getEventToAddFromHeader(updateItem, incompleteDataEvents) {
+    const eventId = updateItem.MatchId;
+    if (!eventId) return;
+
+    let newEvent = {};
+
+    if (incompleteDataEvents[eventId]) newEvent = { ...incompleteDataEvents[eventId] };
+    else
+        newEvent = {
+            Info: {},
+            Header: {},
+            Markets: [],
+            MatchId: eventId,
+        };
+
+    newEvent.Header = { ...updateItem };
+
+    // If all properties are filled, then add it to the liveState, else add it to incomplete
+    if (newEvent.Header && !_.isEmpty(newEvent.Header) && newEvent.Info && !_.isEmpty(newEvent.Info)) {
+        newEvent.toAdd = true;
+    } else {
+        newEvent.addedOn = new Date();
+        newEvent.toAdd = false;
+    }
+
+    return newEvent;
+}
+
+export function getEventToAddFromMarkets(updatedMarkets, incompleteDataEvents) {
+    const eventId = updateItem.MatchId;
+    if (!eventId) return;
+
+    let newEvent = {};
+
+    if (incompleteDataEvents[eventId]) newEvent = { ...incompleteDataEvents[eventId] };
+    else
+        newEvent = {
+            Info: {},
+            Header: {},
+            Markets: [],
+            MatchId: eventId,
+        };
+
+    newEvent.Markets = updatedMarkets;
+
+    return newEvent;
+}
