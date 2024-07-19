@@ -14,6 +14,8 @@ import Levels from './Levels';
 import Milestones from './Milestones';
 import Rewards from './Rewards';
 
+import { gamificationActions } from '../userGamificationSlice';
+
 import { getHeroes } from '../gamificationAsyncActions';
 
 const GamificationProgress = React.memo(() => {
@@ -23,21 +25,18 @@ const GamificationProgress = React.memo(() => {
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
-    const heroes = useSelector((state) => state.gamification.heroes);
     //const user = useSelector((state) => state.login.user);
-    const displayedHero = useSelector((state) => state.gamification.displayedHero);
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
 
     const [activeLevel, setActiveLevel] = useState(null);
 
+    // const addParamsToUrl = (modal, tab) => {
+    //     const searchParams = new URLSearchParams(location.search);
+    //     searchParams.set('modal', modal);
+    //     if (tab) searchParams.set('tab', tab);
 
-    const addParamsToUrl = (modal, tab) => {
-        const searchParams = new URLSearchParams(location.search);
-        searchParams.set('modal', modal);
-        if (tab) searchParams.set('tab', tab);
-
-        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-    };
+    //     navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+    // };
 
     useEffect(() => {
         const controller = new AbortController();
@@ -50,9 +49,16 @@ const GamificationProgress = React.memo(() => {
 
     useEffect(() => {
         if (selectedHero && Object.keys(selectedHero).length > 0) {
-            setActiveLevel(selectedHero.levels[0]?.id);
+            setActiveLevel(selectedHero?.levels[0]);
+
         }
     }, [selectedHero]);
+
+    useEffect(() => {
+        console.log("TWRINO LEVEL:", activeLevel); 
+        dispatch(gamificationActions.setCurrentLevel(activeLevel));
+    }, [activeLevel]);
+
 
     return (
         <motion.div className={classes.TabContent} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.2 }}>
@@ -67,7 +73,7 @@ const GamificationProgress = React.memo(() => {
                             {/* <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} /> */}
                             <Milestones activeLevel={activeLevel} />
                         </div>
-                        <Rewards/>
+                        <Rewards />
                     </section>
 
                     <div className={classes.HeroesContainer}>

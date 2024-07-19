@@ -54,6 +54,7 @@ export const getHeroes = (signal) => {
             console.log("Filtered Heroes:", heroes);
             dispatch(gamificationActions.setHeroes(heroes));
             dispatch(gamificationActions.setDisplayedHero(heroes[0]));
+            
             dispatch(appActions.setBarLoading(false));
         } catch (error) {
             const message = error?.message ? error.message : error;

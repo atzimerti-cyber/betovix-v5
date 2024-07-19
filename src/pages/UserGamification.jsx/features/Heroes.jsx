@@ -47,7 +47,7 @@ const Heroes = React.memo(() => {
 
     useEffect(() => {
         if (displayedHero && Object.keys(displayedHero).length > 0) {
-            setActiveLevel(displayedHero.levels[0]?.id);
+            setActiveLevel(displayedHero?.levels[0]);
         }
     }, [displayedHero]);
 

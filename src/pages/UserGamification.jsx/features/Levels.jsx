@@ -18,8 +18,8 @@ const Levels = (props) => {
                           return (
                               <SwiperSlide style={{ width: 'auto' }} key={level.id}>
                                   <div
-                                      className={props.activeLevel === level.id ? [classes.CardContainer, classes.Active].join(' ') : classes.CardContainer}
-                                      onClick={() => props.onChangeLevel(level.id)}
+                                      className={props.activeLevel?.id === level.id ? [classes.CardContainer, classes.Active].join(' ') : classes.CardContainer}
+                                      onClick={() => props.onChangeLevel(level)}
                                   >
                                       <div className={classes.LevelCard}>
                                           <div className={classes.LevelHeader}>

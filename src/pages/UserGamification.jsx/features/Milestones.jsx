@@ -27,17 +27,14 @@ const Milestones = (props) => {
     useEffect(() => {
         if (!displayedHeroLevels) return;
 
-        const foundIndex = displayedHeroLevels.findIndex((l) => l.id === props.activeLevel);
+        const foundIndex = displayedHeroLevels.findIndex((l) => l.id === props.activeLevel?.id);
         if (foundIndex > -1) {
             setThisLevelIndex(foundIndex);
         } else {
             setThisLevelIndex(displayedHeroLevels[0]);
         }
 
-    }, [props.activeLevel]);
-
-    console.log("mesa sto milestone, AUTO TO LEVEL", thisLevelIndex);
-    console.log("poso", displayedHeroLevels[thisLevelIndex]?.milestones);
+    }, [props.activeLevel?.id]);
 
     const getProgress = () => {
         // if (!levels) return 0;

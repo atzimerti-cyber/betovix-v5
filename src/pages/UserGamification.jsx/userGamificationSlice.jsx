@@ -23,6 +23,7 @@ const initialState = {
     ],
     displayedHero: {},
     heroLevels: [],
+    currentLevel: {},
     levels: null,
     selectedHero: {},
 
@@ -44,6 +45,9 @@ export const userGamificationSlice = createSlice({
         setSelectedHero: (state, action) => {
             state.selectedHero = action.payload;
         },
+        setCurrentLevel: (state, action) => {
+            state.currentLevel = action.payload;
+        }
         // setHeroLevels: (state, action) => {
         //     state.heroLevels = action.payload;
         // },
