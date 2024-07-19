@@ -40,8 +40,8 @@ export const claimBonus = (signal,bonusId, callback) => {
                 `/BonusForAccount/ClaimBonus?bonusFaId=${bonusId}&lang=en&siteid=${import.meta.env.VITE_SITE_ID}`,
                 {
                     signal: signal,
-                    // baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
-                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                    baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                    // baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
                 }
             );
 
