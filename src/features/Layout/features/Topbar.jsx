@@ -22,7 +22,6 @@ import { layoutActions } from '../layoutSlice';
 import MenuItems from './MenuItems';
 import { addThousandsSeparator } from '../../../utils/custom';
 
-import { translate } from '../../../utils/translations';
 
 const Topbar = () => {
     const dispatch = useDispatch();
