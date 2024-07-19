@@ -70,4 +70,6 @@
     color: hsl(var(--bc) / var(--tw-text-opacity));
     --tw-text-opacity: 0.2;
     pointer-events: none;
+   color: var(--db-body-text);
+    /* color: var(--db-brand-green); */
 }

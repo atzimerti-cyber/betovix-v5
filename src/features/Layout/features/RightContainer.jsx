@@ -8,6 +8,7 @@ import CloseButton from '../../UI/Buttons/CloseButton';
 import classes from './RightContainer.module.css';
 import BetslipIcon from '../../../assets/svgs/betslip.svg?react';
 import ChatIcon from '../../../assets/svgs/chat.svg?react';
+import { translate } from '../../../utils/translations';
 
 const RightContainer = () => {
     const dispatch = useDispatch();
@@ -21,8 +22,8 @@ const RightContainer = () => {
                     <TabsPill
                         role='tablist'
                         tabs={[
-                            { id: 'betslip', icon: <BetslipIcon />, label: 'Betslip' },
-                            { id: 'chat', icon: <ChatIcon />, label: 'Chat' },
+                            { id: 'betslip', icon: <BetslipIcon />, label: translate('Betslip') },
+                            { id: 'chat', icon: <ChatIcon />, label: translate('Chat') },
                         ]}
                         onChangeTab={(tab) => dispatch(layoutActions.setShowRight(tab))}
                     />

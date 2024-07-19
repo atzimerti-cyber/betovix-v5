@@ -16,6 +16,7 @@ import NewIcon from '../../assets/casinoIcons/new.svg?react';
 import VipProgress from './features/VipProgress';
 import RegisterContainers from './features/RegisterContainers';
 import Crypto from './features/Crypto';
+import { translate } from '../../utils/translations';
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -107,7 +108,7 @@ const Home = () => {
 
                 {permissions.AllowToCasino || permissions.AllowToSlots ? (
                     <SwiperWithOverlay
-                        title='New Games'
+                        title={translate('New Games')}
                         icon={<NewIcon className={classes.NewIcon} />}
                         link='/casino/slots'
                         items={filteredGames.newGames?.Data}
@@ -116,8 +117,8 @@ const Home = () => {
 
                 {user && (permissions.AllowToCasino || permissions.AllowToSlots) ? (
                     <>
-                        <SwiperWithOverlay title='Recently Played' icon={<ClockIcon />} items={filteredGames.recentGames?.Data} />
-                        <SwiperWithOverlay title='Favorites' icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} />
+                        <SwiperWithOverlay title={translate('Recently Played')} icon={<ClockIcon />} items={filteredGames.recentGames?.Data} />
+                        <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} />
                     </>
                 ) : null}
 

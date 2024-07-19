@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import BetslipEmptyIcon from '../../../assets/svgs/betslip-empty.svg?react';
 import TopEventsIcon from '../../../assets/svgs/top-events.svg?react';
 import classes from './Empty.module.css';
+import { translate } from '../../../utils/translations';
 
 const Empty = () => {
     const location = useLocation();
@@ -23,18 +24,18 @@ const Empty = () => {
     return (
         <div className={elClasses.join(' ')} onClick={isInSports ? null : () => navigate('/sportsbook/home/football')}>
             <BetslipEmptyIcon />
-            <div className={classes.EmptyTitle}>Betslip is empty</div>
+            <div className={classes.EmptyTitle}>{translate('Betslip is empty')}</div>
             {isInSports ? (
-                <div className={classes.EmptyText}>Please add a selection to place a bet</div>
+                <div className={classes.EmptyText}>{translate('Please add a selection to place a bet')}</div>
             ) : (
                 <div className={classes.EmptyText}>
                     <div className={classes.EmptytextContainer}>
-                        Go to
+                    {translate('Go to')} 
                         <div className={classes.GotoSports}>
                             <TopEventsIcon />
-                            Sports
+                            {translate('Sports')} 
                         </div>
-                        for wide market selections
+                        {translate('for wide market selections')}
                     </div>
                 </div>
             )}

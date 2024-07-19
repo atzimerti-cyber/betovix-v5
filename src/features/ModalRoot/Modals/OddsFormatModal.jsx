@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import DsButton from '../../UI/Buttons/DsButton';
 import CloseButton from '../../UI/Buttons/CloseButton';
 import { appActions } from '../../InitApp/appSlice';
+import { translate } from '../../../utils/translations';
 
 const OddsFormatModal = () => {
     const navigate = useNavigate();
@@ -26,7 +27,7 @@ const OddsFormatModal = () => {
             <div className={classes.ModalContent}>
                 <header>
                     <span className={classes.Center}>
-                        <h1>Odds Format</h1>
+                        <h1>{translate("Odds Format")}</h1>
                     </span>
                     <span className={classes.Right}>
                         <CloseButton timesIcon color='transparent' onClick={() => navigate(location.pathname)} />
@@ -36,7 +37,7 @@ const OddsFormatModal = () => {
                 <div className={classes.OddsFormatContent}>
                     {oddsFormatOptions.map((oddsFormat, index) => (
                         <DsButton key={index} active={selectedOddsFormat === oddsFormat} color='transparent' onClick={() => updateOddsFormat(oddsFormat)}>
-                            {oddsFormat}
+                            {translate(oddsFormat)}
                         </DsButton>
                     ))}
                 </div>

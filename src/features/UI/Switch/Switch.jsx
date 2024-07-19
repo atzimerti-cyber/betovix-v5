@@ -9,8 +9,8 @@ const Switch = (props) => {
             <div className={classes.SwitchIcon}>
                 <div className={classes.SwitchHandle}></div>
             </div>
-            <label>{props.label}</label>
-            <input type='checkbox' role='switch' className={classes.Hidden}></input>
+            <label htmlFor={props.id}>{props.label}</label>
+            <input id={props.id} type='checkbox' role='switch' className={classes.Hidden} ></input>
         </div>
     );
 };

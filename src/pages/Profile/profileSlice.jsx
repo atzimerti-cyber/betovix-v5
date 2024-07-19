@@ -13,18 +13,6 @@ import samtb from '../../assets/heroes/sam-tb.png';
 
 const initialState = {
     topGames: null,
-    heroes: [
-        { id: 1, name: "Erik", icon: erik, icontb: eriktb, description: "the Viking" },
-        { id: 2, name: "Lola", icon: lola, icontb: lolatb, description: "the Carnival Queen" },
-        { id: 3, name: "Lee", icon: lee, icontb: leetb, description: "the Dragon Warrior" },
-        { id: 4, name: "Jack", icon: jack, icontb: jacktb, description: "the Jackaroo" },
-        { id: 5, name: "Sam", icon: sam, icontb: samtb, description: "the Eagle" },
-        { id: 6, name: "Nia", icon: "", icontb: "", description: "the Numbian Queen" },
-    ],
-    selectedHero: { id: 1, name: "Erik", icon: erik, icontb: eriktb, description: "the Viking" },
-    heroLevels: [],
-    levels: null,
-
 };
 
 export const profileSlice = createSlice({
@@ -34,17 +22,8 @@ export const profileSlice = createSlice({
         reset: (state) => {
             state.topGames = null;
         },
-        setHeroes: (state, action) => {
-            state.heroes = action.payload;
-        },
-        setSelectedHero: (state, action) => {
-            state.selectedHero = action.payload;
-        },
         setTopGames: (state, action) => {
             state.topGames = action.payload;
-        },
-        setHeroLevels: (state, action) => {
-            state.heroLevels = action.payload;
         },
     },
 });

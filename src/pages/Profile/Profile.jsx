@@ -62,7 +62,6 @@ const Profile = () => {
                         <div className={classes.TabPanel}>
                             {selectedTab === 'overview' && <Overview />}
                             {selectedTab === 'heroes' && <Heroes />}
-                            {/* {selectedTab === 'heroes' && <Hero />} */}
                             {selectedTab === 'settings' && <Settings />}
                             {selectedTab === 'verification' && <Verification />}
                         </div>

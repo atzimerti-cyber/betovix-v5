@@ -3,7 +3,7 @@
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     opacity: 0;
     background-color: initial;
-    padding: 1.25rem;
+    /* padding: 1.25rem; */
     position: relative;
 }
 
@@ -61,17 +61,19 @@
 
 .HeroDescription {
     grid-column: 2 / 4;
-    grid-row: 2 / span 3;
+    grid-row: 1;
+    /* grid-row: 2 / span 3; */
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     --tw-text-opacity: 1;
+    margin-top: 1rem;
     /* color: rgb(255 255 255 / var(--tw-text-opacity)); */
 }
 
 .DescTitle {
     font-weight: bold;
-    font-size: 17px;
+    font-size: 20px;
     color: var(--db-brand-green);
 }
 .Description{
@@ -80,7 +82,8 @@
 }
 
 .LevelUpSection {
-    grid-row: 1;
+    grid-row: 2;
+    /* grid-row: 1; */
     grid-column: 2 / 4;
 
 }

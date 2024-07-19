@@ -8,6 +8,7 @@ import Tabs from '../../UI/Tabs/Tabs';
 import Deposit from '../../../pages/Crypto/features/Deposit';
 import Withdraw from '../../../pages/Crypto/features/Withdraw';
 //import BuyCrypto from '../../../pages/Crypto/features/BuyCrypto';
+import { translate } from '../../../utils/translations';
 
 const CashierModal = (props) => {
     const navigate = useNavigate();
@@ -28,13 +29,13 @@ const CashierModal = (props) => {
 
     return (
         <div className={classes.CashierModal}>
-            <ModalHeader icon={<WalletIcon />} title='Cashier' />
+            <ModalHeader icon={<WalletIcon />} title={translate('Cashier')} />
 
             <div className={classes.TabContainer}>
                 <Tabs
                     tabs={[
-                        { id: 'deposit', label: 'Deposit', active: selectedTab === 'deposit' },
-                        { id: 'withdraw', label: 'Withdraw', active: selectedTab === 'withdraw' },
+                        { id: 'deposit', label: translate('Deposit'), active: selectedTab === 'deposit' },
+                        { id: 'withdraw', label: translate('Withdraw'), active: selectedTab === 'withdraw' },
                         // { id: 'buy-crypto', label: 'Buy Crypto', active: selectedTab === 'buy-crypto' },
                     ]}
                     onChangeTab={(tab) => changeTab(tab)}

@@ -45,7 +45,6 @@ const DepositCrypto = () => {
         return () => dispatch(cryptoActions.resetCurrency());
     }, []);
 
-    //////k
     useEffect(() => {
         if (!crypto) return;
 
@@ -72,34 +71,6 @@ const DepositCrypto = () => {
         setCryptoOptions(filteredCryptocurrencies);
     }, [crypto]);
 
-    /////////////////gk
-    // useEffect(() => {
-    //     if (!crypto) return;
-
-    //     const firstOccurrenceMap = {};
-    //     const filteredCryptocurrencies = [];
-
-    //     crypto.forEach((item) => {
-    //         if (item.network) {
-    //             // Only set the first occurrence for items with 'network'
-    //             if (!firstOccurrenceMap[item.label]) {
-    //                 firstOccurrenceMap[item.label] = item;
-    //             }
-    //         } else {
-    //             // Immediately include items without 'network'
-    //             filteredCryptocurrencies.push(item);
-    //         }
-    //     });
-
-    //     // Add the first occurrences from the map to the filtered list
-    //     Object.values(firstOccurrenceMap).forEach((item) => {
-    //         filteredCryptocurrencies.push(item);
-    //     });
-
-    //     setCryptoOptions(filteredCryptocurrencies);
-    // }, [crypto]);
-
-    //////////k
     useEffect(() => {
         if (!selectedCurrency) return;
 
@@ -124,26 +95,6 @@ const DepositCrypto = () => {
 
         return networks;
     };
-
-    //////gk
-    // useEffect(() => {
-    //     if (!selectedCurrency) return;
-
-    //     const controller = new AbortController();
-    //     const signal = controller.signal;
-
-    //     dispatch(getDepositAddress(signal));
-    // }, [selectedCurrency?.label]);
-
-    // const getNetworks = (item) => {
-    //     let networks = [];
-
-    //     crypto.forEach((c) => {
-    //         if (c.label === item.label && c.network) networks.push({ id: c.id, label: c.network });
-    //     });
-
-    //     return networks;
-    // };
 
     const selectCurrency = (option) => {
         dispatch(cryptoActions.setSelectedCurrency(option));
@@ -212,7 +163,7 @@ const DepositCrypto = () => {
             </div>
 
             <div className={classes.BtcAddressContainer}>
-                <label>
+                <label htmlFor='container'>
                     {translate('Your')} {selectedCurrency?.Name} {translate('deposit address')}
                 </label>
                 <CopyToClipboardCont text={depositAddress} />

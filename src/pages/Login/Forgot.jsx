@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import classes from './Forgot.module.css';
@@ -15,15 +15,18 @@ const Forgot = () => {
         <form className={classes.RecoverForm}>
             <h1 className={classes.FormTitle}>{translate('Password Recovery')}</h1>
 
-            <label fhtmlFr='email'>{translate('Email address')}</label>
+            {/* <label fhtmlFr='email'>{translate('Email address')}</label> */}
+            <label htmlFor='email'>{translate('Email address')}</label>
             <div className={classes.InputOuter}>
                 <MainInput
                     role='textbox'
                     type='text'
+                    id='email'
                     name='email'
                     placeholder={translate('Type your Email')}
                     value={email}
                     onChange={(value) => setEmail(value)}
+                    autoComplete
                 />
             </div>
             <div className={classes.RequestButtonWrapper}>

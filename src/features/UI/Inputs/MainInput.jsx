@@ -16,6 +16,7 @@ const MainInput = (props) => {
         <div className={elClasses.join(' ')}>
             <input
                 className={classes.MainInput}
+                id= {props.id}
                 role={props.role}
                 type={props.type}
                 name={props.name}

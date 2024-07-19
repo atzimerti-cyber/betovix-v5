@@ -37,7 +37,7 @@ const SportsBookMenu = () => {
                     to={`/sportsbook/home${selectedSportSlug}`}
                 >
                     <HomeIcon />
-                    Home
+                    {translate('Lobby')}
                 </NavLink>
             </SwiperSlide>
             <SwiperSlide>
@@ -77,7 +77,7 @@ const SportsBookMenu = () => {
             <SwiperSlide>
                 <a className={[classes.ModalItem].join(' ')} onClick={() => navigate(getModalPath('odds-format'))}>
                     <SettingsIcon />
-                    {translate('Odds Format')} - {selectedOddsFormat}
+                    {translate('Odds Format')} - {translate(selectedOddsFormat)}
                 </a>
             </SwiperSlide>
         </SwiperMenu>
