@@ -15,6 +15,7 @@ import Milestones from './Milestones';
 import Rewards from './Rewards';
 
 import { gamificationActions } from '../userGamificationSlice';
+import { getUserAchievements } from '../gamificationAsyncActions';
 
 import { getHeroes } from '../gamificationAsyncActions';
 
@@ -27,6 +28,8 @@ const GamificationProgress = React.memo(() => {
 
     //const user = useSelector((state) => state.login.user);
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
+    const selectedHeroLevels = useSelector((state) => state.gamification.heroLevels);
+    const currentUserLevel = useSelector((state) => state.gamification.currentLevel);
 
     const [activeLevel, setActiveLevel] = useState(null);
 
@@ -42,21 +45,25 @@ const GamificationProgress = React.memo(() => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        dispatch(getHeroes(signal));
+        dispatch(getUserAchievements(signal));
 
         return () => { };
     }, [dispatch]);
 
     useEffect(() => {
-        if (selectedHero && Object.keys(selectedHero).length > 0) {
-            setActiveLevel(selectedHero?.levels[0]);
+        if (currentUserLevel && Object.keys(selectedHero).length > 0) {
+            setActiveLevel(currentUserLevel);
+        }else if(!currentUserLevel && Object.keys(selectedHero).length > 0){
+            setActiveLevel(selectedHeroLevels[0]);
+        };
+        // if (selectedHero && Object.keys(selectedHero).length > 0) {
+        //     setActiveLevel(selectedHeroLevels[0]);
 
-        }
-    }, [selectedHero]);
+        // }
+    }, [selectedHeroLevels]);
 
     useEffect(() => {
         console.log("TWRINO LEVEL:", activeLevel); 
-        dispatch(gamificationActions.setCurrentLevel(activeLevel));
     }, [activeLevel]);
 
 
@@ -84,7 +91,7 @@ const GamificationProgress = React.memo(() => {
                         </div>
 
                         <div className={classes.HeroDescription}>
-                            <p className={classes.DescTitle}>{translate(selectedHero.metadata.HeroName + ' ' + selectedHero.metadata.HeroSubName)}</p>
+                            <p className={classes.DescTitle}>{translate(selectedHero.name + ' ' + selectedHero.subName)}</p>
                         </div>
                     </div>
 

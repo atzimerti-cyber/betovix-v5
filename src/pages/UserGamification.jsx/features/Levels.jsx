@@ -6,15 +6,22 @@ import SimpleSwiper from '../../../features/UI/MainSwiper/SimpleSwiper';
 import LoaderPlaceholder from '../../../features/UI/Skeletons/LoaderPlaceholder';
 
 const Levels = (props) => {
-    //const levels = useSelector((state) => state.modal.levels);
-    const displayedHeroLevels = useSelector((state) => state.gamification.displayedHero.levels);
-    console.log("mesa sto level",props.activeLevel);
+    const selectedHero = useSelector((state) => state.gamification.selectedHero);
+    const selectedHeroLevels = useSelector((state) => state.gamification.heroLevels);
+    const displayedHero = useSelector((state) => state.gamification.displayedHero);
+
+    let heroLevels;
+    if (!selectedHero){
+        heroLevels = displayedHero.levels;
+    }else if(selectedHero){
+        heroLevels = selectedHeroLevels;
+    }
 
     return (
         <div className={classes.Levels}>
             <SimpleSwiper>
-                {displayedHeroLevels
-                    ? displayedHeroLevels.map((level) => {
+                {heroLevels
+                    ? heroLevels.map((level) => {
                           return (
                               <SwiperSlide style={{ width: 'auto' }} key={level.id}>
                                   <div

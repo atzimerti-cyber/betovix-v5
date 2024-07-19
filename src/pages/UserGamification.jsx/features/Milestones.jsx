@@ -10,6 +10,7 @@ import LevelDiamond from './LevelDiamond';
 import SkeletonMilestone from '../../../features/UI/Skeletons/SkeletonMilestone'
 import DsButton from '../../../features/UI/Buttons/DsButton'
 
+import { getUserAchievements } from '../gamificationAsyncActions';
 import { translate } from '../../../utils/translations';
 
 const Milestones = (props) => {
@@ -19,41 +20,88 @@ const Milestones = (props) => {
 
     const user = useSelector((state) => state.login.user);
 
-    const displayedHeroLevels = useSelector((state) => state.gamification.displayedHero.levels);
+    const selectedHero = useSelector((state) => state.gamification.selectedHero);
+    const selectedHeroLevels = useSelector((state) => state.gamification.heroLevels);
+    const displayedHero = useSelector((state) => state.gamification.displayedHero);
 
-    const [currentMilestone, setCurrentMilestone] = useState(null);
+    let heroLevels;
+    if (!selectedHero) {
+        heroLevels = displayedHero.levels;
+    } else if (selectedHero) {
+        heroLevels = selectedHeroLevels;
+    }
+
+    // useEffect(() => {
+    //     const controller = new AbortController();
+    //     const signal = controller.signal;
+
+    //     dispatch(getUserAchievements(signal));
+
+    //     return () => { };
+    // }, [dispatch]);
+
+    //const displayedHeroLevels = useSelector((state) => state.gamification.displayedHero.levels);
+
+    //const [currentMilestone, setCurrentMilestone] = useState(null);
     const [thisLevelIndex, setThisLevelIndex] = useState(0);
 
     useEffect(() => {
-        if (!displayedHeroLevels) return;
+        if (!heroLevels) return;
 
-        const foundIndex = displayedHeroLevels.findIndex((l) => l.id === props.activeLevel?.id);
+        const foundIndex = heroLevels.findIndex((l) => l.id === props.activeLevel?.id);
         if (foundIndex > -1) {
             setThisLevelIndex(foundIndex);
         } else {
-            setThisLevelIndex(displayedHeroLevels[0]);
+            setThisLevelIndex(0);
         }
 
     }, [props.activeLevel?.id]);
 
     const getProgress = () => {
-        // if (!levels) return 0;
+        //if (!heroLevels) return 0;
+        if (!Array.isArray(heroLevels)) {
+            console.error('heroLevels is not an array or is undefined');
+            return 0;
+        }
 
-        // const userWagered = user?.wagered;
+        const currentLevel = heroLevels[thisLevelIndex];
+        if (!currentLevel) {
+            console.error('Invalid thisLevelIndex:', thisLevelIndex);
+            return 0;
+        }
 
-        // const levelMilestones = levels[thisLevelIndex].rewards.milestones;
-        // const levelMin = levelMilestones[0];
-        // const levelMinWagered = levelMin.wagered;
-        // if (userWagered < levelMinWagered) return 0;
+        if (!Array.isArray(currentLevel.milestones)) {
+            console.error('milestones is not an array or is undefined for level:', thisLevelIndex);
+            return 0;
+        }
 
-        // const nextLevelMilestones = thisLevelIndex < levels.length - 1 ? levels[thisLevelIndex + 1].rewards.milestones : levelMilestones;
-        // const levelMax = nextLevelMilestones[0];
-        // const levelMaxWagered = levelMax.wagered;
+        let pointsToCompleteLevel = 0;
+        currentLevel.milestones.forEach(milestone => {
+            pointsToCompleteLevel += milestone.pointsValue;
+        });
+        pointsToCompleteLevel += currentLevel.pointsValue;
 
-        // let progress = 100 * (userWagered / levelMaxWagered);
+        let pointsNow = 0;
+        currentLevel.milestones.forEach(milestone => {
+            pointsNow += milestone.points;
+        });
+        pointsNow += currentLevel.points;
 
-        // if (progress > 100) progress = 100;
-        let progress = 50;
+        // let pointsToCompleteLevel = 0;
+        // heroLevels[thisLevelIndex]?.milestones.forEach(milestone => {
+        //     pointsToCompleteLevel += milestone.pointsValue;
+        // });
+        // //console.log(pointsToCompleteLevel);
+
+        // let pointsNow = 0;
+        // heroLevels[thisLevelIndex]?.milestones.forEach(milestone => {
+        //     pointsNow += milestone.points;
+        // });
+        // //console.log(pointsNow);
+
+        //const progress = (pointsNow / pointsToCompleteLevel) * 100;
+        const progress = pointsToCompleteLevel > 0 ? (pointsNow / pointsToCompleteLevel) * 100 : 0;
+
         return progress;
     };
 
@@ -72,22 +120,25 @@ const Milestones = (props) => {
                                     <span style={{ width: `${getProgress()}%` }}></span>
                                 </div>
                                 <div className={classes.DiamondContainer}>
-                                    {displayedHeroLevels && displayedHeroLevels.length > 0 ? (
+                                    {heroLevels && heroLevels.length > 0 ? (
                                         <>
-                                            {displayedHeroLevels[thisLevelIndex]?.milestones.map((milestone, index) => (
+                                            {[
+                                                { id: `${heroLevels[thisLevelIndex]}placeholder` , milestone: 'before_first' },
+                                                ...heroLevels[thisLevelIndex]?.milestones
+                                            ].map((milestone, index) => (
                                                 <LevelDiamond
                                                     key={milestone.id}
                                                     // key={`${displayedHeroLevels[thisLevelIndex].id}_${milestone.milestone}`}
-                                                    //complete={user?.wagered >= milestone.wagered}
+                                                    complete= {(index == 0 || milestone.percentageComplete == 100 )&& true }
                                                     index={index}
                                                 />
                                             ))}
 
-                                            {thisLevelIndex < displayedHeroLevels.length && (
+                                            {thisLevelIndex < heroLevels.length && (
                                                 <LevelDiamond
                                                     // key={`${displayedHeroLevels[thisLevelIndex].id}_${displayedHeroLevels[thisLevelIndex].milestones[displayedHeroLevels[thisLevelIndex].milestones.length]
                                                     //     }`}
-                                                    key={displayedHeroLevels[thisLevelIndex].id}
+                                                    key={heroLevels[thisLevelIndex].id}
                                                     // complete={
                                                     //     user?.wagered >=
                                                     //     displayedHeroLevels[thisLevelIndex + 1].milestones[displayedHeroLevels[thisLevelIndex + 1].milestones.length - 1]
@@ -104,16 +155,32 @@ const Milestones = (props) => {
                             </div>
 
                             <div className={classes.CardsContainer}>
-                                {displayedHeroLevels ? (
+                                {heroLevels ? (
                                     <>
-                                        {displayedHeroLevels[thisLevelIndex]?.milestones.map((milestone, index) => (
+                                        {thisLevelIndex < heroLevels.length && (
                                             <MilestoneCard
-                                                key={`${displayedHeroLevels[thisLevelIndex].id}_${milestone.id}`}
+                                                key={`${heroLevels[thisLevelIndex].milestone}_temp_locked`}
+                                                // key={`${displayedHeroLevels[thisLevelIndex].level}_${displayedHeroLevels[thisLevelIndex].milestones[displayedHeroLevels[thisLevelIndex].milestones.length]
+                                                //     }`}
+                                                label='Milestone 0'
+                                                index={heroLevels[thisLevelIndex].milestones.length}
+                                                // complete={
+                                                //     user?.wagered >=
+                                                //     displayedHeroLevels[thisLevelIndex + 1].milestones[displayedHeroLevels[thisLevelIndex + 1].milestones.length - 1]
+                                                //         .wagered
+                                                // }
+                                                level={heroLevels[thisLevelIndex]}
+                                            />
+                                        )}
+
+                                        {heroLevels[thisLevelIndex]?.milestones.map((milestone, index) => (
+                                            <MilestoneCard
+                                                key={`${heroLevels[thisLevelIndex].id}_${milestone.id}`}
                                                 // key={`${displayedHeroLevels[thisLevelIndex].level}_${milestone.milestone}`}
                                                 label={`${milestone.name}`}
                                                 index={index}
                                                 //complete={user?.wagered >= milestone.wagered}
-                                                level={displayedHeroLevels[thisLevelIndex]}
+                                                level={heroLevels[thisLevelIndex]}
                                             // needed={
                                             //     currentMilestone &&
                                             //         currentMilestone.level === displayedHeroLevels[thisLevelIndex].level &&
@@ -124,19 +191,19 @@ const Milestones = (props) => {
                                             />
                                         ))}
 
-                                        {thisLevelIndex < displayedHeroLevels.length && (
+                                        {thisLevelIndex < heroLevels.length && (
                                             <MilestoneCard
-                                                key={`${displayedHeroLevels[thisLevelIndex].id}_locked`}
+                                                key={`${heroLevels[thisLevelIndex].id}_locked`}
                                                 // key={`${displayedHeroLevels[thisLevelIndex].level}_${displayedHeroLevels[thisLevelIndex].milestones[displayedHeroLevels[thisLevelIndex].milestones.length]
                                                 //     }`}
                                                 label='Locked'
-                                                index={displayedHeroLevels[thisLevelIndex].milestones.length}
+                                                index={heroLevels[thisLevelIndex].milestones.length}
                                                 // complete={
                                                 //     user?.wagered >=
                                                 //     displayedHeroLevels[thisLevelIndex + 1].milestones[displayedHeroLevels[thisLevelIndex + 1].milestones.length - 1]
                                                 //         .wagered
                                                 // }
-                                                level={displayedHeroLevels[thisLevelIndex]}
+                                                level={heroLevels[thisLevelIndex]}
                                                 nextLevel
                                             />
                                         )}

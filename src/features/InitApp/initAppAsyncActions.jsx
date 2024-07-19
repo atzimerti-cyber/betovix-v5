@@ -34,6 +34,7 @@ import { ticketActions } from '../Ticket/ticketSlice';
 import { betslipActions } from '../Betslip/betslipSlice';
 
 import { getCrypto } from '../../pages/Crypto/cryptoAsyncActions';
+import { getUserAchievements } from '../../pages/UserGamification.jsx/gamificationAsyncActions';
 
 export const loadInitData = (isMobile) => {
     return async (dispatch, getState) => {
@@ -101,6 +102,7 @@ export const loadInitData = (isMobile) => {
                 }
             }
 
+
             // Necessary
             // -------------------------------------
             const requestsNecessary = [
@@ -118,7 +120,9 @@ export const loadInitData = (isMobile) => {
             const controller = new AbortController();
             const signal = controller.signal;
             dispatch(getCrypto(signal));
-            /////////////////////////////////////////////////////
+
+            //Get user achievements
+            dispatch(getUserAchievements(signal));
 
             // Get permissions after setting user
             const currentLoginState = getState().login;
@@ -331,7 +335,7 @@ export const loadInitData = (isMobile) => {
                     {
                         id: 2,
                         label: `Your Progress`,
-                        icon: <LogoSmall1C color="#FF0000"/>, 
+                        icon: <LogoSmall1C color="#FF0000" />,
                         page: 'lounge',
                     },
                 ],

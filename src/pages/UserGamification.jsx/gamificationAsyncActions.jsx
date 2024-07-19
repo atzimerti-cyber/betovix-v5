@@ -86,6 +86,106 @@ export const selectedHero = (displayedHeroAction, signal) => {
     };
 };
 
+// export const getUserAchievementssssss = (signal) => {
+//     return async (dispatch) => {
+//         try {
+//             const lang = getLang();
+
+//             const response = await axiosApi.get(
+//                 `/Gamification/GetMembersAchievements`,
+//                 {
+//                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+//                 }
+//             );
+//             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
+            
+//         } catch (error) {
+//             const message = error?.message ? error.message : error;
+//             if (!error?.code === 'ERR_CANCELED') toast.error(message);
+//         }
+//     };
+// };
+
+export const getUserAchievements = (signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.get(
+                `/Gamification/GetMembersSelectedHero`,
+                {
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
+// const heroLevels = response.data.Contents.HeroLevels.map(level => ({
+            //     id: level.Level.id,
+            //     name: level.Level.metadata.Name,
+            //     statusCode: level.Level.optInStatus.statusCode,
+            //     milestones: level.Milestones.map(milestone => ({
+            //         id: milestone.id,
+            //         name: milestone.metadata.Name,
+            //         percentageComplete: milestone.optInStatus.percentageComplete,
+            //         points: milestone.optInStatus.points,
+            //         pointsValue: milestone.strategies.pointsStrategy.pointsValue,
+                   
+            //     }))
+            //     .sort((a, b) => a.name.localeCompare(b.name))
+            // }))
+            // .sort((a, b) => a.name.localeCompare(b.name));
+            const selectedHero = {
+                id: response.data.Contents.SelectedHero.id,
+                name: response.data.Contents.SelectedHero.metadata.HeroName,
+                subName: response.data.Contents.SelectedHero.metadata.HeroSubName,
+                banner: response.data.Contents.SelectedHero.metadata.PreviewImage,
+                icon: response.data.Contents.SelectedHero.metadata.CloseUp,
+                description: response.data.Contents.SelectedHero.description,
+                action: response.data.Contents.SelectedHero.metadata.action,
+            }
+            
+            const heroLevels = response.data.Contents.HeroLevels.map(level => {
+                const milestones = level.Milestones.map(milestone => ({
+                    id: milestone.id,
+                    name: milestone.metadata.Name,
+                    percentageComplete: milestone.optInStatus.percentageComplete,
+                    points: milestone.optInStatus.points > milestone.strategies.pointsStrategy.pointsValue ? milestone.strategies.pointsStrategy.pointsValue :  milestone.optInStatus.points,
+                    pointsValue: milestone.strategies.pointsStrategy.pointsValue,
+                })).sort((a, b) => a.name.localeCompare(b.name));
+            
+                const isCurrentLevel = milestones.some(milestone => 
+                    milestone.percentageComplete > 0 && milestone.percentageComplete < 100
+                );
+            
+                return {
+                    id: level.Level.id,
+                    name: level.Level.metadata.Name,
+                    statusCode: level.Level.optInStatus.statusCode,
+                    milestones: milestones,
+                    currentLevel: isCurrentLevel,
+                    points: level.Level.optInStatus.points > level.Level.strategies.pointsStrategy.pointsValue ? level.Level.strategies.pointsStrategy.pointsValue :  level.Level.optInStatus.points,
+                    pointsValue: level.Level.strategies.pointsStrategy.pointsValue
+                };
+            }).sort((a, b) => a.name.localeCompare(b.name));
+
+            const currentLevel = heroLevels.find(level => level.currentLevel);
+
+            console.log(selectedHero);
+            console.log(heroLevels);
+            console.log(currentLevel);
+
+            dispatch(gamificationActions.setSelectedHero(selectedHero));
+            dispatch(gamificationActions.setHeroLevels(heroLevels));
+            dispatch(gamificationActions.setCurrentLevel(currentLevel));
+
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
+
+
 // export const getHeroes = (signal) => {
 //     return async (dispatch) => {
 //         try {
