@@ -10,15 +10,23 @@
     width: 100%;
 }
 .isBonus button {
-    background: 0 0;
-    color: var(--db-brand-green);
-    border: 1px dashed var(--db-brand-green);
+    background: var(--db-duelbits-gray);
+    color: #f3bfff;
+    border: 2px solid var(--db-purple-box);
     width: 100%;
     font-weight: 700;
     font-size: 12px;
-    margin-top: 3px;
+    margin-top: 5px;
     border-radius: 5px;
     padding: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 10px;
+}
+.isBonus button svg {
+   height: 20px;
+   width: 20px;
 }
 .Card {
     width: 100%;

@@ -64,8 +64,8 @@ export const getUser = () => {
     return async (dispatch) => {
         try {
             const response = await axiosApi.get(`login/State/?lang=en&siteid=${import.meta.env.VITE_SITE_ID}`, {
-                // baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
-                baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                // baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
             });
             if (response.data.Status.StatusCode !== 200) dispatch(loginActions.logout());
             else {

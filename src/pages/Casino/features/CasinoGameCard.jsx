@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import classes from './CasinoGameCard.module.css';
 import LoaderPlaceholder from '../../../features/UI/Skeletons/LoaderPlaceholder';
 import HeartIcon from '../../../assets/svgs/heart.svg?react';
+import BonusIcon from '../../../assets/svgs/bonus.svg?react';
 import { removeFavoriteCasino, addFavoriteCasino } from '../casinoAsyncActions';
 import { translate } from '../../../utils/translations';
 
@@ -67,6 +68,7 @@ const CasinoGameCard = (props) => {
                 <Link to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}?isBonus=true`}>
                     <div className={classes.isBonus}>
                         <button className={classes.bonusContainer}>
+                            <BonusIcon/>
                             {translate('Play With Bonus')}
                         </button>
                     </div>

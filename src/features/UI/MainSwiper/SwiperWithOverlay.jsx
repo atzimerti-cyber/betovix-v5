@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 
 import MainSwiper from './MainSwiper';
 import HeartIcon from '../../../assets/svgs/heart.svg?react';
+import BonusIcon from '../../../assets/svgs/bonus.svg?react';
 import classes from './SwiperWithOverlay.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
 import { addFavoriteCasino, removeFavoriteCasino } from '../../../pages/Casino/casinoAsyncActions';
@@ -105,6 +106,7 @@ const SwiperWithOverlay = (props) => {
                                         <Link to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}>
                                             <div className={classes.isBonus}>
                                                 <button className={classes.bonusContainer}>
+                                                    <BonusIcon/>
                                                     {translate('Play With Bonus')}
                                                 </button>
                                             </div>

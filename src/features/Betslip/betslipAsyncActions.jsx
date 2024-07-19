@@ -53,8 +53,8 @@ export const placeBet = (payload, slips, amounts, betType) => {
                 `Betting/PostData?action=buyticket&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
                 { data: payload },
                 {
-                    baseURLOverride: import.meta.env.VITE_STORETUBE,
-                    // baseURLOverride: import.meta.env.VITE_BETS_API,
+                    // baseURLOverride: import.meta.env.VITE_STORETUBE,
+                    baseURLOverride: import.meta.env.VITE_BETS_API,
                 }
             );
             if (response.status !== 200) throw Error();

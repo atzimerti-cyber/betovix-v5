@@ -77,7 +77,8 @@ export const loadInitData = (isMobile) => {
             let user = null;
             if (token) {
                 const response = await axiosApi.get(`login/State/?lang=en&siteid=${import.meta.env.VITE_SITE_ID}`, {
-                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                    // baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                    baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
                 });
                 if (response.data.Status.StatusCode !== 200) dispatch(loginActions.logout());
                 else {

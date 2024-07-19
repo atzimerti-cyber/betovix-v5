@@ -145,8 +145,8 @@ export const getVendorGame = (providername, id, brandgameid, gameName, isDemo, s
                     axiosApi.get(
                         `Casino${providername}/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${import.meta.env.VITE_HOME_URL
                         }/casino&siteid=${import.meta.env.VITE_SITE_ID}`,
-                        { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_STORETUBE_BASE }
-                        // { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_BASE }
+                        // { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_STORETUBE_BASE }
+                        { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_BASE }
                     ),
                 ];
 

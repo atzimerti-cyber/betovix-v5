@@ -99,7 +99,7 @@ const BonusModal = () => {
         </div>
                 </div>
                 <div className={classes.bonusesBody}>
-                   <div className={classes.bonusesContainer}>
+                   <div className={classes.bonusesContainerSmall}>
              
                         <div className={classes.bonusesBodyWrapper}>
                             {bonuses.length === 0 ? (

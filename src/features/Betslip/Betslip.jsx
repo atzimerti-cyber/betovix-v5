@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo, useRef, memo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
+import classNames from 'classnames'; // You can use the classnames library for conditional class names
 
 import classes from './Betslip.module.css';
 import Tabs from '../UI/Tabs/Tabs';
@@ -218,7 +219,7 @@ const Betslip = memo(function (props) {
     const bonusButton = useMemo(() => {
         if (user && slips.length && betslip.totalStake && betslip.totalStake > 0 && bonusBalance && bonusBalance >= betslip.totalStake) {
             return (
-                <div className={classes.BonusButton}>
+                <div className={classNames(classes.BonusButton, { [classes.selected]: isBonus })}>
                     <label className={classes.bonusContainer}>
                         <input
                             checked={isBonus} 

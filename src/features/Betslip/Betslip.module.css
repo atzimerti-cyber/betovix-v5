@@ -66,8 +66,13 @@
     position: relative;
     transition: background-color 0.3s; 
     cursor: pointer;
+    font-weight: 600;
 }
-
+.BonusButton.selected {
+    border: 2px solid var(--db-purple-box);
+    border-radius: 8px;
+    color: #f3bfff;
+}
 .bonusContainer {
     display: flex;
     align-items: center; 
