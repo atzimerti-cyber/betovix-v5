@@ -8,6 +8,7 @@ const MainInput2 = (props) => {
     return (
         <div className={elClasses.join(' ')}>
             <input
+                id={props.id}
                 className={classes.MainInput}
                 type={props.type}
                 name={props.name}

@@ -40,14 +40,14 @@ const Settings = () => {
                         <MainInput2 type='text' name='displayName' value={displayName} onChange={(value) => setDisplayName(value)} />
 
                         <div className={classes.ToggleContainer}>
-                            <label onClick={() => setProfileIsHidden((prev) => !prev)}>{translate('Toggle Profile Privacy')}</label>
-                            <Switch active={profileIsHidden} label='' onClick={() => setProfileIsHidden((prev) => !prev)} />
+                            <label htmlFor='privacy' onClick={() => setProfileIsHidden((prev) => !prev)}>{translate('Toggle Profile Privacy')}</label>
+                            <Switch id='privacy' active={profileIsHidden} label='' onClick={() => setProfileIsHidden((prev) => !prev)} />
                         </div>
                         <p className={classes.Text}>{translate(`If enabled, your stats and bet history will display as 'Hidden' for others.`)}</p>
 
                         <div className={classes.ToggleContainer}>
-                            <label onClick={() => setMarketingEmails((prev) => !prev)}>{translate(`Marketing Emails`)}</label>
-                            <Switch active={marketingEmails} label='' onClick={() => setMarketingEmails((prev) => !prev)} />
+                            <label htmlFor='marketing' onClick={() => setMarketingEmails((prev) => !prev)}>{translate(`Marketing Emails`)}</label>
+                            <Switch id='marketing' active={marketingEmails} label='' onClick={() => setMarketingEmails((prev) => !prev)} />
                         </div>
                         <p className={classes.Text}>{translate(`Send me bonus and marketing emails.`)}</p>
 

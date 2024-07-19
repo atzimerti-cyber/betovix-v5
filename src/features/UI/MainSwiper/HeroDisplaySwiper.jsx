@@ -9,13 +9,13 @@ import MainSwiper from './MainSwiper';
 import HeartIcon from '../../../assets/svgs/heart.svg?react';
 import classes from './HeroDisplaySwiper.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
-import { profileActions } from '../../../pages/Profile/profileSlice';
+import { gamificationActions } from '../../../pages/UserGamification.jsx/userGamificationSlice';
 //import { addFavoriteCasino, removeFavoriteCasino } from '../../../pages/Casino/casinoAsyncActions';
 
 const HeroSwiperWithOverlay = (props) => {
 
     const dispatch = useDispatch();
-    const selectedHero = useSelector((state) => state.profile.selectedHero);
+    const displayedHero = useSelector((state) => state.gamification.displayedHero);
 
     const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
     const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
@@ -28,7 +28,7 @@ const HeroSwiperWithOverlay = (props) => {
     };
 
     const handleCardClick = (hero) => {
-        dispatch(profileActions.setSelectedHero(hero));
+        dispatch(gamificationActions.setDisplayedHero(hero));
     };
 
     let slidesPerView = 5;
@@ -71,7 +71,7 @@ const HeroSwiperWithOverlay = (props) => {
                                     className={classes.SlideContainer}
                                     onClick={() => handleCardClick(item)}
                                 >
-                                    <article className={`${classes.Card} ${selectedHero?.id === item.id ? classes.Selected : ''}`}>
+                                    <article className={`${classes.Card} ${displayedHero?.id === item.id ? classes.Selected : ''}`}>
                                         <div className={classes.ImageContainer}>
                                             {loadedImages.includes(index) === false && <LoaderPlaceholder />}
                                             <img src={item.icon} loading='lazy' onLoad={() => updateLoadedImages(index)} />

@@ -9,6 +9,7 @@ import LogoutIcon from '../../../assets/svgs/logout.svg?react';
 import UserIcon from '../../../assets/svgs/user.svg?react';
 import { loginActions } from '../../../pages/Login/loginSlice';
 import classes from './MenuItems.module.css';
+import { translate } from '../../../utils/translations';
 
 const MenuItems = (props) => {
     const navigate = useNavigate();
@@ -24,32 +25,32 @@ const MenuItems = (props) => {
                     }}
                 >
                     <UserIcon />
-                    <span>Profile</span>
+                    <span>{translate('Profile')}</span>
                 </a>
             </li>
             <li>
                 <a>
                     <StarIcon />
-                    <span>My Rewards</span>
+                    <span>{translate('My Rewards')}</span>
                     <div className={classes.NumberBadge}>2</div>
                 </a>
             </li>
             <li>
                 <a>
                     <TransactionIcon />
-                    <span>Transactions</span>
+                    <span>{translate('Transactions')}</span>
                 </a>
             </li>
             <li>
                 <a>
                     <VaultIcon />
-                    <span>Vault</span>
+                    <span>{translate('Vault')}</span>
                 </a>
             </li>
             <li>
                 <a>
                     <LiveSupportIcon />
-                    <span>Live Support</span>
+                    <span>{translate('Live Support')}</span>
                 </a>
             </li>
             <li>
@@ -60,7 +61,7 @@ const MenuItems = (props) => {
                     }}
                 >
                     <LogoutIcon />
-                    <span>Log Out</span>
+                    <span>{translate('Log Out')}</span>
                 </a>
             </li>
         </>

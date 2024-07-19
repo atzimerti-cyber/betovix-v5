@@ -17,7 +17,7 @@ const Verification = () => {
                     <p className={classes.Text}>{translate('A verified email address is required to access some parts of the website.')}</p>
 
                     <div className={classes.Container}>
-                        <input readOnly type='text' value={user?.Email} />
+                        <input id='useremail' readOnly type='text' value={user?.Email} />
                     </div>
 
                     <MainButton2 onClick={() => console.log('VERIFY')}>

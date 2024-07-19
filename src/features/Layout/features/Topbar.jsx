@@ -22,6 +22,8 @@ import { layoutActions } from '../layoutSlice';
 import MenuItems from './MenuItems';
 import { addThousandsSeparator } from '../../../utils/custom';
 
+import { translate } from '../../../utils/translations';
+
 const Topbar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -98,7 +100,7 @@ const Topbar = () => {
                         </div>
                         <MainButton color='secondary' size='small' onClick={() => addParamsToUrl('cashier', 'deposit')}>
                             <WalletIcon />
-                            <span>Cashier</span>
+                            <span>{translate('Cashier')}</span>
                         </MainButton>
                     </>
                 )}
@@ -155,10 +157,10 @@ const Topbar = () => {
                     ) : (
                         <>
                             <MainButton color='transparent' onClick={() => addParamsToUrl('auth', 'login')}>
-                                LOGIN
+                                {translate('LOGIN')}
                             </MainButton>
                             <MainButton color='secondary' onClick={() => addParamsToUrl('auth', 'register')}>
-                                REGISTER
+                                {translate('REGISTER')}
                             </MainButton>
                         </>
                     )}

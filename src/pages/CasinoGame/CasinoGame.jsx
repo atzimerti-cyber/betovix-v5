@@ -153,6 +153,7 @@ const CasinoGame = () => {
                         </div>
                         <div className={classes.DemoControl}>
                             <Switch
+                                id='demo-switch'
                                 active={isDemo}
                                 label={translate('DEMO MODE')}
                                 onClick={() => {

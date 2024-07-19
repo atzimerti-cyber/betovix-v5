@@ -1,0 +1,152 @@
+.MilestoneSection {
+    position: relative;
+    display: grid;
+    transition: grid-template-rows 0.3s ease-out;
+    grid-template-rows: 1fr;
+    margin-left: -0.625rem;
+    margin-right: -0.625rem;
+}
+
+.MilestoneSection > button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    --tw-translate-x: -50% !important;
+    --tw-translate-y: -50% !important;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+    height: 2.5rem !important;
+    width: min(100%, 260px);
+    background-color: var(--db-brand-green);
+}
+
+.CarouselContainer {
+    padding-left: 0.625rem;
+    padding-right: 0.625rem;
+    overflow: hidden;
+}
+.NotLoggedIn.CarouselContainer {
+    opacity: 0.2;
+    pointer-events: none;
+}
+
+.MilestoneCarousel {
+    display: flex;
+    flex-direction: column;
+}
+
+.ScrollContainer {
+    overflow-y: hidden;
+    overflow-x: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.ScrollContent {
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    -webkit-user-select: none;
+    user-select: none;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.ProgressBar {
+    position: relative;
+    margin-top: 0.5rem;
+    height: 27px;
+    margin-left: calc(var(--db-milestone-card-width) / 2);
+    margin-right: calc(var(--db-milestone-card-width) / 2);
+}
+
+.BarContainer {
+    height: 5px;
+    border-radius: 9999px;
+    background-color: var(--db-gray-3);
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    --tw-translate-x: -50%;
+    --tw-translate-y: -50%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.BarContainer > span {
+    display: block;
+    height: inherit;
+    border-radius: inherit;
+    background-color: var(--db-brand-green);
+    transition: width 0.3s linear;
+}
+
+.DiamondContainer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 100%;
+    --tw-translate-x: -50%;
+    --tw-translate-y: -50%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.CardsContainer {
+    display: flex;
+    gap: 13px;
+}
+
+.SkeletonWrapper {
+    position: relative;
+    height: 152px;
+    width: 111px;
+}
+
+.Background {
+    display: grid;
+    place-items: center;
+    background-color: var(--db-gray-2);
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 0.375rem;
+}
+.Background::before {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    height: 0.75rem;
+    width: 0.75rem;
+    --tw-translate-y: -50%;
+    --tw-translate-x: -50%;
+    --tw-rotate: 45deg;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    background-color: inherit;
+    content: '';
+}
+.Background > div {
+    border-radius: 0.375rem;
+}
+
+/* Media */
+@media (min-width: 768px) {
+    .MilestoneSection {
+        margin-left: -1rem;
+        margin-right: -1rem;
+    }
+    .CarouselContainer {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+}
