@@ -1,0 +1,60 @@
+
+.TabContent {
+    --tw-translate-y: 3rem;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    opacity: 0;
+    background-color: initial;
+    padding-top: 1.25rem;
+    position: relative;
+}
+
+.OverviewTitle {
+    position: absolute;
+    top: 0.625rem;
+    display: none;
+    font-size: 1.2rem;
+    line-height: 1.5rem;
+    --tw-text-opacity: 1;
+    color: white;
+    /* color: rgb(255 255 255 / var(--db-brand-green)); */
+    font-weight: bold;
+    padding-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.GridContainer {
+    margin-top: 1rem;
+    display: grid;
+    /* gap: 1.25rem; */
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Swiper */
+.RewardsSwiper{
+    margin: 2rem;
+}
+
+.NewIcon path:not(:first-child) {
+    fill: #000 !important;
+}
+
+
+@media (min-width: 768px) {
+    .TabContent {
+        background-color: var(--db-duelbits-gray);
+        padding: 3rem 2.5rem;
+    }
+
+    .OverviewTitle {
+        display: block;
+    }
+
+    .GridContainer {
+        grid-template-columns: 1fr;
+        grid-template-rows: 0.6fr 1fr;
+    }
+}

@@ -53,7 +53,7 @@ const GamificationProgress = React.memo(() => {
     useEffect(() => {
         if (currentUserLevel && Object.keys(selectedHero).length > 0) {
             setActiveLevel(currentUserLevel);
-        }else if(!currentUserLevel && Object.keys(selectedHero).length > 0){
+        } else if (!currentUserLevel && Object.keys(selectedHero).length > 0) {
             setActiveLevel(selectedHeroLevels[0]);
         };
         // if (selectedHero && Object.keys(selectedHero).length > 0) {
@@ -63,11 +63,12 @@ const GamificationProgress = React.memo(() => {
     }, [selectedHeroLevels]);
 
     useEffect(() => {
-        console.log("TWRINO LEVEL:", activeLevel); 
+        console.log("TWRINO LEVEL:", activeLevel);
     }, [activeLevel]);
 
 
     return (
+
         <motion.div className={classes.TabContent} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.2 }}>
             <p className={classes.OverviewTitle}>{translate('Your Progress')}</p>
 
@@ -99,6 +100,7 @@ const GamificationProgress = React.memo(() => {
                 </div>
             )}
         </motion.div>
+
     );
 });
 

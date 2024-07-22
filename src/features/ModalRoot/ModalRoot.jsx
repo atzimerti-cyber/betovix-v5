@@ -13,6 +13,7 @@ import SearchModal from './Modals/SearchModal';
 
 import AchievementModal from './Modals/AchievementModal';
 import HeroConfirmation from './Modals/HeroConfirmation'
+import YourProgress from '../../pages/UserGamification.jsx/features/YourProgress';
 
 import { modalActions } from './modalSlice';
 import { useEffect } from 'react';
@@ -67,6 +68,10 @@ const ModalRoot = () => {
     else if (modal === 'search') modalPage = <SearchModal />;
     else if (modal === 'achievement') modalPage = <AchievementModal />;
     else if (modal === 'hero-confirm') modalPage = <HeroConfirmation />;
+    else if (modal === 'your-progress') {
+        if (user) modalPage = <YourProgress/>;
+        else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;
+    }
 
     return (
         <div className={classes.ModalRoot} id='modal-root'>

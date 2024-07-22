@@ -24,6 +24,7 @@ import StarOutlineIcon from '../../assets/svgs/star-outline.svg?react';
 import AlphaIcon from '../../assets/svgs/alpha.svg?react';
 import LogoSmall from '../../assets/svgs/logo-small.svg?react';
 import LogoSmall1C from '../../assets/svgs/logo-small-oneColor.svg?react';
+import RewardsIcon from '../../assets/svgs/rewards.svg?react';
 
 import { getAccessToken } from '../../utils/auth';
 import { loginActions } from '../../pages/Login/loginSlice';
@@ -328,14 +329,14 @@ export const loadInitData = (isMobile) => {
                 items: [
                     {
                         id: 1,
-                        label: `Ace's Rewards`,
-                        icon: <AlphaIcon />,
-                        modal: 'vip',
+                        label: `Your Progress`,
+                        icon: <LogoSmall1C color="#FF0000" />,
+                        modal: 'your-progress',
                     },
                     {
                         id: 2,
-                        label: `Your Progress`,
-                        icon: <LogoSmall1C color="#FF0000" />,
+                        label: `My Rewards`,
+                        icon: <RewardsIcon color="#FF0000" />,
                         page: 'lounge',
                     },
                 ],

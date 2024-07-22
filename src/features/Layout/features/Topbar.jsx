@@ -114,7 +114,7 @@ const Topbar = () => {
                 <div className={user ? [classes.HeaderRight, classes.UserHeaderRight].join(' ') : [classes.HeaderRight, classes.NoUserHeaderRight].join(' ')}>
                     {user ? (
                         <>
-                            <MainButton color='transparent' onClick={() => addParamsToUrl('vip')}>
+                            <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
                                 <div className={classes.VipProgressBar}>
                                     <div className={classes.VipProgressColor} style={{ width: '0%' }}></div>
                                 </div>

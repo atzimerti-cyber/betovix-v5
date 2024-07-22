@@ -29,7 +29,12 @@ const MenuItems = (props) => {
                 </a>
             </li>
             <li>
-                <a>
+                <a
+                    onClick={() => {
+                        navigate(`lounge`);
+                        props.onClick();
+                    }}
+                >
                     <StarIcon />
                     <span>{translate('My Rewards')}</span>
                     <div className={classes.NumberBadge}>2</div>

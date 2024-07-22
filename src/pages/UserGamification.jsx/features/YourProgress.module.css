@@ -1,0 +1,217 @@
+.Modal {
+    width: 780px;
+
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: calc(100% - 20px);
+    --tw-translate-y: -0.5rem;
+    --tw-scale-x: 0.9;
+    --tw-scale-y: 0.9;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    background-color: var(--db-gray-6);
+    margin-top: 60px;
+    opacity: 0;
+    animation: slide 0.2s ease-out forwards;
+}
+@keyframes slide {
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+
+.GoToButton{
+    display: flex;
+    justify-content: center;
+}
+
+.ModalContent {
+    max-height: 100dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0.625rem;
+    max-height: calc(100dvh - 80px);
+}
+
+.ImageContainer {
+    position: absolute;
+    bottom: calc(100% - 8px);
+    left: 55%;
+    height: 70px;
+    --tw-translate-x: -50%;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.ImageContainer::before {
+    position: absolute;
+    top: 49px;
+    display: block;
+    height: 110px;
+    width: 70px;
+    border-radius: 9999px;
+    background-color: var(--db-brand-color);
+    content: '';
+    filter: blur(24px);
+    -webkit-clip-path: inset(-100% -100% 96px);
+    clip-path: inset(-100% -100% 96px);
+}
+
+.ImageContainer img {
+    height: 100%;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+.BackgroundContainer {
+    position: relative;
+}
+
+.MainContent {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.TopContent header {
+    display: grid;
+    height: var(--db-modal-header-height);
+    padding-bottom: 1rem;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto;
+    justify-items: center
+}
+
+.TopContent header .Center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-column: 2;
+}
+
+.TopContent header .Right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.TopContent header .Left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.Hero {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    --tw-text-opacity: 1;
+    grid-row: 2;
+}
+
+.Title {
+    display: flex;
+    align-items: center;
+    font-size: 1.2rem;
+    font-weight: 700;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.Title svg {
+    margin-right: 0.5rem;
+    height: 1rem;
+    width: 1rem;
+    flex-shrink: 0;
+}
+
+.Title svg path {
+    fill: var(--db-brand-green);
+}
+
+.TopContent header .Right button svg {
+    padding: 0.3rem !important;
+}
+
+/* Content */
+
+.LevelUpMilestone {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
+
+.Container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+/* Media */
+@media (min-width: 640px) {
+    .TopContent{
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+    .TopContent header .Center{
+        left: 10%;
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .Modal {
+        margin-top: 130px;
+    }
+    .ModalContent {
+        max-height: calc(100dvh - 130px);
+        padding: 1rem;
+    }
+    .ImageContainer {
+        bottom: calc(100% - 19px);
+        height: 152px;
+    }
+    .ImageContainer::before {
+        top: 90px;
+        height: 140px;
+        width: 140px;
+    }
+    .MainContent {
+        gap: 1rem;
+    }
+    .BreakdownGrid {
+        gap: 1rem;
+        grid-template-rows: 1fr;
+        grid-template-columns: 0.5fr 1fr;
+    }
+    .TotalName,
+    .TotalBits {
+        font-size: 1rem;
+        line-height: 1.5rem;
+    }
+    .BreakdownGrid > div > div {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .LoginButtonContainer {
+        top: 50%;
+        --tw-translate-y: -50%;
+        transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+            scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    }
+
+    .TopContent header .Center{
+        left: 10%;
+        font-size: 0.1rem;
+    }
+}
