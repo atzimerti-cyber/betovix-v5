@@ -118,21 +118,7 @@ export const getUserAchievements = (signal) => {
                 }
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
-// const heroLevels = response.data.Contents.HeroLevels.map(level => ({
-            //     id: level.Level.id,
-            //     name: level.Level.metadata.Name,
-            //     statusCode: level.Level.optInStatus.statusCode,
-            //     milestones: level.Milestones.map(milestone => ({
-            //         id: milestone.id,
-            //         name: milestone.metadata.Name,
-            //         percentageComplete: milestone.optInStatus.percentageComplete,
-            //         points: milestone.optInStatus.points,
-            //         pointsValue: milestone.strategies.pointsStrategy.pointsValue,
-                   
-            //     }))
-            //     .sort((a, b) => a.name.localeCompare(b.name))
-            // }))
-            // .sort((a, b) => a.name.localeCompare(b.name));
+
             const selectedHero = {
                 id: response.data.Contents.SelectedHero.id,
                 name: response.data.Contents.SelectedHero.metadata.HeroName,
