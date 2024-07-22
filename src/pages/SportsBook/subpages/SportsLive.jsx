@@ -181,7 +181,7 @@ const SportsLive = () => {
 
         const sport = sports.find((s) => s.Id === selectedSport.Id);
 
-        sport.Categories.forEach((category) => {
+        sport?.Categories.forEach((category) => {
             const isPopular = topCategories.includes(category.Id);
             const isPopularIndex = topCategories.indexOf(category.Id);
 

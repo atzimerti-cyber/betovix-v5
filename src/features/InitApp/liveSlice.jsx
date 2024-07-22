@@ -22,22 +22,17 @@ export const liveSlice = createSlice({
         updateLiveHeader: (state, action) => {
             const currentLive = current(state.liveState);
 
-            action.payload.forEach((headerItem) => {
-                const matchId = headerItem.MatchId;
-                const previousHeader = { ...currentLive[matchId].Header };
-                state.liveState[matchId].PreviousHeader = previousHeader;
-                state.liveState[matchId].Header = headerItem;
-            });
+            const matchId = action.payload.MatchId;
+            const previousHeader = { ...currentLive[matchId].Header };
+            state.liveState[matchId].PreviousHeader = previousHeader;
+            state.liveState[matchId].Header = action.payload;
         },
         updateHeadersProps: (state, action) => {
             const currentLive = current(state.liveState);
 
-            Object.keys(action.payload).forEach((key) => {
-                const matchId = parseInt(key);
-                const previousHeader = { ...currentLive[matchId].Header };
-                state.liveState[matchId].PreviousHeader = previousHeader;
-                state.liveState[matchId].Header = action.payload[matchId];
-            });
+            const previousHeader = { ...currentLive[action.payload.matchId].Header };
+            state.liveState[action.payload.matchId].PreviousHeader = previousHeader;
+            state.liveState[action.payload.matchId].Header = action.payload.updatedHeader;
         },
         updateEventMarkets: (state, action) => {
             const currentLive = current(state.liveState);

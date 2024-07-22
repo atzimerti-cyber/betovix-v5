@@ -261,13 +261,13 @@ export function childsNotExist(obj) {
         return true;
     }
 
+    // we have market with children
+    if (obj.type === 'market') return false;
+
     // Recursive case: iterate through the childs array
     if (childsNotExist(obj.childs[0])) {
         return true;
     }
-
-    // we have market with children
-    if (obj.type === 'market') return false;
 
     // We haven't reached the market children
     return false;
