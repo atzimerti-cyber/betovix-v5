@@ -10,6 +10,8 @@ import { createSlice } from '@reduxjs/toolkit';
 // import leetb from '../../assets/heroes/lee-tb.png';
 // import lolatb from '../../assets/heroes/lola-tb.png';
 // import samtb from '../../assets/heroes/sam-tb.png';
+import rewardImage from '../../assets/images/reward.png';
+import rewardImage1 from '../../assets/images/rreward.png';
 
 const initialState = {
     topGames: null,
@@ -26,6 +28,11 @@ const initialState = {
     levels: null,
     selectedHero: {},
     heroLevels: null,
+    newRewards: [
+        {id: 1, title:'Reward Test 1', desc:'Prwto Reward', image: rewardImage},
+        {id: 2, title:'Reward Test 2', desc:'Deutero Reward', image: rewardImage1},
+    ],
+    claimedRewards: [],
 };
 
 export const userGamificationSlice = createSlice({
@@ -49,6 +56,12 @@ export const userGamificationSlice = createSlice({
         },
         setHeroLevels: (state, action) => {
             state.heroLevels = action.payload;
+        },
+        setNewRewards: (state, action) => {
+            state.newRewards = action.payload;
+        },
+        setClaimedRewards: (state, action) => {
+            state.claimedRewards = action.payload;
         },
     },
 });

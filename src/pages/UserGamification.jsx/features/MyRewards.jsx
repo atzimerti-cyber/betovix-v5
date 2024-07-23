@@ -46,29 +46,6 @@ const MyRewards = React.memo(() => {
         console.log("TWRINO LEVEL:", activeLevel);
     }, [activeLevel]);
 
-    //////////////////////////////////
-    const rewardsItems = [
-        {
-            id: 1,
-            icon: 'path/to/reward1.png', // Path to the reward image
-            // Add other necessary properties if needed
-        },
-        {
-            id: 2,
-            icon: 'path/to/reward2.png', // Path to the reward image
-            // Add other necessary properties if needed
-        },
-        {
-            id: 3,
-            icon: 'path/to/reward3.png', // Path to the reward image
-            // Add other necessary properties if needed
-        },
-        // Add more items as needed
-    ];
-
-    ////////////////////////////////////////
-
-
     return (
 
         <motion.div className={classes.TabContent} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.2 }}>
@@ -77,9 +54,11 @@ const MyRewards = React.memo(() => {
                 <RewardsSwiper
                     viewText
                     icon={<NewIcon className={classes.NewIcon} />}
-                    title={'New Rewards'}>
-                       
-                    </RewardsSwiper>
+                    title={'New Rewards'}
+                    slidesPerView={1}
+                    slidesPerGroup={1}>
+
+                </RewardsSwiper>
             </div>
             <div className={classes.RewardsSwiper}>
                 <SwiperWithOverlay

@@ -1,20 +1,28 @@
 .AchievementModal {
-    width: 780px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto 1fr;
+
+    width: 580px;
+    height: 800px;
+    max-width: calc(100% - 20px);
 
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    max-width: calc(100% - 20px);
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+
     --tw-translate-y: -0.5rem;
     --tw-scale-x: 0.9;
     --tw-scale-y: 0.9;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    background-color: var(--db-gray-6);
-    margin-top: 60px;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+
+    /* background-color: var(--db-gray-6); */
     opacity: 0;
     animation: slide 0.2s ease-out forwards;
 }
+
 @keyframes slide {
     100% {
         transform: translateY(0) scale(1);
@@ -22,227 +30,180 @@
     }
 }
 
-.ModalContent {
-    max-height: 100dvh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 0.625rem;
-    max-height: calc(100dvh - 80px);
+.NavButtonsLeft {
+    padding-right: 1rem;
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-.ImageContainer {
-    position: absolute;
-    bottom: calc(100% - 8px);
-    left: 55%;
-    height: 70px;
-    --tw-translate-x: -50%;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-}
-.ImageContainer::before {
-    position: absolute;
-    top: 49px;
-    display: block;
-    height: 110px;
-    width: 70px;
-    border-radius: 9999px;
-    background-color: transparent;
-    /* background-color: var(--db-brand-color); */
-    content: '';
-    filter: blur(24px);
-    -webkit-clip-path: inset(-100% -100% 96px);
-    clip-path: inset(-100% -100% 96px);
+.NavButtonsRight {
+    padding-left: 1rem;
+    grid-column: 3;
+    grid-row: 2;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
-.ImageContainer img {
-    height: 100%;
-    transform: translateZ(0);
-    -webkit-transform: translateZ(0);
-}
-
-.BackgroundContainer {
+.Swiper {
+    grid-column: 2;
+    grid-row: 2;
     position: relative;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    max-height: calc(100dvh - 80px);
+    height: 100%;
+    width: 100%;
+    border-radius: 3%;
+    overflow: hidden;
+}
+
+
+.ModalContent {
+    grid-column: 2;
+    grid-row: 2;
+    position: relative;
+    /* max-height: 100dvh; */
+    overflow-y: hidden;
+    overflow-x: hidden;
+    max-height: calc(100dvh - 80px);
+    height: 100%;
+    width: 100%;
+    border-radius: 3%;
+    overflow: hidden;
 }
 
 .MainContent {
     display: flex;
     flex-direction: column;
     gap: 18px;
+    align-items: center;
+    max-width: 100%;
+}
+
+.MainContent img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.TopContent {
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5%;
+    z-index: 100000;
+    background: transparent;
+}
+
+.Title{
+    padding-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+.CloseButton {
+    background: rgb(0 0 0 / 42%);
+    border-radius: 20%;
+    height: max-content;
+    box-shadow: 0px 0px 15px 9px rgb(0 0 0 / 47%);
+    z-index: 1000000;
 }
 
 .TopContent header {
-    display: grid;
+    display: flex;
+    /* justify-content: flex-end; */
     height: var(--db-modal-header-height);
     padding-bottom: 1rem;
-    grid-template-columns: auto 1fr auto;
 }
 
 .TopContent header .Center {
     display: flex;
     align-items: center;
     justify-content: center;
-    grid-column: 2;
 }
 
 .TopContent header .Right {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    grid-column: 3;
-}
-
-.Title {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: 700;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.Title svg {
-    margin-right: 0.5rem;
-    height: 1rem;
-    width: 1rem;
-    flex-shrink: 0;
-}
-
-.Title svg path {
-    fill: var(--db-brand-green);
 }
 
 .TopContent header .Right button svg {
     padding: 0.3rem !important;
 }
 
-/* Content */
-.ClaimRewardsSection {
+.RewardDetails {
+    width: 100%;
+    margin: 1rem;
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.625rem;
-}
-.BreakdownSection {
-    position: relative;
-}
-
-.LevelUpMilestone {
-    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
     flex-direction: column;
-    gap: 11px;
-}
-
-.BreakdownGrid {
-    display: grid;
-    gap: 0.5rem;
-    grid-template-rows: 40px 1fr;
-}
-
-.NotLoggedIn.BreakdownGrid {
-    pointer-events: none;
-    opacity: 0.2;
-}
-.LoginButtonContainer {
     position: absolute;
+    top: 10%;
     left: 50%;
-    top: 1rem;
-    width: min(100%, 260px);
-    --tw-translate-x: -50%;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translateX(-50%);
+    z-index: 10;
+    padding: 0;
+    /* overflow: hidden; */
 }
-.LoginButtonContainer > button {
-    height: 2.5rem !important;
-    width: 100% !important;
-}
-
-.BreakdownGrid > div > div {
-    font-size: 0.75rem;
-    line-height: 1rem;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-}
-
-.TotalName {
+.RewardDetails h1{
     overflow: hidden;
-    text-overflow: ellipsis;
-    font-size: 0.75rem;
-    line-height: 1rem;
-    color: var(--db-body-text);
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
 }
 
-.TotalBits {
+.RewardDetails p{
+    overflow: hidden;
+    color: white;
+    font-size: 17px;
+    font-weight: 300;
+}
+
+.ClaimButton {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    box-shadow: 0px 0px 7px 2px rgb(0 0 0 / 47%);
+    background: rgb(0 0 0 / 42%);
+    padding: 0;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-}
-.TotalBits svg {
-    margin-right: 0.5rem;
-    height: 1rem;
-    width: 1rem;
 }
 
-.Container {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-}
+
 
 /* Media */
-@media (min-width: 640px) {
-    .TotalName,
-    .TotalBits {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-}
+@media (min-width: 640px) {}
 
 @media (min-width: 768px) {
     .AchievementModal {
-        margin-top: 130px;
-    }
-    .ModalContent {
-        max-height: calc(100dvh - 130px);
-        padding: 1rem;
-    }
-    .ImageContainer {
-        bottom: calc(100% - 19px);
-        height: 152px;
-    }
-    .ImageContainer::before {
-        top: 90px;
-        height: 140px;
-        width: 140px;
-    }
-    .MainContent {
-        gap: 1rem;
-    }
-    .BreakdownGrid {
-        gap: 1rem;
-        grid-template-rows: 1fr;
-        grid-template-columns: 0.5fr 1fr;
-    }
-    .TotalName,
-    .TotalBits {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-    .BreakdownGrid > div > div {
-        flex-direction: column !important;
-        align-items: center !important;
-        justify-content: center !important;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
     }
 
-    .LoginButtonContainer {
-        top: 50%;
-        --tw-translate-y: -50%;
-        transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-            scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    .ModalContent {
+        max-height: calc(100dvh - 130px);
+    }
+
+    .MainContent {
+        gap: 1rem;
     }
 }
