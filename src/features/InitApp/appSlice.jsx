@@ -124,6 +124,7 @@ const initialState = {
         'Rainbow Six': <RainbowSixIcon />,
         'Warcraft 3': <Warcraft3Icon />,
     },
+    sportSettings: null,
 };
 
 export const appSlice = createSlice({
@@ -177,6 +178,9 @@ export const appSlice = createSlice({
         },
         setTranslations: (state, action) => {
             state.translations = action.payload;
+        },
+        setSportSettings: (state, action) => {
+            state.sportSettings = action.payload;
         },
     },
 });

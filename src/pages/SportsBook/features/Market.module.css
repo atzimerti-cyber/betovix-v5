@@ -33,7 +33,7 @@
     grid-template-columns: 1fr 1fr;
 }
 .ThreeParts.MarketGroup {
-    grid-template-columns: 1fr 25% 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 @container (max-width: 860px) {

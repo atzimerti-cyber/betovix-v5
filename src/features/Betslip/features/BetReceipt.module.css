@@ -24,6 +24,13 @@
     width: 32px;
     height: 32px;
 }
+.BetErrorIcon {
+    fill: var(--db-error);
+    flex: 0 0 32px;
+    margin: 24px auto 0px;
+    width: 32px;
+    height: 32px;
+}
 
 .BetSuccessText {
     margin-block: 10px 24px;

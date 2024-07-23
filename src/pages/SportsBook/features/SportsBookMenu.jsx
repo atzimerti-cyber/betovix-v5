@@ -37,7 +37,7 @@ const SportsBookMenu = () => {
                     to={`/sportsbook/home${selectedSportSlug}`}
                 >
                     <HomeIcon />
-                    Home
+                    {translate('Home')}
                 </NavLink>
             </SwiperSlide>
             <SwiperSlide>

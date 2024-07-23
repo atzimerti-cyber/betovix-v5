@@ -14,6 +14,7 @@ const initialState = {
     userDropdownVisible: false,
     pageNotAuthorized: false,
     scrollToTop: 1,
+    showLiveListContainer: false,
 };
 
 export const layoutSlice = createSlice({
@@ -48,6 +49,9 @@ export const layoutSlice = createSlice({
         },
         setScrollToTop: (state) => {
             state.scrollToTop += 1;
+        },
+        setShowLiveListContainer: (state, action) => {
+            state.showLiveListContainer = action.payload;
         },
     },
 });

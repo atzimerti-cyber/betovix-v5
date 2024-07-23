@@ -21,7 +21,10 @@ const MarketsMenu = (props) => {
                     <HorizontalMenu
                         items={props.marketGroups}
                         selected={selectedMarketCategory?.Id}
-                        onSelect={(item) => dispatch(outrightsActions.setSelectedMarketCategory(item))}
+                        onSelect={(item, index) => {
+                            dispatch(outrightsActions.setSelectedMarketCategory(item));
+                            dispatch(outrightsActions.setSelectedMarketCategoryIndex(index));
+                        }}
                         lightColor
                     />
                 </div>

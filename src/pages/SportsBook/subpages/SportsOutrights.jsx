@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import _ from 'lodash';
 
 import classes from './SportsHome.module.css';
 import SportSelection from '../features/SportSelection';
@@ -29,6 +30,8 @@ const SportsOutrights = () => {
     const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
     const sportIcons = useSelector((state) => state.app.sportIcons);
     const sportMarketTree = useSelector((state) => state.sportsbook.sportMarketTree);
+    const sportSettings = useSelector((state) => state.app.sportSettings);
+    const tournamentSort = useSelector((state) => state.sportsbook.tournamentSort);
 
     const sportsWithCategories = ['Football', 'Tennis'];
     const sportParam = params['*'].split('/')[1];
@@ -79,26 +82,11 @@ const SportsOutrights = () => {
 
         let ca = [];
 
-        const topLeaguesForSport = topLeagues.SubCategs.find((t) => t.SubCateg.Name === selectedSport.Name.International);
-        let topCategories = [];
-        if (topLeaguesForSport) {
-            topCategories = topLeaguesForSport.Items.map((item) => {
-                const itemValuesArr = item.Value.split(',');
-                const categoryId = parseInt(itemValuesArr[1]);
-                return categoryId;
-            });
-        }
-
         selectedSport?.Categories?.forEach((category) => {
-            //if (category.Counters['5D'] === 0) return; // Don't add categories which don't have any game (5D is the max Counters)
-
-            const isPopular = topCategories.includes(category.Id);
-            const isPopularIndex = topCategories.indexOf(category.Id);
-
             let updatedTournaments = [];
 
             category.Tournaments.forEach((tournament) => {
-                if (!tournament.Name.International.includes('Outright')) return; // Add only outright here
+                if (!tournament.Name.International.includes('Outright') && !tournament.Name.International.includes('Specials')) return; // Add only outright here
 
                 let updatedTournament = { ...tournament };
                 updatedTournament.CategoryId = category.Id;
@@ -111,36 +99,16 @@ const SportsOutrights = () => {
                 ca.push({
                     ...category,
                     Tournaments: updatedTournaments,
-                    IsPopular: isPopular,
-                    IsPopularIndex: isPopularIndex,
                 });
-            }
-        });
-
-        // Sort categories
-        ca.sort((a, b) => {
-            // Check the IsPopular flag first
-            if (a.IsPopular && !b.IsPopular) {
-                return -1; // a comes first if a is popular and b is not
-            } else if (!a.IsPopular && b.IsPopular) {
-                return 1; // b comes first if b is popular and a is not
-            } else if (a.IsPopular && b.IsPopular) {
-                // Both are popular, sort by IndexOf
-                return a.IsPopularIndex - b.IsPopularIndex;
-            } else if (selectedSport.Name.International === 'Football') {
-                // Neither is popular, if football, sort by Name
-                return a.Name.International.localeCompare(b.Name.International);
-            } else {
-                // Neither is popular, if not football sort by id
-                return a.Id - b.Id;
             }
         });
 
         dispatch(sportsOutrightsActions.setCategories(ca));
 
         const subset = getSubset(ca);
+        const sorted = getSorted(subset);
 
-        setCategoriesArr(subset);
+        setCategoriesArr(sorted);
 
         setLoadingCategories(false);
     }, [selectedSport?.Id, topLeagues, axiosController]);
@@ -150,7 +118,8 @@ const SportsOutrights = () => {
         if (!categories) return;
 
         const subset = getSubset(categories);
-        setCategoriesArr(subset);
+        const sorted = getSorted(subset);
+        setCategoriesArr(sorted);
     }, [tournamentSearchString]);
 
     const getSubset = (ca) => {
@@ -186,6 +155,40 @@ const SportsOutrights = () => {
         return updatedCategories;
     };
 
+    const getSorted = (subset) => {
+        let ca = _.cloneDeep(subset);
+        if (tournamentSort === 'Default Sort') {
+            const categsOrder = sportSettings.CategsOrder;
+
+            ca.sort((a, b) => {
+                // Check if is in tours order first
+                if (categsOrder[a.Id] && categsOrder[a.Id] < 9999 && !categsOrder[b.Id]) {
+                    return -1; // a comes first
+                } else if (categsOrder[b.Id] && categsOrder[b.Id] < 9999 && !categsOrder[a.Id]) {
+                    return 1; // b comes first
+                } else if (categsOrder[a.Id] && categsOrder[a.Id] < 9999 && categsOrder[b.Id] && categsOrder[b.Id] < 9999) {
+                    // Both have order, sort by order
+                    return categsOrder[a.Id] - categsOrder[b.Id];
+                } else {
+                    // Neither has order, sort alphabetically
+                    return a.Name.International.localeCompare(b.Name.International);
+                }
+            });
+        } else if (tournamentSort === 'A - Z') ca.sort((a, b) => a.Name.International.localeCompare(b.Name.International));
+        else if (tournamentSort === 'Z - A') ca.sort((a, b) => b.Name.International.localeCompare(a.Name.International));
+
+        return ca;
+    };
+
+    useEffect(() => {
+        if (!categoriesArr) return;
+        if (!categoriesArr.length) return;
+
+        let ca = getSorted(categoriesArr);
+
+        setCategoriesArr(ca);
+    }, [categoriesArr?.length, tournamentSort]);
+
     return (
         <>
             <SportSelection
@@ -209,43 +212,9 @@ const SportsOutrights = () => {
                     categoriesArr.length === 0 ? (
                         <span className={classes.NoGames}>{translate('No games where found.')}</span>
                     ) : (
-                        <>
-                            {categoriesArr.filter((c) => c.IsPopular).length > 0 && selectedSport?.Name.International === 'Football' && (
-                                <h3 className={classes.SectionGroupTitle}>
-                                    <span className={classes.SectionGroupText}>{translate('Popular')}</span>
-                                </h3>
-                            )}
-                            {sportsWithCategories.includes(selectedSport.Name.International) ? (
-                                categoriesArr
-                                    .filter((c) => c.IsPopular)
-                                    .map((category, catIndex) => (
-                                        <OutrightCategory
-                                            key={category.Id}
-                                            category={category}
-                                            initOpen={catIndex === 0}
-                                            slice='sportsOutrights'
-                                            includePregame
-                                        />
-                                    ))
-                            ) : (
-                                <OutrightCategoriesTournaments categories={categoriesArr.filter((c) => c.IsPopular)} slice='sportsOutrights' />
-                            )}
-
-                            {categoriesArr.filter((c) => !c.IsPopular).length > 0 && selectedSport?.Name.International === 'Football' && (
-                                <h3 className={classes.SectionGroupTitle}>
-                                    <span className={classes.SectionGroupText}>{translate('Alphabetical')}</span>
-                                </h3>
-                            )}
-                            {sportsWithCategories.includes(selectedSport.Name.International) ? (
-                                categoriesArr
-                                    .filter((c) => !c.IsPopular)
-                                    .map((category, catIndex) => (
-                                        <OutrightCategory key={category.Id} category={category} initOpen={catIndex === 0} slice='sportsOutrights' />
-                                    ))
-                            ) : (
-                                <OutrightCategoriesTournaments categories={categoriesArr.filter((c) => !c.IsPopular)} slice='sportsOutrights' />
-                            )}
-                        </>
+                        categoriesArr.map((category, catIndex) => (
+                            <OutrightCategory key={category.Id} category={category} initOpen={catIndex === 0} slice='sportsOutrights' />
+                        ))
                     )
                 ) : (
                     <>

@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import _ from 'lodash';
+import { useMediaQuery } from 'react-responsive';
 
 import classes from './Event.module.css';
 import SportsBookMenu from '../SportsBook/features/SportsBookMenu';
 import { getEvent, getLiveEvent } from './eventAsyncActions';
 import { eventActions } from './eventSlice';
 import Breadcrumb from './features/Breadcrumb';
+import BreadcrumbLive from './features/BreadcrumbLive';
 import MarketsMenu from './features/MarketsMenu';
 import MarketGroup from './features/MarketGroup';
 import Board from './features/Board';
@@ -18,6 +20,7 @@ import lzString from 'lz-string';
 import { getUpdatedMarkets } from '../../utils/liveUpdates';
 import { translate, translateNameWithLang } from '../../utils/translations';
 import { betslipActions } from '../../features/Betslip/betslipSlice';
+import { layoutActions } from '../../features/Layout/layoutSlice';
 
 const Event = () => {
     const dispatch = useDispatch();
@@ -28,6 +31,7 @@ const Event = () => {
     const liveConnection = useSelector((state) => state.live.liveConnection);
     const liveEvent = useSelector((state) => state.event.liveEvent);
     const selectedMarketCategory = useSelector((state) => state.event.selectedMarketCategory);
+    const selectedMarketCategoryIndex = useSelector((state) => state.event.selectedMarketCategoryIndex);
     const changedMarkets = useSelector((state) => state.event.changedMarkets);
 
     const pregameEvent = useSelector((state) => state.event.event);
@@ -49,18 +53,12 @@ const Event = () => {
     const [marketGroupsChanged, setMarketGroupsChanged] = useState(1);
     const [height, setHeight] = useState();
 
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
     useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-
-        const sportIdInt = parseInt(sportid);
-        const eventIdInt = parseInt(eventid);
-
         let handleResizeMessage = null;
 
         if (isLive) {
-            dispatch(getLiveEvent(sportIdInt, eventIdInt, signal));
-
             // For the field
             handleResizeMessage = (event) => {
                 if (event.origin === 'https://widget.feedmaker.live') {
@@ -71,15 +69,13 @@ const Event = () => {
                 }
             };
             window.addEventListener('message', handleResizeMessage);
-        } else {
-            dispatch(getEvent(sportIdInt, eventIdInt, signal));
         }
 
         return () => {
             if (handleResizeMessage) window.removeEventListener('message', handleResizeMessage);
-            controller.abort();
             dispatch(eventActions.reset());
             dispatch(appActions.setBarLoading(false));
+            dispatch(layoutActions.setShowLiveListContainer(false));
 
             if (liveConnection) {
                 liveConnection.invoke('SubscribeToEvent', eventid, 0);
@@ -87,6 +83,37 @@ const Event = () => {
             }
         };
     }, []);
+
+    useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        const sportIdInt = parseInt(sportid);
+        const eventIdInt = parseInt(eventid);
+
+        if (isLive) {
+            dispatch(getLiveEvent(sportIdInt, eventIdInt, signal));
+            dispatch(eventActions.setShowingLiveEvent(true));
+        } else {
+            dispatch(getEvent(sportIdInt, eventIdInt, signal));
+        }
+
+        return () => {
+            controller.abort();
+
+            if (liveConnection) {
+                liveConnection.invoke('SubscribeToEvent', eventid, 0);
+                liveConnection.invoke('UnSubscribeToEvent', eventid);
+            }
+        };
+    }, [eventid]);
+
+    useEffect(() => {
+        if (!isMobile && isLive) {
+            dispatch(layoutActions.setShowLiveListContainer(true));
+            dispatch(layoutActions.setFullLeftContainer(true));
+        }
+    }, [isMobile]);
 
     // If Live, subscribe to live event
     useEffect(() => {
@@ -160,9 +187,14 @@ const Event = () => {
     useEffect(() => {
         if (!marketGroups) return;
         if (!selectedMarketCategory) return;
+        if (selectedMarketCategoryIndex === null) return;
 
-        const marketGroupExists = marketGroups.find((g) => g.Id === selectedMarketCategory.Id);
-        if (!marketGroupExists) dispatch(eventActions.setSelectedMarketCategory(marketGroups[0]));
+        // const marketGroupExists = marketGroups.find((g) => g.Id === selectedMarketCategory.Id);
+        const marketGroupExists = marketGroups[selectedMarketCategoryIndex];
+        if (!marketGroupExists) {
+            dispatch(eventActions.setSelectedMarketCategory(marketGroups[0]));
+            dispatch(eventActions.setSelectedMarketCategoryIndex(0));
+        }
     }, [marketGroupsChanged]);
 
     const getBackgroundImage = () => {
@@ -194,16 +226,18 @@ const Event = () => {
 
                     <div className={classes.Content}>
                         <div className={classes.TopArea}>
-                            {sports && selectedSport && (
-                                <>
-                                    <Breadcrumb page={isLive ? 'live' : 'home'} slice='event' />
-                                    {isLive && (
+                            {sports &&
+                                selectedSport &&
+                                (isLive ? (
+                                    <>
+                                        <BreadcrumbLive event={event} page={isLive ? 'live' : 'home'} slice='event' />
                                         <div className={classes.Box} style={{ backgroundImage: `url(${getBackgroundImage()})` }}>
                                             {event && <Board event={event} />}
                                         </div>
-                                    )}
-                                </>
-                            )}
+                                    </>
+                                ) : (
+                                    <Breadcrumb page={isLive ? 'live' : 'home'} slice='event' />
+                                ))}
                         </div>
 
                         {!event && !barLoading ? (
