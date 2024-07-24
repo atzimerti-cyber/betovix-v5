@@ -7,6 +7,7 @@ import { translate } from '../../../utils/translations';
 import classes from './MyRewards.module.css';
 import { getUserAchievements } from '../gamificationAsyncActions';
 import SwiperWithOverlay from '../../../features/UI/MainSwiper/SwiperWithOverlay';
+
 import RewardsSwiper from '../../../features/UI/MainSwiper/RewardsSwiper';
 
 import NewIcon from '../../../assets/casinoIcons/new.svg?react';
@@ -22,6 +23,8 @@ const MyRewards = React.memo(() => {
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
     const selectedHeroLevels = useSelector((state) => state.gamification.heroLevels);
     const currentUserLevel = useSelector((state) => state.gamification.currentLevel);
+
+    const rewards = useSelector((state) => state.gamification.newRewards);
 
     const [activeLevel, setActiveLevel] = useState(null);
 
@@ -52,12 +55,12 @@ const MyRewards = React.memo(() => {
             <p className={classes.OverviewTitle}>{translate('My Rewards')}</p>
             <div className={classes.RewardsSwiper}>
                 <RewardsSwiper
+                    items={rewards}
                     viewText
                     icon={<NewIcon className={classes.NewIcon} />}
                     title={'New Rewards'}
                     slidesPerView={1}
                     slidesPerGroup={1}>
-
                 </RewardsSwiper>
             </div>
             <div className={classes.RewardsSwiper}>

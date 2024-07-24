@@ -12,7 +12,7 @@ import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
 import { gamificationActions } from '../../../pages/UserGamification.jsx/userGamificationSlice';
 //import { addFavoriteCasino, removeFavoriteCasino } from '../../../pages/Casino/casinoAsyncActions';
 
-const HeroSwiperWithOverlay = (props) => {
+const HeroDisplaySwiper = (props) => {
 
     const dispatch = useDispatch();
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
@@ -106,4 +106,4 @@ const HeroSwiperWithOverlay = (props) => {
     );
 };
 
-export default HeroSwiperWithOverlay;
+export default HeroDisplaySwiper;

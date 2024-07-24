@@ -31,6 +31,8 @@ const initialState = {
     newRewards: [
         {id: 1, title:'Reward Test 1', desc:'Prwto Reward', image: rewardImage},
         {id: 2, title:'Reward Test 2', desc:'Deutero Reward', image: rewardImage1},
+        {id: 3, title:'Reward Test 3', desc:'Prwto Reward', image: rewardImage},
+        {id: 4, title:'Reward Test 4', desc:'Deutero Reward', image: rewardImage1},
     ],
     claimedRewards: [],
 };

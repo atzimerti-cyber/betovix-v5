@@ -1,9 +1,11 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar, EffectCreative } from 'swiper/modules';
 
 import 'swiper/css';
+import 'swiper/css/bundle';
 
 import classes from './AchievementModal.module.css';
 
@@ -11,9 +13,8 @@ import RewardImage from '../../../assets/images/reward.png';
 import smallLogo from '../../../assets/svgs/logo-small.svg';
 
 import CloseButton from '../../UI/Buttons/CloseButton';
-import ArrowButton from '../../UI/Buttons/ArrowButton';
-import AngleLeftIcon from '../../../assets/svgs/angle-left.svg?react';
-import AngleRightIcon from '../../../assets/svgs/angle-right.svg?react';
+import AngleLeftIcon from '../../../assets/svgs/swipe-prev.svg';
+import AngleRightIcon from '../../../assets/svgs/swipe-next.svg';
 import MainButton from '../../UI/Buttons/MainButton';
 
 import { translate } from '../../../utils/translations';
@@ -23,7 +24,6 @@ const AchievementModal = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    const swiperRef = useRef(null);
     const [isBeginning, setIsBeginning] = useState(true);
     const [isEnd, setIsEnd] = useState(false);
 
@@ -41,13 +41,39 @@ const AchievementModal = (props) => {
 
 
             <Swiper
+                modules={[Navigation, Pagination, Scrollbar, EffectCreative]}
                 spaceBetween={30}
                 slidesPerView={1}
                 navigation={{
-                    nextEl: '.swiper-button-next',
-                    prevEl: '.swiper-button-prev',
+                    prevEl: `.${classes.customPrevArrow}`,
+                    nextEl: `.${classes.customNextArrow}`
                 }}
                 pagination={{ clickable: true }}
+                scrollbar={{ draggable: true }}
+                onSwiper={(swiper) => {
+                    console.log(swiper);
+                    setIsBeginning(swiper.isBeginning);
+                    setIsEnd(swiper.isEnd);
+                }}
+                onSlideChange={(swiper) => {
+                    setIsBeginning(swiper.isBeginning);
+                    setIsEnd(swiper.isEnd);
+                }}
+                speed={700}
+                effect="creative"
+                creativeEffect={{
+                    prev: {
+                      opacity: 0, // Optional: Set opacity for previous slide
+                      translate: ['-100%', 0, 0], // Optional: Set the translation for previous slide
+                      scale: 0.5, // Optional: Scale for previous slide
+                    },
+                    next: {
+                      opacity: 1, // Optional: Set opacity for next slide
+                      translate: ['100%', 0, 0], // Optional: Set the translation for next slide
+                      scale: 1, // Optional: Scale for next slide
+                    },
+                  }}
+                
                 className={classes.Swiper}
             >
                 {rewards.map((reward) => (
@@ -57,7 +83,7 @@ const AchievementModal = (props) => {
                                 <header>
                                     <div className={classes.Title}>
                                         <img src={smallLogo} alt='' style={{ margin: '2%' }} />
-                                        <h1>You have earned a reward.</h1>
+                                        <h1>{translate("You have earned a reward.")}</h1>
                                     </div>
                                     <div className={classes.CloseButton}>
                                         <CloseButton timesIcon onClick={() => navigate(location.pathname)} />
@@ -86,8 +112,8 @@ const AchievementModal = (props) => {
                                 </div>
 
                                 <div className={classes.ClaimButton}>
-                                    <MainButton color='bv-light-green' onClick={handleClaimButton}>
-                                        Claim Reward
+                                    <MainButton color='bv-light-green' onClick={() => handleClaimButton(reward.id)}>
+                                        {translate('Claim Reward')}
                                     </MainButton>
                                 </div>
                             </div>
@@ -96,20 +122,23 @@ const AchievementModal = (props) => {
                 ))}
             </Swiper>
 
-            <div className={classes.NavButtonsRight}>
+            <div className={classes.customPrevArrow}>
+                <img src={AngleLeftIcon} alt="Previous" />
+            </div>
+            <div className={classes.customNextArrow}>
+                <img src={AngleRightIcon} alt="Next" />
+            </div>
+
+            {/* <div className={classes.NavButtonsRight}>
                 <ArrowButton>
-                    {/* Uncomment and adjust the line below if you need navigation */}
-                    {/* <ArrowButton disabled={isEnd} onClick={() => swiperRef.current.slideNext()}> */}
                     <AngleRightIcon />
                 </ArrowButton>
             </div>
             <div className={classes.NavButtonsLeft}>
                 <ArrowButton>
-                    {/* Uncomment and adjust the line below if you need navigation */}
-                    {/* <ArrowButton disabled={isBeginning} onClick={() => swiperRef.current.slidePrev()}> */}
                     <AngleLeftIcon />
                 </ArrowButton>
-            </div>
+            </div> */}
         </div>
     );
 };
