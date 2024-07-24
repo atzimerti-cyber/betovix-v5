@@ -2,10 +2,10 @@ import { useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar, EffectCreative } from 'swiper/modules';
+import { Navigation, Pagination, Scrollbar, EffectCreative, Thumbs } from 'swiper/modules';
 
-import 'swiper/css';
-import 'swiper/css/bundle';
+  import 'swiper/css';
+  import 'swiper/css/bundle';
 
 import classes from './AchievementModal.module.css';
 
@@ -19,6 +19,8 @@ import MainButton from '../../UI/Buttons/MainButton';
 
 import { translate } from '../../../utils/translations';
 
+ 
+ 
 
 const AchievementModal = (props) => {
     const dispatch = useDispatch();
@@ -26,6 +28,8 @@ const AchievementModal = (props) => {
     const location = useLocation();
     const [isBeginning, setIsBeginning] = useState(true);
     const [isEnd, setIsEnd] = useState(false);
+
+    const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
     const user = useSelector((state) => state.login.user);
 
@@ -63,17 +67,17 @@ const AchievementModal = (props) => {
                 effect="creative"
                 creativeEffect={{
                     prev: {
-                      opacity: 0, // Optional: Set opacity for previous slide
-                      translate: ['-100%', 0, 0], // Optional: Set the translation for previous slide
-                      scale: 0.5, // Optional: Scale for previous slide
+                        opacity: 0,
+                        translate: ['-100%', 0, 0],
+                        scale: 0.5,
                     },
                     next: {
-                      opacity: 1, // Optional: Set opacity for next slide
-                      translate: ['100%', 0, 0], // Optional: Set the translation for next slide
-                      scale: 1, // Optional: Scale for next slide
+                        opacity: 1,
+                        translate: ['100%', 0, 0],
+                        scale: 1,
                     },
-                  }}
-                
+                }}
+
                 className={classes.Swiper}
             >
                 {rewards.map((reward) => (
@@ -121,6 +125,25 @@ const AchievementModal = (props) => {
                     </SwiperSlide>
                 ))}
             </Swiper>
+
+            {/* <Swiper
+                onSwiper={setThumbsSwiper}
+                modules={[Thumbs]}
+                spaceBetween={10}
+                slidesPerView={3}
+                freeMode={true}
+                watchSlidesProgress={true}
+                className={classes.ThumbsSwiper}
+            >
+                {rewards.map((reward) => (
+                    <SwiperSlide key={reward.id}>
+                        <div className={classes.ThumbImageContainer}>
+                            <img src={reward.image || RewardImage} alt='' />
+                        </div>
+
+                    </SwiperSlide>
+                ))}
+            </Swiper> */}
 
             <div className={classes.customPrevArrow}>
                 <img src={AngleLeftIcon} alt="Previous" />

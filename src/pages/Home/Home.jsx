@@ -18,6 +18,8 @@ import RegisterContainers from './features/RegisterContainers';
 import Crypto from './features/Crypto';
 import { translate } from '../../utils/translations';
 
+
+
 const Home = () => {
     const dispatch = useDispatch();
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
@@ -121,6 +123,8 @@ const Home = () => {
                         <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} />
                     </>
                 ) : null}
+
+               
 
             </div>
         </div>
