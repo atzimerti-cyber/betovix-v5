@@ -116,7 +116,7 @@ const YourProgress = () => {
                             <section className={classes.LevelUpSection}>
                                 <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
                                 <div className={classes.LevelUpMilestone}>
-                                    <Milestones activeLevel={activeLevel} />
+                                    <Milestones activeLevel={activeLevel} progressBar />
                                 </div>
                                 <Rewards />
                             </section>

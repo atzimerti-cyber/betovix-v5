@@ -1,8 +1,12 @@
 .SlideContainer {
-    height: 100%;
-    width: 100%;
+    max-height: 50%;
+    min-width: 60%;
     transition: transform 0.2s linear;
     aspect-ratio: 9 / 4;
+    border: solid 1px;
+    border-color: rgba(74, 77, 83, 0.568);
+    border-radius: 10px;
+    margin-top: 3px;
 }
 
 .SlideContainer:not(.Loading):hover {
@@ -10,11 +14,13 @@
 }
 
 .Card {
+    border-radius: 10px;
     width: 100%;
+    max-height: 100%;
     aspect-ratio: 9 / 4;
     position: relative;
     cursor: pointer;
-    overflow: hidden;
+    /* overflow: hidden; */
     border-radius: 0.375rem;
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -30,6 +36,7 @@
 }
 
 .ImageContainer {
+    border-radius: 10px;
     grid-column: 1;
     grid-row: 1 / span 2;
     width: 100%;
@@ -38,6 +45,7 @@
 }
 
 .ImageContainer img {
+    border-radius: 10px;
     object-fit: fill;
     aspect-ratio: 5 / 4;
     height: 100%;
@@ -53,6 +61,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
+    min-width: 10vw;
 }
 
 .Text h1 {

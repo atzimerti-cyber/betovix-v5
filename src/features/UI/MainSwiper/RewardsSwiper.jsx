@@ -39,8 +39,8 @@ const RewardsSwiper = (props) => {
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     };
 
-    let slidesPerView = 1.5;
-    let slidesPerGroup = 1.5;
+    let slidesPerView = 2.2;
+    let slidesPerGroup = 1;
 
     return (
         <MainSwiper
@@ -69,8 +69,8 @@ const RewardsSwiper = (props) => {
                                         </div>
 
                                         <div className={classes.Text}>
-                                            <h1>Kainourgio Reward Kainourgio Reward Kainourgio Reward Kainourgio Reward</h1>
-                                            <p>Kainourgio Reward Kainourgio Reward </p>
+                                            {/* <h1>Kainourgio Reward Kainourgio Reward Kainourgio Reward Kainourgio Reward</h1>
+                                            <p>Kainourgio Reward Kainourgio Reward </p> */}
                                             <h1>{item.title}</h1>
                                             <p>{item.desc}</p>
                                         </div>
