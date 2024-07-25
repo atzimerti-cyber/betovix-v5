@@ -43,18 +43,18 @@ export const getHeroes = (signal) => {
                         icon: milestone.icon,
                         name: milestone.metadata.Name,
                         description: milestone.description,
-                      }))
-                      .sort((a, b) => a.name.localeCompare(b.name))
-                  }))
-                  .sort((a, b) => a.name.localeCompare(b.name))
+                    }))
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                }))
+                    .sort((a, b) => a.name.localeCompare(b.name))
             }))
-            .sort((a, b) => a.name.localeCompare(b.name));
-           
+                .sort((a, b) => a.name.localeCompare(b.name));
+
 
             console.log("Filtered Heroes:", heroes);
             dispatch(gamificationActions.setHeroes(heroes));
             dispatch(gamificationActions.setDisplayedHero(heroes[0]));
-            
+
             dispatch(appActions.setBarLoading(false));
         } catch (error) {
             const message = error?.message ? error.message : error;
@@ -78,33 +78,13 @@ export const selectedHero = (displayedHeroAction, signal) => {
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
-            
+
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
         }
     };
 };
-
-// export const getUserAchievementssssss = (signal) => {
-//     return async (dispatch) => {
-//         try {
-//             const lang = getLang();
-
-//             const response = await axiosApi.get(
-//                 `/Gamification/GetMembersAchievements`,
-//                 {
-//                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
-//                 }
-//             );
-//             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
-            
-//         } catch (error) {
-//             const message = error?.message ? error.message : error;
-//             if (!error?.code === 'ERR_CANCELED') toast.error(message);
-//         }
-//     };
-// };
 
 export const getUserAchievements = (signal) => {
     return async (dispatch) => {
@@ -128,27 +108,27 @@ export const getUserAchievements = (signal) => {
                 description: response.data.Contents.SelectedHero.description,
                 action: response.data.Contents.SelectedHero.metadata.action,
             }
-            
+
             const heroLevels = response.data.Contents.HeroLevels.map(level => {
                 const milestones = level.Milestones.map(milestone => ({
                     id: milestone.id,
                     name: milestone.metadata.Name,
                     percentageComplete: milestone.optInStatus.percentageComplete,
-                    points: milestone.optInStatus.points > milestone.strategies.pointsStrategy.pointsValue ? milestone.strategies.pointsStrategy.pointsValue :  milestone.optInStatus.points,
+                    points: milestone.optInStatus.points > milestone.strategies.pointsStrategy.pointsValue ? milestone.strategies.pointsStrategy.pointsValue : milestone.optInStatus.points,
                     pointsValue: milestone.strategies.pointsStrategy.pointsValue,
                 })).sort((a, b) => a.name.localeCompare(b.name));
-            
-                const isCurrentLevel = milestones.some(milestone => 
+
+                const isCurrentLevel = milestones.some(milestone =>
                     milestone.percentageComplete > 0 && milestone.percentageComplete < 100
                 );
-            
+
                 return {
                     id: level.Level.id,
                     name: level.Level.metadata.Name,
                     statusCode: level.Level.optInStatus.statusCode,
                     milestones: milestones,
                     currentLevel: isCurrentLevel,
-                    points: level.Level.optInStatus.points > level.Level.strategies.pointsStrategy.pointsValue ? level.Level.strategies.pointsStrategy.pointsValue :  level.Level.optInStatus.points,
+                    points: level.Level.optInStatus.points > level.Level.strategies.pointsStrategy.pointsValue ? level.Level.strategies.pointsStrategy.pointsValue : level.Level.optInStatus.points,
                     pointsValue: level.Level.strategies.pointsStrategy.pointsValue
                 };
             }).sort((a, b) => a.name.localeCompare(b.name));
@@ -170,59 +150,95 @@ export const getUserAchievements = (signal) => {
     };
 };
 
+export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.post(
+                `/Gamification/GetRewards`,
+                {
+                    page: "1",
+                    count: "100",
+                    filter: {
+                        IsViewed: { isViewed },
+                        IsClaimed: { isClaimed },
+                        TodaysRewards: { daily },
+                        WeeklyRewards: { weekly },
+                        MonthlyRewards: { monthly },
+                    },
+                    sort: "",
+                },
+                {
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
+
+            allRewards = response.data.Contents.Rows;
+            let popupRewards = [];
+            let viewedRewards = [];
+            let claimedRewards = [];
+
+            allRewards.map((reward) => {
+                if (!reward.Data.Viewed) {
+                    popupRewards.push(reward.Data);
+                }
+            })
+
+            dispatch(gamificationActions.setPopupRewards(popupRewards));
+            dispatch(gamificationActions.setNewRewards(viewedRewards));
+            dispatch(gamificationActions.setClaimedRewards(claimedRewards));
+
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
+export const claimReward = (rewardId, signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.get(
+                `/Gamification/ClaimReward?rewardId=${rewardId}`,
+                {
+                    signal: signal,
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
 
-// export const getHeroes = (signal) => {
-//     return async (dispatch) => {
-//         try {
-//             const lang = getLang();
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
 
-//             const response = await axiosApi.get(
-//                 `/Gamification/GetAllHeroes`,
-//                 {
-//                     signal: signal,
-//                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
-//                 }
-//             );
+export const rewardViewed = (signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
 
-//             // if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch heroes');
-//             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
-           
-//             const heroes = response.data.Contents;
-//             console.log("All Heroes:", heroes);
-//             dispatch(gamificationActions.setHeroes(heroes));
-//         } catch (error) {
-//             const message = error?.message ? error.message : error;
-//             if (!error?.code === 'ERR_CANCELED') toast.error(message);
-//         }
-//     };
-// };
+            const response = await axiosApi.get(
+                `/Gamification/RewardViewed?rewardId=${rewardId}`,
+                {
+                    signal: signal,
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
-// export const getLevels = (signal) => {
-//     return async (dispatch) => {
-//         try {
-//             const lang = getLang();
 
-//             const response = await axiosApi.post(
-//                 `/Payments/PostData?action=GetPaymentMethods&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
-//                 {
-//                     data: `{"Id":""}`,
-//                 },
-//                 {
-//                     signal: signal,
-//                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
-//                 }
-//             );
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
 
-//             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch heroes');
-           
-//             const levels = response.data.Contents;
-//             console.log("All Levels:", levels);
-//             dispatch(profileActions.setHeroes(levels));
-//         } catch (error) {
-//             const message = error?.message ? error.message : error;
-//             if (!error?.code === 'ERR_CANCELED') toast.error(message);
-//         }
-//     };
-// };
 

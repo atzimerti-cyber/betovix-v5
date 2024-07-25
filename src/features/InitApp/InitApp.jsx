@@ -12,6 +12,7 @@ import { liveActions } from './liveSlice';
 import { getUpdatedMarkets, getUpdatedHeaders, getEventsToAdd, getEventToAddFromHeader, getEventToAddFromMarkets } from '../../utils/liveUpdates';
 import { betslipActions } from '../Betslip/betslipSlice';
 import { getUser } from '../../pages/Login/loginAsyncActions';
+import { getRewards } from '../../pages/UserGamification.jsx/gamificationAsyncActions';
 
 const InitApp = () => {
     const dispatch = useDispatch();
@@ -65,6 +66,7 @@ const InitApp = () => {
         clearInterval(timerIdRef.current);
         const pollingCallback = () => {
             dispatch(getUser());
+            //dispatch(getRewards());
         };
         if (user) timerIdRef.current = setInterval(pollingCallback, 5000);
 

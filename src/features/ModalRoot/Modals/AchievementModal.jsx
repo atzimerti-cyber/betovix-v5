@@ -18,7 +18,7 @@ import AngleRightIcon from '../../../assets/svgs/swipe-next.svg';
 import MainButton from '../../UI/Buttons/MainButton';
 
 import { translate } from '../../../utils/translations';
-
+import { claimReward } from '../../../pages/UserGamification.jsx/gamificationAsyncActions';
  
  
 
@@ -29,15 +29,18 @@ const AchievementModal = (props) => {
     const [isBeginning, setIsBeginning] = useState(true);
     const [isEnd, setIsEnd] = useState(false);
 
-    const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    //const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
     const user = useSelector((state) => state.login.user);
 
-    const rewards = useSelector((state) => state.gamification.newRewards);
+    const rewards = useSelector((state) => state.gamification.popupRewards);
 
 
     const handleClaimButton = (id) => {
+        const controller = new AbortController();
+        const signal = controller.signal;
 
+        dispatch(claimReward(id, signal));
     }
 
     return (

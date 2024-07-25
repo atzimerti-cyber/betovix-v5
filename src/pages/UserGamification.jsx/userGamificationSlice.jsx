@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-// import erik from '../../assets/heroes/Erik Closeup.png';
+import erik from '../../assets/heroes/Erik Closeup.png';
 // import jack from '../../assets/heroes/Jack Closeup.png';
 // import lee from '../../assets/heroes/Lee Closeup.png';
 // import lola from '../../assets/heroes/Lola Closeup.png';
 // import sam from '../../assets/heroes/Sam Closeup.png';
-// import eriktb from '../../assets/heroes/erik-tb.png';
+import eriktb from '../../assets/heroes/erik-tb.png';
 // import jacktb from '../../assets/heroes/jack-tb.png';
 // import leetb from '../../assets/heroes/lee-tb.png';
 // import lolatb from '../../assets/heroes/lola-tb.png';
@@ -26,15 +26,21 @@ const initialState = {
     displayedHero: {},
     currentLevel: {},
     levels: null,
-    selectedHero: {},
+    selectedHero: { id: 1, name: "Erik", icon: erik, banner: eriktb, description: "the Viking" },
     heroLevels: null,
-    newRewards: [
+    popupRewards:[
         {id: 1, title:'Reward Test 1', desc:'Prwto Reward', image: rewardImage},
         {id: 2, title:'Reward Test 2', desc:'Deutero Reward', image: rewardImage1},
         {id: 3, title:'Reward Test 3', desc:'Prwto Reward', image: rewardImage},
         {id: 4, title:'Reward Test 4', desc:'Deutero Reward', image: rewardImage1},
     ],
-    claimedRewards: [],
+    newRewards: [
+        {id: 1, title:'Reward Test 1', desc:'Prwto Reward', image: rewardImage},
+        {id: 2, title:'Reward Test 2', desc:'Deutero Reward', image: rewardImage1},
+    ],
+    claimedRewards: [
+        {id: 3, title:'Reward Test 3', desc:'Prwto Reward', image: rewardImage},
+    ],
 };
 
 export const userGamificationSlice = createSlice({
@@ -58,6 +64,9 @@ export const userGamificationSlice = createSlice({
         },
         setHeroLevels: (state, action) => {
             state.heroLevels = action.payload;
+        },
+        setPopupRewards: (state, action) => {
+            state.popupRewards = action.payload;
         },
         setNewRewards: (state, action) => {
             state.newRewards = action.payload;

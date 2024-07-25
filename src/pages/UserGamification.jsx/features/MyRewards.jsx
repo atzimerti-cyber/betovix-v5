@@ -20,13 +20,8 @@ const MyRewards = React.memo(() => {
     const lang = useSelector((state) => state.app.lang);
 
     //const user = useSelector((state) => state.login.user);
-    const selectedHero = useSelector((state) => state.gamification.selectedHero);
-    const selectedHeroLevels = useSelector((state) => state.gamification.heroLevels);
-    const currentUserLevel = useSelector((state) => state.gamification.currentLevel);
-
-    const rewards = useSelector((state) => state.gamification.newRewards);
-
-    const [activeLevel, setActiveLevel] = useState(null);
+    const claimedRewards = useSelector((state) => state.gamification.claimedRewards);
+    const newRewards = useSelector((state) => state.gamification.newRewards);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -37,25 +32,13 @@ const MyRewards = React.memo(() => {
         return () => { };
     }, [dispatch]);
 
-    useEffect(() => {
-        if (currentUserLevel && Object.keys(selectedHero).length > 0) {
-            setActiveLevel(currentUserLevel);
-        } else if (!currentUserLevel && Object.keys(selectedHero).length > 0) {
-            setActiveLevel(selectedHeroLevels[0]);
-        };
-    }, [selectedHeroLevels]);
-
-    useEffect(() => {
-        console.log("TWRINO LEVEL:", activeLevel);
-    }, [activeLevel]);
-
     return (
 
         <motion.div className={classes.TabContent} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.2 }}>
             <p className={classes.OverviewTitle}>{translate('My Rewards')}</p>
             <div className={classes.RewardsSwiper}>
                 <RewardsSwiper
-                    items={rewards}
+                    items={newRewards}
                     viewText
                     icon={<NewIcon className={classes.NewIcon} />}
                     title={'New Rewards'}
@@ -64,13 +47,14 @@ const MyRewards = React.memo(() => {
                 </RewardsSwiper>
             </div>
             <div className={classes.RewardsSwiper}>
-                <SwiperWithOverlay
+                <RewardsSwiper
+                    claimed
+                    items={claimedRewards}
                     viewAll
                     viewText
                     icon={<NewIcon className={classes.NewIcon} />}
                     title={'Claimed Rewards'}>
-                    No
-                </SwiperWithOverlay>
+                </RewardsSwiper>
             </div>
 
         </motion.div>

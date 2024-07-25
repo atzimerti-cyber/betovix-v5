@@ -121,11 +121,12 @@ const YourProgress = () => {
                                 <Rewards />
                             </section>
                         </div>
-                    ) : (<div className={classes.GoToButton}>
-                        <MainButton color='primary' size='small' onClick={() => addParamsToUrl('heroes')}>
-                            {translate('Select a Hero')}
-                        </MainButton>
-                    </div>
+                    ) : (
+                        <div className={classes.GoToButton}>
+                            <MainButton color='primary' size='small' onClick={() => addParamsToUrl('heroes')}>
+                                {translate('Select a Hero')}
+                            </MainButton>
+                        </div>
 
                     )}
                 </div>

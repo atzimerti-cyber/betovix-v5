@@ -13,6 +13,8 @@ import DsButton from '../../../features/UI/Buttons/DsButton'
 import { getUserAchievements } from '../gamificationAsyncActions';
 import { translate } from '../../../utils/translations';
 import { progress } from 'framer-motion';
+import MainButton from '../../../features/UI/Buttons/MainButton';
+import RefreshIcon from '../../../assets/svgs/refresh.svg';
 
 const Milestones = (props) => {
     const location = useLocation();
@@ -61,18 +63,18 @@ const Milestones = (props) => {
     const getProgress = () => {
         //if (!heroLevels) return 0;
         if (!Array.isArray(heroLevels)) {
-            console.error('heroLevels is not an array or is undefined');
+            // console.error('heroLevels is not an array or is undefined');
             return 0;
         }
 
         const currentLevel = heroLevels[thisLevelIndex];
         if (!currentLevel) {
-            console.error('Invalid thisLevelIndex:', thisLevelIndex);
+            // console.error('Invalid thisLevelIndex:', thisLevelIndex);
             return 0;
         }
 
         if (!Array.isArray(currentLevel.milestones)) {
-            console.error('milestones is not an array or is undefined for level:', thisLevelIndex);
+            // console.error('milestones is not an array or is undefined for level:', thisLevelIndex);
             return 0;
         }
 
@@ -106,12 +108,23 @@ const Milestones = (props) => {
         return progress;
     };
 
-    const getNeeded = (milestone) => {
-        // return milestone.wagered - user?.wagered;
+    const handleRefresh = () => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        dispatch(getUserAchievements(signal));
     };
 
     return (
         <div className={classes.MilestoneSection}>
+            {props.progressBar &&
+                (
+                    <div className={classes.RefreshButton}>
+                        <button onClick={handleRefresh}>
+                            <img src={RefreshIcon} alt='Refresh' style={{ height: '20px', width: '20px' }} />
+                        </button>
+                    </div>
+                )}
             <div className={!user ? [classes.CarouselContainer, classes.NotLoggedIn].join(' ') : classes.CarouselContainer}>
                 <div className={classes.MilestoneCarousel}>
                     <DraggableDiv>
