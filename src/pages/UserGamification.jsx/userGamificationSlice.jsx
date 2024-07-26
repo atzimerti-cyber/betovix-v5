@@ -26,21 +26,19 @@ const initialState = {
     displayedHero: {},
     currentLevel: {},
     levels: null,
-    selectedHero: { id: 1, name: "Erik", icon: erik, banner: eriktb, description: "the Viking" },
+    selectedHero: {},
     heroLevels: null,
-    popupRewards:[
+    popupRewards:[],
+    newRewards: [
         {id: 1, title:'Reward Test 1', desc:'Prwto Reward', image: rewardImage},
         {id: 2, title:'Reward Test 2', desc:'Deutero Reward', image: rewardImage1},
         {id: 3, title:'Reward Test 3', desc:'Prwto Reward', image: rewardImage},
         {id: 4, title:'Reward Test 4', desc:'Deutero Reward', image: rewardImage1},
     ],
-    newRewards: [
-        {id: 1, title:'Reward Test 1', desc:'Prwto Reward', image: rewardImage},
-        {id: 2, title:'Reward Test 2', desc:'Deutero Reward', image: rewardImage1},
-    ],
     claimedRewards: [
         {id: 3, title:'Reward Test 3', desc:'Prwto Reward', image: rewardImage},
     ],
+    loading: false
 };
 
 export const userGamificationSlice = createSlice({
@@ -73,6 +71,9 @@ export const userGamificationSlice = createSlice({
         },
         setClaimedRewards: (state, action) => {
             state.claimedRewards = action.payload;
+        },
+        setLoading: (state, action) => {
+            state.loading = action.payload;
         },
     },
 });

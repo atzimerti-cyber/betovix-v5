@@ -337,7 +337,7 @@ export const loadInitData = (isMobile) => {
                         id: 2,
                         label: `My Rewards`,
                         icon: <RewardsIcon color="#FF0000" />,
-                        page: 'lounge',
+                        page: 'rewards',
                     },
                 ],
             });

@@ -11,6 +11,7 @@ import SwiperWithOverlay from '../../../features/UI/MainSwiper/SwiperWithOverlay
 import RewardsSwiper from '../../../features/UI/MainSwiper/RewardsSwiper';
 
 import NewIcon from '../../../assets/casinoIcons/new.svg?react';
+import ClaimedIcon from '../../../assets/svgs/done.svg?react';
 
 const MyRewards = React.memo(() => {
     const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const MyRewards = React.memo(() => {
                     items={claimedRewards}
                     viewAll
                     viewText
-                    icon={<NewIcon className={classes.NewIcon} />}
+                    icon={<ClaimedIcon className={classes.NewIcon} />}
                     title={'Claimed Rewards'}>
                 </RewardsSwiper>
             </div>

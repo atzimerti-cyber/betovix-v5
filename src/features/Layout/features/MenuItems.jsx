@@ -31,7 +31,7 @@ const MenuItems = (props) => {
             <li>
                 <a
                     onClick={() => {
-                        navigate(`lounge`);
+                        navigate(`rewards`);
                         props.onClick();
                     }}
                 >
@@ -40,18 +40,18 @@ const MenuItems = (props) => {
                     <div className={classes.NumberBadge}>2</div>
                 </a>
             </li>
-            <li>
+            {/* <li>
                 <a>
                     <TransactionIcon />
                     <span>{translate('Transactions')}</span>
                 </a>
-            </li>
-            <li>
+            </li> */}
+            {/* <li>
                 <a>
                     <VaultIcon />
                     <span>{translate('Vault')}</span>
                 </a>
-            </li>
+            </li> */}
             <li>
                 <a>
                     <LiveSupportIcon />

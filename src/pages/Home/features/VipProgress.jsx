@@ -27,20 +27,6 @@ const VipProgress = () => {
         if (foundIndex > -1) {
             setCurrentLevel(displayedHeroLevels[foundIndex]);
             if (foundIndex < displayedHeroLevels.length) setNextLevel(displayedHeroLevels[foundIndex + 1]);
-
-            // const userWagered = user.wagered;
-            // const levelMin = levels[foundIndex].rewards.milestones[0];
-            // const levelMinWagered = levelMin.wagered;
-            // if (userWagered < levelMinWagered) setProgress(0);
-            // else if (foundIndex < levels.length) {
-            //     const levelMax = levels[foundIndex + 1].rewards.milestones[0];
-            //     const levelMaxWagered = levelMax.wagered;
-            //     let p = 100 * (userWagered / levelMaxWagered);
-            //     if (p > 100) p = 100;
-            //     setProgress(p);
-            // } else {
-            //     setProgress(0);
-            // }
         }
     }, [displayedHeroLevels?.length]);
 
@@ -58,27 +44,27 @@ const VipProgress = () => {
                     <div className={classes.TextContainer}>
                         <span className={classes.TitleContainer}>
                             {translate('Your progress to')}  
-                            {/* {translate('Your')} <span className={classes.TitleAccent}>{translate('VIP')}</span> progress to */}
                         </span>
                         <span className={classes.LevelName}>{currentLevel?.name}</span>
                     </div>
-                    <div className={classes.NextLevelContainer}>
+                    {/* <div className={classes.NextLevelContainer}>
                         <div className={classes.IconContainer}>
                             <div className={`CardLevel CardLevel`}></div>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 {nextLevel && (
-                    <div className={classes.RightContainer}>
-                        <span className={classes.ProgressTextContainer}>
-                            {/* <span className={classes.ProgressTextAccent}>{progress}%</span> 
-                            {translate('progress to')} {nextLevel.name} */}
-                        </span>
-                        <div className={classes.IconContainer}>
-                            <div className={`CardLevel CardLevel`}></div>
-                        </div>
-                    </div>
+                    // <div className={classes.RightContainer}>
+                    //     <span className={classes.ProgressTextContainer}>
+                    //         {/* <span className={classes.ProgressTextAccent}>{progress}%</span> 
+                    //         {translate('progress to')} {nextLevel.name} */}
+                    //     </span>
+                    //     <div className={classes.IconContainer}>
+                    //         <div className={`CardLevel CardLevel`}></div>
+                    //     </div>
+                    // </div>
+                    null
                 )}
 
                 <div className={classes.MilestoneProgressBar}>
@@ -108,11 +94,11 @@ const VipProgress = () => {
                 </div>
             </div>
 
-            <DsButton locked>
+            {/* <DsButton locked>
                 {translate('Claim')}&nbsp;
                 <CoinsIcon />
                 &nbsp;0.00 {translate('Instant Bits')}
-            </DsButton>
+            </DsButton> */}
         </div>
     );
 };

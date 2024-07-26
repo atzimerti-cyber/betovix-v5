@@ -1,10 +1,10 @@
-import Gamification from "../UserGamification.jsx/Gamification";
+// import Gamification from "../UserGamification.jsx/Gamification";
 
-const Lounge = () => {
+// const Lounge = () => {
 
-    return (
-        <Gamification />
-    );
-};
+//     return (
+//         <Gamification />
+//     );
+// };
 
-export default Lounge;
+// export default Lounge;

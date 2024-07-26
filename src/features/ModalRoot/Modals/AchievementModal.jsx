@@ -1,11 +1,11 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, EffectCreative, Thumbs } from 'swiper/modules';
 
-  import 'swiper/css';
-  import 'swiper/css/bundle';
+import 'swiper/css';
+import 'swiper/css/bundle';
 
 import classes from './AchievementModal.module.css';
 
@@ -19,22 +19,38 @@ import MainButton from '../../UI/Buttons/MainButton';
 
 import { translate } from '../../../utils/translations';
 import { claimReward } from '../../../pages/UserGamification.jsx/gamificationAsyncActions';
- 
- 
+import { rewardViewed } from '../../../pages/UserGamification.jsx/gamificationAsyncActions';
+
 
 const AchievementModal = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+
+    const rewards = useSelector((state) => state.gamification.popupRewards);
+    const user = useSelector((state) => state.login.user);
+
     const [isBeginning, setIsBeginning] = useState(true);
     const [isEnd, setIsEnd] = useState(false);
 
-    //const [thumbsSwiper, setThumbsSwiper] = useState(null);
+    const [viewedRewards, setViewedRewards] = useState(new Set());
 
-    const user = useSelector((state) => state.login.user);
+    useEffect(() => {
+        rewards.forEach((reward) => {
+            if (!viewedRewards.has(reward.id)) {
+                dispatch(rewardViewed(reward.id));
+                setViewedRewards((prev) => new Set(prev).add(reward.id));
+            }
+        });
+    }, [rewards, viewedRewards, dispatch]);
 
-    const rewards = useSelector((state) => state.gamification.popupRewards);
+    const [showSparkle, setShowSparkle] = useState(false);
 
+    useEffect(() => {
+        setShowSparkle(true);
+        const timer = setTimeout(() => setShowSparkle(false), 7000);
+        return () => clearTimeout(timer);
+    }, []);
 
     const handleClaimButton = (id) => {
         const controller = new AbortController();
@@ -45,7 +61,7 @@ const AchievementModal = (props) => {
 
     return (
         <div className={classes.AchievementModal}>
-
+            <div className={`${classes.backgroundOverlay} ${showSparkle ? classes.sparkle : ''}`}></div>
 
             <Swiper
                 modules={[Navigation, Pagination, Scrollbar, EffectCreative]}
@@ -84,7 +100,7 @@ const AchievementModal = (props) => {
                 className={classes.Swiper}
             >
                 {rewards.map((reward) => (
-                    <SwiperSlide key={reward.id} style={{ maxWidth: '580px' }}>
+                    <SwiperSlide key={reward.Id} style={{ maxWidth: '580px' }}>
                         <div className={classes.ModalContent}>
                             <div className={classes.TopContent}>
                                 <header>
@@ -99,16 +115,17 @@ const AchievementModal = (props) => {
                             </div>
 
                             <div className={classes.MainContent}>
-                                {reward.image ? (
-                                    <img src={reward.image} alt='' />
+                                {reward.RewardMetaData.Picture ? (
+                                    <img src={reward.RewardMetaData.Picture} alt='' />
                                 ) : (
-                                    <img src={RewardImage} alt='' />
+                                    // <img src={RewardImage} alt='' />
+                                    null
                                 )}
                                 <div className={classes.RewardDetails}>
-                                    {reward.title ? (
+                                    {reward.RewardName ? (
                                         <>
-                                            <h1>{reward.title}</h1>
-                                            <p>{reward.desc}</p>
+                                            <h1>{reward.RewardName}</h1>
+                                            <p>{reward.RewardName}</p>
                                         </>
                                     ) : (
                                         <>
@@ -119,7 +136,7 @@ const AchievementModal = (props) => {
                                 </div>
 
                                 <div className={classes.ClaimButton}>
-                                    <MainButton color='bv-light-green' onClick={() => handleClaimButton(reward.id)}>
+                                    <MainButton color='bv-light-green' onClick={() => handleClaimButton(reward.Id)}>
                                         {translate('Claim Reward')}
                                     </MainButton>
                                 </div>
@@ -129,42 +146,12 @@ const AchievementModal = (props) => {
                 ))}
             </Swiper>
 
-            {/* <Swiper
-                onSwiper={setThumbsSwiper}
-                modules={[Thumbs]}
-                spaceBetween={10}
-                slidesPerView={3}
-                freeMode={true}
-                watchSlidesProgress={true}
-                className={classes.ThumbsSwiper}
-            >
-                {rewards.map((reward) => (
-                    <SwiperSlide key={reward.id}>
-                        <div className={classes.ThumbImageContainer}>
-                            <img src={reward.image || RewardImage} alt='' />
-                        </div>
-
-                    </SwiperSlide>
-                ))}
-            </Swiper> */}
-
             <div className={classes.customPrevArrow}>
                 <img src={AngleLeftIcon} alt="Previous" />
             </div>
             <div className={classes.customNextArrow}>
                 <img src={AngleRightIcon} alt="Next" />
             </div>
-
-            {/* <div className={classes.NavButtonsRight}>
-                <ArrowButton>
-                    <AngleRightIcon />
-                </ArrowButton>
-            </div>
-            <div className={classes.NavButtonsLeft}>
-                <ArrowButton>
-                    <AngleLeftIcon />
-                </ArrowButton>
-            </div> */}
         </div>
     );
 };

@@ -219,7 +219,7 @@ export const claimReward = (rewardId, signal) => {
     };
 };
 
-export const rewardViewed = (signal) => {
+export const rewardViewed = (rewardId) => {
     return async (dispatch) => {
         try {
             const lang = getLang();
@@ -227,7 +227,6 @@ export const rewardViewed = (signal) => {
             const response = await axiosApi.get(
                 `/Gamification/RewardViewed?rewardId=${rewardId}`,
                 {
-                    signal: signal,
                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
                 }
             );

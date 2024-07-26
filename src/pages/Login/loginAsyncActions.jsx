@@ -1,7 +1,9 @@
 import axiosApi from '../../axios-api';
+import AchievementModal from '../../features/ModalRoot/Modals/AchievementModal';
 
 import { loginActions } from './loginSlice';
 import { layoutActions } from '../../../src/features/Layout/layoutSlice';
+import { gamificationActions } from '../UserGamification.jsx/userGamificationSlice';
 
 import { toast } from 'react-toastify';
 import { setAccessToken } from '../../utils/auth';
@@ -60,7 +62,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
     };
 };
 
-export const getUser = () => {
+export const getUser = (navigate, location) => {
     return async (dispatch) => {
         try {
             const response = await axiosApi.get(`login/State/?lang=en&siteid=${import.meta.env.VITE_SITE_ID}`, {
@@ -79,6 +81,17 @@ export const getUser = () => {
                     wagered: 500,
                     registered: 1712505696754,
                 };
+
+                let rewards = [];
+                if (response.data.Contents.Rewards.length > 0) {
+                    rewards = response.data.Contents.Rewards;
+                    dispatch(gamificationActions.setPopupRewards(rewards));
+
+                    // const searchParams = new URLSearchParams(location.search);
+                    // searchParams.set('modal', 'achievement');
+                    navigate(`${location.pathname}?modal=achievement`, { replace: false });
+                }
+
                 dispatch(loginActions.setUser(user));
                 dispatch(layoutActions.setAvailableBonus(user));
                 dispatch(layoutActions.setAvailableBonusBalance(user));

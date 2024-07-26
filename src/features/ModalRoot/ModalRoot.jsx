@@ -33,6 +33,7 @@ const ModalRoot = () => {
         return () => dispatch(modalActions.setOnCloseModal(null));
     }, []);
 
+
     const getUrlWithParams = (modal, tab) => {
         const searchParams = new URLSearchParams(location.search);
         searchParams.set('modal', modal);
@@ -62,14 +63,17 @@ const ModalRoot = () => {
     else if (modal === 'odds-format') modalPage = <OddsFormatModal />;
     else if (modal === 'vip') modalPage = <VipModal />;
     else if (modal === 'bonus') {
-        if (user) modalPage = <BonusModal/>;
+        if (user) modalPage = <BonusModal />;
         else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;
     }
     else if (modal === 'search') modalPage = <SearchModal />;
-    else if (modal === 'achievement') modalPage = <AchievementModal />;
+    else if (modal === 'achievement') {
+        if (user) modalPage = <AchievementModal />;
+        else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;
+    }
     else if (modal === 'hero-confirm') modalPage = <HeroConfirmation />;
     else if (modal === 'your-progress') {
-        if (user) modalPage = <YourProgress/>;
+        if (user) modalPage = <YourProgress />;
         else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;
     }
 

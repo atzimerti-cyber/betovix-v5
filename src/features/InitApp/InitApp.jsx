@@ -6,6 +6,8 @@ import { HubConnectionBuilder } from '@microsoft/signalr';
 import lzString from 'lz-string';
 import _ from 'lodash';
 
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import Preloader from '../UI/Loaders/Preloader';
 import { loadInitData } from './initAppAsyncActions';
 import { liveActions } from './liveSlice';
@@ -16,6 +18,9 @@ import { getRewards } from '../../pages/UserGamification.jsx/gamificationAsyncAc
 
 const InitApp = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     const initDataLoaded = useSelector((state) => state.app.initDataLoaded);
@@ -65,8 +70,7 @@ const InitApp = () => {
         // Get user every 5 seconds...
         clearInterval(timerIdRef.current);
         const pollingCallback = () => {
-            dispatch(getUser());
-            //dispatch(getRewards());
+            dispatch(getUser(navigate, location));
         };
         if (user) timerIdRef.current = setInterval(pollingCallback, 5000);
 
