@@ -4,7 +4,9 @@
     top: 90px;
     left: 10px;
 }
-
+.DraggableBox header{
+    padding-bottom: 0;
+}
 .DraggableBoxInner {
     width: 300px;
     max-width: 100%;

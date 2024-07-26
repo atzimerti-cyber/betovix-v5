@@ -37,11 +37,13 @@ const Stats = (props) => {
             height={height}
         >
             {props.showStatsFor.Info.DateOfMatch ? (
-                <iframe
-                    src={`${import.meta.env.VITE_SPORTS_URL}/stats/stats.html?styles=#${lang.id}/external/page/h2h/${props.showStatsFor.Info.HomeTeamId}/${
-                        props.showStatsFor.Info.AwayTeamId
-                    }`}
-                />
+                 <iframe
+                 src={`/stats/Stats.html?styles=#${lang.id}/external/page/h2h/${
+                    props.showStatsFor.Info.HomeTeamId
+                 }/${props.showStatsFor.Info.AwayTeamId}`}
+                 style={{ width: '100%', height: '100%', border: 'none' }}
+                 title="Stats"
+                 />
             ) : (
                 <iframe id='FMTracker' run='iLive.initTracker' src={`https://widget.feedmaker.live/?event=${props.showStatsFor.MatchId}&amp;lang=en`} />
             )}
