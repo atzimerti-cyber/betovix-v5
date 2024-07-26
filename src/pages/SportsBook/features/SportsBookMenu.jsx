@@ -1,5 +1,6 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { SwiperSlide } from 'swiper/react';
 
@@ -11,6 +12,7 @@ import TimerIcon from '../../../assets/svgs/timer.svg?react';
 import CupIcon from '../../../assets/svgs/cup.svg?react';
 import PaperIcon from '../../../assets/svgs/paper.svg?react';
 import SettingsIcon from '../../../assets/svgs/settings.svg?react';
+import StatsIcon from '../../../assets/svgs/bars.svg?react';
 import { translate } from '../../../utils/translations';
 
 const SportsBookMenu = () => {
@@ -21,7 +23,7 @@ const SportsBookMenu = () => {
     const selectedOddsFormat = useSelector((state) => state.app.selectedOddsFormat);
     const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
     const selectedSportSlug = selectedSport ? `/${selectedSport.Name?.International?.toLowerCase().replace(/ /g, '-')}` : '';
-
+  
     const getModalPath = (modal) => {
         const searchParams = new URLSearchParams(location.search);
         searchParams.set('modal', modal);
@@ -78,6 +80,12 @@ const SportsBookMenu = () => {
                 <a className={[classes.ModalItem].join(' ')} onClick={() => navigate(getModalPath('odds-format'))}>
                     <SettingsIcon />
                     {translate('Odds Format')} - {translate(selectedOddsFormat)}
+                </a>
+            </SwiperSlide>
+            <SwiperSlide>
+                <a className={[classes.ModalItem].join(' ')} onClick={() => navigate(getModalPath('statistics'))}>
+                    <StatsIcon />
+                    {translate('Statistics')}
                 </a>
             </SwiperSlide>
         </SwiperMenu>
