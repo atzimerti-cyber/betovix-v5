@@ -227,9 +227,11 @@ const Event = () => {
                                         )}
                                         {event && !isLive && (
                                             <iframe
-                                                src={`${import.meta.env.VITE_SPORTS_URL}/stats/stats.html?styles=#${lang.id}/external/page/h2h/${
-                                                    event.Info.HomeTeamId
-                                                }/${event.Info.AwayTeamId}`}
+                                            src={`/stats/Stats.html?styles=#${lang.id}/external/page/h2h/${
+                                                event.Info.HomeTeamId
+                                            }/${event.Info.AwayTeamId}`}
+                                            style={{ width: '100%', height: '100%', border: 'none' }}
+                                            title="Stats"
                                             />
                                         )}
                                     </div>
