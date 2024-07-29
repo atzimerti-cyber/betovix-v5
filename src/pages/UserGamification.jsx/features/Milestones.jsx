@@ -34,18 +34,6 @@ const Milestones = (props) => {
         heroLevels = selectedHeroLevels;
     }
 
-    // useEffect(() => {
-    //     const controller = new AbortController();
-    //     const signal = controller.signal;
-
-    //     dispatch(getUserAchievements(signal));
-
-    //     return () => { };
-    // }, [dispatch]);
-
-    //const displayedHeroLevels = useSelector((state) => state.gamification.displayedHero.levels);
-
-    //const [currentMilestone, setCurrentMilestone] = useState(null);
     const [thisLevelIndex, setThisLevelIndex] = useState(0);
 
     useEffect(() => {
@@ -61,7 +49,7 @@ const Milestones = (props) => {
     }, [props.activeLevel?.id]);
 
     const getProgress = () => {
-        //if (!heroLevels) return 0;
+        if (!heroLevels) return 0;
         if (!Array.isArray(heroLevels)) {
             // console.error('heroLevels is not an array or is undefined');
             return 0;

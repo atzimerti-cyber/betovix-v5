@@ -54,14 +54,14 @@ const YourProgress = () => {
         console.log("TWRINO LEVEL:", activeLevel);
     }, [activeLevel]);
 
-    const gotoLogin = () => {
-        const searchParams = new URLSearchParams(location.search);
-        searchParams.set('modal', 'auth');
-        searchParams.set('tab', 'login');
+    // const gotoLogin = () => {
+    //     const searchParams = new URLSearchParams(location.search);
+    //     searchParams.set('modal', 'auth');
+    //     searchParams.set('tab', 'login');
 
-        dispatch(modalActions.setOnCloseModal({ modal: 'your-progress', tab: null }));
-        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-    };
+    //     dispatch(modalActions.setOnCloseModal({ modal: 'your-progress', tab: null }));
+    //     navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+    // };
 
     const addParamsToUrl = (tab) => {
         const searchParams = new URLSearchParams();

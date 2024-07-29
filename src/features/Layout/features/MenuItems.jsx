@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import StarIcon from '../../../assets/svgs/star.svg?react';
@@ -14,6 +14,8 @@ import { translate } from '../../../utils/translations';
 const MenuItems = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
+    const newRewards = useSelector((state) => state.gamification.newRewards);
 
     return (
         <>
@@ -37,7 +39,10 @@ const MenuItems = (props) => {
                 >
                     <StarIcon />
                     <span>{translate('My Rewards')}</span>
-                    <div className={classes.NumberBadge}>2</div>
+                    {newRewards.length > 0 &&
+                        <div className={classes.NumberBadge}>{newRewards.length}</div>
+                    }
+
                 </a>
             </li>
             {/* <li>

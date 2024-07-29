@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { translate } from '../../../utils/translations';
 
 import classes from './MyRewards.module.css';
-import { getUserAchievements } from '../gamificationAsyncActions';
-import SwiperWithOverlay from '../../../features/UI/MainSwiper/SwiperWithOverlay';
 
 import RewardsSwiper from '../../../features/UI/MainSwiper/RewardsSwiper';
-
 import NewIcon from '../../../assets/casinoIcons/new.svg?react';
 import ClaimedIcon from '../../../assets/svgs/done.svg?react';
+
+import { getRewards } from '../gamificationAsyncActions';
 
 const MyRewards = React.memo(() => {
     const dispatch = useDispatch();
@@ -25,10 +24,8 @@ const MyRewards = React.memo(() => {
     const newRewards = useSelector((state) => state.gamification.newRewards);
 
     useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
 
-        dispatch(getUserAchievements(signal));
+        dispatch(getRewards(true));
 
         return () => { };
     }, [dispatch]);

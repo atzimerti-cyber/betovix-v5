@@ -72,24 +72,6 @@
     }
 }
 
-.NavButtonsLeft {
-    padding-right: 1rem;
-    grid-column: 1;
-    grid-row: 2;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-}
-
-.NavButtonsRight {
-    padding-left: 1rem;
-    grid-column: 3;
-    grid-row: 2;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-}
-
 .Swiper {
     grid-column: 2;
     grid-row: 2;
@@ -117,6 +99,9 @@
     cursor: pointer;
     z-index: 70;
     transform: translateY(-50%);
+    cursor: pointer;
+    transition: opacity 0.3s;
+
 }
 
 .customPrevArrow {
@@ -124,11 +109,21 @@
     grid-row: 2;
     left: 10px;
 }
+.customPrevArrow.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 .customNextArrow {
     grid-column: 3;
     grid-row: 2;
     right: 10px;
+}
+.customNextArrow.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .customPrevArrow img,

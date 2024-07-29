@@ -1,17 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import erik from '../../assets/heroes/Erik Closeup.png';
+// import erik from '../../assets/heroes/Erik Closeup.png';
 // import jack from '../../assets/heroes/Jack Closeup.png';
 // import lee from '../../assets/heroes/Lee Closeup.png';
 // import lola from '../../assets/heroes/Lola Closeup.png';
 // import sam from '../../assets/heroes/Sam Closeup.png';
-import eriktb from '../../assets/heroes/erik-tb.png';
+// import eriktb from '../../assets/heroes/erik-tb.png';
 // import jacktb from '../../assets/heroes/jack-tb.png';
 // import leetb from '../../assets/heroes/lee-tb.png';
 // import lolatb from '../../assets/heroes/lola-tb.png';
 // import samtb from '../../assets/heroes/sam-tb.png';
-import rewardImage from '../../assets/images/reward.png';
-import rewardImage1 from '../../assets/images/rreward.png';
 
 const initialState = {
     topGames: null,
@@ -29,15 +27,8 @@ const initialState = {
     selectedHero: {},
     heroLevels: null,
     popupRewards:[],
-    newRewards: [
-        {id: 1, title:'Reward Test 1', desc:'Prwto Reward', image: rewardImage},
-        {id: 2, title:'Reward Test 2', desc:'Deutero Reward', image: rewardImage1},
-        {id: 3, title:'Reward Test 3', desc:'Prwto Reward', image: rewardImage},
-        {id: 4, title:'Reward Test 4', desc:'Deutero Reward', image: rewardImage1},
-    ],
-    claimedRewards: [
-        {id: 3, title:'Reward Test 3', desc:'Prwto Reward', image: rewardImage},
-    ],
+    newRewards: [],
+    claimedRewards: [],
     loading: false
 };
 

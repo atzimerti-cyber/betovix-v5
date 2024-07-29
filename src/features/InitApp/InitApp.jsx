@@ -14,7 +14,6 @@ import { liveActions } from './liveSlice';
 import { getUpdatedMarkets, getUpdatedHeaders, getEventsToAdd, getEventToAddFromHeader, getEventToAddFromMarkets } from '../../utils/liveUpdates';
 import { betslipActions } from '../Betslip/betslipSlice';
 import { getUser } from '../../pages/Login/loginAsyncActions';
-import { getRewards } from '../../pages/UserGamification.jsx/gamificationAsyncActions';
 
 const InitApp = () => {
     const dispatch = useDispatch();
@@ -70,7 +69,7 @@ const InitApp = () => {
         // Get user every 5 seconds...
         clearInterval(timerIdRef.current);
         const pollingCallback = () => {
-            dispatch(getUser(navigate, location));
+            dispatch(getUser(navigate));
         };
         if (user) timerIdRef.current = setInterval(pollingCallback, 5000);
 

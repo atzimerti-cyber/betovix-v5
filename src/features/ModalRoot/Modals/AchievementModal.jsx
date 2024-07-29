@@ -35,15 +35,6 @@ const AchievementModal = (props) => {
 
     const [viewedRewards, setViewedRewards] = useState(new Set());
 
-    useEffect(() => {
-        rewards.forEach((reward) => {
-            if (!viewedRewards.has(reward.id)) {
-                dispatch(rewardViewed(reward.id));
-                setViewedRewards((prev) => new Set(prev).add(reward.id));
-            }
-        });
-    }, [rewards, viewedRewards, dispatch]);
-
     const [showSparkle, setShowSparkle] = useState(false);
 
     useEffect(() => {
@@ -53,10 +44,7 @@ const AchievementModal = (props) => {
     }, []);
 
     const handleClaimButton = (id) => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-
-        dispatch(claimReward(id, signal));
+        dispatch(claimReward(id));
     }
 
     return (
@@ -74,13 +62,29 @@ const AchievementModal = (props) => {
                 pagination={{ clickable: true }}
                 scrollbar={{ draggable: true }}
                 onSwiper={(swiper) => {
-                    console.log(swiper);
                     setIsBeginning(swiper.isBeginning);
                     setIsEnd(swiper.isEnd);
+
+                    const currentReward = rewards[swiper.activeIndex];
+                    console.log(currentReward, currentReward.Id);
+                    if (currentReward && !viewedRewards.has(currentReward.Id)) {
+                        dispatch(rewardViewed(currentReward.Id));
+                        setViewedRewards((prev) => new Set(prev).add(currentReward.Id));
+                    }
                 }}
                 onSlideChange={(swiper) => {
+                    console.log("onSlideChange: ", swiper);
+                    console.log("Is Beginning: ", swiper.isBeginning);
+                    console.log("Is End: ", swiper.isEnd);
                     setIsBeginning(swiper.isBeginning);
                     setIsEnd(swiper.isEnd);
+
+                    const currentReward = rewards[swiper.activeIndex];
+                    console.log(currentReward, currentReward.Id);
+                    if (currentReward && !viewedRewards.has(currentReward.Id)) {
+                        dispatch(rewardViewed(currentReward.Id));
+                        setViewedRewards((prev) => new Set(prev).add(currentReward.Id));
+                    }
                 }}
                 speed={700}
                 effect="creative"
@@ -118,8 +122,7 @@ const AchievementModal = (props) => {
                                 {reward.RewardMetaData.Picture ? (
                                     <img src={reward.RewardMetaData.Picture} alt='' />
                                 ) : (
-                                    // <img src={RewardImage} alt='' />
-                                    null
+                                    <img src={RewardImage} alt='' />
                                 )}
                                 <div className={classes.RewardDetails}>
                                     {reward.RewardName ? (
@@ -146,10 +149,10 @@ const AchievementModal = (props) => {
                 ))}
             </Swiper>
 
-            <div className={classes.customPrevArrow}>
+            <div className={`${classes.customPrevArrow} ${isBeginning ? classes.disabled : ''}`}>
                 <img src={AngleLeftIcon} alt="Previous" />
             </div>
-            <div className={classes.customNextArrow}>
+            <div className={`${classes.customNextArrow} ${isEnd ? classes.disabled : ''}`}>
                 <img src={AngleRightIcon} alt="Next" />
             </div>
         </div>

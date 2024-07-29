@@ -13,6 +13,11 @@
     transform: translateY(-1%);
 }
 
+.NoResults{
+    text-align: center;
+    font-size: large;
+}
+
 .Card {
     border-radius: 10px;
     width: 100%;

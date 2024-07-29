@@ -8,7 +8,6 @@ import UserIcon from '../../../assets/svgs/user.svg?react';
 import GiftIcon from '../../../assets/svgs/gift.svg?react';
 import BellIcon from '../../../assets/svgs/bell.svg?react';
 import WalletIcon from '../../../assets/svgs/wallet.svg?react';
-import CreditCardIcon from '../../../assets/svgs/credit-card.svg?react';
 import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 
 import LogoBig from '../../../assets/svgs/logo-big.svg?react';
@@ -38,6 +37,7 @@ const Topbar = () => {
     const showLiveListContainer = useSelector((state) => state.layout.showLiveListContainer);
     const showingLiveEvent = useSelector((state) => state.event.showingLiveEvent);
     const availableBonus = useSelector((state) => state.layout.availableBonus);
+    const newRewards = useSelector((state) => state.gamification.newRewards);
 
     const [balanceInteger, setBalanceInteger] = useState(0);
     const [balanceDecimal, setBalanceDecimal] = useState('00');
@@ -70,7 +70,7 @@ const Topbar = () => {
         setBalanceDecimal(decimal.padStart(2, '0'));
     };
 
-    const onMenuButtonClicked = () => {};
+    const onMenuButtonClicked = () => { };
 
     const inCasinoGame = location.pathname.includes('/casino/game/');
 
@@ -140,11 +140,11 @@ const Topbar = () => {
                                 <div className={classes.VipIconContainer}></div>
                             </MainButton>
                             <div className={classes.BonusButtonContainer}>
-                                    <MainButton className={classes.BonusButton} color='transparent' onClick={() => addParamsToUrl('bonus')}>
-                                        <GiftIcon />
-                                        <div className={classes.BonusButtonColor}>{translate('Bonus')}</div>
-                                    </MainButton>
-                                    {availableBonus > 0 && <NumberBadge number={availableBonus} floating justifyRight />}
+                                <MainButton className={classes.BonusButton} color='transparent' onClick={() => addParamsToUrl('bonus')}>
+                                    <GiftIcon />
+                                    <div className={classes.BonusButtonColor}>{translate('Bonus')}</div>
+                                </MainButton>
+                                {availableBonus > 0 && <NumberBadge number={availableBonus} floating justifyRight />}
                             </div>
                             <div className={classes.DropDownWrapper}>
                                 <div className={classes.DropDownLabel} onClick={() => dispatch(layoutActions.setUserDropdownVisible(!userDropdownVisible))}>
@@ -152,7 +152,10 @@ const Topbar = () => {
                                         <UserIcon />
                                         <span>{user?.Username}</span>
                                     </MainButton>
-                                    <div className={[classes.NumberBadge, classes.FloatingBadge].join(' ')}>2</div>
+                                    {newRewards.length > 0 &&
+                                        <div className={[classes.NumberBadge, classes.FloatingBadge].join(' ')}>{newRewards.length}</div>
+                                    }
+
                                 </div>
 
                                 {isDesktop && (

@@ -122,6 +122,8 @@ export const getUserAchievements = (signal) => {
                     milestone.percentageComplete > 0 && milestone.percentageComplete < 100
                 );
 
+
+
                 return {
                     id: level.Level.id,
                     name: level.Level.metadata.Name,
@@ -134,9 +136,13 @@ export const getUserAchievements = (signal) => {
             }).sort((a, b) => a.name.localeCompare(b.name));
 
             const currentLevel = heroLevels.find(level => level.currentLevel);
+            if (!currentLevel){
+                
+            }
 
-            console.log(selectedHero);
-            console.log(heroLevels);
+
+            // console.log(selectedHero);
+            // console.log(heroLevels);
             console.log(currentLevel);
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));
@@ -161,11 +167,11 @@ export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
                     page: "1",
                     count: "100",
                     filter: {
-                        IsViewed: { isViewed },
-                        IsClaimed: { isClaimed },
-                        TodaysRewards: { daily },
-                        WeeklyRewards: { weekly },
-                        MonthlyRewards: { monthly },
+                        IsViewed: isViewed,
+                        IsClaimed: isClaimed,
+                        TodaysRewards: daily,
+                        WeeklyRewards: weekly,
+                        MonthlyRewards: monthly,
                     },
                     sort: "",
                 },
@@ -175,7 +181,7 @@ export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
-            allRewards = response.data.Contents.Rows;
+            const allRewards = response.data.Contents.Rows;
             let popupRewards = [];
             let viewedRewards = [];
             let claimedRewards = [];
@@ -184,7 +190,15 @@ export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
                 if (!reward.Data.Viewed) {
                     popupRewards.push(reward.Data);
                 }
+                if (reward.Data.Viewed && !reward.Data.Claimed) {
+                    viewedRewards.push(reward.Data);
+                }
+                if (reward.Data.Claimed) {
+                    claimedRewards.push(reward.Data);
+                }
             })
+
+
 
             dispatch(gamificationActions.setPopupRewards(popupRewards));
             dispatch(gamificationActions.setNewRewards(viewedRewards));
@@ -197,21 +211,20 @@ export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
     };
 };
 
-export const claimReward = (rewardId, signal) => {
+export const claimReward = (Id) => {
     return async (dispatch) => {
         try {
             const lang = getLang();
 
             const response = await axiosApi.get(
-                `/Gamification/ClaimReward?rewardId=${rewardId}`,
+                `/Gamification/ClaimReward?rewardId=${Id}`,
                 {
-                    signal: signal,
                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
                 }
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
-
+            
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
