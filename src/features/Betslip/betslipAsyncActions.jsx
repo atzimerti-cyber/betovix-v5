@@ -57,10 +57,11 @@ export const placeBet = (payload, slips, amounts, betType) => {
                     baseURLOverride: import.meta.env.VITE_BETS_API,
                 }
             );
-            if (response.status !== 200) throw Error();
+            if (response.status !== 200) throw Error(response.data.Contents.Message);
 
             if (response.data.Contents.Message !== 'Success') {
-                toast.error(response.data.Contents.Message);
+                // toast.error(response.data.Contents.Message);
+                throw Error(response.data.Contents.Message);
             }
 
             dispatch(getUser());
@@ -81,9 +82,10 @@ export const placeBet = (payload, slips, amounts, betType) => {
                     amounts: amounts,
                     betType: betType,
                     type: 'error',
-                    message: error,
+                    message: error?.message,
                 })
             );
+            dispatch(betslipActions.reset());
             dispatch(betslipActions.setPlacingBetLoading(false));
         }
     };

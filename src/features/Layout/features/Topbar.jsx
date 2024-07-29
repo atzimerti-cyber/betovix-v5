@@ -14,6 +14,7 @@ import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 import LogoBig from '../../../assets/svgs/logo-big.svg?react';
 import LogoSmall from '../../../assets/svgs/logo-small.svg?react';
 import MenuBurgerIcon from '../../../assets/svgs/menu-burger.svg?react';
+import CameraIcon from '../../../assets/svgs/camera.svg?react';
 import MainButton from '../../UI/Buttons/MainButton';
 import Dropdown from '../../UI/Dropdown/Dropdown';
 import NumberBadge from '../../UI/Badges/NumberBudge';
@@ -34,6 +35,8 @@ const Topbar = () => {
     const fullLeftContainer = useSelector((state) => state.layout.fullLeftContainer);
     const userDropdownVisible = useSelector((state) => state.layout.userDropdownVisible);
     const user = useSelector((state) => state.login.user);
+    const showLiveListContainer = useSelector((state) => state.layout.showLiveListContainer);
+    const showingLiveEvent = useSelector((state) => state.event.showingLiveEvent);
     const availableBonus = useSelector((state) => state.layout.availableBonus);
 
     const [balanceInteger, setBalanceInteger] = useState(0);
@@ -67,6 +70,8 @@ const Topbar = () => {
         setBalanceDecimal(decimal.padStart(2, '0'));
     };
 
+    const onMenuButtonClicked = () => {};
+
     const inCasinoGame = location.pathname.includes('/casino/game/');
 
     return (
@@ -74,9 +79,23 @@ const Topbar = () => {
             <div className={classes.TopbarLeftWrapper}>
                 <div className={classes.TopbarLeft}>
                     <div className={classes.HeaderHamburger}>
-                        <MainButton color='transparent' onClick={() => dispatch(layoutActions.setFullLeftContainer(!fullLeftContainer))}>
-                            <MenuBurgerIcon />
-                        </MainButton>
+                        {!showingLiveEvent && (
+                            <MainButton color='transparent' onClick={() => dispatch(layoutActions.setFullLeftContainer(!fullLeftContainer))}>
+                                <MenuBurgerIcon />
+                            </MainButton>
+                        )}
+
+                        {showingLiveEvent && showLiveListContainer && (
+                            <MainButton color='transparent' onClick={() => dispatch(layoutActions.setShowLiveListContainer(false))}>
+                                <MenuBurgerIcon />
+                            </MainButton>
+                        )}
+
+                        {showingLiveEvent && !showLiveListContainer && (
+                            <MainButton color='transparent' onClick={() => dispatch(layoutActions.setShowLiveListContainer(true))}>
+                                <CameraIcon />
+                            </MainButton>
+                        )}
                     </div>
                     <MainButton color='transparent' onClick={() => navigate('/')}>
                         {isDesktop ? <LogoBig /> : <LogoSmall />}

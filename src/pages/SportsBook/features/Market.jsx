@@ -12,9 +12,10 @@ const Market = (props) => {
     const [market, setMarket] = useState(props.market);
 
     const getFieldLabel = (field) => {
-        if (field.FieldName.International === 'W1') return translateNameWithLang(props.event.Info.HomeTeamName);
-        else if (field.FieldName.International === 'W2') return translateNameWithLang(props.event.Info.AwayTeamName);
-        else if (field.FieldName.International === 'x' || field.FieldName.International === 'X') return translate('Draw');
+        if (field.FieldName.International === 'W1') return props.typeList ? '1' : translateNameWithLang(props.event.Info.HomeTeamName);
+        else if (field.FieldName.International === 'W2') return props.typeList ? '2' : translateNameWithLang(props.event.Info.AwayTeamName);
+        else if (field.FieldName.International === 'x' || field.FieldName.International === 'X' || field.FieldName.International === 'Draw')
+            return props.typeList ? 'X' : translate('Draw');
         else return translateNameWithLang(field.FieldName);
     };
 
@@ -63,6 +64,7 @@ const Market = (props) => {
                                     market={market}
                                     marketField={marketField}
                                     odds={marketField.Value}
+                                    typeList={props.typeList}
                                     disabled={
                                         market.Active === false ||
                                         market.Active === undefined ||

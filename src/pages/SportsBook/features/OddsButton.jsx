@@ -203,7 +203,7 @@ const OddsButton = (props) => {
         >
             <div className={classes.OddsLabel}>{props.label}</div>
             <div className={classes.OddsDelta}>
-                <div className={classes.Indicator}>
+                {/* <div className={classes.Indicator}>
                     {showIndicator === 'up' && (
                         <div className={classes.Placeholder}>
                             <IndicatorUpIcon className={classes.IndicatorUp} />
@@ -214,8 +214,18 @@ const OddsButton = (props) => {
                             <IndicatorDownIcon className={classes.IndicatorDown} />
                         </div>
                     )}
+                </div> */}
+                <div
+                    className={
+                        showIndicator === 'up'
+                            ? [classes.Odds, classes.Up].join(' ')
+                            : showIndicator === 'down'
+                            ? [classes.Odds, classes.Down].join(' ')
+                            : classes.Odds
+                    }
+                >
+                    {convertOdds(props.odds)}
                 </div>
-                <div className={classes.Odds}>{convertOdds(props.odds)}</div>
             </div>
         </button>
     );

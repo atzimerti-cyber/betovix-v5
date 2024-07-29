@@ -9,7 +9,7 @@ import { translate } from '../../../utils/translations';
 const MarketGroup = (props) => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
-    const selectedMarketCategory = useSelector((state) => state.event.selectedMarketCategory);
+    const selectedMarketCategoryIndex = useSelector((state) => state.event.selectedMarketCategoryIndex);
     const sportMarketTreeObj = useSelector((state) => state.event.sportMarketTreeObj);
     const changedMarkets = useSelector((state) => state.event.changedMarkets);
 
@@ -18,8 +18,10 @@ const MarketGroup = (props) => {
     useEffect(() => {
         if (!props.event) return;
         if (!props.marketGroups) return;
-        if (!selectedMarketCategory) return;
         if (!sportMarketTreeObj) return;
+
+        const selectedMarketCategory = props.marketGroups[selectedMarketCategoryIndex];
+        if (!selectedMarketCategory) return;
 
         let updatedMarkets = [];
         props.event.Markets.forEach((market, index) => {
@@ -101,7 +103,7 @@ const MarketGroup = (props) => {
         });
 
         setMarketsWithSubgroups(subgroups);
-    }, [changedMarkets, props.marketGroupsChanged, selectedMarketCategory?.Id, sportMarketTreeObj]);
+    }, [changedMarkets, props.marketGroupsChanged, selectedMarketCategoryIndex, sportMarketTreeObj, props.event?.MatchId]);
 
     const removeNumberInParentheses = (input) => {
         // Regular expression to find a number in parentheses

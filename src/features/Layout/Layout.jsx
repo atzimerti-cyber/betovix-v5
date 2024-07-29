@@ -14,6 +14,7 @@ import ChatIcon from '../../assets/svgs/chat.svg?react';
 import { layoutActions } from './layoutSlice';
 import RightContainer from './features/RightContainer';
 import LeftContainer from './features/LeftContainer';
+import LiveListContainer from './features/LiveListContainer';
 import ModalRoot from '../ModalRoot/ModalRoot';
 import Bottombar from './features/Bottombar';
 import ChatContainer from './features/ChatContainer';
@@ -89,6 +90,8 @@ const Layout = () => {
             <Topbar />
 
             <div className={classes.Content}>
+                {!isMobile && <LiveListContainer />}
+
                 <motion.div
                     className={classes.OuterContainerLeft}
                     key={fullLeftContainer ? 1 : 0}

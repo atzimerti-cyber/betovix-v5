@@ -1,0 +1,128 @@
+.Pane {
+    background: var(--db-gray-6);
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 16px;
+    position: fixed;
+    left: 0px;
+    transform: translateX(-100%);
+    transition: all 0.22s ease 0s, visibility 0s ease 0.22s;
+    visibility: hidden;
+    width: 260px;
+    height: calc(-65px + 100vh);
+    z-index: 1910;
+    overflow-y: auto;
+}
+.PaneShow {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 16px;
+    position: fixed;
+    left: 0px;
+    width: 260px;
+    height: calc(-65px + 100vh);
+    z-index: 1910;
+    overflow-y: auto;
+    transform: translateX(0px);
+    visibility: visible;
+    background: var(--db-gray-6);
+    transition: all 0.22s ease 0s, visibility 0s ease;
+}
+
+.ScrollableContent {
+    overflow-y: auto;
+    -webkit-box-flex: 1;
+}
+
+.Content {
+    color: rgb(255, 255, 255);
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    height: 100%;
+    overflow: hidden;
+    -webkit-box-flex: 1;
+}
+
+.SideMenuAllButtonsContainer {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin: 1rem 0.5rem 0.75rem;
+    gap: 1.5rem;
+}
+
+.SideMenuButtonContainer {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 0.125rem;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+/* Buttons */
+
+.SideMenuAllButtonsContainer {
+    margin: 1rem 0.5rem 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.SideMenuAllButtonsContainer > button {
+    height: 1.75rem;
+    min-height: 1.5rem;
+    width: 2rem;
+    padding-left: 0;
+    padding-right: 0;
+}
+.SideMenuAllButtonsContainer > button > svg {
+    max-height: 1.25rem;
+    max-width: 1.25rem;
+}
+
+.SideMenuButtonContainer {
+    flex-direction: row;
+    gap: 0.125rem;
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    justify-content: center;
+}
+.SideMenuButtonContainer button {
+    height: 2.25rem;
+    width: 50%;
+    border-radius: 9999px;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    min-height: 2rem;
+    font-size: 0.875rem;
+    gap: 0.5rem;
+    border-color: transparent;
+    background-color: initial;
+    opacity: 1;
+}
+.SideMenuButtonContainer button svg {
+    height: 1rem;
+    width: 1rem;
+}
+.SideMenuButtonContainer button svg path {
+    fill: var(--db-brand-green);
+}
+
+.SideMenuButtonContainer button .ActiveSvg path {
+    fill: var(--db-brand-green) !important;
+}
+
+.SideMenuButtonContainer button span {
+    display: flex;
+    max-height: 45%;
+    max-width: 100%;
+    overflow: hidden;
+    opacity: 1;
+    transition: var(--db-transition);
+    transition-duration: 0ms, 0.6s;
+    transition-delay: 0ms, 0.25s;
+    transition-property: opacity, max-width;
+}
+.SideMenuButtonContainer button:hover {
+    border-color: transparent;
+}

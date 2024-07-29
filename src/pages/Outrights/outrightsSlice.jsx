@@ -4,6 +4,7 @@ const initialState = {
     event: null,
     sports: null,
     selectedMarketCategory: null,
+    selectedMarketCategoryIndex: null,
 };
 
 export const outrightsSlice = createSlice({
@@ -14,6 +15,7 @@ export const outrightsSlice = createSlice({
             state.event = null;
             state.sports = null;
             state.selectedMarketCategory = null;
+            state.selectedMarketCategoryIndex = null;
         },
         setEvent: (state, action) => {
             state.event = action.payload;
@@ -23,6 +25,9 @@ export const outrightsSlice = createSlice({
         },
         setSelectedMarketCategory: (state, action) => {
             state.selectedMarketCategory = action.payload;
+        },
+        setSelectedMarketCategoryIndex: (state, action) => {
+            state.selectedMarketCategoryIndex = action.payload;
         },
     },
 });
