@@ -6,11 +6,9 @@ import { useMediaQuery } from 'react-responsive';
 import { toast } from 'react-toastify';
 
 import MainSwiper from './MainSwiper';
-import HeartIcon from '../../../assets/svgs/heart.svg?react';
 import classes from './HeroDisplaySwiper.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
 import { gamificationActions } from '../../../pages/UserGamification.jsx/userGamificationSlice';
-//import { addFavoriteCasino, removeFavoriteCasino } from '../../../pages/Casino/casinoAsyncActions';
 
 const HeroDisplaySwiper = (props) => {
 
@@ -60,7 +58,7 @@ const HeroDisplaySwiper = (props) => {
         >
             {props.items ? (
                 props.items.length === 0 ? (
-                    <p className={classes.NoResults}>No {props.title}</p>
+                    <p className={classes.NoResults}></p>
                 ) : (
                     props.items.map((item, index) => {
                         if (props.max && index > props.max + 1) return null;

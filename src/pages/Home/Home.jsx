@@ -96,7 +96,9 @@ const Home = () => {
                     {!user && <RegisterContainers />}
                 </div>
 
-                <Crypto />
+                {user &&
+                    <Crypto />
+                }
 
                 {permissions.AllowToSports && (
                     <>
@@ -124,7 +126,7 @@ const Home = () => {
                     </>
                 ) : null}
 
-               
+
 
             </div>
         </div>

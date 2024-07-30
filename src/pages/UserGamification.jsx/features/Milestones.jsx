@@ -12,9 +12,8 @@ import DsButton from '../../../features/UI/Buttons/DsButton'
 
 import { getUserAchievements } from '../gamificationAsyncActions';
 import { translate } from '../../../utils/translations';
-import { progress } from 'framer-motion';
-import MainButton from '../../../features/UI/Buttons/MainButton';
 import RefreshIcon from '../../../assets/svgs/refresh.svg';
+import { gamificationActions } from '../userGamificationSlice';
 
 const Milestones = (props) => {
     const location = useLocation();
@@ -48,50 +47,28 @@ const Milestones = (props) => {
 
     }, [props.activeLevel?.id]);
 
+    // useEffect(() => {
+    //     const progress = getProgress();
+    //     dispatch(gamificationActions.setProgressBar(progress))
+
+    // }, []);
+
     const getProgress = () => {
         if (!heroLevels) return 0;
         if (!Array.isArray(heroLevels)) {
-            // console.error('heroLevels is not an array or is undefined');
             return 0;
         }
-
         const currentLevel = heroLevels[thisLevelIndex];
-        if (!currentLevel) {
-            // console.error('Invalid thisLevelIndex:', thisLevelIndex);
-            return 0;
-        }
 
-        if (!Array.isArray(currentLevel.milestones)) {
-            // console.error('milestones is not an array or is undefined for level:', thisLevelIndex);
-            return 0;
-        }
+        var progress = 0;
 
-        let pointsToCompleteLevel = 0;
+        const mL = currentLevel.milestones.length;
+
+        const progressSection = 100 / (mL + 1);
         currentLevel.milestones.forEach(milestone => {
-            pointsToCompleteLevel += milestone.pointsValue;
+            const mP = milestone.percentageComplete;
+            progress += (mP / 100) * progressSection;
         });
-        pointsToCompleteLevel += currentLevel.pointsValue;
-
-        let pointsNow = 0;
-        currentLevel.milestones.forEach(milestone => {
-            pointsNow += milestone.points;
-        });
-        pointsNow += currentLevel.points;
-
-        // let pointsToCompleteLevel = 0;
-        // heroLevels[thisLevelIndex]?.milestones.forEach(milestone => {
-        //     pointsToCompleteLevel += milestone.pointsValue;
-        // });
-        // //console.log(pointsToCompleteLevel);
-
-        // let pointsNow = 0;
-        // heroLevels[thisLevelIndex]?.milestones.forEach(milestone => {
-        //     pointsNow += milestone.points;
-        // });
-        // //console.log(pointsNow);
-
-        //const progress = (pointsNow / pointsToCompleteLevel) * 100;
-        const progress = pointsToCompleteLevel > 0 ? (pointsNow / pointsToCompleteLevel) * 100 : 0;
 
         return progress;
     };
@@ -132,7 +109,6 @@ const Milestones = (props) => {
                                                     ].map((milestone, index) => (
                                                         <LevelDiamond
                                                             key={milestone.id}
-                                                            // key={`${displayedHeroLevels[thisLevelIndex].id}_${milestone.milestone}`}
                                                             complete={(index == 0 || milestone.percentageComplete == 100) && true}
                                                             index={index}
                                                         />
@@ -230,7 +206,7 @@ const Milestones = (props) => {
             </div>
             {!user && (
                 <DsButton active={true} color='transparent' onClick={props.onGotoLogin}>
-                    {translate('Login to join VIP')}
+                    {translate('Please Login')}
                 </DsButton>
             )}
         </div>

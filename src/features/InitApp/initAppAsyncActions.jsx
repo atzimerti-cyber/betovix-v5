@@ -20,9 +20,6 @@ import HeartIcon from '../../assets/svgs/heart.svg?react';
 import LeaderIcon from '../../assets/svgs/leader.svg?react';
 import PaperIcon from '../../assets/svgs/paper.svg?react';
 import PricesIcon from '../../assets/svgs/prices.svg?react';
-import StarOutlineIcon from '../../assets/svgs/star-outline.svg?react';
-import AlphaIcon from '../../assets/svgs/alpha.svg?react';
-import LogoSmall from '../../assets/svgs/logo-small.svg?react';
 import LogoSmall1C from '../../assets/svgs/logo-small-oneColor.svg?react';
 import RewardsIcon from '../../assets/svgs/rewards.svg?react';
 
@@ -35,7 +32,7 @@ import { ticketActions } from '../Ticket/ticketSlice';
 import { betslipActions } from '../Betslip/betslipSlice';
 
 import { getCrypto } from '../../pages/Crypto/cryptoAsyncActions';
-import { getUserAchievements } from '../../pages/UserGamification.jsx/gamificationAsyncActions';
+import { getRewards, getUserAchievements } from '../../pages/UserGamification.jsx/gamificationAsyncActions';
 
 export const loadInitData = (isMobile) => {
     return async (dispatch, getState) => {
@@ -117,14 +114,14 @@ export const loadInitData = (isMobile) => {
             });
             dispatch(appActions.setTranslations(responsesNecessary[0].data.Contents));
 
-            //dispatch(cryptoActions.setCryptoPrices(cryptoPrices)); // TODO: Get the prices from the api
-            /////////////////////////////////////////////////////
             const controller = new AbortController();
             const signal = controller.signal;
             dispatch(getCrypto(signal));
 
             //Get user achievements
-            dispatch(getUserAchievements(signal));
+            dispatch(getUserAchievements());
+            //Get user rewards
+            dispatch(getRewards());
 
             // Get permissions after setting user
             const currentLoginState = getState().login;

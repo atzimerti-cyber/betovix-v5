@@ -4,6 +4,7 @@ import { getLang } from '../../utils/storage';
 import axiosApi from '../../axios-api';
 import { gamificationActions } from './userGamificationSlice';
 import { appActions } from '../../features/InitApp/appSlice';
+import { current } from '@reduxjs/toolkit';
 
 export const getHeroes = (signal) => {
     return async (dispatch) => {
@@ -86,7 +87,7 @@ export const selectedHero = (displayedHeroAction, signal) => {
     };
 };
 
-export const getUserAchievements = (signal) => {
+export const getUserAchievements = () => {
     return async (dispatch) => {
         try {
             const lang = getLang();
@@ -109,6 +110,20 @@ export const getUserAchievements = (signal) => {
                 action: response.data.Contents.SelectedHero.metadata.action,
             }
 
+            let forCurrentLevel = [];
+            let progress = 0;
+            const levelProgress = (level) => {
+                const mL = level.Milestones.length;
+                const progressSection = 100 / (mL + 1);
+
+                level.Milestones.forEach(milestone => {
+                    const mP = milestone.optInStatus.percentageComplete;
+                    progress += (mP / 100) * progressSection;
+                });
+
+                return progress;
+            }
+
             const heroLevels = response.data.Contents.HeroLevels.map(level => {
                 const milestones = level.Milestones.map(milestone => ({
                     id: milestone.id,
@@ -117,33 +132,39 @@ export const getUserAchievements = (signal) => {
                     points: milestone.optInStatus.points > milestone.strategies.pointsStrategy.pointsValue ? milestone.strategies.pointsStrategy.pointsValue : milestone.optInStatus.points,
                     pointsValue: milestone.strategies.pointsStrategy.pointsValue,
                 })).sort((a, b) => a.name.localeCompare(b.name));
-
-                const isCurrentLevel = milestones.some(milestone =>
-                    milestone.percentageComplete > 0 && milestone.percentageComplete < 100
-                );
-
-
+                
+                // const isCurrentLevel = milestones.find(milestone =>
+                //     milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
+                // ) !== undefined;
+                // if (isCurrentLevel){
+                //     forCurrentLevel.push(level.Level);
+                // }
 
                 return {
                     id: level.Level.id,
                     name: level.Level.metadata.Name,
                     statusCode: level.Level.optInStatus.statusCode,
                     milestones: milestones,
-                    currentLevel: isCurrentLevel,
                     points: level.Level.optInStatus.points > level.Level.strategies.pointsStrategy.pointsValue ? level.Level.strategies.pointsStrategy.pointsValue : level.Level.optInStatus.points,
-                    pointsValue: level.Level.strategies.pointsStrategy.pointsValue
+                    pointsValue: level.Level.strategies.pointsStrategy.pointsValue,
+                    progress: levelProgress(level),
                 };
             }).sort((a, b) => a.name.localeCompare(b.name));
 
-            const currentLevel = heroLevels.find(level => level.currentLevel);
-            if (!currentLevel){
-                
-            }
+            heroLevels.map(heroLevel => {
+                const isCurrentLevel = heroLevel.milestones.find(milestone =>
+                    milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
+                ) !== undefined;
+                if (isCurrentLevel){
+                    forCurrentLevel.push(heroLevel);
+                }
+            })
 
+            const currentLevel = forCurrentLevel[0];
 
-            // console.log(selectedHero);
-            // console.log(heroLevels);
-            console.log(currentLevel);
+            // console.log("Hero: ",selectedHero);
+            console.log("Hero Levels: ",heroLevels);
+            console.log("Current Level: ",currentLevel);
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));
             dispatch(gamificationActions.setHeroLevels(heroLevels));
@@ -224,7 +245,7 @@ export const claimReward = (Id) => {
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
-            
+
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);

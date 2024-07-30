@@ -5,6 +5,7 @@ import StarIcon from '../../../assets/svgs/star.svg?react';
 import TransactionIcon from '../../../assets/svgs/transaction.svg?react';
 import VaultIcon from '../../../assets/svgs/vault.svg?react';
 import LiveSupportIcon from '../../../assets/svgs/live-support.svg?react';
+import PaperIcon from '../../../assets/svgs/paper2.svg?react';
 import LogoutIcon from '../../../assets/svgs/logout.svg?react';
 import UserIcon from '../../../assets/svgs/user.svg?react';
 import { loginActions } from '../../../pages/Login/loginSlice';
@@ -58,6 +59,17 @@ const MenuItems = (props) => {
                 </a>
             </li> */}
             <li>
+                <a
+                    onClick={() => {
+                        navigate(`sportsbook/mybets`);
+                        props.onClick();
+                    }}
+                >
+                    <PaperIcon fill="#527491"/>
+                    <span>{translate('My Bets')}</span>
+                </a>
+            </li>
+            <li>
                 <a>
                     <LiveSupportIcon />
                     <span>{translate('Live Support')}</span>
@@ -68,6 +80,7 @@ const MenuItems = (props) => {
                     onClick={() => {
                         dispatch(loginActions.logout());
                         props.onClick();
+                        window.location.reload();
                     }}
                 >
                     <LogoutIcon />

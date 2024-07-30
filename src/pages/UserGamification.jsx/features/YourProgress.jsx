@@ -24,7 +24,7 @@ const YourProgress = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+    const lang = useSelector((state) => state.app.lang);
 
     //const user = useSelector((state) => state.login.user);
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
@@ -45,23 +45,10 @@ const YourProgress = () => {
     useEffect(() => {
         if (currentUserLevel && Object.keys(selectedHero).length > 0) {
             setActiveLevel(currentUserLevel);
-        } else if (!currentUserLevel && Object.keys(selectedHero).length > 0) {
+        } else{
             setActiveLevel(selectedHeroLevels[0]);
         };
-    }, [selectedHeroLevels]);
-
-    useEffect(() => {
-        console.log("TWRINO LEVEL:", activeLevel);
-    }, [activeLevel]);
-
-    // const gotoLogin = () => {
-    //     const searchParams = new URLSearchParams(location.search);
-    //     searchParams.set('modal', 'auth');
-    //     searchParams.set('tab', 'login');
-
-    //     dispatch(modalActions.setOnCloseModal({ modal: 'your-progress', tab: null }));
-    //     navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-    // };
+    }, [selectedHeroLevels, currentUserLevel]);
 
     const addParamsToUrl = (tab) => {
         const searchParams = new URLSearchParams();
@@ -113,13 +100,16 @@ const YourProgress = () => {
                 <div className={classes.MainContent}>
                     {selectedHero && Object.keys(selectedHero).length > 0 ? (
                         <div className={classes.GridContainer}>
-                            <section className={classes.LevelUpSection}>
-                                <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
-                                <div className={classes.LevelUpMilestone}>
-                                    <Milestones activeLevel={activeLevel} progressBar />
-                                </div>
-                                <Rewards />
-                            </section>
+                            {activeLevel != null &&
+                                <section className={classes.LevelUpSection}>
+                                    <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
+                                    <div className={classes.LevelUpMilestone}>
+                                        <Milestones activeLevel={activeLevel} progressBar />
+                                    </div>
+                                    <Rewards />
+                                </section>
+                            }
+
                         </div>
                     ) : (
                         <div className={classes.GoToButton}>

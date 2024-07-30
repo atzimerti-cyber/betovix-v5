@@ -119,7 +119,9 @@ function App() {
                             path: '/crypto',
                             element: (
                                 <Suspense fallback={<PageFallback />}>
-                                    <Crypto />
+                                    <PrivateRoute roleId={40}>
+                                        <Crypto />
+                                    </PrivateRoute>
                                 </Suspense>
                             ),
                         },

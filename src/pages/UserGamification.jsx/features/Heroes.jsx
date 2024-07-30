@@ -25,6 +25,7 @@ const Heroes = React.memo(() => {
     const heroes = useSelector((state) => state.gamification.heroes);
     //const user = useSelector((state) => state.login.user);
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
+    const selectedHero = useSelector((state) => state.gamification.selectedHero);
 
     const [activeLevel, setActiveLevel] = useState(null);
 
@@ -56,7 +57,6 @@ const Heroes = React.memo(() => {
 
     return (
         <motion.div className={classes.TabContent} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.2 }}>
-            {/* <p className={classes.OverviewTitle}>{translate('Heroes')}</p> */}
 
             {displayedHero && Object.keys(displayedHero).length > 0 && (
                 <div className={classes.GridContainer}>
@@ -67,9 +67,16 @@ const Heroes = React.memo(() => {
                     </div>
 
                     <div className={classes.SelectHeroBtn}>
-                        <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
-                            <span>Select Hero</span>
-                        </MainButton>
+                        {selectedHero && Object.keys(selectedHero).length > 0 ? (
+                            <MainButton disabled>
+                                <span>You have selected a hero</span>
+                            </MainButton>
+                        ) : (
+                            <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
+                                <span>Select Hero</span>
+                            </MainButton>
+                        )}
+
                     </div>
 
                     <section className={classes.LevelUpSection}>
@@ -82,40 +89,11 @@ const Heroes = React.memo(() => {
                     <div className={classes.HeroDescription}>
                         <p className={classes.DescTitle}>{translate(displayedHero.metadata.HeroName + ' ' + displayedHero.metadata.HeroSubName)}</p>
                         <div className={classes.ImageContainer}>
-                        <p className={classes.Description}>{displayedHero.description.replace(/<\/?p>/g, "")}</p>
-                            {/* <p className={classes.Description}>{translate(displayedHero.description)}</p> */}
+                            <p className={classes.Description}>{displayedHero.description.replace(/<\/?p>/g, "")}</p>
                         </div>
                     </div>
                 </div>
             )}
-
-            {/* <div className={classes.GridContainer}>
-                <div className={classes.DisplayContainer}>
-                    <div className={classes.ImageContainer}>
-                        <img src={displayedHero.banner} loading='lazy' alt={displayedHero.metadata.HeroName} />
-                    </div>
-                </div>
-
-                <div className={classes.SelectHeroBtn}>
-                    <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
-                        <span>Select Hero</span>
-                    </MainButton>
-                </div>
-
-                <section className={classes.LevelUpSection}>
-                    <div className={classes.LevelUpMilestone}>
-                        <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
-                        <Milestones activeLevel={activeLevel} />
-                    </div>
-                </section>
-
-                <div className={classes.HeroDescription}>
-                    <p className={classes.DescTitle}>{translate(displayedHero.metadata.HeroName + ' ' + displayedHero.metadata.HeroSubName)}</p>
-                    <div className={classes.ImageContainer}>
-                        <p className={classes.Description}>{translate(displayedHero.description)}</p>
-                    </div>
-                </div>
-            </div> */}
 
             <div className={classes.HeroesContainer}>
                 <HeroDisplaySwiper title='Heroes' icon={<LogoSmallIcon />} items={heroes} />

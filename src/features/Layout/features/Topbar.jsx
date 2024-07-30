@@ -14,6 +14,8 @@ import LogoBig from '../../../assets/svgs/logo-big.svg?react';
 import LogoSmall from '../../../assets/svgs/logo-small.svg?react';
 import MenuBurgerIcon from '../../../assets/svgs/menu-burger.svg?react';
 import CameraIcon from '../../../assets/svgs/camera.svg?react';
+import LevelUpIcon from '../../../assets/svgs/level-up.svg';
+
 import MainButton from '../../UI/Buttons/MainButton';
 import Dropdown from '../../UI/Dropdown/Dropdown';
 import NumberBadge from '../../UI/Badges/NumberBudge';
@@ -30,7 +32,6 @@ const Topbar = () => {
 
     const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' });
 
-    // const unreadNotifications = useSelector((state) => state.app.unreadNotifications);
     const fullLeftContainer = useSelector((state) => state.layout.fullLeftContainer);
     const userDropdownVisible = useSelector((state) => state.layout.userDropdownVisible);
     const user = useSelector((state) => state.login.user);
@@ -38,6 +39,7 @@ const Topbar = () => {
     const showingLiveEvent = useSelector((state) => state.event.showingLiveEvent);
     const availableBonus = useSelector((state) => state.layout.availableBonus);
     const newRewards = useSelector((state) => state.gamification.newRewards);
+    const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
 
     const [balanceInteger, setBalanceInteger] = useState(0);
     const [balanceDecimal, setBalanceDecimal] = useState('00');
@@ -122,11 +124,6 @@ const Topbar = () => {
                         </MainButton>
                     </>
                 )}
-
-                {/* <MainButton color='bv-light-green' size='small' onClick={() => addParamsToUrl('cashier', 'buy-crypto')}>
-                    <CreditCardIcon />
-                    <span>Buy crypto</span>
-                </MainButton> */}
             </div>
 
             <div className={classes.TopbarRightWrapper}>
@@ -135,9 +132,11 @@ const Topbar = () => {
                         <>
                             <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
                                 <div className={classes.VipProgressBar}>
-                                    <div className={classes.VipProgressColor} style={{ width: '0%' }}></div>
+                                    <span style={{ width: `${userCurrentLevel.progress}%` }}></span>
                                 </div>
-                                <div className={classes.VipIconContainer}></div>
+                                <div className={classes.VipIconContainer}>
+                                    <img src={LevelUpIcon} alt=''/>
+                                </div>
                             </MainButton>
                             <div className={classes.BonusButtonContainer}>
                                 <MainButton className={classes.BonusButton} color='transparent' onClick={() => addParamsToUrl('bonus')}>
@@ -170,7 +169,7 @@ const Topbar = () => {
                             <div className={classes.HeaderRightDivider}></div>
 
                             <div className={classes.Container}>
-                                <MainButton color='transparent'>
+                                <MainButton color='transparent' onClick={() => addParamsToUrl('achievement')}>
                                     <BellIcon />
                                 </MainButton>
                             </div>

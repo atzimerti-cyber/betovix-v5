@@ -29,7 +29,8 @@ const initialState = {
     popupRewards:[],
     newRewards: [],
     claimedRewards: [],
-    loading: false
+    loading: false,
+    progressBar: null,
 };
 
 export const userGamificationSlice = createSlice({
@@ -65,6 +66,9 @@ export const userGamificationSlice = createSlice({
         },
         setLoading: (state, action) => {
             state.loading = action.payload;
+        },
+        setProgressBar: (state, action) => {
+            state.progressBar = action.payload;
         },
     },
 });
