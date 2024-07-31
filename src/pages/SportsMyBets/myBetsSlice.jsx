@@ -41,9 +41,6 @@ export const myBetsSlice = createSlice({
                 state.hasTicketCashouts = false;
             }
         },
-        setHasTicketsCashouts: (state, action) => {
-            state.hasTicketCashouts = action.payload;
-        },
         setCashedOutResult: (state, action) => {
             state.cashedOutResult = action.payload;
         },

@@ -22,6 +22,7 @@
     display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;
+    align-items: center;
     cursor: pointer;
     padding: 10px;
 }
@@ -271,11 +272,30 @@
     border-radius: 4px;
 }
 
+.IsBonus {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.GiftIconWrapper {
+    height: 30px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--db-duelbits-gray);
+    border-radius: 50%;
+}
+
 /* Media */
 @media screen and (max-width: 900px) {
     .MyBet {
         width: 100%;
         min-height: 0px;
         height: fit-content;
+    }
+    .IsBonus span {
+        display: none;
     }
 }

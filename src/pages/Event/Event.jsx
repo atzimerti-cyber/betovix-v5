@@ -52,6 +52,7 @@ const Event = () => {
     const [marketGroups, setMarketGroups] = useState(null);
     const [marketGroupsChanged, setMarketGroupsChanged] = useState(1);
     const [height, setHeight] = useState();
+    const [showTab, setShowTab] = useState('tracker');
 
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
@@ -230,8 +231,32 @@ const Event = () => {
                                 selectedSport &&
                                 (isLive ? (
                                     <>
-                                        <BreadcrumbLive event={event} page={isLive ? 'live' : 'home'} slice='event' />
-                                        <div className={classes.Box} style={{ backgroundImage: `url(${getBackgroundImage()})` }}>
+                                        <div className={classes.SelectTabArea}>
+                                            <div
+                                                className={showTab === 'tracker' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                onClick={() => setShowTab('tracker')}
+                                            >
+                                                {translate('Tracker')}
+                                            </div>
+                                            <div
+                                                className={showTab === 'score' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                onClick={() => setShowTab('score')}
+                                            >
+                                                {translate('Score')}
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            className={
+                                                showTab !== 'score' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
+                                            }
+                                        >
+                                            <BreadcrumbLive event={event} page={isLive ? 'live' : 'home'} slice='event' />
+                                        </div>
+                                        <div
+                                            className={showTab !== 'score' ? [classes.Box, classes.Hide].join(' ') : classes.Box}
+                                            style={{ backgroundImage: `url(${getBackgroundImage()})` }}
+                                        >
                                             {event && <Board event={event} />}
                                         </div>
                                     </>
@@ -251,7 +276,10 @@ const Event = () => {
                                 </h1>
 
                                 <aside className={isLive ? classes.Side : [classes.Side, classes.Pregame].join(' ')}>
-                                    <div className={classes.EventTracker} style={height ? { height: height + 'px' } : null}>
+                                    <div
+                                        className={isLive && showTab !== 'tracker' ? [classes.EventTracker, classes.Hide].join(' ') : classes.EventTracker}
+                                        style={height ? { height: height + 'px' } : null}
+                                    >
                                         {event && isLive && (
                                             <iframe
                                                 id='FMTracker'

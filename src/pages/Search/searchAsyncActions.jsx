@@ -12,7 +12,8 @@ export const getSlots = (signal, pageItems, isDesktop) => {
 
             const response = await axiosApi.post(
                 `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
-                { data: `{"Page":1,"PageItems":${pageItems},"Tag":"","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}` },
+                // { data: `{"Page":1,"PageItems":${pageItems},"Tag":"","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}` },
+                { data: `{"Page":1,"PageItems":${pageItems},"Tag":"","Search":""}` },
                 { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_BASE }
             );
             if (response.data.Status.StatusCode !== 200) throw Error();
@@ -51,7 +52,8 @@ export const getCasinoSearch = (signal, debSearchString) => {
                 axiosApi.post(
                     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
                     {
-                        data: `{"Page":1,"PageItems":24,"Tag":"","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                        // data: `{"Page":1,"PageItems":24,"Tag":"","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                        data: `{"Page":1,"PageItems":24,"Tag":"","Search":"${debSearchString}"}`,
                     },
                     {
                         signal: signal,
@@ -61,7 +63,8 @@ export const getCasinoSearch = (signal, debSearchString) => {
                 axiosApi.post(
                     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
                     {
-                        data: `{"Page":1,"PageItems":24,"Tag":"live","Search":"${debSearchString}","ProviderId":0,"BrandId":0,"VendorId":0}`,
+                        // data: `{"Page":1,"PageItems":24,"Tag":"live","Search":"${debSearchString}","ProviderId":0,"BrandId":0,"VendorId":0}`,
+                        data: `{"Page":1,"PageItems":24,"Tag":"live","Search":"${debSearchString}"}`,
                     },
                     {
                         signal: signal,
@@ -130,7 +133,8 @@ export const addToSearchResults = (signal, debSearchString) => {
                 const responseSlots = await axiosApi.post(
                     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
                     {
-                        data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                        // data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                        data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}"}`,
                     },
                     {
                         signal: signal,
@@ -154,7 +158,8 @@ export const addToSearchResults = (signal, debSearchString) => {
                 const responseLive = await axiosApi.post(
                     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
                     {
-                        data: `{"Page":${livePage},"PageItems":${pageItems},"Tag":"live","Search":"${debSearchString}","ProviderId":0,"BrandId":0,"VendorId":0}`,
+                        // data: `{"Page":${livePage},"PageItems":${pageItems},"Tag":"live","Search":"${debSearchString}","ProviderId":0,"BrandId":0,"VendorId":0}`,
+                        data: `{"Page":${livePage},"PageItems":${pageItems},"Tag":"live","Search":"${debSearchString}"}`,
                     },
                     {
                         signal: signal,
@@ -221,7 +226,8 @@ export const getCasinoSearchProviders = (signal, debSearchString, selectedProvid
                     axiosApi.post(
                         `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
                         {
-                            data: `{"Page":1,"PageItems":24,"Tag":"${selectedProvider}","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                            // data: `{"Page":1,"PageItems":24,"Tag":"${selectedProvider}","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                            data: `{"Page":1,"PageItems":24,"Tag":"${selectedProvider}","Search":"${debSearchString}"}`,
                         },
                         {
                             signal: signal,
@@ -233,7 +239,8 @@ export const getCasinoSearchProviders = (signal, debSearchString, selectedProvid
                     axiosApi.post(
                         `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
                         {
-                            data: `{"Page":1,"PageItems":24,"Tag":"${selectedProvider}","Search":"${debSearchString}","ProviderId":0,"BrandId":0,"VendorId":0}`,
+                            // data: `{"Page":1,"PageItems":24,"Tag":"${selectedProvider}","Search":"${debSearchString}","ProviderId":0,"BrandId":0,"VendorId":0}`,
+                            data: `{"Page":1,"PageItems":24,"Tag":"${selectedProvider}","Search":"${debSearchString}"}`,
                         },
                         {
                             signal: signal,

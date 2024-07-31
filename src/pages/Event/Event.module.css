@@ -50,6 +50,18 @@
     border-bottom-right-radius: 8px;
 }
 
+.SelectTabArea {
+    background: var(--db-gray-1);
+    box-sizing: border-box;
+    display: none;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 8px;
+    width: 100%;
+    height: 56px;
+    border-radius: 0 !important;
+}
+
 .EventPage {
     display: flex;
     flex-flow: row-reverse;
@@ -104,8 +116,41 @@
     overflow: hidden;
     padding: 16px;
     gap: 16px;
-    background-size: 100%;
+    /* background-size: 100%; */
+    background-size: cover;
     background-repeat: no-repeat;
+}
+
+.SelectTabArea .Tab:first-child {
+    margin-left: auto;
+}
+.Tab {
+    background: var(--db-gray-4);
+    width: 80px;
+    overflow: hidden;
+
+    border-radius: 8px;
+    color: rgb(255, 255, 255);
+    fill: rgb(255, 255, 255);
+    cursor: pointer;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    height: 40px;
+    margin-inline: 4px;
+    padding: 0px 8px 0px 14px;
+    position: relative;
+}
+.Tab.Active {
+    background: var(--db-brand-green);
+}
+
+.Tab svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: 0 0 1.5rem;
 }
 
 @media (min-width: 640px) {
@@ -137,10 +182,19 @@
         aspect-ratio: 7 / 4;
         height: unset;
     }
-    .TopArea {
+    /* .TopArea {
         display: none;
-        /* margin-block: 0px 1px; */
+    } */
+    .SelectTabArea {
+        display: flex;
     }
+    .BreadcrumbLiveWrapper {
+        display: none;
+    }
+    .Hide {
+        display: none;
+    }
+
     .MenuWrapper {
         position: static;
         padding-block: 16px 4px;

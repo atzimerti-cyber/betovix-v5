@@ -71,10 +71,10 @@ const OddsButton = (props) => {
             const allowed = allowedToAdd(newSlip);
             if (!allowed) return;
 
-            if (slips.length === 0 && !isMobile) {
-                dispatch(layoutActions.setShowRight('betslip'));
-                dispatch(layoutActions.setShowRightContainer(true));
-            }
+            // if (slips.length === 0 && !isMobile) {
+            dispatch(layoutActions.setShowRight('betslip'));
+            dispatch(layoutActions.setShowRightContainer(true));
+            // }
 
             dispatch(betslipActions.addToSlips(newSlip));
         }

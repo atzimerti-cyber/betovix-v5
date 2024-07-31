@@ -12,7 +12,8 @@ export const getOverview = (signal) => {
             const response = await axiosApi.post(
                 `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
                 {
-                    data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                    // data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                    data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":""}`,
                 },
                 {
                     signal: signal,
