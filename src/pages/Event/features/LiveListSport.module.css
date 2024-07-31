@@ -12,8 +12,8 @@
     display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;
-    background: rgb(28, 43, 56);
-    border-radius: 0px;
+    /* background: rgb(28, 43, 56); */
+    border-radius: 20px;
     line-height: 20px;
     fill: rgb(255, 255, 255);
     white-space: nowrap;
@@ -60,14 +60,18 @@
 }
 
 .Title:hover {
-    background: rgb(51, 56, 64);
+    background: rgb(36, 53, 78);
 }
 
 .Group.IsOpen .DropdownIcon {
     transform: scaleY(-1);
 }
 .Group.IsOpen .Title {
-    background: rgb(43, 65, 84);
+    background: rgb(18, 57, 83);
+    /* background: rgb(43, 65, 84); */
+}
+.Group.IsOpen .TitleIcon svg path {
+    fill: var(--db-brand-green);
 }
 
 .TournamentGroup {

@@ -131,6 +131,8 @@ export const getUserAchievements = () => {
                     percentageComplete: milestone.optInStatus.percentageComplete,
                     points: milestone.optInStatus.points > milestone.strategies.pointsStrategy.pointsValue ? milestone.strategies.pointsStrategy.pointsValue : milestone.optInStatus.points,
                     pointsValue: milestone.strategies.pointsStrategy.pointsValue,
+                    rewardType: milestone.reward ? milestone.reward.RewardType.Key : null,
+                    rewardValue: milestone.reward ? milestone.reward.RewardValue : null,
                 })).sort((a, b) => a.name.localeCompare(b.name));
                 
                 // const isCurrentLevel = milestones.find(milestone =>
@@ -146,6 +148,7 @@ export const getUserAchievements = () => {
                     statusCode: level.Level.optInStatus.statusCode,
                     milestones: milestones,
                     points: level.Level.optInStatus.points > level.Level.strategies.pointsStrategy.pointsValue ? level.Level.strategies.pointsStrategy.pointsValue : level.Level.optInStatus.points,
+                    percentageComplete: level.Level.optInStatus.percentageComplete,
                     pointsValue: level.Level.strategies.pointsStrategy.pointsValue,
                     progress: levelProgress(level),
                 };
@@ -164,7 +167,7 @@ export const getUserAchievements = () => {
 
             // console.log("Hero: ",selectedHero);
             console.log("Hero Levels: ",heroLevels);
-            console.log("Current Level: ",currentLevel);
+            // console.log("Current Level: ",currentLevel);
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));
             dispatch(gamificationActions.setHeroLevels(heroLevels));

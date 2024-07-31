@@ -95,20 +95,12 @@ const WithdrawCrypto = () => {
     };
 
     const updateBalance = (type, value) => {
-        //const valueNum = parseFloat(value);
         let valueNum;
         if (isNaN(value)) {
             valueNum = 0;
         } else {
             valueNum = value;
         }
-        // if (value > balance) {
-        //     return
-        // } else {
-        //     valueNum = value;
-        // }
-
-        // if (valueNum <= 0 || isNaN(valueNum) || valueNum < 0.01 ) return;
 
         if (!selectedCurrency) {
             setCoinsBalance('0.00');
@@ -133,26 +125,8 @@ const WithdrawCrypto = () => {
             }
         }
 
-        // if (selectedCurrency.short === 'USDT') {
-        //     coinsValue = valueNum;
-        //     cryptoValue = valueNum;
-        // } else {
-        //     const foundPrice = cryptoPrices['1min'][selectedCurrency.id];
-
-        //     if (type === 'coins') {
-        //         coinsValue = valueNum;
-        //         cryptoValue = valueNum / foundPrice;
-        //     } else {
-        //         cryptoValue = valueNum;
-        //         coinsValue = foundPrice * valueNum;
-        //     }
-        // }
-
         setCoinsBalance(coinsValue);
         setCryptoBalance(cryptoValue);
-
-        // setCoinsBalance(coinsValue.toFixed(2));
-        // setCryptoBalance(cryptoValue.toFixed(8));
     };
 
     const handleAmountBlur = () => {

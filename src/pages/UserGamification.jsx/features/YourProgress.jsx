@@ -43,11 +43,14 @@ const YourProgress = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (currentUserLevel && Object.keys(selectedHero).length > 0) {
-            setActiveLevel(currentUserLevel);
-        } else{
-            setActiveLevel(selectedHeroLevels[0]);
-        };
+        if (Object.keys(selectedHero).length > 0) {
+            if (currentUserLevel && Object.keys(selectedHero).length > 0) {
+                setActiveLevel(currentUserLevel);
+            } else {
+                setActiveLevel(selectedHeroLevels[0]);
+            };
+        }
+
     }, [selectedHeroLevels, currentUserLevel]);
 
     const addParamsToUrl = (tab) => {
@@ -59,6 +62,11 @@ const YourProgress = () => {
 
     return (
         <div className={classes.Modal}>
+
+            <div className={classes.ImageContainer}>
+                <img src={selectedHero.banner} loading="lazy" alt={selectedHero.name} />
+            </div>
+
             <div className={classes.ModalContent}>
                 {selectedHero && Object.keys(selectedHero).length > 0 ? (
                     <div className={classes.BackgroundContainer}>
@@ -121,13 +129,6 @@ const YourProgress = () => {
                     )}
                 </div>
             </div>
-
-            <div className={classes.ImageContainer}>
-                <img src={selectedHero.banner} loading="lazy" alt={selectedHero.name} />
-            </div>
-            {/* <div className={classes.ImageContainer}>
-                <img src={aceSurprised} alt="ace maskot" loading="lazy" />
-            </div> */}
         </div>
     );
 };

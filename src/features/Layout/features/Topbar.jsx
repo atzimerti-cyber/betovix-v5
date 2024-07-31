@@ -132,10 +132,14 @@ const Topbar = () => {
                         <>
                             <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
                                 <div className={classes.VipProgressBar}>
-                                    <span style={{ width: `${userCurrentLevel.progress}%` }}></span>
+                                    {Object.keys(userCurrentLevel).length > 0 ? (
+                                        <span style={{ width: `${userCurrentLevel.progress}%` }}></span>
+                                    ) : (
+                                        <span style={{ width: `0%` }}></span>
+                                    )}
                                 </div>
                                 <div className={classes.VipIconContainer}>
-                                    <img src={LevelUpIcon} alt=''/>
+                                    <img src={LevelUpIcon} alt='' />
                                 </div>
                             </MainButton>
                             <div className={classes.BonusButtonContainer}>

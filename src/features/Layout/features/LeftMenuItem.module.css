@@ -69,6 +69,8 @@
 }
 .LeftMenuItem.Active {
     background-color: var(--db-gray-4);
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .LeftMenuItem.Hide .Container {

@@ -64,9 +64,16 @@ const Milestones = (props) => {
 
         const mL = currentLevel.milestones.length;
 
-        const progressSection = 100 / (mL + 1);
-        currentLevel.milestones.forEach(milestone => {
-            const mP = milestone.percentageComplete;
+        let achList = [...currentLevel.milestones];
+        achList.push(currentLevel);
+
+        // currentLevel.milestones.forEach(milestone => {
+        //     achList.push(milestone);
+        // }
+
+        const progressSection = 100 / (achList.length);
+        achList.forEach(item => {
+            const mP = item.percentageComplete;
             progress += (mP / 100) * progressSection;
         });
 
@@ -84,121 +91,115 @@ const Milestones = (props) => {
         <div className={classes.MilestoneSection}>
             {props.progressBar &&
                 (
-                    <div className={classes.RefreshButton}>
-                        <button onClick={handleRefresh}>
-                            <img src={RefreshIcon} alt='Refresh' style={{ height: '20px', width: '20px' }} />
-                        </button>
+                    <div className={classes.RefreshButtonBg}>
+                        <div className={classes.RefreshButton}>
+                            <button onClick={handleRefresh} >
+                                <img src={RefreshIcon} alt='Refresh' style={{ height: '20px', width: '20px' }} />
+                            </button>
+                        </div>
                     </div>
                 )}
             <div className={!user ? [classes.CarouselContainer, classes.NotLoggedIn].join(' ') : classes.CarouselContainer}>
                 <div className={classes.MilestoneCarousel}>
                     <DraggableDiv>
-                        <div className={classes.ScrollContent}>
-                            {props.progressBar &&
-                                (
-                                    <div className={classes.ProgressBar}>
-                                        <div className={classes.BarContainer}>
-                                            <span style={{ width: `${getProgress()}%` }}></span>
-                                        </div>
-                                        <div className={classes.DiamondContainer}>
-                                            {heroLevels && heroLevels.length > 0 ? (
-                                                <>
-                                                    {[
-                                                        { id: `${heroLevels[thisLevelIndex]}placeholder`, milestone: 'before_first' },
-                                                        ...heroLevels[thisLevelIndex]?.milestones
-                                                    ].map((milestone, index) => (
-                                                        <LevelDiamond
-                                                            key={milestone.id}
-                                                            complete={(index == 0 || milestone.percentageComplete == 100) && true}
-                                                            index={index}
-                                                        />
-                                                    ))}
-
-                                                    {thisLevelIndex < heroLevels.length && (
-                                                        <LevelDiamond
-                                                            // key={`${displayedHeroLevels[thisLevelIndex].id}_${displayedHeroLevels[thisLevelIndex].milestones[displayedHeroLevels[thisLevelIndex].milestones.length]
-                                                            //     }`}
-                                                            key={heroLevels[thisLevelIndex].id}
-                                                            // complete={
-                                                            //     user?.wagered >=
-                                                            //     displayedHeroLevels[thisLevelIndex + 1].milestones[displayedHeroLevels[thisLevelIndex + 1].milestones.length - 1]
-                                                            //         .wagered
-                                                            // }
-                                                            index=''
-                                                        />
-                                                    )}
-                                                </>
-                                            ) : (
-                                                Array.from({ length: 6 }, (_, index) => <LevelDiamond key={index} complete={false} index={index} />)
-                                            )}
-                                        </div>
-                                    </div>
-                                )}
+                        <div className={classes.ScrollContainer}>
 
 
-                            <div className={classes.CardsContainer}>
-                                {heroLevels ? (
-                                    <>
-                                        {thisLevelIndex < heroLevels.length && (
-                                            <MilestoneCard
-                                                key={`${heroLevels[thisLevelIndex].milestone}_temp_locked`}
-                                                // key={`${displayedHeroLevels[thisLevelIndex].level}_${displayedHeroLevels[thisLevelIndex].milestones[displayedHeroLevels[thisLevelIndex].milestones.length]
-                                                //     }`}
-                                                label='Milestone 0'
-                                                index={heroLevels[thisLevelIndex].milestones.length}
-                                                // complete={
-                                                //     user?.wagered >=
-                                                //     displayedHeroLevels[thisLevelIndex + 1].milestones[displayedHeroLevels[thisLevelIndex + 1].milestones.length - 1]
-                                                //         .wagered
-                                                // }
-                                                level={heroLevels[thisLevelIndex]}
-                                            />
-                                        )}
+                            <div className={classes.ScrollContent}>
+                                {props.progressBar &&
+                                    (
+                                        <div className={classes.ProgressBar}>
+                                            <div className={classes.BarContainer}>
+                                                <span style={{ width: `${getProgress()}%` }}></span>
+                                            </div>
+                                            <div className={classes.DiamondContainer}>
+                                                {heroLevels && heroLevels.length > 0 ? (
+                                                    <>
+                                                        {[
+                                                            { id: `${heroLevels[thisLevelIndex]}placeholder`, milestone: 'before_first' },
+                                                            ...heroLevels[thisLevelIndex]?.milestones
+                                                        ].map((milestone, index) => (
+                                                            <LevelDiamond
+                                                                key={milestone.id}
+                                                                complete={(index == 0 || milestone.percentageComplete == 100) && true}
+                                                                index={index}
+                                                            />
+                                                        ))}
 
-                                        {heroLevels[thisLevelIndex]?.milestones.map((milestone, index) => (
-                                            <MilestoneCard
-                                                key={`${heroLevels[thisLevelIndex].id}_${milestone.id}`}
-                                                // key={`${displayedHeroLevels[thisLevelIndex].level}_${milestone.milestone}`}
-                                                label={`${milestone.name}`}
-                                                index={index}
-                                                //complete={user?.wagered >= milestone.wagered}
-                                                level={heroLevels[thisLevelIndex]}
-                                            // needed={
-                                            //     currentMilestone &&
-                                            //         currentMilestone.level === displayedHeroLevels[thisLevelIndex].level &&
-                                            //         currentMilestone.milestone === milestone.milestone
-                                            //         ? getNeeded(milestone)
-                                            //         : null
-                                            // }
-                                            />
-                                        ))}
-
-                                        {thisLevelIndex < heroLevels.length && (
-                                            <MilestoneCard
-                                                key={`${heroLevels[thisLevelIndex].id}_locked`}
-                                                // key={`${displayedHeroLevels[thisLevelIndex].level}_${displayedHeroLevels[thisLevelIndex].milestones[displayedHeroLevels[thisLevelIndex].milestones.length]
-                                                //     }`}
-                                                label='Locked'
-                                                index={heroLevels[thisLevelIndex].milestones.length}
-                                                // complete={
-                                                //     user?.wagered >=
-                                                //     displayedHeroLevels[thisLevelIndex + 1].milestones[displayedHeroLevels[thisLevelIndex + 1].milestones.length - 1]
-                                                //         .wagered
-                                                // }
-                                                level={heroLevels[thisLevelIndex]}
-                                                nextLevel
-                                            />
-                                        )}
-                                    </>
-                                ) : (
-                                    Array.from({ length: 6 }, (_, index) => (
-                                        <div key={index} className={classes.SkeletonWrapper}>
-                                            <div className={classes.Background}>
-                                                <SkeletonMilestone />
+                                                        {thisLevelIndex < heroLevels.length && (
+                                                            <LevelDiamond
+                                                                // key={`${displayedHeroLevels[thisLevelIndex].id}_${displayedHeroLevels[thisLevelIndex].milestones[displayedHeroLevels[thisLevelIndex].milestones.length]
+                                                                //     }`}
+                                                                key={heroLevels[thisLevelIndex].id}
+                                                                // complete={
+                                                                //     user?.wagered >=
+                                                                //     displayedHeroLevels[thisLevelIndex + 1].milestones[displayedHeroLevels[thisLevelIndex + 1].milestones.length - 1]
+                                                                //         .wagered
+                                                                // }
+                                                                index=''
+                                                                complete={heroLevels[thisLevelIndex].percentageComplete === 100 ? true : false}
+                                                            />
+                                                        )}
+                                                    </>
+                                                ) : (
+                                                    Array.from({ length: 6 }, (_, index) => <LevelDiamond key={index} complete={false} index={index} />)
+                                                )}
                                             </div>
                                         </div>
-                                    ))
-                                )}
+                                    )}
+
+
+                                <div className={classes.CardsContainer}>
+                                    {heroLevels ? (
+                                        <>
+                                            {thisLevelIndex < heroLevels.length && (
+                                                <MilestoneCard
+                                                    key={`${heroLevels[thisLevelIndex].milestone}_temp_locked`}
+                                                    label='Milestone 0'
+                                                    index={heroLevels[thisLevelIndex].milestones.length}
+                                                    level={heroLevels[thisLevelIndex]}
+                                                    firstCard
+                                                />
+                                            )}
+
+                                            {heroLevels[thisLevelIndex]?.milestones.map((milestone, index) => (
+                                                <MilestoneCard
+                                                    key={`${heroLevels[thisLevelIndex].id}_${milestone.id}`}
+                                                    label={`${milestone.name}`}
+                                                    index={index}
+                                                    type={`${milestone.rewardType}`}
+                                                    details={`${milestone.rewardValue}`}
+                                                    level={heroLevels[thisLevelIndex]}
+                                                    complete={milestone.percentageComplete === 100 ? true : false}
+                                                />
+                                            ))}
+
+                                            {thisLevelIndex < heroLevels.length && (
+                                                <MilestoneCard
+                                                    key={`${heroLevels[thisLevelIndex].id}_locked`}
+                                                    // label='LEVEL UP'
+                                                    index={heroLevels[thisLevelIndex].milestones.length}
+                                                    // complete={
+                                                    //     user?.wagered >=
+                                                    //     displayedHeroLevels[thisLevelIndex + 1].milestones[displayedHeroLevels[thisLevelIndex + 1].milestones.length - 1]
+                                                    //         .wagered
+                                                    // }
+                                                    complete={heroLevels[thisLevelIndex].percentageComplete === 100 ? true : false}
+                                                    level={heroLevels[thisLevelIndex]}
+                                                    nextLevel
+                                                />
+                                            )}
+                                        </>
+                                    ) : (
+                                        Array.from({ length: 6 }, (_, index) => (
+                                            <div key={index} className={classes.SkeletonWrapper}>
+                                                <div className={classes.Background}>
+                                                    <SkeletonMilestone />
+                                                </div>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
                             </div>
                         </div>
                     </DraggableDiv>

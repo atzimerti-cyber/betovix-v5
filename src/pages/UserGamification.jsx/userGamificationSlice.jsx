@@ -26,7 +26,7 @@ const initialState = {
     levels: null,
     selectedHero: {},
     heroLevels: null,
-    popupRewards:[],
+    popupRewards:{Id: 1},
     newRewards: [],
     claimedRewards: [],
     loading: false,

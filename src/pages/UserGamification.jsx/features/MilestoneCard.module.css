@@ -1,7 +1,7 @@
 .MilestoneCard {
     position: relative;
-    height: 152px;
-    width: 111px;
+    height: 200px;
+    width: 120px;
     --tw-translate-y: 0.625rem;
     --tw-scale-x: 1;
     --tw-scale-y: 1;
@@ -37,14 +37,15 @@
 }
 
 .ImageContainer {
-    height: calc(60px - var(--title-fix));
-    width: calc(60px - var(--title-fix));
-    margin-top: calc(4px + var(--title-fix) * 2);
+    height: calc(73px - var(--title-fix));
+    width: calc(73px - var(--title-fix));
+    margin-top: calc(20px + var(--title-fix) * 2);
 }
 
 .ImageInner {
     position: relative;
     height: 100%;
+    padding-left: 4px;
 }
 .ImageInner img {
     height: 100%;
@@ -67,7 +68,8 @@
 
 .MilestoneCard.Complete .Content,
 .MilestoneCard.Complete .Background {
-    opacity: 0.3;
+    opacity: 0.6;
+    pointer-events: none;
 }
 
 .Title {
@@ -78,7 +80,7 @@
     line-height: 1;
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
-    margin-bottom: 0.2rem;
+    margin-bottom: 0.4rem;
 }
 .Title.LongTitle {
     font-size: 0.75rem;
@@ -88,6 +90,14 @@
     display: block;
     white-space: nowrap;
     color: var(--db-body-text);
+}
+
+.Details{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.8rem;
+    color: white;
 }
 
 .Content button {

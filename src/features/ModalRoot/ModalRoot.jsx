@@ -92,8 +92,8 @@ const ModalRoot = () => {
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <div className={classes.Close} onClick={returnToPrevious}></div>
-
+                                <div className={classes.Close} onClick={returnToPrevious}></div>
+                            
                             {modalPage}
                         </motion.div>
                     </AnimatePresence>

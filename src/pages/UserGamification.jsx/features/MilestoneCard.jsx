@@ -28,6 +28,9 @@ const MilestoneCard = (props) => {
                 </div>
             </div>
             <div className={classes.Content}>
+
+
+
                 <div>
                     {props.needed && (
                         <p className={classes.WageredNeeded}>
@@ -42,19 +45,58 @@ const MilestoneCard = (props) => {
                             {/* <span>{props.label}</span> */}
                         </p>
                     )}
+
                     <p className={props.level.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
                         {/* {props.level.name} */}
                         <span>{props.label}</span>
                     </p>
+
+                    {/* {props.type == "firstCard" &&
+                        <p className={classes.Details}>
+                            <span>Good Luck</span>
+                            <CoinsIcon />
+                        </p>
+                    } */}
+
+                    {props.type == 7 &&
+                        <p className={classes.Details}>
+                            {/* {props.level.name} */}
+                            <span>Win</span>
+                            <CoinsIcon style={{ marginLeft: '8px' }} />
+                            <span>{props.details}</span>
+                        </p>
+                    }
+
+
                 </div>
-                {!props.complete && !props.nextLevel && (
-                    <DsButton locked color='transparent'>
-                        Not yet unlocked
+
+                {props.firstCard ? (
+                    null
+                ) : (
+                    !props.nextLevel ? (
+                        !props.complete ? (
+                            <DsButton locked color='transparent'>
+                                Not yet unlocked
+                            </DsButton>
+                        ) : (
+                            <DsButton locked color='transparent'>
+                                Completed
+                            </DsButton>
+                        )
+                    ) : (
+                        null
+                    )
+                )}
+
+
+                {props.firstCard && (
+                    <DsButton disabled>
+                        GOOD LUCK
                     </DsButton>
                 )}
                 {props.nextLevel && (
                     <DsButton disabled>
-                       LEVEL UP
+                        LEVEL UP
                     </DsButton>
                 )}
             </div>

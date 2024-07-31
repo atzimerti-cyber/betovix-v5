@@ -1,4 +1,4 @@
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -50,7 +50,7 @@ const VipProgress = () => {
                     </div>
                     <div className={classes.TextContainer}>
                         <span className={classes.TitleContainer}>
-                            {translate('Your progress to')}  
+                            {translate('Your progress to')}
                         </span>
                         <span className={classes.LevelName}>{userCurrentLevel.name}</span>
                     </div>
@@ -58,7 +58,12 @@ const VipProgress = () => {
 
                 <div className={classes.MilestoneProgressBar}>
                     <div className={classes.BarContainer}>
-                        <span style={{ width: `${userCurrentLevel.progress}%` }}></span>
+                        {Object.keys(userCurrentLevel).length > 0 ? (
+                            <span style={{ width: `${userCurrentLevel.progress}%` }}></span>
+                        ) : (
+                            <span style={{ width: `0%` }}></span>
+                        )}
+
                         {/* <span style={{ width: `${progress}%` }}></span> */}
                     </div>
                     {/* <div className={classes.DiamondsContainer}>

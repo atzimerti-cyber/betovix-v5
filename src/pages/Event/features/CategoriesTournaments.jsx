@@ -29,7 +29,7 @@ const CategoriesTournaments = (props) => {
         allTournaments &&
         allTournaments.map((tournament, ctIndex) => {
             return (
-                <div key={tournament.Id} data-category={`Category:${tournament.CategoryId}`} data-tournament={`Tournament:${tournament.Id}`}>
+                <div className={classes.TournamentsAcc} key={tournament.Id} data-category={`Category:${tournament.CategoryId}`} data-tournament={`Tournament:${tournament.Id}`}>
                     <Accordion2
                         icon={props.sport.icon}
                         title={`${translateNameWithLang(tournament.CategoryName)} / ${translateNameWithLang(tournament.Name)}`}
