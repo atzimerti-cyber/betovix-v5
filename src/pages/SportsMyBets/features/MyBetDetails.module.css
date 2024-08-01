@@ -138,3 +138,10 @@
     color: rgb(84, 116, 128);
     margin-right: 8px;
 }
+
+.DateOfMatch {
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 17px;
+    color: rgb(84, 116, 128);
+}

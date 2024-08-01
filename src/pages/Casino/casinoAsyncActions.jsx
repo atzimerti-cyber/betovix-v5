@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import _ from 'lodash';
 
 import axiosApi from '../../axios-api';
 import { casinoActions } from './casinoSlice';
@@ -27,7 +28,8 @@ export const getCasino = (signal) => {
                 axiosApi.post(
                     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
                     {
-                        data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                        // data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                        data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":""}`,
                     },
                     {
                         signal: signal,
@@ -37,7 +39,8 @@ export const getCasino = (signal) => {
                 axiosApi.post(
                     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
                     {
-                        data: `{"Page":1,"PageItems":24,"Tag":"live","Search":"","ProviderId":0,"BrandId":0,"VendorId":0}`,
+                        // data: `{"Page":1,"PageItems":24,"Tag":"live","Search":"","ProviderId":0,"BrandId":0,"VendorId":0}`,
+                        data: `{"Page":1,"PageItems":24,"Tag":"live","Search":""}`,
                     },
                     {
                         signal: signal,

@@ -12,8 +12,9 @@ import { translate } from '../../../utils/translations';
 import { cashout } from '../myBetsAsyncActions';
 import MyBetDetails from './MyBetDetails';
 import Spinner from '../../../features/UI/Spinner/Spinner';
-import { getTicketsTable } from '../myBetsAsyncActions';
+import { getTicketCashouts } from '../myBetsAsyncActions';
 import { myBetsActions } from '../myBetsSlice';
+import GiftIcon from '../../../assets/svgs/gift.svg?react';
 
 const MyBet = (props) => {
     const dispatch = useDispatch();
@@ -33,12 +34,12 @@ const MyBet = (props) => {
     useEffect(() => {
         let bs;
 
-        const isCashedOut = props.item.TicketEvents[0].Wins === 'R' ? true : false;
+        // const isCashedOut = props.item.TicketEvents[0].Wins === 'R' ? true : false;
         const lost = props.item.TicketEvents.filter((e) => e.Wins === 'L');
         const isLoss = lost.length ? true : false;
 
         if (props.item.Status === -1) bs = 'Active';
-        else if (isCashedOut) bs = 'Cashed Out';
+        else if (props.item.Cashout) bs = 'Cashed Out';
         else if (isLoss) bs = 'Loss';
         else bs = 'Win';
 
@@ -97,7 +98,10 @@ const MyBet = (props) => {
     useEffect(() => {
         if (cashedOutResult[props.item.TicketId] === 'success') {
             setTimeout(() => {
-                dispatch(getTicketsTable(1, 1, 1, axiosController.signal));
+                let cashoutType = 3;
+                if (props.isActive) cashoutType = 1;
+
+                dispatch(getTicketCashouts(cashoutType, props.page, axiosController.signal));
                 dispatch(myBetsActions.deleteCashedOutResult(props.item.TicketId));
             }, 3000);
         }
@@ -117,6 +121,15 @@ const MyBet = (props) => {
                         @ <span className={classes.Odds}>{getTotalOdds()}</span>
                     </span>
                 </div>
+
+                {props.item.IsBonus && (
+                    <div className={classes.IsBonus}>
+                        <span>Played with bonus</span>
+                        <div className={classes.GiftIconWrapper}>
+                            <GiftIcon />
+                        </div>
+                    </div>
+                )}
 
                 <div className={classes.BetStatusContainer}>
                     <div className={classes.Circle} style={getCircleStyle()}></div>
@@ -157,7 +170,7 @@ const MyBet = (props) => {
                                         <span>{addThousandsSeparator(props.item.MaxWins)}</span>
                                     </div>
 
-                                    {props.item.BonusParoli.WinAmount > 0 && (
+                                    {/* {props.item.BonusParoli.WinAmount > 0 && (
                                         <div className={classes.PotentialBonus}>
                                             <span>
                                                 {translate('Bonus')} {props.item.BonusParoli.BoostPercent}%
@@ -167,7 +180,7 @@ const MyBet = (props) => {
                                                 <span>{addThousandsSeparator(props.item.BonusParoli.WinAmount)}</span>
                                             </div>
                                         </div>
-                                    )}
+                                    )} */}
                                 </div>
                             )}
 
@@ -206,9 +219,13 @@ const MyBet = (props) => {
                                 ticketCashouts &&
                                 ticketCashouts[props.item.TicketId] &&
                                 !ticketCashouts[props.item.TicketId]?.Metrics?.Cashout && (
-                                    <div className={classes.CashoutSuspended}>
-                                        {translate('Cashout Suspended')}
-                                        <Warning4Icon />
+                                    <div className={classes.CashoutSuspendedWrapper}>
+                                        <div className={classes.CashoutSuspended}>
+                                            {translate('Cashout Suspended')}
+                                            <Warning4Icon />
+
+                                            <span className={classes.BreakReason}>{ticketCashouts[props.item.TicketId]?.BreakReason}</span>
+                                        </div>
                                     </div>
                                 )}
 
@@ -242,36 +259,6 @@ const MyBet = (props) => {
                                         </button>
                                     </div>
                                 )}
-
-                            {/* {ticketCashouts && ticketCashouts[props.item.TicketId] ? (
-                                ticketCashouts[props.item.TicketId]?.Metrics?.Cashout ? (
-                                    showConfirmCashout ? (
-                                        <div className={classes.ConfirmCashoutWrapper}>
-                                            <button
-                                                className={classes.CancelButton}
-                                                onClick={() => {
-                                                    clearTimeout(timeoutShowCashoutRef.current);
-                                                    setShowConfirmCashout(false);
-                                                }}
-                                            >
-                                                {translate('Cancel')}
-                                            </button>
-                                            <button className={classes.ConfirmButton} onClick={onCashout}>
-                                                {translate('Confirm')} {addThousandsSeparator(ticketCashouts[props.item.TicketId]?.Metrics?.Cashout)}
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        <button className={classes.CashoutButton} onClick={onShowConfirmCashout}>
-                                            {translate('Cashout')} {addThousandsSeparator(ticketCashouts[props.item.TicketId]?.Metrics?.Cashout)}
-                                        </button>
-                                    )
-                                ) : (
-                                    <div className={classes.CashoutSuspended}>
-                                        {translate('Cashout Suspended')}
-                                        <Warning4Icon />
-                                    </div>
-                                )
-                            ) : null} */}
 
                             {copied ? (
                                 <div className={classes.Copied}>{translate('Copied')}!</div>

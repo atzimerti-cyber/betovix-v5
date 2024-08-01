@@ -47,22 +47,27 @@ const SlotGames = () => {
         if (!debSearchString && selectedProviders.length === 0) {
             dispatch(getFavoriteGamesToFiltered(axiosController?.signal));
 
-            const newFilter = `{"Page":1,"PageItems":20,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0, "NewEntrys":true}`;
+            // const newFilter = `{"Page":1,"PageItems":20,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0, "NewEntrys":true}`;
+            const newFilter = `{"Page":1,"PageItems":20,"Tag":"slot","Search":"","NewEntrys":true}`;
             dispatch(getGamesWithFilter(newFilter, 'newGames', axiosController?.signal));
 
-            const allFilter = `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`;
+            // const allFilter = `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`;
+            const allFilter = `{"Page":1,"PageItems":24,"Tag":"slot","Search":""}`;
             dispatch(getGamesWithFilter(allFilter, 'allSlots', axiosController?.signal));
         } else if (!debSearchString && selectedProviders.length > 0) {
             selectedProviders.forEach((providerName) => {
-                const filter = `{"Page":1,"PageItems":24,"Tag":"${providerName}","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`;
+                // const filter = `{"Page":1,"PageItems":24,"Tag":"${providerName}","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`;
+                const filter = `{"Page":1,"PageItems":24,"Tag":"${providerName}","Search":""}`;
                 dispatch(getGamesWithFilter(filter, providerName, axiosController?.signal));
             });
         } else if (debSearchString && selectedProviders.length === 0) {
-            const filter = `{"Page":1,"PageItems":24,"Tag":"slot","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`;
+            // const filter = `{"Page":1,"PageItems":24,"Tag":"slot","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`;
+            const filter = `{"Page":1,"PageItems":24,"Tag":"slot","Search":"${debSearchString}"}`;
             dispatch(getGamesWithFilter(filter, 'searchResults', axiosController?.signal));
         } else if (debSearchString && selectedProviders.length > 0) {
             selectedProviders.forEach((providerName) => {
-                const filter = `{"Page":1,"PageItems":24,"Tag":"${providerName}","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`;
+                // const filter = `{"Page":1,"PageItems":24,"Tag":"${providerName}","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`;
+                const filter = `{"Page":1,"PageItems":24,"Tag":"${providerName}","Search":"${debSearchString}"}`;
                 dispatch(getGamesWithFilter(filter, providerName, axiosController?.signal));
             });
         }
