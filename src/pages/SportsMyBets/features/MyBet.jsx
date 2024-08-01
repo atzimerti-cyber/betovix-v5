@@ -219,9 +219,13 @@ const MyBet = (props) => {
                                 ticketCashouts &&
                                 ticketCashouts[props.item.TicketId] &&
                                 !ticketCashouts[props.item.TicketId]?.Metrics?.Cashout && (
-                                    <div className={classes.CashoutSuspended}>
-                                        {translate('Cashout Suspended')}
-                                        <Warning4Icon />
+                                    <div className={classes.CashoutSuspendedWrapper}>
+                                        <div className={classes.CashoutSuspended}>
+                                            {translate('Cashout Suspended')}
+                                            <Warning4Icon />
+
+                                            <span className={classes.BreakReason}>{ticketCashouts[props.item.TicketId]?.BreakReason}</span>
+                                        </div>
                                     </div>
                                 )}
 
@@ -255,36 +259,6 @@ const MyBet = (props) => {
                                         </button>
                                     </div>
                                 )}
-
-                            {/* {ticketCashouts && ticketCashouts[props.item.TicketId] ? (
-                                ticketCashouts[props.item.TicketId]?.Metrics?.Cashout ? (
-                                    showConfirmCashout ? (
-                                        <div className={classes.ConfirmCashoutWrapper}>
-                                            <button
-                                                className={classes.CancelButton}
-                                                onClick={() => {
-                                                    clearTimeout(timeoutShowCashoutRef.current);
-                                                    setShowConfirmCashout(false);
-                                                }}
-                                            >
-                                                {translate('Cancel')}
-                                            </button>
-                                            <button className={classes.ConfirmButton} onClick={onCashout}>
-                                                {translate('Confirm')} {addThousandsSeparator(ticketCashouts[props.item.TicketId]?.Metrics?.Cashout)}
-                                            </button>
-                                        </div>
-                                    ) : (
-                                        <button className={classes.CashoutButton} onClick={onShowConfirmCashout}>
-                                            {translate('Cashout')} {addThousandsSeparator(ticketCashouts[props.item.TicketId]?.Metrics?.Cashout)}
-                                        </button>
-                                    )
-                                ) : (
-                                    <div className={classes.CashoutSuspended}>
-                                        {translate('Cashout Suspended')}
-                                        <Warning4Icon />
-                                    </div>
-                                )
-                            ) : null} */}
 
                             {copied ? (
                                 <div className={classes.Copied}>{translate('Copied')}!</div>

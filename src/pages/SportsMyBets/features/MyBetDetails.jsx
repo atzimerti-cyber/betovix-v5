@@ -2,26 +2,15 @@ import { memo } from 'react';
 import { useSelector } from 'react-redux';
 
 import classes from './MyBetDetails.module.css';
-import TeamLogo from '../../../features/TeamLogo/TeamLogo';
+// import TeamLogo from '../../../features/TeamLogo/TeamLogo';
 import { translate } from '../../../utils/translations';
-import { addThousandsSeparator, formatDateTime2 } from '../../../utils/custom';
+import { addThousandsSeparator, formatDateTime2, formatTimeString } from '../../../utils/custom';
 import LiveBadge from '../../../features/LiveBadge/LiveBadge';
 
 const MyBetDetails = memo(function (props) {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-
     const liveState = useSelector((state) => state.live.liveState);
-    // const sportsStatusParams = useSelector((state) => state.sportsbook.sportsStatusParams);
 
-    // const getStatusText = (event) => {
-    //     let text = event.Header.MatchTimeExtended;
-    //     const sportParams = sportsStatusParams[event.Info.SportName.International];
-    //     if (sportParams && sportParams.withTime && event.Header.Status >= 1 && event.Header.Status <= 9)
-    //         if (sportParams.withTime === 'MatchTime') text = event.Header.MatchTime + '′ - ' + text;
-    //         else if (sportParams.withTime === 'RemainingTimeInPeriod') text = formatTimeString(event.Header.RemainingTimeInPeriod) + ' - ' + text;
-
-    //     return text;
-    // };
     const getStatusText = (event) => {
         let text = event.Header.MatchTimeExtended;
 

@@ -4,7 +4,6 @@ const initialState = {
     ticketsTable: null,
     ticketsLoading: false,
     ticketCashouts: null,
-    hasTicketCashouts: false,
     cashedOutResult: {},
 };
 
@@ -16,7 +15,6 @@ export const myBetsSlice = createSlice({
             state.ticketsTable = null;
             state.ticketsLoading = false;
             state.ticketCashouts = null;
-            state.hasTicketCashouts = false;
             state.cashedOutResult = {};
         },
         setTicketsTable: (state, action) => {
@@ -35,10 +33,8 @@ export const myBetsSlice = createSlice({
 
             if (action.payload.tickets.length) {
                 state.ticketCashouts = tc;
-                state.hasTicketCashouts = true;
             } else {
                 state.ticketCashouts = null;
-                state.hasTicketCashouts = false;
             }
         },
         setCashedOutResult: (state, action) => {

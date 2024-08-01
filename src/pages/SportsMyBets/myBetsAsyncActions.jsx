@@ -4,7 +4,7 @@ import axiosApi from '../../axios-api';
 import { myBetsActions } from './myBetsSlice';
 import { getLang } from '../../utils/storage';
 
-export const getTicketCashouts = (type, page, signal) => {
+export const getTicketCashouts = (type, page, signal, isActive) => {
     return async (dispatch) => {
         try {
             const lang = getLang();
@@ -27,6 +27,7 @@ export const getTicketCashouts = (type, page, signal) => {
             };
 
             dispatch(myBetsActions.setTicketsTable(allTickets));
+            if (isActive) dispatch(getTicketCashoutsUpdates(page, signal));
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);

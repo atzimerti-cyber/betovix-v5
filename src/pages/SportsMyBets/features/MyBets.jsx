@@ -18,7 +18,6 @@ const MyBets = (props) => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const ticketsLoading = useSelector((state) => state.myBets.ticketsLoading);
     const ticketsTable = useSelector((state) => state.myBets.ticketsTable);
-    const hasTicketCashouts = useSelector((state) => state.myBets.hasTicketCashouts);
 
     const [axiosController, setAxiosController] = useState(null);
     const [page, setPage] = useState(1);
@@ -36,8 +35,7 @@ const MyBets = (props) => {
         let cashoutType = 3;
         if (props.isActive) cashoutType = 1;
 
-        dispatch(getTicketCashouts(cashoutType, page, signal));
-        dispatch(getTicketCashoutsUpdates(page, signal));
+        dispatch(getTicketCashouts(cashoutType, page, signal, props.isActive));
 
         return () => {
             dispatch(myBetsActions.reset());
@@ -59,7 +57,7 @@ const MyBets = (props) => {
         };
 
         timerIdRef.current = setInterval(pollingCallback, 5000);
-    }, [hasTicketCashouts, ticketsTable?.Total, axiosController]);
+    }, [ticketsTable?.Total, axiosController]);
 
     // Changing page
     useEffect(() => {
@@ -68,11 +66,7 @@ const MyBets = (props) => {
         let cashoutType = 3;
         if (props.isActive) cashoutType = 1;
 
-        dispatch(getTicketCashouts(cashoutType, page, axiosController.signal));
-        dispatch(getTicketCashoutsUpdates(page, axiosController.signal));
-        // if (props.isActive) dispatch(getActiveTicketCashouts(page, axiosController.signal));
-        // else dispatch(getClosedTicketCashouts(page, axiosController.signal));
-
+        dispatch(getTicketCashouts(cashoutType, page, axiosController.signal, props.isActive));
         dispatch(layoutActions.setScrollToTop());
     }, [page]);
 
