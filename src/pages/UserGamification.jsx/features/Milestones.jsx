@@ -25,6 +25,7 @@ const Milestones = (props) => {
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
     const selectedHeroLevels = useSelector((state) => state.gamification.heroLevels);
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
+    const currentUserLevel = useSelector((state) => state.gamification.currentLevel);
 
     let heroLevels;
     if (!selectedHero) {
@@ -47,12 +48,6 @@ const Milestones = (props) => {
 
     }, [props.activeLevel?.id]);
 
-    // useEffect(() => {
-    //     const progress = getProgress();
-    //     dispatch(gamificationActions.setProgressBar(progress))
-
-    // }, []);
-
     const getProgress = () => {
         if (!heroLevels) return 0;
         if (!Array.isArray(heroLevels)) {
@@ -62,14 +57,10 @@ const Milestones = (props) => {
 
         var progress = 0;
 
-        const mL = currentLevel.milestones.length;
+        // const mL = currentLevel.milestones.length;
 
         let achList = [...currentLevel.milestones];
         achList.push(currentLevel);
-
-        // currentLevel.milestones.forEach(milestone => {
-        //     achList.push(milestone);
-        // }
 
         const progressSection = 100 / (achList.length);
         achList.forEach(item => {
@@ -159,6 +150,7 @@ const Milestones = (props) => {
                                                     index={heroLevels[thisLevelIndex].milestones.length}
                                                     level={heroLevels[thisLevelIndex]}
                                                     firstCard
+                                                    complete = {currentUserLevel === heroLevels[thisLevelIndex] || heroLevels[thisLevelIndex].name < currentUserLevel.name }
                                                 />
                                             )}
 
@@ -177,13 +169,8 @@ const Milestones = (props) => {
                                             {thisLevelIndex < heroLevels.length && (
                                                 <MilestoneCard
                                                     key={`${heroLevels[thisLevelIndex].id}_locked`}
-                                                    // label='LEVEL UP'
+                                                    // label=''
                                                     index={heroLevels[thisLevelIndex].milestones.length}
-                                                    // complete={
-                                                    //     user?.wagered >=
-                                                    //     displayedHeroLevels[thisLevelIndex + 1].milestones[displayedHeroLevels[thisLevelIndex + 1].milestones.length - 1]
-                                                    //         .wagered
-                                                    // }
                                                     complete={heroLevels[thisLevelIndex].percentageComplete === 100 ? true : false}
                                                     level={heroLevels[thisLevelIndex]}
                                                     nextLevel

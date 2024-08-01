@@ -16,6 +16,7 @@
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
         scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     background-color: var(--db-gray-6);
+    border-radius: 10px;
     /* margin-top: 60px; */
     opacity: 0;
     animation: slide 0.2s ease-out forwards;
@@ -27,10 +28,10 @@
     }
 }
 
-/* .GoToButton{
+.GoToButton{
     display: flex;
     justify-content: center;
-} */
+}
 
 .ModalContent {
     max-height: 100%;
@@ -38,6 +39,7 @@
     overflow-x: hidden;
     padding: 0.625rem;
     background-color: #0c2233;
+    border-radius: 10px;
 }
 
 .ImageContainer {

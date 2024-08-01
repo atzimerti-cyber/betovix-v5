@@ -4,20 +4,18 @@ import classes from './MilestoneCard.module.css';
 import largeCoin from '../../../assets/images/large-coin.webp';
 import DsButton from '../../../features/UI/Buttons/DsButton';
 import CoinsIcon from '../../../assets/svgs/coins.svg?react';
-import { formatNumberTo } from '../../../utils/custom';
 
 const MilestoneCard = (props) => {
     return (
         <motion.article
-            className={props.complete ? [classes.MilestoneCard, classes.Complete].join(' ') : classes.MilestoneCard}
-            initial={{ y: '0.625rem', opacity: 0 }}
+            className={props.complete ? classes.MilestoneCard : [classes.MilestoneCard, classes.Complete].join(' ')}
+            initial={{ y: '0.4rem', opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.3, delay: props.index * 0.05 }}
-            style={{ '--title-fix': props.needed ? '13px' : '1px' }}
+            transition={{ duration: 0.7, delay: props.index * 0.07 }}
+            style={{ '--title-fix': '-5px' }}
         >
             <div className={classes.Background}>
                 <div className={classes.ImageContainer}>
-                    {/* {props.index === 0 || props.nextLevel ? ( */}
                     {props.nextLevel ? (
                         <div className={`CardLevel CardLevel${props.level.id}`}></div>
                     ) : (
@@ -28,21 +26,17 @@ const MilestoneCard = (props) => {
                 </div>
             </div>
             <div className={classes.Content}>
-
-
-
                 <div>
-                    {props.needed && (
+                    {/* {props.needed && (
                         <p className={classes.WageredNeeded}>
                             <CoinsIcon />
                             {formatNumberTo(props.needed)} wager needed
                         </p>
-                    )}
+                    )} */}
 
                     {props.nextLevel && (
                         <p className={props.level.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
                             {props.level.name}
-                            {/* <span>{props.label}</span> */}
                         </p>
                     )}
 
@@ -60,14 +54,11 @@ const MilestoneCard = (props) => {
 
                     {props.type == 7 &&
                         <p className={classes.Details}>
-                            {/* {props.level.name} */}
                             <span>Win</span>
-                            <CoinsIcon style={{ marginLeft: '8px' }} />
+                            <CoinsIcon style={{ marginLeft: '8px', marginTop: '1px', paddingTop: '1px' }} />
                             <span>{props.details}</span>
                         </p>
                     }
-
-
                 </div>
 
                 {props.firstCard ? (
@@ -87,7 +78,6 @@ const MilestoneCard = (props) => {
                         null
                     )
                 )}
-
 
                 {props.firstCard && (
                     <DsButton disabled>

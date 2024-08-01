@@ -78,9 +78,9 @@ const MenuItems = (props) => {
             <li>
                 <a
                     onClick={() => {
+                        window.location.reload();
                         dispatch(loginActions.logout());
                         props.onClick();
-                        window.location.reload();
                     }}
                 >
                     <LogoutIcon />

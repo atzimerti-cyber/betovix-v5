@@ -19,7 +19,6 @@ const MyRewards = React.memo(() => {
 
     const lang = useSelector((state) => state.app.lang);
 
-    //const user = useSelector((state) => state.login.user);
     const claimedRewards = useSelector((state) => state.gamification.claimedRewards);
     const newRewards = useSelector((state) => state.gamification.newRewards);
 

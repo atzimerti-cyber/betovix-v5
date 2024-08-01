@@ -24,14 +24,22 @@ const RewardsSwiper = (props) => {
     const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
     const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
     const [loadedImages, setLoadedImages] = useState([]);
+    // const [claimFunction, setClaimFunction] = useState(0);
+
+    // useEffect(() => {
+    //     console.log('Claimed');
+    //     dispatch(getRewards(true));
+    //   }, [claimFunction]);
 
     const updateLoadedImages = (index) => {
         setLoadedImages((prevState) => [...prevState, index]);
     };
 
     const handleClaim = (id) => {
-        dispatch(claimReward(id));
-        dispatch(getRewards(true));
+        dispatch(claimReward(id))
+            .then(() => {
+                dispatch(getRewards(true));
+            });
     };
 
     let slidesPerView = 2.2;

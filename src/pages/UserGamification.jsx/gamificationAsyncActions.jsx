@@ -113,13 +113,24 @@ export const getUserAchievements = () => {
             let forCurrentLevel = [];
             let progress = 0;
             const levelProgress = (level) => {
-                const mL = level.Milestones.length;
-                const progressSection = 100 / (mL + 1);
-
-                level.Milestones.forEach(milestone => {
-                    const mP = milestone.optInStatus.percentageComplete;
+                let achList = [];
+                level.Milestones.map(milestone => {
+                    achList.push(milestone);
+                });
+                //let achList = [level.Milestones];
+                achList.push(level.Level);
+                const progressSection = 100 / (achList.length);
+                achList.forEach(item => {
+                    const mP = item.optInStatus.percentageComplete;
                     progress += (mP / 100) * progressSection;
                 });
+                // const mL = level.Milestones.length;
+                // const progressSection = 100 / (mL + 1);
+
+                // level.Milestones.forEach(milestone => {
+                //     const mP = milestone.optInStatus.percentageComplete;
+                //     progress += (mP / 100) * progressSection;
+                // });
 
                 return progress;
             }
@@ -134,7 +145,7 @@ export const getUserAchievements = () => {
                     rewardType: milestone.reward ? milestone.reward.RewardType.Key : null,
                     rewardValue: milestone.reward ? milestone.reward.RewardValue : null,
                 })).sort((a, b) => a.name.localeCompare(b.name));
-                
+
                 // const isCurrentLevel = milestones.find(milestone =>
                 //     milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
                 // ) !== undefined;
@@ -155,10 +166,19 @@ export const getUserAchievements = () => {
             }).sort((a, b) => a.name.localeCompare(b.name));
 
             heroLevels.map(heroLevel => {
-                const isCurrentLevel = heroLevel.milestones.find(milestone =>
+                let isCurrentLevel = false;
+
+                const mil = heroLevel.milestones.find(milestone =>
                     milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
                 ) !== undefined;
-                if (isCurrentLevel){
+
+                const lvl = heroLevel.percentageComplete >= 0 && heroLevel.percentageComplete < 100
+
+                if (mil || lvl){
+                    isCurrentLevel = true;
+                }
+
+                if (isCurrentLevel) {
                     forCurrentLevel.push(heroLevel);
                 }
             })
@@ -166,8 +186,8 @@ export const getUserAchievements = () => {
             const currentLevel = forCurrentLevel[0];
 
             // console.log("Hero: ",selectedHero);
-            console.log("Hero Levels: ",heroLevels);
-            // console.log("Current Level: ",currentLevel);
+            console.log("Hero Levels: ", heroLevels);
+            console.log("Current Level: ", currentLevel);
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));
             dispatch(gamificationActions.setHeroLevels(heroLevels));
