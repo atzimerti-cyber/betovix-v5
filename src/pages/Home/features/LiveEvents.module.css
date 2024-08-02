@@ -3,3 +3,9 @@
     width: 100%;
     transition: transform 0.2s linear;
 }
+
+.LiveSwiper{
+    background-color: #163a52;
+    border-radius: 17px;
+    padding: 14px;
+}

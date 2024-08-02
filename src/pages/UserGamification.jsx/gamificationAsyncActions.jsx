@@ -52,7 +52,7 @@ export const getHeroes = (signal) => {
                 .sort((a, b) => a.name.localeCompare(b.name));
 
 
-            console.log("Filtered Heroes:", heroes);
+            //console.log("Filtered Heroes:", heroes);
             dispatch(gamificationActions.setHeroes(heroes));
             dispatch(gamificationActions.setDisplayedHero(heroes[0]));
 
@@ -124,13 +124,6 @@ export const getUserAchievements = () => {
                     const mP = item.optInStatus.percentageComplete;
                     progress += (mP / 100) * progressSection;
                 });
-                // const mL = level.Milestones.length;
-                // const progressSection = 100 / (mL + 1);
-
-                // level.Milestones.forEach(milestone => {
-                //     const mP = milestone.optInStatus.percentageComplete;
-                //     progress += (mP / 100) * progressSection;
-                // });
 
                 return progress;
             }
@@ -144,14 +137,36 @@ export const getUserAchievements = () => {
                     pointsValue: milestone.strategies.pointsStrategy.pointsValue,
                     rewardType: milestone.reward ? milestone.reward.RewardType.Key : null,
                     rewardValue: milestone.reward ? milestone.reward.RewardValue : null,
+                    
                 })).sort((a, b) => a.name.localeCompare(b.name));
 
-                // const isCurrentLevel = milestones.find(milestone =>
-                //     milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
-                // ) !== undefined;
-                // if (isCurrentLevel){
-                //     forCurrentLevel.push(level.Level);
-                // }
+                const dailyRewards = {
+                    id: level.Daily?.id,
+                    name: level.Daily?.metadata.Name,
+                    description: level.Daily?.description,
+                    progress: level.Daily?.optInStatus.percentageComplete,
+                    rewardType: level.Daily?.reward.RewardType.Key,
+                    rewardValue: level.Daily?.reward.RewardValue,
+                    rewardSymbol: level.Daily?.reward.RewardType.UomSymbol
+                }
+                 const weeklyRewards = {
+                    id: level.Weekly?.id,
+                    name: level.Weekly?.metadata.Name,
+                    description: level.Weekly?.description,
+                    progress: level.Weekly?.optInStatus.percentageComplete,
+                    rewardType: level.Weekly?.reward.RewardType.Key,
+                    rewardValue: level.Weekly?.reward.RewardValue,
+                    rewardSymbol: level.Weekly?.reward.RewardType.UomSymbol
+                }
+                const monthlyRewards = {
+                    id: level.Monthly?.id,
+                    name: level.Monthly?.metadata.Name,
+                    description: level.Monthly?.description,
+                    progress: level.Monthly?.optInStatus.percentageComplete,
+                    rewardType: level.Monthly?.reward.RewardType.Key,
+                    rewardValue: level.Monthly?.reward.RewardValue,
+                    rewardSymbol: level.Monthly?.reward.RewardType.UomSymbol
+                }
 
                 return {
                     id: level.Level.id,
@@ -162,6 +177,9 @@ export const getUserAchievements = () => {
                     percentageComplete: level.Level.optInStatus.percentageComplete,
                     pointsValue: level.Level.strategies.pointsStrategy.pointsValue,
                     progress: levelProgress(level),
+                    dailyRewards: dailyRewards,
+                    weeklyRewards: weeklyRewards,
+                    monthlyRewards: monthlyRewards,
                 };
             }).sort((a, b) => a.name.localeCompare(b.name));
 
@@ -188,6 +206,8 @@ export const getUserAchievements = () => {
             // console.log("Hero: ",selectedHero);
             console.log("Hero Levels: ", heroLevels);
             console.log("Current Level: ", currentLevel);
+            console.log("Manual Rewards: ", heroLevels[0].dailyRewards, heroLevels[0].weeklyRewards, heroLevels[0].monthlyRewards);
+            
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));
             dispatch(gamificationActions.setHeroLevels(heroLevels));

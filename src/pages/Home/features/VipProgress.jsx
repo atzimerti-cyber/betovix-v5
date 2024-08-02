@@ -12,33 +12,27 @@ const VipProgress = () => {
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const user = useSelector((state) => state.login.user);
-    const levels = useSelector((state) => state.home.levels);
 
-    const displayedHeroLevels = useSelector((state) => state.gamification.displayedHero.levels);
-    const progress = useSelector((state) => state.gamification.progressBar);
+    const selectedHero = useSelector((state) => state.gamification.selectedHero);
     const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
-
-    // useEffect(() => {
-    //     if (!displayedHeroLevels) return;
-    //     if (!user) return;
-
-    //     const foundIndex = displayedHeroLevels.findIndex((l) => l.id === userLevel?.id);
-    //     if (foundIndex > -1) {
-    //         setCurrentLevel(displayedHeroLevels[foundIndex]);
-    //         if (foundIndex < displayedHeroLevels.length) setNextLevel(displayedHeroLevels[foundIndex + 1]);
-    //     }
-    // }, [displayedHeroLevels?.length]);
+    
 
     const addParamsToUrl = (modal, tab) => {
         const searchParams = new URLSearchParams(location.search);
-        searchParams.set('modal', modal);
-        if (tab) searchParams.set('tab', tab);
+        if (modal){
+            searchParams.set('modal', modal);
+            navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+        }
+        if (tab) {
+            searchParams.set('tab', tab);
+            navigate(`/profile?${searchParams.toString()}`, { replace: true });
+        }
 
-        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+        
     };
 
     return (
-        <div className={classes.VipProgress} onClick={() => addParamsToUrl('your-progress')}>
+        <div className={classes.VipProgress} onClick={Object.keys(selectedHero).length > 0 ? () => addParamsToUrl('your-progress') : () => addParamsToUrl(null, 'heroes')}>
             <VipBackgroundIcon className={classes.ProgressMask} />
 
             <div>

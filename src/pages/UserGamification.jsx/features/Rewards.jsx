@@ -5,7 +5,7 @@ import classes from './Rewards.module.css';
 import Bits from '../../../features/ModalRoot/features/Bits';
 import ManualRewards from './ManualRewards';
 
-const Levels = (props) => {
+const Rewards = (props) => {
     const displayedHeroLevels = useSelector((state) => state.gamification.displayedHero.levels);
     //console.log("rewards", props.activeLevel);
 
@@ -18,4 +18,4 @@ const Levels = (props) => {
     );
 };
 
-export default Levels;
+export default Rewards;

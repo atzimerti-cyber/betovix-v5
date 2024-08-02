@@ -31,6 +31,7 @@ const initialState = {
     claimedRewards: [],
     loading: false,
     progressBar: null,
+    manualRewards: {},
 };
 
 export const userGamificationSlice = createSlice({

@@ -92,7 +92,8 @@
 
 /* CardButton */
 .CardButton {
-    background-color: rgb(63, 93, 120);
+    background-color: rgb(44, 61, 75);
+    /* background-color: rgb(63, 93, 120); */
     padding: 10px 0px;
     flex: 1;
     text-align: center;
@@ -119,7 +120,7 @@
 }
 
 .CardButton:disabled {
-    background-color: rgb(36, 56, 74);
+    background-color: rgb(66 81 95 / 19%);
     cursor: default;
 }
 
