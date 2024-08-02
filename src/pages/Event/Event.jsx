@@ -48,11 +48,12 @@ const Event = () => {
     const sportsStatusParams = useSelector((state) => state.sportsbook.sportsStatusParams);
 
     const sportMarketTreeObj = useSelector((state) => state.event.sportMarketTreeObj);
+    const sportMarketTree = useSelector((state) => state.sportsbook.sportMarketTree);
 
     const [marketGroups, setMarketGroups] = useState(null);
     const [marketGroupsChanged, setMarketGroupsChanged] = useState(1);
     const [height, setHeight] = useState();
-    const [showTab, setShowTab] = useState('tracker');
+    const [showTab, setShowTab] = useState('tab1');
 
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
@@ -180,6 +181,20 @@ const Event = () => {
         let groups = Object.values(groupsObj);
         groups.sort((a, b) => a.id - b.id);
 
+        // Get auto...
+        const marketTree = sportMarketTree && sportid ? sportMarketTree[sportid] : null;
+        if (marketTree && marketTree.childs) {
+            groups.forEach((group) => {
+                const marketTreeGroup = marketTree.childs[group.Id];
+
+                if (!marketTreeGroup) return;
+                if (!marketTreeGroup.childs) return;
+
+                const lastMarket = marketTreeGroup.childs[marketTreeGroup.childs.length - 1];
+                if (lastMarket.name.includes('Auto||')) group.Auto = lastMarket.name;
+            });
+        }
+
         setMarketGroups(groups);
         setMarketGroupsChanged((prev) => prev + 1);
     }, [changedMarkets, sportMarketTreeObj]);
@@ -233,14 +248,14 @@ const Event = () => {
                                     <>
                                         <div className={classes.SelectTabArea}>
                                             <div
-                                                className={showTab === 'tracker' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
-                                                onClick={() => setShowTab('tracker')}
+                                                className={showTab === 'tab1' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                onClick={() => setShowTab('tab1')}
                                             >
                                                 {translate('Tracker')}
                                             </div>
                                             <div
-                                                className={showTab === 'score' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
-                                                onClick={() => setShowTab('score')}
+                                                className={showTab === 'tab2' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                onClick={() => setShowTab('tab2')}
                                             >
                                                 {translate('Score')}
                                             </div>
@@ -248,20 +263,44 @@ const Event = () => {
 
                                         <div
                                             className={
-                                                showTab !== 'score' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
+                                                showTab !== 'tab2' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
                                             }
                                         >
                                             <BreadcrumbLive event={event} page={isLive ? 'live' : 'home'} slice='event' />
                                         </div>
+
                                         <div
-                                            className={showTab !== 'score' ? [classes.Box, classes.Hide].join(' ') : classes.Box}
+                                            className={showTab !== 'tab2' ? [classes.Box, classes.Hide].join(' ') : classes.Box}
                                             style={{ backgroundImage: `url(${getBackgroundImage()})` }}
                                         >
                                             {event && <Board event={event} />}
                                         </div>
                                     </>
                                 ) : (
-                                    <Breadcrumb page={isLive ? 'live' : 'home'} slice='event' />
+                                    <>
+                                        <div className={classes.SelectTabArea}>
+                                            <div
+                                                className={showTab === 'tab1' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                onClick={() => setShowTab('tab1')}
+                                            >
+                                                {translate('Markets')}
+                                            </div>
+                                            <div
+                                                className={showTab === 'tab2' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                onClick={() => setShowTab('tab2')}
+                                            >
+                                                {translate('Statistics')}
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            className={
+                                                showTab !== 'tab1' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
+                                            }
+                                        >
+                                            <Breadcrumb page={isLive ? 'live' : 'home'} slice='event' />
+                                        </div>
+                                    </>
                                 ))}
                         </div>
 
@@ -277,7 +316,11 @@ const Event = () => {
 
                                 <aside className={isLive ? classes.Side : [classes.Side, classes.Pregame].join(' ')}>
                                     <div
-                                        className={isLive && showTab !== 'tracker' ? [classes.EventTracker, classes.Hide].join(' ') : classes.EventTracker}
+                                        className={
+                                            (isLive && showTab !== 'tab1') || (!isLive && showTab !== 'tab2')
+                                                ? [classes.EventTracker, classes.Hide].join(' ')
+                                                : classes.EventTracker
+                                        }
                                         style={height ? { height: height + 'px' } : null}
                                     >
                                         {event && isLive && (
@@ -299,7 +342,7 @@ const Event = () => {
                                     </div>
                                 </aside>
 
-                                {marketGroups && (
+                                {marketGroups && (isLive || showTab === 'tab1') && (
                                     <div className={classes.Main}>
                                         {marketGroups.length > 0 && <MarketsMenu marketGroups={marketGroups} />}
 
