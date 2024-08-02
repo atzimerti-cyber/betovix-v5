@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
     levels: null,
     rewards: null,
+    bonuses: [],
     loading: false,
     onCloseModal: null,
 };
@@ -14,6 +15,7 @@ export const modalSlice = createSlice({
         reset: (state) => {
             state.levels = null;
             state.rewards = null;
+            state.bonuses = [];
             state.loading = false;
             state.onCloseModal = null;
         },
@@ -28,6 +30,9 @@ export const modalSlice = createSlice({
         },
         setOnCloseModal: (state, action) => {
             state.onCloseModal = action.payload;
+        },  
+        setBonuses(state, action) {
+            state.bonuses = action.payload;
         },
     },
 });

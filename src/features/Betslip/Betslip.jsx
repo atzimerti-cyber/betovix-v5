@@ -1,7 +1,8 @@
-import { useEffect, useMemo, useRef, memo } from 'react';
+import { useEffect, useState, useMemo, useRef, memo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
+import classNames from 'classnames'; // You can use the classnames library for conditional class names
 
 import classes from './Betslip.module.css';
 import Tabs from '../UI/Tabs/Tabs';
@@ -14,6 +15,7 @@ import { betslipActions } from './betslipSlice';
 import { getTicketUpdates, placeBet } from './betslipAsyncActions';
 import { translate } from '../../utils/translations';
 import Systems from './features/Systems';
+import { layoutActions } from '../Layout/layoutSlice';
 import { addThousandsSeparator } from '../../utils/custom';
 import { getTicketFromStorage, getTicketChangesSettings } from '../../utils/storage';
 import BetReceipt from './features/BetReceipt';
@@ -38,6 +40,9 @@ const Betslip = memo(function (props) {
     const showReceiptFor = useSelector((state) => state.betslip.showReceiptFor);
     const liveState = useSelector((state) => state.live.liveState);
     const placingBetLoading = useSelector((state) => state.betslip.placingBetLoading);
+    const bonusBalance = useSelector((state) => state.layout.bonusBalance);
+
+    const [isBonus, setIsBonus] = useState(false);
 
     const addParamsToUrl = (modal, tab) => {
         const searchParams = new URLSearchParams(location.search);
@@ -157,7 +162,7 @@ const Betslip = memo(function (props) {
                 </button>
             );
         }
-    }, [user?.AccountId, betError, slips?.length, betslip?.totalStake, placingBetLoading]);
+    }, [user?.AccountId, betError, slips?.length, betslip?.totalStake, placingBetLoading, isBonus]);
 
     const onChangeTab = (tab) => {
         slips.forEach((slip, index) => {
@@ -202,7 +207,7 @@ const Betslip = memo(function (props) {
             stakes: ticket.stakes,
             points: points,
             acceptChanges: ticketChangesSettings.oddChanges === '2' ? true : false,
-            IsBonus: false, // TODO: This should be changed (see bonus in pick777),
+            IsBonus: isBonus, // TODO: This should be changed (see bonus in pick777),
             providerId: 1, // TODO: should this come from settings?
         };
 
@@ -211,14 +216,34 @@ const Betslip = memo(function (props) {
         dispatch(placeBet(payload, slips, amounts, betType));
     };
 
+    const bonusButton = useMemo(() => {
+        if (user && slips.length && betslip.totalStake && betslip.totalStake > 0 && bonusBalance && bonusBalance >= betslip.totalStake) {
+            return (
+                <div className={classNames(classes.BonusButton, { [classes.selected]: isBonus })}>
+                    <label className={classes.bonusContainer}>
+                        <input
+                            checked={isBonus} 
+                            onChange={e => setIsBonus(e.target.checked)} 
+                            type="checkbox"
+                        />
+                        <span className={classes.checkMark} />
+                        {translate('Play With Bonus')}
+                    </label>
+                </div>
+            );
+        }
+        return null;
+    }, [user?.AccountId, slips?.length, betslip?.totalStake, bonusBalance, isBonus]);
+
+
     return (
         <section className={classes.Betslip}>
             <div className={classes.TabsWrapper}>
                 <Tabs
                     tabs={[
-                        { id: 'Single', label: 'Single', active: betType === 'Single' },
-                        { id: 'Multiple', label: 'Multi', active: betType === 'Multiple' },
-                        { id: 'System', label: 'System', active: betType === 'System' },
+                        { id: 'Single', label: translate('Single'), active: betType === 'Single' },
+                        { id: 'Multiple', label: translate('Multi'), active: betType === 'Multiple' },
+                        { id: 'System', label: translate('System'), active: betType === 'System' },
                     ]}
                     onChangeTab={(tab) => onChangeTab(tab)}
                     type='buttons'
@@ -243,7 +268,7 @@ const Betslip = memo(function (props) {
                         <div className={classes.BetOverview}>
                             <BetError />
                             {slips.length > 0 && <BetCalculation />}
-
+                            {bonusButton}
                             {betButton}
                         </div>
 

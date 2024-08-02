@@ -43,7 +43,7 @@ const FilterBar = (props) => {
             <div className={classes.FiltersSection}>
                 <div className={classes.DropdownWrapper}>
                     <div className={classes.DropdownInner}>
-                        <input readOnly role='textbox' value={sorting} onClick={() => setShowSortingDD(!showSortingDD)} />
+                        <input id='sort' readOnly role='textbox' value={sorting} onClick={() => setShowSortingDD(!showSortingDD)} />
                         <span className={classes.RightIcon}>
                             <CaretDownIcon />
                         </span>
@@ -85,6 +85,7 @@ const FilterBar = (props) => {
                 </div>
 
                 <MultiSelect
+                    id={translate('Providers')}
                     menuTitle={translate('Providers')}
                     placeholder={translate('Providers')}
                     icon={<Filter2Icon />}

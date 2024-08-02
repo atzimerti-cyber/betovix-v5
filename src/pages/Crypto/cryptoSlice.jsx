@@ -28,10 +28,11 @@ const initialState = {
         { id: 'TRX', short: 'TRX', icon: trx, label: 'Tron', color: '#D4374480', available: true },
     ],
     // cryptoPrices: null,
-    cryptoPrices: [],
+    //cryptoPrices: [],
     selectedCurrency: null,
     selectedNetwork: null,
     depositAddress: '',
+    qrCodeImage: ''
 };
 
 export const cryptoSlice = createSlice({
@@ -48,14 +49,12 @@ export const cryptoSlice = createSlice({
             state.selectedNetwork = null;
             state.depositAddress = '';
         },
-        //////
         setCrypto: (state, action) => {
             state.crypto = action.payload;
         },
-        //////
-        setCryptoPrices: (state, action) => {
-            state.cryptoPrices = action.payload;
-        },
+        // setCryptoPrices: (state, action) => {
+        //     state.cryptoPrices = action.payload;
+        // },
         setSelectedCurrency: (state, action) => {
             state.selectedCurrency = action.payload;
         },
@@ -65,6 +64,9 @@ export const cryptoSlice = createSlice({
         setDepositAddress: (state, action) => {
             state.depositAddress = action.payload;
         },
+        setQRCodeImage: (state, action) => {
+            state.qrCodeImage = action.payload;
+        }
     },
 });
 

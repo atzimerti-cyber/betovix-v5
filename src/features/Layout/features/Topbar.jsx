@@ -5,20 +5,25 @@ import { useMediaQuery } from 'react-responsive';
 
 import classes from './Topbar.module.css';
 import UserIcon from '../../../assets/svgs/user.svg?react';
+import GiftIcon from '../../../assets/svgs/gift.svg?react';
 import BellIcon from '../../../assets/svgs/bell.svg?react';
 import WalletIcon from '../../../assets/svgs/wallet.svg?react';
-import CreditCardIcon from '../../../assets/svgs/credit-card.svg?react';
 import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 
 import LogoBig from '../../../assets/svgs/logo-big.svg?react';
 import LogoSmall from '../../../assets/svgs/logo-small.svg?react';
 import MenuBurgerIcon from '../../../assets/svgs/menu-burger.svg?react';
 import CameraIcon from '../../../assets/svgs/camera.svg?react';
+import LevelUpIcon from '../../../assets/svgs/level-up.svg';
+
 import MainButton from '../../UI/Buttons/MainButton';
 import Dropdown from '../../UI/Dropdown/Dropdown';
+import NumberBadge from '../../UI/Badges/NumberBudge';
+import { translate } from '../../../utils/translations';
 import { layoutActions } from '../layoutSlice';
 import MenuItems from './MenuItems';
 import { addThousandsSeparator } from '../../../utils/custom';
+
 
 const Topbar = () => {
     const dispatch = useDispatch();
@@ -27,12 +32,14 @@ const Topbar = () => {
 
     const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' });
 
-    // const unreadNotifications = useSelector((state) => state.app.unreadNotifications);
     const fullLeftContainer = useSelector((state) => state.layout.fullLeftContainer);
     const userDropdownVisible = useSelector((state) => state.layout.userDropdownVisible);
     const user = useSelector((state) => state.login.user);
     const showLiveListContainer = useSelector((state) => state.layout.showLiveListContainer);
     const showingLiveEvent = useSelector((state) => state.event.showingLiveEvent);
+    const availableBonus = useSelector((state) => state.layout.availableBonus);
+    const newRewards = useSelector((state) => state.gamification.newRewards);
+    const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
 
     const [balanceInteger, setBalanceInteger] = useState(0);
     const [balanceDecimal, setBalanceDecimal] = useState('00');
@@ -65,7 +72,7 @@ const Topbar = () => {
         setBalanceDecimal(decimal.padStart(2, '0'));
     };
 
-    const onMenuButtonClicked = () => {};
+    const onMenuButtonClicked = () => { };
 
     const inCasinoGame = location.pathname.includes('/casino/game/');
 
@@ -113,34 +120,45 @@ const Topbar = () => {
                         </div>
                         <MainButton color='secondary' size='small' onClick={() => addParamsToUrl('cashier', 'deposit')}>
                             <WalletIcon />
-                            <span>Cashier</span>
+                            <span>{translate('Cashier')}</span>
                         </MainButton>
                     </>
                 )}
-
-                <MainButton color='primary' size='small' onClick={() => addParamsToUrl('cashier', 'buy-crypto')}>
-                    <CreditCardIcon />
-                    <span>Buy crypto</span>
-                </MainButton>
             </div>
 
             <div className={classes.TopbarRightWrapper}>
                 <div className={user ? [classes.HeaderRight, classes.UserHeaderRight].join(' ') : [classes.HeaderRight, classes.NoUserHeaderRight].join(' ')}>
                     {user ? (
                         <>
-                            <MainButton color='transparent' onClick={() => addParamsToUrl('vip')}>
+                            <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
                                 <div className={classes.VipProgressBar}>
-                                    <div className={classes.VipProgressColor} style={{ width: '0%' }}></div>
+                                    {Object.keys(userCurrentLevel).length > 0 ? (
+                                        <span style={{ width: `${userCurrentLevel.progress}%` }}></span>
+                                    ) : (
+                                        <span style={{ width: `0%` }}></span>
+                                    )}
                                 </div>
-                                <div className={classes.VipIconContainer}></div>
+                                <div className={classes.VipIconContainer}>
+                                    <img src={LevelUpIcon} alt='' />
+                                </div>
                             </MainButton>
+                            <div className={classes.BonusButtonContainer}>
+                                <MainButton className={classes.BonusButton} color='transparent' onClick={() => addParamsToUrl('bonus')}>
+                                    <GiftIcon />
+                                    <div className={classes.BonusButtonColor}>{translate('Bonus')}</div>
+                                </MainButton>
+                                {availableBonus > 0 && <NumberBadge number={availableBonus} floating justifyRight />}
+                            </div>
                             <div className={classes.DropDownWrapper}>
                                 <div className={classes.DropDownLabel} onClick={() => dispatch(layoutActions.setUserDropdownVisible(!userDropdownVisible))}>
                                     <MainButton color='transparent'>
                                         <UserIcon />
                                         <span>{user?.Username}</span>
                                     </MainButton>
-                                    <div className={[classes.NumberBadge, classes.FloatingBadge].join(' ')}>2</div>
+                                    {newRewards.length > 0 &&
+                                        <div className={[classes.NumberBadge, classes.FloatingBadge].join(' ')}>{newRewards.length}</div>
+                                    }
+
                                 </div>
 
                                 {isDesktop && (
@@ -155,7 +173,7 @@ const Topbar = () => {
                             <div className={classes.HeaderRightDivider}></div>
 
                             <div className={classes.Container}>
-                                <MainButton color='transparent'>
+                                <MainButton color='transparent' onClick={() => addParamsToUrl('achievement')}>
                                     <BellIcon />
                                 </MainButton>
                             </div>
@@ -163,10 +181,10 @@ const Topbar = () => {
                     ) : (
                         <>
                             <MainButton color='transparent' onClick={() => addParamsToUrl('auth', 'login')}>
-                                LOGIN
+                                {translate('LOGIN')}
                             </MainButton>
                             <MainButton color='secondary' onClick={() => addParamsToUrl('auth', 'register')}>
-                                REGISTER
+                                {translate('REGISTER')}
                             </MainButton>
                         </>
                     )}

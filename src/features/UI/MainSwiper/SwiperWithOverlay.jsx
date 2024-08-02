@@ -7,9 +7,11 @@ import { toast } from 'react-toastify';
 
 import MainSwiper from './MainSwiper';
 import HeartIcon from '../../../assets/svgs/heart.svg?react';
+import BonusIcon from '../../../assets/svgs/bonus.svg?react';
 import classes from './SwiperWithOverlay.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
 import { addFavoriteCasino, removeFavoriteCasino } from '../../../pages/Casino/casinoAsyncActions';
+import { translate } from '../../../utils/translations';
 
 const SwiperWithOverlay = (props) => {
     const dispatch = useDispatch();
@@ -20,6 +22,7 @@ const SwiperWithOverlay = (props) => {
     const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
     const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
     const user = useSelector((state) => state.login.user);
+    const bonusBalance = useSelector((state) => state.layout.bonusBalance);
 
     let slidesPerView = 5;
     let slidesPerGroup = 5;
@@ -68,7 +71,8 @@ const SwiperWithOverlay = (props) => {
                         return (
                             <SwiperSlide key={item.Data.Id}>
                                 <div className={classes.SlideContainer}>
-                                    <Link to={`/casino/game/${gameType}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}`}>
+                                    <Link to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}>
+                                    {/* <Link to={`/casino/game/${gameType}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}`}> */}
                                         <article className={classes.Card}>
                                             <div className={classes.ImageContainer}>
                                                 {loadedImages.includes(index) === false && <LoaderPlaceholder />}
@@ -96,7 +100,18 @@ const SwiperWithOverlay = (props) => {
                                                 </div>
                                             </div>
                                         </article>
+                                       
                                     </Link>
+                                    {bonusBalance > 0 && (
+                                        <Link to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}>
+                                            <div className={classes.isBonus}>
+                                                <button className={classes.bonusContainer}>
+                                                    <BonusIcon/>
+                                                    {translate('Play With Bonus')}
+                                                </button>
+                                            </div>
+                                        </Link>
+                                    )}
                                 </div>
                             </SwiperSlide>
                         );

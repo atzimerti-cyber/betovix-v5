@@ -52,11 +52,13 @@ const Dropdown4 = (props) => {
     }, []);
 
     return (
-        <div className={classes.Dropdown}>
+        <div className={`${classes.Dropdown} ${!props.selected ? classes.RedBorder : ''}`}>
             <DsButton color='transparent' disabled={props.disabled} onClick={onButtonClick}>
                 <div className={classes.Label}>
                     {props.icon && <img src={props.icon} loading='lazy' alt={props.placeholder} />}
-                    <span>{props.selected ? props.selected.label : props.placeholder}</span>
+                    <span className={!props.selected ? classes.PlaceholderRed : ''}>
+                        {props.selected ? props.selected.label : props.placeholder}
+                    </span>
                 </div>
                 <CaretDownIcon className={classes.DownArrow} />
             </DsButton>
@@ -76,6 +78,15 @@ const Dropdown4 = (props) => {
                         <ul>
                             {props.withSearch && <Search3 iconLeft placeholder='Search' searchStr={searchStr} onChange={(value) => filterOptions(value)} />}
                             {filteredOptions &&
+                                filteredOptions.map((option) => (
+                                    <li key={option.id} onClick={() => onSelect(option)}>
+                                        <div className={props.selected?.id === option.id ? [classes.Option, classes.Active].join(' ') : classes.Option}>
+                                            {option.icon && <img src={option.icon} loading='lazy' alt={option.label} />}
+                                            <span>{option.label}</span>
+                                        </div>
+                                    </li>
+                                ))}
+                            {/* {filteredOptions &&
                                 filteredOptions.map((option) => {
                                     return (
                                         <li key={option.id} onClick={() => onSelect(option)}>
@@ -85,7 +96,7 @@ const Dropdown4 = (props) => {
                                             </div>
                                         </li>
                                     );
-                                })}
+                                })} */}
                         </ul>
                     </motion.div>
                 )}

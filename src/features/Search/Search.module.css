@@ -68,23 +68,28 @@
 }
 
 .SearchContainer input::placeholder {
-    color: var(--db-body-subheading);
+    color:white;
+    /* color: var(--db-body-subheading); */
     opacity: 1;
 }
 .SearchContainer input::-webkit-input-placeholder {
-    color: var(--db-body-subheading);
+    color:white;
+    /* color: var(--db-body-subheading); */
     opacity: 1;
 }
 .SearchContainer input::-moz-placeholder {
-    color: var(--db-body-subheading);
+    color:white;
+    /* color: var(--db-body-subheading); */
     opacity: 1;
 }
 .SearchContainer input:-ms-input-placeholder {
-    color: var(--db-body-subheading);
+    color:white;
+    /* color: var(--db-body-subheading); */
     opacity: 1;
 }
 .SearchContainer input:-moz-placeholder {
-    color: var(--db-body-subheading);
+    color:white;
+    /* color: var(--db-body-subheading); */
     opacity: 1;
 }
 

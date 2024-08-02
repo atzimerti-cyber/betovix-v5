@@ -42,7 +42,7 @@ const CopyToClipboardCont = (props) => {
 
     return (
         <div className={classes.InputContainer}>
-            <input type='text' readOnly value={props.text} />
+            <input id='container' type='text' readOnly value={props.text} />
 
             <Tooltip
                 id='copy-tooltip'
@@ -59,8 +59,8 @@ const CopyToClipboardCont = (props) => {
                 onMouseLeave={() => setIsHovered(false)}
             >
                 <CopyToClipboard onCopy={onCopy} text={props.text}>
-                    <button>
-                        <label className={copied ? [classes.Label, classes.Copied].join(' ') : classes.Label}>
+                    <button id='button'>
+                        <label htmlFor='button' className={copied ? [classes.Label, classes.Copied].join(' ') : classes.Label}>
                             <CopyIcon className={classes.CopyIcon} />
                             <Check2Icon className={classes.CheckIcon} />
                         </label>

@@ -1,0 +1,255 @@
+ .BonusModal {
+    width: 780px;
+
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: calc(100% - 20px);
+    --tw-translate-y: -0.5rem;
+    --tw-scale-x: 0.9;
+    --tw-scale-y: 0.9;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    background-color: var(--db-gray-6);
+    margin-top: 60px;
+    opacity: 0;
+    animation: slide 0.2s ease-out forwards;
+ }
+ 
+@keyframes slide {
+    100% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+}
+ .bonusesContainer {
+    min-height: 440px;
+    padding: 15px;
+}
+.bonusesContainerSmall {
+   padding: 15px;
+}
+
+@media (max-width: 500px) {
+     .bonusesContainerSmall {
+        padding: 0;
+   }
+}
+
+@media (max-width: 1024px) {
+   .bonusesContainer {
+      min-height: calc(100vh - 10vh);
+    }
+}
+
+@media (max-width: 1024px) {
+   .BonusModal {
+       margin-top: 0;
+       width: 100%;
+   }
+}
+ .loader-slick {
+    background-color: #fff;
+    height: 4px;
+}
+ .loader-slick:before {
+    height: 4px;
+    -webkit-animation: bonusPopupLoading 2s linear infinite;
+    animation: bonusPopupLoading 2s linear infinite;
+}
+  .bonusesHeader {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+  .bonusesHeader .bonusesHeaderWrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 0;
+    flex-wrap: wrap;
+    width: 100%;
+    width: 90%;
+}
+@media (max-width: 776px) {
+      .bonusesHeader .bonusesHeaderWrapper {
+        width: 100%;
+   }
+}
+@media (max-width: 500px) {
+      .bonusesHeader .bonusesHeaderWrapper {
+        border: 0;
+   }
+}
+  .bonusesHeader .bonusesHeaderWrapper > div {
+    width: 100px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    cursor: pointer;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+    text-align: start;
+    font-weight: 600;
+    margin-left: 0;
+    font-size: .875rem;
+    height: 40px;
+    flex: 1 1 100px;
+    width: auto;
+    background-color: initial !important;
+    padding-left: .625rem !important;
+    padding-right: .625rem !important;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+    cursor: pointer;
+    flex-direction: column;
+    border-radius: .375rem;
+    position: relative;
+    display: flex;
+    height: 100%;
+}
+@media (max-width: 776px) {
+      .bonusesHeader .bonusesHeaderWrapper > div {
+        flex: 1 1 45%;
+        height: 30px;
+        font-size: 13px;
+   }
+}
+
+  .bonusesHeader .bonusesHeaderWrapper > div.active {
+    background-color: var(--db-gray-4) !important;
+}
+
+.ImageContainer {
+   position: absolute;
+   bottom: calc(100% - 8px);
+   left: 50%;
+   height: 70px;
+   --tw-translate-x: -50%;
+   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+       scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.ImageContainer::before {
+   position: absolute;
+   top: 49px;
+   display: block;
+   height: 110px;
+   width: 70px;
+   border-radius: 9999px;
+   background-color: #ffbf00;
+   content: '';
+   filter: blur(65px);
+   -webkit-clip-path: inset(-100% -100% 96px);
+   clip-path: inset(-100% -100% 96px);
+}
+
+.ImageContainer img {
+   height: 100%;
+   transform: translateZ(0);
+   -webkit-transform: translateZ(0);
+}
+@media (min-width: 768px) {
+   .ImageContainer {
+      bottom: 100%;
+      height: 145px;
+   }
+   .ImageContainer::before {
+      top: 90px;
+      height: 151px;
+      width: 155px;
+   }
+}
+@media (min-width: 1024px) {
+   .BonusModal {
+       margin-top: 130px;
+   }
+}
+@media (max-width: 1024px) {
+   .ImageContainer {
+      display: none;
+   }
+}
+.Right {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+}
+.bonusesBodyWrapper {
+   padding-top: 25px;
+}
+
+header {
+   display: grid;
+   height: var(--db-modal-header-height);
+   padding-bottom: 1rem;
+   grid-template-columns: auto 1fr auto;
+}
+
+header .Center {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   grid-column: 2;
+   svg {
+      margin-right: 0.5rem;
+      height: 1.3rem;
+      width: 1.3rem;
+      flex-shrink: 0;
+   }
+}
+
+header .Right {
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
+   grid-column: 3;
+}
+
+.Title {
+   display: flex;
+   align-items: center;
+   font-size: 1rem;
+   font-weight: 700;
+   --tw-text-opacity: 1;
+   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+ .bonusesBody {
+    position: relative;
+    padding-bottom: 50px;
+}
+@media (max-width: 768px) {
+     .bonusesBody {
+        border: 0;
+   }
+}
+ .bonusesBody > .bonusesBodyWrapper {
+    min-height: 300px;
+    display: flex;
+    padding: 15px;
+}
+
+@media (max-width: 768px) {
+     .bonusesBody > .bonusesBodyWrapper {
+        padding: 15px 5px 35px 5px;
+   }
+}
+.bonusesList {
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+}

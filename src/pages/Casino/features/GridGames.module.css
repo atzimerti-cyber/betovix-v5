@@ -62,7 +62,7 @@
 }
 
 .NewIcon path:not(:first-child) {
-    fill: #fff !important;
+    fill: #000000 !important;
 }
 
 .NoResults {

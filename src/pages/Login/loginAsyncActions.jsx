@@ -1,6 +1,10 @@
 import axiosApi from '../../axios-api';
+import AchievementModal from '../../features/ModalRoot/Modals/AchievementModal';
 
 import { loginActions } from './loginSlice';
+import { layoutActions } from '../../../src/features/Layout/layoutSlice';
+import { gamificationActions } from '../UserGamification.jsx/userGamificationSlice';
+
 import { toast } from 'react-toastify';
 import { setAccessToken } from '../../utils/auth';
 
@@ -58,11 +62,12 @@ export const register = (registerInfo, navigate, locationPathname) => {
     };
 };
 
-export const getUser = () => {
+export const getUser = (navigate) => {
     return async (dispatch) => {
         try {
             const response = await axiosApi.get(`login/State/?lang=en&siteid=${import.meta.env.VITE_SITE_ID}`, {
                 baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                // baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
             });
             if (response.data.Status.StatusCode !== 200) dispatch(loginActions.logout());
             else {
@@ -76,7 +81,26 @@ export const getUser = () => {
                     wagered: 500,
                     registered: 1712505696754,
                 };
+
+                let rewards = [];
+
+                const params = new URLSearchParams(window.location.search);
+                const isModalAchievementOpen = params.get('modal') === 'achievement';
+
+                if (!isModalAchievementOpen && response.data.Contents.Rewards.length > 0) {
+                    rewards = response.data.Contents.Rewards;
+                    dispatch(gamificationActions.setPopupRewards(rewards));
+
+                    const params = new URLSearchParams(location.search);
+                    params.set('modal', 'achievement');
+
+                    navigate(`${location.pathname}?modal=achievement`, { replace: false });
+
+                }
+
                 dispatch(loginActions.setUser(user));
+                dispatch(layoutActions.setAvailableBonus(user));
+                dispatch(layoutActions.setAvailableBonusBalance(user));
             }
         } catch (error) {
             toast.error(error?.message);

@@ -6,26 +6,51 @@ import { addThousandsSeparator } from '../../../utils/custom';
 
 const CryptoCard = (props) => {
     //const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
-    const crypto = useSelector((state) => state.crypto.crypto);
+    //const crypto = useSelector((state) => state.crypto.crypto);
 
-    const [currentPrice, setCurrentPrice] = useState({ price: null, diff: null });
+    const [currentPrice, setCurrentPrice] = useState({ price: 0.00, diff: 0.00 });
 
 
     ////////////////////////k
-    useEffect(() => {
-        console.log(crypto);
-        if (crypto && Array.isArray(crypto)) {
-            const cryptoCoin = crypto.find(cryptoItem => cryptoItem.Code === props.item.Code);
+    // useEffect(() => {
+    //     console.log("useEffect triggered", crypto);
+    //     if (crypto && Array.isArray(crypto)) {
+    //         console.log("crypto array", crypto);
+    //         const cryptoCoin = crypto.find(cryptoItem => cryptoItem.Code === props.item.Code);
+    //         console.log("Found cryptoCoin", cryptoCoin);
 
-            if (cryptoCoin) {
-                setCurrentPrice(prevState => ({
-                    ...prevState,
-                    price: cryptoCoin.Rate,
-                    diff: calculateDiff(prevState.price, cryptoCoin.Rate)
-                }));
-            }
-        }
-    }, [crypto]);
+
+    //         if (cryptoCoin) {
+    //             setCurrentPrice(prevState => ({
+    //                 ...prevState,
+    //                 price: cryptoCoin.Rate,
+    //                 diff: calculateDiff(prevState.price, cryptoCoin.Rate)
+    //             }));
+    //         }
+    //         console.log("Updating state");
+    //     }
+    // }, [crypto]);
+
+    // useEffect(() => {
+    //     console.log("useEffect");
+    //     if (crypto && Array.isArray(crypto)) {
+
+    //         const cryptoCoin = crypto.find(cryptoItem => cryptoItem.Code === props.item.Code);
+
+    //         if (cryptoCoin) {
+    //             setCurrentPrice(prevState => {
+    //                 const newPrice = cryptoCoin.Rate;
+    //                 const newDiff = calculateDiff(prevState.price, newPrice);
+
+    //                 return {
+    //                     ...prevState,
+    //                     price: newPrice,
+    //                     diff: newDiff
+    //                 };
+    //             });
+    //         }
+    //     }
+    // }, []);
 
 
     const calculateDiff = (prevPrice, newPrice) => {
@@ -57,9 +82,11 @@ const CryptoCard = (props) => {
                 <img src={props.item.Logo} loading='lazy' alt='Ethereum' />
             </div>
             {props.item.network && <div className={classes.Network}>({props.item.network})</div>}
-            {currentPrice.price &&
-                <span className={classes.Price}>${currentPrice.price > 0.01 ? addThousandsSeparator(currentPrice.price) : parseFloat((currentPrice.price).toFixed(6))}</span>}
-            {/* <span>${currentPrice.price > 0.01 ? addThousandsSeparator(currentPrice.price) : currentPrice.price}</span> */}
+            {props.item.Rate &&
+                <span className={classes.Price}>${props.item.Rate > 0.01 ? addThousandsSeparator(props.item.Rate) : parseFloat((props.item.Rate).toFixed(6))}</span>}
+            {/* {currentPrice.price &&
+                <span className={classes.Price}>${currentPrice.price > 0.01 ? addThousandsSeparator(currentPrice.price) : parseFloat((currentPrice.price).toFixed(6))}</span>} */}
+
             <span className={currentPrice.diff < 0 ? [classes.Delta, classes.Lower].join(' ') : classes.Delta}>
                 {currentPrice.diff >= 0 && '+'}
                 {addThousandsSeparator(currentPrice.diff)}%

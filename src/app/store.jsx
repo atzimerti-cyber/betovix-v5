@@ -21,6 +21,7 @@ import searchSlice from '../pages/Search/searchSlice';
 import ticketSlice from '../features/Ticket/ticketSlice';
 import leaderboardSlice from '../pages/Leaderboard/leaderboardSlice';
 import myBetsSlice from '../pages/SportsMyBets/myBetsSlice';
+import userGamificationSlice from '../pages/UserGamification.jsx/userGamificationSlice';
 
 export const store = configureStore({
     reducer: {
@@ -45,6 +46,7 @@ export const store = configureStore({
         search: searchSlice.reducer,
         leaderboard: leaderboardSlice.reducer,
         myBets: myBetsSlice.reducer,
+        gamification: userGamificationSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

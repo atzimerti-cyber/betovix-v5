@@ -20,8 +20,8 @@ import HeartIcon from '../../assets/svgs/heart.svg?react';
 import LeaderIcon from '../../assets/svgs/leader.svg?react';
 import PaperIcon from '../../assets/svgs/paper.svg?react';
 import PricesIcon from '../../assets/svgs/prices.svg?react';
-import StarOutlineIcon from '../../assets/svgs/star-outline.svg?react';
-import AlphaIcon from '../../assets/svgs/alpha.svg?react';
+import LogoSmall1C from '../../assets/svgs/logo-small-oneColor.svg?react';
+import RewardsIcon from '../../assets/svgs/rewards.svg?react';
 
 import { getAccessToken } from '../../utils/auth';
 import { loginActions } from '../../pages/Login/loginSlice';
@@ -31,10 +31,8 @@ import { setLang } from '../../utils/storage';
 import { ticketActions } from '../Ticket/ticketSlice';
 import { betslipActions } from '../Betslip/betslipSlice';
 
-/////
 import { getCrypto } from '../../pages/Crypto/cryptoAsyncActions';
-/////
-import cryptoPrices from '../../dummyData/cryptoPrices';
+import { getRewards, getUserAchievements } from '../../pages/UserGamification.jsx/gamificationAsyncActions';
 
 export const loadInitData = (isMobile) => {
     return async (dispatch, getState) => {
@@ -81,6 +79,7 @@ export const loadInitData = (isMobile) => {
             let user = null;
             if (token) {
                 const response = await axiosApi.get(`login/State/?lang=en&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                    // baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
                     baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
                 });
                 if (response.data.Status.StatusCode !== 200) dispatch(loginActions.logout());
@@ -96,8 +95,11 @@ export const loadInitData = (isMobile) => {
                         // registered: 1712505696754,
                     };
                     dispatch(loginActions.setUser(user));
+                    dispatch(layoutActions.setAvailableBonus(user));
+                    dispatch(layoutActions.setAvailableBonusBalance(user));
                 }
             }
+
 
             // Necessary
             // -------------------------------------
@@ -112,12 +114,14 @@ export const loadInitData = (isMobile) => {
             });
             dispatch(appActions.setTranslations(responsesNecessary[0].data.Contents));
 
-            //dispatch(cryptoActions.setCryptoPrices(cryptoPrices)); // TODO: Get the prices from the api
-            /////////////////////////////////////////////////////
             const controller = new AbortController();
             const signal = controller.signal;
             dispatch(getCrypto(signal));
-            /////////////////////////////////////////////////////
+
+            //Get user achievements
+            dispatch(getUserAchievements());
+            //Get user rewards
+            dispatch(getRewards());
 
             // Get permissions after setting user
             const currentLoginState = getState().login;
@@ -262,19 +266,19 @@ export const loadInitData = (isMobile) => {
 
             // Rest of menu items
             allMenuItems.push({
-                category: { id: 5, label: 'VIP', visible: false },
+                category: { id: 5, label: 'Gamification', visible: false },
                 items: [
                     {
                         id: 1,
-                        label: `Ace's Rewards`,
-                        icon: <AlphaIcon />,
-                        modal: 'vip',
+                        label: `Your Progress`,
+                        icon: <LogoSmall1C color="#FF0000" />,
+                        modal: 'your-progress',
                     },
                     {
                         id: 2,
-                        label: `Ace's Lounge`,
-                        icon: <StarOutlineIcon />,
-                        page: 'lounge',
+                        label: `My Rewards`,
+                        icon: <RewardsIcon color="#FF0000" />,
+                        page: 'rewards',
                     },
                 ],
             });

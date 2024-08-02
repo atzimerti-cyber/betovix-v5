@@ -101,19 +101,22 @@ const LeftContainer = memo(function () {
                 </div>
 
                 {/* CasinoMenu */}
-                {pathnameNoParams !== '/sportsbook' && pathnameNoParams !== '/sportsbook/tournament' && !isMobile && (permissions.AllowToCasino || permissions.AllowToSlots) && (
+                {pathnameNoParams !== '/sportsbook' && pathnameNoParams !== '/sportsbook/tournament' && (permissions.AllowToCasino || permissions.AllowToSlots) && (
+
                     <>
-                        <Search
-                            placeholder={translate('Search Casino')}
-                            hide={!fullLeftContainer}
-                            dataTooltipId='left-menu-tooltip'
-                            dataTooltipContent={translate('Search Casino')}
-                            value={searchString}
-                            onChange={(value) => {
-                                dispatch(searchActions.setSearchString(value));
-                                if (value !== '') navigate('/search');
-                            }}
-                        />
+                        {!isMobile && (
+                            <Search
+                                placeholder={translate('Search Casino')}
+                                hide={!fullLeftContainer}
+                                dataTooltipId='left-menu-tooltip'
+                                dataTooltipContent={translate('Search Casino')}
+                                value={searchString}
+                                onChange={(value) => {
+                                    dispatch(searchActions.setSearchString(value));
+                                    if (value !== '') navigate('/search');
+                                }}
+                            />
+                        )}
                         {/* casinoMenuItems */}
                         {casinoMenuItems.map((casinoMenuItem, index) => {
                             if (casinoMenuItem.category) {
@@ -139,7 +142,7 @@ const LeftContainer = memo(function () {
                 )}
 
                 {/* SportsMenu */}
-                {pathnameNoParams !== '/casino' && pathnameNoParams !== '/search' && !isMobile && (permissions.AllowToSports) && (
+                {pathnameNoParams !== '/casino' && pathnameNoParams !== '/search' && (permissions.AllowToSports) && (
                     <>
                         {/* SportsMenuItems */}
                         {sportsMenuItems.map((menuItem, index) => {

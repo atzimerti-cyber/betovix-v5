@@ -19,7 +19,7 @@ const Deposit = () => {
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const crypto = useSelector((state) => state.crypto.crypto);
-    const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
+    //const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
 
     const query = new URLSearchParams(location.search);
     const method = query.get('method');
@@ -54,11 +54,22 @@ const Deposit = () => {
     };
 
     const selectCurrency = (option) => {
-        console.log(option);
         dispatch(cryptoActions.setSelectedCurrency(option));
-        const network = option.Code;
+        const network = option.Code || option.label;
         dispatch(cryptoActions.setSelectedNetwork({ id: option.Id, label: network }));
     };
+
+    const uniqueCrypto = [];
+    const names = new Set();
+
+    crypto.forEach((item) => {
+        if (!names.has(item.Name)) {
+            names.add(item.Name);
+            if (item.AllowDeposit) {
+                uniqueCrypto.push(item);
+            }
+        }
+    });
 
     //////////////////////////gk
     // const selectCurrency = (option) => {
@@ -77,11 +88,11 @@ const Deposit = () => {
                 <div className={classes.Grid}>
                     {crypto && (
                         <>
-                            {crypto.map((item) => {
+                            {uniqueCrypto.map((item) => {
                                 if (item.id === 'BEP-20') return null;
 
                                 return (
-                                    <div key={item.id} className={[classes.PaymentButtonContainer, classes.CryptoCoin].join(' ')}>
+                                    <div key={item.Id} className={[classes.PaymentButtonContainer, classes.CryptoCoin].join(' ')}>
                                         {item.available === false && (
                                             <div className={classes.PaymentDisabledOverlay}>
                                                 <span>{translate('Temporarily unavailable')}</span>
@@ -98,7 +109,7 @@ const Deposit = () => {
                                             <img src={item.Logo} loading='lazy' alt={item.Code} />
                                             <h2>{item.Name}</h2>
                                             {item.Rate &&
-                                            <h3>${ item.Rate > 0.01 ? addThousandsSeparator(item.Rate) : parseFloat(item.Rate.toFixed(6))}</h3>}
+                                                <h3>€{item.Rate > 0.01 ? addThousandsSeparator(item.Rate) : parseFloat(item.Rate.toFixed(6))}</h3>}
                                         </MainButton>
                                         {/* <MainButton
                                             color='transparent'

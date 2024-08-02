@@ -5,7 +5,7 @@ const DbTabs = (props) => {
     return (
         <div className={classes.DbTabs}>
             <div className={classes.TitleArea}>
-                <div className={classes.TitleGroup}>
+                <div className={classes.TitleGroup} style={props.titleGroupStyle}>
                     {props.tabs.map((tab) => {
                         return (
                             <div

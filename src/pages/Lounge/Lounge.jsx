@@ -1,7 +1,10 @@
-import React from 'react';
+// import Gamification from "../UserGamification.jsx/Gamification";
 
-const Lounge = () => {
-    return <div>Lounge</div>;
-};
+// const Lounge = () => {
 
-export default Lounge;
+//     return (
+//         <Gamification />
+//     );
+// };
+
+// export default Lounge;

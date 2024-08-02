@@ -7,6 +7,7 @@ import Dropdown3 from '../Dropdown/Dropdown3';
 import SearchIcon from '../../../assets/svgs/search.svg?react';
 import CheckboxEmptyIcon from '../../../assets/svgs/checkbox-empty.svg?react';
 import CheckboxIcon from '../../../assets/svgs/checkbox.svg?react';
+import { translate } from '../../../utils/translations';
 
 const MultiSelect = (props) => {
     const [showDropdown, setShowDropdown] = useState(false);
@@ -50,7 +51,7 @@ const MultiSelect = (props) => {
     return (
         <div className={classes.DropdownWrapper}>
             <div className={classes.DropdownInner}>
-                <input readOnly role='textbox' value={getValue()} placeholder={props.placeholder} onClick={() => setShowDropdown(!showDropdown)} />
+                <input id={props.id} readOnly role='textbox' value={getValue()} placeholder={props.placeholder} onClick={() => setShowDropdown(!showDropdown)} />
                 <span className={classes.RightIcon}>{props.icon}</span>
 
                 <AnimatePresence>
@@ -63,14 +64,14 @@ const MultiSelect = (props) => {
                                         className={selectedOptions.length > 0 ? classes.ClearLabel : [classes.ClearLabel, classes.Disabled].join(' ')}
                                         onClick={() => setSelectedOptions([])}
                                     >
-                                        Clear Selection
+                                        {translate('Clear Selection')}
                                         <span className={classes.SelectedCount}>{selectedOptions.length > 0 ? '(' + selectedOptions.length + ')' : '(0)'}</span>
                                     </div>
                                 </div>
 
                                 <div className={classes.SearchContainer}>
                                     <span className={classes.LeftIcon}>{<SearchIcon />}</span>
-                                    <input type='textBox' value={searchString} placeholder='Search' onChange={(e) => setSearchString(e.target.value)} />
+                                    <input id='search' type='textBox' value={searchString} placeholder='Search' onChange={(e) => setSearchString(e.target.value)} />
                                 </div>
 
                                 {filteredOptions.map((option, index) => (

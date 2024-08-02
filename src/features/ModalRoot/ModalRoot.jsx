@@ -7,9 +7,17 @@ import CashierModal from './Modals/CashierModal';
 import LoginModal from './Modals/LoginModal';
 import OddsFormatModal from './Modals/OddsFormatModal';
 import VipModal from './Modals/VipModal';
+import BonusModal from './Modals/BonusModal';
+
 import SearchModal from './Modals/SearchModal';
+
+import AchievementModal from './Modals/AchievementModal';
+import HeroConfirmation from './Modals/HeroConfirmation'
+import YourProgress from '../../pages/UserGamification.jsx/features/YourProgress';
+
 import { modalActions } from './modalSlice';
 import { useEffect } from 'react';
+import StatisticsModal from './Modals/StatisticsModal';
 
 const ModalRoot = () => {
     const navigate = useNavigate();
@@ -25,6 +33,7 @@ const ModalRoot = () => {
     useEffect(() => {
         return () => dispatch(modalActions.setOnCloseModal(null));
     }, []);
+
 
     const getUrlWithParams = (modal, tab) => {
         const searchParams = new URLSearchParams(location.search);
@@ -53,8 +62,22 @@ const ModalRoot = () => {
         else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;
     } else if (modal === 'auth') modalPage = <LoginModal tab={tab} onClose={returnToPrevious} />;
     else if (modal === 'odds-format') modalPage = <OddsFormatModal />;
+    else if (modal === 'statistics') modalPage = <StatisticsModal />;
     else if (modal === 'vip') modalPage = <VipModal />;
+    else if (modal === 'bonus') {
+        if (user) modalPage = <BonusModal />;
+        else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;
+    }
     else if (modal === 'search') modalPage = <SearchModal />;
+    else if (modal === 'achievement') {
+        if (user) modalPage = <AchievementModal />;
+        else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;
+    }
+    else if (modal === 'hero-confirm') modalPage = <HeroConfirmation />;
+    else if (modal === 'your-progress') {
+        if (user) modalPage = <YourProgress />;
+        else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;
+    }
 
     return (
         <div className={classes.ModalRoot} id='modal-root'>
@@ -69,8 +92,8 @@ const ModalRoot = () => {
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.2 }}
                         >
-                            <div className={classes.Close} onClick={returnToPrevious}></div>
-
+                                <div className={classes.Close} onClick={returnToPrevious}></div>
+                            
                             {modalPage}
                         </motion.div>
                     </AnimatePresence>

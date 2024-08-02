@@ -52,13 +52,26 @@ const Crypto = () => {
     useEffect(() => {
         if (!crypto) return;
 
+        const uniqueCrypto = [];
+        const names = new Set();
+
+        crypto.forEach((c) => {
+            if (!names.has(c.Name)) {
+                names.add(c.Name);
+                uniqueCrypto.push(c);
+            }
+        });
+
         if (searchStr === '') {
-            setFiltered([...crypto]);
+            setFiltered([...uniqueCrypto]);
+            // setFiltered([...crypto]);
             return;
         }
 
-        const f = crypto.filter(
-            (c) => c.id.toLowerCase().includes(searchStr.toLocaleLowerCase()) || c.label.toLowerCase().includes(searchStr.toLocaleLowerCase())
+        const f = uniqueCrypto.filter(
+        // const f = crypto.filter(
+            (c) => c.Name.toLowerCase().includes(searchStr.toLocaleLowerCase())
+            // (c) => c.id.toLowerCase().includes(searchStr.toLocaleLowerCase()) || c.label.toLowerCase().includes(searchStr.toLocaleLowerCase())
         );
         setFiltered(f);
     }, [searchStr, crypto]);
@@ -77,7 +90,7 @@ const Crypto = () => {
 
             <div className={classes.CardsContainer}>
                 {filtered.map((item) => (
-                    <CryptoCard key={item.id} item={item} />
+                    <CryptoCard key={item.Id} item={item} />
                 ))}
             </div>
         </div>

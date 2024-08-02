@@ -1,6 +1,8 @@
 .CategoryGroup {
     background-color: var(--db-duelbits-gray);
     margin-bottom: 0.25rem;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .Title {
@@ -46,7 +48,7 @@
     padding-left: 1rem;
     padding-right: 1rem;
     cursor: unset;
-    transition: padding 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    transition: padding 0.4s ease-in-out, background-color 0.2s ease-in-out;
 }
 
 @media (min-width: 768px) {

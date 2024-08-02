@@ -52,10 +52,67 @@
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
     z-index: 10;
 }
+.BonusButton {
+    display: inline-block;
+    cursor: pointer;
+    background: var(--db-duelbits-gray);
+    border: 2px dashed var(--db-purple-box); 
+    margin: 14px;
+    margin-block-end: 10px;
+    color: white; 
+    border-radius: 5px;
+    padding: 5px 15px; 
+    font-size: 14px;
+    position: relative;
+    transition: background-color 0.3s; 
+    cursor: pointer;
+    font-weight: 600;
+}
+.BonusButton.selected {
+    border: 2px solid var(--db-purple-box);
+    border-radius: 8px;
+    color: #f3bfff;
+}
+.bonusContainer {
+    display: flex;
+    align-items: center; 
+}
+
+.bonusContainer input[type="checkbox"] {
+    display: none; 
+}
+
+.checkMark {
+    width: 18px; 
+    height: 18px; 
+    border: 2px solid white; 
+    border-radius: 4px; 
+    margin-right: auto; 
+    position: relative;
+    transition: background-color 0.3s; 
+}
+
+.bonusContainer input[type="checkbox"]:checked + .checkMark {
+    background-color: var(--db-purple-box); 
+    border: 2px solid var(--db-purple-box); 
+
+}
+
+.bonusContainer input[type="checkbox"]:checked + .checkMark::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px; 
+    width: 5px;
+    height: 10px; 
+    border: solid #fff; 
+    border-width: 0 2px 2px 0; 
+    transform: rotate(45deg); 
+}
 
 .BetButton {
     appearance: none;
-    background: rgb(46, 163, 96);
+    background: var(--db-brand-green);
     border: none;
     color: rgb(255, 255, 255);
     cursor: pointer;
@@ -89,10 +146,12 @@
 
 .BetButton:hover {
     background: rgb(51, 193, 108);
+    /* background: rgb(51, 193, 108); */
 }
 
 .BetButton:disabled {
-    background: var(--db-gray-1);
+    background: var(--db-gray-12);
+    /* background: var(--db-gray-1); */
     pointer-events: none;
 }
 

@@ -155,6 +155,7 @@ const Register = () => {
                     required
                     role='textbox'
                     type='text'
+                    id='displayName'
                     name='displayName'
                     placeholder={translate('Type your display name')}
                     value={registerInfo.displayName}
@@ -178,6 +179,7 @@ const Register = () => {
                     required
                     role='textbox'
                     type='text'
+                    id='email'
                     name='email'
                     placeholder={translate('Type your Email')}
                     value={registerInfo.email}
@@ -198,6 +200,7 @@ const Register = () => {
                 <MainInput
                     role='textbox'
                     type={validChecks.password.show ? 'text' : 'password'}
+                    id='password'
                     name='password'
                     placeholder={translate('Type your password')}
                     value={registerInfo.password}
@@ -242,6 +245,7 @@ const Register = () => {
 
             <div className={classes.Container}>
                 <Switch
+                    id='switch'
                     active={registerInfo.bonus}
                     label={translate('Send me bonus and marketing emails')}
                     onClick={() => updateRegisterInfo('bonus', !registerInfo.bonus)}

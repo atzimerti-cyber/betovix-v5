@@ -15,6 +15,7 @@ const initialState = {
     pageNotAuthorized: false,
     scrollToTop: 1,
     showLiveListContainer: false,
+    availableBonus: 0,
 };
 
 export const layoutSlice = createSlice({
@@ -52,6 +53,12 @@ export const layoutSlice = createSlice({
         },
         setShowLiveListContainer: (state, action) => {
             state.showLiveListContainer = action.payload;
+        },
+        setAvailableBonus: (state, action) => {
+            state.availableBonus = action.payload.AvailableBonusCount;
+        },
+        setAvailableBonusBalance: (state, action) => {
+            state.bonusBalance = action.payload.TotalBonusBalance;
         },
     },
 });
