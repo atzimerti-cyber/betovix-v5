@@ -1,8 +1,9 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, forwardRef  } from 'react';
 import classes from './DraggableDiv.module.css';
 
-const DraggableDiv = (props) => {
-    const parentRef = useRef(null);
+const DraggableDiv = forwardRef((props, ref) => {
+    const parentRef = ref || useRef(null); 
+    // const parentRef = useRef(null);
     const [isDragging, setIsDragging] = useState(false);
     const [startPosition, setStartPosition] = useState({ left: 0, x: 0 });
 
@@ -59,6 +60,6 @@ const DraggableDiv = (props) => {
             {props.children}
         </div>
     );
-};
+});
 
 export default DraggableDiv;

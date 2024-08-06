@@ -173,7 +173,8 @@ const Topbar = () => {
                             <div className={classes.HeaderRightDivider}></div>
 
                             <div className={classes.Container}>
-                                <MainButton color='transparent' onClick={() => addParamsToUrl('achievement')}>
+                                {/* <MainButton color='transparent' onClick={() => addParamsToUrl('achievement')}> */}
+                                <MainButton color='transparent'>
                                     <BellIcon />
                                 </MainButton>
                             </div>

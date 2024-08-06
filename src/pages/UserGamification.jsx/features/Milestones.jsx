@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -13,12 +13,17 @@ import DsButton from '../../../features/UI/Buttons/DsButton'
 import { getUserAchievements } from '../gamificationAsyncActions';
 import { translate } from '../../../utils/translations';
 import RefreshIcon from '../../../assets/svgs/refresh.svg';
-import { gamificationActions } from '../userGamificationSlice';
+import AngleLeftIcon from '../../../assets/svgs/angle-left.svg?react';
+import AngleRightIcon from '../../../assets/svgs/angle-right.svg?react';
+
+import { useMediaQuery } from 'react-responsive';
 
 const Milestones = (props) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     const user = useSelector((state) => state.login.user);
 
@@ -35,6 +40,7 @@ const Milestones = (props) => {
     }
 
     const [thisLevelIndex, setThisLevelIndex] = useState(0);
+    const scrollContainerRef = useRef(null);
 
     useEffect(() => {
         if (!heroLevels) return;
@@ -78,6 +84,19 @@ const Milestones = (props) => {
         dispatch(getUserAchievements(signal));
     };
 
+
+    const scrollLeft = () => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollBy({ left: -300, behavior: 'smooth' });
+        }
+    };
+
+    const scrollRight = () => {
+        if (scrollContainerRef.current) {
+            scrollContainerRef.current.scrollBy({ left: 300, behavior: 'smooth' });
+        }
+    };
+
     return (
         <div className={classes.MilestoneSection}>
             {props.progressBar &&
@@ -91,11 +110,22 @@ const Milestones = (props) => {
                     </div>
                 )}
             <div className={!user ? [classes.CarouselContainer, classes.NotLoggedIn].join(' ') : classes.CarouselContainer}>
+                {props.profile && (
+                    isMobile ? (
+                        null
+                    ) : (
+                        <button className={classes.LeftArrow} onClick={scrollLeft}>
+                            <AngleLeftIcon />
+                            {/* &#8592; */}
+                        </button>
+                    )
+
+                )}
+
+
                 <div className={classes.MilestoneCarousel}>
-                    <DraggableDiv>
+                    <DraggableDiv ref={scrollContainerRef}>
                         <div className={classes.ScrollContainer}>
-
-
                             <div className={classes.ScrollContent}>
                                 {props.progressBar &&
                                     (
@@ -150,7 +180,7 @@ const Milestones = (props) => {
                                                     index={heroLevels[thisLevelIndex].milestones.length}
                                                     level={heroLevels[thisLevelIndex]}
                                                     firstCard
-                                                    complete = {currentUserLevel === heroLevels[thisLevelIndex] || heroLevels[thisLevelIndex].name < currentUserLevel.name }
+                                                    complete={currentUserLevel === heroLevels[thisLevelIndex] || heroLevels[thisLevelIndex].name < currentUserLevel.name}
                                                 />
                                             )}
 
@@ -191,13 +221,27 @@ const Milestones = (props) => {
                         </div>
                     </DraggableDiv>
                 </div>
+                {props.profile && (
+                    isMobile ? (
+                        null
+                    ) : (
+                        <button className={classes.RightArrow} onClick={scrollRight}>
+                            <AngleRightIcon />
+                            {/* &#8594; */}
+                        </button>
+                    )
+
+                )}
+
             </div>
-            {!user && (
-                <DsButton active={true} color='transparent' onClick={props.onGotoLogin}>
-                    {translate('Please Login')}
-                </DsButton>
-            )}
-        </div>
+            {
+                !user && (
+                    <DsButton active={true} color='transparent' onClick={props.onGotoLogin}>
+                        {translate('Please Login')}
+                    </DsButton>
+                )
+            }
+        </div >
     );
 };
 

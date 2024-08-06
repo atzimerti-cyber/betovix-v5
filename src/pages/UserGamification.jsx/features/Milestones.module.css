@@ -179,6 +179,47 @@
     border-radius: 0.375rem;
 }
 
+
+.LeftArrow, .RightArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #123953d3;
+    border-radius: 25%;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.LeftArrow {
+    left: 0px;
+}
+.LeftArrow svg{
+    height: 150%;
+    width: 100%;
+}
+
+.RightArrow {
+    right: 0px;
+}
+.RightArrow svg{
+    height: 200%;
+    width: 100%;
+}
+
+
+.LeftArrow:hover, .RightArrow:hover {
+    background-color: #577891db;
+}
+
+
 /* Media */
 @media (min-width: 768px) {
     .MilestoneSection {

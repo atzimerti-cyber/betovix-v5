@@ -20,7 +20,7 @@ const Levels = (props) => {
 
     return (
         <div className={classes.Levels}>
-            <SimpleSwiper>
+            <SimpleSwiper  >
                 {heroLevels
                     ? heroLevels.map((level) => {
                         return (

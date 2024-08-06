@@ -40,11 +40,15 @@ const Crypto = () => {
 
     return (
         <MainSwiper
-            slidesPerView='auto'
-            icon={<PricesIcon />}
-            title={<Link to='/crypto'>{translate('Crypto Prices')}</Link>}
-            viewAll='/crypto'
+            slidesPerView={'auto'}
+            // icon={<PricesIcon />}
+            // title={<Link to='/crypto'>{translate('Crypto Prices')}</Link>}
+            // viewAll='/crypto'
             spaceBetween={33}
+            hideArrows
+            autoplay={true}
+            delay={4000}
+            loop={true}
         >
             {crypto
                 ? crypto.map((item) => {

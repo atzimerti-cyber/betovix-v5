@@ -8,7 +8,14 @@ import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 const MilestoneCard = (props) => {
     return (
         <motion.article
-            className={props.complete ? classes.MilestoneCard : [classes.MilestoneCard, classes.Complete].join(' ')}
+            className={props.firstCard ? (
+                [classes.MilestoneCard, classes.Milestone0].join(' ')
+            ) : (
+                props.complete ? (
+                    classes.MilestoneCard
+                ) : (
+                    [classes.MilestoneCard, classes.Complete].join(' ')
+                ))}
             initial={{ y: '0.4rem', opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.7, delay: props.index * 0.07 }}
@@ -45,12 +52,6 @@ const MilestoneCard = (props) => {
                         <span>{props.label}</span>
                     </p>
 
-                    {/* {props.type == "firstCard" &&
-                        <p className={classes.Details}>
-                            <span>Good Luck</span>
-                            <CoinsIcon />
-                        </p>
-                    } */}
 
                     {props.type == 7 &&
                         <p className={classes.Details}>
@@ -79,11 +80,11 @@ const MilestoneCard = (props) => {
                     )
                 )}
 
-                {props.firstCard && (
+                {/* {props.firstCard && (
                     <DsButton disabled>
                         GOOD LUCK
                     </DsButton>
-                )}
+                )} */}
                 {props.nextLevel && (
                     <DsButton disabled>
                         LEVEL UP
