@@ -84,6 +84,11 @@ const Home = () => {
     return (
         <div className={classes.PageContent}>
             <div className={classes.Home}>
+
+                {user &&
+                    <Crypto />
+                }
+
                 <div className={isMobile && !user ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
                     {(isMobile === false || user === null) && <HomeBanners isMobile={isMobile} />}
                     {!isMobile && user && (
@@ -96,9 +101,9 @@ const Home = () => {
                     {!user && <RegisterContainers />}
                 </div>
 
-                {user &&
+                {/* {user &&
                     <Crypto />
-                }
+                } */}
 
                 {permissions.AllowToSports && (
                     <>
