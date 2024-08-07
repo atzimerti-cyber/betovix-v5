@@ -8,6 +8,7 @@ const Tabs = (props) => {
     else elClasses.push(classes.AsTabs);
 
     if (props.noMargin) elClasses.push(classes.NoMargin);
+    if (props.Width100) elClasses.push(classes.Width100);
     if (props.withUnderline) elClasses.push(classes.WithUnderline);
     if (props.lighterColor) elClasses.push(classes.LighterColor);
 

@@ -78,7 +78,7 @@
 
 .MilestoneCard.Milestone0 .Content,
 .MilestoneCard.Milestone0 .Background {
-    /* display: none; */
+    display: none;
 }
 
 .Title {

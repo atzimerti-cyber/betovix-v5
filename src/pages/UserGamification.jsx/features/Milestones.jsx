@@ -152,11 +152,6 @@ const Milestones = (props) => {
                                                                 // key={`${displayedHeroLevels[thisLevelIndex].id}_${displayedHeroLevels[thisLevelIndex].milestones[displayedHeroLevels[thisLevelIndex].milestones.length]
                                                                 //     }`}
                                                                 key={heroLevels[thisLevelIndex].id}
-                                                                // complete={
-                                                                //     user?.wagered >=
-                                                                //     displayedHeroLevels[thisLevelIndex + 1].milestones[displayedHeroLevels[thisLevelIndex + 1].milestones.length - 1]
-                                                                //         .wagered
-                                                                // }
                                                                 index=''
                                                                 complete={heroLevels[thisLevelIndex].percentageComplete === 100 ? true : false}
                                                             />

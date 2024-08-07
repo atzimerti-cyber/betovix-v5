@@ -49,18 +49,66 @@ export const register = (registerInfo, navigate, locationPathname) => {
         dispatch(loginActions.setLoginLoading(true));
 
         try {
+            let response2;
+            const response1 = await axiosApi.get(`/MyAccount/UsernameExists?username=${registerInfo.displayName}&lang=en&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+            });
             setTimeout(() => {
                 dispatch(loginActions.setLoginLoading(false));
-                navigate(`${locationPathname}?modal=auth&tab=login`, { replace: true });
+                // navigate(`${locationPathname}?modal=auth&tab=login`, { replace: true });
 
                 // toast.success('Wow so easy!');
             }, 1000);
+            if (response1.data.Contents == true) {
+                toast.error('Username already exists.');
+            } else if (response1.data.Contents == false) {
+                response2 = await axiosApi.post(`MyAccount/Register/?lang=en&siteid=${import.meta.env.VITE_SITE_ID}`,
+                    {
+                        Code: registerInfo.code,
+                        Email: registerInfo.email,
+                        Password: registerInfo.password,
+                        SiteId: import.meta.env.VITE_SITE_ID,
+                        Username: registerInfo.displayName,
+                    },
+                    {
+                        baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                    });
+                if (response2.data.Status.StatusCode !== 200) {
+                    toast.error(response2.data.Contents);
+                } else {
+                    toast.success(response2.data.Contents);
+                    navigate(`${locationPathname}?modal=auth&tab=login`, { replace: true });
+                }
+
+                console.log(response2);
+            }
+
         } catch (error) {
             dispatch(loginActions.setLoginLoading(false));
             toast.error('An error has occurred!');
         }
     };
 };
+export const verify = (code, navigate) => {
+    return async (dispatch) => {
+        try {
+            const response = await axiosApi.get(`/MyAccount/VerifyAccount?activationCode=${code}`, {
+                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+            });
+            if (response.data.Status.StatusCode === 200) {
+                toast.success(response.data.Contents);
+                navigate(`?modal=auth&tab=login`, { replace: true });
+            }else{
+                toast.error(response.data.Contents);
+                navigate(``, { replace: true });
+                dispatch(loginActions.setLoginLoading(false));
+            }
+
+        } catch (error) {
+            toast.error('An error has occurred!');
+        }
+    };
+}
 
 export const getUser = (navigate) => {
     return async (dispatch) => {

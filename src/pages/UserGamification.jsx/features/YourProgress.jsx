@@ -57,14 +57,6 @@ const YourProgress = () => {
         navigate(`/profile?${searchParams.toString()}`, { replace: true });
     };
 
-    // if (loading) {
-    //     return (
-    //         <div className={classes.Loading}>
-    //             <div className={classes.Spinner}></div>
-    //         </div>
-    //     );
-    // }
-
     return (
         <div className={classes.Modal}>
             {loading ? (

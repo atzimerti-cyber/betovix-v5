@@ -4,7 +4,8 @@ import { useMediaQuery } from 'react-responsive';
 
 import classes from './LoginModal.module.css';
 import Tabs from '../../UI/Tabs/Tabs';
-import auth_modal_promo from '../../../assets/images/auth_modal_promo.webp';
+import logo from '../../../assets/svgs/logo-small.svg';
+// import logo from '../../../assets/images/auth_modal_promo.webp';
 import AfaIcon from '../../../assets/svgs/afa.svg?react';
 import Login from '../../../pages/Login/Login';
 import Register from '../../../pages/Login/Register';
@@ -31,12 +32,13 @@ const LoginModal = (props) => {
     return (
         <div className={classes.LoginModal}>
             <div className={classes.ModalContent}>
+                
                 {!isMobile && (
                     <div className={classes.PromoSection}>
                         <div className={classes.ImageContainer}>
-                            <img src={auth_modal_promo} loading='lazy' />
+                            <img src={logo} loading='lazy' />
                         </div>
-                        <div className={classes.PromoText}>
+                        {/* <div className={classes.PromoText}>
                             <div className={classes.RakebackText}>
                                 <span>{translate('Sign up')}</span> {translate('and')} <span>{translate('get')}</span> <span>{translate('50% rake back')}</span>
                             </div>
@@ -50,9 +52,11 @@ const LoginModal = (props) => {
                             <Link href='/terms' target='_blank' rel='noreferrer'>
                                 <b>{translate('Terms of Service')}</b>.
                             </Link>
-                        </div>
+                        </div> */}
                     </div>
+                    
                 )}
+
 
                 <div className={classes.FormSection}>
                     <Tabs
@@ -62,6 +66,7 @@ const LoginModal = (props) => {
                         ]}
                         type='buttons'
                         noMargin
+                        Width100
                         onClose={props.onClose}
                         onChangeTab={(tab) => changeTab(tab)}
                     />
