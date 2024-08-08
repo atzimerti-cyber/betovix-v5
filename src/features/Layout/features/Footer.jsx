@@ -1,12 +1,21 @@
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 import classes from './Footer.module.css';
 import LogoBig from '../../../assets/svgs/logo-big.svg?react';
 import Plus18Icon from '../../../assets/svgs/plus-18.svg?react';
+import License from '../../../assets/images/license.png';
 import { translate } from '../../../utils/translations';
 
 const Footer = () => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+
+    useEffect(() => {
+
+        if (window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0) {
+            window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init();
+        }
+    }, []);
 
     return (
         <div className={classes.Footer}>
@@ -21,15 +30,29 @@ const Footer = () => {
                     <a href='#'>{translate('Fairness')}</a>
                     <a href='#'>{translate('P2P policy')}</a>
                 </div>
-                <div className={[classes.Social, classes.LinksLayout].join(' ')}>
+                {/* <div className={[classes.Social, classes.LinksLayout].join(' ')}>
                     <h2>{translate('Social')}</h2>
                     <a href='#'>{translate('Twitter')}</a>
                     <a href='#'>{translate('Instagram')}</a>
-                </div>
+                </div> */}
+                
                 <div className={classes.LinksLayout}>
                     <h2>{translate('License')}</h2>
-                    <Plus18Icon className={classes.PlusEighteen} />
+                    <div className={classes.License}>
+                        <div
+                            id="anj-e4a2fe78-d6a5-4db4-8b68-4943b8cde3f0"
+                            data-anj-seal-id="e4a2fe78-d6a5-4db4-8b68-4943b8cde3f0"
+                            data-anj-image-size="60"
+                            data-anj-image-type="basic-small">
+                        </div>
+                        {/* <a href="https://verification.anjouangaming.org/validate?domain=betovix.com&seal_id=ae4a0c3c434a5246f379adebac8c2e4cd70fb46fd08dd2926ef07e67c8263d651dfa40e5a6127a1a1e040d6da94b02b9&stamp=74be9bb5906c8c911c77bd18a25b30d0">
+                            <img src={License} alt="License" />
+                        </a> */}
+                    </div>
                 </div>
+                {/* <div className={classes.LinksLayout}>
+                    <Plus18Icon className={classes.PlusEighteen} />
+                </div> */}
             </div>
 
             <div className={classes.SocialSm}>
@@ -977,7 +1000,7 @@ const Footer = () => {
                         ></path>
                     </svg>
                 </div>
-                <div className={classes.CurrencyItem}>
+                {/* <div className={classes.CurrencyItem}>
                     <svg fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
                         <path
                             d='M22.2 4.6c-.55.3-.9 1.19-.7 1.8.11.35.06.42-.2.31-.56-.23-1.22.27-1.53 1.14-.13.38-.18.67-.18 1.25v.77h-.28c-.36 0-.46.13-.46.62 0 .24-.03.65-.09.9-.09.52-.04.63.3.63.22 0 .22.06 0 .24-.14.14-.15.17-.08 1.08.06.82.05.94-.06 1-.13.08-.24.47-.15.53.03.02.05.18.04.35 0 .17.01.36.05.4.04.06.02.38-.04.8-.06.37-.12.9-.12 1.18 0 .37-.05.58-.17.8l-.38.69c-.12.2-.24.52-.26.69-.02.16-.13.48-.24.72-.15.33-.17.48-.14.84.03.32 0 .64-.15 1.2-.1.44-.18.92-.16 1.14l.02.37h1.29l-.02-.29c0-.16-.04-.48-.06-.7-.05-.47.2-1.37.39-1.37.05 0 .17-.2.25-.45l.32-.8c.1-.2.17-.51.19-.72.02-.45.09-.65.28-.88.38-.44.59-.78.59-.94a5.1 5.1 0 0 1 .76-1.89c0-.17.12-.12.21.1.05.1.17.21.3.24.16.03.31.2.63.72.53.85.57.9.84.9.12 0 .24.05.27.1.08.14.04.75-.06.87-.11.15-.02 1.34.14 1.93.15.54.16 1.43.03 2.12-.06.3-.09.54-.06.57.03.04.25.07.49.08.24 0 .66.06.93.11.28.05.68.07.9.04.35-.05.4-.07.4-.24 0-.22-.12-.33-.47-.47a1.7 1.7 0 0 1-.59-.5l-.32-.41.04-.67c.13-2.09.15-2.57.15-3.34 0-.7-.01-.86-.12-.95a2.11 2.11 0 0 1-.31-.64c-.28-.8-.61-1.48-.97-1.98-.5-.7-.57-1.22-.14-1.12.19.05.23.01.36-.27.12-.25.16-.53.18-1.21.02-.87.01-.9-.17-1.06-.16-.14-.22-.42-.11-.55 0-.01.23.11.5.27.64.38 1.22.52 1.46.35.44-.31.64-.6.69-1 .05-.3.1-.4.2-.43.13-.05.14-.1.1-.6-.03-.54-.03-.55.24-.86l.27-.3h.8c.56 0 .8-.04.81-.11.03-.08.32-.1 1.14-.1 1.05.01 1.12 0 1.12-.14 0-.15-.05-.15-.87-.1-.86.06-.88.06-.88-.13 0-.1-.04-.17-.11-.17-.08 0-.11-.09-.11-.33 0-.18-.03-.33-.08-.33-.04 0-.08.16-.08.37 0 .2-.03.37-.07.37-.04 0-.08-.04-.08-.08 0-.05-.68-.08-1.9-.08-1.21 0-1.9-.04-1.9-.08 0-.05-.05-.09-.11-.09s-.12-.07-.12-.16c0-.1-.03-.17-.07-.17-.04 0-.08.08-.08.2 0 .15-.06.2-.34.28-.53.15-.57.14-.57-.19 0-.2.04-.29.1-.29.33 0 .44-.49.26-1.19-.07-.33-.13-.39-.54-.62-.56-.3-.89-.32-1.34-.07ZM1.77 6.86c-.32.17-.45.3-.63.65l-.23.42v4.4l.22.44c.17.36.29.5.62.68l.41.23 2.36-.02 2.38-.03.3-.22c.34-.25.6-.65.68-1.05l.04-.26H2.66V8.22h5.26l-.04-.27a1.8 1.8 0 0 0-.77-1.09c-.29-.16-.44-.17-2.62-.2l-2.32-.02-.4.22ZM10.07 6.8c-.7.37-.94.87-.95 2 0 .92.16 1.35.64 1.77l.3.25 2.34.03 2.35.02v1.32H9.12l.05.18c.15.55.5.97.96 1.17.23.11.67.14 2.54.14 1.43 0 2.38-.04 2.57-.1.4-.12.9-.67 1.02-1.1.05-.18.09-.65.09-1.04 0-.79-.14-1.21-.5-1.58-.45-.46-.6-.48-2.96-.48h-2.17V8.14h5.49l-.05-.24a1.76 1.76 0 0 0-.67-.99l-.3-.22-2.4-.03c-2.23-.01-2.43 0-2.72.15ZM1.95 15.53c-.44.17-.66.38-.86.79-.17.35-.18.42-.18 2.58 0 1.82.03 2.27.12 2.53.15.39.38.65.74.85.25.15.47.16 2.77.16 2.79 0 2.92-.03 3.31-.59.28-.4.3-.57.32-2.1V18.4H5.8c-2.67 0-2.56-.03-2.13.6.35.48.57.55 1.94.55h1.16v1.49H2.28v-4.21h2.93c2.6 0 2.92-.02 2.92-.13 0-.4-.57-1.05-1.04-1.19-.46-.14-4.77-.11-5.14.03ZM10.57 15.48c-.41.14-.7.36-.9.7l-.2.33-.03 2.24c-.03 2.41 0 2.67.34 3.12.43.54.56.57 3.17.57 2.17 0 2.36-.01 2.63-.17.36-.2.66-.58.76-.97.07-.2.08-1.09.07-2.54-.03-2.18-.04-2.24-.2-2.55-.1-.16-.34-.41-.53-.54l-.36-.22-2.28-.02c-1.26 0-2.37.02-2.47.05Zm4.48 3.44v2.2H10.8V16.72h4.25v2.2Z'
@@ -990,10 +1013,10 @@ const Footer = () => {
                             fill='#33C16C'
                         ></path>
                     </svg>
-                </div>
+                </div> */}
             </div>
 
-            <div className={classes.SponsorContainer}>
+            {/* <div className={classes.SponsorContainer}>
                 <img
                     src='https://images.ctfassets.net/im9yudtc78wp/4QISTFzMxCA0DBM3raxgnb/8534de52f401bc9cc2a26d6eaabe77c2/Suarez_Footer.png?fm=avif'
                     loading='lazy'
@@ -1008,17 +1031,17 @@ const Footer = () => {
                     alt='Aston Villa F.C. – Official European Betting Partner'
                     loading='lazy'
                 />
-            </div>
+            </div> */}
 
             <div className={classes.InfoContainer}>
                 <LogoBig />
-                <span>
+                {/* <span>
                     © duelbits.com is a brand name of Liquid Entertainment N.V. Reg No 153298, having its registered address at Zuikertuintjeweg z/n (Zuikertuin
                     Tower), Willemstad, Curaçao, licensed to conduct online gaming operations by the Government of Curacao. Herpestidae Services Limited Reg No.
                     HE 410029, having its registered address at 1, Avlonos, Maria House, Nicosia, 1075 Cyprus, is a wholly owned subsidiary of Liquid
                     Entertainment N.V. which provides management, payment and support services related to the operation of the website. 18+ to play, gamble
                     responsibly.
-                </span>
+                </span> */}
             </div>
         </div>
     );

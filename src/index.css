@@ -149,7 +149,8 @@ body {
     position: relative;
     background-color: #0d2a3e;
     color: rgb(150, 208, 35);
-    font-family: 'Proxima Nova', sans-serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    /* font-family: 'Proxima Nova', sans-serif; */
     font-weight: 400;
 }
 
@@ -158,7 +159,8 @@ html {
     line-height: 1.5;
     -webkit-text-size-adjust: 100%;
     tab-size: 4;
-    font-family: Proxima Nova, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    /* font-family: Proxima Nova, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'; */
     font-feature-settings: normal;
     font-variation-settings: normal;
     -webkit-tap-highlight-color: transparent;

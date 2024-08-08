@@ -4,7 +4,6 @@ import { getLang } from '../../utils/storage';
 import axiosApi from '../../axios-api';
 import { gamificationActions } from './userGamificationSlice';
 import { appActions } from '../../features/InitApp/appSlice';
-import { current } from '@reduxjs/toolkit';
 
 export const getHeroes = (signal) => {
     return async (dispatch) => {
@@ -100,6 +99,8 @@ export const getUserAchievements = () => {
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
+
+            // SELECTED HERO //
             const selectedHero = {
                 id: response.data.Contents.SelectedHero.id,
                 name: response.data.Contents.SelectedHero.metadata.HeroName,
@@ -110,6 +111,7 @@ export const getUserAchievements = () => {
                 action: response.data.Contents.SelectedHero.metadata.action,
             }
 
+            // PROGRESS //
             let forCurrentLevel = [];
             let progress = 0;
             const levelProgress = (level) => {
@@ -128,6 +130,7 @@ export const getUserAchievements = () => {
                 return progress;
             }
 
+            // LEVELS AND MILESTONES //
             const heroLevels = response.data.Contents.HeroLevels.map(level => {
                 const milestones = level.Milestones.map(milestone => ({
                     id: milestone.id,
@@ -140,33 +143,6 @@ export const getUserAchievements = () => {
                     
                 })).sort((a, b) => a.name.localeCompare(b.name));
 
-                const dailyRewards = {
-                    id: level.Daily?.id,
-                    name: level.Daily?.metadata.Name,
-                    description: level.Daily?.description,
-                    progress: level.Daily?.optInStatus.percentageComplete,
-                    rewardType: level.Daily?.reward.RewardType.Key,
-                    rewardValue: level.Daily?.reward.RewardValue,
-                    rewardSymbol: level.Daily?.reward.RewardType.UomSymbol
-                }
-                 const weeklyRewards = {
-                    id: level.Weekly?.id,
-                    name: level.Weekly?.metadata.Name,
-                    description: level.Weekly?.description,
-                    progress: level.Weekly?.optInStatus.percentageComplete,
-                    rewardType: level.Weekly?.reward.RewardType.Key,
-                    rewardValue: level.Weekly?.reward.RewardValue,
-                    rewardSymbol: level.Weekly?.reward.RewardType.UomSymbol
-                }
-                const monthlyRewards = {
-                    id: level.Monthly?.id,
-                    name: level.Monthly?.metadata.Name,
-                    description: level.Monthly?.description,
-                    progress: level.Monthly?.optInStatus.percentageComplete,
-                    rewardType: level.Monthly?.reward.RewardType.Key,
-                    rewardValue: level.Monthly?.reward.RewardValue,
-                    rewardSymbol: level.Monthly?.reward.RewardType.UomSymbol
-                }
 
                 return {
                     id: level.Level.id,
@@ -177,12 +153,48 @@ export const getUserAchievements = () => {
                     percentageComplete: level.Level.optInStatus.percentageComplete,
                     pointsValue: level.Level.strategies.pointsStrategy.pointsValue,
                     progress: levelProgress(level),
-                    dailyRewards: dailyRewards,
-                    weeklyRewards: weeklyRewards,
-                    monthlyRewards: monthlyRewards,
+                    // dailyRewards: dailyRewards,
+                    // weeklyRewards: weeklyRewards,
+                    // monthlyRewards: monthlyRewards,
                 };
             }).sort((a, b) => a.name.localeCompare(b.name));
 
+            // DAILY, WEEKLY, MONTHLY REWARDS //
+            const dailyRewards = {
+                id: response.data.Contents.Daily?.id,
+                name: response.data.Contents.Daily?.metadata.Name,
+                description: response.data.Contents.Daily?.description,
+                progress: response.data.Contents.Daily?.optInStatus.percentageComplete,
+                rewardType: response.data.Contents.Daily?.reward.RewardType.Key,
+                rewardValue: response.data.Contents.Daily?.reward.RewardValue,
+                rewardSymbol: response.data.Contents.Daily?.reward.RewardType.UomSymbol
+            }
+             const weeklyRewards = {
+                id: response.data.Contents.Weekly?.id,
+                name: response.data.Contents.Weekly?.metadata.Name,
+                description: response.data.Contents.Weekly?.description,
+                progress: response.data.Contents.Weekly?.optInStatus.percentageComplete,
+                rewardType: response.data.Contents.Weekly?.reward.RewardType.Key,
+                rewardValue: response.data.Contents.Weekly?.reward.RewardValue,
+                rewardSymbol: response.data.Contents.Weekly?.reward.RewardType.UomSymbol
+            }
+            const monthlyRewards = {
+                id: response.data.Contents.Monthly?.id,
+                name: response.data.Contents.Monthly?.metadata.Name,
+                description: response.data.Contents.Monthly?.description,
+                progress: response.data.Contents.Monthly?.optInStatus.percentageComplete,
+                rewardType: response.data.Contents.Monthly?.reward.RewardType.Key,
+                rewardValue: response.data.Contents.Monthly?.reward.RewardValue,
+                rewardSymbol: response.data.Contents.Monthly?.reward.RewardType.UomSymbol
+            }
+
+            const manualRewards = {
+                dailyRewards: dailyRewards,
+                weeklyRewards: weeklyRewards,
+                monthlyRewards: monthlyRewards
+            }
+
+            // CURRENT LEVEL //
             heroLevels.map(heroLevel => {
                 let isCurrentLevel = false;
 
@@ -206,12 +218,13 @@ export const getUserAchievements = () => {
             // console.log("Hero: ",selectedHero);
             console.log("Hero Levels: ", heroLevels);
             console.log("Current Level: ", currentLevel);
-            console.log("Manual Rewards: ", heroLevels[0].dailyRewards, heroLevels[0].weeklyRewards, heroLevels[0].monthlyRewards);
+            console.log("Manual Rewards: ", manualRewards);
             
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));
             dispatch(gamificationActions.setHeroLevels(heroLevels));
             dispatch(gamificationActions.setCurrentLevel(currentLevel));
+            dispatch(gamificationActions.setManualRewards(manualRewards));
 
         } catch (error) {
             const message = error?.message ? error.message : error;

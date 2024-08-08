@@ -69,14 +69,14 @@ const Login = () => {
             ) : (
                 <>
                     <form className={classes.Form}>
-                        <label htmlFor='Username'>{translate('Email Address')}</label>
+                        <label htmlFor='Username'>{translate('Username')}</label>
                         <div className={classes.InputOuter}>
                             <MainInput
                                 role='textbox'
                                 type='text'
                                 id='Username'
                                 name='Username'
-                                placeholder={translate('Type your Email')}
+                                placeholder={translate('Type your Username')}
                                 value={loginInfo.Username}
                                 onChange={(value) => updateLoginInfo('Username', value)}
                             />
@@ -89,7 +89,7 @@ const Login = () => {
                                 type='password'
                                 id='Password'
                                 name='Password'
-                                placeholder={translate('Type your password')}
+                                placeholder={translate('Type your Password')}
                                 value={loginInfo.Password}
                                 onChange={(value) => updateLoginInfo('Password', value)}
                                 noAutoComplete={false}

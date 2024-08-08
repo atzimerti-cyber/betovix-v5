@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import classes from './Topbar.module.css';
 import UserIcon from '../../../assets/svgs/user.svg?react';
 import GiftIcon from '../../../assets/svgs/gift.svg?react';
-import BellIcon from '../../../assets/svgs/bell.svg?react';
+// import BellIcon from '../../../assets/svgs/bell.svg?react';
 import WalletIcon from '../../../assets/svgs/wallet.svg?react';
 import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 
@@ -130,18 +130,21 @@ const Topbar = () => {
                 <div className={user ? [classes.HeaderRight, classes.UserHeaderRight].join(' ') : [classes.HeaderRight, classes.NoUserHeaderRight].join(' ')}>
                     {user ? (
                         <>
-                            <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
-                                <div className={classes.VipProgressBar}>
-                                    {Object.keys(userCurrentLevel).length > 0 ? (
-                                        <span style={{ width: `${userCurrentLevel.progress}%` }}></span>
-                                    ) : (
-                                        <span style={{ width: `0%` }}></span>
-                                    )}
-                                </div>
-                                <div className={classes.VipIconContainer}>
-                                    <img src={LevelUpIcon} alt='' />
-                                </div>
-                            </MainButton>
+                            <div className={classes.YourProgress}>
+                                <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
+
+                                    <div className={classes.ProgressTitle}>{translate('Progress')}</div>
+                                    <div className={classes.ProgressBar}>
+
+                                        {Object.keys(userCurrentLevel).length > 0 ? (
+                                            <span style={{ width: `${userCurrentLevel.progress}%` }}></span>
+                                        ) : (
+                                            <span style={{ width: `0%` }}></span>
+                                        )}
+                                    </div>
+                                </MainButton>
+                            </div>
+
                             <div className={classes.BonusButtonContainer}>
                                 <MainButton className={classes.BonusButton} color='transparent' onClick={() => addParamsToUrl('bonus')}>
                                     <GiftIcon />
@@ -170,13 +173,12 @@ const Topbar = () => {
                                 )}
                             </div>
 
-                            <div className={classes.HeaderRightDivider}></div>
+                            {/* <div className={classes.HeaderRightDivider}></div> */}
 
                             <div className={classes.Container}>
-                                {/* <MainButton color='transparent' onClick={() => addParamsToUrl('achievement')}> */}
-                                <MainButton color='transparent'>
+                                {/* <MainButton color='transparent'>
                                     <BellIcon />
-                                </MainButton>
+                                </MainButton> */}
                             </div>
                         </>
                     ) : (

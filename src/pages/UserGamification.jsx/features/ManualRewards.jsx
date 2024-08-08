@@ -12,9 +12,9 @@ const ManualRewards = (props) => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const user = useSelector((state) => state.login.user);
 
-    const dailyRewards = useSelector((state) => state.gamification.currentLevel.dailyRewards);
-    const weeklyRewards = useSelector((state) => state.gamification.currentLevel.weeklyRewards);
-    const monthlyRewards = useSelector((state) => state.gamification.currentLevel.monthlyRewards);
+    const dailyRewards = useSelector((state) => state.gamification.manualRewards.dailyRewards);
+    const weeklyRewards = useSelector((state) => state.gamification.manualRewards.weeklyRewards);
+    const monthlyRewards = useSelector((state) => state.gamification.manualRewards.monthlyRewards);
 
     const [timeUntilEndOfDay, setTimeUntilEndOfDay] = useState('');
     const [timeUntilNextSunday, setTimeUntilNextSunday] = useState('');
@@ -135,7 +135,8 @@ const ManualRewards = (props) => {
                     <div className={classes.IconContainer}>
                         <Calendar1dIcon />
                     </div>
-                    <p className={classes.Title}>{dailyRewards?.name}</p>
+                    {/* <p className={classes.Title}>{dailyRewards?.name}</p> */}
+                    <p className={classes.Title}>Daily Rewards</p>
                 </header>
                 <main className={classes.CardMain}>
                     {dailyRewards ? (
@@ -185,7 +186,8 @@ const ManualRewards = (props) => {
                     <div className={classes.IconContainer}>
                         <Calendar7dIcon />
                     </div>
-                    <p className={classes.Title}>{translate(weeklyRewards?.name)}</p>
+                    <p className={classes.Title}>Weekly Rewards</p>
+                    {/* <p className={classes.Title}>{translate(weeklyRewards?.name)}</p> */}
                 </header>
                 <main className={classes.CardMain}>
                     {weeklyRewards ? (
@@ -231,7 +233,8 @@ const ManualRewards = (props) => {
                     <div className={classes.IconContainer}>
                         <Calendar30dIcon />
                     </div>
-                    <p className={classes.Title}>{translate(monthlyRewards?.name)}</p>
+                    <p className={classes.Title}>Monthly Rewards</p>
+                    {/* <p className={classes.Title}>{translate(monthlyRewards?.name)}</p> */}
                 </header>
                 <main className={classes.CardMain}>
                     {monthlyRewards ? (

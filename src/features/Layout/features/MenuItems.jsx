@@ -27,7 +27,7 @@ const MenuItems = (props) => {
                         props.onClick();
                     }}
                 >
-                    <UserIcon />
+                    <UserIcon fill="#527491" height="16px" width="16px"/>
                     <span>{translate('Profile')}</span>
                 </a>
             </li>

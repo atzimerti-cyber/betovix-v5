@@ -71,6 +71,9 @@ export const userGamificationSlice = createSlice({
         setProgressBar: (state, action) => {
             state.progressBar = action.payload;
         },
+        setManualRewards: (state, action) => {
+            state.manualRewards = action.payload;
+        },
     },
 });
 
