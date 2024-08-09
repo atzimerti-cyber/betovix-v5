@@ -8,7 +8,9 @@
     height: 100%;
     width: 100%;
     overflow: hidden;
-    padding-top: var(--db-header-height-mobile);
+    /* padding-top: 72px; */
+    padding-top: calc(var(--db-minibar-height-mobile) + var(--db-topbar-height-mobile));
+    /* padding-top: var(--db-header-height-mobile); */
     box-sizing: border-box;
 }
 

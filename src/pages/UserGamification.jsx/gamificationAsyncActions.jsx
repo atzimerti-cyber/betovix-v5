@@ -216,9 +216,9 @@ export const getUserAchievements = () => {
             const currentLevel = forCurrentLevel[0];
 
             // console.log("Hero: ",selectedHero);
-            console.log("Hero Levels: ", heroLevels);
-            console.log("Current Level: ", currentLevel);
-            console.log("Manual Rewards: ", manualRewards);
+            //console.log("Hero Levels: ", heroLevels);
+            //console.log("Current Level: ", currentLevel);
+            //console.log("Manual Rewards: ", manualRewards);
             
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));

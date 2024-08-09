@@ -96,6 +96,7 @@ const Topbar = () => {
                         {showingLiveEvent && !showLiveListContainer && (
                             <MainButton color='transparent' onClick={() => dispatch(layoutActions.setShowLiveListContainer(true))}>
                                 <CameraIcon />
+                                <div className={classes.LiveBadge}>{translate('Live')}</div>
                             </MainButton>
                         )}
                     </div>
@@ -120,7 +121,7 @@ const Topbar = () => {
                         </div>
                         <MainButton color='secondary' size='small' onClick={() => addParamsToUrl('cashier', 'deposit')}>
                             <WalletIcon />
-                            <span>{translate('Cashier')}</span>
+                            <span>{translate('Wallet')}</span>
                         </MainButton>
                     </>
                 )}
@@ -130,7 +131,7 @@ const Topbar = () => {
                 <div className={user ? [classes.HeaderRight, classes.UserHeaderRight].join(' ') : [classes.HeaderRight, classes.NoUserHeaderRight].join(' ')}>
                     {user ? (
                         <>
-                            <div className={classes.YourProgress}>
+                            {/* <div className={classes.YourProgress}>
                                 <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
 
                                     <div className={classes.ProgressTitle}>{translate('Progress')}</div>
@@ -143,7 +144,7 @@ const Topbar = () => {
                                         )}
                                     </div>
                                 </MainButton>
-                            </div>
+                            </div> */}
 
                             <div className={classes.BonusButtonContainer}>
                                 <MainButton className={classes.BonusButton} color='transparent' onClick={() => addParamsToUrl('bonus')}>
@@ -152,6 +153,9 @@ const Topbar = () => {
                                 </MainButton>
                                 {availableBonus > 0 && <NumberBadge number={availableBonus} floating justifyRight />}
                             </div>
+
+                            <div className={classes.HeaderRightDivider}></div>
+
                             <div className={classes.DropDownWrapper}>
                                 <div className={classes.DropDownLabel} onClick={() => dispatch(layoutActions.setUserDropdownVisible(!userDropdownVisible))}>
                                     <MainButton color='transparent'>
@@ -173,7 +177,7 @@ const Topbar = () => {
                                 )}
                             </div>
 
-                            {/* <div className={classes.HeaderRightDivider}></div> */}
+
 
                             <div className={classes.Container}>
                                 {/* <MainButton color='transparent'>

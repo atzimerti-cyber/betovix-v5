@@ -113,7 +113,7 @@ const ManualRewards = (props) => {
             case '6':
                 return "Sam";
             case '7':
-                obj = ["Win", <CoinsIcon key="coinsIcon" style={{ marginLeft: '8px', paddingBottom: '4px' }} />, value];
+                obj = ["Win", <CoinsIcon key="coinsIcon" style={{ marginLeft: '8px', marginRight: '1px'}} />, value];
                 return <>{obj.map((item, index) => <span key={index}>{item}</span>)}</>;
             case '8':
                 obj = ["Increase Bet Limits by ", value, symbol];

@@ -75,6 +75,22 @@ export const loadInitData = (isMobile) => {
             // });
             // console.log(responseSettings);
 
+
+
+            /////////////////// Minibar Menu //////////////////////
+            const responseMinibar = await axiosApi.get(`/Menu/MyMenu?type=sports&lang=en&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+            });
+            if (responseMinibar.data.Status.StatusCode !== 200) throw Error();
+
+            const minibarMenuItems = responseMinibar.data.Contents.Categs[0].Items;
+            console.log(minibarMenuItems);
+
+            dispatch(layoutActions.setMinibarMenu(minibarMenuItems));
+
+
+
+            ///////////////////////////
             const token = getAccessToken();
             let user = null;
             if (token) {
@@ -101,8 +117,10 @@ export const loadInitData = (isMobile) => {
             }
 
 
+
             // Necessary
             // -------------------------------------
+
             const requestsNecessary = [
                 axiosApi.get(`Translation/MyTranslations?type=Sportsbook&lang=${lang.id}`, {
                     baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,

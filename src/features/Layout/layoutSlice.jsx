@@ -16,6 +16,7 @@ const initialState = {
     scrollToTop: 1,
     showLiveListContainer: false,
     availableBonus: 0,
+    minibarMenu: {}
 };
 
 export const layoutSlice = createSlice({
@@ -59,6 +60,9 @@ export const layoutSlice = createSlice({
         },
         setAvailableBonusBalance: (state, action) => {
             state.bonusBalance = action.payload.TotalBonusBalance;
+        },
+        setMinibarMenu: (state, action) => {
+            state.minibarMenu = action.payload;
         },
     },
 });

@@ -55,8 +55,8 @@ const MilestoneCard = (props) => {
 
                     {props.type == 7 &&
                         <p className={classes.Details}>
-                            <span>Win</span>
-                            <CoinsIcon style={{ marginLeft: '8px', marginTop: '1px', paddingTop: '1px' }} />
+                            <span>Earn</span>
+                            <CoinsIcon style={{ marginLeft: '8px', marginTop: '3px', paddingTop: '1px', marginRight: '1px' }} />
                             <span>{props.details}</span>
                         </p>
                     }

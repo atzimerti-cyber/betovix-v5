@@ -7,6 +7,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Topbar from './features/Topbar';
+import Minibar from './features/Minibar';
+
 import classes from './Layout.module.css';
 import Footer from './features/Footer';
 import BetslipIcon from '../../assets/svgs/betslip.svg?react';
@@ -26,6 +28,7 @@ import NumberBadge from '../UI/Badges/NumberBudge';
 import LiveStream from './features/LiveStream';
 import Stats from './features/Stats';
 import Ticket from '../Ticket/Ticket';
+
 
 const Layout = () => {
     const dispatch = useDispatch();
@@ -88,6 +91,7 @@ const Layout = () => {
             />
 
             <Topbar />
+            <Minibar/>
 
             <div className={classes.Content}>
                 {!isMobile && <LiveListContainer />}
