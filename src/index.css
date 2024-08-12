@@ -61,7 +61,8 @@
     --db-scrollbar-track-bg: var(--db-gray-3);
     --db-transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     --db-modal-overlay: rgba(18, 57, 83, 0.9725490196078431);
-    --db-dropdown-shadow: 0px 4px 22px rgba(0, 0, 0, 0.18);
+    --db-dropdown-shadow: -10px 6px 30px rgb(0 0 0 / 35%);
+    /* --db-dropdown-shadow: 0px 4px 22px rgba(0, 0, 0, 0.18); */
     --db-modal-header-height: 38px;
     --db-milestone-card-width: 111px;
 

@@ -8,6 +8,7 @@ import { translate } from '../../../utils/translations';
 import CasinoIcon from '../../../assets/svgs/casino.svg?react';
 import SportsIcon from '../../../assets/svgs/sports.svg?react';
 import LiveListSports from '../../../pages/Event/features/LiveListSports';
+import CameraIcon from '../../../assets/svgs/camera.svg?react';
 
 const LiveListContainer = () => {
     const navigate = useNavigate();
@@ -24,7 +25,7 @@ const LiveListContainer = () => {
             <div className={classes.ScrollableContent}>
                 <div className={classes.Content}>
                     <div className={classes.SideMenuAllButtonsContainer}>
-                        <div className={classes.SideMenuButtonContainer}>
+                        {/* <div className={classes.SideMenuButtonContainer}>
                             {(permissions.AllowToCasino || permissions.AllowToSlots) && (
                                 <MainButton
                                     active={pathnameNoParams.includes('/casino')}
@@ -50,6 +51,10 @@ const LiveListContainer = () => {
                                     <span>{fullLeftContainer ? translate('Sports') : ''}</span>
                                 </MainButton>
                             )}
+                        </div> */}
+                        <div className={classes.Header}>
+                            <div className={classes.LiveBadge}>{translate('Live')}</div>
+                            <h1>Live Events</h1>
                         </div>
                     </div>
 

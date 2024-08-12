@@ -109,6 +109,10 @@ const Topbar = () => {
             <div className={classes.TopbarCenterWrapper}>
                 {user && (
                     <>
+                        <MainButton color='secondary' size='small' onClick={() => addParamsToUrl('cashier', 'deposit')}>
+                            <WalletIcon />
+                            <span>{translate('Wallet')}</span>
+                        </MainButton>
                         <div className={classes.BalanceContainer}>
                             <CoinsIcon />
                             <div className={inCasinoGame ? [classes.HeaderBalanceWrap, classes.IsInPlay].join(' ') : classes.HeaderBalanceWrap}>
@@ -119,10 +123,7 @@ const Topbar = () => {
                                 <div className={classes.InPlay}>(In Play)</div>
                             </div>
                         </div>
-                        <MainButton color='secondary' size='small' onClick={() => addParamsToUrl('cashier', 'deposit')}>
-                            <WalletIcon />
-                            <span>{translate('Wallet')}</span>
-                        </MainButton>
+
                     </>
                 )}
             </div>

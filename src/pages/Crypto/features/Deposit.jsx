@@ -19,7 +19,6 @@ const Deposit = () => {
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const crypto = useSelector((state) => state.crypto.crypto);
-    //const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
 
     const query = new URLSearchParams(location.search);
     const method = query.get('method');
@@ -27,21 +26,6 @@ const Deposit = () => {
     useEffect(() => {
         return () => dispatch(cryptoActions.setSelectedCurrency(null));
     }, []);
-
-    // const getPrice = (item) => {
-
-    // };
-
-    // const getPrice = (item) => {
-    //     if (item.id === 'ERC-20' || item.id === 'BEP-20') {
-    //         return '1.00';
-    //     }
-
-    //     const price1min = cryptoPrices['1min'][item.id];
-    //     const price1min = 0;
-
-    //     return price1min;
-    // };
 
     const navigateToModal = (modal, tab, method) => {
         const searchParams = new URLSearchParams(location.search);
@@ -71,13 +55,6 @@ const Deposit = () => {
         }
     });
 
-    //////////////////////////gk
-    // const selectCurrency = (option) => {
-    //     dispatch(cryptoActions.setSelectedCurrency(option));
-    //     const network = option.network || option.label;
-    //     dispatch(cryptoActions.setSelectedNetwork({ id: option.id, label: network }));
-    // };
-
     let elClasses = [classes.PaymentVerticalWrapper];
     if (method === 'crypto') elClasses.push(classes.Crypto);
     else if (method === 'fiat') elClasses.push(classes.Fiat);
@@ -98,7 +75,7 @@ const Deposit = () => {
                                                 <span>{translate('Temporarily unavailable')}</span>
                                             </div>
                                         )}
-                                        <MainButton
+                                        {/* <MainButton
                                             color='transparent'
                                             onClick={() => {
                                                 selectCurrency(item);
@@ -110,19 +87,26 @@ const Deposit = () => {
                                             <h2>{item.Name}</h2>
                                             {item.Rate &&
                                                 <h3>€{item.Rate > 0.01 ? addThousandsSeparator(item.Rate) : parseFloat(item.Rate.toFixed(6))}</h3>}
-                                        </MainButton>
-                                        {/* <MainButton
-                                            color='transparent'
-                                            onClick={() => {
-                                                selectCurrency(item);
-                                                navigateToModal('cashier', 'deposit', 'crypto');
-                                            }}
-                                            disabled={item.available === false}
-                                        >
-                                            <img src={item.icon} loading='lazy' alt={item.label} />
-                                            <h2>{item.label}</h2>
-                                            <h3>${getPrice(item) > 0.01 ? addThousandsSeparator(getPrice(item)) : getPrice(item)}</h3>
                                         </MainButton> */}
+                                        <div className={classes.CryptoCard} style={{ '--crypto-color': '#2d6541a3' }} onClick={() => {
+                                            selectCurrency(item);
+                                            navigateToModal('cashier', 'deposit', 'crypto');
+                                        }}>
+                                            <div className={classes.LogoContainer}>
+                                                <div className={classes.ImageContainer}>
+                                                    <img src={item.Logo} loading='lazy' alt={item.Code} />
+                                                </div>
+                                                <p>
+                                                    {item.Name} {item.network && `(${item.network})`}
+                                                </p>
+                                            </div>
+
+                                            <div className={classes.PriceContainer}>
+                                                {item.Rate &&
+                                                    <span className={classes.Price}>${item.Rate > 0.01 ? addThousandsSeparator(item.Rate) : parseFloat((item.Rate).toFixed(6))}</span>}
+
+                                            </div>
+                                        </div>
                                     </div>
                                 );
                             })}

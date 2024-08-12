@@ -1,7 +1,7 @@
 .Topbar {
     position: fixed;
     top: 0;
-    z-index: 1300;
+    z-index: 1000;
     display: flex;
     height: var(--db-topbar-height-mobile);
     width: 100%;
@@ -302,6 +302,7 @@
 }
 
 .DropDownWrapper {
+    z-index: 100000;
     position: relative;
     display: inline-block;
 }
@@ -411,6 +412,7 @@
     flex-direction: column;
     flex-wrap: wrap;
     width: 12rem !important;
+    background-color: #1c2b38;
 }
 
 .DropdownMenu>li {
@@ -549,6 +551,9 @@
         height: var(--db-topbar-height);
         padding-left: 1rem;
         padding-right: 1rem;
+        display: grid;
+        grid-template-rows: inherit;
+        grid-template-columns: 1fr 1fr 1fr;
     }
 
     .TopbarCenterWrapper {

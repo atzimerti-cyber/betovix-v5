@@ -90,8 +90,8 @@ export const getCasinoSearch = (signal, debSearchString) => {
                 slotGames.Data.length >= 24 || liveGames.Data.length === 0
                     ? 0
                     : 24 - slotGames.Data.length >= liveGames.Data.length
-                    ? liveGames.Data.length
-                    : 24 - slotGames.Data.length;
+                        ? liveGames.Data.length
+                        : 24 - slotGames.Data.length;
             if (liveGames.Data.length > 0 && slotGames.Data.length > 0 && slotGames.Data.length < 24) {
                 const liveGamesLeftOut = liveGames.Data.slice(liveGamesAddedNum);
                 dispatch(searchActions.setNotRenderedLiveResults(liveGamesLeftOut));
@@ -183,8 +183,8 @@ export const addToSearchResults = (signal, debSearchString) => {
                 slotGames.Data.length >= 24 || liveGames.Data.length === 0
                     ? 0
                     : 24 - slotGames.Data.length >= liveGames.Data.length
-                    ? liveGames.Data.length
-                    : 24 - slotGames.Data.length;
+                        ? liveGames.Data.length
+                        : 24 - slotGames.Data.length;
             if (liveGames.Data.length > 0 && slotGames.Data.length > 0 && slotGames.Data.length < 24) {
                 const liveGamesLeftOut = liveGames.Data.slice(liveGamesAddedNum);
                 dispatch(searchActions.setNotRenderedLiveResults(liveGamesLeftOut));
@@ -267,8 +267,8 @@ export const getCasinoSearchProviders = (signal, debSearchString, selectedProvid
                 slotGames.Data.length >= 24 || liveGames.Data.length === 0
                     ? 0
                     : 24 - slotGames.Data.length >= liveGames.Data.length
-                    ? liveGames.Data.length
-                    : 24 - slotGames.Data.length;
+                        ? liveGames.Data.length
+                        : 24 - slotGames.Data.length;
             if (liveGames.Data.length > 0 && slotGames.Data.length > 0 && slotGames.Data.length < 24) {
                 const liveGamesLeftOut = liveGames.Data.slice(liveGamesAddedNum);
                 dispatch(searchActions.setNotRenderedLiveResults(liveGamesLeftOut));
@@ -288,6 +288,42 @@ export const getCasinoSearchProviders = (signal, debSearchString, selectedProvid
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
+            dispatch(searchActions.setLoading(false));
+        }
+    };
+};
+
+
+///////////////////////////////////////////////////////////////////////////
+export const getEventSearch = (signal, providerId, value) => {
+    return async (dispatch) => {
+        try {
+            dispatch(searchActions.setLoading(true));
+            const lang = getLang();
+
+            const response = await axiosApi.post(
+                `Pregame/PostData?action=searchpregamedata&lang=${lang.id}&siteid=31`,
+                {
+                    data: `{"ProviderId":${providerId},"Value":${value}}`,
+                },
+                {
+                    signal: signal,
+                    baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                }
+            );
+
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
+                throw new Error('Failed to fetch event search data');
+            }
+
+            const eventSearchRes = response.data.Contents;
+
+            dispatch(searchActions.setSportsResults(eventSearchRes));
+        } catch (error) {
+            const message = error?.message ? error.message : error.toString();
+            if (error?.code !== 'ERR_CANCELED') {
+                toast.error(message);
+            }
             dispatch(searchActions.setLoading(false));
         }
     };

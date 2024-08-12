@@ -245,7 +245,7 @@ export const loadInitData = (isMobile) => {
                 dispatch(liveActions.setLiveState(matchesObj));
 
                 // For menu
-                let topTournamentsMenu = { category: { id: 2, label: 'Top Tournaments', visible: true }, items: [] };
+                let topTournamentsMenu = { category: { id: 2, label: 'Top Leagues', visible: true }, items: [] };
                 topTournaments.SubCategs[0].Items.forEach((topTournament) => {
                     const value = topTournament.Value.split(',');
                     topTournamentsMenu.items.push({
