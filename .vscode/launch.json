@@ -8,7 +8,8 @@
         "url": "http://localhost:3000",
         "webRoot": "${workspaceFolder}",
         "port": 3000, // Change this to a different port if necessary
-        "preLaunchTask": "npm: dev"  // This runs "npm run dev" before starting the debugger
+        //"preLaunchTask": "Run Vite Dev Server" 
+        
       }
     ]
   }

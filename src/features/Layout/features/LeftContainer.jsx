@@ -62,6 +62,7 @@ const LeftContainer = memo(function () {
     return (
         <>
             <div className={elClasses.join(' ')}>
+                
                 {!fullLeftContainer && (
                     <Tooltip
                         id='left-menu-tooltip'
@@ -71,6 +72,7 @@ const LeftContainer = memo(function () {
 
                 <div className={classes.SideMenuAllButtonsContainer}>
                     <div className={classes.SideMenuButtonContainer}>
+                        
                         {(permissions.AllowToCasino || permissions.AllowToSlots) && (
                             <MainButton
                                 active={pathnameNoParams.includes('/casino')}
