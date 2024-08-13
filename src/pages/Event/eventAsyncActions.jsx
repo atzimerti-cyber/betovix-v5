@@ -107,6 +107,7 @@ export const getLiveEvent = (sportId, eventId, signal) => {
                 dispatch(sportsbookActions.setSportMarketTree({ sportId: sportId, value: responses[0].data.Contents }));
             }
 
+            dispatch(eventActions.setSelectedMarketCategoryIndex(0));
             dispatch(eventActions.setLiveEvent(responses[1].data.Contents));
             dispatch(appActions.setBarLoading(false));
         } catch (error) {

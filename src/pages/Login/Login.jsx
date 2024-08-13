@@ -9,6 +9,7 @@ import MainInput from '../../features/UI/Inputs/MainInput';
 import MainButton from '../../features/UI/Buttons/MainButton';
 import classes from './Login.module.css';
 import { login } from './loginAsyncActions';
+import { verify } from './loginAsyncActions';
 import AlternativeMethods from './features/AlternativeMethods';
 import { translate } from '../../utils/translations';
 
@@ -20,6 +21,17 @@ const Login = () => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const loginLoading = useSelector((state) => state.login.loginLoading);
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const code = searchParams.get('activationCode');
+        if (code) {
+            setLoading(true)
+            dispatch(verify(code, navigate)).then(() => setLoading(false));
+        }
+    }, [dispatch]);
 
     const [loginInfo, setLoginInfo] = useState({
         Provider: 1,
@@ -49,78 +61,88 @@ const Login = () => {
     };
 
     return (
-        <form className={classes.Form}>
-            <label htmlFor='Username'>{translate('Email Address')}</label>
-            <div className={classes.InputOuter}>
-                <MainInput
-                    role='textbox'
-                    type='text'
-                    id='Username'
-                    name='Username'
-                    placeholder={translate('Type your Email')}
-                    value={loginInfo.Username}
-                    onChange={(value) => updateLoginInfo('Username', value)}
-                />
-            </div>
+        <>
+            {loading ? (
+                <div className={classes.Loading}>
+                    <div className={classes.Spinner}></div>
+                </div>
+            ) : (
+                <>
+                    <form className={classes.Form}>
+                        <label htmlFor='Username'>{translate('Username')}</label>
+                        <div className={classes.InputOuter}>
+                            <MainInput
+                                role='textbox'
+                                type='text'
+                                id='Username'
+                                name='Username'
+                                placeholder={translate('Type your Username')}
+                                value={loginInfo.Username}
+                                onChange={(value) => updateLoginInfo('Username', value)}
+                            />
+                        </div>
 
-            <label htmlFor='Password'>{translate('Password')}</label>
-            <div className={classes.InputOuter}>
-                <MainInput
-                    role='textbox'
-                    type='password'
-                    id='Password'
-                    name='Password'
-                    placeholder={translate('Type your password')}
-                    value={loginInfo.Password}
-                    onChange={(value) => updateLoginInfo('Password', value)}
-                    noAutoComplete={false}
-                />
-            </div>
+                        <label htmlFor='Password'>{translate('Password')}</label>
+                        <div className={classes.InputOuter}>
+                            <MainInput
+                                role='textbox'
+                                type='password'
+                                id='Password'
+                                name='Password'
+                                placeholder={translate('Type your Password')}
+                                value={loginInfo.Password}
+                                onChange={(value) => updateLoginInfo('Password', value)}
+                                noAutoComplete={false}
+                            />
+                        </div>
 
-            <label htmlFor='twoFactor'>{translate('2FA Code (If enabled)')}</label>
-            <div className={classes.InputOuter}>
-                <MainInput
-                    role='textbox'
-                    type='number'
-                    id='twoFactor'
-                    name='twoFactor'
-                    inputmode='decimal'
-                    value={loginInfo['2fa']}
-                    onChange={(value) => updateLoginInfo('2fa', value)}
-                />
-            </div>
+                        {/* <label htmlFor='twoFactor'>{translate('2FA Code (If enabled)')}</label>
+                        <div className={classes.InputOuter}>
+                            <MainInput
+                                role='textbox'
+                                type='number'
+                                id='twoFactor'
+                                name='twoFactor'
+                                inputmode='decimal'
+                                value={loginInfo['2fa']}
+                                onChange={(value) => updateLoginInfo('2fa', value)}
+                            />
+                        </div> */}
 
-            <MainButton
-                loading={loginLoading}
-                color='primary'
-                disabled={isLoginDisabled}
-                onClick={() => {
-                    dispatch(login(loginInfo, navigate, location.pathname));
-                }}
-            >
-                {translate('Login')}
-            </MainButton>
+                        <MainButton
+                            loading={loginLoading}
+                            color='primary'
+                            disabled={isLoginDisabled}
+                            onClick={() => {
+                                dispatch(login(loginInfo, navigate, location.pathname));
+                            }}
+                        >
+                            {translate('Login')}
+                        </MainButton>
 
-            <p className={classes.LoginWith}>{translate('or login with')}</p>
+                        {/* <p className={classes.LoginWith}>{translate('or login with')}</p>
 
-            <AlternativeMethods />
+            <AlternativeMethods /> */}
 
-            <MainButton color='transparent' onClick={() => changeTab('forgot-password')}>
-                {translate('Forgot your password?')}
-            </MainButton>
+                        <MainButton color='transparent' onClick={() => changeTab('forgot-password')}>
+                            {translate('Forgot your password?')}
+                        </MainButton>
 
-            <div className={classes.CaptchaText}>
+                        {/* <div className={classes.CaptchaText}>
                 {translate('This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.')}
-            </div>
-            {isMobile && (
+            </div> */}
+                        {/* {isMobile && (
                 <div className={classes.Acknowledgement}>
                     {translate('By accessing this site I attest that I am at least 18 years old and have read and agree with the')}{' '}
                     <Link to='/terms' target='_blank' rel='noreferrer'>
                         <b>{translate('Terms of Service')}</b>.
                     </Link>
                 </div>
+            )} */}
+                    </form>
+                </>
             )}
-        </form>
+        </>
     );
 };
 

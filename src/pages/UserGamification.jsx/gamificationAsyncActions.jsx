@@ -43,18 +43,18 @@ export const getHeroes = (signal) => {
                         icon: milestone.icon,
                         name: milestone.metadata.Name,
                         description: milestone.description,
-                      }))
-                      .sort((a, b) => a.name.localeCompare(b.name))
-                  }))
-                  .sort((a, b) => a.name.localeCompare(b.name))
+                    }))
+                        .sort((a, b) => a.name.localeCompare(b.name))
+                }))
+                    .sort((a, b) => a.name.localeCompare(b.name))
             }))
-            .sort((a, b) => a.name.localeCompare(b.name));
-           
+                .sort((a, b) => a.name.localeCompare(b.name));
 
-            console.log("Filtered Heroes:", heroes);
+
+            //console.log("Filtered Heroes:", heroes);
             dispatch(gamificationActions.setHeroes(heroes));
             dispatch(gamificationActions.setDisplayedHero(heroes[0]));
-            
+
             dispatch(appActions.setBarLoading(false));
         } catch (error) {
             const message = error?.message ? error.message : error;
@@ -78,7 +78,7 @@ export const selectedHero = (displayedHeroAction, signal) => {
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
-            
+
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
@@ -86,57 +86,248 @@ export const selectedHero = (displayedHeroAction, signal) => {
     };
 };
 
-// export const getHeroes = (signal) => {
-//     return async (dispatch) => {
-//         try {
-//             const lang = getLang();
+export const getUserAchievements = () => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
 
-//             const response = await axiosApi.get(
-//                 `/Gamification/GetAllHeroes`,
-//                 {
-//                     signal: signal,
-//                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
-//                 }
-//             );
+            const response = await axiosApi.get(
+                `/Gamification/GetMembersSelectedHero`,
+                {
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
-//             // if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch heroes');
-//             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
-           
-//             const heroes = response.data.Contents;
-//             console.log("All Heroes:", heroes);
-//             dispatch(gamificationActions.setHeroes(heroes));
-//         } catch (error) {
-//             const message = error?.message ? error.message : error;
-//             if (!error?.code === 'ERR_CANCELED') toast.error(message);
-//         }
-//     };
-// };
 
-// export const getLevels = (signal) => {
-//     return async (dispatch) => {
-//         try {
-//             const lang = getLang();
+            // SELECTED HERO //
+            const selectedHero = {
+                id: response.data.Contents.SelectedHero.id,
+                name: response.data.Contents.SelectedHero.metadata.HeroName,
+                subName: response.data.Contents.SelectedHero.metadata.HeroSubName,
+                banner: response.data.Contents.SelectedHero.metadata.PreviewImage,
+                icon: response.data.Contents.SelectedHero.metadata.CloseUp,
+                description: response.data.Contents.SelectedHero.description,
+                action: response.data.Contents.SelectedHero.metadata.action,
+            }
 
-//             const response = await axiosApi.post(
-//                 `/Payments/PostData?action=GetPaymentMethods&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
-//                 {
-//                     data: `{"Id":""}`,
-//                 },
-//                 {
-//                     signal: signal,
-//                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
-//                 }
-//             );
+            // PROGRESS //
+            let forCurrentLevel = [];
+            let progress = 0;
+            const levelProgress = (level) => {
+                let achList = [];
+                level.Milestones.map(milestone => {
+                    achList.push(milestone);
+                });
+                //let achList = [level.Milestones];
+                achList.push(level.Level);
+                const progressSection = 100 / (achList.length);
+                achList.forEach(item => {
+                    const mP = item.optInStatus.percentageComplete;
+                    progress += (mP / 100) * progressSection;
+                });
 
-//             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch heroes');
-           
-//             const levels = response.data.Contents;
-//             console.log("All Levels:", levels);
-//             dispatch(profileActions.setHeroes(levels));
-//         } catch (error) {
-//             const message = error?.message ? error.message : error;
-//             if (!error?.code === 'ERR_CANCELED') toast.error(message);
-//         }
-//     };
-// };
+                return progress;
+            }
+
+            // LEVELS AND MILESTONES //
+            const heroLevels = response.data.Contents.HeroLevels.map(level => {
+                const milestones = level.Milestones.map(milestone => ({
+                    id: milestone.id,
+                    name: milestone.metadata.Name,
+                    percentageComplete: milestone.optInStatus.percentageComplete,
+                    points: milestone.optInStatus.points > milestone.strategies.pointsStrategy.pointsValue ? milestone.strategies.pointsStrategy.pointsValue : milestone.optInStatus.points,
+                    pointsValue: milestone.strategies.pointsStrategy.pointsValue,
+                    rewardType: milestone.reward ? milestone.reward.RewardType.Key : null,
+                    rewardValue: milestone.reward ? milestone.reward.RewardValue : null,
+                    
+                })).sort((a, b) => a.name.localeCompare(b.name));
+
+
+                return {
+                    id: level.Level.id,
+                    name: level.Level.metadata.Name,
+                    statusCode: level.Level.optInStatus.statusCode,
+                    milestones: milestones,
+                    points: level.Level.optInStatus.points > level.Level.strategies.pointsStrategy.pointsValue ? level.Level.strategies.pointsStrategy.pointsValue : level.Level.optInStatus.points,
+                    percentageComplete: level.Level.optInStatus.percentageComplete,
+                    pointsValue: level.Level.strategies.pointsStrategy.pointsValue,
+                    progress: levelProgress(level),
+                    // dailyRewards: dailyRewards,
+                    // weeklyRewards: weeklyRewards,
+                    // monthlyRewards: monthlyRewards,
+                };
+            }).sort((a, b) => a.name.localeCompare(b.name));
+
+            // DAILY, WEEKLY, MONTHLY REWARDS //
+            const dailyRewards = {
+                id: response.data.Contents.Daily?.id,
+                name: response.data.Contents.Daily?.metadata.Name,
+                description: response.data.Contents.Daily?.description,
+                progress: response.data.Contents.Daily?.optInStatus.percentageComplete,
+                rewardType: response.data.Contents.Daily?.reward.RewardType.Key,
+                rewardValue: response.data.Contents.Daily?.reward.RewardValue,
+                rewardSymbol: response.data.Contents.Daily?.reward.RewardType.UomSymbol
+            }
+             const weeklyRewards = {
+                id: response.data.Contents.Weekly?.id,
+                name: response.data.Contents.Weekly?.metadata.Name,
+                description: response.data.Contents.Weekly?.description,
+                progress: response.data.Contents.Weekly?.optInStatus.percentageComplete,
+                rewardType: response.data.Contents.Weekly?.reward.RewardType.Key,
+                rewardValue: response.data.Contents.Weekly?.reward.RewardValue,
+                rewardSymbol: response.data.Contents.Weekly?.reward.RewardType.UomSymbol
+            }
+            const monthlyRewards = {
+                id: response.data.Contents.Monthly?.id,
+                name: response.data.Contents.Monthly?.metadata.Name,
+                description: response.data.Contents.Monthly?.description,
+                progress: response.data.Contents.Monthly?.optInStatus.percentageComplete,
+                rewardType: response.data.Contents.Monthly?.reward.RewardType.Key,
+                rewardValue: response.data.Contents.Monthly?.reward.RewardValue,
+                rewardSymbol: response.data.Contents.Monthly?.reward.RewardType.UomSymbol
+            }
+
+            const manualRewards = {
+                dailyRewards: dailyRewards,
+                weeklyRewards: weeklyRewards,
+                monthlyRewards: monthlyRewards
+            }
+
+            // CURRENT LEVEL //
+            heroLevels.map(heroLevel => {
+                let isCurrentLevel = false;
+
+                const mil = heroLevel.milestones.find(milestone =>
+                    milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
+                ) !== undefined;
+
+                const lvl = heroLevel.percentageComplete >= 0 && heroLevel.percentageComplete < 100
+
+                if (mil || lvl){
+                    isCurrentLevel = true;
+                }
+
+                if (isCurrentLevel) {
+                    forCurrentLevel.push(heroLevel);
+                }
+            })
+
+            const currentLevel = forCurrentLevel[0];
+
+            // console.log("Hero: ",selectedHero);
+            //console.log("Hero Levels: ", heroLevels);
+            //console.log("Current Level: ", currentLevel);
+            //console.log("Manual Rewards: ", manualRewards);
+            
+
+            dispatch(gamificationActions.setSelectedHero(selectedHero));
+            dispatch(gamificationActions.setHeroLevels(heroLevels));
+            dispatch(gamificationActions.setCurrentLevel(currentLevel));
+            dispatch(gamificationActions.setManualRewards(manualRewards));
+
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
+export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.post(
+                `/Gamification/GetRewards`,
+                {
+                    page: "1",
+                    count: "100",
+                    filter: {
+                        IsViewed: isViewed,
+                        IsClaimed: isClaimed,
+                        TodaysRewards: daily,
+                        WeeklyRewards: weekly,
+                        MonthlyRewards: monthly,
+                    },
+                    sort: "",
+                },
+                {
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
+
+            const allRewards = response.data.Contents.Rows;
+            let popupRewards = [];
+            let viewedRewards = [];
+            let claimedRewards = [];
+
+            allRewards.map((reward) => {
+                if (!reward.Data.Viewed) {
+                    popupRewards.push(reward.Data);
+                }
+                if (reward.Data.Viewed && !reward.Data.Claimed) {
+                    viewedRewards.push(reward.Data);
+                }
+                if (reward.Data.Claimed) {
+                    claimedRewards.push(reward.Data);
+                }
+            })
+
+
+
+            dispatch(gamificationActions.setPopupRewards(popupRewards));
+            dispatch(gamificationActions.setNewRewards(viewedRewards));
+            dispatch(gamificationActions.setClaimedRewards(claimedRewards));
+
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
+export const claimReward = (Id) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.get(
+                `/Gamification/ClaimReward?rewardId=${Id}`,
+                {
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
+
+
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
+export const rewardViewed = (rewardId) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.get(
+                `/Gamification/RewardViewed?rewardId=${rewardId}`,
+                {
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
+
+
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
 

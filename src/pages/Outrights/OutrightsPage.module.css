@@ -62,7 +62,7 @@
     overflow: hidden;
     padding: 16px;
     gap: 16px;
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 

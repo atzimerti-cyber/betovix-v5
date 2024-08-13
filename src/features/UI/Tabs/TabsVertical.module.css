@@ -3,6 +3,31 @@
     gap: 0;
     display: flex;
     width: 100%;
+    overflow-x: scroll;
+}
+
+/* Webkit-based browsers */
+.Tabs::-webkit-scrollbar {
+    height: 2px; /* Adjust the scrollbar height */
+}
+
+.Tabs::-webkit-scrollbar-track {
+    background: transparent; /* Transparent background for scrollbar track */
+}
+
+.Tabs::-webkit-scrollbar-thumb {
+    background-color: var(--db-brand-green); /* Color of the scrollbar thumb */
+    border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+.Tabs::-webkit-scrollbar-thumb:hover {
+    background-color: var(--db-brand-green); /* Darker color when hovering over scrollbar thumb */
+}
+
+/* Firefox specific styling */
+.Tabs {
+    scrollbar-width: thin;
+    scrollbar-color: #96d023c4 transparent;
 }
 
 .Tab {
@@ -59,6 +84,7 @@
         gap: 0.75rem;
         width: 170px;
         display: flex;
+        overflow-x: hidden;
     }
     .Tab {
         justify-content: flex-start;

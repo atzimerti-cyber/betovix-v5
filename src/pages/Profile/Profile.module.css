@@ -8,11 +8,11 @@
 .PageTitle {
     color: white;
     font-weight: 900;
-    font-size: 14px;
+    font-size: 17px;
     display: flex;
     -webkit-box-align: center;
     align-items: center;
-    margin: 22px 0px;
+    margin: 11px 0px;
 }
 
 .PageTitle svg {

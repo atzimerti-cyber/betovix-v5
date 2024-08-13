@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import _ from 'lodash';
+import { useMediaQuery } from 'react-responsive';
 
 import classes from './Event.module.css';
 import SportsBookMenu from '../SportsBook/features/SportsBookMenu';
 import { getEvent, getLiveEvent } from './eventAsyncActions';
 import { eventActions } from './eventSlice';
 import Breadcrumb from './features/Breadcrumb';
+import BreadcrumbLive from './features/BreadcrumbLive';
 import MarketsMenu from './features/MarketsMenu';
 import MarketGroup from './features/MarketGroup';
 import Board from './features/Board';
@@ -18,6 +20,7 @@ import lzString from 'lz-string';
 import { getUpdatedMarkets } from '../../utils/liveUpdates';
 import { translate, translateNameWithLang } from '../../utils/translations';
 import { betslipActions } from '../../features/Betslip/betslipSlice';
+import { layoutActions } from '../../features/Layout/layoutSlice';
 
 const Event = () => {
     const dispatch = useDispatch();
@@ -28,6 +31,7 @@ const Event = () => {
     const liveConnection = useSelector((state) => state.live.liveConnection);
     const liveEvent = useSelector((state) => state.event.liveEvent);
     const selectedMarketCategory = useSelector((state) => state.event.selectedMarketCategory);
+    const selectedMarketCategoryIndex = useSelector((state) => state.event.selectedMarketCategoryIndex);
     const changedMarkets = useSelector((state) => state.event.changedMarkets);
 
     const pregameEvent = useSelector((state) => state.event.event);
@@ -44,23 +48,19 @@ const Event = () => {
     const sportsStatusParams = useSelector((state) => state.sportsbook.sportsStatusParams);
 
     const sportMarketTreeObj = useSelector((state) => state.event.sportMarketTreeObj);
+    const sportMarketTree = useSelector((state) => state.sportsbook.sportMarketTree);
 
     const [marketGroups, setMarketGroups] = useState(null);
     const [marketGroupsChanged, setMarketGroupsChanged] = useState(1);
     const [height, setHeight] = useState();
+    const [showTab, setShowTab] = useState('tab1');
+
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-
-        const sportIdInt = parseInt(sportid);
-        const eventIdInt = parseInt(eventid);
-
         let handleResizeMessage = null;
 
         if (isLive) {
-            dispatch(getLiveEvent(sportIdInt, eventIdInt, signal));
-
             // For the field
             handleResizeMessage = (event) => {
                 if (event.origin === 'https://widget.feedmaker.live') {
@@ -71,15 +71,13 @@ const Event = () => {
                 }
             };
             window.addEventListener('message', handleResizeMessage);
-        } else {
-            dispatch(getEvent(sportIdInt, eventIdInt, signal));
         }
 
         return () => {
             if (handleResizeMessage) window.removeEventListener('message', handleResizeMessage);
-            controller.abort();
             dispatch(eventActions.reset());
             dispatch(appActions.setBarLoading(false));
+            dispatch(layoutActions.setShowLiveListContainer(false));
 
             if (liveConnection) {
                 liveConnection.invoke('SubscribeToEvent', eventid, 0);
@@ -87,6 +85,37 @@ const Event = () => {
             }
         };
     }, []);
+
+    useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        const sportIdInt = parseInt(sportid);
+        const eventIdInt = parseInt(eventid);
+
+        if (isLive) {
+            dispatch(getLiveEvent(sportIdInt, eventIdInt, signal));
+            dispatch(eventActions.setShowingLiveEvent(true));
+        } else {
+            dispatch(getEvent(sportIdInt, eventIdInt, signal));
+        }
+
+        return () => {
+            controller.abort();
+
+            if (liveConnection) {
+                liveConnection.invoke('SubscribeToEvent', eventid, 0);
+                liveConnection.invoke('UnSubscribeToEvent', eventid);
+            }
+        };
+    }, [eventid]);
+
+    useEffect(() => {
+        if (!isMobile && isLive) {
+            dispatch(layoutActions.setShowLiveListContainer(true));
+            dispatch(layoutActions.setFullLeftContainer(true));
+        }
+    }, [isMobile]);
 
     // If Live, subscribe to live event
     useEffect(() => {
@@ -152,6 +181,20 @@ const Event = () => {
         let groups = Object.values(groupsObj);
         groups.sort((a, b) => a.id - b.id);
 
+        // Get auto...
+        const marketTree = sportMarketTree && sportid ? sportMarketTree[sportid] : null;
+        if (marketTree && marketTree.childs) {
+            groups.forEach((group) => {
+                const marketTreeGroup = marketTree.childs[group.Id];
+
+                if (!marketTreeGroup) return;
+                if (!marketTreeGroup.childs) return;
+
+                const lastMarket = marketTreeGroup.childs[marketTreeGroup.childs.length - 1];
+                if (lastMarket.name.includes('Auto||')) group.Auto = lastMarket.name;
+            });
+        }
+
         setMarketGroups(groups);
         setMarketGroupsChanged((prev) => prev + 1);
     }, [changedMarkets, sportMarketTreeObj]);
@@ -160,9 +203,14 @@ const Event = () => {
     useEffect(() => {
         if (!marketGroups) return;
         if (!selectedMarketCategory) return;
+        if (selectedMarketCategoryIndex === null) return;
 
-        const marketGroupExists = marketGroups.find((g) => g.Id === selectedMarketCategory.Id);
-        if (!marketGroupExists) dispatch(eventActions.setSelectedMarketCategory(marketGroups[0]));
+        // const marketGroupExists = marketGroups.find((g) => g.Id === selectedMarketCategory.Id);
+        const marketGroupExists = marketGroups[selectedMarketCategoryIndex];
+        if (!marketGroupExists) {
+            dispatch(eventActions.setSelectedMarketCategory(marketGroups[0]));
+            dispatch(eventActions.setSelectedMarketCategoryIndex(0));
+        }
     }, [marketGroupsChanged]);
 
     const getBackgroundImage = () => {
@@ -194,16 +242,66 @@ const Event = () => {
 
                     <div className={classes.Content}>
                         <div className={classes.TopArea}>
-                            {sports && selectedSport && (
-                                <>
-                                    <Breadcrumb page={isLive ? 'live' : 'home'} slice='event' />
-                                    {isLive && (
-                                        <div className={classes.Box} style={{ backgroundImage: `url(${getBackgroundImage()})` }}>
+                            {sports &&
+                                selectedSport &&
+                                (isLive ? (
+                                    <>
+                                        <div className={classes.SelectTabArea}>
+                                            <div
+                                                className={showTab === 'tab1' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                onClick={() => setShowTab('tab1')}
+                                            >
+                                                {translate('Tracker')}
+                                            </div>
+                                            <div
+                                                className={showTab === 'tab2' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                onClick={() => setShowTab('tab2')}
+                                            >
+                                                {translate('Score')}
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            className={
+                                                showTab !== 'tab2' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
+                                            }
+                                        >
+                                            <BreadcrumbLive event={event} page={isLive ? 'live' : 'home'} slice='event' />
+                                        </div>
+
+                                        <div
+                                            className={showTab !== 'tab2' ? [classes.Box, classes.Hide].join(' ') : classes.Box}
+                                            style={{ backgroundImage: `url(${getBackgroundImage()})` }}
+                                        >
                                             {event && <Board event={event} />}
                                         </div>
-                                    )}
-                                </>
-                            )}
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className={classes.SelectTabArea}>
+                                            <div
+                                                className={showTab === 'tab1' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                onClick={() => setShowTab('tab1')}
+                                            >
+                                                {translate('Markets')}
+                                            </div>
+                                            <div
+                                                className={showTab === 'tab2' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                onClick={() => setShowTab('tab2')}
+                                            >
+                                                {translate('Statistics')}
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            className={
+                                                showTab !== 'tab1' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
+                                            }
+                                        >
+                                            <Breadcrumb page={isLive ? 'live' : 'home'} slice='event' />
+                                        </div>
+                                    </>
+                                ))}
                         </div>
 
                         {!event && !barLoading ? (
@@ -217,7 +315,14 @@ const Event = () => {
                                 </h1>
 
                                 <aside className={isLive ? classes.Side : [classes.Side, classes.Pregame].join(' ')}>
-                                    <div className={classes.EventTracker} style={height ? { height: height + 'px' } : null}>
+                                    <div
+                                        className={
+                                            (isLive && showTab !== 'tab1') || (!isLive && showTab !== 'tab2')
+                                                ? [classes.EventTracker, classes.Hide].join(' ')
+                                                : classes.EventTracker
+                                        }
+                                        style={height ? { height: height + 'px' } : null}
+                                    >
                                         {event && isLive && (
                                             <iframe
                                                 id='FMTracker'
@@ -227,15 +332,17 @@ const Event = () => {
                                         )}
                                         {event && !isLive && (
                                             <iframe
-                                                src={`${import.meta.env.VITE_SPORTS_URL}/stats/stats.html?styles=#${lang.id}/external/page/h2h/${
-                                                    event.Info.HomeTeamId
-                                                }/${event.Info.AwayTeamId}`}
+                                            src={`/stats/Stats.html?styles=#${lang.id}/external/page/h2h/${
+                                                event.Info.HomeTeamId
+                                            }/${event.Info.AwayTeamId}`}
+                                            style={{ width: '100%', height: '100%', border: 'none' }}
+                                            title="Stats"
                                             />
                                         )}
                                     </div>
                                 </aside>
 
-                                {marketGroups && (
+                                {marketGroups && (isLive || showTab === 'tab1') && (
                                     <div className={classes.Main}>
                                         {marketGroups.length > 0 && <MarketsMenu marketGroups={marketGroups} />}
 

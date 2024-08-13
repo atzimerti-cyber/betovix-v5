@@ -20,10 +20,8 @@ import HeartIcon from '../../assets/svgs/heart.svg?react';
 import LeaderIcon from '../../assets/svgs/leader.svg?react';
 import PaperIcon from '../../assets/svgs/paper.svg?react';
 import PricesIcon from '../../assets/svgs/prices.svg?react';
-import StarOutlineIcon from '../../assets/svgs/star-outline.svg?react';
-import AlphaIcon from '../../assets/svgs/alpha.svg?react';
-import LogoSmall from '../../assets/svgs/logo-small.svg?react';
 import LogoSmall1C from '../../assets/svgs/logo-small-oneColor.svg?react';
+import RewardsIcon from '../../assets/svgs/rewards.svg?react';
 
 import { getAccessToken } from '../../utils/auth';
 import { loginActions } from '../../pages/Login/loginSlice';
@@ -34,6 +32,7 @@ import { ticketActions } from '../Ticket/ticketSlice';
 import { betslipActions } from '../Betslip/betslipSlice';
 
 import { getCrypto } from '../../pages/Crypto/cryptoAsyncActions';
+import { getRewards, getUserAchievements } from '../../pages/UserGamification.jsx/gamificationAsyncActions';
 
 export const loadInitData = (isMobile) => {
     return async (dispatch, getState) => {
@@ -76,6 +75,22 @@ export const loadInitData = (isMobile) => {
             // });
             // console.log(responseSettings);
 
+
+
+            /////////////////// Minibar Menu //////////////////////
+            const responseMinibar = await axiosApi.get(`/Menu/MyMenu?type=sports&lang=en&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+            });
+            if (responseMinibar.data.Status.StatusCode !== 200) throw Error();
+
+            const minibarMenuItems = responseMinibar.data.Contents.Categs[0].Items;
+            console.log(minibarMenuItems);
+
+            dispatch(layoutActions.setMinibarMenu(minibarMenuItems));
+
+
+
+            ///////////////////////////
             const token = getAccessToken();
             let user = null;
             if (token) {
@@ -101,8 +116,11 @@ export const loadInitData = (isMobile) => {
                 }
             }
 
+
+
             // Necessary
             // -------------------------------------
+
             const requestsNecessary = [
                 axiosApi.get(`Translation/MyTranslations?type=Sportsbook&lang=${lang.id}`, {
                     baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
@@ -113,12 +131,15 @@ export const loadInitData = (isMobile) => {
                 if (response.status !== 200) throw Error();
             });
             dispatch(appActions.setTranslations(responsesNecessary[0].data.Contents));
-            //dispatch(cryptoActions.setCryptoPrices(cryptoPrices)); // TODO: Get the prices from the api
-            /////////////////////////////////////////////////////
+
             const controller = new AbortController();
             const signal = controller.signal;
             dispatch(getCrypto(signal));
-            /////////////////////////////////////////////////////
+
+            //Get user achievements
+            dispatch(getUserAchievements());
+            //Get user rewards
+            dispatch(getRewards());
 
             // Get permissions after setting user
             const currentLoginState = getState().login;
@@ -138,7 +159,6 @@ export const loadInitData = (isMobile) => {
                 });
 
                 if (Array.isArray(responsesCasino[0].data.Contents)) dispatch(appActions.setAllCasinoVendors(responsesCasino[0].data.Contents));
-
 
                 casinoMenuItems.push({
                     category: { id: 1, label: 'Casino', visible: true },
@@ -169,36 +189,6 @@ export const loadInitData = (isMobile) => {
                         },
                     ],
                 });
-
-                // allMenuItems.push({
-                //     category: { id: 1, label: 'Casino', visible: true },
-                //     items: [
-                //         {
-                //             id: 1,
-                //             label: 'Lobby',
-                //             icon: <HomeIcon />,
-                //             page: 'casino/lobby',
-                //         },
-                //         {
-                //             id: 2,
-                //             label: 'Slots',
-                //             icon: <SlotsIcon />,
-                //             page: 'casino/slots',
-                //         },
-                //         {
-                //             id: 3,
-                //             label: 'Live Casino',
-                //             icon: <BlackjackIcon />,
-                //             page: 'casino/live',
-                //         },
-                //         {
-                //             id: 4,
-                //             label: 'Favorites',
-                //             icon: <HeartIcon />,
-                //             page: 'casino/favorites',
-                //         },
-                //     ],
-                // });
             }
 
             // Sports
@@ -216,6 +206,9 @@ export const loadInitData = (isMobile) => {
                     axiosApi.get(`LiveCluster/getLiveStateJson2?lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`, {
                         baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
                     }),
+                    axiosApi.get(`Setting/SportSettings?Siteid=0`, {
+                        baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                    }),
                 ];
 
                 const responsesSports = await Promise.all(requestsSports);
@@ -223,6 +216,9 @@ export const loadInitData = (isMobile) => {
                     if (response.status !== 200) throw Error();
                 });
 
+                dispatch(appActions.setSportSettings(responsesSports[3].data.Contents));
+
+                // Update sports with icon and slug
                 const currentState = getState().app;
                 const sportIcons = currentState.sportIcons;
                 let updatedSports = [];
@@ -231,8 +227,13 @@ export const loadInitData = (isMobile) => {
                     updatedSports.push({ ...sport, slug: sport.Name?.International.toLowerCase().replace(/ /g, '-'), icon: icon });
                 });
 
+                // Five top sports
                 const topSports = updatedSports.slice(0, 5);
+
+                // Top tournaments
                 const topTournaments = responsesSports[1].data;
+
+                // Init live
                 const matchesObj = responsesSports[2].data.Matches.reduce((acc, match) => {
                     acc[match.MatchId] = match;
                     return acc;
@@ -244,7 +245,7 @@ export const loadInitData = (isMobile) => {
                 dispatch(liveActions.setLiveState(matchesObj));
 
                 // For menu
-                let topTournamentsMenu = { category: { id: 2, label: 'Top Tournaments', visible: true }, items: [] };
+                let topTournamentsMenu = { category: { id: 2, label: 'Top Leagues', visible: true }, items: [] };
                 topTournaments.SubCategs[0].Items.forEach((topTournament) => {
                     const value = topTournament.Value.split(',');
                     topTournamentsMenu.items.push({
@@ -279,43 +280,6 @@ export const loadInitData = (isMobile) => {
                     });
                 });
                 sportsMenuItems.push(allSportsMenu);
-
-                // // For menu
-                // let topTournamentsMenu = { category: { id: 2, label: 'Top Tournaments', visible: true }, items: [] };
-                // topTournaments.SubCategs[0].Items.forEach((topTournament) => {
-                //     const value = topTournament.Value.split(',');
-                //     topTournamentsMenu.items.push({
-                //         id: topTournament.Value,
-                //         label: topTournament.Par2 + ' ' + topTournament.Name,
-                //         icon: sportIcons[topTournaments.SubCategs[0].SubCateg.Name],
-                //         page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
-                //     });
-                // });
-                // allMenuItems.push(topTournamentsMenu);
-
-                // let topSportsMenu = { category: { id: 3, label: 'Top Sports', visible: true }, items: [] };
-                // topSports.forEach((topSport) => {
-                //     topSportsMenu.items.push({
-                //         id: topSport.Id,
-                //         label: topSport.Name.International,
-                //         icon: topSport.icon,
-                //         page: `sportsbook/home/${topSport.slug}`,
-                //     });
-                // });
-                // allMenuItems.push(topSportsMenu);
-
-                // let alphabeticalAllSports = [...updatedSports];
-                // alphabeticalAllSports.sort((a, b) => a.Name.International.localeCompare(b.Name.International));
-                // let allSportsMenu = { category: { id: 4, label: 'All Sports', visible: false }, items: [] };
-                // alphabeticalAllSports.forEach((sport) => {
-                //     allSportsMenu.items.push({
-                //         id: sport.Id,
-                //         label: sport.Name.International,
-                //         icon: sport.icon,
-                //         page: `sportsbook/home/${sport.slug}`,
-                //     });
-                // });
-                // allMenuItems.push(allSportsMenu);
             }
 
             // Rest of menu items
@@ -324,15 +288,15 @@ export const loadInitData = (isMobile) => {
                 items: [
                     {
                         id: 1,
-                        label: `Ace's Rewards`,
-                        icon: <AlphaIcon />,
-                        modal: 'vip',
+                        label: `Your Progress`,
+                        icon: <LogoSmall1C color="#FF0000" />,
+                        modal: 'your-progress',
                     },
                     {
                         id: 2,
-                        label: `Your Progress`,
-                        icon: <LogoSmall1C color="#FF0000"/>, 
-                        page: 'lounge',
+                        label: `My Rewards`,
+                        icon: <RewardsIcon color="#FF0000" />,
+                        page: 'rewards',
                     },
                 ],
             });

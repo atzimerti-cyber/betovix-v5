@@ -1,0 +1,207 @@
+.SlideContainer {
+    max-height: 60%;
+    min-width: 60%;
+    transition: transform 0.2s linear;
+    aspect-ratio: 8 / 4;
+    border: solid 1px;
+    border-color: rgba(74, 77, 83, 0.568);
+    border-radius: 10px;
+    margin-top: 3px;
+}
+
+.SlideContainer:not(.Loading):hover {
+    transform: translateY(-1%);
+}
+
+.NoResults{
+    text-align: center;
+    font-size: large;
+}
+
+.Card {
+    border-radius: 10px;
+    width: 100%;
+    max-height: 100%;
+    aspect-ratio: 8 / 4;
+    position: relative;
+    cursor: pointer;
+    /* overflow: hidden; */
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+
+    display: grid;
+    grid-template-columns: auto 1fr; /* Changed */
+    grid-template-rows: auto 1fr auto;
+    /* grid-template-rows: 1fr auto;  */
+    /* grid-template-columns: auto auto;
+    grid-template-rows: auto auto; */
+    gap: 0.5rem;
+}
+
+.SlideContainer.Loading .Card {
+    cursor: default;
+}
+
+.ImageContainer {
+    max-height: inherit;
+    border-radius: 10px;
+    grid-column: 1;
+    grid-row: 1 / span 3;
+    /* grid-row: 1 / span 2; */
+    width: 100%;
+    aspect-ratio: 6 / 6;
+    position: relative;
+}
+
+.ImageContainer img {
+    border-radius: 10px;
+    object-fit: cover;
+    /* object-fit: fill; */
+    aspect-ratio: 6 /6;
+    height: 100%;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+.Text {
+    padding: 0.5rem 1rem 0rem 0rem;
+    grid-column: 2;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    min-width: 10vw;
+    overflow: auto;
+}
+
+.Text h1 {
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.Text p {
+    margin-top: 1rem;
+    color: white;
+    font-size: 13px;
+}
+
+.ClaimButton {
+    max-height: fit-content;
+    padding: 0.5rem 2rem 0.5rem 0.5rem;
+    grid-column: 2;
+    grid-row: 3;
+    /* grid-row: 2; */
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+
+@media (max-width: 992px) {
+    .SlideContainer {
+        aspect-ratio: 2 / 3;
+    }
+
+    .Card {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 2 / 3;
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 1fr 2fr auto;
+        gap: 0;
+    }
+
+    .ImageContainer {
+        aspect-ratio: 6 / 4;
+        min-width: 100%;
+        position: relative;
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .ImageContainer img {
+        aspect-ratio: 6 / 4;
+        object-fit: fill;
+        height: 100%;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+    }
+
+    .Text {
+        padding: 1rem;
+        grid-column: 1;
+        grid-row: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        min-width: 10vw;
+    }
+
+    .ClaimButton {
+        padding: 1rem;
+        grid-column: 1;
+        grid-row: 3;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 350px) {
+    .SlideContainer {
+        aspect-ratio: 1 / 2;
+    }
+
+    .Card {
+        width: 100%;
+        height: 100%;
+        aspect-ratio: 1 / 2;
+        display: grid;
+        grid-template-columns: auto;
+        grid-template-rows: 1fr 2fr auto;
+        gap: 0;
+    }
+
+    .ImageContainer {
+        aspect-ratio: 6 / 5;
+        min-width: 100%;
+        position: relative;
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .ImageContainer img {
+        aspect-ratio: 6 / 4;
+        object-fit: fill;
+        height: 100%;
+        transform: translateZ(0);
+        -webkit-transform: translateZ(0);
+    }
+
+    .Text {
+        padding: 1rem;
+        grid-column: 1;
+        grid-row: 2;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        min-width: 10vw;
+    }
+
+    .ClaimButton {
+        padding: 1rem;
+        grid-column: 1;
+        grid-row: 3;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        flex-direction: column;
+    }
+}

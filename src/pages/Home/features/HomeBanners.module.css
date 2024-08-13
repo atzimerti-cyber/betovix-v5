@@ -3,11 +3,13 @@
     position: relative;
     display: block;
     width: 100%;
+    cursor: auto;
 }
 
 .BannerBackground {
     position: relative;
-    aspect-ratio: 1200 / 311;
+    aspect-ratio: 1200 /300;
+    /* aspect-ratio: 1200 / 311; */
     width: 100%;
 }
 .BannerBackground img {

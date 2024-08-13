@@ -21,6 +21,8 @@ const Crypto = React.lazy(() => import('./pages/Crypto/Crypto'));
 const Search = React.lazy(() => import('./pages/Search/Search'));
 const Leaderboard = React.lazy(() => import('./pages/Leaderboard/Leaderboard'));
 const Lounge = React.lazy(() => import('./pages/Lounge/Lounge'));
+const Gamification = React.lazy(() => import('./pages/UserGamification.jsx/Gamification'));
+
 
 function App() {
     const router = createBrowserRouter([
@@ -117,7 +119,9 @@ function App() {
                             path: '/crypto',
                             element: (
                                 <Suspense fallback={<PageFallback />}>
-                                    <Crypto />
+                                    <PrivateRoute roleId={40}>
+                                        <Crypto />
+                                    </PrivateRoute>
                                 </Suspense>
                             ),
                         },
@@ -150,10 +154,12 @@ function App() {
                             ),
                         },
                         {
-                            path: '/lounge',
+                            path: '/rewards',
                             element: (
                                 <Suspense fallback={<PageFallback />}>
-                                    <Lounge />
+                                    <PrivateRoute roleId={40}>
+                                        <Gamification />
+                                    </PrivateRoute>
                                 </Suspense>
                             ),
                         },

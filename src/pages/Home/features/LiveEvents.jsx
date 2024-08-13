@@ -27,7 +27,7 @@ const LiveEvents = () => {
         slidesPerGroup = 2;
     }
 
-    return (
+    return (<div className={classes.LiveSwiper}>
         <MainSwiper
             slidesPerView={slidesPerView}
             slidesPerGroup={slidesPerGroup}
@@ -37,29 +37,31 @@ const LiveEvents = () => {
         >
             {liveState
                 ? Object.keys(liveState).map((key, index) => {
-                      const game = liveState[key];
+                    const game = liveState[key];
 
-                      if (index > 9) return null;
-                      if (!game.Header?.Active) return null;
+                    if (index > 9) return null;
+                    if (!game.Header?.Active) return null;
 
-                      return (
-                          <SwiperSlide key={game.MatchId}>
-                              <div className={classes.SlideContainer}>
-                                  <GameCard game={game} type='live' />
-                              </div>
-                          </SwiperSlide>
-                      );
-                  })
+                    return (
+                        <SwiperSlide key={game.MatchId}>
+                            <div className={classes.SlideContainer}>
+                                <GameCard game={game} type='live' />
+                            </div>
+                        </SwiperSlide>
+                    );
+                })
                 : Array.from({ length: slidesPerView }, (_, index) => (
-                      <SwiperSlide key={index}>
-                          <div className={[classes.SlideContainer, classes.Loading].join(' ')}>
-                              <Link to='/' className={classes.Card}>
-                                  <SkeletonGame />
-                              </Link>
-                          </div>
-                      </SwiperSlide>
-                  ))}
+                    <SwiperSlide key={index}>
+                        <div className={[classes.SlideContainer, classes.Loading].join(' ')}>
+                            <Link to='/' className={classes.Card}>
+                                <SkeletonGame />
+                            </Link>
+                        </div>
+                    </SwiperSlide>
+                ))}
         </MainSwiper>
+    </div>
+
     );
 };
 

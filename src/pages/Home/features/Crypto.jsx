@@ -40,38 +40,42 @@ const Crypto = () => {
 
     return (
         <MainSwiper
-            slidesPerView='auto'
-            icon={<PricesIcon />}
-            title={<Link to='/crypto'>{translate('Crypto Prices')}</Link>}
-            viewAll='/crypto'
+            slidesPerView={'auto'}
+            // icon={<PricesIcon />}
+            // title={<Link to='/crypto'>{translate('Crypto Prices')}</Link>}
+            // viewAll='/crypto'
             spaceBetween={33}
+            hideArrows
+            autoplay={true}
+            delay={4000}
+            loop={true}
         >
             {crypto
                 ? crypto.map((item) => {
-                      return (
-                          <SwiperSlide key={item.Id} style={{ width: 'auto' }}>
-                              <div className={classes.SlideContainer} onClick={() => onClick(item)}>
-                                  <div className={classes.Slide}>
-                                      <div className={classes.SlideContent}>
-                                          <CryptoCard item={item} />
-                                      </div>
-                                  </div>
-                              </div>
-                          </SwiperSlide>
-                      );
-                  })
+                    return (
+                        <SwiperSlide key={item.Id} style={{ width: 'auto' }}>
+                            <div className={classes.SlideContainer} onClick={() => onClick(item)}>
+                                <div className={classes.Slide}>
+                                    <div className={classes.SlideContent}>
+                                        <CryptoCard item={item} />
+                                    </div>
+                                </div>
+                            </div>
+                        </SwiperSlide>
+                    );
+                })
                 : Array.from({ length: 8 }, (_, index) => (
-                      <SwiperSlide key={`skeleton-${index}`} style={{ width: 'auto' }}>
-                      {/* <SwiperSlide key={index} style={{ width: 'auto' }}> */}
-                          <div className={classes.SlideContainer}>
-                              <div className={classes.Slide}>
-                                  <div className={classes.SlideContent}>
-                                      <SkeletonCrypto />
-                                  </div>
-                              </div>
-                          </div>
-                      </SwiperSlide>
-                  ))}
+                    //   <SwiperSlide key={`skeleton-${index}`} style={{ width: 'auto' }}>
+                    <SwiperSlide key={index} style={{ width: 'auto' }}>
+                        <div className={classes.SlideContainer}>
+                            <div className={classes.Slide}>
+                                <div className={classes.SlideContent}>
+                                    <SkeletonCrypto />
+                                </div>
+                            </div>
+                        </div>
+                    </SwiperSlide>
+                ))}
         </MainSwiper>
     );
 };

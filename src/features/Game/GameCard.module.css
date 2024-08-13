@@ -6,7 +6,8 @@
     -webkit-box-pack: justify;
     justify-content: space-between;
     color: white;
-    background-color: rgb(49, 75, 97);
+    /* background-color: rgb(17, 25, 32); */
+    background-color: #0e2233;
     border-radius: 5px;
     padding: 8px;
     overflow: hidden;
@@ -23,10 +24,13 @@
 .SportDecoration svg {
     width: 112px;
     height: 122px;
-    fill: rgba(33, 50, 65, 0.4);
+    fill: rgba(230, 7, 78, 0.4);
+    /* fill: rgba(33, 50, 65, 0.4); */
 }
 .SportDecoration svg * {
-    fill: rgba(33, 50, 65, 0.4);
+    z-index: -1;
+    fill: rgba(96, 127, 151, 0.685);
+    /* fill: rgba(33, 50, 65, 0.4); */
 }
 
 .LeftComponent {

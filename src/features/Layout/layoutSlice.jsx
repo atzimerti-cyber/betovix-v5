@@ -14,7 +14,9 @@ const initialState = {
     userDropdownVisible: false,
     pageNotAuthorized: false,
     scrollToTop: 1,
+    showLiveListContainer: false,
     availableBonus: 0,
+    minibarMenu: {}
 };
 
 export const layoutSlice = createSlice({
@@ -50,11 +52,17 @@ export const layoutSlice = createSlice({
         setScrollToTop: (state) => {
             state.scrollToTop += 1;
         },
+        setShowLiveListContainer: (state, action) => {
+            state.showLiveListContainer = action.payload;
+        },
         setAvailableBonus: (state, action) => {
             state.availableBonus = action.payload.AvailableBonusCount;
         },
         setAvailableBonusBalance: (state, action) => {
             state.bonusBalance = action.payload.TotalBonusBalance;
+        },
+        setMinibarMenu: (state, action) => {
+            state.minibarMenu = action.payload;
         },
     },
 });

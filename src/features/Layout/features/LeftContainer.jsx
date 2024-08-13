@@ -18,6 +18,7 @@ import CategoryGroup from '../../UI/CategoryGroup/CategoryGroup';
 import useBasePath from '../../../hooks/useBasePath';
 import { searchActions } from '../../../pages/Search/searchSlice';
 import { translate } from '../../../utils/translations';
+import SearchSports from '../../../pages/Search/SearchSports';
 
 const LeftContainer = memo(function () {
     const dispatch = useDispatch();
@@ -144,6 +145,19 @@ const LeftContainer = memo(function () {
                 {/* SportsMenu */}
                 {pathnameNoParams !== '/casino' && pathnameNoParams !== '/search' && (permissions.AllowToSports) && (
                     <>
+                        {/* {!isMobile && (
+                            <SearchSports
+                                placeholder={translate('Search Event')}
+                                hide={!fullLeftContainer}
+                                dataTooltipId='left-menu-tooltip'
+                                dataTooltipContent={translate('Search Event')}
+                                value={searchString}
+                                onChange={(value) => {
+                                    dispatch(searchActions.setSearchString(value));
+                                    if (value !== '') navigate('/search');
+                                }}
+                            />
+                        )} */}
                         {/* SportsMenuItems */}
                         {sportsMenuItems.map((menuItem, index) => {
                             if (menuItem.category) {

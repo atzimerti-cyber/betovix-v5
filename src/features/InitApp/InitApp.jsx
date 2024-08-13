@@ -6,15 +6,20 @@ import { HubConnectionBuilder } from '@microsoft/signalr';
 import lzString from 'lz-string';
 import _ from 'lodash';
 
+import { useNavigate, useLocation } from 'react-router-dom';
+
 import Preloader from '../UI/Loaders/Preloader';
 import { loadInitData } from './initAppAsyncActions';
 import { liveActions } from './liveSlice';
-import { getUpdatedMarkets, getUpdatedHeaders, getEventsToAdd } from '../../utils/liveUpdates';
+import { getUpdatedMarkets, getUpdatedHeaders, getEventsToAdd, getEventToAddFromHeader, getEventToAddFromMarkets } from '../../utils/liveUpdates';
 import { betslipActions } from '../Betslip/betslipSlice';
 import { getUser } from '../../pages/Login/loginAsyncActions';
 
 const InitApp = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
+
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     const initDataLoaded = useSelector((state) => state.app.initDataLoaded);
@@ -27,6 +32,10 @@ const InitApp = () => {
     const liveStateRef = useRef(liveState);
     const incompleteDataRef = useRef(incompleteDataEvents);
     const timerIdRef = useRef(null);
+
+    // -----------------
+    // console.log(incompleteDataRef.current);
+    // -----------------
 
     // Loads once on start
     useEffect(() => {
@@ -60,7 +69,7 @@ const InitApp = () => {
         // Get user every 5 seconds...
         clearInterval(timerIdRef.current);
         const pollingCallback = () => {
-            dispatch(getUser());
+            dispatch(getUser(navigate));
         };
         if (user) timerIdRef.current = setInterval(pollingCallback, 5000);
 
@@ -88,8 +97,17 @@ const InitApp = () => {
                 updateObj.forEach((updateItem) => {
                     const foundEvent = liveStateRef.current[updateItem.Id];
                     const updatedMarkets = getUpdatedMarkets(updateItem, foundEvent.Markets);
-                    dispatch(liveActions.updateEventMarkets({ matchId: updateItem.Id, markets: updatedMarkets }));
-                    dispatch(betslipActions.updateLiveSlipOdds({ matchId: updateItem.Id, markets: updatedMarkets }));
+                    if (foundEvent) {
+                        dispatch(liveActions.updateEventMarkets({ matchId: updateItem.Id, markets: updatedMarkets }));
+                        dispatch(betslipActions.updateLiveSlipOdds({ matchId: updateItem.Id, markets: updatedMarkets }));
+                    } else {
+                        // console.log('onOddsUpdates');
+                        // console.log(updatedMarkets);
+                        // console.log('-------');
+
+                        const processedEvent = getEventToAddFromMarkets(updatedMarkets, incompleteDataRef.current);
+                        dispatch(liveActions.addIncomplete(processedEvent));
+                    }
                 });
             }
         });
@@ -98,10 +116,16 @@ const InitApp = () => {
             const updateObj = JSON.parse(decompressedString);
 
             if (updateObj.length) {
+                console.log('onOddsUpdate');
+                console.log(updateObj);
+                console.log('-------');
+
                 const foundEvent = liveStateRef.current[updateObj.Id];
-                const updatedMarkets = getUpdatedMarkets(updateObj, foundEvent.Markets);
-                dispatch(liveActions.updateEventMarkets({ matchId: updateObj.Id, markets: updatedMarkets }));
-                dispatch(betslipActions.updateLiveSlipOdds({ matchId: updateObj.Id, markets: updatedMarkets }));
+                if (foundEvent) {
+                    const updatedMarkets = getUpdatedMarkets(updateObj, foundEvent.Markets);
+                    dispatch(liveActions.updateEventMarkets({ matchId: updateObj.Id, markets: updatedMarkets }));
+                    dispatch(betslipActions.updateLiveSlipOdds({ matchId: updateObj.Id, markets: updatedMarkets }));
+                }
             }
         });
         liveConnection.on('onProgramUpdates', (message) => {
@@ -111,6 +135,10 @@ const InitApp = () => {
 
             if (updateObj.R) dispatch(liveActions.removeEvents(updateObj.R));
             if (updateObj.A && updateObj.A.length) {
+                // console.log('onProgramUpdates A');
+                // console.log(updateObj.A);
+                // console.log('-------');
+
                 const eventsToAdd = getEventsToAdd(updateObj.A, liveStateRef.current, incompleteDataRef.current);
 
                 eventsToAdd.add.forEach((eventToAdd) => {
@@ -122,8 +150,17 @@ const InitApp = () => {
             }
 
             if (updateObj.U) {
-                const updatedHeaders = getUpdatedHeaders(updateObj.U, liveState);
-                dispatch(liveActions.updateHeadersProps(updatedHeaders));
+                // console.log('onProgramUpdates U');
+                // console.log(updateObj.U);
+                // console.log('-------');
+
+                const updatedHeaders = getUpdatedHeaders(updateObj.U, liveStateRef.current);
+
+                Object.keys(updatedHeaders).forEach((key) => {
+                    const matchId = parseInt(key);
+                    const updatedHeader = updatedHeaders[key];
+                    dispatch(liveActions.updateHeadersProps({ matchId: matchId, updatedHeader: updatedHeader }));
+                });
             }
             if (updateObj.Alives) dispatch(liveActions.checkAlives(updateObj.Alives));
         });
@@ -131,6 +168,10 @@ const InitApp = () => {
             const decompressedString = lzString.decompressFromUTF16(message);
             const updateObj = JSON.parse(decompressedString);
             if (!updateObj) return;
+
+            // console.log('onMetaInfos');
+            // console.log(updateObj);
+            // console.log('-------');
 
             const eventsToAdd = getEventsToAdd(updateObj, liveStateRef.current, incompleteDataRef.current, true);
 
@@ -145,8 +186,27 @@ const InitApp = () => {
             const decompressedString = lzString.decompressFromUTF16(message);
             const updateObj = JSON.parse(decompressedString);
             if (!updateObj) return;
-            dispatch(liveActions.updateLiveHeader(updateObj));
+
+            // console.log('onHeadersList');
+            // console.log(updateObj);
+            // console.log('-------');
+
+            updateObj.forEach((headerItem) => {
+                const matchId = headerItem.MatchId;
+                if (liveStateRef.current[matchId]) {
+                    dispatch(liveActions.updateLiveHeader(headerItem));
+                } else {
+                    const processedEvent = getEventToAddFromHeader(headerItem, incompleteDataRef.current);
+                    if (processedEvent.toAdd) dispatch(liveActions.addEvent(processedEvent));
+                    else dispatch(liveActions.addIncomplete(processedEvent));
+                }
+            });
         });
+        // liveConnection.on('onOddsChangeFull', (message) => {
+        //     const decompressedString = lzString.decompressFromUTF16(message);
+        //     const updateObj = JSON.parse(decompressedString);
+        //     if (!updateObj) return;
+        // });
 
         liveConnection.start();
         dispatch(liveActions.setLiveConnection(liveConnection));

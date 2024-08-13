@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import classes from './MyBets.module.css';
 import MainButton from '../../../features/UI/Buttons/MainButton';
 import { translate } from '../../../utils/translations';
-import { getTicketsTable, getTicketCashouts, getTicketCashoutsUpdates } from '../myBetsAsyncActions';
+import { getTicketCashouts, getTicketCashoutsUpdates } from '../myBetsAsyncActions';
 import { myBetsActions } from '../myBetsSlice';
 import MyBet from './MyBet';
 import { layoutActions } from '../../../features/Layout/layoutSlice';
@@ -18,11 +18,10 @@ const MyBets = (props) => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const ticketsLoading = useSelector((state) => state.myBets.ticketsLoading);
     const ticketsTable = useSelector((state) => state.myBets.ticketsTable);
-    const hasTicketCashouts = useSelector((state) => state.myBets.hasTicketCashouts);
 
     const [axiosController, setAxiosController] = useState(null);
     const [page, setPage] = useState(1);
-    const itemsPerPage = 10;
+    const itemsPerPage = 4;
 
     // Changing between active, settled bets
     useEffect(() => {
@@ -32,10 +31,11 @@ const MyBets = (props) => {
         const signal = controller.signal;
         setAxiosController(controller);
 
-        dispatch(getTicketsTable(1, itemsPerPage, props.isActive, signal));
+        const page = 1;
+        let cashoutType = 3;
+        if (props.isActive) cashoutType = 1;
 
-        // TODO: what do the payload's parameters mean?
-        if (props.isActive) dispatch(getTicketCashouts(1, 1, 1, signal));
+        dispatch(getTicketCashouts(cashoutType, page, signal, props.isActive));
 
         return () => {
             dispatch(myBetsActions.reset());
@@ -48,20 +48,25 @@ const MyBets = (props) => {
         if (!axiosController) return;
 
         clearInterval(timerIdRef.current);
-        if (!hasTicketCashouts) return;
+
+        if (!props.isActive) return;
+        if (!ticketsTable || ticketsTable?.Total === 0) return;
 
         const pollingCallback = () => {
-            dispatch(getTicketCashoutsUpdates(1, 1, 1, axiosController.signal));
+            dispatch(getTicketCashoutsUpdates(page, axiosController.signal));
         };
 
         timerIdRef.current = setInterval(pollingCallback, 5000);
-    }, [hasTicketCashouts, axiosController]);
+    }, [ticketsTable?.Total, axiosController]);
 
     // Changing page
     useEffect(() => {
         if (!axiosController) return;
 
-        dispatch(getTicketsTable(page, itemsPerPage, props.isActive, axiosController.signal));
+        let cashoutType = 3;
+        if (props.isActive) cashoutType = 1;
+
+        dispatch(getTicketCashouts(cashoutType, page, axiosController.signal, props.isActive));
         dispatch(layoutActions.setScrollToTop());
     }, [page]);
 
@@ -79,7 +84,7 @@ const MyBets = (props) => {
             ) : (
                 <div className={classes.TabsContainer}>
                     {ticketsTable?.Data.map((item) => {
-                        return <MyBet key={item.TicketId} item={item} />;
+                        return <MyBet key={item.Ticket.TicketId} item={item.Ticket} page={page} active={props.isActive} />;
                     })}
                 </div>
             )}

@@ -22,11 +22,11 @@ function HorizontalMenu(props) {
                 }
             });
 
-    const handleItemClick = (item) => () => {
+    const handleItemClick = (item, index) => () => {
         if (dragState.current.dragging) {
             return false;
         }
-        props.onSelect(item);
+        props.onSelect(item, index);
     };
 
     let elClasses = [classes.HorizontalMenu];
@@ -54,11 +54,11 @@ function HorizontalMenu(props) {
                     onMouseUp={() => dragState.current.dragStop}
                     onMouseMove={handleDrag}
                 >
-                    {props.items.map((item) => (
+                    {props.items.map((item, index) => (
                         <button
                             key={item.Id}
                             className={props.selected === item.Id ? [classes.Item, classes.Selected].join(' ') : classes.Item}
-                            onClick={handleItemClick(item)}
+                            onClick={handleItemClick(item, index)}
                         >
                             {item.icon && <div className={classes.SportIcon}>{item.icon}</div>}
                             <div className={classes.SportName}>{getName(item)}</div>

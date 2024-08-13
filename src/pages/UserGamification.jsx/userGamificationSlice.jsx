@@ -22,11 +22,16 @@ const initialState = {
         // { id: 6, name: "Nia", icon: "", icontb: "", description: "the Numbian Queen" },
     ],
     displayedHero: {},
-    heroLevels: [],
     currentLevel: {},
     levels: null,
     selectedHero: {},
-
+    heroLevels: null,
+    popupRewards:{Id: 1},
+    newRewards: [],
+    claimedRewards: [],
+    loading: false,
+    progressBar: null,
+    manualRewards: {},
 };
 
 export const userGamificationSlice = createSlice({
@@ -47,10 +52,28 @@ export const userGamificationSlice = createSlice({
         },
         setCurrentLevel: (state, action) => {
             state.currentLevel = action.payload;
-        }
-        // setHeroLevels: (state, action) => {
-        //     state.heroLevels = action.payload;
-        // },
+        },
+        setHeroLevels: (state, action) => {
+            state.heroLevels = action.payload;
+        },
+        setPopupRewards: (state, action) => {
+            state.popupRewards = action.payload;
+        },
+        setNewRewards: (state, action) => {
+            state.newRewards = action.payload;
+        },
+        setClaimedRewards: (state, action) => {
+            state.claimedRewards = action.payload;
+        },
+        setLoading: (state, action) => {
+            state.loading = action.payload;
+        },
+        setProgressBar: (state, action) => {
+            state.progressBar = action.payload;
+        },
+        setManualRewards: (state, action) => {
+            state.manualRewards = action.payload;
+        },
     },
 });
 

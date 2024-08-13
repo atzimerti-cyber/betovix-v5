@@ -5,8 +5,8 @@ import { useDispatch } from 'react-redux';
 import classes from './Gamification.module.css';
 import { useNavigate, useLocation } from 'react-router-dom';
 import MainButton from '../../features/UI/Buttons/MainButton';
-import GamificationProgress from './features/GamificationProgress';
 import DbTabs from '../../features/UI/Tabs/DbTabs';
+import MyRewards from './features/MyRewards';
 
 const Gamification = () => {
     const navigate = useNavigate();
@@ -21,11 +21,7 @@ const Gamification = () => {
     };
 
     const dispatch = useDispatch();
-    const [showTab, setShowTab] = useState('progress');
-
-    // useEffect(() => {
-    //     return () => dispatch(myBetsActions.reset());
-    // }, []);
+    const [showTab, setShowTab] = useState('my-rewards');
 
     return (
 
@@ -35,14 +31,14 @@ const Gamification = () => {
                 <div className={classes.Content}>
                     <DbTabs
                         tabs={[
-                            { id: 'progress', label: 'Your Progress', active: showTab === 'progress' },
-                            { id: 'other', label: 'Other', active: showTab === 'other' },
+                            { id: 'my-rewards', label: 'My Rewards', active: showTab === 'my-rewards' },
+                            //{ id: 'other', label: 'Other', active: showTab === 'other' },
                         ]}
                         onChangeTab={(tab) => setShowTab(tab)}
                         titleGroupStyle={{ justifyContent: 'flex-start' }}
                     >
                         
-                        <GamificationProgress isActive={showTab === 'progress' ? true : false} />
+                        <MyRewards isActive={showTab === 'my-rewards' ? true : false} />
                     </DbTabs>
                 </div>
             </div>

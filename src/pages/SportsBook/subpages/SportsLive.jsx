@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import _ from 'lodash';
 
 import classes from './SportsHome.module.css';
 import { sportsLiveActions } from '../subpages/sportsLiveSlice';
@@ -9,7 +10,6 @@ import TournamentSearch from '../features/TournamentSearch';
 import TournamentSort from '../features/TournamentSort';
 import ShimmerIcon from '../../../features/UI/Shimmer/shimmer.svg?react';
 import Category from '../features/Category';
-import CategoriesTournaments from '../features/CategoriesTournaments';
 import { getSportMarketTree, getLiveStreams } from '../sportsbookAsyncActions';
 import NoImageIcon from '../../../assets/svgs/no-image.svg?react';
 import { sportsbookActions } from '../sportsbookSlice';
@@ -24,9 +24,11 @@ const SportsLive = () => {
     const liveState = useSelector((state) => state.live.liveState);
     const addedRemovedEvent = useSelector((state) => state.live.addedRemovedEvent);
     const allSports = useSelector((state) => state.app.allSports);
+    const sportSettings = useSelector((state) => state.app.sportSettings);
 
     const topLeagues = useSelector((state) => state.sportsbook.topLeagues);
     const tournamentSearchString = useSelector((state) => state.sportsbook.tournamentSearchString);
+    const tournamentSort = useSelector((state) => state.sportsbook.tournamentSort);
     const sportMarketTree = useSelector((state) => state.sportsbook.sportMarketTree);
     const sportIcons = useSelector((state) => state.app.sportIcons);
 
@@ -39,7 +41,6 @@ const SportsLive = () => {
 
     const [sports, setSports] = useState(null);
 
-    const sportsWithCategories = ['Football', 'Tennis'];
     const sportParam = params['*'].split('/')[1];
 
     useEffect(() => {
@@ -169,26 +170,13 @@ const SportsLive = () => {
     const setCategoriesAndTournaments = () => {
         let ca = [];
 
-        const topLeaguesForSport = topLeagues.SubCategs.find((t) => t.SubCateg.Name === selectedSport.Name.International);
-        let topCategories = [];
-        if (topLeaguesForSport) {
-            topCategories = topLeaguesForSport.Items.map((item) => {
-                const itemValuesArr = item.Value.split(',');
-                const categoryId = parseInt(itemValuesArr[1]);
-                return categoryId;
-            });
-        }
-
         const sport = sports.find((s) => s.Id === selectedSport.Id);
 
-        sport.Categories.forEach((category) => {
-            const isPopular = topCategories.includes(category.Id);
-            const isPopularIndex = topCategories.indexOf(category.Id);
-
+        sport?.Categories.forEach((category) => {
             let updatedTournaments = [];
 
             category.Tournaments.forEach((tournament) => {
-                if (tournament.Name.International.includes('Outright')) return; // Don' add outright here
+                if (tournament.Name.International.includes('Outright') || tournament.Name.International.includes('Specials')) return; // Don' add outright here
 
                 let updatedTournament = { ...tournament };
                 updatedTournament.CategoryId = category.Id;
@@ -201,36 +189,16 @@ const SportsLive = () => {
                 ca.push({
                     ...category,
                     Tournaments: updatedTournaments,
-                    IsPopular: isPopular,
-                    IsPopularIndex: isPopularIndex,
                 });
-            }
-        });
-
-        // Sort categories
-        ca.sort((a, b) => {
-            // Check the IsPopular flag first
-            if (a.IsPopular && !b.IsPopular) {
-                return -1; // a comes first if a is popular and b is not
-            } else if (!a.IsPopular && b.IsPopular) {
-                return 1; // b comes first if b is popular and a is not
-            } else if (a.IsPopular && b.IsPopular) {
-                // Both are popular, sort by IndexOf
-                return a.IsPopularIndex - b.IsPopularIndex;
-            } else if (selectedSport.Name.International === 'Football') {
-                // Neither is popular, if football, sort by Name
-                return a.Name.International.localeCompare(b.Name.International);
-            } else {
-                // Neither is popular, if not football sort by id
-                return a.Id - b.Id;
             }
         });
 
         dispatch(sportsLiveActions.setCategories(ca));
 
         const subset = getSubset(ca);
+        const sorted = getSorted(subset);
 
-        setCategoriesArr(subset);
+        setCategoriesArr(sorted);
     };
 
     // Update categories and tournaments when search is changed
@@ -239,7 +207,8 @@ const SportsLive = () => {
         if (!categories) return;
 
         const subset = getSubset(categories);
-        setCategoriesArr(subset);
+        const sorted = getSorted(subset);
+        setCategoriesArr(sorted);
     }, [tournamentSearchString]);
 
     // Get subset of categories and tournaments, based on searchString
@@ -276,6 +245,40 @@ const SportsLive = () => {
         }
     };
 
+    const getSorted = (subset) => {
+        let ca = _.cloneDeep(subset);
+        if (tournamentSort === 'Default Sort') {
+            const categsOrder = sportSettings.CategsOrder;
+
+            ca.sort((a, b) => {
+                // Check if is in tours order first
+                if (categsOrder[a.Id] && categsOrder[a.Id] < 9999 && !categsOrder[b.Id]) {
+                    return -1; // a comes first
+                } else if (categsOrder[b.Id] && categsOrder[b.Id] < 9999 && !categsOrder[a.Id]) {
+                    return 1; // b comes first
+                } else if (categsOrder[a.Id] && categsOrder[a.Id] < 9999 && categsOrder[b.Id] && categsOrder[b.Id] < 9999) {
+                    // Both have order, sort by order
+                    return categsOrder[a.Id] - categsOrder[b.Id];
+                } else {
+                    // Neither has order, sort alphabetically
+                    return a.Name.International.localeCompare(b.Name.International);
+                }
+            });
+        } else if (tournamentSort === 'A - Z') ca.sort((a, b) => a.Name.International.localeCompare(b.Name.International));
+        else if (tournamentSort === 'Z - A') ca.sort((a, b) => b.Name.International.localeCompare(a.Name.International));
+
+        return ca;
+    };
+
+    useEffect(() => {
+        if (!categoriesArr) return;
+        if (!categoriesArr.length) return;
+
+        let ca = getSorted(categoriesArr);
+
+        setCategoriesArr(ca);
+    }, [categoriesArr?.length, tournamentSort]);
+
     return (
         <>
             <SportSelection
@@ -300,35 +303,9 @@ const SportsLive = () => {
                     categoriesArr.length === 0 ? (
                         <span className={classes.NoGames}>{translate('No games where found.')}</span>
                     ) : (
-                        <>
-                            {categoriesArr.filter((c) => c.IsPopular).length > 0 && (
-                                <h3 className={classes.SectionGroupTitle}>
-                                    <span className={classes.SectionGroupText}>{translate('Popular')}</span>
-                                </h3>
-                            )}
-
-                            {categoriesArr
-                                .filter((c) => c.IsPopular)
-                                .map((category, catIndex) => {
-                                    return <Category key={category.Id} category={category} initOpen={catIndex === 0} slice='sportsLive' includeLive />;
-                                })}
-
-                            {categoriesArr.filter((c) => !c.IsPopular).length > 0 && selectedSport?.Name.International === 'Football' && (
-                                <h3 className={classes.SectionGroupTitle}>
-                                    <span className={classes.SectionGroupText}>{translate('Alphabetical')}</span>
-                                </h3>
-                            )}
-
-                            {sportsWithCategories.includes(selectedSport.Name.International) ? (
-                                categoriesArr
-                                    .filter((c) => !c.IsPopular)
-                                    .map((category, catIndex) => (
-                                        <Category key={category.Id} category={category} initOpen={catIndex === 0} slice='sportsLive' includeLive />
-                                    ))
-                            ) : (
-                                <CategoriesTournaments categories={categoriesArr} slice='sportsLive' includeLive />
-                            )}
-                        </>
+                        categoriesArr.map((category, catIndex) => (
+                            <Category key={category.Id} category={category} initOpen={catIndex === 0} slice='sportsLive' includeLive />
+                        ))
                     )
                 ) : (
                     <>

@@ -21,7 +21,7 @@ const MilestoneCard = (props) => {
                         <div className={`CardLevel CardLevel${props.level.level}`}></div>
                     ) : (
                         <div className={classes.ImageInner}>
-                            <img src={largeCoin} loading='lazy' alt='Coins' />
+                            <img src={largeCoin} loading='lazy' alt='largeCoin' />
                         </div>
                     )}
                 </div>

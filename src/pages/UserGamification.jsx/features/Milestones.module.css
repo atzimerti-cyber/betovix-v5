@@ -7,14 +7,51 @@
     margin-right: -0.625rem;
 }
 
-.MilestoneSection > button {
+.RefreshButtonBg {
+    background-color: #0c2233;
+    position: absolute;
+    height: 35px;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0px;
+    left: 1px;
+    padding: 3px;
+    z-index: 999;
+}
+
+.RefreshButton {
+    height: 28px;
+    width: 28px;
+    background-color: var(--db-brand-green);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    z-index: 1000;
+    position: absolute;
+}
+
+.RefreshButton img {
+    padding-left: 1px;
+    padding-top: 1px;
+}
+
+.RefreshButton:hover {
+    background-color: #41829f;
+
+}
+
+.MilestoneSection>button {
     position: absolute;
     left: 50%;
     top: 50%;
     --tw-translate-x: -50% !important;
     --tw-translate-y: -50% !important;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
     height: 2.5rem !important;
     width: min(100%, 260px);
     background-color: var(--db-brand-green);
@@ -25,6 +62,7 @@
     padding-right: 0.625rem;
     overflow: hidden;
 }
+
 .NotLoggedIn.CarouselContainer {
     opacity: 0.2;
     pointer-events: none;
@@ -33,14 +71,16 @@
 .MilestoneCarousel {
     display: flex;
     flex-direction: column;
+    max-width: 100%;
 }
 
-.ScrollContainer {
+/* .ScrollContainer {
     overflow-y: hidden;
     overflow-x: scroll;
     -ms-overflow-style: none;
     scrollbar-width: none;
-}
+    max-width: 80%;
+} */
 
 .ScrollContent {
     margin-left: auto;
@@ -49,6 +89,7 @@
     width: -webkit-fit-content;
     width: -moz-fit-content;
     width: fit-content;
+
     -webkit-user-select: none;
     user-select: none;
     flex-direction: column;
@@ -64,7 +105,7 @@
 }
 
 .BarContainer {
-    height: 5px;
+    height: 4px;
     border-radius: 9999px;
     background-color: var(--db-gray-3);
     position: absolute;
@@ -73,11 +114,10 @@
     width: 100%;
     --tw-translate-x: -50%;
     --tw-translate-y: -50%;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.BarContainer > span {
+.BarContainer>span {
     display: block;
     height: inherit;
     border-radius: inherit;
@@ -95,8 +135,7 @@
     width: 100%;
     --tw-translate-x: -50%;
     --tw-translate-y: -50%;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .CardsContainer {
@@ -121,6 +160,7 @@
     width: 100%;
     border-radius: 0.375rem;
 }
+
 .Background::before {
     position: absolute;
     top: 0;
@@ -130,14 +170,55 @@
     --tw-translate-y: -50%;
     --tw-translate-x: -50%;
     --tw-rotate: 45deg;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     background-color: inherit;
     content: '';
 }
-.Background > div {
+
+.Background>div {
     border-radius: 0.375rem;
 }
+
+
+.LeftArrow, .RightArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #123953d3;
+    border-radius: 25%;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 10;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.LeftArrow {
+    left: 0px;
+}
+.LeftArrow svg{
+    height: 150%;
+    width: 100%;
+}
+
+.RightArrow {
+    right: 0px;
+}
+.RightArrow svg{
+    height: 200%;
+    width: 100%;
+}
+
+
+.LeftArrow:hover, .RightArrow:hover {
+    background-color: #577891db;
+}
+
 
 /* Media */
 @media (min-width: 768px) {
@@ -145,6 +226,7 @@
         margin-left: -1rem;
         margin-right: -1rem;
     }
+
     .CarouselContainer {
         padding-left: 1rem;
         padding-right: 1rem;

@@ -18,6 +18,8 @@ import RegisterContainers from './features/RegisterContainers';
 import Crypto from './features/Crypto';
 import { translate } from '../../utils/translations';
 
+
+
 const Home = () => {
     const dispatch = useDispatch();
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
@@ -82,6 +84,11 @@ const Home = () => {
     return (
         <div className={classes.PageContent}>
             <div className={classes.Home}>
+
+                {user &&
+                    <Crypto />
+                }
+
                 <div className={isMobile && !user ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
                     {(isMobile === false || user === null) && <HomeBanners isMobile={isMobile} />}
                     {!isMobile && user && (
@@ -94,7 +101,9 @@ const Home = () => {
                     {!user && <RegisterContainers />}
                 </div>
 
-                <Crypto />
+                {/* {user &&
+                    <Crypto />
+                } */}
 
                 {permissions.AllowToSports && (
                     <>
@@ -121,6 +130,8 @@ const Home = () => {
                         <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} />
                     </>
                 ) : null}
+
+
 
             </div>
         </div>

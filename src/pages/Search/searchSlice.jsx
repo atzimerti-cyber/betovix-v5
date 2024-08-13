@@ -4,6 +4,7 @@ const initialState = {
     loading: false,
     moreLoading: false,
     casinoResults: null,
+    sportsResults: null,
     notRenderedLiveResults: null,
     searchString: '',
 };
@@ -27,6 +28,9 @@ export const searchSlice = createSlice({
         },
         setCasinoResults: (state, action) => {
             state.casinoResults = action.payload;
+        },
+        setSportsResults: (state, action) => {
+            state.sportsResults = action.payload;
         },
         setSearchString: (state, action) => {
             state.searchString = action.payload;

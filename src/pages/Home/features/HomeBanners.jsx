@@ -7,6 +7,7 @@ import BigSwiper from '../../../features/UI/MainSwiper/BigSwiper';
 const HomeBanners = (props) => {
     return (
         <BigSwiper slidesPerView={1} autoplay delay={6000}>
+        {/* <BigSwiper slidesPerView={1} autoplay delay={6000}> */}
             <SwiperSlide>
                 <Link to='/' className={classes.ImageContainer}>
                     <div className={classes.BannerBackground}>

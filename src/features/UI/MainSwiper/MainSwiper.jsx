@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { Swiper } from 'swiper/react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination } from 'swiper/modules';
@@ -37,6 +37,13 @@ const MainSwiper = (props) => {
 
     let elClasses = [classes.MainSwiperWrapper];
     if (props.pagination) elClasses.push(classes.WithPagination);
+    if (props.scrolling) elClasses.push(classes.scrolling); //////////////
+
+    let delay = 6000;
+    if (props.delay) {
+        delay = props.delay;
+    }
+
 
     return (
         <div className={elClasses.join(' ')}>
@@ -59,15 +66,23 @@ const MainSwiper = (props) => {
                         </a>
                     )}
 
-                    <ArrowButton disabled={isBeginning} onClick={() => swiperRef.current.slidePrev()}>
-                        <AngleLeftIcon />
-                    </ArrowButton>
-                    <ArrowButton
-                        disabled={isEnd || props.children.length <= props.slidesPerView || Array.isArray(props.children) === false}
-                        onClick={() => swiperRef.current.slideNext()}
-                    >
-                        <AngleRightIcon />
-                    </ArrowButton>
+                    {!props.hideArrows ? (
+                        <>
+                            <ArrowButton disabled={isBeginning} onClick={() => swiperRef.current.slidePrev()}>
+                                <AngleLeftIcon />
+                            </ArrowButton>
+                            <ArrowButton
+                                disabled={isEnd || props.children.length <= props.slidesPerView || Array.isArray(props.children) === false}
+                                onClick={() => swiperRef.current.slideNext()}
+                            >
+                                <AngleRightIcon />
+                            </ArrowButton>
+                        </>
+                    ) : (
+                        null
+                    )}
+
+
                 </div>
             </div>
 
@@ -80,21 +95,24 @@ const MainSwiper = (props) => {
                 autoplay={
                     props.autoplay
                         ? {
-                              delay: 6000,
-                              disableOnInteraction: false,
-                          }
+                            delay: delay,
+                            disableOnInteraction: false,
+                        }
                         : null
                 }
                 pagination={{
                     clickable: true,
                 }}
                 modules={modules}
+                loop={props.loop && true}
                 className={classes.MainSwiper}
             >
                 {props.children}
+
             </Swiper>
         </div>
     );
+
 };
 
 export default MainSwiper;

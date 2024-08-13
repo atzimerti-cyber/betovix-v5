@@ -1,9 +1,10 @@
+
 .TabContent {
     --tw-translate-y: 3rem;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     opacity: 0;
     background-color: initial;
-    /* padding-top: 1.25rem; */
+    padding-top: 1.25rem;
     position: relative;
 }
 

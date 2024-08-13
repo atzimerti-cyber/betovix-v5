@@ -2,6 +2,7 @@
     position: relative;
     display: block;
     width: 100%;
+    
 }
 
 .BannerBackground {
@@ -15,6 +16,8 @@
     object-fit: cover;
     height: 100%;
     width: 100%;
+    border-radius: 10px;
+
 }
 
 .EventInfoWrapper {

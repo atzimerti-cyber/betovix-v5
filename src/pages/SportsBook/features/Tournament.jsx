@@ -6,6 +6,7 @@ import { getTournamentEvents } from '../sportsbookAsyncActions';
 import { sportsbookActions } from '../sportsbookSlice';
 import EventRow from './EventRow';
 import EventRowLive from './EventRowLive';
+import EventRowLiveList from './EventRowLiveList';
 
 const Tournament = (props) => {
     const dispatch = useDispatch();
@@ -104,7 +105,8 @@ const Tournament = (props) => {
         <div className={classes.TournamentContent}>
             {liveEventsIds &&
                 liveEventsIds.map((eventId) => {
-                    return <EventRowLive key={eventId} eventId={eventId} />;
+                    if (props.typeList) return <EventRowLiveList key={eventId} eventId={eventId} />;
+                    else return <EventRowLive key={eventId} eventId={eventId} />;
                 })}
 
             {events &&

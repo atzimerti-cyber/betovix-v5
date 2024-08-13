@@ -1,0 +1,83 @@
+.Group {
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    flex-direction: column;
+    display: flex;
+}
+
+.Title {
+    cursor: pointer;
+    -webkit-box-flex: 2;
+    flex-grow: 2;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    /* background: rgb(28, 43, 56); */
+    border-radius: 20px;
+    line-height: 20px;
+    fill: rgb(255, 255, 255);
+    white-space: nowrap;
+    padding-inline: 12px;
+    padding-block: 11px;
+}
+
+.TitleIcon {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+}
+.TitleIcon svg {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+}
+.TitleIcon svg path {
+    fill: rgb(82, 116, 144);
+}
+
+.TitleName {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-inline: 14px auto;
+    white-space: normal;
+    overflow-wrap: break-word;
+}
+
+.DropdownIcon {
+    width: 20px;
+    height: 20px;
+    flex: 0 0 20px;
+    margin-inline: 8px 0px;
+    transition: transform 0.3s ease 0s;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.Title:hover {
+    background: rgb(36, 53, 78);
+}
+
+.Group.IsOpen .DropdownIcon {
+    transform: scaleY(-1);
+}
+.Group.IsOpen .Title {
+    background: rgb(18, 57, 83);
+    /* background: rgb(43, 65, 84); */
+}
+.Group.IsOpen .TitleIcon svg path {
+    fill: var(--db-brand-green);
+}
+
+.TournamentGroup {
+    display: flex;
+    -webkit-box-align: stretch;
+    align-items: stretch;
+    flex-direction: column;
+    margin-inline: 0px;
+}
