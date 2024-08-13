@@ -40,61 +40,64 @@ const FilterBar = (props) => {
                 <Search3 placeholder={props.placeholder} searchStr={props.searchString} onChange={(value) => props.onChangeSearch(value)} />
             </div>
 
-            <div className={classes.FiltersSection}>
-                <div className={classes.DropdownWrapper}>
-                    <div className={classes.DropdownInner}>
-                        <input id='sort' readOnly role='textbox' value={sorting} onClick={() => setShowSortingDD(!showSortingDD)} />
-                        <span className={classes.RightIcon}>
-                            <CaretDownIcon />
-                        </span>
+            {props.noFilters ? (null) : (
+                <div className={classes.FiltersSection}>
+                    <div className={classes.DropdownWrapper}>
+                        <div className={classes.DropdownInner}>
+                            <input id='sort' readOnly role='textbox' value={sorting} onClick={() => setShowSortingDD(!showSortingDD)} />
+                            <span className={classes.RightIcon}>
+                                <CaretDownIcon />
+                            </span>
 
-                        <AnimatePresence>
-                            {showSortingDD && (
-                                <Dropdown3 onClickOutside={() => setShowSortingDD(false)}>
-                                    <li
-                                        className={sorting === 'Default Sort' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
-                                        onClick={() => {
-                                            dispatch(casinoActions.setSorting('Default Sort'));
-                                            setShowSortingDD(false);
-                                        }}
-                                    >
-                                        {translate('Default Sort')}
-                                    </li>
-                                    <li
-                                        className={sorting === 'A - Z' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
-                                        onClick={() => {
-                                            dispatch(casinoActions.setSorting('A - Z'));
-                                            setShowSortingDD(false);
-                                        }}
-                                    >
-                                        {translate('A - Z')}
-                                    </li>
-                                    <li
-                                        className={sorting === 'Z - A' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
-                                        onClick={() => {
-                                            dispatch(casinoActions.setSorting('Z - A'));
-                                            setShowSortingDD(false);
-                                        }}
-                                    >
-                                        {translate('Z - A')}
-                                    </li>
-                                </Dropdown3>
-                            )}
-                        </AnimatePresence>
+                            <AnimatePresence>
+                                {showSortingDD && (
+                                    <Dropdown3 onClickOutside={() => setShowSortingDD(false)}>
+                                        <li
+                                            className={sorting === 'Default Sort' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
+                                            onClick={() => {
+                                                dispatch(casinoActions.setSorting('Default Sort'));
+                                                setShowSortingDD(false);
+                                            }}
+                                        >
+                                            {translate('Default Sort')}
+                                        </li>
+                                        <li
+                                            className={sorting === 'A - Z' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
+                                            onClick={() => {
+                                                dispatch(casinoActions.setSorting('A - Z'));
+                                                setShowSortingDD(false);
+                                            }}
+                                        >
+                                            {translate('A - Z')}
+                                        </li>
+                                        <li
+                                            className={sorting === 'Z - A' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
+                                            onClick={() => {
+                                                dispatch(casinoActions.setSorting('Z - A'));
+                                                setShowSortingDD(false);
+                                            }}
+                                        >
+                                            {translate('Z - A')}
+                                        </li>
+                                    </Dropdown3>
+                                )}
+                            </AnimatePresence>
+                        </div>
                     </div>
-                </div>
 
-                <MultiSelect
-                    id={translate('Providers')}
-                    menuTitle={translate('Providers')}
-                    placeholder={translate('Providers')}
-                    icon={<Filter2Icon />}
-                    options={providersOptions}
-                    onClose={(providers) => props.onChangeProviders(providers)}
-                    max={3}
-                    maxMessage={translate('A maximum of three providers is allowed')}
-                />
-            </div>
+                    <MultiSelect
+                        id={translate('Providers')}
+                        menuTitle={translate('Providers')}
+                        placeholder={translate('Providers')}
+                        icon={<Filter2Icon />}
+                        options={providersOptions}
+                        onClose={(providers) => props.onChangeProviders(providers)}
+                        max={3}
+                        maxMessage={translate('A maximum of three providers is allowed')}
+                    />
+                </div>
+            )}
+
         </div>
     );
 };

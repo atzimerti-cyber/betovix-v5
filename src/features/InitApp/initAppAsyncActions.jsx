@@ -251,7 +251,8 @@ export const loadInitData = (isMobile) => {
                     topTournamentsMenu.items.push({
                         id: topTournament.Value,
                         label: topTournament.Par2 + ' ' + topTournament.Name,
-                        icon: sportIcons[topTournaments.SubCategs[0].SubCateg.Name],
+                        icon:  <img src={topTournament.Icon} alt="${item.label}" />,
+                        // icon: sportIcons[topTournaments.SubCategs[0].SubCateg.Name],
                         page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
                     });
                 });

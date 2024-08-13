@@ -52,6 +52,7 @@
 .GoToButton{
     display: flex;
     justify-content: center;
+    font-size: 8px;
 }
 
 .ModalContent {
@@ -134,7 +135,7 @@
 .Title {
     display: flex;
     align-items: center;
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 700;
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));

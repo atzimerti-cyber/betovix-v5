@@ -23,8 +23,8 @@
 
 .LeftMenuItem a svg,
 .LeftMenuItem a img {
-    width: 1rem;
-    height: 1rem;
+    width: 1.15rem;
+    height: 1.15rem;
 }
 
 .LeftMenuItem a svg path {

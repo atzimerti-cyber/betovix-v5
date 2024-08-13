@@ -47,7 +47,8 @@ const SportsBookMenu = () => {
                     className={({ isActive }) => (isActive ? [classes.NavItem, classes.ActiveItem].join(' ') : classes.NavItem)}
                     to={`/sportsbook/live${selectedSportSlug}`}
                 >
-                    <VideoIcon />
+                     <div className={classes.LiveBadge}>{translate('Live')}</div>
+                    {/* <VideoIcon /> */}
                     {translate('Live Events')}
                 </NavLink>
             </SwiperSlide>

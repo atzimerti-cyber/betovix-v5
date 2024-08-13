@@ -13,6 +13,7 @@ import { translate } from '../../../utils/translations';
 import { layoutActions } from '../layoutSlice';
 import MenuItems from './MenuItems';
 import SwiperMenu from '../../UI/MainSwiper/SwiperMenu';
+import MainSwiper from '../../UI/MainSwiper/MainSwiper';
 import LevelUpIcon from '../../../assets/svgs/level-up.svg?react';
 
 import { sportsbookActions } from '../../../pages/SportsBook/sportsbookSlice';
@@ -79,7 +80,13 @@ const Minibar = () => {
                     <>
 
                         {Object.keys(minibarMenu).length > 0 && (
-                            <SwiperMenu>
+                            <SwiperMenu
+                                slidesPerView={'auto'}
+                                // icon={<PricesIcon />}
+                                // title={<Link to='/crypto'>{translate('Crypto Prices')}</Link>}
+                                // viewAll='/crypto'
+                                spaceBetween={33}
+                                hideArrows>
                                 {minibarMenu.map((item) => (
                                     <SwiperSlide key={item.Id}>
                                         <div className={classes.MinibarItem} onClick={() => handleClick(item.Name)}>
@@ -105,6 +112,7 @@ const Minibar = () => {
                 </div>
 
                 <div className={classes.MinibarRightWrapper}>
+                    {/* {user && Object.keys(userCurrentLevel).length > 0 && ( */}
                     {user && (
                         <>
                             <div className={classes.YourProgress}>
@@ -117,7 +125,7 @@ const Minibar = () => {
                                         {Object.keys(userCurrentLevel).length > 0 ? (
                                             <span style={{ width: `${userCurrentLevel.progress}%` }}></span>
                                         ) : (
-                                            <span style={{ width: `0%` }}></span>
+                                            <span style={{ width: `50%` }}></span> ///////////////////////////////////////////////HARD CODED
                                         )}
                                     </div>
                                     <div className={classes.Icon}>

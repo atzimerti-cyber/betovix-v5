@@ -1,6 +1,7 @@
 .Minibar {
     position: fixed;
-    top: var(--db-topbar-height-mobile);
+    /* top: var(--db-topbar-height-mobile); */
+    toptop: 0;
     z-index: 1300;
     display: flex;
     height: var(--db-minibar-height-mobile);
@@ -120,7 +121,7 @@
     width: 100%;
     overflow: hidden;
     position: relative;
-    height: 0.5rem;
+    height: 0.9rem;
     border-top-left-radius: 9999px;
     border-bottom-left-radius: 9999px;
     border-top-right-radius: 9999px;
@@ -152,7 +153,7 @@
     transition: width 0.3s linear;
     background: linear-gradient(120deg,
             var(--db-brand-green) 25%,
-            rgb(204, 255, 181) 30%,
+            rgb(216 242 205) 30%,
             var(--db-brand-green) 75%);
     background-size: 200% 100%;
     animation: shineLines 7s infinite linear;
@@ -183,7 +184,8 @@
 
 @media (min-width: 768px) {
     .Minibar {
-        top: var(--db-topbar-height);
+        /* top: var(--db-topbar-height); */
+        top: 0;
         height: var(--db-minibar-height);
         padding-left: 1rem;
         padding-right: 1rem;

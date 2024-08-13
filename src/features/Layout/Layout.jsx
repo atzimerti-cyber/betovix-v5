@@ -90,9 +90,10 @@ const Layout = () => {
                 }}
             />
 
-            <Topbar />
-            <Minibar/>
 
+            <Minibar />
+            <Topbar />
+            
             <div className={classes.Content}>
                 {!isMobile && <LiveListContainer />}
 

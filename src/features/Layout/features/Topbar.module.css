@@ -1,6 +1,7 @@
 .Topbar {
     position: fixed;
-    top: 0;
+    /* top: 0; */
+    top: var(--db-minibar-height-mobile);
     z-index: 1000;
     display: flex;
     height: var(--db-topbar-height-mobile);
@@ -548,6 +549,7 @@
 
 @media (min-width: 768px) {
     .Topbar {
+        top: var(--db-minibar-height);
         height: var(--db-topbar-height);
         padding-left: 1rem;
         padding-right: 1rem;

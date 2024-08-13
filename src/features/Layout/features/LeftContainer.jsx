@@ -19,6 +19,7 @@ import useBasePath from '../../../hooks/useBasePath';
 import { searchActions } from '../../../pages/Search/searchSlice';
 import { translate } from '../../../utils/translations';
 import SearchSports from '../../../pages/Search/SearchSports';
+import StatsIcon from '../../../assets/svgs/bars.svg?react';
 
 const LeftContainer = memo(function () {
     const dispatch = useDispatch();
@@ -71,17 +72,6 @@ const LeftContainer = memo(function () {
 
                 <div className={classes.SideMenuAllButtonsContainer}>
                     <div className={classes.SideMenuButtonContainer}>
-                        {(permissions.AllowToCasino || permissions.AllowToSlots) && (
-                            <MainButton
-                                active={pathnameNoParams.includes('/casino')}
-                                onClick={() => navigate('/casino/lobby')}
-                                dataTooltipId='left-menu-tooltip'
-                                dataTooltipContent={translate('Casino')}
-                            >
-                                <CasinoIcon className={pathnameNoParams.includes('casino') ? classes.ActiveSvg : null} />
-                                <span>{fullLeftContainer ? translate('Casino') : ''}</span>
-                            </MainButton>
-                        )}
 
                         {permissions.AllowToSports && (
                             <MainButton
@@ -96,15 +86,127 @@ const LeftContainer = memo(function () {
                                 <span>{fullLeftContainer ? translate('Sports') : ''}</span>
                             </MainButton>
                         )}
+
+                        {(permissions.AllowToCasino || permissions.AllowToSlots) && (
+                            <MainButton
+                                active={pathnameNoParams.includes('/casino')}
+                                onClick={() => navigate('/casino/lobby')}
+                                dataTooltipId='left-menu-tooltip'
+                                dataTooltipContent={translate('Casino')}
+                            >
+                                <CasinoIcon className={pathnameNoParams.includes('casino') ? classes.ActiveSvg : null} />
+                                <span>{fullLeftContainer ? translate('Casino') : ''}</span>
+                            </MainButton>
+                        )}
                     </div>
 
                     {isMobile && <CloseButton timesIcon onClick={() => dispatch(layoutActions.setFullLeftContainer(false))} />}
                 </div>
+                {/* <div className={classes.SideMenuContainer}>
+                    <div className={classes.SideMenuSubButtonContainer}>
+
+                        {permissions.AllowToSports && (
+                            <MainButton
+                                active={pathnameNoParams.includes('?modal=statistics')}
+                                onClick={() => navigate('?modal=statistics')}
+                                dataTooltipId='left-menu-tooltip'
+                                dataTooltipContent={translate('Sports')}
+                            >
+                                <StatsIcon
+                                    className={pathnameNoParams.includes('?modal=statistics') ? classes.ActiveSvg : null}
+                                />
+                                <span>{fullLeftContainer ? translate('Statistics') : ''}</span>
+                            </MainButton>
+                        )}
+                    </div>
+                    <div className={classes.SideMenuSubButtonContainer}>
+
+                        {permissions.AllowToSports && (
+                            <MainButton
+                                active={pathnameNoParams.includes('?modal=statistics')}
+                                onClick={() => navigate('?modal=statistics')}
+                                dataTooltipId='left-menu-tooltip'
+                                dataTooltipContent={translate('Sports')}
+                            >
+                                <StatsIcon
+                                    className={pathnameNoParams.includes('?modal=statistics') ? classes.ActiveSvg : null}
+                                />
+                                <span>{fullLeftContainer ? translate('Statistics') : ''}</span>
+                            </MainButton>
+                        )}
+                    </div>
+
+                    {isMobile && <CloseButton timesIcon onClick={() => dispatch(layoutActions.setFullLeftContainer(false))} />}
+                </div> */}
+
+
+                {/* SportsMenu */}
+                {pathnameNoParams !== '/casino' && pathnameNoParams !== '/search' && (permissions.AllowToSports) && (
+                    <>
+                        <div className={classes.SideMenuDivider}></div>
+
+                        {!isMobile && (
+                            <Search
+                                placeholder={translate('Search Event')}
+                                hide={!fullLeftContainer}
+                                dataTooltipId='left-menu-tooltip'
+                                dataTooltipContent={translate('Search Event')}
+                                value={searchString}
+                                onChange={(value) => {
+                                    dispatch(searchActions.setSearchString(value));
+                                    if (value !== '') navigate('/searchEvent');
+                                }}
+                            />
+                        )}
+                        <div className={classes.SideMenuContainer}>
+                            <div className={classes.SideMenuSubButtonContainer}>
+
+                                {permissions.AllowToSports && (
+                                    <MainButton
+                                        active={pathnameNoParams.includes('?modal=statistics')}
+                                        onClick={() => navigate('?modal=statistics')}
+                                        dataTooltipId='left-menu-tooltip'
+                                        dataTooltipContent={translate('Sports')}
+                                    >
+                                        <StatsIcon
+                                            className={pathnameNoParams.includes('?modal=statistics') ? classes.ActiveSvg : null}
+                                        />
+                                        <span>{fullLeftContainer ? translate('Statistics') : ''}</span>
+                                    </MainButton>
+                                )}
+                            </div>
+
+                            {isMobile && <CloseButton timesIcon onClick={() => dispatch(layoutActions.setFullLeftContainer(false))} />}
+                        </div>
+                        {/* SportsMenuItems */}
+                        {sportsMenuItems.map((menuItem, index) => {
+                            if (menuItem.category) {
+                                if (fullLeftContainer) {
+                                    return (
+                                        <CategoryGroup key={index} category={menuItem.category} hide={fullLeftContainer}>
+                                            {getItems(menuItem, index, menuItem.category.id)}
+                                        </CategoryGroup>
+                                    );
+                                } else {
+                                    return (
+                                        <div className={classes.Grouped} key={index}>
+                                            <div className={classes.SideMenuDivider}></div>
+                                            {getItems(menuItem, index, menuItem.category.id)}
+                                        </div>
+                                    );
+                                }
+                            } else {
+                                return getItems(menuItem, index, 0);
+                            }
+                        })}
+                    </>
+                )}
 
                 {/* CasinoMenu */}
-                {pathnameNoParams !== '/sportsbook' && pathnameNoParams !== '/sportsbook/tournament' && (permissions.AllowToCasino || permissions.AllowToSlots) && (
+                {pathnameNoParams !== '/sportsbook' && pathnameNoParams !== '/sportsbook/tournament' && pathnameNoParams !== '/searchEvent' && (permissions.AllowToCasino || permissions.AllowToSlots) && (
 
                     <>
+                        <div className={classes.SideMenuDivider}></div>
                         {!isMobile && (
                             <Search
                                 placeholder={translate('Search Casino')}
@@ -137,46 +239,6 @@ const LeftContainer = memo(function () {
                                 }
                             } else {
                                 return getItems(casinoMenuItem, index, 0);
-                            }
-                        })}
-                    </>
-                )}
-
-                {/* SportsMenu */}
-                {pathnameNoParams !== '/casino' && pathnameNoParams !== '/search' && (permissions.AllowToSports) && (
-                    <>
-                        {/* {!isMobile && (
-                            <SearchSports
-                                placeholder={translate('Search Event')}
-                                hide={!fullLeftContainer}
-                                dataTooltipId='left-menu-tooltip'
-                                dataTooltipContent={translate('Search Event')}
-                                value={searchString}
-                                onChange={(value) => {
-                                    dispatch(searchActions.setSearchString(value));
-                                    if (value !== '') navigate('/search');
-                                }}
-                            />
-                        )} */}
-                        {/* SportsMenuItems */}
-                        {sportsMenuItems.map((menuItem, index) => {
-                            if (menuItem.category) {
-                                if (fullLeftContainer) {
-                                    return (
-                                        <CategoryGroup key={index} category={menuItem.category} hide={fullLeftContainer}>
-                                            {getItems(menuItem, index, menuItem.category.id)}
-                                        </CategoryGroup>
-                                    );
-                                } else {
-                                    return (
-                                        <div className={classes.Grouped} key={index}>
-                                            <div className={classes.SideMenuDivider}></div>
-                                            {getItems(menuItem, index, menuItem.category.id)}
-                                        </div>
-                                    );
-                                }
-                            } else {
-                                return getItems(menuItem, index, 0);
                             }
                         })}
                     </>

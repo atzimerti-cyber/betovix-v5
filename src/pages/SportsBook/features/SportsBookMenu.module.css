@@ -10,9 +10,11 @@
     color: rgb(255 255 255 / var(--tw-text-opacity));
     white-space: nowrap;
 }
+
 .ModalItem {
     transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
 }
+
 .ModalItem:hover {
     transform: scale(1.05);
 }
@@ -33,10 +35,48 @@
 .ActiveItem {
     background-color: var(--db-gray-4);
 }
+
 .NavItem:hover {
     background-color: var(--db-gray-3);
 }
 
 .ActiveItem svg path {
     fill: #fff;
+}
+
+.LiveBadge {
+    animation: 3s ease 0s infinite normal none running _jQMcyq_dgbon_1;
+    background: var(--db-purple-text);
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0px 0.33rem;
+    text-shadow: rgba(41, 39, 33, 0.19) 0px 1px 2px;
+    white-space: nowrap;
+    height: 18px;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.2rem;
+}
+
+@keyframes _jQMcyq_dgbon_1 {
+
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+
+    10%,
+    90% {
+        opacity: 1;
+    }
+
+    40%,
+    60% {
+        box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em, rgba(200, 49, 231, 0.8) 0px 0px 0.5em;
+    }
 }

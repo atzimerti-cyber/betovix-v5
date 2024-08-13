@@ -304,7 +304,7 @@ export const getEventSearch = (signal, providerId, value) => {
             const response = await axiosApi.post(
                 `Pregame/PostData?action=searchpregamedata&lang=${lang.id}&siteid=31`,
                 {
-                    data: `{"ProviderId":${providerId},"Value":${value}}`,
+                    data: `{"ProviderId":${providerId},"Value":"${value}"}`,
                 },
                 {
                     signal: signal,
@@ -317,6 +317,7 @@ export const getEventSearch = (signal, providerId, value) => {
             }
 
             const eventSearchRes = response.data.Contents;
+            console.log(eventSearchRes);
 
             dispatch(searchActions.setSportsResults(eventSearchRes));
         } catch (error) {
