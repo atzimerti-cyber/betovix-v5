@@ -63,6 +63,7 @@ const LeftContainer = memo(function () {
     return (
         <>
             <div className={elClasses.join(' ')}>
+                
                 {!fullLeftContainer && (
                     <Tooltip
                         id='left-menu-tooltip'
