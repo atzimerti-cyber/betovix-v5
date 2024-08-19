@@ -121,11 +121,17 @@ export const getUserAchievements = () => {
                 });
                 //let achList = [level.Milestones];
                 achList.push(level.Level);
-                const progressSection = 100 / (achList.length);
-                achList.forEach(item => {
-                    const mP = item.optInStatus.percentageComplete;
-                    progress += (mP / 100) * progressSection;
-                });
+
+                let progressSection;
+
+                if (achList.length > 0) {
+                    progressSection = 100 / (achList.length);
+
+                    achList.forEach(item => {
+                        const mP = item.optInStatus.percentageComplete;
+                        progress += (mP / 100) * progressSection;
+                    });
+                }
 
                 return progress;
             }
@@ -140,7 +146,7 @@ export const getUserAchievements = () => {
                     pointsValue: milestone.strategies.pointsStrategy.pointsValue,
                     rewardType: milestone.reward ? milestone.reward.RewardType.Key : null,
                     rewardValue: milestone.reward ? milestone.reward.RewardValue : null,
-                    
+
                 })).sort((a, b) => a.name.localeCompare(b.name));
 
 
@@ -169,7 +175,7 @@ export const getUserAchievements = () => {
                 rewardValue: response.data.Contents.Daily?.reward.RewardValue,
                 rewardSymbol: response.data.Contents.Daily?.reward.RewardType.UomSymbol
             }
-             const weeklyRewards = {
+            const weeklyRewards = {
                 id: response.data.Contents.Weekly?.id,
                 name: response.data.Contents.Weekly?.metadata.Name,
                 description: response.data.Contents.Weekly?.description,
@@ -204,7 +210,7 @@ export const getUserAchievements = () => {
 
                 const lvl = heroLevel.percentageComplete >= 0 && heroLevel.percentageComplete < 100
 
-                if (mil || lvl){
+                if (mil || lvl) {
                     isCurrentLevel = true;
                 }
 
@@ -219,7 +225,7 @@ export const getUserAchievements = () => {
             //console.log("Hero Levels: ", heroLevels);
             //console.log("Current Level: ", currentLevel);
             //console.log("Manual Rewards: ", manualRewards);
-            
+
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));
             dispatch(gamificationActions.setHeroLevels(heroLevels));

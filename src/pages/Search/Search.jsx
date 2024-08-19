@@ -40,16 +40,38 @@ const Search = () => {
     }, []);
 
     useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const provider = searchParams.get('provider');
+        if (provider) {
+            const providerArray = [provider];
+            setSelectedProviders(providerArray);
+        }
+    }, []);
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        if (selectedProviders) {
+            searchParams.set('provider', selectedProviders);
+        }else {
+            searchParams.delete('provider');
+        }
+
+        const newUrl = `${location.pathname}?${searchParams.toString()}`;
+        window.history.replaceState(null, '', newUrl);
+
+    }, [selectedProviders, location]);
+
+    useEffect(() => {
         if (!axiosController) return;
 
         dispatch(searchActions.setCasinoResults(null));
 
         if (debSearchString.trim() === '' && selectedProviders.length === 0) {
-            dispatch(getSlots(axiosController.signal, 24, true));
+            dispatch(getSlots(axiosController.signal, 25, true));
         } else if (selectedProviders.length === 0) {
             dispatch(getCasinoSearch(axiosController.signal, debSearchString));
         } else if (selectedProviders.length > 0) {
-            dispatch(getCasinoSearchProviders(axiosController.signal, debSearchString, selectedProviders));
+            dispatch(getCasinoSearchProviders(axiosController.signal, 25, debSearchString, selectedProviders));
         }
     }, [axiosController, debSearchString, selectedProviders]);
 
@@ -59,8 +81,7 @@ const Search = () => {
                 <FilterBar
                     searchString={searchString}
                     onChangeSearch={(value) => dispatch(searchActions.setSearchString(value))}
-                    // onChangeProviders={(value) => setSelectedProviders(value)}
-                    onChangeProviders={(value) => console.log(value)}
+                    onChangeProviders={(value) => setSelectedProviders(value)}
                     placeholder='Search Casino'
                 />
 
