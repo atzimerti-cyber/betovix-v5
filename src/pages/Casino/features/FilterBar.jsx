@@ -20,6 +20,14 @@ const FilterBar = (props) => {
 
     const [showSortingDD, setShowSortingDD] = useState(false);
     const [providersOptions, setProvidersOptions] = useState([]);
+    // const [providers, setProviders] = useState([]);
+
+    // useEffect(() => {
+    //     if (props.selectedProviders) {
+    //         setProviders(props.selectedProviders);
+    //     }
+    // }, [])
+
 
     useEffect(() => {
         if (!casinoVendors) return;

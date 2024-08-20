@@ -40,15 +40,14 @@ const YourProgress = () => {
     }, [dispatch]);
 
     useEffect(() => {
-        if (Object.keys(selectedHero).length > 0) {
+        if (selectedHero && Object.keys(selectedHero).length > 0) {
             if (currentUserLevel && Object.keys(selectedHero).length > 0) {
                 setActiveLevel(currentUserLevel);
             } else {
                 setActiveLevel(selectedHeroLevels[0]);
             };
         }
-
-    }, [selectedHeroLevels, currentUserLevel]);
+    }, [selectedHeroLevels, currentUserLevel, dispatch]);
 
     const addParamsToUrl = (tab) => {
         const searchParams = new URLSearchParams();
@@ -65,9 +64,12 @@ const YourProgress = () => {
                 </div>
             ) : (
                 <>
-                    <div className={classes.ImageContainer}>
-                        <img src={selectedHero.banner} loading="lazy" alt={selectedHero.name} />
-                    </div>
+                    {selectedHero && Object.keys(selectedHero).length > 0 && (
+                        <div className={classes.ImageContainer}>
+                            <img src={selectedHero.banner} loading="lazy" alt={selectedHero.name} />
+                        </div>
+                    )}
+
 
                     <div className={classes.ModalContent}>
 

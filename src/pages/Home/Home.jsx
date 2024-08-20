@@ -95,12 +95,12 @@ const Home = () => {
 
                 <div className={isMobile && !user ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
                     {(isMobile === false || user === null) && <HomeBanners isMobile={isMobile} />}
-                    {!isMobile && user && (
+                    {/* {!isMobile && user && (
                         <div className={classes.VipContainer}>
                             <VipProgress />
                         </div>
                     )}
-                    {isMobile && user && <VipProgress />}
+                    {isMobile && user && <VipProgress />} */}
 
                     {!user && <RegisterContainers />}
                 </div>

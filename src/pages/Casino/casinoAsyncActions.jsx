@@ -54,19 +54,30 @@ export const getCasino = (signal) => {
                 if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error();
             });
 
-            const favoriteGames = responses[0].data.Contents['Favorites'];
-            const newGames = responses[0].data.Contents['New Games'];
-            const recentGames = responses[0].data.Contents['Recently Played'];
+            // const favoriteGames = responses[0].data.Contents['Favorites'];
+            // const newGames = responses[0].data.Contents['New Games'];
+            // const recentGames = responses[0].data.Contents['Recently Played'];
 
-            const home = {
-                recentGames: recentGames,
-                newGames: newGames,
-                favoriteGames: favoriteGames,
-                allSlots: responses[3].data.Contents,
-                allLive: responses[4].data.Contents,
-            };
+            //const casinoHomeItems = responses[0].data.Contents;
 
-            dispatch(casinoActions.setFilteredGames(home));
+            const casinoHomeItems = Object.keys(responses[0].data.Contents)
+                .map(menuItem => ({
+                    Item: responses[0].data.Contents[menuItem].Item,
+                    Data: responses[0].data.Contents[menuItem].Data
+                }))
+                .sort((a, b) => a.Item.Min.localeCompare(b.Item.Min));
+
+            console.log(casinoHomeItems);
+            // const home = {
+            //     recentGames: recentGames,
+            //     newGames: newGames,
+            //     favoriteGames: favoriteGames,
+            //     allSlots: responses[3].data.Contents,
+            //     allLive: responses[4].data.Contents,
+            // };
+
+            dispatch(casinoActions.setFilteredGames(casinoHomeItems));
+            // dispatch(casinoActions.setFilteredGames(home));
             dispatch(casinoActions.setCasinoBanners(responses[1].data.Contents));
             dispatch(casinoActions.setCasinoVendors(responses[2].data.Contents));
         } catch (error) {

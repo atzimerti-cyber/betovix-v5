@@ -116,7 +116,7 @@ export const getCasinoSearch = (signal, debSearchString) => {
     };
 };
 
-export const addToSearchResults = (signal, debSearchString) => {
+export const addToSearchResults = (signal, debSearchString, providers) => {
     return async (dispatch, getState) => {
         try {
             dispatch(searchActions.setMoreLoading(true));
@@ -124,25 +124,48 @@ export const addToSearchResults = (signal, debSearchString) => {
 
             const currentState = getState().search;
             const searchResults = currentState.casinoResults;
+            console.log('BEFORE', searchResults);
             const notRenderedLiveResults = currentState.notRenderedLiveResults;
 
-            let slotGames = { Data: [] };
+            let slotGames = [];
+            // let slotGames = { Data: [] };
             let slotPage = searchResults.slotGamesPage;
             if (searchResults.slotGamesAdded && !searchResults.liveGamesAdded) {
                 slotPage = searchResults.slotGamesPage + 1;
-                const responseSlots = await axiosApi.post(
-                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
-                    {
-                        // data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
-                        data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}"}`,
-                    },
-                    {
-                        signal: signal,
-                        baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                if (providers && providers.length > 0) {
+                    for (let provider of providers) {
+                        const responseSlots = await axiosApi.post(
+                            `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                            {
+                                // data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                                data: `{"Page":${slotPage},"PageItems":24,"Tag":"${provider}","Search":"${debSearchString}"}`,
+                            },
+                            {
+                                signal: signal,
+                                baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                            }
+                        );
+                        if (responseSlots.status !== 200 || responseSlots.data.Status.StatusCode !== 200) throw Error();
+                        // slotGames += responseSlots.data.Contents.Data;
+                        slotGames = [...slotGames, ...responseSlots.data.Contents.Data];
                     }
-                );
-                if (responseSlots.status !== 200 || responseSlots.data.Status.StatusCode !== 200) throw Error();
-                slotGames = responseSlots.data.Contents;
+                } else {
+                    const responseSlots = await axiosApi.post(
+                        `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                        {
+                            // data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                            data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}"}`,
+                        },
+                        {
+                            signal: signal,
+                            baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                        }
+                    );
+                    if (responseSlots.status !== 200 || responseSlots.data.Status.StatusCode !== 200) throw Error();
+                    // slotGames = responseSlots.data.Contents;
+                    slotGames = [...slotGames, ...responseSlots.data.Contents.Data];
+                }
+
             }
 
             let liveGames = { Data: [] };
@@ -175,31 +198,43 @@ export const addToSearchResults = (signal, debSearchString) => {
                 }
             }
 
-            const combinedData = [...slotGames.Data, ...liveGames.Data];
+            const combinedData = [...slotGames, ...liveGames.Data];
             const trimmedData = combinedData.slice(0, 24);
 
             // If only some of the live games were rendered, keep the rest
             const liveGamesAddedNum =
-                slotGames.Data.length >= 24 || liveGames.Data.length === 0
+                slotGames.length >= 24 || liveGames.Data.length === 0
                     ? 0
-                    : 24 - slotGames.Data.length >= liveGames.Data.length
+                    : 24 - slotGames.length >= liveGames.Data.length
                         ? liveGames.Data.length
-                        : 24 - slotGames.Data.length;
-            if (liveGames.Data.length > 0 && slotGames.Data.length > 0 && slotGames.Data.length < 24) {
+                        : 24 - slotGames.length;
+            if (liveGames.Data.length > 0 && slotGames.length > 0 && slotGames.length < 24) {
                 const liveGamesLeftOut = liveGames.Data.slice(liveGamesAddedNum);
                 dispatch(searchActions.setNotRenderedLiveResults(liveGamesLeftOut));
             }
+            // const liveGamesAddedNum =
+            //     slotGames.Data.length >= 24 || liveGames.Data.length === 0
+            //         ? 0
+            //         : 24 - slotGames.Data.length >= liveGames.Data.length
+            //             ? liveGames.Data.length
+            //             : 24 - slotGames.Data.length;
+            // if (liveGames.Data.length > 0 && slotGames.Data.length > 0 && slotGames.Data.length < 24) {
+            //     const liveGamesLeftOut = liveGames.Data.slice(liveGamesAddedNum);
+            //     dispatch(searchActions.setNotRenderedLiveResults(liveGamesLeftOut));
+            // }
 
-            dispatch(
-                searchActions.addToCasinoResults({
-                    Data: trimmedData,
-                    Total: trimmedData.length ? searchResults.Total : searchResults.Data.length, // Sometimes there is a difference with the Total and the results
-                    slotGamesPage: slotPage,
-                    liveGamesPage: livePage,
-                    slotGamesAdded: slotGames.Data.length,
-                    liveGamesAdded: liveGamesAddedNum,
-                })
-            );
+            const casinoRes = {
+                Data: trimmedData,
+                Total: trimmedData.length ? searchResults.Total : searchResults.Data.length, // Sometimes there is a difference with the Total and the results
+                slotGamesPage: slotPage,
+                liveGamesPage: livePage,
+                slotGamesAdded: slotGames.length,
+                liveGamesAdded: liveGamesAddedNum,
+            }
+
+            console.log('AFTER', casinoRes);
+
+            dispatch(searchActions.addToCasinoResults(casinoRes));
 
             dispatch(searchActions.setMoreLoading(false));
         } catch (error) {
@@ -210,77 +245,47 @@ export const addToSearchResults = (signal, debSearchString) => {
     };
 };
 
-export const getCasinoSearchProviders = (signal, debSearchString, selectedProviders) => {
+export const getCasinoSearchProviders = (signal, pageItems, debSearchString, selectedProviders) => {
     return async (dispatch) => {
         try {
             dispatch(searchActions.setLoading(true));
             const lang = getLang();
 
             let slotGames = [];
-            let liveGames = [];
+            let totalGames = 0;
+            let vendors = [];
 
             for (let selectedProvider of selectedProviders) {
-                let requests = [];
+                const response = await axiosApi.post(
+                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                    {
+                        // data: `{"Page":1,"PageItems":24,"Tag":"${selectedProvider}","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                        data: `{"Page":1,"PageItems":"${pageItems}","Tag":"${selectedProvider}","Search":"${debSearchString}"}`,
+                    },
+                    {
+                        signal: signal,
+                        baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                    }
+                )
 
-                requests.push(
-                    axiosApi.post(
-                        `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
-                        {
-                            // data: `{"Page":1,"PageItems":24,"Tag":"${selectedProvider}","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
-                            data: `{"Page":1,"PageItems":24,"Tag":"${selectedProvider}","Search":"${debSearchString}"}`,
-                        },
-                        {
-                            signal: signal,
-                            baseURLOverride: import.meta.env.VITE_CASINO_BASE,
-                        }
-                    )
-                );
-                requests.push(
-                    axiosApi.post(
-                        `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
-                        {
-                            // data: `{"Page":1,"PageItems":24,"Tag":"${selectedProvider}","Search":"${debSearchString}","ProviderId":0,"BrandId":0,"VendorId":0}`,
-                            data: `{"Page":1,"PageItems":24,"Tag":"${selectedProvider}","Search":"${debSearchString}"}`,
-                        },
-                        {
-                            signal: signal,
-                            baseURLOverride: import.meta.env.VITE_CASINO_BASE,
-                        }
-                    )
-                );
+                if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error();
 
-                const responses = await Promise.all(requests);
-                responses.forEach((response) => {
-                    if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error();
-                });
-
-                slotGames = responses[0].data.Contents;
-                liveGames = responses[1].data.Contents;
+                slotGames = [...slotGames, ...response.data.Contents.Data];
+                totalGames += response.data.Contents.Total;
+                vendors.push(selectedProvider);
+                //slotGames = responses[0].data.Contents;
             }
 
-            const combinedData = [...slotGames.Data, ...liveGames.Data];
-            const combinedTotal = slotGames.Total + liveGames.Total;
-            const trimmedData = combinedData.slice(0, 24);
-
-            // If only some of the live games were rendered, keep the rest
-            const liveGamesAddedNum =
-                slotGames.Data.length >= 24 || liveGames.Data.length === 0
-                    ? 0
-                    : 24 - slotGames.Data.length >= liveGames.Data.length
-                        ? liveGames.Data.length
-                        : 24 - slotGames.Data.length;
-            if (liveGames.Data.length > 0 && slotGames.Data.length > 0 && slotGames.Data.length < 24) {
-                const liveGamesLeftOut = liveGames.Data.slice(liveGamesAddedNum);
-                dispatch(searchActions.setNotRenderedLiveResults(liveGamesLeftOut));
-            }
+            //const combinedData = [...slotGames.Data, ...liveGames.Data];
+            //const combinedTotal = slotGames.Total + liveGames.Total;
+            const trimmedData = slotGames.slice(0, 24);
 
             const allGames = {
                 Data: trimmedData,
-                Total: combinedTotal,
+                Total: totalGames,
                 slotGamesPage: 1,
-                liveGamesPage: 1,
-                slotGamesAdded: slotGames.Data.length,
-                liveGamesAdded: liveGamesAddedNum,
+                slotGamesAdded: 24,
+                providers: vendors,
             };
 
             dispatch(searchActions.setCasinoResults(allGames));

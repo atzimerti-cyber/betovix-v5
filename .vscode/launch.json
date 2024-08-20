@@ -9,7 +9,6 @@
         "webRoot": "${workspaceFolder}",
         //"port": 3000, // Change this to a different port if necessary
         //"preLaunchTask": "Run Vite Dev Server" 
-        
       }
     ]
   }

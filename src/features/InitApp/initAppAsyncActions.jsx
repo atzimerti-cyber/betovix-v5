@@ -84,7 +84,8 @@ export const loadInitData = (isMobile) => {
             if (responseMinibar.data.Status.StatusCode !== 200) throw Error();
 
             const minibarMenuItems = responseMinibar.data.Contents.Categs[0].Items;
-            console.log(minibarMenuItems);
+
+            //console.log(minibarMenuItems);
 
             dispatch(layoutActions.setMinibarMenu(minibarMenuItems));
 
@@ -155,6 +156,9 @@ export const loadInitData = (isMobile) => {
                     axiosApi.get(`MyCasino/GetVendors?lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`, {
                         baseURLOverride: import.meta.env.VITE_CASINO_BASE,
                     }),
+                    axiosApi.get(`MyCasino/MyMenu?type=casino&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                        baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                    }),
                 ];
                 const responsesCasino = await Promise.all(requestsCasino);
                 responsesCasino.forEach((response) => {
@@ -162,6 +166,20 @@ export const loadInitData = (isMobile) => {
                 });
 
                 if (Array.isArray(responsesCasino[0].data.Contents)) dispatch(appActions.setAllCasinoVendors(responsesCasino[0].data.Contents));
+
+
+                const casinoWalletMenu = responsesCasino[1].data.Contents.Categs.map((item) => {
+                    return (item.Items.length > 0 ?
+                        (
+                            { category: { id: item.Categ.Id, label: `${item.Categ.Name}`, visible: true }, items: item.Items }
+                        ) : (
+                            { items: [item.Categ] }
+                        )
+                    );
+                });
+
+
+                console.log('casinoWalletMenu', casinoWalletMenu);
 
                 casinoMenuItems.push({
                     category: { id: 1, label: 'Casino', visible: true },
@@ -192,6 +210,8 @@ export const loadInitData = (isMobile) => {
                         },
                     ],
                 });
+
+                casinoMenuItems.push(...casinoWalletMenu);
             }
 
             // Sports
@@ -254,7 +274,7 @@ export const loadInitData = (isMobile) => {
                     topTournamentsMenu.items.push({
                         id: topTournament.Value,
                         label: topTournament.Par2 + ' ' + topTournament.Name,
-                        icon:  <img src={topTournament.Icon} alt="${item.label}" />,
+                        icon: <img src={topTournament.Icon} alt="${item.label}" />,
                         // icon: sportIcons[topTournaments.SubCategs[0].SubCateg.Name],
                         page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
                     });
@@ -327,7 +347,7 @@ export const loadInitData = (isMobile) => {
                     },
                 ],
             });
-
+            console.log(casinoMenuItems);
             dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
             dispatch(appActions.setSportsMenuItems(sportsMenuItems));
             dispatch(appActions.setMenuItems(allMenuItems));

@@ -135,7 +135,7 @@ export const getUser = (navigate) => {
                 const params = new URLSearchParams(window.location.search);
                 const isModalAchievementOpen = params.get('modal') === 'achievement';
 
-                if (!isModalAchievementOpen && response.data.Contents.Rewards.length > 0) {
+                if (!isModalAchievementOpen && response.data.Contents.Rewards && response.data.Contents.Rewards.length > 0) {
                     rewards = response.data.Contents.Rewards;
                     dispatch(gamificationActions.setPopupRewards(rewards));
 

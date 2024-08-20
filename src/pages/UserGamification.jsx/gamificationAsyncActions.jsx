@@ -64,7 +64,7 @@ export const getHeroes = (signal) => {
     };
 };
 
-export const selectedHero = (displayedHeroAction, signal) => {
+export const selectedHero = (displayedHeroAction, signal, hero) => {
     return async (dispatch) => {
         try {
             const lang = getLang();
@@ -78,6 +78,9 @@ export const selectedHero = (displayedHeroAction, signal) => {
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
+            setTimeout(() => {
+                dispatch(getUserAchievements());
+            }, 5000);
 
         } catch (error) {
             const message = error?.message ? error.message : error;
@@ -97,7 +100,13 @@ export const getUserAchievements = () => {
                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
                 }
             );
-            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200 || response.data.Contents == null) {
+                dispatch(gamificationActions.setSelectedHero(null));
+                dispatch(gamificationActions.setHeroLevels(null));
+                dispatch(gamificationActions.setCurrentLevel(null));
+                dispatch(gamificationActions.setManualRewards(null));
+                throw Error(response.data.Contents);
+            };
 
 
             // SELECTED HERO //
@@ -121,11 +130,17 @@ export const getUserAchievements = () => {
                 });
                 //let achList = [level.Milestones];
                 achList.push(level.Level);
-                const progressSection = 100 / (achList.length);
-                achList.forEach(item => {
-                    const mP = item.optInStatus.percentageComplete;
-                    progress += (mP / 100) * progressSection;
-                });
+
+                let progressSection;
+
+                if (achList.length > 0) {
+                    progressSection = 100 / (achList.length);
+
+                    achList.forEach(item => {
+                        const mP = item.optInStatus.percentageComplete;
+                        progress += (mP / 100) * progressSection;
+                    });
+                }
 
                 return progress;
             }
@@ -140,7 +155,7 @@ export const getUserAchievements = () => {
                     pointsValue: milestone.strategies.pointsStrategy.pointsValue,
                     rewardType: milestone.reward ? milestone.reward.RewardType.Key : null,
                     rewardValue: milestone.reward ? milestone.reward.RewardValue : null,
-                    
+
                 })).sort((a, b) => a.name.localeCompare(b.name));
 
 
@@ -165,27 +180,27 @@ export const getUserAchievements = () => {
                 name: response.data.Contents.Daily?.metadata.Name,
                 description: response.data.Contents.Daily?.description,
                 progress: response.data.Contents.Daily?.optInStatus.percentageComplete,
-                rewardType: response.data.Contents.Daily?.reward.RewardType.Key,
-                rewardValue: response.data.Contents.Daily?.reward.RewardValue,
-                rewardSymbol: response.data.Contents.Daily?.reward.RewardType.UomSymbol
+                rewardType: response.data.Contents.Daily?.reward?.RewardType?.Key,
+                rewardValue: response.data.Contents.Daily?.reward?.RewardValue,
+                rewardSymbol: response.data.Contents.Daily?.reward?.RewardType?.UomSymbol
             }
-             const weeklyRewards = {
+            const weeklyRewards = {
                 id: response.data.Contents.Weekly?.id,
                 name: response.data.Contents.Weekly?.metadata.Name,
                 description: response.data.Contents.Weekly?.description,
                 progress: response.data.Contents.Weekly?.optInStatus.percentageComplete,
-                rewardType: response.data.Contents.Weekly?.reward.RewardType.Key,
-                rewardValue: response.data.Contents.Weekly?.reward.RewardValue,
-                rewardSymbol: response.data.Contents.Weekly?.reward.RewardType.UomSymbol
+                rewardType: response.data.Contents.Weekly?.reward?.RewardType?.Key,
+                rewardValue: response.data.Contents.Weekly?.reward?.RewardValue,
+                rewardSymbol: response.data.Contents.Weekly?.reward?.RewardType?.UomSymbol
             }
             const monthlyRewards = {
                 id: response.data.Contents.Monthly?.id,
                 name: response.data.Contents.Monthly?.metadata.Name,
                 description: response.data.Contents.Monthly?.description,
                 progress: response.data.Contents.Monthly?.optInStatus.percentageComplete,
-                rewardType: response.data.Contents.Monthly?.reward.RewardType.Key,
-                rewardValue: response.data.Contents.Monthly?.reward.RewardValue,
-                rewardSymbol: response.data.Contents.Monthly?.reward.RewardType.UomSymbol
+                rewardType: response.data.Contents.Monthly?.reward?.RewardType?.Key,
+                rewardValue: response.data.Contents.Monthly?.reward?.RewardValue,
+                rewardSymbol: response.data.Contents.Monthly?.reward?.RewardType?.UomSymbol
             }
 
             const manualRewards = {
@@ -204,7 +219,7 @@ export const getUserAchievements = () => {
 
                 const lvl = heroLevel.percentageComplete >= 0 && heroLevel.percentageComplete < 100
 
-                if (mil || lvl){
+                if (mil || lvl) {
                     isCurrentLevel = true;
                 }
 
@@ -219,7 +234,7 @@ export const getUserAchievements = () => {
             //console.log("Hero Levels: ", heroLevels);
             //console.log("Current Level: ", currentLevel);
             //console.log("Manual Rewards: ", manualRewards);
-            
+
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));
             dispatch(gamificationActions.setHeroLevels(heroLevels));

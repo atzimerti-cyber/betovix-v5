@@ -49,21 +49,45 @@ const LeftContainer = memo(function () {
     }
 
     const getItems = (menuItem, index, categoryId) => {
-        const showEmphasis = menuItem.category?.label === 'Top Tournaments' ? true : false;
+        const showEmphasis = menuItem.category?.label === 'Top Leagues' ? true : false;
 
         return (
-            <ul key={`${categoryId}_${index}`} className={classes.List}>
-                {menuItem.items.map((item) => {
-                    return <LeftMenuItem key={item.id} isActive={item.page === pathname} item={item} hide={!fullLeftContainer} showEmphasis={showEmphasis} />;
-                })}
-            </ul>
+            <>
+                {categoryId ? (
+                    <ul key={`${categoryId}_${index}`} className={classes.List}>
+                        {menuItem.items.map((item, itemIndex) => (
+                            <LeftMenuItem
+                                key={`${categoryId}_${itemIndex}`}
+                                isActive={item.page === pathname}
+                                item={item}
+                                hide={!fullLeftContainer}
+                                showEmphasis={showEmphasis}
+                                isCateg={true}
+                            />
+                        ))}
+                    </ul>
+                ) : (
+                    <ul key={`${menuItem.items.Id}_${index}`} className={classes.List}>
+                        {menuItem.items.map((item, itemIndex) => (
+                            <LeftMenuItem
+                                key={`${itemIndex}`}
+                                isActive={item.page === pathname}
+                                item={item}
+                                hide={!fullLeftContainer}
+                                showEmphasis={showEmphasis}
+                                isCateg={false}
+                            />
+                        ))}
+                    </ul>
+                )}
+            </>
         );
     };
 
     return (
         <>
             <div className={elClasses.join(' ')}>
-                
+
                 {!fullLeftContainer && (
                     <Tooltip
                         id='left-menu-tooltip'

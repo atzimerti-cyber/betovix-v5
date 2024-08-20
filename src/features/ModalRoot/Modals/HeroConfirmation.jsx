@@ -27,8 +27,8 @@ const HeroConfirmationModal = () => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        dispatch(selectedHero(displayedHeroAction, signal));
-        dispatch(gamificationActions.setSelectedHero(displayedHero));
+        dispatch(selectedHero(displayedHeroAction, signal, displayedHero));
+        // dispatch(gamificationActions.setSelectedHero(displayedHero));
         navigate(location.pathname);
     };
 

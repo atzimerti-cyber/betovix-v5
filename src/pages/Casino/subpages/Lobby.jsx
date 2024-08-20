@@ -32,11 +32,46 @@ const Lobby = () => {
         };
     }, [user?.AccountId]);
 
+    const getPathByItemName = (itemName) => {
+        switch (itemName) {
+            case 'Recommended':
+                return null;
+            case 'Recently Played':
+                return null;
+            case 'Favorites':
+                return '/casino/favorites';
+            case 'New Games':
+                return null;
+            case 'Amatic':
+                return `/search?provider=${itemName}`;
+            case 'Novomatic':
+                return `/search?provider=${itemName}`;
+            case 'Egypt':
+                return `/search?provider=egt`;
+            default:
+                return '/';
+        }
+    };
+
     return (
         <>
             <BigSwiper2 items={casinoBanners} max={6} />
 
-            {filteredGames['recentGames']?.Data.length > 0 && (
+            {Object.entries(filteredGames).map(([key, menuItem]) => (
+
+                menuItem?.Data.length > 0 && (
+                    <SwiperWithOverlay
+                        key={key} // Using key to avoid React warning about unique keys
+                        title={`${translate(menuItem?.Item?.Name)}`}
+                        icon={<HeartIcon />}
+                        link={getPathByItemName(menuItem?.Item?.Name)}
+                        items={menuItem?.Data}
+                        max={20}
+                    />
+                )
+            ))}
+
+            {/* {filteredGames['recentGames']?.Data.length > 0 && (
                 <SwiperWithOverlay title={translate('Recently Played')} icon={<ClockIcon />} items={filteredGames['recentGames']?.Data} max={20} />
             )}
 
@@ -60,7 +95,8 @@ const Lobby = () => {
             )}
 
             <SwiperWithOverlay title={translate('Slots')} icon={<SlotsIcon />} link='/casino/slots' items={filteredGames['allSlots']?.Data} max={20} />
-            <SwiperWithOverlay title={translate('Live Casino')} icon={<BlackjackIcon />} link='/casino/live' items={filteredGames['allLive']?.Data} max={20} />
+            <SwiperWithOverlay title={translate('Live Casino')} icon={<BlackjackIcon />} link='/casino/live' items={filteredGames['allLive']?.Data} max={20} /> */
+            }
         </>
     );
 };

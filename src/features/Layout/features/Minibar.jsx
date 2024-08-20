@@ -27,6 +27,7 @@ const Minibar = () => {
     const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' });
     const user = useSelector((state) => state.login.user);
     const minibarMenu = useSelector((state) => state.layout.minibarMenu);
+    const hasHero = useSelector((state) => state.gamification.selectedHero);
     const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
 
     useEffect(() => {
@@ -112,18 +113,18 @@ const Minibar = () => {
                 </div>
 
                 <div className={classes.MinibarRightWrapper}>
-                    {/* {user && Object.keys(userCurrentLevel).length > 0 && ( */}
-                    {user && (
+                    {user && hasHero && Object.keys(hasHero).length > 0 && (
+                        // {user && (
                         <>
                             <div className={classes.YourProgress}>
                                 <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
 
                                     {/* <div className={classes.ProgressTitle}>{translate('Progress')}</div> */}
-                                    <div className={classes.Level}>{`${userCurrentLevel.progress}%`}</div>
+                                    <div className={classes.Level}>{`${userCurrentLevel?.progress}%`}</div>
                                     <div className={classes.ProgressBar}>
 
-                                        {Object.keys(userCurrentLevel).length > 0 ? (
-                                            <span style={{ width: `${userCurrentLevel.progress}%` }}></span>
+                                        {userCurrentLevel && Object.keys(userCurrentLevel).length > 0 ? (
+                                            <span style={{ width: `${userCurrentLevel?.progress}%` }}></span>
                                         ) : (
                                             <span style={{ width: `50%` }}></span> ///////////////////////////////////////////////HARD CODED
                                         )}
