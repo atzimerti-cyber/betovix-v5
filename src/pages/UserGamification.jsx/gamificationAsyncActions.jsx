@@ -64,7 +64,7 @@ export const getHeroes = (signal) => {
     };
 };
 
-export const selectedHero = (displayedHeroAction, signal) => {
+export const selectedHero = (displayedHeroAction, signal, hero) => {
     return async (dispatch) => {
         try {
             const lang = getLang();
@@ -78,6 +78,9 @@ export const selectedHero = (displayedHeroAction, signal) => {
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
+            setTimeout(() => {
+                dispatch(getUserAchievements());
+            }, 5000);
 
         } catch (error) {
             const message = error?.message ? error.message : error;
@@ -97,7 +100,13 @@ export const getUserAchievements = () => {
                     baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
                 }
             );
-            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200 || response.data.Contents == null) {
+                dispatch(gamificationActions.setSelectedHero(null));
+                dispatch(gamificationActions.setHeroLevels(null));
+                dispatch(gamificationActions.setCurrentLevel(null));
+                dispatch(gamificationActions.setManualRewards(null));
+                throw Error(response.data.Contents);
+            };
 
 
             // SELECTED HERO //
@@ -171,27 +180,27 @@ export const getUserAchievements = () => {
                 name: response.data.Contents.Daily?.metadata.Name,
                 description: response.data.Contents.Daily?.description,
                 progress: response.data.Contents.Daily?.optInStatus.percentageComplete,
-                rewardType: response.data.Contents.Daily?.reward.RewardType.Key,
-                rewardValue: response.data.Contents.Daily?.reward.RewardValue,
-                rewardSymbol: response.data.Contents.Daily?.reward.RewardType.UomSymbol
+                rewardType: response.data.Contents.Daily?.reward?.RewardType?.Key,
+                rewardValue: response.data.Contents.Daily?.reward?.RewardValue,
+                rewardSymbol: response.data.Contents.Daily?.reward?.RewardType?.UomSymbol
             }
             const weeklyRewards = {
                 id: response.data.Contents.Weekly?.id,
                 name: response.data.Contents.Weekly?.metadata.Name,
                 description: response.data.Contents.Weekly?.description,
                 progress: response.data.Contents.Weekly?.optInStatus.percentageComplete,
-                rewardType: response.data.Contents.Weekly?.reward.RewardType.Key,
-                rewardValue: response.data.Contents.Weekly?.reward.RewardValue,
-                rewardSymbol: response.data.Contents.Weekly?.reward.RewardType.UomSymbol
+                rewardType: response.data.Contents.Weekly?.reward?.RewardType?.Key,
+                rewardValue: response.data.Contents.Weekly?.reward?.RewardValue,
+                rewardSymbol: response.data.Contents.Weekly?.reward?.RewardType?.UomSymbol
             }
             const monthlyRewards = {
                 id: response.data.Contents.Monthly?.id,
                 name: response.data.Contents.Monthly?.metadata.Name,
                 description: response.data.Contents.Monthly?.description,
                 progress: response.data.Contents.Monthly?.optInStatus.percentageComplete,
-                rewardType: response.data.Contents.Monthly?.reward.RewardType.Key,
-                rewardValue: response.data.Contents.Monthly?.reward.RewardValue,
-                rewardSymbol: response.data.Contents.Monthly?.reward.RewardType.UomSymbol
+                rewardType: response.data.Contents.Monthly?.reward?.RewardType?.Key,
+                rewardValue: response.data.Contents.Monthly?.reward?.RewardValue,
+                rewardSymbol: response.data.Contents.Monthly?.reward?.RewardType?.UomSymbol
             }
 
             const manualRewards = {

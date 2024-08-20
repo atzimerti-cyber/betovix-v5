@@ -175,7 +175,7 @@ const Milestones = (props) => {
                                                     index={heroLevels[thisLevelIndex].milestones.length}
                                                     level={heroLevels[thisLevelIndex]}
                                                     firstCard
-                                                    complete={currentUserLevel === heroLevels[thisLevelIndex] || heroLevels[thisLevelIndex].name < currentUserLevel.name}
+                                                    complete={currentUserLevel === heroLevels[thisLevelIndex] || heroLevels[thisLevelIndex].name < currentUserLevel?.name}
                                                 />
                                             )}
 

@@ -35,13 +35,13 @@ const Lobby = () => {
     const getPathByItemName = (itemName) => {
         switch (itemName) {
             case 'Recommended':
-                return '/sportsbook/home/football';
+                return null;
             case 'Recently Played':
-                return '/sportsbook/live/football';
+                return null;
             case 'Favorites':
                 return '/casino/favorites';
             case 'New Games':
-                return '/sportsbook/home/football/all-events';
+                return null;
             case 'Amatic':
                 return `/search?provider=${itemName}`;
             case 'Novomatic':
@@ -59,7 +59,7 @@ const Lobby = () => {
 
             {Object.entries(filteredGames).map(([key, menuItem]) => (
 
-                menuItem.Data.length > 0 && (
+                menuItem?.Data.length > 0 && (
                     <SwiperWithOverlay
                         key={key} // Using key to avoid React warning about unique keys
                         title={`${translate(menuItem?.Item?.Name)}`}

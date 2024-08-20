@@ -50,9 +50,9 @@ const Search = () => {
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
-        if (selectedProviders) {
+        if (selectedProviders.length > 0) {
             searchParams.set('provider', selectedProviders);
-        }else {
+        } else {
             searchParams.delete('provider');
         }
 
@@ -67,11 +67,11 @@ const Search = () => {
         dispatch(searchActions.setCasinoResults(null));
 
         if (debSearchString.trim() === '' && selectedProviders.length === 0) {
-            dispatch(getSlots(axiosController.signal, 25, true));
+            dispatch(getSlots(axiosController.signal, 24, true));
         } else if (selectedProviders.length === 0) {
             dispatch(getCasinoSearch(axiosController.signal, debSearchString));
         } else if (selectedProviders.length > 0) {
-            dispatch(getCasinoSearchProviders(axiosController.signal, 25, debSearchString, selectedProviders));
+            dispatch(getCasinoSearchProviders(axiosController.signal, 24, debSearchString, selectedProviders));
         }
     }, [axiosController, debSearchString, selectedProviders]);
 
@@ -83,9 +83,29 @@ const Search = () => {
                     onChangeSearch={(value) => dispatch(searchActions.setSearchString(value))}
                     onChangeProviders={(value) => setSelectedProviders(value)}
                     placeholder='Search Casino'
-                />
 
-                <CasinoGames collection={casinoResults} icon={<CherriesIcon />} title='Search results' loading={loading} searchString={debSearchString} />
+                />
+                {
+                    selectedProviders.length === 0 ? (
+                        <CasinoGames
+                            collection={casinoResults}
+                            icon={<CherriesIcon />}
+                            title="Search results"
+                            loading={loading}
+                            searchString={debSearchString}
+                        />
+                    ) : (
+                        <CasinoGames
+                            collection={casinoResults}
+                            icon={<CherriesIcon />}
+                            title={selectedProviders.join(', ')}
+                            loading={loading}
+                            searchString={debSearchString}
+                            providers={casinoResults?.providers}
+                        />
+                    )
+                }
+
             </div>
         </div>
     );
