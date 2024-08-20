@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo, useRef, memo } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AnimatePresence } from 'framer-motion';
+import { toast } from 'react-toastify';
 import classNames from 'classnames'; // You can use the classnames library for conditional class names
 
 import classes from './Betslip.module.css';
@@ -12,7 +13,7 @@ import BetError from './features/BetError';
 import BetslipControl from './features/BetslipControl';
 import Slip from './features/Slip';
 import { betslipActions } from './betslipSlice';
-import { getTicketUpdates, placeBet } from './betslipAsyncActions';
+import { getTicketUpdates, placeBet, saveBet } from './betslipAsyncActions';
 import { translate } from '../../utils/translations';
 import Systems from './features/Systems';
 import { layoutActions } from '../Layout/layoutSlice';
@@ -20,6 +21,7 @@ import { addThousandsSeparator } from '../../utils/custom';
 import { getTicketFromStorage, getTicketChangesSettings } from '../../utils/storage';
 import BetReceipt from './features/BetReceipt';
 import CoinsIcon from '../../assets/svgs/coins.svg?react';
+import SaveIcon from '../../assets/svgs/save.svg?react';
 import Spinner from '../UI/Spinner/Spinner';
 
 const Betslip = memo(function (props) {
@@ -40,7 +42,9 @@ const Betslip = memo(function (props) {
     const showReceiptFor = useSelector((state) => state.betslip.showReceiptFor);
     const liveState = useSelector((state) => state.live.liveState);
     const placingBetLoading = useSelector((state) => state.betslip.placingBetLoading);
+    const savingBetLoading = useSelector((state) => state.betslip.savingBetLoading);
     const bonusBalance = useSelector((state) => state.layout.bonusBalance);
+    const lastBooked = useSelector((state) => state.betslip.lastBooked);
 
     const [isBonus, setIsBonus] = useState(false);
 
@@ -162,7 +166,7 @@ const Betslip = memo(function (props) {
                 </button>
             );
         }
-    }, [user?.AccountId, betError, slips?.length, betslip?.totalStake, placingBetLoading, isBonus]);
+    }, [user?.AccountId, betError, slips?.length, betslip?.totalStake, placingBetLoading, savingBetLoading, isBonus]);
 
     const onChangeTab = (tab) => {
         slips.forEach((slip, index) => {
@@ -172,7 +176,75 @@ const Betslip = memo(function (props) {
         dispatch(betslipActions.setAmounts({}));
     };
 
+    const getTicketPayload = () => {
+
+        const ticket = getTicketFromStorage();
+        const ticketChangesSettings = getTicketChangesSettings();
+        if (!ticket) return;
+
+        let points = [];
+        ticket.points.forEach((point) => {
+            points.push({
+                HomeTeamId: point.HomeTeamId,
+                HomeTeamName: point.HomeTeamName,
+                AwayTeamId: point.AwayTeamId,
+                AwayTeamName: point.AwayTeamName,
+                MatchName: point.AwayTeamName?.International
+                    ? point.HomeTeamName.International + ' - ' + point.AwayTeamName.International
+                    : point.HomeTeamName.International,
+                MatchId: point.MatchId,
+                MarketName: point.MarketName,
+                MarketTypeId: point.MarketTypeId,
+                Line: point.Line,
+                FieldName: point.FieldName,
+                FieldId: point.FieldId,
+                FieldTypeId: point.FieldTypeId,
+                Odd: point.Odd,
+                Active: point.Active,
+                Live: point.Live,
+                DateOfMatch: point.DateOfMatch,
+                SportName: point.SportName,
+                CategoryName: point.CategoryName,
+                TournamentName: point.TournamentName,
+                TournamentId: point.TournamentId,
+                CategoryId: point.CategoryId,
+                SportId: point.SportId,
+            });
+        });
+
+        const betObj = {
+            stakes: ticket.stakes,
+            points: points,
+            acceptChanges: ticketChangesSettings.oddChanges === '2' ? true : false,
+            IsBonus: isBonus,
+            providerId: 1, // TODO: should this come from settings?
+        };
+
+        const payload = JSON.stringify(betObj);
+
+        return payload;
+
+    };
+
+    const onSaveBet = () => {
+        const payload = getTicketPayload();
+        const data = JSON.stringify(payload);
+    
+        dispatch(saveBet(data))
+            .then(() => {
+
+                    const searchParams = new URLSearchParams(location.search);
+                    searchParams.set('modal', 'booked-bet');
+                    navigate(`${location.pathname}?${searchParams.toString()}`);
+              
+            })
+            .catch((error) => {
+                toast.error(error?.message);
+            });
+    };
+
     const onPlaceBet = () => {
+
         const ticket = getTicketFromStorage();
         const ticketChangesSettings = getTicketChangesSettings();
         if (!ticket) return;
@@ -207,7 +279,7 @@ const Betslip = memo(function (props) {
             stakes: ticket.stakes,
             points: points,
             acceptChanges: ticketChangesSettings.oddChanges === '2' ? true : false,
-            IsBonus: isBonus, // TODO: This should be changed (see bonus in pick777),
+            IsBonus: isBonus,
             providerId: 1, // TODO: should this come from settings?
         };
 
@@ -235,6 +307,22 @@ const Betslip = memo(function (props) {
         return null;
     }, [user?.AccountId, slips?.length, betslip?.totalStake, bonusBalance, isBonus]);
 
+    const saveButton = useMemo(() => {
+        if (slips.length) {
+            return (
+                <button className={classes.SaveButton} onClick={() => onSaveBet()} disabled={savingBetLoading}>
+                    {savingBetLoading ? (
+                        <Spinner />
+                    ) : (
+                        <span>
+                           <SaveIcon className={classes.CoinsIcon} /> {translate('SHARE')}
+                        </span>
+                    )}
+                </button>
+            );
+        }
+        return null;
+    }, [slips?.length]);
 
     return (
         <section className={classes.Betslip}>
@@ -269,6 +357,7 @@ const Betslip = memo(function (props) {
                             <BetError />
                             {slips.length > 0 && <BetCalculation />}
                             {bonusButton}
+                            {saveButton}
                             {betButton}
                         </div>
 

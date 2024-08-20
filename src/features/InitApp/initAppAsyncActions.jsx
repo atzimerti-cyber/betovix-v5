@@ -113,10 +113,13 @@ export const loadInitData = (isMobile) => {
                     dispatch(loginActions.setUser(user));
                     dispatch(layoutActions.setAvailableBonus(user));
                     dispatch(layoutActions.setAvailableBonusBalance(user));
+
+                    if (user?.Role < 40) {
+                        dispatch(fetchChildDetails(user.AccountId))
+                    }
                 }
             }
-
-
+            
 
             // Necessary
             // -------------------------------------
@@ -334,6 +337,30 @@ export const loadInitData = (isMobile) => {
             dispatch(appActions.setInitDataLoaded(true));
         }
     };
+};
+
+export const fetchChildDetails = (accountid) => {
+    return async (dispatch) => {
+    try {
+        const lang = getLang();
+        const response = await axiosApi.get(
+            `MyAffiliate/GetDirectChilds/?accountId=${accountid}&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+            {
+                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+            }
+        );
+
+        if (response.status === 200) {
+            const childAccounts = response.data.Contents;
+            dispatch(loginActions.setAccountChildren(childAccounts));
+
+        } else {
+            throw new Error('Failed to fetch child accounts');
+        }
+    } catch (error) {
+        toast.error(error.message || 'Error fetching child details');
+    }
+  };
 };
 
 export const getTranslations = (lang) => {

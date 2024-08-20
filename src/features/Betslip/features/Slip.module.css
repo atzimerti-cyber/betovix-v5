@@ -257,6 +257,7 @@
     color: var(--db-body-text);
     font-size: 12px;
     margin: 0px;
+    margin-bottom: 5px;
     font-weight: 500;
 }
 

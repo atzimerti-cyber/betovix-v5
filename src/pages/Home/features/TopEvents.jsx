@@ -28,6 +28,10 @@ const TopEvents = () => {
         slidesPerGroup = 2;
     }
 
+    if (!eventsTop || eventsTop.length === 0) {
+        return null;
+    }
+    
     return (
         <MainSwiper
             slidesPerView={slidesPerView}

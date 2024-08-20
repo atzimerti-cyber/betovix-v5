@@ -1,0 +1,41 @@
+.accountSelectContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.accountSelect {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.tree {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+.tree-branch {
+    position: relative;
+}
+
+.tree-branch-title {
+    cursor: pointer;
+}
+
+.tree-branch-title .toggle-button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-left: 5px;
+}
+
+.tree-branch-contents {
+    padding-left: 20px;
+}
+
+.selectedAccount {
+    margin-top: 20px;
+}

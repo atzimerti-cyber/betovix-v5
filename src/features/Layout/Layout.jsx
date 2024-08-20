@@ -28,6 +28,7 @@ import NumberBadge from '../UI/Badges/NumberBudge';
 import LiveStream from './features/LiveStream';
 import Stats from './features/Stats';
 import Ticket from '../Ticket/Ticket';
+import OperatorView from './features/OperatorView';
 
 
 const Layout = () => {
@@ -121,6 +122,11 @@ const Layout = () => {
                 <div className={classes.CenterContainer} ref={centerContainerRef}>
                     <main>
                         <div className={pageNotAuthorized ? [classes.FullPage, classes.NotAuthorized].join(' ') : classes.FullPage}>
+
+                            {user?.Role < 40 && (
+                                <OperatorView />
+                            )}
+
                             <Outlet />
                         </div>
                     </main>

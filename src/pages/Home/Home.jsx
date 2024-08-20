@@ -81,10 +81,14 @@ const Home = () => {
         };
     }, [divs]);
 
+    const hasNewGames = filteredGames.newGames?.Data?.length > 0;
+    const hasRecentGames = filteredGames.recentGames?.Data?.length > 0;
+    const hasFavoriteGames = filteredGames.favoriteGames?.Data?.length > 0;
+
     return (
         <div className={classes.PageContent}>
             <div className={classes.Home}>
-
+                
                 {user &&
                     <Crypto />
                 }
@@ -116,19 +120,27 @@ const Home = () => {
                 )}
 
                 {permissions.AllowToCasino || permissions.AllowToSlots ? (
-                    <SwiperWithOverlay
-                        title={translate('New Games')}
-                        icon={<NewIcon className={classes.NewIcon} />}
-                        link='/casino/slots'
-                        items={filteredGames.newGames?.Data}
-                    />
+                    hasNewGames && (
+                        <SwiperWithOverlay
+                            title={translate('New Games')}
+                            icon={<NewIcon className={classes.NewIcon} />}
+                            link='/casino/slots'
+                            items={filteredGames.newGames?.Data}
+                        />
+                    )
                 ) : null}
 
                 {user && (permissions.AllowToCasino || permissions.AllowToSlots) ? (
                     <>
-                        <SwiperWithOverlay title={translate('Recently Played')} icon={<ClockIcon />} items={filteredGames.recentGames?.Data} />
-                        <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} />
+                        {hasRecentGames && (
+                            <SwiperWithOverlay title={translate('Recently Played')} icon={<ClockIcon />} items={filteredGames.recentGames?.Data} />
+                        )}
+
+                        {hasFavoriteGames && (
+                            <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} />
+                        )}
                     </>
+
                 ) : null}
 
 

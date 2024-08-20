@@ -18,6 +18,7 @@
     flex: 1 1 0%;
     flex-direction: column;
     min-height: 0px;
+    overflow: hidden;
 }
 
 .BetContent {
@@ -110,7 +111,7 @@
     transform: rotate(45deg); 
 }
 
-.BetButton {
+.BetButton, .SaveButton {
     appearance: none;
     background: var(--db-brand-green);
     border: none;
@@ -130,6 +131,12 @@
     text-shadow: rgba(41, 39, 33, 0.2) 0px 1px 4px;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s, outline 0s ease 0s, outline-offset 0s ease 0s;
     height: 48px;
+}
+.SaveButton {
+    background: #1a0248;
+    font-size: 14px;
+    margin-block: 0px 5px;
+    height: 30px;
 }
 .BetButton:not(:disabled)::before {
     animation: 3.6s ease 0s infinite normal none running wlstx;
@@ -155,7 +162,7 @@
     pointer-events: none;
 }
 
-.BetButton span {
+.BetButton span, .SaveButton span {
     display: flex;
     flex: 1 1 0%;
     -webkit-box-align: center;

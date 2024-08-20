@@ -14,6 +14,8 @@ const initialState = {
     slipUpdated: 0,
     showReceiptFor: null,
     placingBetLoading: false,
+    savingBetLoading: false,
+    lastBooked: null
 };
 
 export const betslipSlice = createSlice({
@@ -131,6 +133,12 @@ export const betslipSlice = createSlice({
         },
         setPlacingBetLoading: (state, action) => {
             state.placingBetLoading = action.payload;
+        },
+        setSavingBetLoading: (state, action) => {
+            state.savingBetLoading = action.payload;
+        },
+        setLastBookedBet: (state, action) => {
+            state.lastBooked = action.payload;
         },
     },
 });

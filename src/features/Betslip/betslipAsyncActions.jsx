@@ -1,4 +1,5 @@
 import { toast } from 'react-toastify';
+import { NavLink, useNavigate } from 'react-router-dom';
 
 import axiosApi from '../../axios-api';
 import { betslipActions } from './betslipSlice';
@@ -87,6 +88,96 @@ export const placeBet = (payload, slips, amounts, betType) => {
             );
             dispatch(betslipActions.reset());
             dispatch(betslipActions.setPlacingBetLoading(false));
+        }
+    };
+};
+
+export const saveBet = (payload) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(betslipActions.setSavingBetLoading(true));
+            const lang = getLang();
+
+            const response = await axiosApi.post(
+                `Betting/PostData?action=saveticket&lang=${lang.id}&siteid=31`,
+                { data: payload },
+                {
+                    baseURLOverride: import.meta.env.VITE_BETS_API,
+                }
+            );
+
+            if (response.status !== 200)  throw Error(response.data.Contents);
+
+            dispatch(betslipActions.setLastBookedBet(response.data.Contents));
+            dispatch(betslipActions.setSavingBetLoading(false));
+
+            return response.data.Contents;  // Return the response to indicate success
+        } catch (error) {
+            dispatch(betslipActions.setSavingBetLoading(false));
+            toast.error(error?.message);
+        }
+    };
+};
+
+export const loadBooked = (signal, code) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const payload = JSON.stringify(code);
+
+            const response = await axiosApi.post(
+                `Betting/PostData?action=loadticket&lang=${lang.id}&siteid=31`,
+                {
+                    data: payload,
+                },
+                {
+                    signal: signal,
+                    baseURLOverride: import.meta.env.VITE_BETS_API,
+                    // baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+
+            if (response.data.Status.StatusCode !== 200) throw new Error(response.data.Contents);
+
+            const data = response.data.Contents;
+            const ticketData = JSON.parse(JSON.parse(data.json));
+
+            dispatch(betslipActions.resetSlips());
+
+            ticketData.points.forEach(point => {
+
+                const newSlip = {
+                    HomeTeamId: point.HomeTeamId,
+                    HomeTeamName: point.HomeTeamName,
+                    AwayTeamId: point.AwayTeamId,
+                    AwayTeamName: point.AwayTeamName,
+                    Active: point.Active,
+                    CategoryId: point.CategoryId,
+                    CategoryName: point.CategoryName,
+                    DateOfMatch: new Date(point.DateOfMatch),
+                    FieldId: point.FieldId,
+                    FieldName: point.FieldName,
+                    FieldTypeId: point.FieldTypeId,
+                    Line: point.Line || '',
+                    Live: point.Live,
+                    MarketName: point.MarketName,
+                    MarketTypeId: point.MarketTypeId,
+                    MatchId: point.MatchId,
+                    Odd: point.Odd,
+                    SportId: point.SportId,
+                    SportName: point.SportName,
+                    MatchName: point.MatchName,
+                    TournamentId: point.TournamentId,
+                    TournamentName: point.TournamentName,
+                };
+
+                dispatch(betslipActions.addToSlips(newSlip));
+            });
+
+        } catch (error) {
+            const message = error?.message || 'Error loading bet';
+            if (error?.code !== 'ERR_CANCELED') toast.error(message);
         }
     };
 };
