@@ -119,7 +119,7 @@ export const saveBet = (payload) => {
     };
 };
 
-export const loadBooked = (signal, code) => {
+export const loadBooked = (signal, code, callback) => {
     return async (dispatch) => {
         try {
             const lang = getLang();
@@ -175,6 +175,8 @@ export const loadBooked = (signal, code) => {
                 dispatch(betslipActions.addToSlips(newSlip));
             });
 
+            if (callback) callback();
+            
         } catch (error) {
             const message = error?.message || 'Error loading bet';
             if (error?.code !== 'ERR_CANCELED') toast.error(message);

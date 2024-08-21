@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import classes from './LoadBooked.module.css';
+import { toast } from 'react-toastify';
 import { translate } from '../../../utils/translations';
 import { loadBooked } from '../../Betslip/betslipAsyncActions'; 
 
-const LoadBooked = () => {
+const LoadBooked = ({ isModal = false }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     const [code, setCode] = useState('');
 
@@ -21,25 +25,23 @@ const LoadBooked = () => {
     const signal = controller.signal;
 
     dispatch(loadBooked(signal, code, () => {
-        // handleTabClick('Active', 2);
+      if (isModal) {
+        navigate(location.pathname); 
+    }
     }));
 
   };
 
   return (
     <div className={classes.LoadBetslipWrapper}>
-      <div className={classes.LoadBetslipTitle}>
-        <h3>{translate('Load Booked Bet')}</h3>
-      </div>
       <div className={classes.LoadBetslipContent}>
         <p>
-          {translate('Insert the code to load or')}{' '}
-          <a href="#">{translate('check it')}</a> {translate('here')}
+          {translate('Insert the code to load the bet')}
         </p>
         <form className={classes.LoadBetslipFormWrapper} onSubmit={handleSubmit}>
           <input
             type="text"
-            placeholder={translate('Insert the code here')} 
+            placeholder={translate('Code...')} 
             value={code}
             onChange={handleInputChange}
           />

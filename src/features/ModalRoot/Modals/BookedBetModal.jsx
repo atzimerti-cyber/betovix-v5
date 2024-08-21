@@ -2,15 +2,13 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import classes from './BookedBetModal.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import DsButton from '../../UI/Buttons/DsButton';
 import CloseButton from '../../UI/Buttons/CloseButton';
-import { betslipActions } from '../../Betslip/betslipSlice';
 import { translate } from '../../../utils/translations';
+import CopyIcon from '../../../assets/svgs/copy3.svg?react';
 
 const BookedBetModal = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const dispatch = useDispatch();
 
     const lastBooked = useSelector((state) => state.betslip.lastBooked);
 
@@ -19,7 +17,25 @@ const BookedBetModal = () => {
         return null;
     }
 
+    const copyId = () => {
+        if (lastBooked?.BookId) {
+            navigator.clipboard.writeText(lastBooked.BookId)
+                .then(() => {  
+                    toast.success('ID copied to clipboard');
+                })
+                .catch((err) => {
+                    toast.error('ID can not be copied');
+                });
+        }
+    };
+    
     const ticketData = JSON.parse(JSON.parse(lastBooked.json));
+    const invalidPoints = ticketData?.points.some(point => !point.MatchId);
+
+    if (invalidPoints) {
+        toast.error('Please select other matches');
+        return null; 
+    }
 
     return (
         <div className={classes.BookedBet}>
@@ -37,7 +53,10 @@ const BookedBetModal = () => {
                   <div className={classes.BetInfo}>
                         <div className={classes.BetInfoItem}>
                            <i>{translate('Your bet has been booked')}.</i>
-                           <h2>* {lastBooked.BookId}  *</h2>
+                            <div>
+                                <h2>* {lastBooked.BookId}  *</h2>
+                                <CopyIcon onClick={copyId}/>
+                            </div>
                         </div>
                         <div className={classes.BetInfoItem}>
                             <div>

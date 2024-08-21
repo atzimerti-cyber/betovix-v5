@@ -6,8 +6,8 @@ import classes from './LeftMenuItem.module.css';
 import { layoutActions } from '../layoutSlice';
 import { translate } from '../../../utils/translations';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 const LeftMenuItem = (props) => {
     const dispatch = useDispatch();

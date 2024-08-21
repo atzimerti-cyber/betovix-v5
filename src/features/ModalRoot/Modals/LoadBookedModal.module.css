@@ -1,4 +1,4 @@
-.BookedBet {
+.LoadBooked {
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -14,71 +14,6 @@
 color: #fff;
 }
 
-table.EventsTable {
-    width: 100%; 
-    border-collapse: collapse;
-    border-spacing: 0;
-}
-
-table.EventsTable thead {
-    background: var(--db-purple-text);
-}
-
-.BetInfoItem div {
-    padding: 5px;
-}
-
-.BetInfoItem div:first-child {
-    color: var(--db-brand-green);
-}
-
-.BetInfoItem {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-table.EventsTable td {
-    border: 1px solid #01122c;
-    font-size: 12px;
-    padding: 10px;
-    text-transform: capitalize;
-    line-height: 26px;
-    text-align: center;
-}
-
-table.EventsTable thead th {
-    border: 1px solid #01122c;
-    line-height: 20px;
-    font-size: 13px;
-    padding: 3px 10px;
-}
-
-.BetInfoItem h2 {
-    margin-top: 5px;
-    font-size: x-large;
-    color: var(--db-brand-green);
-}
-.BetInfoItem:first-child > div{
-   position: relative;
-}
-.BetInfoItem:first-child > div svg{
-    height: 20px;
-    width: 20px;
-    position: absolute;
-    top: 40%;
-    right: -20px;
-    cursor: pointer;
-}
-.BetInfo {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: space-evenly;
-    -ms-flex-pack: space-evenly;
-    justify-content: space-evenly;
-    margin: 7px 0;
-}
 @keyframes slide {
     100% {
         transform: translateY(0) scale(1);
@@ -93,7 +28,7 @@ table.EventsTable thead th {
     padding: 0.625rem;
 }
 
-.BookedBet header {
+.LoadBooked header {
     display: grid;
     height: var(--db-modal-header-height);
     padding-bottom: 1rem;
@@ -128,15 +63,9 @@ table.EventsTable thead th {
     width: 1.5rem !important;
 }
 
-.BookedBetContent {
+.LoadBookedContent {
     display: flex;
     flex-direction: column;
-}
-
-.BookedBetContent button {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    padding: 0.25rem;
 }
 
 @media (min-width: 768px) {

@@ -57,11 +57,11 @@ const GridGames = (props) => {
                     : null}
             </div>
 
-            {props.collection?.Total === 0 && (
+            {props.collection?.Total === 0 || props.collection?.Data.length === 0 && (
                 <p className={classes.NoResults}>{props.searchString ? `${translate('No results with')} '${props.searchString}'` : translate('No results')}</p>
             )}
 
-            {props.collection?.Total > props.collection?.Data.length && (
+            {props.collection?.Total > props.collection?.Data.length && props.collection?.Data.length > 0 && (
                 <div className={classes.LoadMore}>
                     {moreLoading ? (
                         <img src={diceAnimation} className={classes.MoreLoadingAnimation}></img>
