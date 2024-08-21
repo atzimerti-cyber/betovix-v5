@@ -20,6 +20,7 @@ import { searchActions } from '../../../pages/Search/searchSlice';
 import { translate } from '../../../utils/translations';
 import SearchSports from '../../../pages/Search/SearchSports';
 import StatsIcon from '../../../assets/svgs/bars.svg?react';
+import LoadIcon from '../../../assets/svgs/ticket.svg?react';
 
 const LeftContainer = memo(function () {
     const dispatch = useDispatch();
@@ -187,17 +188,31 @@ const LeftContainer = memo(function () {
                             <div className={classes.SideMenuSubButtonContainer}>
 
                                 {permissions.AllowToSports && (
+                                    <>
                                     <MainButton
                                         active={pathnameNoParams.includes('?modal=statistics')}
                                         onClick={() => navigate('?modal=statistics')}
                                         dataTooltipId='left-menu-tooltip'
-                                        dataTooltipContent={translate('Sports')}
+                                        dataTooltipContent={translate('Stats')}
                                     >
                                         <StatsIcon
                                             className={pathnameNoParams.includes('?modal=statistics') ? classes.ActiveSvg : null}
                                         />
                                         <span>{fullLeftContainer ? translate('Statistics') : ''}</span>
                                     </MainButton>
+
+                                     <MainButton
+                                     active={pathnameNoParams.includes('?modal=load-booked')}
+                                     onClick={() => navigate('?modal=load-booked')}
+                                     dataTooltipId='left-menu-tooltip'
+                                     dataTooltipContent={translate('Load Booked')}
+                                 >
+                                     <LoadIcon
+                                         className={pathnameNoParams.includes('?modal=load-booked') ? classes.ActiveSvg : null}
+                                     />
+                                     <span>{fullLeftContainer ? translate('Load Booked Bet') : ''}</span>
+                                 </MainButton>
+                                 </>
                                 )}
                             </div>
 

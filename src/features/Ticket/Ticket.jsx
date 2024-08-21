@@ -23,6 +23,7 @@ const Ticket = () => {
     const amounts = useSelector((state) => state.betslip.amounts);
     const liveState = useSelector((state) => state.live.liveState);
     const user = useSelector((state) => state.login.user);
+    const selectedAccount = useSelector((state) => state.login.selectedAccount);
 
     useEffect(() => {
         dispatch(getTicketSettings());
@@ -97,7 +98,11 @@ const Ticket = () => {
 
         const pointsStr = JSON.stringify(points);
 
-        const payload = `{'tickettype':'${betType}','points':${pointsStr}}`;
+        let  payload = `{'tickettype':'${betType}','points':${pointsStr}}`;
+
+        if (selectedAccount && selectedAccount !== null && selectedAccount?.AccountId) {
+             payload = `{'tickettype':'${betType}','points':${pointsStr},'ForPlayer':${selectedAccount.AccountId}}`;
+        }
 
         dispatch(getMaxBet(payload));
     }, [slips.length, betType]);

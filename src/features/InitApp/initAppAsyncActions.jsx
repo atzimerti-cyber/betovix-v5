@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-
+import { useEffect, useState, useMemo, useRef, memo } from 'react';
 import axiosApi from '../../axios-api';
 import { layoutActions } from '../Layout/layoutSlice';
 import { appActions } from './appSlice';
@@ -337,7 +337,7 @@ export const loadInitData = (isMobile) => {
                 items: [
                     {
                         id: 1,
-                        label: `Your Progress`,
+                        label: `My Progress`,
                         icon: <LogoSmall1C color="#FF0000" />,
                         modal: 'your-progress',
                     },
@@ -383,13 +383,12 @@ export const loadInitData = (isMobile) => {
         }
     };
 };
-
-export const fetchChildDetails = (accountid) => {
-    return async (dispatch) => {
+export const fetchChildDetails = (accountId) => {
+    return async (dispatch, getState) => {
         try {
             const lang = getLang();
             const response = await axiosApi.get(
-                `MyAffiliate/GetDirectChilds/?accountId=${accountid}&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `MyAffiliate/GetDirectChilds/?accountId=${accountId}&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
                 {
                     baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
                 }
@@ -397,8 +396,34 @@ export const fetchChildDetails = (accountid) => {
 
             if (response.status === 200) {
                 const childAccounts = response.data.Contents;
-                dispatch(loginActions.setAccountChildren(childAccounts));
+                const { accountChildren } = getState().login;
+                const user = getState().login.user;
 
+                if (accountId === user.AccountId) {
+                    dispatch(loginActions.setAccountChildren(childAccounts));
+                } else {
+                // Function to recursively update accounts
+                const updateAccountChildren = (accounts, id, children) => {
+                    return accounts.map(account => {
+                        if (account.AccountId === id) {
+                            return {
+                                ...account,
+                                children: children
+                            };
+                        } else if (account.children) {
+                            return {
+                                ...account,
+                                children: updateAccountChildren(account.children, id, children)
+                            };
+                        } else {
+                            return account;
+                        }
+                    });
+                };
+
+                const updatedAccounts = updateAccountChildren(accountChildren, accountId, childAccounts);
+                dispatch(loginActions.setAccountChildren(updatedAccounts));
+            }
             } else {
                 throw new Error('Failed to fetch child accounts');
             }
@@ -407,6 +432,48 @@ export const fetchChildDetails = (accountid) => {
         }
     };
 };
+
+// export const fetchChildDetails = (accountId) => {
+
+//     return async (dispatch, getState) => {
+//         try {
+//             const lang = getLang();
+//             const response = await axiosApi.get(
+//                 `MyAffiliate/GetDirectChilds/?accountId=${accountId}&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+//                 {
+//                     baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+//                 }
+//             );
+
+//             if (response.status === 200) {
+//                 const childAccounts = response.data.Contents;
+//                 const { accountChildren } = getState().login;
+//                 const user = getState().login.user;
+
+//                 if (accountId === user.AccountId) {
+//                     dispatch(loginActions.setAccountChildren(childAccounts));
+//                 } else {
+//                     const updatedAccounts = accountChildren.map(account => {
+//                         if (account.AccountId === accountId) {
+//                             return {
+//                                 ...account,
+//                                 children: childAccounts,
+//                             };
+//                         }
+//                         return account;
+//                     });
+
+//                     dispatch(loginActions.setAccountChildren(updatedAccounts));
+//                 }
+//             } else {
+//                 throw new Error('Failed to fetch child accounts');
+//             }
+//         } catch (error) {
+//             toast.error(error.message || 'Error fetching child details');
+//         }
+//     };
+// };
+
 
 export const getTranslations = (lang) => {
     return async (dispatch) => {

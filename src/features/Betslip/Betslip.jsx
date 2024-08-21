@@ -45,6 +45,7 @@ const Betslip = memo(function (props) {
     const savingBetLoading = useSelector((state) => state.betslip.savingBetLoading);
     const bonusBalance = useSelector((state) => state.layout.bonusBalance);
     const lastBooked = useSelector((state) => state.betslip.lastBooked);
+    const selectedAccount = useSelector((state) => state.login.selectedAccount);
 
     const [isBonus, setIsBonus] = useState(false);
 
@@ -282,6 +283,10 @@ const Betslip = memo(function (props) {
             IsBonus: isBonus,
             providerId: 1, // TODO: should this come from settings?
         };
+
+        if (selectedAccount && selectedAccount !== null && selectedAccount?.AccountId) {
+            betObj.ForPlayer = selectedAccount.AccountId;
+       }
 
         const payload = JSON.stringify(betObj);
 
