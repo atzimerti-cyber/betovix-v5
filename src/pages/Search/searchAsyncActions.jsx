@@ -299,7 +299,7 @@ export const getCasinoSearchProviders = (signal, pageItems, debSearchString, sel
 };
 
 
-///////////////////////////////////////////////////////////////////////////
+//SEARCH SPORTS/////////////////////////////////////////////////////////////////////////
 export const getEventSearch = (signal, providerId, value) => {
     return async (dispatch) => {
         try {
@@ -325,6 +325,7 @@ export const getEventSearch = (signal, providerId, value) => {
             console.log(eventSearchRes);
 
             dispatch(searchActions.setSportsResults(eventSearchRes));
+            dispatch(searchActions.setLoading(false));
         } catch (error) {
             const message = error?.message ? error.message : error.toString();
             if (error?.code !== 'ERR_CANCELED') {

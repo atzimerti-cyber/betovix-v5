@@ -32,6 +32,23 @@ import LeagueOfLegendsIcon from '../../assets/sportIcons/league-of-legends.svg?r
 import RainbowSixIcon from '../../assets/sportIcons/rainbow-six.svg?react';
 import Warcraft3Icon from '../../assets/sportIcons/warcraft-3.svg?react';
 
+import Amatic from '../../assets/casinoIcons/amatic.svg?react'
+import Aristocrat from '../../assets/casinoIcons/aristocrat-logo.svg?react';
+import Egt from '../../assets/casinoIcons/egt-logo.svg?react';
+import Egyptian from '../../assets/casinoIcons/egyptian.svg?react';
+import Evolution from '../../assets/casinoIcons/evolution-logo.svg?react';
+import Netent from '../../assets/casinoIcons/netent-logo.svg?react';
+import New from '../../assets/casinoIcons/new.svg?react';
+import Novomatic from '../../assets/casinoIcons/novomatic.svg?react';
+import PlayNGo from '../../assets/casinoIcons/playngo-logo.svg?react';
+import Playtech from '../../assets/casinoIcons/playtech-logo.svg?react';
+import Pragmatic from '../../assets/casinoIcons/pragmatic-logo.svg?react';
+import RedTiger from '../../assets/casinoIcons/redtiger-logo.svg?react';
+import Yggdrasil from '../../assets/casinoIcons/yggdrasil-logo.svg?react';
+import Providers from '../../assets/casinoIcons/providers.svg?react';
+import Favorites from '../../assets/svgs/heart.svg?react';
+
+
 const initialState = {
     unreadNotifications: 0,
     initDataLoaded: false,
@@ -123,6 +140,32 @@ const initialState = {
         'League of Legends': <LeagueOfLegendsIcon />,
         'Rainbow Six': <RainbowSixIcon />,
         'Warcraft 3': <Warcraft3Icon />,
+    },
+    casinoIcons: {
+        Slots : <CricketIcon />,
+        Favorites : <Favorites />,
+        Popular : <CricketIcon />,
+        AllGames :<New />,
+        Vegas : <CricketIcon />,
+        Amatic : <Amatic />,
+        Egyptian : <Egyptian />,
+        Megaways : <CricketIcon />,
+        Halloween : <CricketIcon />,
+        Classic : <CricketIcon />,
+        Book : <CricketIcon />,
+        Greek : <CricketIcon />,
+        Aristocrat : <Aristocrat />,
+        Egt : <Egt />,
+        Evolution : <Evolution />,
+        Netent : <Netent />,
+        Novomatic : <Novomatic />,
+        PlayNGo : <PlayNGo />,
+        Playtech : <Playtech />,
+        Pragmatic : <Pragmatic />,
+        RedTiger : <RedTiger />,
+        Yggdrasil : <Yggdrasil />,
+        Providers : <Providers />,
+        
     },
     sportSettings: null,
 };

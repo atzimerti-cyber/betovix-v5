@@ -8,6 +8,7 @@ import HomeIcon from '../../../assets/svgs/home.svg?react';
 import SlotsIcon from '../../../assets/svgs/slots.svg?react';
 import BlackjackIcon from '../../../assets/svgs/blackjack.svg?react';
 import HeartIcon from '../../../assets/svgs/heart.svg?react';
+import ProvidersIcon from '../../../assets/casinoIcons/providers.svg?react';
 import { translate } from '../../../utils/translations';
 
 const CasinoMenu = () => {
@@ -45,6 +46,12 @@ const CasinoMenu = () => {
                 <NavLink className={({ isActive }) => (isActive ? [classes.NavItem, classes.ActiveItem].join(' ') : classes.NavItem)} to='/casino/live'>
                     <BlackjackIcon />
                     {translate('Live Casino')}
+                </NavLink>
+            </SwiperSlide>
+            <SwiperSlide>
+                <NavLink className={({ isActive }) => (isActive ? [classes.NavItem, classes.ActiveItem].join(' ') : classes.NavItem)} to='/casino/providers'>
+                    <ProvidersIcon fill='var(--db-gray-5)'/>
+                    {translate('Providers')}
                 </NavLink>
             </SwiperSlide>
         </SwiperMenu>

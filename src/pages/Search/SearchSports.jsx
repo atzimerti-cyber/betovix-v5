@@ -15,6 +15,7 @@ const SearchSports = () => {
     const dispatch = useDispatch();
 
     const loading = useSelector((state) => state.search.loading);
+    const moreLoading = useSelector((state) => state.search.moreLoading);
 
     const searchString = useSelector((state) => state.search.searchString);
     const events = useSelector((state) => state.search.sportsResults);
@@ -52,27 +53,41 @@ const SearchSports = () => {
                     placeholder='Search Event'
                     noFilters
                 />
+                {loading ? (
+                    <div className={classes.Loading}>
+                        <div className={classes.Spinner}></div>
+                    </div>
+                ) : (
+                    events ? (
+                        events.length > 0 ? (
+                            <>
+                                <div className={classes.Header}>
+                                    <SportsIcon height="20px" width="20px" />
+                                    <p className={classes.Title}>Search Results</p>
+                                    {events.length > 0 && (
+                                        <p className={classes.Total}>
+                                            {events.length} {translate('Events')}
+                                        </p>
+                                    )}
+                                </div>
 
-                {events && (
-                    <>
-                        <div className={classes.Header}>
-                            <SportsIcon height="20px" width="20px"/>
-                            <p className={classes.Title}>Search Results</p>
-                            {events?.length > 0 && (
-                                <p className={classes.Total}>
-                                    {events?.length} {translate('Events')}
-                                </p>
-                            )}
-                        </div>
+                                {events.map((event) => {
+                                    // Uncomment the following line if you want to skip live events
+                                    // if (liveState[event.MatchId]) return null;
 
-                        {events.map((event) => {
-                            // Uncomment the following line if you want to skip live events
-                            // if (liveState[event.MatchId]) return null;
+                                    return <EventRow key={event.MatchId} event={event} />;
+                                })}
+                            </>
+                        ) :
+                            (
+                                <p> No Events were found.</p>
+                            )
 
-                            return <EventRow key={event.MatchId} event={event} />;
-                        })}
-                    </>
+                    ) : (
+                        <p> Type 3 or more characters to search for an event.</p>
+                    )
                 )}
+
             </div>
         </div>
     );

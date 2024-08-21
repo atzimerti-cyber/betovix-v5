@@ -60,14 +60,12 @@ export const getCasino = (signal) => {
 
             //const casinoHomeItems = responses[0].data.Contents;
 
-            const casinoHomeItems = Object.keys(responses[0].data.Contents)
-                .map(menuItem => ({
-                    Item: responses[0].data.Contents[menuItem].Item,
-                    Data: responses[0].data.Contents[menuItem].Data
-                }))
+            const casinoHomeItems = Object.keys(responses[0].data.Contents).map(menuItem => ({
+                Item: responses[0].data.Contents[menuItem].Item,
+                Data: responses[0].data.Contents[menuItem].Data
+            }))
                 .sort((a, b) => a.Item.Min.localeCompare(b.Item.Min));
 
-            console.log(casinoHomeItems);
             // const home = {
             //     recentGames: recentGames,
             //     newGames: newGames,
@@ -76,6 +74,17 @@ export const getCasino = (signal) => {
             //     allLive: responses[4].data.Contents,
             // };
 
+            //TODEL
+            // const casinoVendors = Object.keys(responses[2].data.Contents)
+            // .map(vendor => ({
+            //    id: vendor.Data.Id,
+            //    id: vendor.Data.Id,
+            //    id: vendor.Data.Id,
+            //    id: vendor.Data.Id,
+            // }))
+            ///////
+            const casinoVendors = Object.keys(responses[2].data.Contents).sort
+            console.log("Vendors(getCasino)", responses[2].data.Contents);
             dispatch(casinoActions.setFilteredGames(casinoHomeItems));
             // dispatch(casinoActions.setFilteredGames(home));
             dispatch(casinoActions.setCasinoBanners(responses[1].data.Contents));
@@ -280,7 +289,7 @@ export const getAllVendors = (signal) => {
             });
 
             if (response.data.Status.StatusCode !== 200) throw Error();
-
+            console.log("Vendors(getAllVendors)", response.data.Contents);
             dispatch(casinoActions.setCasinoVendors(response.data.Contents));
         } catch (error) {
             const message = error?.message ? error.message : error;

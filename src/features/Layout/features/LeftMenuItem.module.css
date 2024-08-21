@@ -1,9 +1,9 @@
 .LeftMenuItem {
-    background-color: var(--db-duelbits-gray);
-    margin-bottom: 0.13rem;
-    margin-top: 0.13rem;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+    background-color: #0c2233;
+    /* margin-bottom: 0.13rem; */
+    /* margin-top: 0.13rem; */
+    /* border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px; */
 }
 
 .LeftMenuItem a {
@@ -33,6 +33,7 @@
 .LeftMenuItem a img {
     width: 1.15rem;
     height: 1.15rem;
+    fill: var(--db-gray-5);
 }
 
 .LeftMenuItem a svg path {
@@ -109,37 +110,42 @@
 
 /* ------------------------------------- */
 .LeftMenuItem.NotCateg {
-    background-color: var(--db-duelbits-gray);
-    /* background: linear-gradient(135deg, #a8c1ff6e, #5647a860, #c2e9fb3f, #e0f2f14b); */
-    background-size: 200% 200%;
-    animation: gradientAnimation 15s ease infinite;
-
+    /* background: linear-gradient(100deg, #1d3f57cf, #192f42ce, #162a3b, #0e1b26); */
+    /* background: #1c3649; */
+    background: #0e1b26;
+    background-size: 500% 500%;
+    animation: gradientAnimation 10s ease infinite;
+    margin-bottom: 0.25rem;
+    border-radius: 20px;
     position: relative;
     overflow: hidden;
 }
 
-.LeftMenuItem.NotCateg::before {
+/* .LeftMenuItem.NotCateg::before {
     content: '';
     position: absolute;
     top: 50%;
     left: 50%;
     width: 300%;
     height: 300%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 60%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 80%);
     transform: translate(-50%, -50%) scale(0.01);
     opacity: 0;
     transition: opacity 0.5s ease, transform 0.5s ease;
-}
-/* 
-.LeftMenuItem.NotCateg:hover::before {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
+    border-radius: 20px;
 } */
+
 .LeftMenuItem.NotCateg:hover {
     background-color: var(--db-white-hover);
 }
-/* Keyframes for the background gradient animation */
-@keyframes gradientAnimation {
+
+.LeftMenuItem.NotCateg.Active {
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    background: var(--db-gray-4);
+}
+
+/* @keyframes gradientAnimation {
     0% {
         background-position: 0% 50%;
     }
@@ -151,4 +157,4 @@
     100% {
         background-position: 0% 50%;
     }
-}
+} */

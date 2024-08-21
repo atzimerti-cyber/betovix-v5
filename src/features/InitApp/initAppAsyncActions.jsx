@@ -33,6 +33,7 @@ import { betslipActions } from '../Betslip/betslipSlice';
 
 import { getCrypto } from '../../pages/Crypto/cryptoAsyncActions';
 import { getRewards, getUserAchievements } from '../../pages/UserGamification.jsx/gamificationAsyncActions';
+import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 
 export const loadInitData = (isMobile) => {
     return async (dispatch, getState) => {
@@ -120,7 +121,7 @@ export const loadInitData = (isMobile) => {
                     }
                 }
             }
-            
+
 
             // Necessary
             // -------------------------------------
@@ -167,15 +168,39 @@ export const loadInitData = (isMobile) => {
 
                 if (Array.isArray(responsesCasino[0].data.Contents)) dispatch(appActions.setAllCasinoVendors(responsesCasino[0].data.Contents));
 
-
+                const currentState = getState().app;
+                const casinoIcons = currentState.casinoIcons;
                 const casinoWalletMenu = responsesCasino[1].data.Contents.Categs.map((item) => {
-                    return (item.Items.length > 0 ?
-                        (
-                            { category: { id: item.Categ.Id, label: `${item.Categ.Name}`, visible: true }, items: item.Items }
-                        ) : (
-                            { items: [item.Categ] }
-                        )
-                    );
+                    if (item.Items.length > 0) {
+                        return {
+                            category: {
+                                id: item.Categ.Id,
+                                label: `${item.Categ.Name}`,
+                                visible: true
+                            },
+                            items: item.Items.map((subItem) => {
+                                const icon = casinoIcons[subItem.Icon] || <NoImageIcon />;
+                                const slug = subItem.Name?.toLowerCase().replace(/ /g, '-')
+                                return {
+                                    id: subItem.Id,
+                                    label: subItem.Name,
+                                    icon: icon,
+                                    page: `casino/${slug}`,
+                                };
+                            })
+                        };
+                    } else {
+                        const icon = casinoIcons[item.Categ.Icon] || <NoImageIcon />;
+                        const slug = item.Categ.Icon?.toLowerCase().replace(/ /g, '-');
+                        return {
+                            items: [{
+                                id: item.Categ.Id,
+                                label: item.Categ.Name,
+                                icon: icon,
+                                page: `casino/${slug}`,
+                            }]
+                        };
+                    }
                 });
 
 
@@ -274,7 +299,7 @@ export const loadInitData = (isMobile) => {
                     topTournamentsMenu.items.push({
                         id: topTournament.Value,
                         label: topTournament.Par2 + ' ' + topTournament.Name,
-                        icon: <img src={topTournament.Icon} alt="${item.label}" />,
+                        icon: <img src={topTournament.Icon} alt="-" />,
                         // icon: sportIcons[topTournaments.SubCategs[0].SubCateg.Name],
                         page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
                     });
@@ -361,26 +386,26 @@ export const loadInitData = (isMobile) => {
 
 export const fetchChildDetails = (accountid) => {
     return async (dispatch) => {
-    try {
-        const lang = getLang();
-        const response = await axiosApi.get(
-            `MyAffiliate/GetDirectChilds/?accountId=${accountid}&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
-            {
-                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+        try {
+            const lang = getLang();
+            const response = await axiosApi.get(
+                `MyAffiliate/GetDirectChilds/?accountId=${accountid}&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                {
+                    baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                }
+            );
+
+            if (response.status === 200) {
+                const childAccounts = response.data.Contents;
+                dispatch(loginActions.setAccountChildren(childAccounts));
+
+            } else {
+                throw new Error('Failed to fetch child accounts');
             }
-        );
-
-        if (response.status === 200) {
-            const childAccounts = response.data.Contents;
-            dispatch(loginActions.setAccountChildren(childAccounts));
-
-        } else {
-            throw new Error('Failed to fetch child accounts');
+        } catch (error) {
+            toast.error(error.message || 'Error fetching child details');
         }
-    } catch (error) {
-        toast.error(error.message || 'Error fetching child details');
-    }
-  };
+    };
 };
 
 export const getTranslations = (lang) => {

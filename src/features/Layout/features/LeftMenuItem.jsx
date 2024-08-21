@@ -6,8 +6,8 @@ import classes from './LeftMenuItem.module.css';
 import { layoutActions } from '../layoutSlice';
 import { translate } from '../../../utils/translations';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome } from '@fortawesome/free-solid-svg-icons';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 const LeftMenuItem = (props) => {
     const dispatch = useDispatch();
@@ -41,9 +41,6 @@ const LeftMenuItem = (props) => {
             <a data-tooltip-id='left-menu-tooltip' data-tooltip-content={translate(props.item.label)}>
                 <div className={classes.IconWrapper}>
                     {props.item.icon && props.item.icon}
-                    {props.item.Icon && (
-                        <i className={props.item.Icon}></i>
-                    )}
                 </div>
 
 

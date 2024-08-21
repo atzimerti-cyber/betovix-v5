@@ -1,0 +1,76 @@
+.VendorGames {
+    display: flex;
+    flex-direction: column;
+}
+
+.Header {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+}
+
+.Header > svg {
+    margin-right: 0.5rem;
+    height: 1.25rem;
+    width: 1.25rem;
+}
+.Header > svg path {
+    fill: var(--db-brand-green);
+}
+
+.Title {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.Total {
+    margin-left: auto;
+    color: var(--db-brand-green);
+}
+
+.GameGrid {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.NoResults {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+.ImageContainer {
+    width: 100%;
+    aspect-ratio: 6 / 4;
+    position: relative;
+}
+
+@media (min-width: 640px) {
+    .GameGrid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 768px) {
+    .GameGrid {
+        gap: 1rem;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .Header {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (min-width: 1280px) {
+    .GameGrid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+}
