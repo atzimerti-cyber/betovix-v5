@@ -25,9 +25,11 @@
     width: 100%;
     aspect-ratio: 6 / 4;
     position: relative;
-    background-color: rgba(255, 255, 255, 0.24);
+    /* background-color: rgba(92, 91, 99, 0.24); */
 }
+
 .ImageContainer img {
+    padding: 4px;
     object-fit: fill;
     aspect-ratio: 6 / 4;
     height: 100%;

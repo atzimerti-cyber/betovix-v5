@@ -28,8 +28,8 @@ const VendorSwiper = (props) => {
         return null;
     };
 
-    let slidesPerView = 6.3;
-    let slidesPerGroup = 4;
+    let slidesPerView = 9.5;
+    let slidesPerGroup = 6;
 
     if (isMobile) {
         slidesPerView = 2;
@@ -47,14 +47,12 @@ const VendorSwiper = (props) => {
 
     return (
         <MainSwiper
-            slidesPerView={slidesPerView}
+            slidesPerView={props.slidesPerView ? props.slidesPerView : slidesPerView}
             slidesPerGroup={slidesPerGroup}
-            //icon={props.icon}
-            // title={props.link ? <Link to={props.link}>{props.title}</Link> : props.task ? <a onClick={props.task}>{props.title}</a> : props.title}
-            // viewAll={props.link}
             viewText={props.text}
             onTask={props.task}
             hideArrows
+            noHeader
         >
             {props.items ? (
                 props.items.length === 0 ? (
@@ -76,13 +74,13 @@ const VendorSwiper = (props) => {
                                                 <img src={item.Data.Logo} loading='lazy' onLoad={() => updateLoadedImages(index)} />
                                             </div>
                                             {props.isNew && <div className={classes.NewLabel}>NEW</div>}
-                                            <div className={classes.InfoOverlay}>
+                                            {/* <div className={classes.InfoOverlay}>
                                                 <div className={classes.InfoContent}>
                                                     <div>
                                                         <p className={classes.InfoCategory}>{item.Data.Name}</p>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> */}
                                         </article>
                                     </div>
                                 </Link>

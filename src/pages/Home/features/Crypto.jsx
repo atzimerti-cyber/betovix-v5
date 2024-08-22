@@ -33,8 +33,17 @@ const Crypto = () => {
 
     const onClick = (item) => {
         if (user) {
+
             dispatch(cryptoActions.setSelectedCurrency(item));
-            navigateToModal('cashier', 'deposit', 'crypto');
+            if (item.AllowDeposit && item.AllowWithdraw) {
+                navigateToModal('cashier', 'deposit', 'crypto');
+            } else if (item.AllowDeposit && !item.AllowWithdraw) {
+                navigateToModal('cashier', 'deposit', 'crypto');
+            } else if (item.AllowWithdraw && !item.AllowDeposit) {
+                navigateToModal('cashier', 'withdraw', 'crypto');
+            }else{
+                return null;
+            }
         } else navigateToModal('auth', 'login');
     };
 

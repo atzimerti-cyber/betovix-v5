@@ -42,10 +42,11 @@
     height: 100%;
     width: 100%;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
+    /* justify-content: flex-end; */
     text-align: center;
     opacity: 0;
-    background: linear-gradient(1turn, rgba(41, 63, 82, 0.8666666666666667) 60%, transparent 80%);
+    background: linear-gradient(1turn, rgba(41, 63, 82, 0.747) 80%, transparent 100%);
 }
 
 .Card:hover .InfoOverlay {
