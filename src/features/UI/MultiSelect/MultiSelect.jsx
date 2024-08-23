@@ -28,6 +28,12 @@ const MultiSelect = (props) => {
         }
     }, [searchString, props.options?.length]);
 
+    useEffect(() => {
+        if (props.selected) {
+            setSelectedOptions(props.selected.map(option => option.label));
+        }
+    }, [props.selected]);
+
     const updateSelectedOptions = (option) => {
         let so = [...selectedOptions];
 
@@ -62,7 +68,9 @@ const MultiSelect = (props) => {
                                     <div className={classes.MenuTitle}>{props.menuTitle}</div>
                                     <div
                                         className={selectedOptions.length > 0 ? classes.ClearLabel : [classes.ClearLabel, classes.Disabled].join(' ')}
-                                        onClick={() => setSelectedOptions([])}
+                                        onClick={() => {
+                                            setSelectedOptions([]);
+                                        }}
                                     >
                                         {translate('Clear Selection')}
                                         <span className={classes.SelectedCount}>{selectedOptions.length > 0 ? '(' + selectedOptions.length + ')' : '(0)'}</span>

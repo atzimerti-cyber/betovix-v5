@@ -29,11 +29,12 @@
 }
 
 .UserDrawerMenuHeader h2 {
+    padding-left: 0.5rem;
     margin-right: auto;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    font-size: 0.875rem;
+    font-size: 1rem;
     line-height: 1.25rem;
     font-weight: 600;
     color: var(--db-brand-green);
@@ -96,4 +97,10 @@
 }
 .UserDrawerMenu li a svg path {
     fill: var(--db-gray-5);
+}
+
+.LangContainer{
+    display: flex;
+    margin-top: 2rem;
+    justify-content: center;
 }

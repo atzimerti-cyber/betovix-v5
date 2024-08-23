@@ -176,7 +176,7 @@ export const loadInitData = (isMobile) => {
                             category: {
                                 id: item.Categ.Id,
                                 label: `${item.Categ.Name}`,
-                                visible: true
+                                visible: false,
                             },
                             items: item.Items.map((subItem) => {
                                 const icon = casinoIcons[subItem.Icon] || <NoImageIcon />;
@@ -306,7 +306,7 @@ export const loadInitData = (isMobile) => {
                 });
                 sportsMenuItems.push(topTournamentsMenu);
 
-                let topSportsMenu = { category: { id: 3, label: 'Top Sports', visible: true }, items: [] };
+                let topSportsMenu = { category: { id: 3, label: 'Top Sports', visible: false }, items: [] };
                 topSports.forEach((topSport) => {
                     topSportsMenu.items.push({
                         id: topSport.Id,
@@ -333,13 +333,14 @@ export const loadInitData = (isMobile) => {
 
             // Rest of menu items
             allMenuItems.push({
-                category: { id: 5, label: 'Gamification', visible: false },
+                category: { id: 5, label: 'Gamification', visible: true },
                 items: [
                     {
                         id: 1,
                         label: `My Progress`,
                         icon: <LogoSmall1C color="#FF0000" />,
                         modal: 'your-progress',
+                        isNew: true
                     },
                     {
                         id: 2,
@@ -354,7 +355,7 @@ export const loadInitData = (isMobile) => {
                 items: [
                     {
                         id: 1,
-                        label: 'Crypto Prices',
+                        label: 'Crypto Rates',
                         icon: <PricesIcon />,
                         page: 'crypto',
                     },

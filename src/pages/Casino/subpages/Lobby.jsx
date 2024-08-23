@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+
+import { useMediaQuery } from 'react-responsive';
+
 import classes from './Lobby.module.css';
 import { casinoActions } from '../casinoSlice';
 import { getCasino } from '../casinoAsyncActions';
@@ -9,10 +12,6 @@ import SwiperWithOverlay from '../../../features/UI/MainSwiper/SwiperWithOverlay
 import VendorSwiper from '../../../features/UI/MainSwiper/VendorSwiper';
 
 import BigSwiper2 from '../../../features/UI/MainSwiper/BigSwiper2';
-import SlotsIcon from '../../../assets/svgs/slots.svg?react';
-import BlackjackIcon from '../../../assets/svgs/blackjack.svg?react';
-import ClockIcon from '../../../assets/svgs/clock.svg?react';
-import HeartIcon from '../../../assets/svgs/heart.svg?react';
 import ProvidersIcon from '../../../assets/casinoIcons/providers.svg?react';
 import { translate } from '../../../utils/translations';
 
@@ -51,6 +50,29 @@ const Lobby = () => {
         setAllProviders(po);
     }, [casinoVendors]);
 
+    
+    const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
+    const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
+    const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
+    const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
+
+    let slidesPerView = 6;
+    let slidesPerGroup = 4;
+
+    if (isMobile) {
+        slidesPerView = 2;
+        slidesPerGroup = 2;
+    } else if (isTablet) {
+        slidesPerView = 3;
+        slidesPerGroup = 3;
+    } else if (isDesktop) {
+        slidesPerView = 3.5;
+        slidesPerGroup = 3;
+    } else if (isBigDesktop) {
+        slidesPerView = 4;
+        slidesPerGroup = 4;
+    }
+
 
 
     const getPathByItemName = (itemName) => {
@@ -76,7 +98,7 @@ const Lobby = () => {
 
     return (
         <>
-            <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} slidesPerView={9}/>
+            <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} slidesPerView={slidesPerView + 3}/>
 
             <BigSwiper2 items={casinoBanners} max={6} />
 
@@ -90,7 +112,7 @@ const Lobby = () => {
                             link={getPathByItemName(menuItem?.Item?.Name)}
                             items={menuItem?.Data}
                             max={20}
-                            slidesPerView={6}
+                            slidesPerView={slidesPerView}
                         />
                     );
                 }

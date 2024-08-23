@@ -74,8 +74,8 @@ const DepositCrypto = () => {
     useEffect(() => {
         if (!selectedCurrency) return;
 
-        console.log("Selected Currency:", selectedCurrency);
-        console.log("Selected Network:", selectedNetwork);
+        //console.log("Selected Currency:", selectedCurrency);
+        //console.log("Selected Network:", selectedNetwork);
 
         const controller = new AbortController();
         const signal = controller.signal;

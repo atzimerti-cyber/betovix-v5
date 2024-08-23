@@ -6,6 +6,8 @@ import CloseButton from '../../UI/Buttons/CloseButton';
 import MenuItems from './MenuItems';
 import { layoutActions } from '../layoutSlice';
 
+import DropdownLang from '../../UI/Dropdown/DropdownLang';
+
 const UserDrawer = () => {
     const dispatch = useDispatch();
 
@@ -25,6 +27,10 @@ const UserDrawer = () => {
             </div>
             <div className={classes.UserDrawerDivider}></div>
             <MenuItems onClick={() => dispatch(layoutActions.setUserDropdownVisible(false))} />
+            <div className={classes.LangContainer}>
+                <DropdownLang fullLabel/>
+            </div>
+
         </motion.div>
     );
 };

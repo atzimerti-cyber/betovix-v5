@@ -94,7 +94,7 @@ const Layout = () => {
 
             <Minibar />
             <Topbar />
-            
+
             <div className={classes.Content}>
                 {!isMobile && <LiveListContainer />}
 
@@ -212,7 +212,8 @@ const Layout = () => {
             <div
                 className={!isDesktop && user && userDropdownVisible ? [classes.FullOverlay, classes.Show].join(' ') : classes.FullOverlay}
                 onClick={() => dispatch(layoutActions.setUserDropdownVisible(false))}
-            ></div>
+            >
+            </div>
             <AnimatePresence>{!isDesktop && user && userDropdownVisible && <UserDrawer />}</AnimatePresence>
 
             {isMobile && <Bottombar />}

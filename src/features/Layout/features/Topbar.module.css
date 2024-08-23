@@ -14,10 +14,17 @@
     box-sizing: border-box;
 }
 
+.Container{
+    display: flex;
+    justify-content: center;
+}
+
 .TopbarLeftWrapper {
+    /* position: absolute; */
     position: relative;
-    flex-grow: 1;
+    
     background-color: initial;
+    grid-column: 1;
 }
 
 .TopbarCenterWrapper {
@@ -27,11 +34,13 @@
     align-items: center;
     justify-content: center;
     gap: 0.375rem;
+    grid-column: 2;
 }
 
 .TopbarRightWrapper {
     position: relative;
     flex-grow: 0;
+    grid-column: 3;
 }
 
 .TopbarLeft {
@@ -519,6 +528,7 @@
     .TopbarCenterWrapper>button {
         width: auto;
     }
+    
 
     .HeaderRight {
         margin-left: 0;
@@ -556,6 +566,11 @@
         display: grid;
         grid-template-rows: inherit;
         grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .TopbarLeftWrapper {
+        position: absolute;
+        flex-grow: 1;
     }
 
     .TopbarCenterWrapper {
@@ -604,6 +619,11 @@
 
     .DropDownWrapper .DropDownLabel>button {
         max-width: 160px;
+    }
+
+    .TopbarLeftWrapper {
+        position: absolute;
+        flex-grow: 1;
     }
 
     .HeaderRightDivider {

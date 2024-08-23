@@ -6,14 +6,10 @@ import { NavLink } from 'react-router-dom';
 import { SwiperSlide } from 'swiper/react';
 
 import classes from './Minibar.module.css';
-
+import DropdownLang from '../../UI/Dropdown/DropdownLang';
 import MainButton from '../../UI/Buttons/MainButton';
-import NumberBadge from '../../UI/Badges/NumberBudge';
 import { translate } from '../../../utils/translations';
-import { layoutActions } from '../layoutSlice';
-import MenuItems from './MenuItems';
 import SwiperMenu from '../../UI/MainSwiper/SwiperMenu';
-import MainSwiper from '../../UI/MainSwiper/MainSwiper';
 import LevelUpIcon from '../../../assets/svgs/level-up.svg?react';
 
 import { sportsbookActions } from '../../../pages/SportsBook/sportsbookSlice';
@@ -105,7 +101,7 @@ const Minibar = () => {
                 </div>
 
                 <div className={classes.MinibarCenterWrapper}>
-                    {user && (
+                    {!user && (
                         <>
 
                         </>
@@ -136,6 +132,7 @@ const Minibar = () => {
                             </div>
                         </>
                     )}
+                    
                 </div>
 
             </div>

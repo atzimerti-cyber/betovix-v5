@@ -17,7 +17,7 @@ const Search = () => {
     const loading = useSelector((state) => state.search.loading);
     const casinoResults = useSelector((state) => state.search.casinoResults);
     // const filteredGames = useSelector((state) => state.casino.filteredGames);
-    // const sorting = useSelector((state) => state.casino.sorting);
+    const sorting = useSelector((state) => state.casino.sorting);
 
     const searchString = useSelector((state) => state.search.searchString);
     const debSearchString = useDebounce(searchString);
@@ -43,10 +43,11 @@ const Search = () => {
         const searchParams = new URLSearchParams(location.search);
         const provider = searchParams.get('provider');
         if (provider) {
-            const providerArray = [provider];
+            const providerArray = provider.split(',');
             setSelectedProviders(providerArray);
+            dispatch(searchActions.setSearchSelectedProviders(providerArray));
         }
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
@@ -73,7 +74,7 @@ const Search = () => {
         } else if (selectedProviders.length > 0) {
             dispatch(getCasinoSearchProviders(axiosController.signal, 24, debSearchString, selectedProviders));
         }
-    }, [axiosController, debSearchString, selectedProviders]);
+    }, [axiosController, debSearchString, selectedProviders, sorting]);
 
     return (
         <div className={classes.PageContent}>
