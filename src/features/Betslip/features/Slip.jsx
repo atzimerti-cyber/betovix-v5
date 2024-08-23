@@ -1,5 +1,6 @@
 import { useRef, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 import classes from './Slip.module.css';
@@ -15,6 +16,7 @@ import IndicatorUpIcon from '../../../assets/svgs/indicator-up.svg?react';
 
 const Slip = (props) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const inputRef = useRef(null);
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
@@ -110,6 +112,16 @@ const Slip = (props) => {
         }
     };
 
+    const handleNavigate = () => {
+        const url = `/event/${props.slip.SportName.International}/${props.slip.SportId}/${props.slip.MatchId}`;
+        navigate(url);
+    };
+
+    const handleRemoveSlip = (event) => {
+        event.stopPropagation(); 
+        dispatch(betslipActions.removeFromSlips(props.slip.FieldId));
+    };
+
     return (
         <motion.div
             className={classes.Slip}
@@ -117,6 +129,7 @@ const Slip = (props) => {
             animate={{ y: 0, opacity: 1 }}
             exit={{ x: -100, opacity: 0, transition: { duration: 0.2, delay: 0 } }}
             transition={{ duration: 0.2 }}
+            onClick={handleNavigate}
         >
             <div className={classes.SelectionList}>
                 <div className={props.slip.Odd <= 1 ? [classes.Selection, classes.Inactive].join(' ') : classes.Selection}>
@@ -153,7 +166,7 @@ const Slip = (props) => {
 
                         {props.slip.Live && <div className={classes.LiveBadge}>{translate('Live')}</div>}
 
-                        <button className={classes.DismissButton} onClick={() => dispatch(betslipActions.removeFromSlips(props.slip.FieldId))}>
+                        <button className={classes.DismissButton} onClick={handleRemoveSlip}>
                             <TimesIcon />
                         </button>
                     </div>

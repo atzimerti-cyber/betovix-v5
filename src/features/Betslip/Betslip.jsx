@@ -44,22 +44,28 @@ const Betslip = memo(function (props) {
     const placingBetLoading = useSelector((state) => state.betslip.placingBetLoading);
     const savingBetLoading = useSelector((state) => state.betslip.savingBetLoading);
     const bonusBalance = useSelector((state) => state.layout.bonusBalance);
-    const lastBooked = useSelector((state) => state.betslip.lastBooked);
     const selectedAccount = useSelector((state) => state.login.selectedAccount);
+    const triggerPlaceBet = useSelector((state) => state.betslip.triggerPlaceBet);
 
     const [isBonus, setIsBonus] = useState(false);
 
     const addParamsToUrl = (modal, tab) => {
         const searchParams = new URLSearchParams(location.search);
         searchParams.set('modal', modal);
-        searchParams.set('tab', tab);
-
+        if (tab) searchParams.set('tab', tab);
+      
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     };
 
     useEffect(() => {
         return () => clearInterval(timerIdRef.current);
     }, []);
+
+    useEffect(() => {
+        if (triggerPlaceBet) {
+            onPlaceBet();
+        }
+    }, [triggerPlaceBet]);
 
     useEffect(() => {
         const storageTicket = getTicketFromStorage();
@@ -233,11 +239,7 @@ const Betslip = memo(function (props) {
     
         dispatch(saveBet(data))
             .then(() => {
-
-                    const searchParams = new URLSearchParams(location.search);
-                    searchParams.set('modal', 'booked-bet');
-                    navigate(`${location.pathname}?${searchParams.toString()}`);
-              
+                addParamsToUrl('booked-bet')
             })
             .catch((error) => {
                 toast.error(error?.message);
@@ -290,7 +292,8 @@ const Betslip = memo(function (props) {
 
         const payload = JSON.stringify(betObj);
 
-        dispatch(placeBet(payload, slips, amounts, betType));
+        dispatch(placeBet(payload, slips, amounts, betType))
+           
     };
 
     const bonusButton = useMemo(() => {
