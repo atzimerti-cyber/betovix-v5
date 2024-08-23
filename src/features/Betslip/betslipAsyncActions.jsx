@@ -99,7 +99,7 @@ export const saveBet = (payload) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `Betting/PostData?action=saveticket&lang=${lang.id}&siteid=31`,
+                `Betting/PostData?action=saveticket&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
                 { data: payload },
                 {
                     baseURLOverride: import.meta.env.VITE_BETS_API,
@@ -127,7 +127,7 @@ export const loadBooked = (signal, code, callback) => {
             const payload = JSON.stringify(code);
 
             const response = await axiosApi.post(
-                `Betting/PostData?action=loadticket&lang=${lang.id}&siteid=31`,
+                `Betting/PostData?action=loadticket&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
                 {
                     data: payload,
                 },

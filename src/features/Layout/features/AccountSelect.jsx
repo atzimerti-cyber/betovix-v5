@@ -90,7 +90,7 @@ const AccountSelect = () => {
                     readOnly
                     placeholder="Player"
                 />
-                <div className={classes.dropIcon}> <ParentIcon/></div>
+                <div className={classes.dropIcon} onClick={handleDropdownToggle}> <ParentIcon/></div>
                
                 {dropdownVisible && (
                     <div className={classes.dropdownMenu}>

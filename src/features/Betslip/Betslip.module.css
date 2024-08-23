@@ -132,8 +132,28 @@
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s, outline 0s ease 0s, outline-offset 0s ease 0s;
     height: 48px;
 }
+@keyframes _jQMcyq_dgbon_1 {
+
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+
+    10%,
+    90% {
+        opacity: 1;
+    }
+
+    40%,
+    60% {
+        box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em, rgba(200, 49, 231, 0.8) 0px 0px 0.5em;
+    }
+}
+
 .SaveButton {
-    background: #1a0248;
+    --tw-bg-opacity: 1;
+    animation: 6s ease 0s infinite normal none running _jQMcyq_dgbon_1;
+    background: hsl(var(--s) / var(--tw-bg-opacity));
     font-size: 14px;
     margin-block: 0px 5px;
     height: 30px;

@@ -30,7 +30,7 @@ export const getMaxBet = (payload) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `Betting/PostData?action=maxbet&lang=${lang.id}&siteid=31`,
+                `Betting/PostData?action=maxbet&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
                 { data: payload },
                 {
                     baseURLOverride: import.meta.env.VITE_BETS_API,

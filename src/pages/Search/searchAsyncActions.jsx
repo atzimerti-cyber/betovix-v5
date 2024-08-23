@@ -331,7 +331,7 @@ export const getEventSearch = (signal, providerId, value) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `Pregame/PostData?action=searchpregamedata&lang=${lang.id}&siteid=31`,
+                `Pregame/PostData?action=searchpregamedata&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
                 {
                     data: `{"ProviderId":${providerId},"Value":"${value}"}`,
                 },
