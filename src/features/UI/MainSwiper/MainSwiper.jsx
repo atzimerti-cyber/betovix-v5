@@ -47,44 +47,50 @@ const MainSwiper = (props) => {
 
     return (
         <div className={elClasses.join(' ')}>
-            <div className={classes.SwiperHeader}>
-                <div className={classes.Title}>
-                    {props.icon && props.icon}
-                    {props.title && props.title}
+            {props.noHeader ? (
+                null
+            ) : (
+                <div className={classes.SwiperHeader}>
+                    <div className={classes.Title}>
+                        {props.icon && props.icon}
+                        {props.title && props.title}
+                    </div>
+                    <div className={classes.NavButtons}>
+                        {props.viewAll && (
+                            <>
+                                <Link to={props.viewAll} className={classes.ViewAllLink}>
+                                    View all <AngleRight2Icon />
+                                </Link>
+                            </>
+                        )}
+                        {props.viewText && (
+                            <a className={classes.ViewAllLink} onClick={props.onTask ? props.onTask : null}>
+                                {props.viewText}
+                            </a>
+                        )}
+
+                        {!props.hideArrows ? (
+                            <>
+                                <ArrowButton disabled={isBeginning} onClick={() => swiperRef.current.slidePrev()}>
+                                    <AngleLeftIcon />
+                                </ArrowButton>
+                                <ArrowButton
+                                    disabled={isEnd || props.children.length <= props.slidesPerView || Array.isArray(props.children) === false}
+                                    onClick={() => swiperRef.current.slideNext()}
+                                >
+                                    <AngleRightIcon />
+                                </ArrowButton>
+                            </>
+                        ) : (
+                            null
+                        )}
+
+
+                    </div>
                 </div>
-                <div className={classes.NavButtons}>
-                    {props.viewAll && (
-                        <>
-                            <Link to={props.viewAll} className={classes.ViewAllLink}>
-                                View all <AngleRight2Icon />
-                            </Link>
-                        </>
-                    )}
-                    {props.viewText && (
-                        <a className={classes.ViewAllLink} onClick={props.onTask ? props.onTask : null}>
-                            {props.viewText}
-                        </a>
-                    )}
+            )
+            }
 
-                    {!props.hideArrows ? (
-                        <>
-                            <ArrowButton disabled={isBeginning} onClick={() => swiperRef.current.slidePrev()}>
-                                <AngleLeftIcon />
-                            </ArrowButton>
-                            <ArrowButton
-                                disabled={isEnd || props.children.length <= props.slidesPerView || Array.isArray(props.children) === false}
-                                onClick={() => swiperRef.current.slideNext()}
-                            >
-                                <AngleRightIcon />
-                            </ArrowButton>
-                        </>
-                    ) : (
-                        null
-                    )}
-
-
-                </div>
-            </div>
 
             <Swiper
                 onSwiper={(swiper) => (swiperRef.current = swiper)}

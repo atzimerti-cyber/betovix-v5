@@ -45,7 +45,7 @@ const LeftMenuItem = (props) => {
 
 
                 {props.item.label ? (
-                    <span>{translate(props.item.label)}</span>
+                   <span>{translate(props.item.label)}</span>
                 ) : (
                     <span>{translate(props.item.Name)}</span>
                 )

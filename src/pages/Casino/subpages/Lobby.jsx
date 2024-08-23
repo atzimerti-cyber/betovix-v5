@@ -76,7 +76,7 @@ const Lobby = () => {
 
     return (
         <>
-            <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} max={20} />
+            <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} slidesPerView={9}/>
 
             <BigSwiper2 items={casinoBanners} max={6} />
 
@@ -90,6 +90,7 @@ const Lobby = () => {
                             link={getPathByItemName(menuItem?.Item?.Name)}
                             items={menuItem?.Data}
                             max={20}
+                            slidesPerView={6}
                         />
                     );
                 }

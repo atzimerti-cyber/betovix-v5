@@ -55,31 +55,43 @@ const LeftContainer = memo(function () {
         return (
             <>
                 {categoryId ? (
-                    <ul key={`${categoryId}_${index}`} className={classes.List}>
-                        {menuItem.items.map((item, itemIndex) => (
-                            <LeftMenuItem
-                                key={`${categoryId}_${itemIndex}`}
-                                isActive={item.page === pathname}
-                                item={item}
-                                hide={!fullLeftContainer}
-                                showEmphasis={showEmphasis}
-                                isCateg={true}
-                            />
-                        ))}
-                    </ul>
+                    <>
+                        <ul key={`${categoryId}_${menuItem.category.id}`} className={classes.List}>
+                            {menuItem.items.map((item) => (
+
+                                <LeftMenuItem
+                                    key={`${categoryId}${item.id}`}
+                                    //kleidi={`${categoryId}_${item.id}`}
+                                    isActive={item.page === pathname}
+                                    item={item}
+                                    hide={!fullLeftContainer}
+                                    showEmphasis={showEmphasis}
+                                    isCateg={true}
+                                />
+
+                            ))}
+                        </ul>
+
+                    </>
                 ) : (
-                    <ul key={`${menuItem.items.Id}_${index}`} className={classes.List}>
-                        {menuItem.items.map((item, itemIndex) => (
-                            <LeftMenuItem
-                                key={`${itemIndex}`}
-                                isActive={item.page === pathname}
-                                item={item}
-                                hide={!fullLeftContainer}
-                                showEmphasis={showEmphasis}
-                                isCateg={false}
-                            />
-                        ))}
-                    </ul>
+                    <>
+                        <ul key={`${index}`} className={classes.List}>
+                            {menuItem.items.map((item) => (
+
+                                <LeftMenuItem
+                                    key={`${index}${item.id}`}
+                                    //kleidi={`${index}${item.id}`}
+                                    isActive={item.page === pathname}
+                                    item={item}
+                                    hide={!fullLeftContainer}
+                                    showEmphasis={showEmphasis}
+                                    isCateg={false}
+                                />
+
+
+                            ))}
+                        </ul>
+                    </>
                 )}
             </>
         );
@@ -128,42 +140,6 @@ const LeftContainer = memo(function () {
 
                     {isMobile && <CloseButton timesIcon onClick={() => dispatch(layoutActions.setFullLeftContainer(false))} />}
                 </div>
-                {/* <div className={classes.SideMenuContainer}>
-                    <div className={classes.SideMenuSubButtonContainer}>
-
-                        {permissions.AllowToSports && (
-                            <MainButton
-                                active={pathnameNoParams.includes('?modal=statistics')}
-                                onClick={() => navigate('?modal=statistics')}
-                                dataTooltipId='left-menu-tooltip'
-                                dataTooltipContent={translate('Sports')}
-                            >
-                                <StatsIcon
-                                    className={pathnameNoParams.includes('?modal=statistics') ? classes.ActiveSvg : null}
-                                />
-                                <span>{fullLeftContainer ? translate('Statistics') : ''}</span>
-                            </MainButton>
-                        )}
-                    </div>
-                    <div className={classes.SideMenuSubButtonContainer}>
-
-                        {permissions.AllowToSports && (
-                            <MainButton
-                                active={pathnameNoParams.includes('?modal=statistics')}
-                                onClick={() => navigate('?modal=statistics')}
-                                dataTooltipId='left-menu-tooltip'
-                                dataTooltipContent={translate('Sports')}
-                            >
-                                <StatsIcon
-                                    className={pathnameNoParams.includes('?modal=statistics') ? classes.ActiveSvg : null}
-                                />
-                                <span>{fullLeftContainer ? translate('Statistics') : ''}</span>
-                            </MainButton>
-                        )}
-                    </div>
-
-                    {isMobile && <CloseButton timesIcon onClick={() => dispatch(layoutActions.setFullLeftContainer(false))} />}
-                </div> */}
 
 
                 {/* SportsMenu */}
@@ -189,30 +165,30 @@ const LeftContainer = memo(function () {
 
                                 {permissions.AllowToSports && (
                                     <>
-                                    <MainButton
-                                        active={pathnameNoParams.includes('?modal=statistics')}
-                                        onClick={() => navigate('?modal=statistics')}
-                                        dataTooltipId='left-menu-tooltip'
-                                        dataTooltipContent={translate('Stats')}
-                                    >
-                                        <StatsIcon
-                                            className={pathnameNoParams.includes('?modal=statistics') ? classes.ActiveSvg : null}
-                                        />
-                                        <span>{fullLeftContainer ? translate('Statistics') : ''}</span>
-                                    </MainButton>
+                                        <MainButton
+                                            active={pathnameNoParams.includes('?modal=statistics')}
+                                            onClick={() => navigate('?modal=statistics')}
+                                            dataTooltipId='left-menu-tooltip'
+                                            dataTooltipContent={translate('Stats')}
+                                        >
+                                            <StatsIcon
+                                                className={pathnameNoParams.includes('?modal=statistics') ? classes.ActiveSvg : null}
+                                            />
+                                            <span>{fullLeftContainer ? translate('Statistics') : ''}</span>
+                                        </MainButton>
 
-                                     <MainButton
-                                     active={pathnameNoParams.includes('?modal=load-booked')}
-                                     onClick={() => navigate('?modal=load-booked')}
-                                     dataTooltipId='left-menu-tooltip'
-                                     dataTooltipContent={translate('Load Booked')}
-                                 >
-                                     <LoadIcon
-                                         className={pathnameNoParams.includes('?modal=load-booked') ? classes.ActiveSvg : null}
-                                     />
-                                     <span>{fullLeftContainer ? translate('Load Booked Bet') : ''}</span>
-                                 </MainButton>
-                                 </>
+                                        <MainButton
+                                            active={pathnameNoParams.includes('?modal=load-booked')}
+                                            onClick={() => navigate('?modal=load-booked')}
+                                            dataTooltipId='left-menu-tooltip'
+                                            dataTooltipContent={translate('Load Booked')}
+                                        >
+                                            <LoadIcon
+                                                className={pathnameNoParams.includes('?modal=load-booked') ? classes.ActiveSvg : null}
+                                            />
+                                            <span>{fullLeftContainer ? translate('Load Booked Bet') : ''}</span>
+                                        </MainButton>
+                                    </>
                                 )}
                             </div>
 
@@ -243,7 +219,7 @@ const LeftContainer = memo(function () {
                 )}
 
                 {/* CasinoMenu */}
-                {pathnameNoParams !== '/sportsbook' && pathnameNoParams !== '/sportsbook/tournament' && pathnameNoParams !== '/searchEvent' && (permissions.AllowToCasino || permissions.AllowToSlots) && (
+                {pathnameNoParams !== '/sportsbook' && pathnameNoParams !== '/sportsbook/tournament' && pathnameNoParams !== '/sportsbook/outrights' && pathnameNoParams !== '/searchEvent' && (permissions.AllowToCasino || permissions.AllowToSlots) && (
 
                     <>
                         <div className={classes.SideMenuDivider}></div>

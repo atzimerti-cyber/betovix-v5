@@ -204,7 +204,7 @@ export const loadInitData = (isMobile) => {
                 });
 
 
-                console.log('casinoWalletMenu', casinoWalletMenu);
+                //console.log('casinoWalletMenu', casinoWalletMenu);
 
                 casinoMenuItems.push({
                     category: { id: 1, label: 'Casino', visible: true },
@@ -372,7 +372,7 @@ export const loadInitData = (isMobile) => {
                     },
                 ],
             });
-            console.log(casinoMenuItems);
+            //console.log(casinoMenuItems);
             dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
             dispatch(appActions.setSportsMenuItems(sportsMenuItems));
             dispatch(appActions.setMenuItems(allMenuItems));

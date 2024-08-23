@@ -93,12 +93,13 @@ const SlotGames = () => {
 
             {!debSearchString && selectedProviders.length === 0 && sorting === 'Default Sort' && (
                 <>
-                    {user && <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} items={filteredGames.favoriteGames?.Data} max={10} />}
+                    {user && <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} items={filteredGames.favoriteGames?.Data} max={10} slidesPerView={6} />}
                     <SwiperWithOverlay
                         title={translate('New Games')}
                         icon={<NewIcon className={classes.NewIcon} />}
                         items={filteredGames.newGames?.Data}
                         max={10}
+                        slidesPerView={6}
                     />
                     <GridGames
                         collection={filteredGames.allSlots}
@@ -156,6 +157,7 @@ const SlotGames = () => {
                             max={24}
                             task={() => setSelectedProviders([key])}
                             text={filteredGames[key] ? `${filteredGames[key]?.Total} ${translate('Games')}` : ''}
+                            slidesPerView={6}
                         />
                     );
                 })}

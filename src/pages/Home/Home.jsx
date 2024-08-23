@@ -88,7 +88,7 @@ const Home = () => {
     return (
         <div className={classes.PageContent}>
             <div className={classes.Home}>
-                
+
                 {user &&
                     <Crypto />
                 }
@@ -104,10 +104,6 @@ const Home = () => {
 
                     {!user && <RegisterContainers />}
                 </div>
-
-                {/* {user &&
-                    <Crypto />
-                } */}
 
                 {permissions.AllowToSports && (
                     <>
@@ -126,6 +122,7 @@ const Home = () => {
                             icon={<NewIcon className={classes.NewIcon} />}
                             link='/casino/slots'
                             items={filteredGames.newGames?.Data}
+                            slidesPerView={6}
                         />
                     )
                 ) : null}
@@ -133,11 +130,11 @@ const Home = () => {
                 {user && (permissions.AllowToCasino || permissions.AllowToSlots) ? (
                     <>
                         {hasRecentGames && (
-                            <SwiperWithOverlay title={translate('Recently Played')} icon={<ClockIcon />} items={filteredGames.recentGames?.Data} />
+                            <SwiperWithOverlay title={translate('Recently Played')} icon={<ClockIcon />} items={filteredGames.recentGames?.Data} slidesPerView={6} />
                         )}
 
                         {hasFavoriteGames && (
-                            <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} />
+                            <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} slidesPerView={6} />
                         )}
                     </>
 

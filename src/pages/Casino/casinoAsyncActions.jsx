@@ -84,7 +84,7 @@ export const getCasino = (signal) => {
             // }))
             ///////
             const casinoVendors = Object.keys(responses[2].data.Contents).sort
-            console.log("Vendors(getCasino)", responses[2].data.Contents);
+            //console.log("Vendors(getCasino)", responses[2].data.Contents);
             dispatch(casinoActions.setFilteredGames(casinoHomeItems));
             // dispatch(casinoActions.setFilteredGames(home));
             dispatch(casinoActions.setCasinoBanners(responses[1].data.Contents));
@@ -289,7 +289,7 @@ export const getAllVendors = (signal) => {
             });
 
             if (response.data.Status.StatusCode !== 200) throw Error();
-            console.log("Vendors(getAllVendors)", response.data.Contents);
+            //console.log("Vendors(getAllVendors)", response.data.Contents);
             dispatch(casinoActions.setCasinoVendors(response.data.Contents));
         } catch (error) {
             const message = error?.message ? error.message : error;

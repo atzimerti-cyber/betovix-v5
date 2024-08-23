@@ -52,7 +52,7 @@ const SwiperWithOverlay = (props) => {
 
     return (
         <MainSwiper
-            slidesPerView={slidesPerView}
+            slidesPerView={props.slidesPerView ? props.slidesPerView : slidesPerView}
             slidesPerGroup={slidesPerGroup}
             title={props.link ? <Link to={props.link}>{props.title}</Link> : props.task ? <a onClick={props.task}>{props.title}</a> : props.title}
             viewAll={props.link}
