@@ -9,7 +9,10 @@ import classes from './Minibar.module.css';
 import DropdownLang from '../../UI/Dropdown/DropdownLang';
 import MainButton from '../../UI/Buttons/MainButton';
 import { translate } from '../../../utils/translations';
+
 import SwiperMenu from '../../UI/MainSwiper/SwiperMenu';
+import MinibarMenu from '../../UI/HorizontalMenu/MinibarMenu';
+
 import LevelUpIcon from '../../../assets/svgs/level-up.svg?react';
 
 import { sportsbookActions } from '../../../pages/SportsBook/sportsbookSlice';
@@ -33,23 +36,23 @@ const Minibar = () => {
     const getPathByItemName = (itemName) => {
         switch (itemName) {
             case 'Sports':
-                return '/sportsbook/home/football';
+                return navigate('/sportsbook/home/football');
             case 'Inplay Calendar':
-                return '/sportsbook/live/football';
+                return navigate('/sportsbook/live/football');
             case 'Daily Events':
-                return '/sportsbook/home/football/daily-events';
+                return navigate('/sportsbook/home/football/daily-events');
             case 'All Events':
-                return '/sportsbook/home/football/all-events';
+                return navigate('/sportsbook/home/football/all-events');
             case 'General View':
-                return '/sportsbook/live/football';
+                return navigate('/sportsbook/live/football');
             case 'Event View':
-                return '/sportsbook/live/football';
+                return navigate('/sportsbook/live/football');
             case 'My Bets':
-                return '/sportsbook/mybets';
+                return navigate('/sportsbook/mybets');
             case 'Casino':
-                return '/casino/lobby';
+                return navigate('/casino/lobby');
             default:
-                return '/';
+                return navigate('/');
         }
     };
 
@@ -76,7 +79,7 @@ const Minibar = () => {
                 <div className={classes.MinibarLeftWrapper}>
                     <>
 
-                        {Object.keys(minibarMenu).length > 0 && (
+                        {/* {Object.keys(minibarMenu).length > 0 && (
                             <SwiperMenu
                                 slidesPerView={'auto'}
                                 // icon={<PricesIcon />}
@@ -96,7 +99,18 @@ const Minibar = () => {
                                     </SwiperSlide>
                                 ))}
                             </SwiperMenu>
-                        )}
+                        )} */}
+
+                        <menu className={classes.MenuSelection}>
+                            <div className={classes.MenuContent}>
+                                {Object.keys(minibarMenu).length > 0 && (
+                                    <MinibarMenu
+                                        items={minibarMenu}
+                                        onSelect={(item) => getPathByItemName(item.Name)}
+                                    />
+                                )}
+                            </div>
+                        </menu>
                     </>
                 </div>
 
@@ -132,7 +146,7 @@ const Minibar = () => {
                             </div>
                         </>
                     )}
-                    
+
                 </div>
 
             </div>

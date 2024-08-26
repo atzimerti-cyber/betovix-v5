@@ -16,7 +16,7 @@ const BigSwiper2 = (props) => {
 
     const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
 
-    let slidesPerView = 2;
+    let slidesPerView = 2.5;
     let slidesPerGroup = 2;
 
     if (isMobile) {
@@ -71,6 +71,7 @@ const BigSwiper2 = (props) => {
                 }}
                 modules={modules}
                 className={classes.BigSwiper2}
+                loop={true}
             >
                 {props.items
                     ? props.items.map((item, index) => {

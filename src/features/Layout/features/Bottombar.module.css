@@ -4,7 +4,7 @@
     left: 0;
     z-index: 40;
     display: flex;
-    height: 3.6rem;
+    height: 3.3rem;
     width: 100%;
     justify-content: space-around;
     background-color: var(--db-duelbits-gray);
@@ -107,5 +107,5 @@
 }
 
 .Label{
-    font-size: 12px;
+    font-size: 10px;
 }

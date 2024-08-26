@@ -10,7 +10,8 @@
     cursor: pointer;
     overflow: hidden;
     border-radius: 0.375rem;
-    aspect-ratio: 640 / 350;
+    aspect-ratio: 462/233;
+    /* aspect-ratio: 640 / 350; */
 }
 
 .SlideContainer.Loading .Card {

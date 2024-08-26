@@ -46,7 +46,7 @@ const LeftContainer = memo(function () {
     let elClasses2 = [classes.SideMenuBottomButtons];
     if (!fullLeftContainer) {
         elClasses.push(classes.Closed);
-        elClasses2.push(classes.Closed);
+        //elClasses2.push(classes.Closed);
     }
 
     const getItems = (menuItem, index, categoryId) => {
@@ -65,7 +65,7 @@ const LeftContainer = memo(function () {
                         hide={!fullLeftContainer}
                         showEmphasis={showEmphasis}
                         isCateg={Boolean(categoryId)}
-                        isNew = {item.isNew && true}
+                        isNew={item.isNew && true}
                     />
                 ))}
             </ul>
@@ -258,7 +258,10 @@ const LeftContainer = memo(function () {
                 })}
             </div>
 
-            <div className={classes.SideMenuDivider}></div>
+            {!isMobile &&
+                <div className={classes.SideMenuDivider}></div>
+            }
+
 
             <div className={elClasses2.join(' ')}>
                 {/* <MainButton color='transparent'>
