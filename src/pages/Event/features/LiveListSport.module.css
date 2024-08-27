@@ -79,5 +79,6 @@
     -webkit-box-align: stretch;
     align-items: stretch;
     flex-direction: column;
+    margin: 15px;
     margin-inline: 0px;
 }
