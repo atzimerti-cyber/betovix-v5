@@ -54,7 +54,8 @@
     --db-minibar-height-mobile: 30px;
     --db-header-height-mobile: 52px;
     --db-bottom-nav-height: 56px;
-    --db-sticky-language-height: 63px;
+    --db-sticky-language-height: 0px;
+    /* --db-sticky-language-height: 63px; */
     --db-scrollbar-width: 6px;
     --db-scrollbar-sm-width: 4px;
     --db-scrollbar-thumb-bg: var(--db-gray-5);

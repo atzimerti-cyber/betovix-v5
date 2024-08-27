@@ -1,5 +1,6 @@
 .SideMenuScroll {
-    height: calc(100% - var(--db-sticky-language-height) - 4rem);
+    /* height: calc(100% - var(--db-sticky-language-height) - 1rem); */
+    height: 100%; 
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -49,7 +50,7 @@
 }
 
 .SideMenuSubButtonContainer {
-    flex-direction: row;
+    /* flex-direction: row; */
     gap: 0.125rem;
     display: flex;
     flex-grow: 1;
@@ -255,7 +256,21 @@
     flex-direction: column;
 }
 
+.Closed.SideMenuScroll .SideMenuSubButtonContainer {
+    flex-direction: column;
+}
+
 .Closed.SideMenuScroll .SideMenuButtonContainer>button {
+    margin: 0.25rem;
+    max-height: 30px;
+    min-height: 30px;
+    min-width: 30px;
+    max-width: 30px;
+    border-radius: 50%;
+    padding: 0.25rem;
+}
+
+.Closed.SideMenuScroll .SideMenuSubButtonContainer>button {
     margin: 0.25rem;
     max-height: 30px;
     min-height: 30px;
@@ -271,9 +286,16 @@
     opacity: 0;
 }
 
+.Closed.SideMenuScroll .SideMenuSubButtonContainer>button span {
+    display: contents;
+    max-width: 0;
+    opacity: 0;
+}
+
 .Closed.SideMenuScroll .SideMenuButtonContainer button svg path {
     fill: var(--db-gray-5);
 }
+
 
 .Closed.SideMenuBottomButtons>div {
     width: 100%;

@@ -77,7 +77,7 @@
     line-height: 1;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
     .Tabs {
         flex-shrink: 0;
         flex-direction: column;

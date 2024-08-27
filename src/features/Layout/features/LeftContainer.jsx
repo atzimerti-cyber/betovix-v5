@@ -47,54 +47,29 @@ const LeftContainer = memo(function () {
     let elClasses2 = [classes.SideMenuBottomButtons];
     if (!fullLeftContainer) {
         elClasses.push(classes.Closed);
-        elClasses2.push(classes.Closed);
+        //elClasses2.push(classes.Closed);
     }
 
     const getItems = (menuItem, index, categoryId) => {
         const showEmphasis = menuItem.category?.label === 'Top Leagues' ? true : false;
 
         return (
-            <>
-                {categoryId ? (
-                    <>
-                        <ul key={`${categoryId}_${menuItem.category.id}`} className={classes.List}>
-                            {menuItem.items.map((item) => (
-
-                                <LeftMenuItem
-                                    key={`${categoryId}${item.id}`}
-                                    //kleidi={`${categoryId}_${item.id}`}
-                                    isActive={item.page === pathname}
-                                    item={item}
-                                    hide={!fullLeftContainer}
-                                    showEmphasis={showEmphasis}
-                                    isCateg={true}
-                                />
-
-                            ))}
-                        </ul>
-
-                    </>
-                ) : (
-                    <>
-                        <ul key={`${index}`} className={classes.List}>
-                            {menuItem.items.map((item) => (
-
-                                <LeftMenuItem
-                                    key={`${index}${item.id}`}
-                                    //kleidi={`${index}${item.id}`}
-                                    isActive={item.page === pathname}
-                                    item={item}
-                                    hide={!fullLeftContainer}
-                                    showEmphasis={showEmphasis}
-                                    isCateg={false}
-                                />
-
-
-                            ))}
-                        </ul>
-                    </>
-                )}
-            </>
+            <ul
+                key={`${categoryId ? `${categoryId}_${menuItem.category.id}` : `${index}_${menuItem.items.id}`}`}
+                className={classes.List}
+            >
+                {menuItem.items.map((item) => (
+                    <LeftMenuItem
+                        key={`${categoryId ? `${categoryId}_${item.id}` : `${index}_${item.id}`}`}
+                        isActive={item.page === pathname}
+                        item={item}
+                        hide={!fullLeftContainer}
+                        showEmphasis={showEmphasis}
+                        isCateg={Boolean(categoryId)}
+                        isNew={item.isNew && true}
+                    />
+                ))}
+            </ul>
         );
     };
 
@@ -205,22 +180,22 @@ const LeftContainer = memo(function () {
                                 )}
                             </div>
 
-                            {isMobile && <CloseButton timesIcon onClick={() => dispatch(layoutActions.setFullLeftContainer(false))} />}
+                            {/* {isMobile && <CloseButton timesIcon onClick={() => dispatch(layoutActions.setFullLeftContainer(false))} />} */}
                         </div>
                         {/* SportsMenuItems */}
                         {sportsMenuItems.map((menuItem, index) => {
                             if (menuItem.category) {
                                 if (fullLeftContainer) {
                                     return (
-                                        <CategoryGroup key={index} category={menuItem.category} hide={fullLeftContainer}>
-                                            {getItems(menuItem, index, menuItem.category.id)}
+                                        <CategoryGroup key={menuItem.category.id} category={menuItem.category} hide={fullLeftContainer}>
+                                            {getItems(menuItem, menuItem.category.id, menuItem.category.id)}
                                         </CategoryGroup>
                                     );
                                 } else {
                                     return (
-                                        <div className={classes.Grouped} key={index}>
+                                        <div className={classes.Grouped} key={menuItem.category.id}>
                                             <div className={classes.SideMenuDivider}></div>
-                                            {getItems(menuItem, index, menuItem.category.id)}
+                                            {getItems(menuItem, menuItem.category.id, menuItem.category.id)}
                                         </div>
                                     );
                                 }
@@ -254,15 +229,15 @@ const LeftContainer = memo(function () {
                             if (casinoMenuItem.category) {
                                 if (fullLeftContainer) {
                                     return (
-                                        <CategoryGroup key={index} category={casinoMenuItem.category} hide={fullLeftContainer}>
-                                            {getItems(casinoMenuItem, index, casinoMenuItem.category.id)}
+                                        <CategoryGroup key={`_${casinoMenuItem.category.id}`} category={casinoMenuItem.category} hide={fullLeftContainer}>
+                                            {getItems(casinoMenuItem, casinoMenuItem.category.id, casinoMenuItem.category.id)}
                                         </CategoryGroup>
                                     );
                                 } else {
                                     return (
-                                        <div className={classes.Grouped} key={index}>
+                                        <div className={classes.Grouped} key={casinoMenuItem.category.id}>
                                             <div className={classes.SideMenuDivider}></div>
-                                            {getItems(casinoMenuItem, index, casinoMenuItem.category.id)}
+                                            {getItems(casinoMenuItem, casinoMenuItem.category.id, casinoMenuItem.category.id)}
                                         </div>
                                     );
                                 }
@@ -278,15 +253,15 @@ const LeftContainer = memo(function () {
                     if (menuItem.category) {
                         if (fullLeftContainer) {
                             return (
-                                <CategoryGroup key={index} category={menuItem.category} hide={fullLeftContainer}>
-                                    {getItems(menuItem, index, menuItem.category.id)}
+                                <CategoryGroup key={menuItem.category.id} category={menuItem.category} hide={fullLeftContainer}>
+                                    {getItems(menuItem, menuItem.category.id, menuItem.category.id)}
                                 </CategoryGroup>
                             );
                         } else {
                             return (
-                                <div className={classes.Grouped} key={index}>
+                                <div className={classes.Grouped} key={menuItem.category.id}>
                                     <div className={classes.SideMenuDivider}></div>
-                                    {getItems(menuItem, index, menuItem.category.id)}
+                                    {getItems(menuItem, menuItem.category.id, menuItem.category.id)}
                                 </div>
                             );
                         }
@@ -296,15 +271,18 @@ const LeftContainer = memo(function () {
                 })}
             </div>
 
-            <div className={classes.SideMenuDivider}></div>
+            {!isMobile &&
+                <div className={classes.SideMenuDivider}></div>
+            }
+
 
             <div className={elClasses2.join(' ')}>
-                <MainButton color='transparent'>
+                {/* <MainButton color='transparent'>
                     <LiveSupportIcon />
                     {fullLeftContainer ? translate('Live support') : ''}
-                </MainButton>
+                </MainButton> */}
 
-                <DropdownLang openTo='top' />
+                {/* <DropdownLang openTo='top' /> */}
             </div>
         </>
     );

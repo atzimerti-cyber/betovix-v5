@@ -18,6 +18,7 @@ import LevelUpIcon from '../../../assets/svgs/level-up.svg';
 
 import MainButton from '../../UI/Buttons/MainButton';
 import Dropdown from '../../UI/Dropdown/Dropdown';
+import DropdownLang from '../../UI/Dropdown/DropdownLang';
 import NumberBadge from '../../UI/Badges/NumberBudge';
 import { translate } from '../../../utils/translations';
 import { layoutActions } from '../layoutSlice';
@@ -147,6 +148,8 @@ const Topbar = () => {
                                 </MainButton>
                             </div> */}
 
+
+
                             <div className={classes.BonusButtonContainer}>
                                 <MainButton className={classes.BonusButton} color='transparent' onClick={() => addParamsToUrl('bonus')}>
                                     <GiftIcon />
@@ -155,7 +158,6 @@ const Topbar = () => {
                                 {availableBonus > 0 && <NumberBadge number={availableBonus} floating justifyRight />}
                             </div>
 
-                            <div className={classes.HeaderRightDivider}></div>
 
                             <div className={classes.DropDownWrapper}>
                                 <div className={classes.DropDownLabel} onClick={() => dispatch(layoutActions.setUserDropdownVisible(!userDropdownVisible))}>
@@ -177,6 +179,13 @@ const Topbar = () => {
                                     </Dropdown>
                                 )}
                             </div>
+                            <div className={classes.HeaderRightDivider}></div>
+                            
+                            {isDesktop && (
+                                <div className={classes.Container}>
+                                    <DropdownLang topbar />
+                                </div>
+                            )}
 
 
 

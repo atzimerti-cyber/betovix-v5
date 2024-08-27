@@ -8,8 +8,8 @@
 
 .BannerBackground {
     position: relative;
-    aspect-ratio: 1200 /300;
-    /* aspect-ratio: 1200 / 311; */
+    aspect-ratio: 1168/217;
+    /* aspect-ratio: 1200 /300; */
     width: 100%;
 }
 .BannerBackground img {

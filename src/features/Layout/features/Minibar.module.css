@@ -1,7 +1,7 @@
 .Minibar {
     position: fixed;
     /* top: var(--db-topbar-height-mobile); */
-    toptop: 0;
+    top: 0;
     z-index: 1300;
     display: flex;
     height: var(--db-minibar-height-mobile);
@@ -21,6 +21,8 @@
     position: relative;
     flex-grow: 1;
     background-color: initial;
+    overflow-x: auto;
+    overflow: hidden;
 }
 
 .MinibarCenterWrapper {
@@ -86,7 +88,8 @@
     color: rgb(255 255 255 / var(--tw-text-opacity));
     white-space: nowrap;
 }
-.ActiveItem{
+
+.ActiveItem {
     background-color: #185f7e;
     /* background-color: #185f7ebd; */
 }
@@ -136,6 +139,7 @@
     font-size: 0.6rem;
     color: #fff;
 }
+
 @keyframes shineLines {
     0% {
         background-position: -200% 0;
@@ -169,6 +173,26 @@
         display: none;
     }
 
+}
+
+.MenuSelection {
+    position: relative;
+    height: 45px;
+}
+
+.MenuSelection::after {
+    background: rgb(42, 65, 74);
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    height: 1px;
+    z-index: 1;
+}
+
+.MenuContent {
+    width: 100%;
 }
 
 /* /////////////////////////////////////// */

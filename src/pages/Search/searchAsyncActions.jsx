@@ -1,11 +1,10 @@
 import { toast } from 'react-toastify';
-
 import axiosApi from '../../axios-api';
 import { getLang } from '../../utils/storage';
 import { searchActions } from './searchSlice';
 
 export const getSlots = (signal, pageItems, isDesktop) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
             dispatch(searchActions.setLoading(true));
             const lang = getLang();
@@ -18,10 +17,35 @@ export const getSlots = (signal, pageItems, isDesktop) => {
             );
             if (response.data.Status.StatusCode !== 200) throw Error();
 
+            const sortingState = getState().casino.sorting;
+
+            const sortGames = (games, sortOrder) => {
+                return games.slice().sort((a, b) => {
+                    if (sortOrder === 'Default Sort') return 0;
+                    if (sortOrder === 'A - Z') {
+                        return a.Data.Name.localeCompare(b.Data.Name);
+                    } else if (sortOrder === 'Z - A') {
+                        return b.Data.Name.localeCompare(a.Data.Name);
+                    }
+                    return 0;
+                });
+            };
+
+            let Data = response.data.Contents.Data;
+            console.log(Data);    
+
+            let sortedData = [];
+            if (Array.isArray(Data)) {
+                sortedData = sortGames(Data, sortingState);
+            }
+
+            console.log(sortedData);    
+
+
             // Desktop has load more, so the details are needed
             if (isDesktop) {
                 const allGames = {
-                    Data: response.data.Contents.Data,
+                    Data: sortedData,
                     Total: response.data.Contents.Total,
                     slotGamesPage: 1,
                     liveGamesPage: 0,
@@ -124,7 +148,7 @@ export const addToSearchResults = (signal, debSearchString, providers) => {
 
             const currentState = getState().search;
             const searchResults = currentState.casinoResults;
-            console.log('BEFORE', searchResults);
+            //console.log('BEFORE', searchResults);
             const notRenderedLiveResults = currentState.notRenderedLiveResults;
 
             let slotGames = [];
@@ -232,7 +256,7 @@ export const addToSearchResults = (signal, debSearchString, providers) => {
                 liveGamesAdded: liveGamesAddedNum,
             }
 
-            console.log('AFTER', casinoRes);
+            //console.log('AFTER', casinoRes);
 
             dispatch(searchActions.addToCasinoResults(casinoRes));
 
@@ -322,7 +346,7 @@ export const getEventSearch = (signal, providerId, value) => {
             }
 
             const eventSearchRes = response.data.Contents;
-            console.log(eventSearchRes);
+            //console.log(eventSearchRes);
 
             dispatch(searchActions.setSportsResults(eventSearchRes));
             dispatch(searchActions.setLoading(false));

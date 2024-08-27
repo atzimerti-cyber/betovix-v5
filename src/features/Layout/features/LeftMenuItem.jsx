@@ -54,6 +54,7 @@ const LeftMenuItem = (props) => {
                 <div className={classes.Container}>
                     {props.item.badge && props.item.badge === 'free' && <div className={classes.BadgeFree}>{translate('FREE')}</div>}
                     {props.item.badge && props.item.badge === 'new' && <div className={classes.BadgeNew}>{translate('NEW')}</div>}
+                    {props.isNew === 'new' && <div className={classes.BadgeNew}>{translate('NEW')}</div>}
                     {props.item.timer && <div className={classes.Timer}>{props.item.timer}</div>}
                 </div>
             </a>
