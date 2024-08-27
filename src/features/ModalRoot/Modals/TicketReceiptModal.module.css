@@ -73,3 +73,181 @@ color: #fff;
         padding: 1rem;
     }
 }
+
+
+.printOddsGeneratedFile {
+		color: var(--white);
+	
+}
+.printOddsGeneratedFile > div {
+    padding: 20px;
+
+}
+.printOddsGeneratedFile table{
+		overflow-x: scroll;
+}
+
+.printOddsGeneratedFile table .teamspace {
+        font-weight: 700;
+        text-transform: uppercase;
+        white-space: nowrap;
+        padding: 0 5px;
+}
+
+.printOddsGeneratedFile table .teamspace.hometeam {
+        text-align: right;
+}
+
+.printOddsGeneratedFile table .teamspace.awayteam {
+    text-align: left;
+}
+
+.divToBePrinted {
+	color: #fff;
+}
+
+.bodyPrint {
+	width: 7.8cm;
+	margin: 0 auto;
+	margin: auto;
+	font-size: 11px;
+	line-height: 12px;
+	font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: bold;
+}
+
+.barcode {
+    justify-content: center;
+    display: flex;
+}
+.bodyPrint	div.info {
+		padding: 5px 10px;
+		margin: 10px 0px 0 0px;
+		font-size: 12px;
+		line-height: 14px;
+		text-transform: uppercase;
+		text-align: center;
+		border: 1px solid var(--db-body-text);
+		overflow: auto;
+	}
+
+    .bodyPrint	.left {
+		float: left;
+		text-align: left;
+	}
+
+    .bodyPrint	.right {
+		float: right;
+		text-align: right;
+	}
+
+    .bodyPrint	.row {
+		display: block;
+		border-bottom: 1px solid var(--db-body-text);
+	}
+
+    .bodyPrint	.fullWidth {
+		display: block;
+	}
+
+    .bodyPrint	.fullWidth.champName {
+		border-bottom: 1px solid black;
+		line-height: 20px;
+		font-size: 14px;
+		font-family: "Share Tech Mono", monospace;
+		text-align: center;
+	}
+
+    .bodyPrint	.matchCodes {
+		font-family: Helvetica;
+		font-size: 12px;
+		font-weight: normal;
+	}
+
+    .bodyPrint	.matchName {
+		font-family: Helvetica;
+		font-size: 12px;
+		height: 15px;
+		line-height: 15px;
+	}
+
+    .bodyPrint	.fullWidth.matchInfos {
+		font-family: Helvetica;
+		font-size: 12px;
+		font-weight: normal;
+	}
+
+    .bodyPrint	.oneThird {
+		width: 33.333%;
+		display: inline-block;
+	}
+
+    .bodyPrint	.twoThirds {
+		width: 66.66%;
+		display: inline-block;
+	}
+
+    .bodyPrint	div.disclaimer {
+		padding: 5px 10px;
+		margin: 0px 5px 0px 5px;
+		font-size: 12px;
+		line-height: 20px;
+		text-transform: uppercase;
+		text-align: center;
+		overflow: auto;
+	}
+
+    .bodyPrint	div.half {
+		width: 49%;
+		display: inline-block;
+	}
+
+    .bodyPrint	div.title .half {
+		text-align: left;
+	}
+
+    .bodyPrint	.evento {
+		font-size: 13px;
+	}
+
+    .bodyPrint	div.footer {
+		padding: 5px 10px;
+		margin: 0px 5px;
+		font-size: 12px;
+		line-height: 15px;
+		text-transform: uppercase;
+		text-align: center;
+		overflow: auto;
+	}
+    .bodyPrint div.topinfo {
+        padding: 5px 10px;
+        margin: 0 5px;
+        text-align: center;
+        font-size: 10px;
+        line-height: 13px;
+    }
+    .divToBePrinted {
+        background: var(--db-gray-1);
+    }
+        .footerPrintOdds {
+            background: var(--dark-theme-two);
+            padding: 10px 20px;
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-pack: end;
+            -ms-flex-pack: end;
+            justify-content: flex-end;
+        }
+    
+        .footerPrintOdds > div {
+            --tw-bg-opacity: 1;
+            background: hsl(var(--s) / var(--tw-bg-opacity));
+            color: rgb(255, 255, 255);
+            font-weight: 500;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            -webkit-transition: .2s;
+            transition: .2s;
+        }

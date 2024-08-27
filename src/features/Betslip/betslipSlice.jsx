@@ -13,6 +13,7 @@ const initialState = {
     betError: null,
     slipUpdated: 0,
     showReceiptFor: null,
+    ticketId: null,
     placingBetLoading: false,
     savingBetLoading: false,
     lastBooked: null,
@@ -145,6 +146,9 @@ export const betslipSlice = createSlice({
         }, 
         setTotalStake: (state, action) => {
             state.totalStake = action.payload;
+        },
+        setTicketId: (state, action) => {
+            state.ticketId = action.payload;
         },
         setTriggerPlaceBet(state, action) {
             state.triggerPlaceBet = action.payload;

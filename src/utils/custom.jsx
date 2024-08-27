@@ -29,22 +29,38 @@ export function formatDateTimeObj(d) {
 }
 
 export function formatDateTime(d) {
-    if (typeof d === 'string') {
+    
+    if (!d || isNaN(new Date(d).getTime())) {
+        d = new Date();
+    } else if (typeof d === 'string') {
         d = new Date(d);
     }
 
     const formattedDate = d.toLocaleDateString('en-US', {
-        month: 'short', // abbreviated month, e.g., "Apr"
-        day: '2-digit', // day of the month as two digits, e.g., "20"
+        month: 'short',
+        day: '2-digit',
     });
 
     const formattedTime = d.toLocaleTimeString('en-US', {
-        hour: '2-digit', // 2-digit hour
-        minute: '2-digit', // 2-digit minute
-        hour12: true, // Use 12-hour format
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
     });
 
     return `${formattedDate}, ${formattedTime}`;
+}
+
+export function formatPoint(val) {
+    if (!val) return val;
+
+    if (typeof val === 'string') {
+        if (stringIsNumber(val)) {
+            val = parseFloat(val.replace(",", "."));
+        } else {
+            return "-";
+        }
+    }
+    return val.toFixed(2);
 }
 
 export function formatDateTime2(d) {

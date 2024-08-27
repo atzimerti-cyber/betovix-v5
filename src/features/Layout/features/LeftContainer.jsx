@@ -20,7 +20,8 @@ import { searchActions } from '../../../pages/Search/searchSlice';
 import { translate } from '../../../utils/translations';
 import SearchSports from '../../../pages/Search/SearchSports';
 import StatsIcon from '../../../assets/svgs/bars.svg?react';
-import LoadIcon from '../../../assets/svgs/ticket.svg?react';
+import TicketIcon from '../../../assets/svgs/ticketReceipt.svg?react';
+import LoadIcon from '../../../assets/svgs/loadIcon.svg?react';
 
 const LeftContainer = memo(function () {
     const dispatch = useDispatch();
@@ -186,7 +187,19 @@ const LeftContainer = memo(function () {
                                             <LoadIcon
                                                 className={pathnameNoParams.includes('?modal=load-booked') ? classes.ActiveSvg : null}
                                             />
-                                            <span>{fullLeftContainer ? translate('Load Booked Bet') : ''}</span>
+                                            <span>{fullLeftContainer ? translate('Load Booked') : ''}</span>
+                                        </MainButton>
+
+                                        <MainButton
+                                            active={pathnameNoParams.includes('?modal=load-ticket')}
+                                            onClick={() => navigate('?modal=load-ticket')}
+                                            dataTooltipId='left-menu-tooltip'
+                                            dataTooltipContent={translate('Print Ticket')}
+                                        >
+                                            <TicketIcon
+                                                className={pathnameNoParams.includes('?modal=load-ticket') ? classes.ActiveSvg : null}
+                                            />
+                                            <span>{fullLeftContainer ? translate('Print Ticket') : ''}</span>
                                         </MainButton>
                                     </>
                                 )}

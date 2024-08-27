@@ -74,6 +74,7 @@ export const placeBet = (payload, slips, amounts, betType) => {
                     type: 'success',
                 })
             );
+            dispatch(betslipActions.setTicketId(response.data.Contents.Reciep.ticketId));
             dispatch(betslipActions.reset());
             dispatch(betslipActions.setPlacingBetLoading(false));
         } catch (error) {
@@ -86,6 +87,7 @@ export const placeBet = (payload, slips, amounts, betType) => {
                     message: error?.message,
                 })
             );
+            dispatch(betslipActions.setTicketId(null));
             dispatch(betslipActions.reset());
             dispatch(betslipActions.setPlacingBetLoading(false));
         }

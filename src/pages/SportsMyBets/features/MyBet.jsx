@@ -99,7 +99,7 @@ const MyBet = (props) => {
         if (cashedOutResult[props.item.TicketId] === 'success') {
             setTimeout(() => {
                 let cashoutType = 3;
-                if (props.isActive) cashoutType = 1;
+                if (props.active) cashoutType = 1;
 
                 dispatch(getTicketCashouts(cashoutType, props.page, axiosController.signal));
                 dispatch(myBetsActions.deleteCashedOutResult(props.item.TicketId));
@@ -208,9 +208,9 @@ const MyBet = (props) => {
                                 </div>
                             )}
 
-                            {cashedOutResult[props.item.TicketId] && cashedOutResult[props.item.TicketId] === 'success' && (
+                            {cashedOutResult[props.item.TicketId] && cashedOutResult[props.item.TicketId] === 'success' && ticketCashouts[props.item.TicketId] && (
                                 <div className={classes.CashoutSuccess}>
-                                    {translate('Cashout Successful')} {addThousandsSeparator(ticketCashouts[props.item.TicketId]?.Metrics?.Cashout)}
+                                    {translate('Cashout Successful')} {addThousandsSeparator(ticketCashouts[props.item.TicketId].Metrics?.Cashout)}
                                     <SuccessIcon />
                                 </div>
                             )}
@@ -218,7 +218,7 @@ const MyBet = (props) => {
                             {!cashedOutResult[props.item.TicketId] &&
                                 ticketCashouts &&
                                 ticketCashouts[props.item.TicketId] &&
-                                !ticketCashouts[props.item.TicketId]?.Metrics?.Cashout && (
+                                !ticketCashouts[props.item.TicketId].Metrics?.Cashout && (
                                     <div className={classes.CashoutSuspendedWrapper}>
                                         <div className={classes.CashoutSuspended}>
                                             {translate('Cashout Suspended')}
