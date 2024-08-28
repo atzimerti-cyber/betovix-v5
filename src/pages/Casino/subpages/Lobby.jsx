@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-
 import { useMediaQuery } from 'react-responsive';
 
 import classes from './Lobby.module.css';
@@ -57,20 +55,15 @@ const Lobby = () => {
     const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
 
     let slidesPerView = 6;
-    let slidesPerGroup = 4;
 
     if (isMobile) {
         slidesPerView = 2;
-        slidesPerGroup = 2;
     } else if (isTablet) {
         slidesPerView = 3;
-        slidesPerGroup = 3;
     } else if (isDesktop) {
         slidesPerView = 3.5;
-        slidesPerGroup = 3;
     } else if (isBigDesktop) {
         slidesPerView = 4;
-        slidesPerGroup = 4;
     }
 
 
@@ -100,15 +93,15 @@ const Lobby = () => {
         <>
             <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} slidesPerView={slidesPerView + 3}/>
 
-            <BigSwiper2 items={casinoBanners} max={6} />
+            <BigSwiper2 items={casinoBanners} autoplay />
 
             {Object.entries(filteredGames).map(([key, menuItem]) => {
                 if (menuItem?.Data.length > 0) {
                     return (
                         <SwiperWithOverlay
-                            key={key} // Using key to avoid React warning about unique keys
+                            key={key}
                             title={`${translate(menuItem?.Item?.Name)}`}
-                            icon={casinoIcons[menuItem?.Item?.Name] || null} // Use casinoIcons from the state
+                            icon={casinoIcons[menuItem?.Item?.Name] || null} 
                             link={getPathByItemName(menuItem?.Item?.Name)}
                             items={menuItem?.Data}
                             max={20}

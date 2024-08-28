@@ -57,26 +57,6 @@
     line-height: 1.5;
 }
 
-.InfoOverlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    height: 100%;
-    width: 100%;
-    flex-direction: column;
-    justify-content: flex-end;
-    text-align: center;
-    opacity: 0;
-    background: linear-gradient(1turn, rgba(41, 63, 82, 0.8666666666666667) 60%, transparent 80%);
-}
-
-.Card:hover .InfoOverlay {
-    opacity: 1;
-    transition-property: opacity;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 0.15s;
-}
-
 .InfoContent {
     display: flex;
     height: 80%;

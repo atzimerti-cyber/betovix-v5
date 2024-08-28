@@ -89,49 +89,80 @@ const Register = () => {
         else setValidChecks({ ...validChecks, email: true });
     }, [debEmail]);
 
+    // useEffect(() => {
+    //     if (!debPassword) return;
+
+    //     if (debPassword.length === 0) {
+    //         setValidChecks({
+    //             ...validChecks,
+    //             password: {
+    //                 valid: true,
+    //                 show: validChecks.password.show,
+    //                 minSize: true,
+    //                 numbers: true,
+    //                 special: true,
+    //                 cases: true,
+    //             },
+    //         });
+    //         return;
+    //     }
+
+    //     const validMinSize = debPassword.length >= settings.passwordMinLength;
+
+    //     const hasUppercase = /[A-Z]/.test(debPassword);
+    //     const hasLowercase = /[a-z]/.test(debPassword);
+    //     const validCases = hasUppercase && hasLowercase;
+
+    //     const validNumbers = /\d/.test(debPassword);
+
+    //     const specialCharRegex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    //     const validSpecial = specialCharRegex.test(debPassword);
+
+    //     const isValid = validMinSize && validCases && validNumbers && validSpecial ? true : false;
+
+    //     setValidChecks({
+    //         ...validChecks,
+    //         password: {
+    //             valid: isValid,
+    //             show: validChecks.password.show,
+    //             minSize: validMinSize,
+    //             numbers: validNumbers,
+    //             special: validSpecial,
+    //             cases: validCases,
+    //         },
+    //     });
+    // }, [debPassword]);
+
     useEffect(() => {
         if (!debPassword) return;
-
-        if (debPassword.length === 0) {
-            setValidChecks({
-                ...validChecks,
-                password: {
-                    valid: true,
-                    show: validChecks.password.show,
-                    minSize: true,
-                    numbers: true,
-                    special: true,
-                    cases: true,
-                },
-            });
-            return;
-        }
-
+    
         const validMinSize = debPassword.length >= settings.passwordMinLength;
-
+    
         const hasUppercase = /[A-Z]/.test(debPassword);
         const hasLowercase = /[a-z]/.test(debPassword);
         const validCases = hasUppercase && hasLowercase;
-
+    
         const validNumbers = /\d/.test(debPassword);
-
+    
         const specialCharRegex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
         const validSpecial = specialCharRegex.test(debPassword);
-
-        const isValid = validMinSize && validCases && validNumbers && validSpecial ? true : false;
-
-        setValidChecks({
-            ...validChecks,
+    
+        const isValid = validMinSize && validCases && validNumbers && validSpecial;
+    
+        // Functional update to avoid stale state
+        setValidChecks((prevValidChecks) => ({
+            ...prevValidChecks,
             password: {
                 valid: isValid,
-                show: validChecks.password.show,
+                show: prevValidChecks.password.show,
                 minSize: validMinSize,
                 numbers: validNumbers,
                 special: validSpecial,
                 cases: validCases,
             },
-        });
-    }, [debPassword]);
+        }));
+    }, [debPassword, settings.passwordMinLength]);
+    
 
     useEffect(() => {
         if (!debPassword || !debVerifyPassword) return;
@@ -300,6 +331,7 @@ const Register = () => {
 
             <label htmlFor='code'>
                 {translate('Affiliate Code')}
+                <span className={classes.Optional}> (Optional)</span>
             </label>
             <div className={classes.InputOuter}>
                 <MainInput

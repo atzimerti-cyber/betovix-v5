@@ -13,7 +13,9 @@
     -webkit-box-pack: justify;
     justify-content: space-between;
     /* background: rgb(28, 43, 56); */
-    border-radius: 20px;
+    /* border-radius: 20px; */
+    /* border-top-left-radius: 20px; */
+    border-top-right-radius: 20px;
     line-height: 20px;
     fill: rgb(255, 255, 255);
     white-space: nowrap;
@@ -79,6 +81,6 @@
     -webkit-box-align: stretch;
     align-items: stretch;
     flex-direction: column;
-    margin: 15px;
+    margin: 1px 15px 15px 15px;
     margin-inline: 0px;
 }

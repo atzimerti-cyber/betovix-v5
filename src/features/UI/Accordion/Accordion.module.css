@@ -1,12 +1,14 @@
 .Accordion {
-    margin-top: 1rem;
+    margin-top: 0.5rem;
     display: flex;
     flex-direction: column;
     scroll-margin-block-start: 80px;
 }
 
 .AccordionHeader {
+    /* background: var(--db-gray-11); */
     background: var(--db-gray-4);
+    /* background: var(--db-gray-4); */
     border-radius: 8px;
     box-sizing: border-box;
     box-shadow: rgb(25, 38, 43) 0px 1px 2px;
@@ -27,7 +29,6 @@
     transition: border-radius 0.2s ease 0s;
     user-select: none;
     z-index: 20;
-
     gap: 8px;
 }
 

@@ -28,6 +28,11 @@
     object-fit: cover;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
+    transition: transform 0.3s ease-in-out;
+}
+.ImageContainer:hover img {
+    transform: scale(1.03);
+    -webkit-transform: scale(1.03); 
 }
 
 .MainSwiperWrapper .BigSwiper2 {

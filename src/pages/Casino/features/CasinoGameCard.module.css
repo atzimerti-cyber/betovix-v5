@@ -66,7 +66,8 @@
     justify-content: flex-end;
     text-align: center;
     opacity: 0;
-    background: linear-gradient(1turn, rgba(41, 63, 82, 0.8666666666666667) 60%, transparent 80%);
+    /* background: linear-gradient(1turn, rgba(41, 63, 82, 0.8666666666666667) 60%, transparent 80%); */
+    background: rgba(0, 0, 0, 0.7);
 }
 
 .Card:hover .InfoOverlay {

@@ -333,14 +333,13 @@ export const loadInitData = (isMobile) => {
 
             // Rest of menu items
             allMenuItems.push({
-                category: { id: 5, label: 'Gamification', visible: true },
+                category: { id: 5, label: 'Gamification', visible: true, isNew: true },
                 items: [
                     {
                         id: 1,
                         label: `My Progress`,
                         icon: <LogoSmall1C color="#FF0000" />,
                         modal: 'your-progress',
-                        isNew: true
                     },
                     {
                         id: 2,
@@ -349,6 +348,7 @@ export const loadInitData = (isMobile) => {
                         page: 'rewards',
                     },
                 ],
+                
             });
             allMenuItems.push({
                 category: { id: 6, label: 'More', visible: false },
@@ -373,7 +373,7 @@ export const loadInitData = (isMobile) => {
                     },
                 ],
             });
-            //console.log(casinoMenuItems);
+            console.log(allMenuItems);
             dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
             dispatch(appActions.setSportsMenuItems(sportsMenuItems));
             dispatch(appActions.setMenuItems(allMenuItems));

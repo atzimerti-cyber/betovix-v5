@@ -62,6 +62,13 @@
     margin-inline: 0.25ch;
     transition: color 0.3s;
 }
+.Optional{
+    color: var(--db-brand-green);
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin-inline: 0.25ch;
+    transition: color 0.3s;
+}
 
 .Required.Fulfilled {
     color: var(--db-brand-green);

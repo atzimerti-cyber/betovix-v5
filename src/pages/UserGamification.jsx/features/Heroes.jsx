@@ -62,7 +62,7 @@ const Heroes = React.memo(() => {
                 <div className={classes.GridContainer}>
                     <div className={classes.DisplayContainer}>
                         {/* <div className={classes.ImageContainer}> */}
-                            <img src={displayedHero.banner} loading='lazy' alt={displayedHero.name} />
+                        <img src={displayedHero.banner} loading='lazy' alt={displayedHero.name} />
                         {/* </div> */}
                     </div>
 
@@ -78,13 +78,16 @@ const Heroes = React.memo(() => {
                         )}
 
                     </div>
+                    
+                    {displayedHero.levels.length > 0 &&
+                        <section className={classes.LevelUpSection}>
+                            <div className={classes.LevelUpMilestone}>
+                                <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
+                                <Milestones activeLevel={activeLevel} profile />
+                            </div>
+                        </section>
+                    }
 
-                    <section className={classes.LevelUpSection}>
-                        <div className={classes.LevelUpMilestone}>
-                            <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
-                            <Milestones activeLevel={activeLevel} profile/>
-                        </div>
-                    </section>
 
                     <div className={classes.HeroDescription}>
                         <p className={classes.DescTitle}>{translate(displayedHero.metadata.HeroName + ' ' + displayedHero.metadata.HeroSubName)}</p>

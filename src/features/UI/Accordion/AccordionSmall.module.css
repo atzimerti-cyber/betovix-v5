@@ -4,7 +4,8 @@
 }
 
 .AccordionHeader {
-    background: var(--db-gray-4);
+    background: var(--db-gray-11);
+    /* background: var(--db-gray-4); */
     box-sizing: border-box;
     box-shadow: rgb(25, 38, 43) 0px 1px 2px;
     color: rgb(255, 255, 255);

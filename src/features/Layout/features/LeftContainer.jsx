@@ -90,7 +90,7 @@ const LeftContainer = memo(function () {
                         {permissions.AllowToSports && (
                             <MainButton
                                 active={pathnameNoParams.includes('/sportsbook') || pathnameNoParams.includes('/event')}
-                                onClick={() => navigate('/sportsbook/home')}
+                                onClick={() => navigate('/sportsbook/home/football')}
                                 dataTooltipId='left-menu-tooltip'
                                 dataTooltipContent={translate('Sports')}
                             >
