@@ -15,8 +15,9 @@ const MainInput2 = (props) => {
                 autoComplete='off'
                 placeholder={props.placeholder}
                 value={props.value}
-                onChange={(e) => props.onChange(e.target.value)}
+                onChange={props.onChange && ((e) => props.onChange(e.target.value))}
                 onBlur={props.onBlur ? props.onBlur : null}
+                readOnly={props.readonly ? true : false}
             />
         </div>
     );

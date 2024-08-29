@@ -74,25 +74,6 @@
     color: var(--db-brand-green);
 }
 
-/* .Acknowledgement {
-    margin-top: 0.5rem;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-    text-align: center;
-    font-size: 11px;
-    line-height: 1.25;
-    color: var(--db-gray-5);
-}
-.Acknowledgement b {
-    color: var(--db-brand-green);
-}
-
-:global(.IsMobile) :local(.Acknowledgement) {
-    margin-top: unset;
-    padding-left: unset;
-    padding-right: unset;
-} */
-
 .Container {
     margin-bottom: 1rem;
 }

@@ -169,13 +169,22 @@ const Milestones = (props) => {
                                     {heroLevels ? (
                                         <>
                                             {thisLevelIndex < heroLevels.length && (
+                                                // <MilestoneCard
+                                                //     key={`${heroLevels[thisLevelIndex].milestone}_temp_locked`}
+                                                //     label='Milestone 0'
+                                                //     index={heroLevels[thisLevelIndex].milestones.length}
+                                                //     level={heroLevels[thisLevelIndex]}
+                                                //     firstCard
+                                                //     complete={currentUserLevel === heroLevels[thisLevelIndex] || heroLevels[thisLevelIndex].name < currentUserLevel?.name}
+                                                // />
                                                 <MilestoneCard
                                                     key={`${heroLevels[thisLevelIndex].milestone}_temp_locked`}
-                                                    label='Milestone 0'
+                                                    label={heroLevels[thisLevelIndex].name}
                                                     index={heroLevels[thisLevelIndex].milestones.length}
                                                     level={heroLevels[thisLevelIndex]}
                                                     firstCard
-                                                    complete={currentUserLevel === heroLevels[thisLevelIndex] || heroLevels[thisLevelIndex].name < currentUserLevel?.name}
+                                                    complete={currentUserLevel?.complete}
+                                                    //complete={currentUserLevel === heroLevels[thisLevelIndex] || heroLevels[thisLevelIndex].name < currentUserLevel?.name}
                                                 />
                                             )}
 
@@ -197,7 +206,7 @@ const Milestones = (props) => {
                                                     // label=''
                                                     index={heroLevels[thisLevelIndex].milestones.length}
                                                     complete={heroLevels[thisLevelIndex].percentageComplete === 100 ? true : false}
-                                                    level={heroLevels[thisLevelIndex]}
+                                                    level={heroLevels[thisLevelIndex + 1] ? heroLevels[thisLevelIndex + 1] : null}
                                                     nextLevel
                                                 />
                                             )}

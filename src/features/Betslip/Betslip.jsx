@@ -53,7 +53,7 @@ const Betslip = memo(function (props) {
         const searchParams = new URLSearchParams(location.search);
         searchParams.set('modal', modal);
         if (tab) searchParams.set('tab', tab);
-      
+    
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     };
 

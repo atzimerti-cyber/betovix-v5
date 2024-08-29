@@ -12,37 +12,37 @@ export const getHeroes = (signal) => {
             const lang = getLang();
 
             const response = await axiosApi.get(
-                `/Gamification/GetAllHeroes`,
+                `/ModuleGamification/GetAllHeroes`,
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                    baseURLOverride: import.meta.env.VITE_GAMIFICATION_STORETUBE,
                 }
             );
 
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
             const heroes = response.data.Contents.map(hero => ({
-                name: hero.Hero.name,
-                banner: hero.Hero.metadata.PreviewImage,
-                id: hero.Hero.id,
-                icon: hero.Hero.metadata.CloseUp,
-                description: hero.Hero.description,
+                name: hero.Hero.Achievement?.Name,
+                banner: hero.Hero.Achievement?.Banner,
+                id: hero.Hero.Achievement?.AchievementID,
+                icon: hero.Hero.Achievement?.Icon,
+                description: hero.Hero.Achievement?.TermsAndConditions,
                 metadata: {
-                    HeroName: hero.Hero.metadata.HeroName,
-                    HeroSubName: hero.Hero.metadata.HeroSubName,
-                    isHero: hero.Hero.metadata.isHero,
-                    action: hero.Hero.metadata.action,
+                    HeroName: hero.Hero.MetaData.Name,
+                    HeroSubName: hero.Hero.MetaData?.SubName,
+                    action: hero.Hero.MetaData.Action,
+                    lvlAction: hero.Hero.MetaData.LevelAction,
                 },
-                levels: hero.Levels.map(level => ({
-                    id: level.Level.id,
-                    icon: level.Level.icon,
-                    name: level.Level.metadata.Name,
-                    description: level.Level.description,
-                    milestones: level.Milestones.map(milestone => ({
-                        id: milestone.id,
-                        icon: milestone.icon,
-                        name: milestone.metadata.Name,
-                        description: milestone.description,
+                levels: hero.Levels?.map(level => ({
+                    id: level.Level.Achievement?.AchievementID,
+                    icon: level.Level.Achievement?.Icon,
+                    name: level.Level.MetaData?.Name,
+                    description: level.Level.Achievement?.TermsAndConditions,
+                    milestones: level.MileStones?.map(milestone => ({
+                        id: milestone.Achievement?.AchievementID,
+                        icon: milestone.Achievement?.Icon,
+                        name: milestone.MetaData?.Name,
+                        description: milestone.Achievement?.TermsAndConditions,
                     }))
                         .sort((a, b) => a.name.localeCompare(b.name))
                 }))
@@ -51,7 +51,7 @@ export const getHeroes = (signal) => {
                 .sort((a, b) => a.name.localeCompare(b.name));
 
 
-            //console.log("Filtered Heroes:", heroes);
+            console.log("Get All Heroes:", heroes);
             dispatch(gamificationActions.setHeroes(heroes));
             dispatch(gamificationActions.setDisplayedHero(heroes[0]));
 
@@ -64,16 +64,16 @@ export const getHeroes = (signal) => {
     };
 };
 
-export const selectedHero = (displayedHeroAction, signal, hero) => {
+export const selectedHero = (displayedHeroAction, lvlAction, signal) => {
     return async (dispatch) => {
         try {
             const lang = getLang();
 
             const response = await axiosApi.get(
-                `/Gamification/SelectHero?action=${displayedHeroAction}`,
+                `/ModuleGamification/SelectHero?action=${displayedHeroAction}&levelAction=${lvlAction}`,
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                    baseURLOverride: import.meta.env.VITE_GAMIFICATION_STORETUBE,
                 }
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
@@ -110,136 +110,180 @@ export const getUserAchievements = () => {
 
 
             // SELECTED HERO //
+            //OLD/////////////////////////////////////////////
+            // const selectedHero = {
+            //     id: response.data.Contents.SelectedHero.id,
+            //     name: response.data.Contents.SelectedHero.metadata.HeroName,
+            //     subName: response.data.Contents.SelectedHero.metadata.HeroSubName,
+            //     banner: response.data.Contents.SelectedHero.metadata.PreviewImage,
+            //     icon: response.data.Contents.SelectedHero.metadata.CloseUp,
+            //     description: response.data.Contents.SelectedHero.description,
+            //     action: response.data.Contents.SelectedHero.metadata.action,
+            // }
+
+            //NEW/////////////////////////////////////////////
             const selectedHero = {
-                id: response.data.Contents.SelectedHero.id,
-                name: response.data.Contents.SelectedHero.metadata.HeroName,
-                subName: response.data.Contents.SelectedHero.metadata.HeroSubName,
-                banner: response.data.Contents.SelectedHero.metadata.PreviewImage,
-                icon: response.data.Contents.SelectedHero.metadata.CloseUp,
-                description: response.data.Contents.SelectedHero.description,
-                action: response.data.Contents.SelectedHero.metadata.action,
+                id: response.data.Contents.Hero.Achievement.AchievementID,
+                name: response.data.Contents.Hero.MetaData.Name, /////////
+                subName: response.data.Contents.Hero.MetaData.SubName, //////////////
+                banner: response.data.Contents.Hero.Achievement?.Banner,
+                icon: response.data.Contents.Hero.Achievement?.Icon,
+                description: response.data.Contents.Hero.Achievement?.TermsAndConditions,
+                action: response.data.Contents.Hero.MetaData.action,
             }
 
             // PROGRESS //
-            let forCurrentLevel = [];
-            let progress = 0;
-            const levelProgress = (level) => {
-                let achList = [];
-                level.Milestones.map(milestone => {
-                    achList.push(milestone);
-                });
-                //let achList = [level.Milestones];
-                achList.push(level.Level);
+            // let forCurrentLevel = [];
+            // let progress = 0;
+            // const levelProgress = (level) => {
+            //     let achList = [];
+            //     level.Milestones.map(milestone => {
+            //         achList.push(milestone);
+            //     });
+            //     //let achList = [level.Milestones];
+            //     achList.push(level.Level);
 
-                let progressSection;
+            //     let progressSection;
 
-                if (achList.length > 0) {
-                    progressSection = 100 / (achList.length);
+            //     if (achList.length > 0) {
+            //         progressSection = 100 / (achList.length);
 
-                    achList.forEach(item => {
-                        const mP = item.optInStatus.percentageComplete;
-                        progress += (mP / 100) * progressSection;
-                    });
-                }
+            //         achList.forEach(item => {
+            //             const mP = item.optInStatus.percentageComplete;
+            //             progress += (mP / 100) * progressSection;
+            //         });
+            //     }
 
-                return progress;
-            }
+            //     return progress;
+            // }
 
             // LEVELS AND MILESTONES //
-            const heroLevels = response.data.Contents.HeroLevels.map(level => {
+            //OLD/////////////////////////////////////////////
+            // const heroLevels = response.data.Contents.HeroLevels.map(level => {
+            //     const milestones = level.Milestones.map(milestone => ({
+            //         id: milestone.id,
+            //         name: milestone.metadata.Name,
+            //         percentageComplete: milestone.optInStatus.percentageComplete,
+            //         points: milestone.optInStatus.points > milestone.strategies.pointsStrategy.pointsValue ? milestone.strategies.pointsStrategy.pointsValue : milestone.optInStatus.points,
+            //         pointsValue: milestone.strategies.pointsStrategy.pointsValue,
+            //         rewardType: milestone.reward ? milestone.reward.RewardType.Key : null,
+            //         rewardValue: milestone.reward ? milestone.reward.RewardValue : null,
+
+            //     })).sort((a, b) => a.name.localeCompare(b.name));
+
+
+            //     return {
+            //         id: level.Level.id,
+            //         name: level.Level.metadata.Name,
+            //         statusCode: level.Level.optInStatus.statusCode,
+            //         milestones: milestones,
+            //         points: level.Level.optInStatus.points > level.Level.strategies.pointsStrategy.pointsValue ? level.Level.strategies.pointsStrategy.pointsValue : level.Level.optInStatus.points,
+            //         percentageComplete: level.Level.optInStatus.percentageComplete,
+            //         pointsValue: level.Level.strategies.pointsStrategy.pointsValue,
+            //         progress: levelProgress(level),
+            //         dailyRewards: dailyRewards,
+            //         weeklyRewards: weeklyRewards,
+            //         monthlyRewards: monthlyRewards,
+            //     };
+            // }).sort((a, b) => a.name.localeCompare(b.name));
+
+            //NEW/////////////////////////////////////////////
+            const heroLevels = response.data.Contents.Levels.map(level => {
                 const milestones = level.Milestones.map(milestone => ({
-                    id: milestone.id,
-                    name: milestone.metadata.Name,
-                    percentageComplete: milestone.optInStatus.percentageComplete,
-                    points: milestone.optInStatus.points > milestone.strategies.pointsStrategy.pointsValue ? milestone.strategies.pointsStrategy.pointsValue : milestone.optInStatus.points,
-                    pointsValue: milestone.strategies.pointsStrategy.pointsValue,
-                    rewardType: milestone.reward ? milestone.reward.RewardType.Key : null,
-                    rewardValue: milestone.reward ? milestone.reward.RewardValue : null,
+                    id: milestone.Achievement.AchievementID,
+                    name: milestone.MetaData.Name,
+                    percentageComplete: milestone.AchievementEntrand.Progress,
+                    points: milestone.AchievementEntrand.ScoreBoard,
+                    pointsValue: milestone.PointsStrategy.BasePoints,
+                    rewardType: milestone.Rewards.RewardType,
+                    rewardValue: milestone.Rewards.RewardValue,
 
                 })).sort((a, b) => a.name.localeCompare(b.name));
 
 
                 return {
-                    id: level.Level.id,
-                    name: level.Level.metadata.Name,
-                    statusCode: level.Level.optInStatus.statusCode,
+                    id: level.Level.Achievement.AchievementID,
+                    name: level.Level.MetaData.Name,
+                    completed: level.Level.AchievementEntrand.Completed,
                     milestones: milestones,
-                    points: level.Level.optInStatus.points > level.Level.strategies.pointsStrategy.pointsValue ? level.Level.strategies.pointsStrategy.pointsValue : level.Level.optInStatus.points,
-                    percentageComplete: level.Level.optInStatus.percentageComplete,
-                    pointsValue: level.Level.strategies.pointsStrategy.pointsValue,
-                    progress: levelProgress(level),
-                    // dailyRewards: dailyRewards,
-                    // weeklyRewards: weeklyRewards,
-                    // monthlyRewards: monthlyRewards,
+                    points: level.Level.AchievementEntrand.ScoreBoard,
+                    percentageComplete: level.Level.AchievementEntrand.Progress,
+                    pointsValue: level.Level.PointsStrategy.BasePoints,
+                    progress: level.Level.AchievementEntrand.Progress,
                 };
             }).sort((a, b) => a.name.localeCompare(b.name));
 
+
+
             // DAILY, WEEKLY, MONTHLY REWARDS //
-            const dailyRewards = {
-                id: response.data.Contents.Daily?.id,
-                name: response.data.Contents.Daily?.metadata.Name,
-                description: response.data.Contents.Daily?.description,
-                progress: response.data.Contents.Daily?.optInStatus.percentageComplete,
-                rewardType: response.data.Contents.Daily?.reward?.RewardType?.Key,
-                rewardValue: response.data.Contents.Daily?.reward?.RewardValue,
-                rewardSymbol: response.data.Contents.Daily?.reward?.RewardType?.UomSymbol
-            }
-            const weeklyRewards = {
-                id: response.data.Contents.Weekly?.id,
-                name: response.data.Contents.Weekly?.metadata.Name,
-                description: response.data.Contents.Weekly?.description,
-                progress: response.data.Contents.Weekly?.optInStatus.percentageComplete,
-                rewardType: response.data.Contents.Weekly?.reward?.RewardType?.Key,
-                rewardValue: response.data.Contents.Weekly?.reward?.RewardValue,
-                rewardSymbol: response.data.Contents.Weekly?.reward?.RewardType?.UomSymbol
-            }
-            const monthlyRewards = {
-                id: response.data.Contents.Monthly?.id,
-                name: response.data.Contents.Monthly?.metadata.Name,
-                description: response.data.Contents.Monthly?.description,
-                progress: response.data.Contents.Monthly?.optInStatus.percentageComplete,
-                rewardType: response.data.Contents.Monthly?.reward?.RewardType?.Key,
-                rewardValue: response.data.Contents.Monthly?.reward?.RewardValue,
-                rewardSymbol: response.data.Contents.Monthly?.reward?.RewardType?.UomSymbol
-            }
+            // const dailyRewards = {
+            //     id: response.data.Contents.Daily?.id,
+            //     name: response.data.Contents.Daily?.metadata.Name,
+            //     description: response.data.Contents.Daily?.description,
+            //     progress: response.data.Contents.Daily?.optInStatus.percentageComplete,
+            //     rewardType: response.data.Contents.Daily?.reward?.RewardType?.Key,
+            //     rewardValue: response.data.Contents.Daily?.reward?.RewardValue,
+            //     rewardSymbol: response.data.Contents.Daily?.reward?.RewardType?.UomSymbol
+            // }
+            // const weeklyRewards = {
+            //     id: response.data.Contents.Weekly?.id,
+            //     name: response.data.Contents.Weekly?.metadata.Name,
+            //     description: response.data.Contents.Weekly?.description,
+            //     progress: response.data.Contents.Weekly?.optInStatus.percentageComplete,
+            //     rewardType: response.data.Contents.Weekly?.reward?.RewardType?.Key,
+            //     rewardValue: response.data.Contents.Weekly?.reward?.RewardValue,
+            //     rewardSymbol: response.data.Contents.Weekly?.reward?.RewardType?.UomSymbol
+            // }
+            // const monthlyRewards = {
+            //     id: response.data.Contents.Monthly?.id,
+            //     name: response.data.Contents.Monthly?.metadata.Name,
+            //     description: response.data.Contents.Monthly?.description,
+            //     progress: response.data.Contents.Monthly?.optInStatus.percentageComplete,
+            //     rewardType: response.data.Contents.Monthly?.reward?.RewardType?.Key,
+            //     rewardValue: response.data.Contents.Monthly?.reward?.RewardValue,
+            //     rewardSymbol: response.data.Contents.Monthly?.reward?.RewardType?.UomSymbol
+            // }
 
-            const manualRewards = {
-                dailyRewards: dailyRewards,
-                weeklyRewards: weeklyRewards,
-                monthlyRewards: monthlyRewards
-            }
+            // const manualRewards = {
+            //     dailyRewards: dailyRewards,
+            //     weeklyRewards: weeklyRewards,
+            //     monthlyRewards: monthlyRewards
+            // }
 
-            // CURRENT LEVEL //
-            heroLevels.map(heroLevel => {
-                let isCurrentLevel = false;
+            // CURRENT LEVEL // OLD
+            // heroLevels.map(heroLevel => {
+            //     let isCurrentLevel = false;
 
-                const mil = heroLevel.milestones.find(milestone =>
-                    milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
-                ) !== undefined;
+            //     const mil = heroLevel.milestones.find(milestone =>
+            //         milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
+            //     ) !== undefined;
 
-                const lvl = heroLevel.percentageComplete >= 0 && heroLevel.percentageComplete < 100
+            //     const lvl = heroLevel.percentageComplete >= 0 && heroLevel.percentageComplete < 100
 
-                if (mil || lvl) {
-                    isCurrentLevel = true;
-                }
+            //     if (mil || lvl) {
+            //         isCurrentLevel = true;
+            //     }
 
-                if (isCurrentLevel) {
-                    forCurrentLevel.push(heroLevel);
-                }
-            })
+            //     if (isCurrentLevel) {
+            //         forCurrentLevel.push(heroLevel);
+            //     }
+            // })
 
-            const currentLevel = forCurrentLevel[0];
+            // const currentLevel = forCurrentLevel[0];
 
-            // console.log("Hero: ",selectedHero);
-            //console.log("Hero Levels: ", heroLevels);
-            //console.log("Current Level: ", currentLevel);
+            ///NEW///////////////////////
+            const currentLevel = heroLevels.find(level => level.completed === false);
+
+            console.log("Hero: ", selectedHero);
+            console.log("Hero Levels: ", heroLevels);
+            console.log("Current Level: ", currentLevel);
             //console.log("Manual Rewards: ", manualRewards);
 
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));
             dispatch(gamificationActions.setHeroLevels(heroLevels));
             dispatch(gamificationActions.setCurrentLevel(currentLevel));
-            dispatch(gamificationActions.setManualRewards(manualRewards));
+            //dispatch(gamificationActions.setManualRewards(manualRewards));
 
         } catch (error) {
             const message = error?.message ? error.message : error;

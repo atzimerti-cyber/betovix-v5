@@ -52,7 +52,7 @@ const Heroes = React.memo(() => {
         }
     }, [displayedHero]);
 
-    //   console.log(activeLevel);
+    // console.log(activeLevel);
     //   console.log(displayedHero);
 
     return (
@@ -78,8 +78,8 @@ const Heroes = React.memo(() => {
                         )}
 
                     </div>
-                    
-                    {displayedHero.levels.length > 0 &&
+
+                    {displayedHero && Object.keys(displayedHero).length > 0 &&
                         <section className={classes.LevelUpSection}>
                             <div className={classes.LevelUpMilestone}>
                                 <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
@@ -92,7 +92,7 @@ const Heroes = React.memo(() => {
                     <div className={classes.HeroDescription}>
                         <p className={classes.DescTitle}>{translate(displayedHero.metadata.HeroName + ' ' + displayedHero.metadata.HeroSubName)}</p>
                         <div className={classes.ImageContainer}>
-                            <p className={classes.Description}>{displayedHero.description.replace(/<\/?p>/g, "")}</p>
+                            <p className={classes.Description}>{displayedHero?.description?.replace(/<\/?p>/g, "")}</p>
                         </div>
                     </div>
                 </div>
