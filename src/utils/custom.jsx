@@ -29,6 +29,8 @@ export function formatDateTimeObj(d) {
 }
 
 export function formatDateTime(d) {
+    if (!d) return '';
+
     if (typeof d === 'string') {
         d = new Date(d);
     }
@@ -48,6 +50,8 @@ export function formatDateTime(d) {
 }
 
 export function formatDateTime2(d) {
+    if (!d) return '';
+
     if (typeof d === 'string') {
         d = new Date(d);
     }

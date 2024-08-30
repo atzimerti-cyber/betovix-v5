@@ -27,6 +27,8 @@ import LiveStream from './features/LiveStream';
 import Stats from './features/Stats';
 import Ticket from '../Ticket/Ticket';
 
+import LiveLoader from './features/LiveLoader';
+
 const Layout = () => {
     const dispatch = useDispatch();
     const location = useLocation();
@@ -88,6 +90,8 @@ const Layout = () => {
             />
 
             <Topbar />
+
+            <LiveLoader />
 
             <div className={classes.Content}>
                 {!isMobile && <LiveListContainer />}
