@@ -52,55 +52,66 @@ const Heroes = React.memo(() => {
         }
     }, [displayedHero]);
 
-    // console.log(activeLevel);
-    //   console.log(displayedHero);
+    //console.log(activeLevel);
+    //console.log(displayedHero);
 
     return (
         <motion.div className={classes.TabContent} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.2 }}>
 
-            {displayedHero && Object.keys(displayedHero).length > 0 && (
-                <div className={classes.GridContainer}>
-                    <div className={classes.DisplayContainer}>
-                        {/* <div className={classes.ImageContainer}> */}
-                        <img src={displayedHero.banner} loading='lazy' alt={displayedHero.name} />
-                        {/* </div> */}
-                    </div>
+            {displayedHero && Object.keys(displayedHero).length > 0 ? (
+                <>
+                    <div className={classes.GridContainer}>
+                        <div className={classes.DisplayContainer}>
+                            {/* <div className={classes.ImageContainer}> */}
+                            <img src={displayedHero.banner} loading='lazy' alt={displayedHero.name} />
+                            {/* </div> */}
+                        </div>
 
-                    <div className={classes.SelectHeroBtn}>
-                        {selectedHero && Object.keys(selectedHero).length > 0 ? (
-                            <MainButton disabled>
-                                <span>You have selected a hero</span>
-                            </MainButton>
-                        ) : (
-                            <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
-                                <span>Select Hero</span>
-                            </MainButton>
-                        )}
+                        <div className={classes.SelectHeroBtn}>
+                            {selectedHero && Object.keys(selectedHero).length > 0 ? (
+                                <MainButton disabled>
+                                    <span>You have selected a hero</span>
+                                </MainButton>
+                            ) : (
+                                <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
+                                    <span>Select Hero</span>
+                                </MainButton>
+                            )}
 
-                    </div>
+                        </div>
 
-                    {displayedHero && Object.keys(displayedHero).length > 0 &&
-                        <section className={classes.LevelUpSection}>
-                            <div className={classes.LevelUpMilestone}>
-                                <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
-                                <Milestones activeLevel={activeLevel} profile />
+                        {displayedHero && Object.keys(displayedHero).length > 0 &&
+                            <section className={classes.LevelUpSection}>
+                                <div className={classes.LevelUpMilestone}>
+                                    <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
+                                    <Milestones activeLevel={activeLevel} profile />
+                                </div>
+                            </section>
+                        }
+
+
+                        <div className={classes.HeroDescription}>
+                            <p className={classes.DescTitle}>{translate(displayedHero.metadata.HeroName + ' ' + displayedHero.metadata.HeroSubName)}</p>
+                            <div className={classes.ImageContainer}>
+                                <p className={classes.Description}>{displayedHero?.description?.replace(/<\/?p>/g, "")}</p>
                             </div>
-                        </section>
-                    }
-
-
-                    <div className={classes.HeroDescription}>
-                        <p className={classes.DescTitle}>{translate(displayedHero.metadata.HeroName + ' ' + displayedHero.metadata.HeroSubName)}</p>
-                        <div className={classes.ImageContainer}>
-                            <p className={classes.Description}>{displayedHero?.description?.replace(/<\/?p>/g, "")}</p>
                         </div>
                     </div>
+
+                    <div className={classes.HeroesContainer}>
+                        <HeroDisplaySwiper title='Heroes' icon={<LogoSmallIcon />} items={heroes} />
+                    </div>
+
+                </>
+
+            ) : (
+                <div className={classes.NotAvailable}>
+                    <span> <LogoSmallIcon /> </span>
+                    {/* <p>Not available yet</p> */}
                 </div>
             )}
 
-            <div className={classes.HeroesContainer}>
-                <HeroDisplaySwiper title='Heroes' icon={<LogoSmallIcon />} items={heroes} />
-            </div>
+
         </motion.div>
     );
 });

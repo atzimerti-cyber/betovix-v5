@@ -55,6 +55,7 @@
     padding-bottom: 1.5rem;
     box-sizing: border-box;
 }
+
 .InnerContainer {
     width: 100%;
     height: 100%;
@@ -82,8 +83,10 @@
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 0.15s;
 }
+
 .OuterContainerRight.Show {
     width: var(--db-chat-width);
+
 }
 
 .FullPage {
@@ -94,27 +97,27 @@
     align-items: center;
     min-height: calc(-4em + 100vh);
 }
+
 .NotAuthorized.FullPage {
     min-height: unset;
 }
 
 :global(.IsMobile.IsMenuOpen) :local(.OuterContainerLeft) {
     --tw-translate-y: 0px;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-        position: relative;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    position: relative;
 }
+
 :global(.IsMobile) :local(.OuterContainerLeft) {
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     position: fixed;
     width: 100% !important;
     padding-bottom: 0;
     --tw-translate-y: 100%;
 }
 
-.ChatOuter > div,
-.BetslipOuter > div {
+.ChatOuter>div,
+.BetslipOuter>div {
     position: fixed;
     top: 0;
     z-index: 2000;
@@ -127,7 +130,7 @@
     z-index: 1000000 !important;
 }
 
-.MyToast > div {
+.MyToast>div {
     color: rgb(82, 116, 128);
     font-family: 'Proxima Nova', sans-serif;
     font-size: 14px;
@@ -178,6 +181,7 @@
 :local(.MyToast) :global(.Toastify__toast--warning .Toastify__toast-icon > svg) {
     filter: brightness(0) saturate(100%) invert(72%) sepia(81%) saturate(349%) hue-rotate(348deg) brightness(101%) contrast(105%);
 }
+
 :local(.MyToast) :global(.Toastify__toast--success .Toastify__toast-icon > svg) {
     filter: brightness(0) saturate(100%) invert(69%) sepia(34%) saturate(853%) hue-rotate(91deg) brightness(86%) contrast(86%);
 }
@@ -185,6 +189,7 @@
 :local(.MyToast) :global(.Toastify__progress-bar--success) {
     background: rgba(51, 193, 108, 0.25) !important;
 }
+
 :local(.MyToast) :global(.Toastify__progress-bar--animated.Toastify__progress-bar--success) {
     background-color: var(--db-brand-green) !important;
 }
@@ -203,11 +208,13 @@
     outline: 2px solid transparent;
     transform-origin: center;
 }
+
 .MyToast .ToastCloseButton svg {
     padding: 0.375rem;
     height: 1.5rem;
     width: 1.5rem;
 }
+
 .MyToast .ToastCloseButton svg path {
     fill: #fff;
 }
@@ -224,6 +231,7 @@
     transition: opacity 0.2s;
     pointer-events: none;
 }
+
 .FullOverlay.Show {
     opacity: 0.8;
     pointer-events: all;
@@ -233,6 +241,7 @@
     0% {
         transform: scaleY(1);
     }
+
     100% {
         transform: scaleY(0);
     }
@@ -243,6 +252,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -253,6 +263,7 @@
     .Content {
         padding-top: var(--db-header-height);
     }
+
     .OverlayButtons {
         bottom: 1.25rem;
         right: 1.25rem;

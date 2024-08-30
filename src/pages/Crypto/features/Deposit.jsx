@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -23,9 +23,17 @@ const Deposit = () => {
     const query = new URLSearchParams(location.search);
     const method = query.get('method');
 
+    const containerRefs = useRef([]);
+
     useEffect(() => {
         return () => dispatch(cryptoActions.setSelectedCurrency(null));
     }, []);
+
+    const selectCurrency = (option) => {
+        dispatch(cryptoActions.setSelectedCurrency(option));
+        const network = option.Code || option.label;
+        dispatch(cryptoActions.setSelectedNetwork({ id: option.Id, label: network }));
+    };
 
     const navigateToModal = (modal, tab, method) => {
         const searchParams = new URLSearchParams(location.search);
@@ -35,12 +43,6 @@ const Deposit = () => {
         if (method) searchParams.set('method', method);
 
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-    };
-
-    const selectCurrency = (option) => {
-        dispatch(cryptoActions.setSelectedCurrency(option));
-        const network = option.Code || option.label;
-        dispatch(cryptoActions.setSelectedNetwork({ id: option.Id, label: network }));
     };
 
     const uniqueCrypto = [];
@@ -59,23 +61,73 @@ const Deposit = () => {
     if (method === 'crypto') elClasses.push(classes.Crypto);
     else if (method === 'fiat') elClasses.push(classes.Fiat);
 
+    useEffect(() => {
+        containerRefs.current.forEach((ref, index) => {
+            if (ref && ref.querySelector('img')) {
+                const img = ref.querySelector('img');
+                img.onload = () => {
+                    const dominantColor = getDominantColor(img);
+                    ref.style.backgroundImage = dominantColor;
+                };
+            }
+        });
+    }, [crypto]);
+
+    function getDominantColor(imgElement) {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = imgElement.width;
+        canvas.height = imgElement.height;
+        context.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+
+        let r = 0, g = 0, b = 0, count = 0;
+
+        for (let i = 0; i < data.length; i += 4) {
+            r += data[i];
+            g += data[i + 1];
+            b += data[i + 2];
+            count++;
+        }
+
+        r = Math.floor(r / count);
+        g = Math.floor(g / count);
+        b = Math.floor(b / count);
+
+        const isGrayscale = Math.abs(r - g) < 10 && Math.abs(g - b) < 10 && Math.abs(r - b) < 10;
+
+        if (isGrayscale) {
+            r = 50;
+            g = 87;
+            b = 54;
+        }
+
+        return `linear-gradient(60deg, var(--db-gray-banner), rgba(${r},${g},${b},0.7))`;
+    }
+
     return (
         <div className={elClasses.join(' ')}>
             <div className={classes.PaymentOptionsWrapper}>
                 <div className={classes.Grid}>
                     {crypto && (
                         <>
-                            {uniqueCrypto.map((item) => {
+                            {uniqueCrypto.map((item, index) => {
                                 if (item.id === 'BEP-20') return null;
 
                                 return (
-                                    <div key={item.Id} className={[classes.PaymentButtonContainer, classes.CryptoCoin].join(' ')}>
+                                    <div
+                                        key={item.Id}
+                                        ref={(el) => (containerRefs.current[index] = el)}
+                                        className={[classes.PaymentButtonContainer, classes.CryptoCoin].join(' ')}
+                                    >
                                         {item.available === false && (
                                             <div className={classes.PaymentDisabledOverlay}>
                                                 <span>{translate('Temporarily unavailable')}</span>
                                             </div>
                                         )}
-                                        {/* <MainButton
+                                        <MainButton
                                             color='transparent'
                                             onClick={() => {
                                                 selectCurrency(item);
@@ -83,30 +135,11 @@ const Deposit = () => {
                                             }}
                                             disabled={item.available === false}
                                         >
-                                            <img src={item.Logo} loading='lazy' alt={item.Code} />
+                                            <img src={item.Logo} crossOrigin="anonymous" loading='lazy' alt={item.Code} />
                                             <h2>{item.Name}</h2>
                                             {item.Rate &&
                                                 <h3>€{item.Rate > 0.01 ? addThousandsSeparator(item.Rate) : parseFloat(item.Rate.toFixed(6))}</h3>}
-                                        </MainButton> */}
-                                        <div className={classes.CryptoCard} style={{ '--crypto-color': '#2d6541a3' }} onClick={() => {
-                                            selectCurrency(item);
-                                            navigateToModal('cashier', 'deposit', 'crypto');
-                                        }}>
-                                            <div className={classes.LogoContainer}>
-                                                <div className={classes.ImageContainer}>
-                                                    <img src={item.Logo} loading='lazy' alt={item.Code} />
-                                                </div>
-                                                <p>
-                                                    {item.Name} {item.network && `(${item.network})`}
-                                                </p>
-                                            </div>
-
-                                            <div className={classes.PriceContainer}>
-                                                {item.Rate &&
-                                                    <span className={classes.Price}>${item.Rate > 0.01 ? addThousandsSeparator(item.Rate) : parseFloat((item.Rate).toFixed(6))}</span>}
-
-                                            </div>
-                                        </div>
+                                        </MainButton>
                                     </div>
                                 );
                             })}

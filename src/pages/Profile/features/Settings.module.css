@@ -33,13 +33,10 @@
 }
 
 .Text {
-    font-size: 0.75rem;
+    font-size: 0.6rem;
     line-height: 1rem;
     color: var(--db-body-text);
-}
-
-.Text {
-    margin-bottom: 0.75rem;
+    margin-top: 0.75rem;
 }
 
 .FormGroup> :not(:last-child) {
@@ -147,7 +144,7 @@
     }
 
     .Text {
-        font-size: 0.875rem;
+        font-size: 0.75rem;
         line-height: 1.25rem;
     }
 }

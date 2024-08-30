@@ -14,7 +14,7 @@
     box-sizing: border-box;
 }
 
-.Container{
+.Container {
     display: flex;
     justify-content: center;
 }
@@ -22,7 +22,7 @@
 .TopbarLeftWrapper {
     /* position: absolute; */
     position: relative;
-    
+
     background-color: initial;
     grid-column: 1;
 }
@@ -69,8 +69,13 @@
 }
 
 .HeaderHamburger button svg {
-    max-height: 1.25rem;
-    max-width: 1.25rem;
+    max-height: 1.4rem;
+    max-width: 1.4rem;
+    transition: transform 0.3s ease;
+}
+
+.HeaderHamburger button svg.rotate {
+    transform: rotate(180deg);
 }
 
 .HeaderHamburger button span {
@@ -528,7 +533,7 @@
     .TopbarCenterWrapper>button {
         width: auto;
     }
-    
+
 
     .HeaderRight {
         margin-left: 0;

@@ -373,11 +373,14 @@ export const loadInitData = (isMobile) => {
                     },
                 ],
             });
-            console.log(allMenuItems);
+            //console.log(allMenuItems);
             dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
             dispatch(appActions.setSportsMenuItems(sportsMenuItems));
             dispatch(appActions.setMenuItems(allMenuItems));
-            dispatch(appActions.setInitDataLoaded(true));
+            setTimeout(function(){
+                dispatch(appActions.setInitDataLoaded(true));
+            },2500)
+            
         } catch (error) {
             toast.error(error?.message);
             dispatch(appActions.setInitDataLoaded(true));

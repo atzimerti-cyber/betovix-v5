@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { motion } from 'framer-motion';
 
 import CopyToClipboardCont from '../../../features/CopyToClipboard/CopyToClipboardCont';
@@ -12,8 +12,10 @@ import EyeIcon from '../../../assets/svgs/eye.svg?react'; // Import the eye icon
 import CheckIcon from '../../../assets/svgs/check.svg?react';
 import Times2Icon from '../../../assets/svgs/times2.svg?react';
 import Autoheight from '../../../features/UI/Autoheight/Autoheight'; // Import Autoheight
+import { changePassword } from '../profileAsyncActions';
 
 const Settings = () => {
+    const dispatch = useDispatch();
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const user = useSelector((state) => state.login.user);
 
@@ -22,29 +24,43 @@ const Settings = () => {
     const [marketingEmails, setMarketingEmails] = useState(user?.marketingEmails);
     const [isDisabled, setIsDisabled] = useState(true);
 
-    const [password, setPassword] = useState('');
-    const [showPassword, setShowPassword] = useState(false);
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [verifyPassword, setVerifyPassword] = useState('');
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showVerifyPassword, setShowVerifyPassword] = useState(false);
     const [validPassword, setValidPassword] = useState({
         minSize: false,
         special: false,
         cases: false,
         numbers: false,
     });
+    const [verify, setVerify] = useState(false)
 
     useEffect(() => {
         if (!user) return;
 
         let isDis = false;
-        if (displayName === user.Username && profileIsHidden === user.profileHidden && marketingEmails === user.marketingEmails && !password) {
+        if (displayName === user.Username && profileIsHidden === user.profileHidden && marketingEmails === user.marketingEmails && !newPassword) {
             isDis = true;
         }
 
         setIsDisabled(isDis);
-    }, [displayName, profileIsHidden, marketingEmails, password]);
+    }, [displayName, profileIsHidden, marketingEmails, newPassword]);
+
+    const handleCurrentPassword = (value) => {
+        setCurrentPassword(value);
+    };
 
     const handlePasswordChange = (value) => {
-        setPassword(value);
+        setNewPassword(value);
         validatePassword(value);
+    };
+
+    const handleVerify = (value) => {
+        setVerifyPassword(value);
+        validateVerify(value);
     };
 
     const validatePassword = (value) => {
@@ -56,14 +72,52 @@ const Settings = () => {
         });
     };
 
-    const toggleShowPassword = () => {
-        setShowPassword((prev) => !prev);
+    const validateVerify = (value) => {
+        if (value === newPassword){
+            setVerify(true);
+        }else{
+            setVerify(false);
+        }
+    };
+
+    const toggleShowCurrentPassword = () => {
+        setShowCurrentPassword((prev) => !prev);
+    };
+    const toggleShowNewPassword = () => {
+        setShowNewPassword((prev) => !prev);
+    };
+    const toggleShowVerifyPassword = () => {
+        setShowVerifyPassword((prev) => !prev);
     };
 
     const saveChanges = () => {
         console.log('SAVE');
-        // Add functionality to save the changes (e.g., API call)
+        const payload = {
+            OldPass: currentPassword,
+            Password: newPassword,
+            RePassword: verifyPassword,
+        }
+        const controller = new AbortController();
+        const signal = controller.signal;
+        dispatch(changePassword(signal, payload));
     };
+
+    const getAccountType = (role) => {
+        switch (role) {
+            case 40:
+                return "Player";
+            case 30:
+                return "Shop";
+            case 20:
+                return "Agent";
+            case 10:
+                return "Owner";
+            case 1 || 0:
+                return "Admin";
+            default:
+                return "-";
+        }
+    }
 
     return (
         <motion.div
@@ -88,28 +142,83 @@ const Settings = () => {
                         />
 
                         <p className={classes.Title}>{translate('Change Your Password')}</p>
-                        <p className={classes.Text}>{translate('Your password must meet the following criteria:')}</p>
+
 
                         <div className={classes.InputOuter}>
+                            <label htmlFor='currentPassword'>
+                            <p className={classes.Text}>{translate('Current Password')}</p>
+                            </label>
                             <MainInput
+                                inSettings
                                 role='textbox'
-                                type={showPassword ? 'text' : 'password'}
-                                id='password'
+                                type={showCurrentPassword ? 'text' : 'password'}
+                                id='currentPassword'
                                 name='password'
-                                placeholder={translate('Type your password')}
-                                value={password}
-                                onChange={handlePasswordChange}
+                                placeholder={translate('Type your current password')}
+                                value={currentPassword}
+                                onChange={handleCurrentPassword}
                                 noAutoComplete
-                                isInvalid={
-                                    !validPassword.minSize || !validPassword.special || !validPassword.cases || !validPassword.numbers
-                                }
                                 rightIcon={
                                     <EyeIcon
-                                        className={showPassword ? [classes.ShowPasswordIcon, classes.ShowLine].join(' ') : classes.ShowPasswordIcon}
-                                        onClick={toggleShowPassword}
+                                        className={showCurrentPassword ? [classes.ShowPasswordIcon, classes.ShowLine].join(' ') : classes.ShowPasswordIcon}
+                                        onClick={toggleShowCurrentPassword}
                                     />
                                 }
                             />
+                            <label htmlFor='password'>
+                            <p className={classes.Text}>{translate('New Password')}</p>
+                            </label>
+                            <MainInput
+                                inSettings
+                                role='textbox'
+                                type={showNewPassword ? 'text' : 'password'}
+                                id='password'
+                                name='password'
+                                placeholder={translate('Type your password')}
+                                value={newPassword}
+                                onChange={handlePasswordChange}
+                                noAutoComplete
+                                isInvalid={
+                                    newPassword && (
+                                        !validPassword.minSize || !validPassword.special || !validPassword.cases || !validPassword.numbers
+                                    )
+                                }
+                                rightIcon={
+                                    <EyeIcon
+                                        className={showNewPassword ? [classes.ShowPasswordIcon, classes.ShowLine].join(' ') : classes.ShowPasswordIcon}
+                                        onClick={toggleShowNewPassword}
+                                    />
+                                }
+                            />
+
+                            <label htmlFor='verifyPassword'>
+                                <p className={classes.Text}>{translate('Verify Password')}</p>
+                            </label>
+                            <MainInput
+                                inSettings
+                                role='textbox'
+                                type={showVerifyPassword ? 'text' : 'password'}
+                                id='verifyPassword'
+                                name='password'
+                                placeholder={translate('Type your password')}
+                                value={verifyPassword}
+                                onChange={handleVerify}
+                                noAutoComplete
+                                isInvalid={
+                                    verifyPassword && (
+                                        !verify
+                                    )
+                                }
+                                rightIcon={
+                                    <EyeIcon
+                                        className={showVerifyPassword ? [classes.ShowPasswordIcon, classes.ShowLine].join(' ') : classes.ShowPasswordIcon}
+                                        onClick={toggleShowVerifyPassword}
+                                    />
+                                }
+                            />
+
+                            <p className={classes.Text}>{translate('Your password must meet the following criteria:')}</p>
+
                             <div className={classes.FormValidationMessage}>
                                 <Autoheight show={true}>
                                     <div className={classes.PasswordCheckContainer}>
@@ -152,6 +261,9 @@ const Settings = () => {
                     </div>
                     <div className={classes.FormGroup}>
                         <p className={classes.Title}>{translate('Account Type')}</p>
+                        <p className={classes.Text}>
+                            {user?.Role && getAccountType(user.Role)}
+                        </p>
                     </div>
                 </div>
             </div>

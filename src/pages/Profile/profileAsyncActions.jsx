@@ -85,3 +85,30 @@ export const getLevels = (signal) => {
     };
 };
 
+export const changePassword = (signal, payload) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.post(
+                `/MyAffiliate/ChangePassword/&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                {
+                    OldPass: payload.OldPass,
+                    Password: payload.Password,
+                    RePassword: payload.RePassword
+                },
+                {
+                    signal: signal,
+                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to change password');
+           
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+

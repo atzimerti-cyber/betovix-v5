@@ -26,8 +26,8 @@
 
 .Grid {
     display: grid;
-    grid-template-columns: auto;
-    /* grid-template-columns: repeat(6, minmax(0, 1fr)); */
+    /* grid-template-columns: auto; */
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0.5rem;
     padding: 0.5rem;
 }
@@ -55,6 +55,7 @@
 .PaymentButtonContainer {
     position: relative;
     grid-column: span 2 / span 2;
+    border-radius: 0.375rem;
 }
 
 .PaymentOptionsWrapper .PaymentButtonContainer>button {
@@ -63,7 +64,7 @@
     flex-direction: column;
     border-radius: 0.375rem;
     border-color: transparent;
-    background-color: var(--db-gray-1);
+    /* background-color: var(--db-gray-1); */
     padding-left: 0.25rem;
     padding-right: 0.25rem;
     width: 100%;
@@ -78,7 +79,8 @@
     --tw-border-opacity: 1;
     border-color: hsl(var(--nf, var(--n)) / var(--tw-border-opacity));
     --tw-bg-opacity: 1;
-    background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity));
+    background-color: var(--db-white-hover-light);
+    /* background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity)); */
 }
 
 .PaymentButtonContainer>button img {
@@ -164,8 +166,8 @@
     }
 
     .Grid {
-        /* grid-template-columns: repeat(4, minmax(0, 1fr)); */
-        grid-template-columns: auto auto;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        /* grid-template-columns: auto auto; */
 
     }
 

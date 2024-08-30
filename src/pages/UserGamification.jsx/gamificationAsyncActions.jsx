@@ -129,7 +129,8 @@ export const getUserAchievements = () => {
                 banner: response.data.Contents.Hero.Achievement?.Banner,
                 icon: response.data.Contents.Hero.Achievement?.Icon,
                 description: response.data.Contents.Hero.Achievement?.TermsAndConditions,
-                action: response.data.Contents.Hero.MetaData.action,
+                action: response.data.Contents.Hero.MetaData?.Action,
+                lvlAction: response.data.Contents.Hero.MetaData?.LevelAction,
             }
 
             // PROGRESS //
@@ -191,12 +192,12 @@ export const getUserAchievements = () => {
             const heroLevels = response.data.Contents.Levels.map(level => {
                 const milestones = level.Milestones.map(milestone => ({
                     id: milestone.Achievement.AchievementID,
-                    name: milestone.MetaData.Name,
-                    percentageComplete: milestone.AchievementEntrand.Progress,
-                    points: milestone.AchievementEntrand.ScoreBoard,
-                    pointsValue: milestone.PointsStrategy.BasePoints,
-                    rewardType: milestone.Rewards.RewardType,
-                    rewardValue: milestone.Rewards.RewardValue,
+                    name: milestone.MetaData?.Name,
+                    percentageComplete: milestone.AchievementEntrand?.Progress,
+                    points: milestone.AchievementEntrand?.ScoreBoard,
+                    pointsValue: milestone.PointsStrategy?.BasePoints,
+                    rewardType: milestone.Rewards?.RewardType,
+                    rewardValue: milestone.Rewards?.RewardValue,
 
                 })).sort((a, b) => a.name.localeCompare(b.name));
 
@@ -204,12 +205,12 @@ export const getUserAchievements = () => {
                 return {
                     id: level.Level.Achievement.AchievementID,
                     name: level.Level.MetaData.Name,
-                    completed: level.Level.AchievementEntrand.Completed,
+                    completed: level.Level.AchievementEntrand?.Completed,
                     milestones: milestones,
-                    points: level.Level.AchievementEntrand.ScoreBoard,
-                    percentageComplete: level.Level.AchievementEntrand.Progress,
-                    pointsValue: level.Level.PointsStrategy.BasePoints,
-                    progress: level.Level.AchievementEntrand.Progress,
+                    points: level.Level.AchievementEntrand?.ScoreBoard,
+                    percentageComplete: level.Level.AchievementEntrand?.Progress,
+                    pointsValue: level.Level.PointsStrategy?.BasePoints,
+                    progress: level.Level.AchievementEntrand?.Progress,
                 };
             }).sort((a, b) => a.name.localeCompare(b.name));
 
@@ -359,7 +360,6 @@ export const claimReward = (Id) => {
                 }
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
-
 
         } catch (error) {
             const message = error?.message ? error.message : error;

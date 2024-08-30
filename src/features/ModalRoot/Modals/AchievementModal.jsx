@@ -43,7 +43,7 @@ const AchievementModal = (props) => {
         return () => clearTimeout(timer);
     }, []);
 
-    const handleClaimButton = (id) => {
+    const handleClaimButton = async (id) => {
         dispatch(claimReward(id));
     }
 
@@ -131,10 +131,7 @@ const AchievementModal = (props) => {
                                             <p>{reward.RewardName}</p>
                                         </>
                                     ) : (
-                                        <>
-                                            <h1>Lalalalala lalalala</h1>
-                                            <p>mpla mpla mpla mpla</p>
-                                        </>
+                                        null
                                     )}
                                 </div>
 

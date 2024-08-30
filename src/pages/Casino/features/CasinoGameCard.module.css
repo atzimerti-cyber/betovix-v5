@@ -63,7 +63,8 @@
     height: 100%;
     width: 100%;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
+    /* justify-content: flex-end; */
     text-align: center;
     opacity: 0;
     /* background: linear-gradient(1turn, rgba(41, 63, 82, 0.8666666666666667) 60%, transparent 80%); */
@@ -104,7 +105,7 @@
     text-transform: capitalize;
 }
 .Rtp {
-    font-size: 1rem;
+    font-size: 0.8rem;
     line-height: 1.5rem;
     font-weight: 700;
     color: var(--db-brand-green);
@@ -146,7 +147,7 @@
         width: 1.5rem;
     }
     .Rtp {
-        font-size: 1.125rem;
+        font-size: 1.2rem;
         line-height: 1.75rem;
     }
     .RtpLabel {
@@ -162,7 +163,7 @@
 
 @media (min-width: 768px) {
     .Rtp {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
         line-height: 2rem;
     }
     .RtpLabel {

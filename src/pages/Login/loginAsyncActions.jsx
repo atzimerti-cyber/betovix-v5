@@ -99,7 +99,7 @@ export const verify = (code, navigate) => {
             if (response.data.Status.StatusCode === 200) {
                 toast.success(response.data.Contents);
                 navigate(`?modal=auth&tab=login`, { replace: true });
-            }else{
+            } else {
                 toast.error(response.data.Contents);
                 navigate(``, { replace: true });
                 dispatch(loginActions.setLoginLoading(false));
@@ -124,11 +124,11 @@ export const getUser = (navigate) => {
                 const user = {
                     ...response.data.Contents,
 
-                    profileHidden: false,
-                    marketingEmails: true,
-                    level: 0,
-                    wagered: 500,
-                    registered: 1712505696754,
+                    // profileHidden: false,
+                    // marketingEmails: true,
+                    // level: 0,
+                    // wagered: 500,
+                    // registered: 1712505696754,
                 };
 
                 let rewards = [];
@@ -146,7 +146,6 @@ export const getUser = (navigate) => {
                     navigate(`${location.pathname}?modal=achievement`, { replace: false });
 
                 }
-
                 dispatch(loginActions.setUser(user));
                 dispatch(layoutActions.setAvailableBonus(user));
                 dispatch(layoutActions.setAvailableBonusBalance(user));

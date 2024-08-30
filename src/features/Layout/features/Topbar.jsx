@@ -13,7 +13,7 @@ import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 import LogoBig from '../../../assets/svgs/logo-big.svg?react';
 import LogoSmall from '../../../assets/svgs/logo-small.svg?react';
 import MenuBurgerIcon from '../../../assets/svgs/menu-burger.svg?react';
-import CameraIcon from '../../../assets/svgs/camera.svg?react';
+import CameraIcon from '../../../assets/svgs/video.svg?react';
 import LevelUpIcon from '../../../assets/svgs/level-up.svg';
 
 import MainButton from '../../UI/Buttons/MainButton';
@@ -84,7 +84,7 @@ const Topbar = () => {
                     <div className={classes.HeaderHamburger}>
                         {!showingLiveEvent && (
                             <MainButton color='transparent' onClick={() => dispatch(layoutActions.setFullLeftContainer(!fullLeftContainer))}>
-                                <MenuBurgerIcon />
+                                    <MenuBurgerIcon className={fullLeftContainer ? classes.rotate : ''}/>
                             </MainButton>
                         )}
 
@@ -180,7 +180,7 @@ const Topbar = () => {
                                 )}
                             </div>
                             <div className={classes.HeaderRightDivider}></div>
-                            
+
                             {isDesktop && (
                                 <div className={classes.Container}>
                                     <DropdownLang topbar />

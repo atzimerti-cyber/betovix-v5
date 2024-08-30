@@ -134,3 +134,7 @@
     line-height: unset !important;
     font-size: unset !important;
 }
+
+.inSettings{
+    background-color: var(--db-gray-4);
+}
