@@ -53,26 +53,43 @@
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
     z-index: 10;
 }
+@keyframes jQMcyq {
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+
+    10%,
+    90% {
+        opacity: 1;
+    }
+
+    40%,
+    60% {
+        box-shadow: rgba(24, 95, 126, 0.3) 0px 0.25em 1em, rgba(24, 95, 126, 0.8) 0px 0px 0.5em;
+    }
+}
 .BonusButton {
     display: inline-block;
     cursor: pointer;
-    background: var(--db-duelbits-gray);
-    border: 2px dashed var(--db-purple-box); 
+    border: 1px dashed var(--db-gray-4);
     margin: 14px;
     margin-block-end: 10px;
-    color: white; 
+    color: white;
     border-radius: 5px;
-    padding: 5px 15px; 
-    font-size: 14px;
+    padding: 3px 9px;
+    font-size: 13px;
     position: relative;
-    transition: background-color 0.3s; 
+    transition: background-color 0.3s;
     cursor: pointer;
-    font-weight: 600;
+    font-weight: 400;
+    --tw-bg-opacity: 1;
+    animation: 6s ease 0s infinite normal none running jQMcyq;
 }
 .BonusButton.selected {
-    border: 2px solid var(--db-purple-box);
+    border: 1px solid var(--db-gray-4);
     border-radius: 8px;
-    color: #f3bfff;
+    color: var(--db-body-text);
 }
 .bonusContainer {
     display: flex;
@@ -84,19 +101,18 @@
 }
 
 .checkMark {
-    width: 18px; 
-    height: 18px; 
-    border: 2px solid white; 
+    width: 15px; 
+    height: 15px; 
+    border: 1px solid white; 
     border-radius: 4px; 
-    margin-right: auto; 
+    margin-right: 10px; 
     position: relative;
     transition: background-color 0.3s; 
 }
 
 .bonusContainer input[type="checkbox"]:checked + .checkMark {
-    background-color: var(--db-purple-box); 
-    border: 2px solid var(--db-purple-box); 
-
+    background-color: var(--db-body-text); 
+    border: 1px solid var(--db-gray-4); 
 }
 
 .bonusContainer input[type="checkbox"]:checked + .checkMark::after {
@@ -106,9 +122,13 @@
     top: 1px; 
     width: 5px;
     height: 10px; 
-    border: solid #fff; 
+    border: solid var(--db-gray-4); 
     border-width: 0 2px 2px 0; 
     transform: rotate(45deg); 
+}
+.bonusContainer input[type="checkbox"]:checked + .BonusButton {
+    box-shadow: rgba(24, 95, 126, 0.3) 0px 0.25em 1em, rgba(24, 95, 126, 0.8) 0px 0px 0.5em;
+    animation: none;
 }
 
 .BetButton, .SaveButton {
@@ -132,27 +152,9 @@
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s, outline 0s ease 0s, outline-offset 0s ease 0s;
     height: 48px;
 }
-@keyframes _jQMcyq_dgbon_1 {
-
-    0%,
-    100% {
-        opacity: 0.8;
-    }
-
-    10%,
-    90% {
-        opacity: 1;
-    }
-
-    40%,
-    60% {
-        box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em, rgba(200, 49, 231, 0.8) 0px 0px 0.5em;
-    }
-}
 
 .SaveButton {
     --tw-bg-opacity: 1;
-    animation: 6s ease 0s infinite normal none running _jQMcyq_dgbon_1;
     background: hsl(var(--s) / var(--tw-bg-opacity));
     font-size: 14px;
     margin-block: 0px 5px;

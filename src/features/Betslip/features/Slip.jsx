@@ -164,7 +164,7 @@ const Slip = (props) => {
                             )}
                         </div>
 
-                        {props.slip.Live && <div className={classes.LiveBadge}>{translate('Live')}</div>}
+                        {props.slip.Live && <div className={classes.LiveBadge}>Live</div>}
 
                         <button className={classes.DismissButton} onClick={handleRemoveSlip}>
                             <TimesIcon />

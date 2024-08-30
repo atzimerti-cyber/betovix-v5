@@ -6,6 +6,7 @@ import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 import Copy2Icon from '../../../assets/svgs/copy2.svg?react';
 import AngleDown2Icon from '../../../assets/svgs/angle-down2.svg?react';
 import Warning4Icon from '../../../assets/svgs/warning4.svg?react';
+import DisabledIcon from '../../../assets/svgs/disabled.svg?react';
 import SuccessIcon from '../../../assets/svgs/success.svg?react';
 import { addThousandsSeparator, formatDateTime2 } from '../../../utils/custom';
 import { translate } from '../../../utils/translations';
@@ -120,16 +121,14 @@ const MyBet = (props) => {
                     <span className={classes.OddsWrapper}>
                         @ <span className={classes.Odds}>{getTotalOdds()}</span>
                     </span>
-                </div>
-
-                {props.item.IsBonus && (
-                    <div className={classes.IsBonus}>
-                        <span>Played with bonus</span>
-                        <div className={classes.GiftIconWrapper}>
-                            <GiftIcon />
+                    {props.item.IsBonus && (
+                        <div className={classes.IsBonus}>
+                            <div className={classes.GiftIconWrapper}>
+                                <GiftIcon />
+                            </div>
                         </div>
-                    </div>
-                )}
+                    )}
+                </div>
 
                 <div className={classes.BetStatusContainer}>
                     <div className={classes.Circle} style={getCircleStyle()}></div>
@@ -217,26 +216,39 @@ const MyBet = (props) => {
 
                             {!cashedOutResult[props.item.TicketId] &&
                                 ticketCashouts &&
-                                ticketCashouts[props.item.TicketId] &&
-                                !ticketCashouts[props.item.TicketId].Metrics?.Cashout && (
-                                    <div className={classes.CashoutSuspendedWrapper}>
-                                        <div className={classes.CashoutSuspended}>
-                                            {translate('Cashout Suspended')}
-                                            <Warning4Icon />
-
-                                            <span className={classes.BreakReason}>{ticketCashouts[props.item.TicketId]?.BreakReason}</span>
+                                ticketCashouts[props.item.TicketId] && (
+                                    props.item.IsBonus ? (
+                                        <div className={classes.DisableWrapper}>
+                                            <div className={classes.DisabledButton}>
+                                                {translate('Cashout Disabled')}
+                                                <DisabledIcon />
+                                                <span className={classes.DisableReason}>
+                                                    {translate('Can not cashout when ticket is placed with bonus')}
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
-                                )}
-
-                            {!cashedOutResult[props.item.TicketId] &&
-                                ticketCashouts &&
-                                ticketCashouts[props.item.TicketId] &&
-                                ticketCashouts[props.item.TicketId]?.Metrics?.Cashout &&
-                                !showConfirmCashout && (
-                                    <button className={classes.CashoutButton} onClick={onShowConfirmCashout}>
-                                        {translate('Cashout')} {addThousandsSeparator(ticketCashouts[props.item.TicketId]?.Metrics?.Cashout)}
-                                    </button>
+                                    ) : (
+                                        <>
+                                            {!ticketCashouts[props.item.TicketId].Metrics?.Cashout ? (
+                                                <div className={classes.CashoutSuspendedWrapper}>
+                                                    <div className={classes.CashoutSuspended}>
+                                                        {translate('Cashout Suspended')}
+                                                        <Warning4Icon />
+                                                        <span className={classes.BreakReason}>
+                                                            {ticketCashouts[props.item.TicketId]?.BreakReason}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                !showConfirmCashout && (
+                                                    <button className={classes.CashoutButton} onClick={onShowConfirmCashout}>
+                                                        {translate('Cashout')}{' '}
+                                                        {addThousandsSeparator(ticketCashouts[props.item.TicketId]?.Metrics?.Cashout)}
+                                                    </button>
+                                                )
+                                            )}
+                                        </>
+                                    )
                                 )}
 
                             {!cashedOutResult[props.item.TicketId] &&
