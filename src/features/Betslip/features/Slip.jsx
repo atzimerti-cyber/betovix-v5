@@ -122,6 +122,10 @@ const Slip = (props) => {
         dispatch(betslipActions.removeFromSlips(props.slip.FieldId));
     };
 
+    const handleAmountClick = (event) => {
+        event.stopPropagation();
+    };
+
     return (
         <motion.div
             className={classes.Slip}
@@ -211,7 +215,7 @@ const Slip = (props) => {
 
             {betType === 'Single' && (
                 <div className={classes.PaymentSection}>
-                    <div className={classes.AmountArea}>
+                    <div className={classes.AmountArea} onClick={handleAmountClick}>
                         <AmountArea amountId={parseInt(props.slip.FieldId)} />
                     </div>
 
