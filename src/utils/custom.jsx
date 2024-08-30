@@ -9,6 +9,8 @@ export function formatNumberTo(value, dp = 2) {
 }
 
 export function formatDateTimeObj(d) {
+    if (!d) return { date: '', time: '' };
+
     if (typeof d === 'string') {
         d = new Date(d);
     }
@@ -95,6 +97,8 @@ export function millisecondsToDateStr(m) {
 }
 
 export function getTimeUntil(future) {
+    if (!future) return '';
+
     if (typeof future === 'string') {
         future = new Date(future);
     }
