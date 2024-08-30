@@ -15,7 +15,51 @@
     opacity: 0;
     animation: slide 0.2s ease-out forwards;
  }
- 
+ @keyframes loading {
+   0% {
+       left: -5px;
+       width: 20%;
+   }
+
+   30% {
+       width: 40%;
+   }
+
+   50% {
+       width: 60%;
+   }
+
+   70% {
+       left: 80%;
+   }
+
+   95% {
+       left: 120%;
+   }
+
+   100% {
+       left: 100%;
+   }
+}
+ .loader {
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+   background-color: transparent;
+   height: 4px;
+   padding-bottom: 15px;
+}
+ .loader:before {
+   display: block;
+   position: absolute;
+   content: "";
+   left: -200px;
+   width: 200px;
+   height: 2px;
+   background-color: var(--db-brand-green);
+   animation: loading 2s linear infinite
+ }
+
 @keyframes slide {
     100% {
         transform: translateY(0) scale(1);

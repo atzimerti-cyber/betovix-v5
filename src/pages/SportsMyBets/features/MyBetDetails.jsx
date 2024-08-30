@@ -44,7 +44,13 @@ const MyBetDetails = memo(function (props) {
                 return (
                     <div key={ticketEvent.EventId}>
                         {index > 0 && <div className={classes.Separator}></div>}
-                        <div className={classes.DateOfMatch}>{ticketEvent.DateOfMatch ? formatDateTime2(ticketEvent.DateOfMatch) : null}</div>
+                        <div className={classes.DateOfMatch}>
+                            {ticketEvent.DateOfMatch ? (
+                                formatDateTime2(ticketEvent.DateOfMatch)
+                            ) : (
+                                ticketEvent.Live && <LiveBadge />
+                            )}
+                        </div>
                         <div className={classes.HeaderContainer}>
                             <div className={classes.TeamSection}>
                                 <div className={classes.EventName}>
