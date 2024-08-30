@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
@@ -11,10 +11,8 @@ import BonusIcon from '../../../assets/svgs/bonus.svg?react';
 import { translate } from '../../../utils/translations';
 
 const VendorCard = (props) => {
-    const dispatch = useDispatch();
 
     const [isLoaded, setIsLoaded] = useState(false);
-    //const [isFavorite, setIsFavorite] = useState(props.game.isFav);
     const containerRef = useRef(null);
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
@@ -27,21 +25,6 @@ const VendorCard = (props) => {
             containerRef.current.style.backgroundImage = dominantColor;
         }
     }, [isLoaded]);
-
-    // const onToggleFavorite = () => {
-    //     if (!user) {
-    //         toast.warning('Login to access this feature');
-    //         return;
-    //     }
-
-    //     if (isFavorite) {
-    //         dispatch(removeFavoriteCasino(props.game.Data.Id));
-    //         setIsFavorite(false);
-    //     } else {
-    //         dispatch(addFavoriteCasino(props.game.Data.Id));
-    //         setIsFavorite(true);
-    //     }
-    // };
 
     function getDominantColor(imgElement) {
         const canvas = document.createElement('canvas');
@@ -88,7 +71,7 @@ const VendorCard = (props) => {
                     <div className={classes.ImageContainer} ref={containerRef}>
                         {!isLoaded && <LoaderPlaceholder />}
                         <img src={props.vendor.Data.Logo} crossOrigin="anonymous" loading='lazy' onLoad={() => setIsLoaded(true)}>
-                        
+
                         </img>
                     </div>
                     {props.vendor.isNew && <div className={classes.NewLabel}>{translate('NEW')}</div>}
@@ -98,14 +81,6 @@ const VendorCard = (props) => {
                                 <p className={classes.InfoCategory}>{props.vendor.Data.Name}</p>
                                 <p className={classes.Rtp}>{props.vendor.GameCount} {translate("Games")}</p>
                             </div>
-                            {/* <HeartIcon
-                                className={isFavorite ? classes.FavoriteIcon : null}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    e.preventDefault();
-                                    onToggleFavorite();
-                                }}
-                            /> */}
                         </div>
                     </div>
                 </article>

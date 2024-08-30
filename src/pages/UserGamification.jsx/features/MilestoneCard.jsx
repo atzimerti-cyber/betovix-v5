@@ -23,7 +23,14 @@ const MilestoneCard = (props) => {
         >
             <div className={classes.Background}>
                 <div className={classes.ImageContainer}>
-                    {props.nextLevel ? (
+                    {/* {props.nextLevel ? (
+                        <div className={`CardLevel CardLevel${props.level.id}`}></div>
+                    ) : (
+                        <div className={classes.ImageInner}>
+                            <img src={largeCoin} loading='lazy' alt='Coins' />
+                        </div>
+                    )} */}
+                    {props.firstCard ? (
                         <div className={`CardLevel CardLevel${props.level.id}`}></div>
                     ) : (
                         <div className={classes.ImageInner}>
@@ -42,12 +49,12 @@ const MilestoneCard = (props) => {
                     )} */}
 
                     {props.nextLevel && (
-                        <p className={props.level.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
-                            {props.level.name}
+                        <p className={props.level?.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
+                            {props.level?.name}
                         </p>
                     )}
 
-                    <p className={props.level.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
+                    <p className={props.level?.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
                         {/* {props.level.name} */}
                         <span>{props.label}</span>
                     </p>

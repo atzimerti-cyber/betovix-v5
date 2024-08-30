@@ -23,15 +23,10 @@ const Minibar = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' });
     const user = useSelector((state) => state.login.user);
     const minibarMenu = useSelector((state) => state.layout.minibarMenu);
     const hasHero = useSelector((state) => state.gamification.selectedHero);
     const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
-
-    useEffect(() => {
-
-    }, []);
 
     const getPathByItemName = (itemName) => {
         switch (itemName) {
@@ -106,7 +101,10 @@ const Minibar = () => {
                                 {Object.keys(minibarMenu).length > 0 && (
                                     <MinibarMenu
                                         items={minibarMenu}
-                                        onSelect={(item) => getPathByItemName(item.Name)}
+                                        onSelect={(item) => {
+                                            getPathByItemName(item.Name)
+                                            handleClick(item.Name)
+                                        }}
                                     />
                                 )}
                             </div>

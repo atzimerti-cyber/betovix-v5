@@ -7,7 +7,7 @@
     scrollbar-width: none; /* Firefox */
 }
 
-.Item {
+.ItemName {
     display: flex;
     flex-direction: row;
     animation-timeline: auto;
@@ -18,20 +18,11 @@
     -webkit-box-pack: justify;
     justify-content: space-between;
     text-align: left;
-    font-size: 12px;
+    font-size: 13px;
     margin-right: 3px;
-    display: flex;
-    flex-direction: row;
     animation: 0.3s ease-out 0.210938s 1 normal backwards running iJJWSU;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    text-align: left;
     border-bottom: 1px solid var(--db-gray-4);
     padding: 0px 10px;
-    font-size: 12px;
-    margin-right: 3px;
     line-height: 13px;
     flex: 0 0 auto;
     color: var(--db-white-primary);
@@ -40,7 +31,6 @@
     width: auto;
     margin-inline-end: 3px;
     z-index: 3;
-
     appearance: none;
     background: none;
     border: none;
@@ -51,7 +41,7 @@
     font-variant-east-asian: inherit;
     font-variant-alternates: inherit;
     font-variant-position: inherit;
-    font-weight: inherit;
+    font-weight: 400;
     font-stretch: inherit;
     font-family: inherit;
     font-optical-sizing: inherit;
@@ -69,52 +59,21 @@
     transition: color 0.3s;
 }
 
-.SportIcon {
-    margin-right: 8px;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    position: relative;
-}
-.SportIcon svg {
-    width: 20px;
-    height: 20px;
-}
-.SportIcon svg path {
-    fill: rgb(82, 116, 144);
-}
-.SportIcon.Selected svg path {
-    fill: var(--db-brand-green);
-}
-
-.SportName {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
+.ItemName {
     -webkit-box-pack: center;
     justify-content: center;
-    font-size: 13px;
 }
 
-.SportCount {
-    font-variant-numeric: normal;
-    font-feature-settings: 'tnum' 0;
-    position: absolute;
-    top: 4px;
-    left: 34px;
-    transform: translateX(-50%);
-}
-
-.Item.Selected {
+.ItemName.Selected {
     border-bottom-color: var(--db-brand-green);
     color: var(--db-brand-green);
     fill: var(--db-brand-green);
 }
-.Item.Selected svg{
+/* .Selected {
     border-bottom-color: var(--db-brand-green);
     color: var(--db-brand-green);
     fill: var(--db-brand-green);
-}
+} */
 
 .LightColor .Item:not(.Selected) {
     color: rgb(177, 197, 204);

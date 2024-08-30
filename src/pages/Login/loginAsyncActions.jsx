@@ -76,7 +76,8 @@ export const register = (registerInfo, navigate, locationPathname) => {
                 if (response2.data.Status.StatusCode !== 200) {
                     toast.error(response2.data.Contents);
                 } else {
-                    toast.success(response2.data.Contents);
+                    // toast.success(response2.data.Contents);
+                    toast.success('Success! Please check your email to verify your registration.');
                     navigate(`${locationPathname}?modal=auth&tab=login`, { replace: true });
                 }
 

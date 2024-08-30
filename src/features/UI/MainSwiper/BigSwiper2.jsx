@@ -5,6 +5,9 @@ import { useMediaQuery } from 'react-responsive';
 import { Autoplay, Pagination } from 'swiper/modules';
 import axiosApi from '../../../axios-api';
 import { toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+
+import { getVendorGame } from '../../../pages/Casino/casinoAsyncActions';
 
 import classes from './BigSwiper2.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
@@ -12,6 +15,7 @@ import { getLang } from '../../../utils/storage';
 
 const BigSwiper2 = (props) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [loadedImages, setLoadedImages] = useState([]);
 
     const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
@@ -43,10 +47,17 @@ const BigSwiper2 = (props) => {
             });
             if (response.data.Status.StatusCode !== 200) throw Error();
 
+            const providerName = response.data?.Contents?.ProviderName;
+            const gameid = gameId;
             const brandGameId = response.data?.Contents?.BrandGameId;
+            const gameName = response.data?.Contents?.Name;
+            const isDemo = false;
+            const isBonus = false;
+
             if (!brandGameId) throw Error();
 
-            navigate(`/casino/game/${gameType}/${gameId}/${brandGameId}/${gameName}`);
+            navigate(`/casino/game/${gameType}/${providerName}/${gameid}/${brandGameId}/${gameName}?isBonus=${isBonus}`);
+            // navigate(`/casino/game/${gameType}/${gameId}/${brandGameId}/${gameName}`);
         } catch (error) {
             if (!error?.code === 'ERR_CANCELED') toast.error(error?.message);
         }
@@ -61,7 +72,7 @@ const BigSwiper2 = (props) => {
                 autoplay={
                     props.autoplay
                         ? {
-                              delay: 6000,
+                              delay: props.delay || 8000,
                               disableOnInteraction: false,
                           }
                         : null
@@ -71,7 +82,7 @@ const BigSwiper2 = (props) => {
                 }}
                 modules={modules}
                 className={classes.BigSwiper2}
-                loop={true}
+                // loop={true}
             >
                 {props.items
                     ? props.items.map((item, index) => {

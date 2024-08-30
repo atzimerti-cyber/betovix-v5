@@ -76,10 +76,10 @@
     pointer-events: none;
 }
 
-.MilestoneCard.Milestone0 .Content,
+/* .MilestoneCard.Milestone0 .Content,
 .MilestoneCard.Milestone0 .Background {
     display: none;
-}
+} */
 
 .Title {
     text-align: center;

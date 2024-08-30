@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { SwiperSlide } from 'swiper/react';
@@ -8,24 +8,19 @@ import { toast } from 'react-toastify';
 import MainSwiper from './MainSwiper';
 import classes from './VendorSwiper.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
-import { gamificationActions } from '../../../pages/UserGamification.jsx/userGamificationSlice';
 
 const VendorSwiper = (props) => {
-
-    const dispatch = useDispatch();
 
     const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
     const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
     const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
     const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
+
+    const imageRefs = useRef([]);
     const [loadedImages, setLoadedImages] = useState([]);
 
     const updateLoadedImages = (index) => {
         setLoadedImages((prevState) => [...prevState, index]);
-    };
-
-    const handleCardClick = (vendor) => {
-        return null;
     };
 
     let slidesPerView = 9.5;
@@ -43,6 +38,51 @@ const VendorSwiper = (props) => {
     } else if (isBigDesktop) {
         slidesPerView = 4;
         slidesPerGroup = 4;
+    }
+
+    useEffect(() => {
+        loadedImages.forEach((index) => {
+            const container = imageRefs.current[index];
+            if (container) {
+                const img = container.querySelector('img');
+                const dominantColor = getDominantColor(img);
+                container.style.backgroundImage = dominantColor;
+            }
+        });
+    }, [loadedImages]);
+
+    function getDominantColor(imgElement) {
+        const canvas = document.createElement('canvas');
+        const context = canvas.getContext('2d');
+        canvas.width = imgElement.width;
+        canvas.height = imgElement.height;
+        context.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+
+        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+        const data = imageData.data;
+
+        let r = 0, g = 0, b = 0, count = 0;
+
+        for (let i = 0; i < data.length; i += 4) {
+            r += data[i];
+            g += data[i + 1];
+            b += data[i + 2];
+            count++;
+        }
+
+        r = Math.floor(r / count);
+        g = Math.floor(g / count);
+        b = Math.floor(b / count);
+
+        const isGrayscale = Math.abs(r - g) < 10 && Math.abs(g - b) < 10 && Math.abs(r - b) < 10;
+
+        if (isGrayscale) {
+            r = 50;
+            g = 87;
+            b = 54;
+        }
+
+        return `linear-gradient(50deg, rgba(${r},${g},${b},1), transparent)`;
     }
 
     return (
@@ -66,21 +106,13 @@ const VendorSwiper = (props) => {
                                 <Link to={`/search?provider=${item.Data.Name}`}>
                                     <div
                                         className={classes.SlideContainer}
-                                        onClick={() => handleCardClick(item)}
                                     >
                                         <article className={classes.Card}>
-                                            <div className={classes.ImageContainer}>
+                                            <div className={classes.ImageContainer} ref={el => imageRefs.current[index] = el}>
                                                 {loadedImages.includes(index) === false && <LoaderPlaceholder />}
-                                                <img src={item.Data.Logo} loading='lazy' onLoad={() => updateLoadedImages(index)} />
+                                                <img src={item.Data.Logo} crossOrigin="anonymous" loading='lazy' onLoad={() => updateLoadedImages(index)} />
                                             </div>
                                             {props.isNew && <div className={classes.NewLabel}>NEW</div>}
-                                            {/* <div className={classes.InfoOverlay}>
-                                                <div className={classes.InfoContent}>
-                                                    <div>
-                                                        <p className={classes.InfoCategory}>{item.Data.Name}</p>
-                                                    </div>
-                                                </div>
-                                            </div> */}
                                         </article>
                                     </div>
                                 </Link>

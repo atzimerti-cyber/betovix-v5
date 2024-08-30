@@ -16,7 +16,8 @@
 }
 
 .ModalItem:hover {
-    transform: scale(1.05);
+    /* transform: scale(1.05); */
+    background-color: var(--db-gray-3);
 }
 
 .NavItem svg,

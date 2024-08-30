@@ -5,7 +5,7 @@
 }
 
 .SlideContainer:not(.Loading):hover {
-    transform: translateY(-2%);
+    transform: translateY(-5%);
 }
 
 .Card {
@@ -48,7 +48,8 @@
     justify-content: flex-end;
     text-align: center;
     opacity: 0;
-    background: linear-gradient(1turn, rgba(41, 63, 82, 0.8666666666666667) 60%, transparent 80%);
+    /* background: linear-gradient(1turn, rgba(41, 63, 82, 0.8666666666666667) 60%, transparent 80%); */
+    background: rgba(0, 0, 0, 0.7);
 }
 
 .Card:hover .InfoOverlay {
@@ -67,6 +68,7 @@
     justify-content: center;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+
 }
 
 .InfoContent>svg {

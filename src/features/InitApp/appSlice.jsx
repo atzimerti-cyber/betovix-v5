@@ -149,6 +149,7 @@ const initialState = {
         Vegas : <CricketIcon />,
         Amatic : <Amatic />,
         Egyptian : <Egyptian />,
+        Egypt : <Egyptian />,
         Megaways : <CricketIcon />,
         Halloween : <CricketIcon />,
         Classic : <CricketIcon />,
@@ -165,7 +166,8 @@ const initialState = {
         RedTiger : <RedTiger />,
         Yggdrasil : <Yggdrasil />,
         Providers : <Providers />,
-        
+        NewGames : <New/>,
+        New : <New/>
     },
     sportSettings: null,
 };
