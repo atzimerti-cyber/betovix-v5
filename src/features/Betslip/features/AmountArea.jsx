@@ -71,7 +71,10 @@ const AmountArea = memo(function (props) {
             // Remove leading zeros except for decimal numbers like "0.xx"
             thisAmount = thisAmount.replace(/^0+([1-9]\d*(\.\d+)?)/, '$1').replace(/^(0\.\d+)/, '$1');
 
-            if (maxBet && thisAmount > maxBet.maxbet) thisAmount = maxBet.maxbet;
+            if (maxBet && thisAmount > maxBet.maxbet) {
+                thisAmount = maxBet.maxbet;
+                //TODO::message?
+            }
             if (thisAmount === '.00') thisAmount = '0.00';
         }
 

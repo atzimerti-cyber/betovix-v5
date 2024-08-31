@@ -179,7 +179,7 @@ const Event = () => {
         });
 
         let groups = Object.values(groupsObj);
-        groups.sort((a, b) => a.id - b.id);
+        groups.sort((a, b) => a.Id - b.Id);// maybe not needed
 
         // Get auto...
         const marketTree = sportMarketTree && sportid ? sportMarketTree[sportid] : null;

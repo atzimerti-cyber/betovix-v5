@@ -117,7 +117,7 @@ const OddsButton = (props) => {
         if (!ticketSettings) return false;
 
         let allowed = ticketSettings.TicketSettings.MAX_ALLOWED_ODDS_POINTS;
-        if (betType === 'System' || hasAnEventMoreThanOnePoint(newSlip)) {
+        if (betType !== 'Single' && (betType === 'System' || hasAnEventMoreThanOnePoint(newSlip))) {
             if (allowed > ticketSettings.TicketSettings.MAX_ALLOWED_SYSTEM_POINTS) allowed = ticketSettings.TicketSettings.MAX_ALLOWED_SYSTEM_POINTS;
         }
         if (slips.length >= allowed) return false;
