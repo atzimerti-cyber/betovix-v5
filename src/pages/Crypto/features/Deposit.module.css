@@ -6,13 +6,13 @@
     transition-duration: 0.3s;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --tw-translate-y: 0px;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .PaymentVerticalWrapper.Crypto {
     --tw-translate-y: -100%;
 }
+
 .PaymentVerticalWrapper.Fiat {
     --tw-translate-y: -200%;
 }
@@ -26,6 +26,7 @@
 
 .Grid {
     display: grid;
+    /* grid-template-columns: auto; */
     grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 0.5rem;
     padding: 0.5rem;
@@ -54,36 +55,40 @@
 .PaymentButtonContainer {
     position: relative;
     grid-column: span 2 / span 2;
+    border-radius: 0.375rem;
 }
 
-.PaymentOptionsWrapper .PaymentButtonContainer > button {
+.PaymentOptionsWrapper .PaymentButtonContainer>button {
     position: relative;
     height: 6rem;
     flex-direction: column;
     border-radius: 0.375rem;
     border-color: transparent;
-    background-color: var(--db-gray-1);
+    /* background-color: var(--db-gray-1); */
     padding-left: 0.25rem;
     padding-right: 0.25rem;
     width: 100%;
 }
-.PaymentOptionsWrapper .PaymentButtonContainer > button:disabled {
+
+.PaymentOptionsWrapper .PaymentButtonContainer>button:disabled {
     background-color: var(--db-gray-1);
     opacity: 0.25;
 }
-.PaymentOptionsWrapper .PaymentButtonContainer > button:hover {
+
+.PaymentOptionsWrapper .PaymentButtonContainer>button:hover {
     --tw-border-opacity: 1;
     border-color: hsl(var(--nf, var(--n)) / var(--tw-border-opacity));
     --tw-bg-opacity: 1;
-    background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity));
+    background-color: var(--db-white-hover-light);
+    /* background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity)); */
 }
 
-.PaymentButtonContainer > button img {
+.PaymentButtonContainer>button img {
     height: 1.25rem;
     width: 1.25rem;
 }
 
-.PaymentButtonContainer > button h2 {
+.PaymentButtonContainer>button h2 {
     word-break: break-word;
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -94,7 +99,8 @@
     line-height: 1;
     color: hsl(var(--nc) / var(--tw-text-opacity));
 }
-.PaymentButtonContainer.CryptoCoin > button h2 {
+
+.PaymentButtonContainer.CryptoCoin>button h2 {
     width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -102,7 +108,7 @@
     white-space: normal;
 }
 
-.PaymentButtonContainer > button h3 {
+.PaymentButtonContainer>button h3 {
     margin-top: 0.25rem;
     font-size: 0.75rem;
     line-height: 1rem;
@@ -128,12 +134,13 @@
     color: var(--db-body-text);
 }
 
-.PaymentButtonContainer > button img.AllCrypto {
+.PaymentButtonContainer>button img.AllCrypto {
     height: 2.25rem;
     width: auto;
 }
 
 @media (min-width: 640px) {
+
     /* .PaymentOptionsWrapper,
     .DepositCryptoWrapper,
     .DepositFiatWrapper {
@@ -143,33 +150,134 @@
         padding-left: 1.5rem;
         padding-right: 1.5rem;
     }
+
     .PaymentVerticalWrapper.Crypto {
         min-height: 600px;
     }
+
     .PaymentButtonContainer {
         grid-column: span 1 / span 1;
     }
-    .PaymentOptionsWrapper .PaymentButtonContainer > button {
+
+    .PaymentOptionsWrapper .PaymentButtonContainer>button {
         height: 8rem;
         padding-left: 0.5rem;
         padding-right: 0.5rem;
     }
+
     .Grid {
         grid-template-columns: repeat(4, minmax(0, 1fr));
+        /* grid-template-columns: auto auto; */
+
     }
-    .PaymentButtonContainer > button img {
+
+    .PaymentButtonContainer>button img {
         height: 1.5rem;
         width: 1.5rem;
     }
-    .PaymentButtonContainer > button h2 {
+
+    .PaymentButtonContainer>button h2 {
         font-size: 17px;
         line-height: 1.25rem;
     }
-    .PaymentButtonContainer > button h3 {
+
+    .PaymentButtonContainer>button h3 {
         font-size: 0.875rem;
         line-height: 1.25rem;
     }
-    .PaymentButtonContainer > button img.AllCrypto {
+
+    .PaymentButtonContainer>button img.AllCrypto {
         height: 3rem;
+    }
+}
+
+
+/* ////////////////////////////////////////////////////////////// */
+.CryptoCard {
+    background: linear-gradient(90deg, var(--crypto-color), transparent 45%, transparent), var(--db-gray-4);
+    position: relative;
+    display: flex;
+    height: 3rem;
+    width: 100%;
+    cursor: pointer;
+    justify-content: space-between;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+}
+
+.LogoContainer {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.PriceContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 600;
+}
+
+.ImageContainer {
+    position: relative;
+    height: 18px;
+    width: 18px;
+}
+
+.ImageContainer img {
+    height: 100%;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+.LogoContainer p {
+    margin-left: 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.Price {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.Delta {
+    color: var(--db-brand-green);
+}
+
+.Delta.Lower {
+    color: #ef4444;
+}
+
+@media (min-width: 640px) {
+    .CryptoCard {
+        height: 70px;
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    .PriceContainer {
+        font-size: 0.875rem;
+        line-height: 1rem;
+    }
+
+    .ImageContainer {
+        height: 1.5rem;
+        width: 1.5rem;
+    }
+
+    .LogoContainer p {
+        font-size: 1.25rem;
+        line-height: 1.75rem;
     }
 }

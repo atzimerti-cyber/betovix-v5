@@ -10,7 +10,8 @@
     cursor: pointer;
     overflow: hidden;
     border-radius: 0.375rem;
-    aspect-ratio: 640 / 350;
+    aspect-ratio: 462/233;
+    /* aspect-ratio: 640 / 350; */
 }
 
 .SlideContainer.Loading .Card {
@@ -27,6 +28,11 @@
     object-fit: cover;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
+    transition: transform 0.3s ease-in-out;
+}
+.ImageContainer:hover img {
+    transform: scale(1.03);
+    -webkit-transform: scale(1.03); 
 }
 
 .MainSwiperWrapper .BigSwiper2 {

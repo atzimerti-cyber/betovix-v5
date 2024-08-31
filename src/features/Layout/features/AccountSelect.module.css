@@ -1,0 +1,106 @@
+.accountSelectContainer {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.accountItem {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.accountSelectWidget {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.expandArrow {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.rotated {
+    transform: rotate(90deg);
+}
+
+.accountName {
+    flex: 1;
+}
+
+.accountList {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    z-index: 1000;
+    border: 1px solid #316899;
+    border-radius: 0.375rem;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: var(--db-gray-1);
+    cursor: pointer;
+    padding: 10px 0;
+}
+
+.accountSelectContainer p {
+    margin-bottom: 10px;
+}
+.accountSelectContainer > div {
+    position: relative;
+}
+.accountSelectContainer > div .dropIcon {
+    position: absolute;
+    top: 12px;
+    right: 9px;
+    cursor: pointer;
+}
+
+.accountSelect {
+    padding: 8px 10px;
+    font-size: 14px;
+    border-radius: 0.375rem;
+    background-color: var(--db-gray-1);
+    color: #87A0B5;
+}
+
+.accountSelectContainer > div input {
+    box-sizing: border-box;
+    border-color: transparent;
+    background-color: var(--db-gray-1);
+    border-radius: 0.375rem;
+    border-width: 1px;
+    color: #fff;
+    border-style: solid;
+    position: relative;
+    display: flex;
+    align-items: center;
+    transition-duration: 0.2s;
+    display: block;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    padding: 8px 30px 8px 10px;
+    height: 37px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dropdownMenu div {
+    margin-bottom: 5px;
+    padding: 2px;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+.dropdownMenu span {
+   color: #fff;
+}
+code {
+    font-size: 11px;
+    color: var(--db-purple-text);
+}
+.dropdownMenu div button {
+    margin-right: 5px;
+}

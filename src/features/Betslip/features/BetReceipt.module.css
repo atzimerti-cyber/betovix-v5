@@ -34,7 +34,8 @@
 
 .BetSuccessText {
     margin-block: 10px 24px;
-    margin-inline: auto;
+    margin-inline: 10px;
+    text-align: center;
 }
 
 .AddPreviousButton {

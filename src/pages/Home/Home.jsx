@@ -4,6 +4,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import classes from './Home.module.css';
 import HomeBanners from './features/HomeBanners';
+import Banners from '../../features/Banners/Banners';
 import LiveEvents from './features/LiveEvents';
 import TopEvents from './features/TopEvents';
 import { getHome } from './homeAsyncActions';
@@ -22,11 +23,34 @@ import { translate } from '../../utils/translations';
 
 const Home = () => {
     const dispatch = useDispatch();
-    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+    // const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
+    const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
+    const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
+    const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
+    const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
+
+    let slidesPerView = 6;
+    let slidesPerGroup = 4;
+
+    if (isMobile) {
+        slidesPerView = 2.5;
+        slidesPerGroup = 2;
+    } else if (isTablet) {
+        slidesPerView = 3;
+        slidesPerGroup = 3;
+    } else if (isDesktop) {
+        slidesPerView = 3.5;
+        slidesPerGroup = 3;
+    } else if (isBigDesktop) {
+        slidesPerView = 4;
+        slidesPerGroup = 4;
+    }
 
     const filteredGames = useSelector((state) => state.casino.filteredGames);
     const user = useSelector((state) => state.login.user);
     const permissions = useSelector((state) => state.login.permissions);
+    const sportBanners = useSelector((state) => state.home.sportBanners);
 
     const [axiosSignal, setAxiosSignal] = useState(null);
 
@@ -81,6 +105,13 @@ const Home = () => {
         };
     }, [divs]);
 
+    const hasNewGames = filteredGames.newGames?.Data?.length > 0;
+    const hasRecentGames = filteredGames.recentGames?.Data?.length > 0;
+    const hasFavoriteGames = filteredGames.favoriteGames?.Data?.length > 0;
+
+
+
+
     return (
         <div className={classes.PageContent}>
             <div className={classes.Home}>
@@ -89,21 +120,19 @@ const Home = () => {
                     <Crypto />
                 }
 
-                <div className={isMobile && !user ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
-                    {(isMobile === false || user === null) && <HomeBanners isMobile={isMobile} />}
-                    {!isMobile && user && (
+                <div className={isMobile || isTablet && !user ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
+                    {(isMobile === false || user === null) && <Banners banners={sportBanners} />}
+                    {/* {(isMobile === false || user === null) && <HomeBanners isMobile={isMobile} />} */}
+
+                    {/* {!isMobile && user && (
                         <div className={classes.VipContainer}>
                             <VipProgress />
                         </div>
                     )}
-                    {isMobile && user && <VipProgress />}
+                    {isMobile && user && <VipProgress />} */}
 
                     {!user && <RegisterContainers />}
                 </div>
-
-                {/* {user &&
-                    <Crypto />
-                } */}
 
                 {permissions.AllowToSports && (
                     <>
@@ -116,23 +145,29 @@ const Home = () => {
                 )}
 
                 {permissions.AllowToCasino || permissions.AllowToSlots ? (
-                    <SwiperWithOverlay
-                        title={translate('New Games')}
-                        icon={<NewIcon className={classes.NewIcon} />}
-                        link='/casino/slots'
-                        items={filteredGames.newGames?.Data}
-                    />
+                    hasNewGames && (
+                        <SwiperWithOverlay
+                            title={translate('New Games')}
+                            icon={<NewIcon className={classes.NewIcon} />}
+                            link='/casino/slots'
+                            items={filteredGames.newGames?.Data}
+                            slidesPerView={slidesPerView}
+                        />
+                    )
                 ) : null}
 
                 {user && (permissions.AllowToCasino || permissions.AllowToSlots) ? (
                     <>
-                        <SwiperWithOverlay title={translate('Recently Played')} icon={<ClockIcon />} items={filteredGames.recentGames?.Data} />
-                        <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} />
+                        {hasRecentGames && (
+                            <SwiperWithOverlay title={translate('Recently Played')} icon={<ClockIcon />} items={filteredGames.recentGames?.Data} slidesPerView={slidesPerView} />
+                        )}
+
+                        {hasFavoriteGames && (
+                            <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} slidesPerView={slidesPerView} />
+                        )}
                     </>
+
                 ) : null}
-
-
-
             </div>
         </div>
     );

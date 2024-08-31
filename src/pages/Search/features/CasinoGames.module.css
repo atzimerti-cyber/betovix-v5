@@ -1,6 +1,7 @@
 .CasinoGames {
     display: flex;
     flex-direction: column;
+    grid-template-rows: auto auto;
 }
 
 .Header {
@@ -21,7 +22,7 @@
 .Title {
     display: flex;
     align-items: center;
-    font-size: 0.875rem;
+    font-size: 1rem;
     line-height: 1.25rem;
     font-weight: 700;
     --tw-text-opacity: 1;
@@ -37,6 +38,7 @@
     display: grid;
     gap: 0.5rem;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-row: 1;
 }
 
 .LoadMore {
@@ -44,6 +46,7 @@
     margin-bottom: 0.5rem;
     display: flex;
     justify-content: center;
+    grid-row: 2;
 }
 .LoadMore button {
     margin-top: 0.5rem;
@@ -97,6 +100,6 @@
 
 @media (min-width: 1280px) {
     .GameGrid {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns: repeat(6, minmax(0, 1fr));
     }
 }

@@ -2,19 +2,24 @@
     position: relative;
     display: block;
     width: 100%;
+
 }
 
 .BannerBackground {
     position: relative;
-    aspect-ratio: 1200 / 311;
+    aspect-ratio: 1168/217;
+    /* aspect-ratio: 1200 / 311; */
     width: 100%;
     overflow: hidden;
     min-height: 200px;
 }
+
 .BannerBackground img {
     object-fit: cover;
     height: 100%;
     width: 100%;
+    border-radius: 10px;
+
 }
 
 .EventInfoWrapper {
@@ -35,7 +40,8 @@
     max-height: 100%;
     opacity: 0.9;
 }
-.EventInfo > a {
+
+.EventInfo>a {
     opacity: 0.9;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }

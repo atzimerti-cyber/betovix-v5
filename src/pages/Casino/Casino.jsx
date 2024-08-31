@@ -7,6 +7,7 @@ import CasinoMenu from './features/CasinoMenu';
 import Lobby from './subpages/Lobby';
 import LiveGames from './subpages/LiveGames';
 import SlotGames from './subpages/SlotGames';
+import Providers from './subpages/Providers'
 import FavoriteGames from './subpages/FavoriteGames';
 import { casinoActions } from './casinoSlice';
 
@@ -25,6 +26,7 @@ const Casino = () => {
     if (params['*'].includes('slots')) page = <SlotGames />;
     else if (params['*'].includes('live')) page = <LiveGames />;
     else if (params['*'].includes('favorites')) page = <FavoriteGames />;
+    else if (params['*'].includes('providers')) page = <Providers />;
 
     return (
         <div className={classes.PageContent}>

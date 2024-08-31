@@ -56,7 +56,8 @@ const Dropdown4 = (props) => {
             <DsButton color='transparent' disabled={props.disabled} onClick={onButtonClick}>
                 <div className={classes.Label}>
                     {props.icon && <img src={props.icon} loading='lazy' alt={props.placeholder} />}
-                    <span className={!props.selected ? classes.PlaceholderRed : ''}>
+                    <span className={!props.selected ?'' : ''}>
+                    {/* <span className={!props.selected ? classes.PlaceholderRed : ''}> */}
                         {props.selected ? props.selected.label : props.placeholder}
                     </span>
                 </div>
@@ -79,7 +80,7 @@ const Dropdown4 = (props) => {
                             {props.withSearch && <Search3 iconLeft placeholder='Search' searchStr={searchStr} onChange={(value) => filterOptions(value)} />}
                             {filteredOptions &&
                                 filteredOptions.map((option) => (
-                                    <li key={option.id} onClick={() => onSelect(option)}>
+                                    <li key={option.Id ? option.Id : option.id } onClick={() => onSelect(option)}>
                                         <div className={props.selected?.id === option.id ? [classes.Option, classes.Active].join(' ') : classes.Option}>
                                             {option.icon && <img src={option.icon} loading='lazy' alt={option.label} />}
                                             <span>{option.label}</span>

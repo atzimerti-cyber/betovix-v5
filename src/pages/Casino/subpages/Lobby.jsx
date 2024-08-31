@@ -1,16 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 
 import classes from './Lobby.module.css';
 import { casinoActions } from '../casinoSlice';
 import { getCasino } from '../casinoAsyncActions';
 import SwiperWithOverlay from '../../../features/UI/MainSwiper/SwiperWithOverlay';
+
+import VendorSwiper from '../../../features/UI/MainSwiper/VendorSwiper';
+
 import BigSwiper2 from '../../../features/UI/MainSwiper/BigSwiper2';
-import SlotsIcon from '../../../assets/svgs/slots.svg?react';
-import BlackjackIcon from '../../../assets/svgs/blackjack.svg?react';
-import ClockIcon from '../../../assets/svgs/clock.svg?react';
-import HeartIcon from '../../../assets/svgs/heart.svg?react';
-import NewIcon from '../../../assets/casinoIcons/new.svg?react';
+import ProvidersIcon from '../../../assets/casinoIcons/providers.svg?react';
 import { translate } from '../../../utils/translations';
 
 const Lobby = () => {
@@ -19,7 +19,11 @@ const Lobby = () => {
 
     const filteredGames = useSelector((state) => state.casino.filteredGames);
     const casinoBanners = useSelector((state) => state.casino.casinoBanners);
+    const casinoVendors = useSelector((state) => state.casino.casinoVendors);
+    const casinoIcons = useSelector((state) => state.app.casinoIcons);
     const user = useSelector((state) => state.login.user);
+
+    const [allProviders, setAllProviders] = useState([]);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -32,35 +36,81 @@ const Lobby = () => {
         };
     }, [user?.AccountId]);
 
+    useEffect(() => {
+        if (!casinoVendors) return;
+
+        const po = casinoVendors
+            .map((v) => {
+                return v;
+            })
+            .sort((a, b) => a.Data.Name.localeCompare(b.Data.Name));
+
+        setAllProviders(po);
+    }, [casinoVendors]);
+
+    
+    const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
+    const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
+    const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
+    const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
+
+    let slidesPerView = 6;
+
+    if (isMobile) {
+        slidesPerView = 2;
+    } else if (isTablet) {
+        slidesPerView = 3;
+    } else if (isDesktop) {
+        slidesPerView = 3.5;
+    } else if (isBigDesktop) {
+        slidesPerView = 4;
+    }
+
+
+
+    const getPathByItemName = (itemName) => {
+        switch (itemName) {
+            case 'Recommended':
+                return null;
+            case 'Recently Played':
+                return null;
+            case 'Favorites':
+                return '/casino/favorites';
+            case 'New Games':
+                return null;
+            case 'Amatic':
+                return `/search?provider=${itemName}`;
+            case 'Novomatic':
+                return `/search?provider=${itemName}`;
+            case 'Egypt':
+                return `/search?provider=egt`;
+            default:
+                return '/';
+        }
+    };
+
     return (
         <>
-            <BigSwiper2 items={casinoBanners} max={6} />
+            <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} slidesPerView={slidesPerView + 5}/>
 
-            {filteredGames['recentGames']?.Data.length > 0 && (
-                <SwiperWithOverlay title={translate('Recently Played')} icon={<ClockIcon />} items={filteredGames['recentGames']?.Data} max={20} />
-            )}
+            <BigSwiper2 items={casinoBanners} autoplay />
 
-            {filteredGames['favoriteGames']?.Data.length > 0 && (
-                <SwiperWithOverlay
-                    title={translate('Favorites')}
-                    icon={<HeartIcon />}
-                    link='/casino/favorites'
-                    items={filteredGames['favoriteGames']?.Data}
-                    max={20}
-                />
-            )}
-
-            {filteredGames['newGames']?.Data.length > 0 && (
-                <SwiperWithOverlay
-                    title={translate('New Games')}
-                    icon={<NewIcon className={classes.NewIcon} />}
-                    items={filteredGames['newGames']?.Data}
-                    max={20}
-                />
-            )}
-
-            <SwiperWithOverlay title={translate('Slots')} icon={<SlotsIcon />} link='/casino/slots' items={filteredGames['allSlots']?.Data} max={20} />
-            <SwiperWithOverlay title={translate('Live Casino')} icon={<BlackjackIcon />} link='/casino/live' items={filteredGames['allLive']?.Data} max={20} />
+            {Object.entries(filteredGames).map(([key, menuItem]) => {
+                if (menuItem?.Data.length > 0) {
+                    return (
+                        <SwiperWithOverlay
+                            key={key}
+                            title={`${translate(menuItem?.Item?.Name)}`}
+                            icon={casinoIcons[menuItem?.Item?.Name] || null} 
+                            link={getPathByItemName(menuItem?.Item?.Name)}
+                            items={menuItem?.Data}
+                            max={20}
+                            slidesPerView={slidesPerView}
+                        />
+                    );
+                }
+                return null;
+            })}
         </>
     );
 };

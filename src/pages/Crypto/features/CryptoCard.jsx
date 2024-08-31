@@ -13,26 +13,8 @@ const CryptoCard = (props) => {
 
     const crypto = useSelector((state) => state.crypto.crypto);
     const user = useSelector((state) => state.login.user);
-    // const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
 
     const [currentPrice, setCurrentPrice] = useState({ price: 0.00, diff: 0.00 });
-
-    // useEffect(() => {
-    //     console.log("useEffect triggered", crypto);
-    //     if (crypto && Array.isArray(crypto)) {
-    //         console.log("crypto array", crypto);
-    //         const cryptoCoin = crypto.find(cryptoItem => cryptoItem.Code === props.item.Code);
-    //         console.log("Found cryptoCoin", cryptoCoin);
-
-    //         if (cryptoCoin) {
-    //             setCurrentPrice(prevState => ({
-    //                 ...prevState,
-    //                 price: cryptoCoin.Rate,
-    //                 diff: calculateDiff(prevState.price, cryptoCoin.Rate)
-    //             }));
-    //         }
-    //     }
-    // }, [crypto]);
     
     const calculateDiff = (prevPrice, newPrice) => {
         if (!prevPrice || !newPrice) return 0;
@@ -56,7 +38,7 @@ const CryptoCard = (props) => {
             navigateToModal('cashier', 'deposit', 'crypto');
         } else navigateToModal('auth', 'login');
     };
-//dispatch(cryptoActions.setSelectedNetwork(props.item.Code));
+
     return (
         <div className={classes.CryptoCard} style={{ '--crypto-color': '#2d6541a3' }} onClick={onClick}>
             <div className={classes.LogoContainer}>

@@ -17,7 +17,7 @@ const Search = () => {
     const loading = useSelector((state) => state.search.loading);
     const casinoResults = useSelector((state) => state.search.casinoResults);
     // const filteredGames = useSelector((state) => state.casino.filteredGames);
-    // const sorting = useSelector((state) => state.casino.sorting);
+    const sorting = useSelector((state) => state.casino.sorting);
 
     const searchString = useSelector((state) => state.search.searchString);
     const debSearchString = useDebounce(searchString);
@@ -40,6 +40,29 @@ const Search = () => {
     }, []);
 
     useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const provider = searchParams.get('provider');
+        if (provider) {
+            const providerArray = provider.split(',');
+            setSelectedProviders(providerArray);
+            dispatch(searchActions.setSearchSelectedProviders(providerArray));
+        }
+    }, [dispatch]);
+
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        if (selectedProviders.length > 0) {
+            searchParams.set('provider', selectedProviders);
+        } else {
+            searchParams.delete('provider');
+        }
+
+        const newUrl = `${location.pathname}?${searchParams.toString()}`;
+        window.history.replaceState(null, '', newUrl);
+
+    }, [selectedProviders, location]);
+
+    useEffect(() => {
         if (!axiosController) return;
 
         dispatch(searchActions.setCasinoResults(null));
@@ -49,9 +72,9 @@ const Search = () => {
         } else if (selectedProviders.length === 0) {
             dispatch(getCasinoSearch(axiosController.signal, debSearchString));
         } else if (selectedProviders.length > 0) {
-            dispatch(getCasinoSearchProviders(axiosController.signal, debSearchString, selectedProviders));
+            dispatch(getCasinoSearchProviders(axiosController.signal, 24, debSearchString, selectedProviders));
         }
-    }, [axiosController, debSearchString, selectedProviders]);
+    }, [axiosController, debSearchString, selectedProviders, sorting]);
 
     return (
         <div className={classes.PageContent}>
@@ -59,12 +82,31 @@ const Search = () => {
                 <FilterBar
                     searchString={searchString}
                     onChangeSearch={(value) => dispatch(searchActions.setSearchString(value))}
-                    // onChangeProviders={(value) => setSelectedProviders(value)}
-                    onChangeProviders={(value) => console.log(value)}
+                    onChangeProviders={(value) => setSelectedProviders(value)}
                     placeholder='Search Casino'
-                />
 
-                <CasinoGames collection={casinoResults} icon={<CherriesIcon />} title='Search results' loading={loading} searchString={debSearchString} />
+                />
+                {
+                    selectedProviders.length === 0 ? (
+                        <CasinoGames
+                            collection={casinoResults}
+                            icon={<CherriesIcon />}
+                            title="Search results"
+                            loading={loading}
+                            searchString={debSearchString}
+                        />
+                    ) : (
+                        <CasinoGames
+                            collection={casinoResults}
+                            icon={<CherriesIcon />}
+                            title={selectedProviders.join(', ')}
+                            loading={loading}
+                            searchString={debSearchString}
+                            providers={casinoResults?.providers}
+                        />
+                    )
+                }
+
             </div>
         </div>
     );

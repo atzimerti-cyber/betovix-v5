@@ -48,25 +48,25 @@ const Overview = () => {
 
                 <DecorationDiv color='primary'>
                     <>
-                        <p className={classes.TotalName}>{translate('Total Wagered')}</p>
+                        <p className={classes.TotalName}>{translate('Active Tickets')}</p>
                         <p className={classes.TotalBits}>
-                            <CoinsIcon />
-                            0.00
+                            {/* <CoinsIcon /> */}
+                            {user?.OpenTickets}
                         </p>
                     </>
                 </DecorationDiv>
 
                 <DecorationDiv color='secondary'>
                     <>
-                        <p className={classes.TotalName}>{translate('Total Rewards')}</p>
+                        <p className={classes.TotalName}>{translate('Active Wagared')}</p>
                         <p className={classes.TotalBits}>
                             <CoinsIcon />
-                            0.00
+                            {user?.OpenTotal.toFixed(2)}
                         </p>
                     </>
                 </DecorationDiv>
 
-                <div className={classes.Rewards}>
+                {/* <div className={classes.Rewards}>
                     <OverviewCategory title='Instant' percentage='20%' bits={20} />
                     <OverviewCategory title='Daily' percentage='0%' bits={0} />
                     <OverviewCategory title='Weekly' percentage='0%' bits={0} />
@@ -74,7 +74,7 @@ const Overview = () => {
                     <OverviewCategory title='Leaderboard' percentage='0%' bits={0} />
                     <OverviewCategory title='Level up bonus' percentage='0%' bits={0} />
                     <OverviewCategory title='Other' percentage='0%' bits={0} />
-                </div>
+                </div> */}
             </div>
 
             <div className={classes.GamesContainer}>

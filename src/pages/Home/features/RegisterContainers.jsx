@@ -24,7 +24,7 @@ const RegisterContainers = () => {
 
     return (
         <>
-            <div className={classes.StepContainer}>
+            {/* <div className={classes.StepContainer}>
                 <div className={classes.SingleStep}>
                     <Step1Icon />
                     <span className={classes.StepText}>
@@ -43,20 +43,21 @@ const RegisterContainers = () => {
                         <strong>{translate('Receive 50%')}</strong> {translate('Rakeback')}
                     </span>
                 </div>
-            </div>
+            </div> */}
 
             <div className={classes.SignupTextContainer}>
                 <span className={classes.SignUpTextV1}>{translate('Sign up')}</span>
                 &nbsp;{translate('and')}&nbsp;
-                <span className={classes.SignUpTextV1}>{translate('get')}</span>
-                <span className={classes.SignUpTextV2}>{translate('50% rake back')}</span>
+                <span className={classes.SignUpTextV1}>{translate('choose')}</span>
+                <span className={classes.SignUpTextV2}>{translate('your hero')}</span>
+                <span className={classes.SignUpTextV2}>{translate('get rewards!')}</span>
                 <button className={classes.RegisterButton} onClick={() => addParamsToUrl('auth', 'register')}>
                     {translate('Register')}
                 </button>
-                <div className={classes.LoginWithWrapper}>
+                {/* <div className={classes.LoginWithWrapper}>
                     <div className={classes.LoginWith}>{translate('or login with')}</div>
                     <AlternativeMethods />
-                </div>
+                </div> */}
             </div>
         </>
     );

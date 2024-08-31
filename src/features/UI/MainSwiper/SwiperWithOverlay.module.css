@@ -42,10 +42,12 @@
     height: 100%;
     width: 100%;
     flex-direction: column;
-    justify-content: flex-end;
+    justify-content: center;
+    /* justify-content: flex-end; */
     text-align: center;
     opacity: 0;
-    background: linear-gradient(1turn, rgba(41, 63, 82, 0.8666666666666667) 60%, transparent 80%);
+    background: rgba(0, 0, 0, 0.7);
+    /* background: linear-gradient(1turn, rgba(41, 63, 82, 0.747) 80%, transparent 100%); */
 }
 
 .Card:hover .InfoOverlay {
@@ -64,6 +66,8 @@
     justify-content: center;
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
+    text-shadow: rgba(41, 39, 33, 1) 3px -3px 8px
+
 }
 .InfoContent > svg {
     margin-top: 0.25rem;
@@ -99,13 +103,29 @@
 .isBonus {
     width: 100%;
 }
+@keyframes jQMcyq {
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+
+    10%,
+    90% {
+        opacity: 1;
+    }
+
+    40%,
+    60% {
+        box-shadow: rgba(24, 95, 126, 0.3) 0px 0.25em 1em, rgba(24, 95, 126, 0.8) 0px 0px 0.5em;
+    }
+}
 .isBonus button {
-    background: var(--db-duelbits-gray);
-    color: #f3bfff;
-    border: 2px solid var(--db-purple-box);
+    color: var(--db-body-text);
+    border: 1px solid var(--db-gray-4); 
+    animation: 6s ease 0s infinite normal none running jQMcyq;
     width: 100%;
-    font-weight: 700;
-    font-size: 12px;
+    font-weight: 500;
+    font-size: 11px;
     margin-top: 5px;
     border-radius: 5px;
     padding: 3px;
@@ -115,8 +135,8 @@
     padding: 4px 10px;
 }
 .isBonus button svg {
-   height: 20px;
-   width: 20px;
+    height: 16px;
+    width: 16px;
 }
 .NewLabel {
     position: absolute;

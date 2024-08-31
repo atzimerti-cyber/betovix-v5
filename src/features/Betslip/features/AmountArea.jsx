@@ -11,9 +11,24 @@ const AmountArea = memo(function (props) {
     const inputRef = useRef(null);
     const maxBet = useSelector((state) => state.ticket.maxBet);
     const amounts = useSelector((state) => state.betslip.amounts);
+    const totalStake = useSelector((state) => state.betslip.totalStake);
 
     const [betAmount, setBetAmount] = useState('0.00');
     const [initRender, setInitRender] = useState(false);
+
+    useEffect(() => {
+        if (totalStake !== null) {
+          setBetAmount(totalStake.toFixed(2)); 
+          updateAmount(parseFloat(totalStake));
+
+        } else {
+          setBetAmount('0.00');
+          updateAmount(parseFloat(0));
+
+        }
+
+    }, [totalStake]);
+
 
     useEffect(() => {
         let thisAmount = amounts[props.amountId];

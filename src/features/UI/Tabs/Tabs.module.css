@@ -22,6 +22,9 @@
 .NoMargin.Tabs {
     margin: 0;
 }
+.Width100.Tabs{
+    width: 100%;
+}
 
 .TabsInner {
     display: flex;

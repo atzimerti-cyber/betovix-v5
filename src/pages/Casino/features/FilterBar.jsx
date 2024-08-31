@@ -8,6 +8,7 @@ import Dropdown3 from '../../../features/UI/Dropdown/Dropdown3';
 import CaretDownIcon from '../../../assets/svgs/caret-down.svg?react';
 import Filter2Icon from '../../../assets/svgs/filter2.svg?react';
 import { casinoActions } from '../casinoSlice';
+import { searchActions } from '../../Search/searchSlice';
 import MultiSelect from '../../../features/UI/MultiSelect/MultiSelect';
 import { translate } from '../../../utils/translations';
 
@@ -17,9 +18,12 @@ const FilterBar = (props) => {
 
     const sorting = useSelector((state) => state.casino.sorting);
     const casinoVendors = useSelector((state) => state.casino.casinoVendors);
+    const selectedProviders = useSelector((state) => state.search.searchSelectedProviders);
 
     const [showSortingDD, setShowSortingDD] = useState(false);
     const [providersOptions, setProvidersOptions] = useState([]);
+    const [checkedProviders, setCheckedProviders] = useState([]);
+
 
     useEffect(() => {
         if (!casinoVendors) return;
@@ -31,8 +35,23 @@ const FilterBar = (props) => {
                 value: v.GameCount,
             };
         });
+
+        const cp = casinoVendors
+            .filter((v) => selectedProviders.includes(v.Data.Name))
+            .map((v) => ({
+                id: v.Data.BrandId,
+                label: v.Data.Name,
+                value: v.GameCount,
+            }));
         setProvidersOptions(po);
-    }, [casinoVendors]);
+        setCheckedProviders(cp);
+    }, [casinoVendors, selectedProviders]);
+
+    useEffect(() => {
+        return () => {
+            dispatch(searchActions.reset());
+        };
+    }, [dispatch]);
 
     return (
         <div className={classes.FilterBar}>
@@ -40,61 +59,68 @@ const FilterBar = (props) => {
                 <Search3 placeholder={props.placeholder} searchStr={props.searchString} onChange={(value) => props.onChangeSearch(value)} />
             </div>
 
-            <div className={classes.FiltersSection}>
-                <div className={classes.DropdownWrapper}>
-                    <div className={classes.DropdownInner}>
-                        <input id='sort' readOnly role='textbox' value={sorting} onClick={() => setShowSortingDD(!showSortingDD)} />
-                        <span className={classes.RightIcon}>
-                            <CaretDownIcon />
-                        </span>
+            {props.noFilters ? (null) : (
+                <div className={classes.FiltersSection}>
+                    <div className={classes.DropdownWrapper}>
+                        <div className={classes.DropdownInner}>
+                            <input id='sort' readOnly role='textbox' value={sorting} onClick={() => setShowSortingDD(!showSortingDD)} />
+                            <span className={classes.RightIcon}>
+                                <CaretDownIcon />
+                            </span>
 
-                        <AnimatePresence>
-                            {showSortingDD && (
-                                <Dropdown3 onClickOutside={() => setShowSortingDD(false)}>
-                                    <li
-                                        className={sorting === 'Default Sort' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
-                                        onClick={() => {
-                                            dispatch(casinoActions.setSorting('Default Sort'));
-                                            setShowSortingDD(false);
-                                        }}
-                                    >
-                                        {translate('Default Sort')}
-                                    </li>
-                                    <li
-                                        className={sorting === 'A - Z' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
-                                        onClick={() => {
-                                            dispatch(casinoActions.setSorting('A - Z'));
-                                            setShowSortingDD(false);
-                                        }}
-                                    >
-                                        {translate('A - Z')}
-                                    </li>
-                                    <li
-                                        className={sorting === 'Z - A' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
-                                        onClick={() => {
-                                            dispatch(casinoActions.setSorting('Z - A'));
-                                            setShowSortingDD(false);
-                                        }}
-                                    >
-                                        {translate('Z - A')}
-                                    </li>
-                                </Dropdown3>
-                            )}
-                        </AnimatePresence>
+                            <AnimatePresence>
+                                {showSortingDD && (
+                                    <Dropdown3 onClickOutside={() => setShowSortingDD(false)}>
+                                        <li
+                                            className={sorting === 'Default Sort' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
+                                            onClick={() => {
+                                                dispatch(casinoActions.setSorting('Default Sort'));
+                                                setShowSortingDD(false);
+                                            }}
+                                        >
+                                            {translate('Default Sort')}
+                                        </li>
+                                        <li
+                                            className={sorting === 'A - Z' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
+                                            onClick={() => {
+                                                dispatch(casinoActions.setSorting('A - Z'));
+                                                setShowSortingDD(false);
+                                            }}
+                                        >
+                                            {translate('A - Z')}
+                                        </li>
+                                        <li
+                                            className={sorting === 'Z - A' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
+                                            onClick={() => {
+                                                dispatch(casinoActions.setSorting('Z - A'));
+                                                setShowSortingDD(false);
+                                            }}
+                                        >
+                                            {translate('Z - A')}
+                                        </li>
+                                    </Dropdown3>
+                                )}
+                            </AnimatePresence>
+                        </div>
                     </div>
-                </div>
 
-                <MultiSelect
-                    id={translate('Providers')}
-                    menuTitle={translate('Providers')}
-                    placeholder={translate('Providers')}
-                    icon={<Filter2Icon />}
-                    options={providersOptions}
-                    onClose={(providers) => props.onChangeProviders(providers)}
-                    max={3}
-                    maxMessage={translate('A maximum of three providers is allowed')}
-                />
-            </div>
+                    <MultiSelect
+                        id={translate('Providers')}
+                        menuTitle={translate('Providers')}
+                        placeholder={(translate('Providers'))}
+                        icon={<Filter2Icon />}
+                        options={providersOptions}
+                        onClose={(providers) => {
+                            props.onChangeProviders(providers);
+                            dispatch(searchActions.setSearchSelectedProviders(providers));
+                        }}
+                        max={3}
+                        maxMessage={translate('A maximum of three providers is allowed')}
+                        selected={checkedProviders && checkedProviders.length > 0 ? (checkedProviders) : (null)}
+                    />
+                </div>
+            )}
+
         </div>
     );
 };

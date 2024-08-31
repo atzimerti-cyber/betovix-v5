@@ -13,7 +13,8 @@
 
 .MenuWrapper {
     border-radius: 60px;
-    background: linear-gradient(rgba(30, 45, 59, 0.9) 80%, rgb(30, 45, 59));
+    background: var(--db-dark-1);
+    /* background: linear-gradient(rgba(30, 45, 59, 0.9) 80%, rgb(30, 45, 59)); */
     display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;

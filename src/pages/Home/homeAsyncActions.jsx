@@ -68,12 +68,20 @@ export const getHome = (signal) => {
                 allLive: live,
             };
 
+            const sportBanners = responses[1].data.Banners.filter((d) => d !== null);
+
             dispatch(homeActions.setCasinoBanners(responses[0].data.Contents));
-            dispatch(homeActions.setSportBanners(responses[1].data));
+            // dispatch(homeActions.setSportBanners(responses[1].data.Banners));
             dispatch(casinoActions.setFilteredGames(home));
+            dispatch(
+                homeActions.setSportBanners({
+                    BannerEvents: responses[1].data.BannerEvents,
+                    Banners: sportBanners,
+                })
+            );
 
             // TODO:
-            dispatch(homeActions.setLevels(levels));
+            // dispatch(homeActions.setLevels(levels));
         } catch (error) {
             if (!error?.code === 'ERR_CANCELED') toast.error(error?.message);
         }

@@ -19,6 +19,7 @@ const OutrightsPage = React.lazy(() => import('./pages/Outrights/OutrightsPage')
 const Profile = React.lazy(() => import('./pages/Profile/Profile'));
 const Crypto = React.lazy(() => import('./pages/Crypto/Crypto'));
 const Search = React.lazy(() => import('./pages/Search/Search'));
+const SearchSports = React.lazy(() => import('./pages/Search/SearchSports'));
 const Leaderboard = React.lazy(() => import('./pages/Leaderboard/Leaderboard'));
 const Lounge = React.lazy(() => import('./pages/Lounge/Lounge'));
 const Gamification = React.lazy(() => import('./pages/UserGamification.jsx/Gamification'));
@@ -131,6 +132,16 @@ function App() {
                                 <Suspense fallback={<PageFallback />}>
                                     <HasPermission checkPermissions={['AllowToCasino', 'AllowToSlots']}>
                                         <Search />
+                                    </HasPermission>
+                                </Suspense>
+                            ),
+                        },
+                        {
+                            path: '/searchEvent',
+                            element: (
+                                <Suspense fallback={<PageFallback />}>
+                                    <HasPermission checkPermissions={['AllowToSports']}>
+                                        <SearchSports />
                                     </HasPermission>
                                 </Suspense>
                             ),

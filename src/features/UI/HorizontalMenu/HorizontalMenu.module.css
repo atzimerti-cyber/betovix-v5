@@ -83,6 +83,9 @@
 .SportIcon svg path {
     fill: rgb(82, 116, 144);
 }
+.SportIcon.Selected svg path {
+    fill: var(--db-brand-green);
+}
 
 .SportName {
     display: flex;
@@ -90,7 +93,7 @@
     align-items: center;
     -webkit-box-pack: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .SportCount {
@@ -103,6 +106,11 @@
 }
 
 .Item.Selected {
+    border-bottom-color: var(--db-brand-green);
+    color: var(--db-brand-green);
+    fill: var(--db-brand-green);
+}
+.Item.Selected svg{
     border-bottom-color: var(--db-brand-green);
     color: var(--db-brand-green);
     fill: var(--db-brand-green);

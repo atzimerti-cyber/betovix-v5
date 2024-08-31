@@ -1,14 +1,18 @@
 .Form {
     display: flex;
     height: 100%;
+    width: 100%;
     flex-direction: column;
     padding-top: 0.75rem;
+    align-self: center;
 }
-.Form > label {
+
+.Form>label {
     margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
     font-size: 0.75rem;
     line-height: 1rem;
-    font-weight: 300;
+    font-weight: bold;
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -16,7 +20,6 @@
 .Form .InputOuter {
     margin-bottom: 0.5rem;
     border-radius: 0.5rem;
-    /* border-radius: 0.125rem; */
     border-color: var(--db-gray-2);
 }
 
@@ -40,7 +43,7 @@
     color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
 }
 
-.CaptchaText {
+/* .CaptchaText {
     margin-top: 0.5rem;
     width: 100%;
     border-top-color: var(--db-gray-2);
@@ -51,7 +54,7 @@
     line-height: 1.25;
     color: var(--db-gray-5);
     border-top-width: 1px;
-}
+} */
 
 .Required {
     color: var(--db-gray-5);
@@ -59,27 +62,16 @@
     margin-inline: 0.25ch;
     transition: color 0.3s;
 }
+.Optional{
+    color: var(--db-brand-green);
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin-inline: 0.25ch;
+    transition: color 0.3s;
+}
+
 .Required.Fulfilled {
     color: var(--db-brand-green);
-}
-
-.Acknowledgement {
-    margin-top: 0.5rem;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-    text-align: center;
-    font-size: 11px;
-    line-height: 1.25;
-    color: var(--db-gray-5);
-}
-.Acknowledgement b {
-    color: var(--db-brand-green);
-}
-
-:global(.IsMobile) :local(.Acknowledgement) {
-    margin-top: unset;
-    padding-left: unset;
-    padding-right: unset;
 }
 
 .Container {
@@ -127,10 +119,12 @@
     color: var(--db-gray-5);
     transition: color 0.3s;
 }
+
 .PasswordMessage svg {
     width: 0.75rem;
     height: 0.75rem;
 }
+
 .PasswordMessage svg path {
     fill: var(--db-gray-800);
 }

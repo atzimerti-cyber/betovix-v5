@@ -23,7 +23,7 @@ const SportsBookMenu = () => {
     const selectedOddsFormat = useSelector((state) => state.app.selectedOddsFormat);
     const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
     const selectedSportSlug = selectedSport ? `/${selectedSport.Name?.International?.toLowerCase().replace(/ /g, '-')}` : '';
-  
+
     const getModalPath = (modal) => {
         const searchParams = new URLSearchParams(location.search);
         searchParams.set('modal', modal);
@@ -47,7 +47,8 @@ const SportsBookMenu = () => {
                     className={({ isActive }) => (isActive ? [classes.NavItem, classes.ActiveItem].join(' ') : classes.NavItem)}
                     to={`/sportsbook/live${selectedSportSlug}`}
                 >
-                    <VideoIcon />
+                    <div className={classes.LiveBadge}>{translate('Live')}</div>
+                    {/* <VideoIcon /> */}
                     {translate('Live Events')}
                 </NavLink>
             </SwiperSlide>

@@ -4,8 +4,10 @@ const initialState = {
     loading: false,
     moreLoading: false,
     casinoResults: null,
+    sportsResults: null,
     notRenderedLiveResults: null,
     searchString: '',
+    searchSelectedProviders: [],
 };
 
 export const searchSlice = createSlice({
@@ -18,6 +20,7 @@ export const searchSlice = createSlice({
             state.casinoResults = null;
             state.notRenderedLiveResults = null;
             state.searchString = '';
+            state.searchSelectedProviders = [];
         },
         setLoading: (state, action) => {
             state.loading = action.payload;
@@ -27,6 +30,9 @@ export const searchSlice = createSlice({
         },
         setCasinoResults: (state, action) => {
             state.casinoResults = action.payload;
+        },
+        setSportsResults: (state, action) => {
+            state.sportsResults = action.payload;
         },
         setSearchString: (state, action) => {
             state.searchString = action.payload;
@@ -41,6 +47,9 @@ export const searchSlice = createSlice({
         },
         setNotRenderedLiveResults: (state, action) => {
             state.notRenderedLiveResults = action.payload;
+        },
+        setSearchSelectedProviders: (state, action) => {
+            state.searchSelectedProviders = action.payload;
         },
     },
 });

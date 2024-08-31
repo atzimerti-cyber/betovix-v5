@@ -7,7 +7,7 @@ import { toast } from 'react-toastify';
 
 import MainSwiper from './MainSwiper';
 import HeartIcon from '../../../assets/svgs/heart.svg?react';
-import BonusIcon from '../../../assets/svgs/bonus.svg?react';
+import GiftIcon from '../../../assets/svgs/gift.svg?react';
 import classes from './SwiperWithOverlay.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
 import { addFavoriteCasino, removeFavoriteCasino } from '../../../pages/Casino/casinoAsyncActions';
@@ -52,13 +52,13 @@ const SwiperWithOverlay = (props) => {
 
     return (
         <MainSwiper
-            slidesPerView={slidesPerView}
+            slidesPerView={props.slidesPerView ? props.slidesPerView : slidesPerView}
             slidesPerGroup={slidesPerGroup}
-            icon={props.icon}
             title={props.link ? <Link to={props.link}>{props.title}</Link> : props.task ? <a onClick={props.task}>{props.title}</a> : props.title}
             viewAll={props.link}
             viewText={props.text}
             onTask={props.task}
+            icon={props.icon}
         >
             {props.items ? (
                 props.items.length === 0 ? (
@@ -106,8 +106,8 @@ const SwiperWithOverlay = (props) => {
                                         <Link to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}>
                                             <div className={classes.isBonus}>
                                                 <button className={classes.bonusContainer}>
-                                                    <BonusIcon/>
-                                                    {translate('Play With Bonus')}
+                                                <GiftIcon />
+                                                {translate('Play With Bonus')}
                                                 </button>
                                             </div>
                                         </Link>

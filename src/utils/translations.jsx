@@ -8,16 +8,35 @@ export function translate(key) {
     return translations[key] || key; // Fallback to key if translation is missing
 }
 
+// export function translateNameWithLang(name) {
+//     if (!name) return;
+
+//     const { translations, lang } = store.getState().app;
+
+//     if (name.langValues && name.langValues[lang.id]) return name.langValues[lang.id];
+//     else if (name.International) {
+//         let strippedName = name.International.split('. Outright')[0]; // remove Outright before translating
+//         return translations[strippedName] || strippedName;
+//     }
+
+//     return translations[name] || name; // Fallback to key if translation is missing
+// }
+
 export function translateNameWithLang(name) {
-    if (!name) return;
+    if (!name) return '';  // Ensure that if name is undefined or null, it returns an empty string
 
     const { translations, lang } = store.getState().app;
 
-    if (name.langValues && name.langValues[lang.id]) return name.langValues[lang.id];
-    else if (name.International) {
-        let strippedName = name.International.split('. Outright')[0]; // remove Outright before translating
+    if (name.langValues && name.langValues[lang.id]) {
+        // Ensure it returns a string, otherwise return empty string or some default
+        return typeof name.langValues[lang.id] === 'string' ? name.langValues[lang.id] : '';
+    } else if (name.International) {
+        let strippedName = name.International.split('. Outright')[0]; // remove "Outright" before translating
+        // Return a translated value or fallback to the strippedName
         return translations[strippedName] || strippedName;
     }
+    // Ensure the default fallback also returns a string
 
-    return translations[name] || name; // Fallback to key if translation is missing
+    // return typeof translations[name] === 'string' ? translations[name] : name.toString();
+    return null;
 }

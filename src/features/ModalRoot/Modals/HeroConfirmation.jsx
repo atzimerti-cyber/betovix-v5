@@ -21,14 +21,14 @@ const HeroConfirmationModal = () => {
 
     const user = useSelector((state) => state.login.user);
     const displayedHeroAction = useSelector((state) => state.gamification.displayedHero.metadata.action)
+    const lvlAction = useSelector((state) => state.gamification.displayedHero.metadata.lvlAction)
     const displayedHero = useSelector((state) => state.gamification.displayedHero)
 
     const handleButtonClick = () => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        dispatch(selectedHero(displayedHeroAction, signal));
-        dispatch(gamificationActions.setSelectedHero(displayedHero));
+        dispatch(selectedHero(displayedHeroAction, lvlAction, signal));
         navigate(location.pathname);
     };
 

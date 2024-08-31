@@ -13,7 +13,6 @@
     min-height: 300px;
     height: unset;
 }
-
 .HeaderSection {
     background: var(--db-gray-4);
     border-radius: 4px 4px 0px 0px;
@@ -152,7 +151,7 @@
     background: rgb(46, 163, 96);
     border-radius: 4px;
     padding: 2%;
-    font-family: 'Proxima Nova';
+    /* font-family: 'Proxima Nova'; */
     color: rgb(255, 255, 255);
     font-weight: 700;
     outline: none;
@@ -160,7 +159,7 @@
     cursor: pointer;
 }
 .CashoutButton:hover {
-    background-color: rgb(60, 210, 120);
+    background-color: rgb(43, 190, 102);
 }
 
 .CopyIcon {
@@ -261,7 +260,35 @@
     line-height: 17px;
     opacity: 0.8;
 }
-
+.DisableWrapper {
+    position: relative;
+}
+.DisabledButton {
+    height: 36px;
+    box-sizing: border-box;
+    padding: 2%;
+    color: #747474;
+    font-weight: 700;
+    outline: none;
+    border: none;
+    display: flex;
+    cursor: default;
+    justify-content: space-around;
+    -webkit-box-align: center;
+    align-items: center;
+    background: rgba(168, 168, 168, 0.08);
+    border-radius: 4px;
+}
+.DisableReason {
+    position: absolute;
+    left: 0;
+    top: calc(100% + 5px);
+    width: 100%;
+    font-size: 12px;
+    line-height: 17px;
+    opacity: 0.8;
+    color: #bfbfbf;
+}
 .SpinnerWrapper {
     position: relative;
 }
@@ -289,17 +316,21 @@
 .IsBonus {
     display: flex;
     align-items: center;
-    gap: 5px;
+    margin-inline: 6px;
 }
 
 .GiftIconWrapper {
-    height: 30px;
-    width: 30px;
+    height: 25px;
+    width: 25px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--db-duelbits-gray);
+    background: var(--db-gray-3);
     border-radius: 50%;
+}
+.IsBonus svg {
+    height: 12px;
+    width: 12px;
 }
 
 /* Media */

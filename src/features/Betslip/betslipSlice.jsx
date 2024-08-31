@@ -13,7 +13,12 @@ const initialState = {
     betError: null,
     slipUpdated: 0,
     showReceiptFor: null,
+    ticketId: null,
     placingBetLoading: false,
+    savingBetLoading: false,
+    lastBooked: null,
+    totalStake: null,
+    triggerPlaceBet: false
 };
 
 export const betslipSlice = createSlice({
@@ -30,6 +35,7 @@ export const betslipSlice = createSlice({
             };
             state.betType = 'Single';
             state.betError = null;
+            state.totalStake = null;
         },
         resetSlips: (state) => {
             state.slips = [];
@@ -131,6 +137,21 @@ export const betslipSlice = createSlice({
         },
         setPlacingBetLoading: (state, action) => {
             state.placingBetLoading = action.payload;
+        },
+        setSavingBetLoading: (state, action) => {
+            state.savingBetLoading = action.payload;
+        },
+        setLastBookedBet: (state, action) => {
+            state.lastBooked = action.payload;
+        }, 
+        setTotalStake: (state, action) => {
+            state.totalStake = action.payload;
+        },
+        setTicketId: (state, action) => {
+            state.ticketId = action.payload;
+        },
+        setTriggerPlaceBet(state, action) {
+            state.triggerPlaceBet = action.payload;
         },
     },
 });

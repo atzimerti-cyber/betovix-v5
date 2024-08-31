@@ -15,7 +15,7 @@
     display: flex;
     -webkit-box-pack: justify;
     justify-content: space-between;
-    background: rgb(28, 43, 56);
+    background: rgb(18, 57, 83);
     border-radius: 0px;
     line-height: 20px;
     fill: rgb(255, 255, 255);
@@ -66,11 +66,11 @@
 }
 
 .Title:hover {
-    background: rgb(51, 56, 64);
+    background: var(--db-dark-1);
 }
 
 .Accordion.Open .Title {
-    background: rgb(49, 75, 97);
+    background: rgb(18, 57, 83);
 }
 
 .AccordionBody > div {

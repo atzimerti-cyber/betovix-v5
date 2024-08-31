@@ -2,7 +2,24 @@
     width: 100%;
     --tw-bg-opacity: 1;
     background-color: rgb(24 36 47 / var(--tw-bg-opacity));
+    background-color: #081826;
     padding: 0.75rem 0.75rem 4rem;
+}
+
+/* .License{
+    height: 70px;
+    width: 70px;
+} */
+
+.License{
+    height: 70px;
+    width: 70px;
+}
+.License img {
+    filter: grayscale(60%) sepia(50%) hue-rotate(186deg) saturate(103%);
+}
+.License img:hover {
+    filter: none;
 }
 
 .LinksContainer {
@@ -154,7 +171,7 @@
         width: 40px;
     }
     .LinksContainer {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
     .SocialSm {
         display: none;

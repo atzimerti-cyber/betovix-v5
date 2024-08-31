@@ -5,6 +5,7 @@ const MainInput = (props) => {
     let elClasses = [classes.InputWrapper];
     if (props.rightIcon) elClasses.push(classes.WithRightIcon);
     if (props.isInvalid) elClasses.push(classes.IsInvalid);
+    if (props.inSettings) elClasses.push(classes.inSettings);
 
     const onChange = (value) => {
         if (!value) value = '';

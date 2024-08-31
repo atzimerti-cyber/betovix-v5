@@ -18,6 +18,10 @@ import YourProgress from '../../pages/UserGamification.jsx/features/YourProgress
 import { modalActions } from './modalSlice';
 import { useEffect } from 'react';
 import StatisticsModal from './Modals/StatisticsModal';
+import BookedBetModal from './Modals/BookedBetModal';
+import LoadBookedModal from './Modals/LoadBookedModal';
+import LoadTicketModal from './Modals/LoadTicketModal';
+import TicketReceiptModal from './Modals/TicketReceiptModal';
 
 const ModalRoot = () => {
     const navigate = useNavigate();
@@ -62,6 +66,10 @@ const ModalRoot = () => {
         else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;
     } else if (modal === 'auth') modalPage = <LoginModal tab={tab} onClose={returnToPrevious} />;
     else if (modal === 'odds-format') modalPage = <OddsFormatModal />;
+    else if (modal === 'booked-bet') modalPage = <BookedBetModal />;
+    else if (modal === 'load-booked') modalPage = <LoadBookedModal />;
+    else if (modal === 'ticket-receipt') modalPage = <TicketReceiptModal />;
+    else if (modal === 'load-ticket') modalPage = <LoadTicketModal />;
     else if (modal === 'statistics') modalPage = <StatisticsModal />;
     else if (modal === 'vip') modalPage = <VipModal />;
     else if (modal === 'bonus') {

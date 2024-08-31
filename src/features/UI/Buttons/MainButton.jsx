@@ -49,11 +49,11 @@ const MainButton = (props) => {
         <button
             onClick={onClick}
             className={elClasses.join(' ')}
-            data-tooltip-id={props.dataTooltipId}
-            data-tooltip-content={props.dataTooltipContent}
-            disabled={props.disabled}
+            data-tooltip-id={dataTooltipId}
+            data-tooltip-content={dataTooltipContent}
+            disabled={disabled}
         >
-            {props.loading ? <Spinner /> : props.children}
+            {loading ? <Spinner /> : children}
         </button>
     );
 };

@@ -1,5 +1,5 @@
 import { toast } from 'react-toastify';
-
+import { useEffect, useState, useMemo, useRef, memo } from 'react';
 import axiosApi from '../../axios-api';
 import { layoutActions } from '../Layout/layoutSlice';
 import { appActions } from './appSlice';
@@ -33,6 +33,7 @@ import { betslipActions } from '../Betslip/betslipSlice';
 
 import { getCrypto } from '../../pages/Crypto/cryptoAsyncActions';
 import { getRewards, getUserAchievements } from '../../pages/UserGamification.jsx/gamificationAsyncActions';
+import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 
 export const loadInitData = (isMobile) => {
     return async (dispatch, getState) => {
@@ -75,6 +76,23 @@ export const loadInitData = (isMobile) => {
             // });
             // console.log(responseSettings);
 
+
+
+            /////////////////// Minibar Menu //////////////////////
+            const responseMinibar = await axiosApi.get(`/Menu/MyMenu?type=sports&lang=en&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+            });
+            if (responseMinibar.data.Status.StatusCode !== 200) throw Error();
+
+            const minibarMenuItems = responseMinibar.data.Contents.Categs[0].Items;
+
+            //console.log(minibarMenuItems);
+
+            dispatch(layoutActions.setMinibarMenu(minibarMenuItems));
+
+
+
+            ///////////////////////////
             const token = getAccessToken();
             let user = null;
             if (token) {
@@ -97,12 +115,17 @@ export const loadInitData = (isMobile) => {
                     dispatch(loginActions.setUser(user));
                     dispatch(layoutActions.setAvailableBonus(user));
                     dispatch(layoutActions.setAvailableBonusBalance(user));
+
+                    if (user?.Role < 40) {
+                        dispatch(fetchChildDetails(user.AccountId))
+                    }
                 }
             }
 
 
             // Necessary
             // -------------------------------------
+
             const requestsNecessary = [
                 axiosApi.get(`Translation/MyTranslations?type=Sportsbook&lang=${lang.id}`, {
                     baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
@@ -134,6 +157,9 @@ export const loadInitData = (isMobile) => {
                     axiosApi.get(`MyCasino/GetVendors?lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`, {
                         baseURLOverride: import.meta.env.VITE_CASINO_BASE,
                     }),
+                    axiosApi.get(`MyCasino/MyMenu?type=casino&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                        baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                    }),
                 ];
                 const responsesCasino = await Promise.all(requestsCasino);
                 responsesCasino.forEach((response) => {
@@ -141,6 +167,44 @@ export const loadInitData = (isMobile) => {
                 });
 
                 if (Array.isArray(responsesCasino[0].data.Contents)) dispatch(appActions.setAllCasinoVendors(responsesCasino[0].data.Contents));
+
+                const currentState = getState().app;
+                const casinoIcons = currentState.casinoIcons;
+                const casinoWalletMenu = responsesCasino[1].data.Contents.Categs.map((item) => {
+                    if (item.Items.length > 0) {
+                        return {
+                            category: {
+                                id: item.Categ.Id,
+                                label: `${item.Categ.Name}`,
+                                visible: false,
+                            },
+                            items: item.Items.map((subItem) => {
+                                const icon = casinoIcons[subItem.Icon] || <NoImageIcon />;
+                                const slug = subItem.Name?.toLowerCase().replace(/ /g, '-')
+                                return {
+                                    id: subItem.Id,
+                                    label: subItem.Name,
+                                    icon: icon,
+                                    page: `casino/${slug}`,
+                                };
+                            })
+                        };
+                    } else {
+                        const icon = casinoIcons[item.Categ.Icon] || <NoImageIcon />;
+                        const slug = item.Categ.Icon?.toLowerCase().replace(/ /g, '-');
+                        return {
+                            items: [{
+                                id: item.Categ.Id,
+                                label: item.Categ.Name,
+                                icon: icon,
+                                page: `casino/${slug}`,
+                            }]
+                        };
+                    }
+                });
+
+
+                //console.log('casinoWalletMenu', casinoWalletMenu);
 
                 casinoMenuItems.push({
                     category: { id: 1, label: 'Casino', visible: true },
@@ -171,6 +235,8 @@ export const loadInitData = (isMobile) => {
                         },
                     ],
                 });
+
+                casinoMenuItems.push(...casinoWalletMenu);
             }
 
             // Sports
@@ -227,19 +293,20 @@ export const loadInitData = (isMobile) => {
                 dispatch(liveActions.setLiveState(matchesObj));
 
                 // For menu
-                let topTournamentsMenu = { category: { id: 2, label: 'Top Tournaments', visible: true }, items: [] };
+                let topTournamentsMenu = { category: { id: 2, label: 'Top Leagues', visible: true }, items: [] };
                 topTournaments.SubCategs[0].Items.forEach((topTournament) => {
                     const value = topTournament.Value.split(',');
                     topTournamentsMenu.items.push({
                         id: topTournament.Value,
                         label: topTournament.Par2 + ' ' + topTournament.Name,
-                        icon: sportIcons[topTournaments.SubCategs[0].SubCateg.Name],
+                        icon: <img src={topTournament.Icon} alt="-" />,
+                        // icon: sportIcons[topTournaments.SubCategs[0].SubCateg.Name],
                         page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
                     });
                 });
                 sportsMenuItems.push(topTournamentsMenu);
 
-                let topSportsMenu = { category: { id: 3, label: 'Top Sports', visible: true }, items: [] };
+                let topSportsMenu = { category: { id: 3, label: 'Top Sports', visible: false }, items: [] };
                 topSports.forEach((topSport) => {
                     topSportsMenu.items.push({
                         id: topSport.Id,
@@ -266,11 +333,11 @@ export const loadInitData = (isMobile) => {
 
             // Rest of menu items
             allMenuItems.push({
-                category: { id: 5, label: 'Gamification', visible: false },
+                category: { id: 5, label: 'Gamification', visible: true, isNew: true },
                 items: [
                     {
                         id: 1,
-                        label: `Your Progress`,
+                        label: `My Progress`,
                         icon: <LogoSmall1C color="#FF0000" />,
                         modal: 'your-progress',
                     },
@@ -281,13 +348,14 @@ export const loadInitData = (isMobile) => {
                         page: 'rewards',
                     },
                 ],
+                
             });
             allMenuItems.push({
                 category: { id: 6, label: 'More', visible: false },
                 items: [
                     {
                         id: 1,
-                        label: 'Crypto Prices',
+                        label: 'Crypto Rates',
                         icon: <PricesIcon />,
                         page: 'crypto',
                     },
@@ -305,17 +373,111 @@ export const loadInitData = (isMobile) => {
                     },
                 ],
             });
-
+            //console.log(allMenuItems);
             dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
             dispatch(appActions.setSportsMenuItems(sportsMenuItems));
             dispatch(appActions.setMenuItems(allMenuItems));
-            dispatch(appActions.setInitDataLoaded(true));
+            setTimeout(function(){
+                dispatch(appActions.setInitDataLoaded(true));
+            },2500)
+            
         } catch (error) {
             toast.error(error?.message);
             dispatch(appActions.setInitDataLoaded(true));
         }
     };
 };
+export const fetchChildDetails = (accountId) => {
+    return async (dispatch, getState) => {
+        try {
+            const lang = getLang();
+            const response = await axiosApi.get(
+                `MyAffiliate/GetDirectChilds/?accountId=${accountId}&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                {
+                    baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                }
+            );
+
+            if (response.status === 200) {
+                const childAccounts = response.data.Contents;
+                const { accountChildren } = getState().login;
+                const user = getState().login.user;
+
+                if (accountId === user.AccountId) {
+                    dispatch(loginActions.setAccountChildren(childAccounts));
+                } else {
+                // Function to recursively update accounts
+                const updateAccountChildren = (accounts, id, children) => {
+                    return accounts.map(account => {
+                        if (account.AccountId === id) {
+                            return {
+                                ...account,
+                                children: children
+                            };
+                        } else if (account.children) {
+                            return {
+                                ...account,
+                                children: updateAccountChildren(account.children, id, children)
+                            };
+                        } else {
+                            return account;
+                        }
+                    });
+                };
+
+                const updatedAccounts = updateAccountChildren(accountChildren, accountId, childAccounts);
+                dispatch(loginActions.setAccountChildren(updatedAccounts));
+            }
+            } else {
+                throw new Error('Failed to fetch child accounts');
+            }
+        } catch (error) {
+            toast.error(error.message || 'Error fetching child details');
+        }
+    };
+};
+
+// export const fetchChildDetails = (accountId) => {
+
+//     return async (dispatch, getState) => {
+//         try {
+//             const lang = getLang();
+//             const response = await axiosApi.get(
+//                 `MyAffiliate/GetDirectChilds/?accountId=${accountId}&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+//                 {
+//                     baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+//                 }
+//             );
+
+//             if (response.status === 200) {
+//                 const childAccounts = response.data.Contents;
+//                 const { accountChildren } = getState().login;
+//                 const user = getState().login.user;
+
+//                 if (accountId === user.AccountId) {
+//                     dispatch(loginActions.setAccountChildren(childAccounts));
+//                 } else {
+//                     const updatedAccounts = accountChildren.map(account => {
+//                         if (account.AccountId === accountId) {
+//                             return {
+//                                 ...account,
+//                                 children: childAccounts,
+//                             };
+//                         }
+//                         return account;
+//                     });
+
+//                     dispatch(loginActions.setAccountChildren(updatedAccounts));
+//                 }
+//             } else {
+//                 throw new Error('Failed to fetch child accounts');
+//             }
+//         } catch (error) {
+//             toast.error(error.message || 'Error fetching child details');
+//         }
+//     };
+// };
+
 
 export const getTranslations = (lang) => {
     return async (dispatch) => {

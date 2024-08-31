@@ -18,13 +18,19 @@ const BonusModal = () => {
     const navigate = useNavigate();
     const bonuses = useSelector(state => state.modal.bonuses) || []; 
     const [activeTab, setActiveTab] = useState('Available');
+    const [loading, setLoading] = useState(false); // Add loading state
 
     useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        dispatch(getBonuses(signal, 1));
+        const fetchBonuses = async () => {
+            setLoading(true);
+            await dispatch(getBonuses(signal, 1));
+            setLoading(false);
+        };
 
+        fetchBonuses();
         return () => dispatch(modalActions.setBonuses(null));
     }, [dispatch]);
 
@@ -34,7 +40,13 @@ const BonusModal = () => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        dispatch(getBonuses(signal, status));
+        const fetchBonuses = async () => {
+            setLoading(true);
+            await dispatch(getBonuses(signal, status));
+            setLoading(false);
+        };
+
+        fetchBonuses();
 
         return () => {
             controller.abort();
@@ -98,22 +110,26 @@ const BonusModal = () => {
             </div>
         </div>
                 </div>
-                <div className={classes.bonusesBody}>
-                   <div className={classes.bonusesContainerSmall}>
-             
-                        <div className={classes.bonusesBodyWrapper}>
-                            {bonuses.length === 0 ? (
-                              <NoBonusItem/>
-                    ) : (
-                        <div className={classes.bonusesList}>
-                        {bonuses.map((bonus) => (
-                            <BonusItem key={bonus.Id} bonus={bonus} handleTabClick={handleTabClick}/>
-                        ))}
+                    <div className={classes.bonusesBody}>
+                        <div className={classes.bonusesContainerSmall}>
+                            {loading ? (<div className={classes.loader}></div>
+                            ) : (
+                                <div className={classes.bonusesBodyWrapper}>
+
+                                    {bonuses.length === 0 ? (
+                                        <NoBonusItem />
+                                    ) : (
+                                        <div className={classes.bonusesList}>
+                                            {bonuses.map((bonus) => (
+                                                <BonusItem key={bonus.Id} bonus={bonus} handleTabClick={handleTabClick} />
+                                            ))}
+                                        </div>
+                                    )}
+
+                                </div>
+                            )}
+                        </div>
                     </div>
-                    )}
-                </div>
-            </div>
-        </div>
             </div>
        
         </div>

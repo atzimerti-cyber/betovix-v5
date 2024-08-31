@@ -30,7 +30,7 @@ const SwiperMenu = (props) => {
             onSwiper={(swiper) => (swiperRef.current = swiper)}
             onSlideChange={handleSwiperUpdate}
             slidesPerView={'auto'}
-            // slidesPerGroup={props.slidesPerGroup}
+            slidesPerGroup={props.slidesPerGroup}
             spaceBetween={16}
             className={classes.SwiperMenu}
         >

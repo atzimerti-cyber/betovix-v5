@@ -55,7 +55,10 @@ const SportsHome = () => {
         const signal = controller.signal;
         setAxiosController(controller);
 
-        dispatch(sportsbookActions.setTournamentTimeFilter('All'));
+        if (!tournamentTimeFilter) {
+            dispatch(sportsbookActions.setTournamentTimeFilter('All'));
+        }
+
         dispatch(getPregameData(sportIcons, signal));
         dispatch(getLiveStreams(signal));
 
@@ -98,7 +101,7 @@ const SportsHome = () => {
 
         // Check timeframe and get the first timeframe which has events
         let closestTimeframe = 'All';
-        if (tournamentTimeFilter !== 'All') {
+        if (tournamentTimeFilter !== 'All' && tournamentTimeFilter !== '24H') {  /////////ADDED && tournamentTimeFilter !== '24H' for Daily Events
             closestTimeframe = findClosestTimeframe();
             dispatch(sportsbookActions.setTournamentTimeFilter(closestTimeframe));
         }

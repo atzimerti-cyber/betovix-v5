@@ -5,8 +5,7 @@
 }
 
 .LiveSwiper{
-    background: linear-gradient(45deg, #96d02333, #1a4b70 95%);
-    /* background: linear-gradient(45deg, #ff00bf38, #1a4b70 95%); */
+    background: linear-gradient(45deg, #96d02333, #1a4b70 120%);
     border-radius: 17px;
     padding: 14px;
 }

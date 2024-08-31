@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { SwiperSlide } from 'swiper/react';
+import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 
 import MainSwiper from '../../../features/UI/MainSwiper/MainSwiper';
@@ -21,6 +22,28 @@ const Crypto = () => {
     const crypto = useSelector((state) => state.crypto.crypto);
     const user = useSelector((state) => state.login.user);
 
+    const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
+    const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
+    const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
+    const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
+
+    let slidesPerView = 6.5;
+    let slidesPerGroup = 4;
+
+    if (isMobile) {
+        slidesPerView = 2.5;
+        slidesPerGroup = 2;
+    } else if (isTablet) {
+        slidesPerView = 3;
+        slidesPerGroup = 3;
+    } else if (isDesktop) {
+        slidesPerView = 3.5;
+        slidesPerGroup = 3;
+    } else if (isBigDesktop) {
+        slidesPerView = 4;
+        slidesPerGroup = 4;
+    }
+
     const navigateToModal = (modal, tab, method) => {
         const searchParams = new URLSearchParams(location.search);
         searchParams.set('modal', modal);
@@ -33,46 +56,55 @@ const Crypto = () => {
 
     const onClick = (item) => {
         if (user) {
+
             dispatch(cryptoActions.setSelectedCurrency(item));
-            navigateToModal('cashier', 'deposit', 'crypto');
+            if (item.AllowDeposit && item.AllowWithdraw) {
+                navigateToModal('cashier', 'deposit', 'crypto');
+            } else if (item.AllowDeposit && !item.AllowWithdraw) {
+                navigateToModal('cashier', 'deposit', 'crypto');
+            } else if (item.AllowWithdraw && !item.AllowDeposit) {
+                navigateToModal('cashier', 'withdraw', 'crypto');
+            } else {
+                return null;
+            }
         } else navigateToModal('auth', 'login');
     };
 
     return (
-        <MainSwiper
-            slidesPerView='auto'
-            icon={<PricesIcon />}
-            title={<Link to='/crypto'>{translate('Crypto Prices')}</Link>}
-            viewAll='/crypto'
-            spaceBetween={33}
-        >
-            {crypto
-                ? crypto.map((item) => {
-                    return (
-                        <SwiperSlide key={item.Id} style={{ width: 'auto' }}>
-                            <div className={classes.SlideContainer} onClick={() => onClick(item)}>
-                                <div className={classes.Slide}>
-                                    <div className={classes.SlideContent}>
-                                        <CryptoCard item={item} />
+        <>
+
+            {crypto ? (
+                <MainSwiper
+                    // slidesPerView={slidesPerView}
+                    slidesPerView={'auto'}
+                    // icon={<PricesIcon />}
+                    // title={<Link to='/crypto'>{translate('Crypto Prices')}</Link>}
+                    // viewAll='/crypto'
+                    spaceBetween={20}
+                    hideArrows
+                    autoplay={true}
+                    delay={4000}
+                    loop={true}
+                >
+                    {crypto.map((item, index) => {
+                        return (
+                            <SwiperSlide key={`${item.Id}-${index}`} style={{ width: 'auto' }}>
+                                <div className={classes.SlideContainer} onClick={() => onClick(item)}>
+                                    <div className={classes.Slide}>
+                                        <div className={classes.SlideContent}>
+                                            <CryptoCard item={item} />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </SwiperSlide>
-                    );
-                })
-                : Array.from({ length: 8 }, (_, index) => (
-                    //   <SwiperSlide key={`skeleton-${index}`} style={{ width: 'auto' }}>
-                    <SwiperSlide key={index} style={{ width: 'auto' }}>
-                        <div className={classes.SlideContainer}>
-                            <div className={classes.Slide}>
-                                <div className={classes.SlideContent}>
-                                    <SkeletonCrypto />
-                                </div>
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                ))}
-        </MainSwiper>
+                            </SwiperSlide>
+                        );
+                    })}
+
+                </MainSwiper>
+            ) : (
+                null
+            )}
+        </>
     );
 };
 

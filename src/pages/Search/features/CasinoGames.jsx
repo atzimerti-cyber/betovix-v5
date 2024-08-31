@@ -30,7 +30,7 @@ const CasinoGames = (props) => {
         const signal = controller.signal;
         setAxiosController(controller);
 
-        dispatch(addToSearchResults(signal, props.searchString));
+        dispatch(addToSearchResults(signal, props.searchString, props.providers));
     };
 
     return (

@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 
 import classes from './Profile.module.css';
-import User2Icon from '../../assets/svgs/user2.svg?react';
+import UserIcon from '../../assets/svgs/user.svg?react';
 import GlobeIcon from '../../assets/svgs/globe.svg?react';
 import Settings2Icon from '../../assets/svgs/settings2.svg?react';
 import CheckFilledIcon from '../../assets/svgs/check-filled.svg?react';
@@ -42,7 +42,7 @@ const Profile = () => {
 
             <div className={classes.PageContent}>
                 <h1 className={classes.PageTitle}>
-                    <User2Icon />
+                    <UserIcon fill="#199bcf" />
                     {translate('Profile')}
                 </h1>
 
@@ -53,7 +53,7 @@ const Profile = () => {
                                 { id: 'overview', label: translate('Overview'), icon: <GlobeIcon />, active: selectedTab === 'overview' },
                                 { id: 'heroes', label: translate('Heroes'), icon: <LogoSmallIcon />, active: selectedTab === 'heroes' },
                                 { id: 'settings', label: translate('Settings'), icon: <Settings2Icon />, active: selectedTab === 'settings' },
-                                { id: 'verification', label: translate('Verification'), icon: <CheckFilledIcon />, active: selectedTab === 'verification' },
+                                // { id: 'verification', label: translate('Verification'), icon: <CheckFilledIcon />, active: selectedTab === 'verification' },
                             ]}
                             onChangeTab={(tab) => setSelectedTab(tab)}
                             type='buttons'
@@ -63,7 +63,7 @@ const Profile = () => {
                             {selectedTab === 'overview' && <Overview />}
                             {selectedTab === 'heroes' && <Heroes />}
                             {selectedTab === 'settings' && <Settings />}
-                            {selectedTab === 'verification' && <Verification />}
+                            {/* {selectedTab === 'verification' && <Verification />} */}
                         </div>
                     </div>
                 </div>

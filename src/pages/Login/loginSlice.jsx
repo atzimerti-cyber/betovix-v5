@@ -5,6 +5,8 @@ import { removeTokens } from '../../utils/auth';
 const initialState = {
     user: null,
     loginLoading: false,
+    accountChildren: [],
+    selectedAccount: null,
 
     permissions: {
         AllowToBomba: false,
@@ -36,13 +38,22 @@ export const loginSlice = createSlice({
             state.user = null;
             // const currentNotLoggedInPermissions = current(state.notLoggedInPermissions);
             state.permissions = state.notLoggedInPermissions;
+            state.accountChildren = [];
+            state.selectedAccount = null;
             removeTokens();
         },
         setLoginLoading: (state, action) => {
             state.loginLoading = action.payload;
         },
+        setAccountChildren(state, action) {
+            state.accountChildren = action.payload;
+        },
+        setSelectedAccount(state, action) { 
+            state.selectedAccount = action.payload;
+        },
     },
 });
+
 
 export const loginActions = loginSlice.actions;
 

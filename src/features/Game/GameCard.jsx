@@ -95,20 +95,24 @@ const GameCard = (props) => {
 
             <div className={classes.OddsContainer}>
                 {props.game.Markets && props.game.Markets.length > 0 ? (
-                    props.game.Markets[0].MarketFields.map((marketField) => {
-                        return (
+                    (() => {
+                        const targetMarket = props.game.Markets.find(market => market.MarketTypeId === 14);
+
+                        const selectedMarket = targetMarket || props.game.Markets[0];
+
+                        return selectedMarket.MarketFields.map((marketField) => (
                             <OddsButton
                                 key={marketField.FieldId}
                                 label={getOddsLabel(marketField.FieldName.International)}
                                 event={props.game}
-                                market={props.game.Markets[0]}
+                                market={selectedMarket}
                                 marketField={marketField}
                                 odds={marketField.Value}
                                 disabled={!marketField.Active}
                                 style='card'
                             />
-                        );
-                    })
+                        ));
+                    })()
                 ) : (
                     <>
                         <OddsButton key={0} label='' event={props.game} market={null} marketField={null} odds='-' disabled={true} style='card' />

@@ -9,12 +9,17 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #1e2d3b;
+    background-color: var(--db-gray-banner);
     transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     z-index: 10000;
 }
 
 .Preloader img {
     max-width: 100%;
+    height: auto;
+}
+.Preloader video {
+    max-width: 80vw;
+    /* max-width: 100%; */
     height: auto;
 }

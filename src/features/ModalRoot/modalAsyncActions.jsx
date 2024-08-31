@@ -89,3 +89,29 @@ export const getVip = (signal) => {
         }
     };
 };
+
+export const getTicket = (signal, id) => {
+    return async (dispatch) => {
+        try {
+           
+            dispatch(modalActions.setLoading(true));
+            const response = await axiosApi.get(
+                `/MyTicket/GetTicket?TicketId=${id}&lang=en&siteid=${import.meta.env.VITE_SITE_ID}`,
+                {
+                    signal: signal,
+                    baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                    // baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                }
+            );
+
+            if (response.data.Status.StatusCode !== 200) throw new Error('Failed to fetch ticket');
+            dispatch(modalActions.setTicket(response.data.Contents)); 
+            dispatch(modalActions.setLoading(false));
+        } catch (error) {
+            const message = error?.message || 'Error fetching ticket';
+            if (error?.code !== 'ERR_CANCELED') toast.error(message);
+            dispatch(modalActions.setLoading(false));
+        }
+    };
+};
+

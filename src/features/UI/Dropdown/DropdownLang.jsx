@@ -33,32 +33,67 @@ const DropdownLang = (props) => {
     return (
         <div ref={dropdownRef} className={elClasses.join(' ')}>
             <MainButton onClick={() => setDropdownVisible(!dropdownVisible)}>
-                {fullLeftContainer ? (
+                {/* {fullLeftContainer ? (
                     lang.label
                 ) : (
                     <div className={classes.LangItem}>
                         <img src={lang.flag} loading='lazy' alt={`${lang.id} flag`} className={classes.Flag} />
                     </div>
+                )} */}
+                {props.fullLabel && (
+                    <>
+                        <div className={classes.LangItem} style={{ marginRight: '1rem' }}>
+                            <img src={lang.flag} loading='lazy' alt={`${lang.id} flag`} className={classes.Flag} />
+                        </div>
+                        {lang.label}
+                    </>
+
                 )}
+                {props.topbar &&
+                    <div className={classes.LangItem}>
+                        <img src={lang.flag} loading='lazy' alt={`${lang.id} flag`} className={classes.Flag} />
+                    </div>
+                }
                 <CaretDownIcon />
             </MainButton>
 
-            <div className={classes.DropdownContent}>
-                <ul className={classes.LangDropdownMenu}>
-                    {availableLangs.map((availableLang) => {
-                        return (
-                            <li key={availableLang.id} onClick={() => onSelectLang(availableLang)}>
-                                <a>
-                                    <div className={classes.LangItem}>
-                                        <img src={availableLang.flag} loading='lazy' alt={`${availableLang.id} flag`} className={classes.Flag} />
-                                    </div>
-                                    <span>{availableLang.label}</span>
-                                </a>
-                            </li>
-                        );
-                    })}
-                </ul>
-            </div>
+            {props.topbar && (
+                <div className={classes.DropdownContent}>
+                    <ul className={classes.LangDropdownMenu}>
+                        {availableLangs.map((availableLang) => {
+                            return (
+                                <li key={availableLang.id} onClick={() => onSelectLang(availableLang)}>
+                                    <a>
+                                        <div className={classes.LangItem}>
+                                            <img src={availableLang.flag} loading='lazy' alt={`${availableLang.id} flag`} className={classes.Flag} />
+                                        </div>
+                                        <span>{availableLang.label}</span>
+                                    </a>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            )}
+
+            {props.fullLabel && (
+                <div className={classes.DropdownContentMobile}>
+                    <ul className={classes.LangDropdownMenu}>
+                        {availableLangs.map((availableLang) => {
+                            return (
+                                <li key={availableLang.id} onClick={() => onSelectLang(availableLang)}>
+                                    <a>
+                                        <div className={classes.LangItem}>
+                                            <img src={availableLang.flag} loading='lazy' alt={`${availableLang.id} flag`} className={classes.Flag} />
+                                        </div>
+                                        <span>{availableLang.label}</span>
+                                    </a>
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 };

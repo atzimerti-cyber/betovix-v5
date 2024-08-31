@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { useMediaQuery } from 'react-responsive';
+
 import { casinoActions } from '../casinoSlice';
 import classes from './SlotGames.module.css';
 import SwiperWithOverlay from '../../../features/UI/MainSwiper/SwiperWithOverlay';
@@ -26,6 +28,29 @@ const SlotGames = () => {
     const debSearchString = useDebounce(searchString);
     const [selectedProviders, setSelectedProviders] = useState([]);
     const [axiosController, setAxiosController] = useState(null);
+
+
+    const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
+    const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
+    const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
+    const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
+
+    let slidesPerView = 6;
+    let slidesPerGroup = 4;
+
+    if (isMobile) {
+        slidesPerView = 2;
+        slidesPerGroup = 2;
+    } else if (isTablet) {
+        slidesPerView = 3;
+        slidesPerGroup = 3;
+    } else if (isDesktop) {
+        slidesPerView = 3.5;
+        slidesPerGroup = 3;
+    } else if (isBigDesktop) {
+        slidesPerView = 4;
+        slidesPerGroup = 4;
+    }
 
     useEffect(() => {
         const controller = new AbortController();
@@ -93,12 +118,13 @@ const SlotGames = () => {
 
             {!debSearchString && selectedProviders.length === 0 && sorting === 'Default Sort' && (
                 <>
-                    {user && <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} items={filteredGames.favoriteGames?.Data} max={10} />}
+                    {user && <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} items={filteredGames.favoriteGames?.Data} max={10} slidesPerView={slidesPerView} />}
                     <SwiperWithOverlay
                         title={translate('New Games')}
                         icon={<NewIcon className={classes.NewIcon} />}
                         items={filteredGames.newGames?.Data}
                         max={10}
+                        slidesPerView={slidesPerView}
                     />
                     <GridGames
                         collection={filteredGames.allSlots}
@@ -123,18 +149,18 @@ const SlotGames = () => {
 
             {(debSearchString && selectedProviders.length < 2) || (!debSearchString && selectedProviders.length === 1)
                 ? Object.keys(filteredGames).map((key, index) => {
-                      return (
-                          <GridGames
-                              key={index}
-                              collection={filteredGames[key]}
-                              icon={<SlotsIcon />}
-                              title={getTitle(key)}
-                              loading={searchLoading}
-                              property={key}
-                              searchString={debSearchString}
-                          />
-                      );
-                  })
+                    return (
+                        <GridGames
+                            key={index}
+                            collection={filteredGames[key]}
+                            icon={<SlotsIcon />}
+                            title={getTitle(key)}
+                            loading={searchLoading}
+                            property={key}
+                            searchString={debSearchString}
+                        />
+                    );
+                })
                 : null}
 
             {selectedProviders.length > 1 &&
@@ -156,6 +182,7 @@ const SlotGames = () => {
                             max={24}
                             task={() => setSelectedProviders([key])}
                             text={filteredGames[key] ? `${filteredGames[key]?.Total} ${translate('Games')}` : ''}
+                            slidesPerView={6}
                         />
                     );
                 })}

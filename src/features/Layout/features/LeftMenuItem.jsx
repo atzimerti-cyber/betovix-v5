@@ -6,6 +6,9 @@ import classes from './LeftMenuItem.module.css';
 import { layoutActions } from '../layoutSlice';
 import { translate } from '../../../utils/translations';
 
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faHome } from '@fortawesome/free-solid-svg-icons';
+
 const LeftMenuItem = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -18,6 +21,7 @@ const LeftMenuItem = (props) => {
     if (props.isActive) elClasses.push(classes.Active);
     if (props.hide) elClasses.push(classes.Hide);
     if (props.showEmphasis) elClasses.push(classes.ShowEmphasis);
+    if (props.isCateg == false) elClasses.push(classes.NotCateg);
 
     const onClick = (e) => {
         e.preventDefault();
@@ -35,13 +39,22 @@ const LeftMenuItem = (props) => {
     return (
         <li className={elClasses.join(' ')} onClick={(e) => onClick(e)}>
             <a data-tooltip-id='left-menu-tooltip' data-tooltip-content={translate(props.item.label)}>
-                <div className={classes.IconWrapper}>{props.item.icon}</div>
+                <div className={classes.IconWrapper}>
+                    {props.item.icon && props.item.icon}
+                </div>
 
-                <span>{translate(props.item.label)}</span>
+
+                {props.item.label ? (
+                   <span>{translate(props.item.label)}</span>
+                ) : (
+                    <span>{translate(props.item.Name)}</span>
+                )
+                }
 
                 <div className={classes.Container}>
                     {props.item.badge && props.item.badge === 'free' && <div className={classes.BadgeFree}>{translate('FREE')}</div>}
                     {props.item.badge && props.item.badge === 'new' && <div className={classes.BadgeNew}>{translate('NEW')}</div>}
+                    {props.isNew === 'new' && <div className={classes.BadgeNew}>{translate('NEW')}</div>}
                     {props.item.timer && <div className={classes.Timer}>{props.item.timer}</div>}
                 </div>
             </a>

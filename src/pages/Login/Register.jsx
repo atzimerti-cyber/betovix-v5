@@ -28,15 +28,26 @@ const Register = () => {
     const loginLoading = useSelector((state) => state.login.loginLoading);
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
+    useEffect(() => {
+        const searchParams = new URLSearchParams(location.search);
+        const value = searchParams.get('code');
+        updateRegisterInfo('code', value)
+    }, []);
+
     const [registerInfo, setRegisterInfo] = useState({
         displayName: null,
         email: null,
         password: null,
-        bonus: true,
+        verifyPassword: null,
+        code: null,
+        // bonus: true,
     });
     const debDisplayName = useDebounce(registerInfo.displayName);
     const debEmail = useDebounce(registerInfo.email);
     const debPassword = useDebounce(registerInfo.password);
+    const debVerifyPassword = useDebounce(registerInfo.verifyPassword);
+    const debCode = useDebounce(registerInfo.code);
+
     const [validChecks, setValidChecks] = useState({
         displayName: true,
         email: true,
@@ -48,6 +59,8 @@ const Register = () => {
             special: true,
             cases: true,
         },
+        verifyPassword: null,
+        code: true,
     });
 
     const [isRegisterDisabled, setIsRegisterDisabled] = useState(true);
@@ -76,62 +89,105 @@ const Register = () => {
         else setValidChecks({ ...validChecks, email: true });
     }, [debEmail]);
 
+    // useEffect(() => {
+    //     if (!debPassword) return;
+
+    //     if (debPassword.length === 0) {
+    //         setValidChecks({
+    //             ...validChecks,
+    //             password: {
+    //                 valid: true,
+    //                 show: validChecks.password.show,
+    //                 minSize: true,
+    //                 numbers: true,
+    //                 special: true,
+    //                 cases: true,
+    //             },
+    //         });
+    //         return;
+    //     }
+
+    //     const validMinSize = debPassword.length >= settings.passwordMinLength;
+
+    //     const hasUppercase = /[A-Z]/.test(debPassword);
+    //     const hasLowercase = /[a-z]/.test(debPassword);
+    //     const validCases = hasUppercase && hasLowercase;
+
+    //     const validNumbers = /\d/.test(debPassword);
+
+    //     const specialCharRegex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    //     const validSpecial = specialCharRegex.test(debPassword);
+
+    //     const isValid = validMinSize && validCases && validNumbers && validSpecial ? true : false;
+
+    //     setValidChecks({
+    //         ...validChecks,
+    //         password: {
+    //             valid: isValid,
+    //             show: validChecks.password.show,
+    //             minSize: validMinSize,
+    //             numbers: validNumbers,
+    //             special: validSpecial,
+    //             cases: validCases,
+    //         },
+    //     });
+    // }, [debPassword]);
+
     useEffect(() => {
         if (!debPassword) return;
-
-        if (debPassword.length === 0) {
-            setValidChecks({
-                ...validChecks,
-                password: {
-                    valid: true,
-                    show: validChecks.password.show,
-                    minSize: true,
-                    numbers: true,
-                    special: true,
-                    cases: true,
-                },
-            });
-            return;
-        }
-
+    
         const validMinSize = debPassword.length >= settings.passwordMinLength;
-
+    
         const hasUppercase = /[A-Z]/.test(debPassword);
         const hasLowercase = /[a-z]/.test(debPassword);
         const validCases = hasUppercase && hasLowercase;
-
+    
         const validNumbers = /\d/.test(debPassword);
-
+    
         const specialCharRegex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
         const validSpecial = specialCharRegex.test(debPassword);
-
-        const isValid = validMinSize && validCases && validNumbers && validSpecial ? true : false;
-
-        setValidChecks({
-            ...validChecks,
+    
+        const isValid = validMinSize && validCases && validNumbers && validSpecial;
+    
+        // Functional update to avoid stale state
+        setValidChecks((prevValidChecks) => ({
+            ...prevValidChecks,
             password: {
                 valid: isValid,
-                show: validChecks.password.show,
+                show: prevValidChecks.password.show,
                 minSize: validMinSize,
                 numbers: validNumbers,
                 special: validSpecial,
                 cases: validCases,
             },
+        }));
+    }, [debPassword, settings.passwordMinLength]);
+    
+
+    useEffect(() => {
+        if (!debPassword || !debVerifyPassword) return;
+
+        const isMatching = debPassword === debVerifyPassword;
+        setValidChecks({
+            ...validChecks,
+            verifyPassword: isMatching,
         });
-    }, [debPassword]);
+    }, [debPassword, debVerifyPassword]);
 
     useEffect(() => {
         if (
             registerInfo.displayName &&
             registerInfo.email &&
             registerInfo.password &&
+            registerInfo.verifyPassword &&
             validChecks.displayName &&
             validChecks.email &&
-            validChecks.password.valid
+            validChecks.password.valid &&
+            validChecks.verifyPassword
         )
             setIsRegisterDisabled(false);
         else setIsRegisterDisabled(true);
-    }, [validChecks.displayName, validChecks.email, validChecks.password.valid]);
+    }, [validChecks.displayName, validChecks.email, validChecks.password.valid, validChecks.verifyPassword,]);
 
     const onTogglePassword = () => {
         const updated = {
@@ -147,7 +203,7 @@ const Register = () => {
     return (
         <form className={classes.Form} autoComplete='off'>
             <label htmlFor='displayName'>
-                {translate('Display Name')}
+                {translate('Username')}
                 <span className={debDisplayName && validChecks.displayName ? [classes.Required, classes.Fulfilled].join(' ') : classes.Required}>∗</span>
             </label>
             <div className={classes.InputOuter}>
@@ -171,7 +227,7 @@ const Register = () => {
             </div>
 
             <label htmlFor='email'>
-                {translate('Email Address')}
+                {translate('Email')}
                 <span className={debEmail && validChecks.email ? [classes.Required, classes.Fulfilled].join(' ') : classes.Required}>∗</span>
             </label>
             <div className={classes.InputOuter}>
@@ -243,14 +299,64 @@ const Register = () => {
                 </div>
             </div>
 
-            <div className={classes.Container}>
+
+            <label htmlFor='verify-password'>
+                {translate('Verify Password')}
+                <span className={debVerifyPassword && validChecks.verifyPassword ? [classes.Required, classes.Fulfilled].join(' ') : classes.Required}>∗</span>
+            </label>
+            <div className={classes.InputOuter}>
+                <MainInput
+                    role='textbox'
+                    type={validChecks.password.show ? 'text' : 'password'}
+                    id='verify-password'
+                    name='verifyPassword'
+                    placeholder={translate('Type your password again')}
+                    value={registerInfo.verifyPassword}
+                    onChange={(value) => updateRegisterInfo('verifyPassword', value)}
+                    noAutoComplete
+                    isInvalid={registerInfo.verifyPassword && !validChecks.verifyPassword}
+                    rightIcon={
+                        <EyeIcon
+                            className={validChecks.password.show ? [classes.ShowPasswordIcon, classes.ShowLine].join(' ') : classes.ShowPasswordIcon}
+                            onClick={onTogglePassword}
+                        />
+                    }
+                />
+                <div className={classes.FormValidationMessage}>
+                    <Autoheight show={registerInfo.verifyPassword && !validChecks.verifyPassword}>
+                        {translate('Passwords do not match')}
+                    </Autoheight>
+                </div>
+            </div>
+
+            <label htmlFor='code'>
+                {translate('Affiliate Code')}
+                <span className={classes.Optional}> (Optional)</span>
+            </label>
+            <div className={classes.InputOuter}>
+                <MainInput
+                    role='textbox'
+                    type='text'
+                    id='code'
+                    name='code'
+                    placeholder={translate('Type your Affiliate Code')}
+                    value={registerInfo.code}
+                    onChange={(value) => updateRegisterInfo('code', value)}
+                    noAutoComplete
+                    isInvalid={!validChecks.email}
+                />
+            </div>
+
+
+
+            {/* <div className={classes.Container}>
                 <Switch
                     id='switch'
                     active={registerInfo.bonus}
                     label={translate('Send me bonus and marketing emails')}
                     onClick={() => updateRegisterInfo('bonus', !registerInfo.bonus)}
                 />
-            </div>
+            </div> */}
 
             <MainButton
                 loading={loginLoading}
@@ -261,20 +367,20 @@ const Register = () => {
                 {translate('Register')}
             </MainButton>
 
-            <p className={classes.LoginWith}>{translate('or login with')}</p>
-            <AlternativeMethods />
+            {/* <p className={classes.LoginWith}>{translate('or login with')}</p>
+            <AlternativeMethods /> */}
 
-            <div className={classes.CaptchaText}>
+            {/* <div className={classes.CaptchaText}>
                 {translate('This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.')}
-            </div>
-            {isMobile && (
+            </div> */}
+            {/* {isMobile && (
                 <div className={classes.Acknowledgement}>
                     {translate('By accessing this site I attest that I am at least 18 years old and have read and agree with the')}{' '}
                     <Link href='/terms' target='_blank' rel='noreferrer'>
                         <b>{translate('Terms of Service')}</b>.
                     </Link>
                 </div>
-            )}
+            )} */}
         </form>
     );
 };

@@ -19,14 +19,17 @@
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
 }
+
 .Title svg {
     margin-right: 0.5rem;
     height: 1.25rem;
     width: 1.25rem;
 }
+
 .Title svg path {
     fill: var(--db-brand-green);
 }
+
 .Title a {
     cursor: pointer;
 }
@@ -38,7 +41,7 @@
     gap: 6px;
 }
 
-.NavButtons > a {
+.NavButtons>a {
     display: flex;
     cursor: pointer;
     align-items: center;
@@ -50,7 +53,7 @@
     color: var(--db-brand-green);
 }
 
-.NavButtons > a > svg {
+.NavButtons>a>svg {
     height: 10px;
     width: 5px;
 }
@@ -62,6 +65,7 @@
 .WithPagination .MainSwiper {
     padding-bottom: 2rem;
 }
+
 :local(.WithPagination) :global(.swiper-pagination) {
     bottom: 0;
     margin: 0;
@@ -69,6 +73,7 @@
     left: 0;
     width: 100%;
 }
+
 :local(.WithPagination) :global(.swiper-pagination-bullet) {
     height: 0.25rem;
     width: 0.875rem;
@@ -78,6 +83,7 @@
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 0.15s;
 }
+
 :local(.WithPagination) :global(.swiper-pagination-bullet-active) {
     width: 1.75rem;
     background-color: var(--db-brand-green);
@@ -87,10 +93,11 @@
 }
 
 @media (min-width: 640px) {
-    .NavButtons > a {
+    .NavButtons>a {
         margin-right: 0.5rem;
     }
-    .NavButtons > a > svg {
+
+    .NavButtons>a>svg {
         display: none;
     }
 }
@@ -99,7 +106,8 @@
     .SwiperHeader {
         margin-bottom: 0.75rem;
     }
-    .NavButtons > a {
+
+    .NavButtons>a {
         font-size: 0.75rem;
         line-height: 1rem;
     }

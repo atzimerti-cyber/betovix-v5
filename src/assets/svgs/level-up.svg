@@ -1,15 +1,1 @@
-<!-- <svg width="32px" height="32px" viewBox="0 0 32 32" id="icon" xmlns="http://www.w3.org/2000/svg" fill="#5ce500">
-  <defs>
-    <style>
-      .cls-1 {
-        fill: none;
-      }
-    </style>
-  </defs>
-  <title>upgrade</title>
-  <path d="M21,24H11a2,2,0,0,0-2,2v2a2,2,0,0,0,2,2H21a2,2,0,0,0,2-2V26A2,2,0,0,0,21,24Zm0,4H11V26H21Z"/>
-  <path d="M28.707,14.293l-12-12a.9994.9994,0,0,0-1.414,0l-12,12A1,1,0,0,0,4,16H9v4a2.0023,2.0023,0,0,0,2,2H21a2.0027,2.0027,0,0,0,2-2V16h5a1,1,0,0,0,.707-1.707ZM21,14v6H11V14H6.4141L16,4.4141,25.5859,14Z"/>
-  <rect id="_Transparent_Rectangle_" data-name="&lt;Transparent Rectangle&gt;" class="cls-1" width="32" height="32"  />
-</svg> -->
-
-<svg width="512px" height="512px" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg"><path fill="#5ce500" d="M256 29.816l-231 154v106.368l231-154 231 154V183.816zm0 128.043L105 259.783v90.283l151-101.925 151 101.925v-90.283zm0 112l-87 58.725v67.6l87-58 87 58v-67.6zm0 89.957l-87 58v64.368l87-58 87 58v-64.368z"/></svg>
+<svg id="e8a1ywJ3H021" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 300" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" project-id="a59a7fa9e4154c65bdfef30e1ad7f734" export-id="760d463976084fb0964af9bb8904dd4e" cached="false"><path d="M143.78092,12.38271L259.71313,82.60196h-231.86441l115.9322-70.21925Z" transform="translate(0 51)" fill="#96d023" stroke-width="0"/><g transform="translate(167.536911 0)"><rect width="67.114094" height="20.650491" rx="0" ry="0" transform="translate(35.90604 239.545689)" fill="#96d023" stroke-width="0"/><rect width="20.134228" height="110.19618" rx="0" ry="0" transform="translate(35.90604 150)" fill="#96d023" stroke-width="0"/></g><g><rect width="67.114094" height="20.650491" rx="0" ry="0" transform="translate(35.90604 239.545689)" fill="#96d023" stroke-width="0"/><rect width="20.134228" height="110.19618" rx="0" ry="0" transform="translate(35.90604 150)" fill="#96d023" stroke-width="0"/></g><g transform="translate(.000001 0.000001)"><path d="M169.72976,150.00007h22.11967L149.5491,260.19618h-22.11966l42.30032-110.19611Z" fill="#96d023" stroke-width="0"/><path d="M87.00039,150.00007L87.00057,150h22.11947l42.30033,110.19613-.00013.00005h-22.11952L87.00039,150.00007Z" fill="#96d023" stroke-width="0"/></g></svg>

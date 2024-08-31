@@ -17,7 +17,12 @@ const CategoryGroup = (props) => {
     return (
         <div className={elClasses.join(' ')} onClick={() => setIsVisible(!isVisible)}>
             <div className={classes.Title}>
-                <span>{translate(props.category.label)}</span>
+                <div className={classes.Label}>
+                    <span>{translate(props.category.label)}</span>
+                    {/* {props.category.isNew && <div className={classes.BadgeNew}>{translate('NEW')}</div>} */}
+                    {props.category.isNew && <div className={classes.LiveBadge}>{translate('NEW')}</div>}
+                </div>
+
                 <AngleUpIcon />
             </div>
             {props.children}

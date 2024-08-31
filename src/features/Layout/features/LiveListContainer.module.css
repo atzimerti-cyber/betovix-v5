@@ -11,6 +11,7 @@
     z-index: 1910;
     overflow-y: auto;
 }
+
 .PaneShow {
     box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 16px;
     position: fixed;
@@ -67,14 +68,15 @@
     gap: 1.5rem;
 }
 
-.SideMenuAllButtonsContainer > button {
+.SideMenuAllButtonsContainer>button {
     height: 1.75rem;
     min-height: 1.5rem;
     width: 2rem;
     padding-left: 0;
     padding-right: 0;
 }
-.SideMenuAllButtonsContainer > button > svg {
+
+.SideMenuAllButtonsContainer>button>svg {
     max-height: 1.25rem;
     max-width: 1.25rem;
 }
@@ -87,6 +89,7 @@
     align-items: center;
     justify-content: center;
 }
+
 .SideMenuButtonContainer button {
     height: 2.25rem;
     width: 50%;
@@ -100,10 +103,12 @@
     background-color: initial;
     opacity: 1;
 }
+
 .SideMenuButtonContainer button svg {
     height: 1rem;
     width: 1rem;
 }
+
 .SideMenuButtonContainer button svg path {
     fill: var(--db-brand-green);
 }
@@ -123,6 +128,54 @@
     transition-delay: 0ms, 0.25s;
     transition-property: opacity, max-width;
 }
+
 .SideMenuButtonContainer button:hover {
     border-color: transparent;
+}
+
+.Header{
+    display: flex;
+    flex-direction: row;
+    align-items: center
+}
+.Header h1{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.LiveBadge {
+    animation: 3s ease 0s infinite normal none running _jQMcyq_dgbon_1;
+    background: var(--db-purple-text);
+    border-radius: 3px;
+    color: rgb(255, 255, 255);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    padding: 0px 0.33rem;
+    text-shadow: rgba(41, 39, 33, 0.19) 0px 1px 2px;
+    white-space: nowrap;
+    height: 18px;
+    /* width: 30px; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+}
+
+@keyframes _jQMcyq_dgbon_1 {
+
+    0%,
+    100% {
+        opacity: 0.8;
+    }
+
+    10%,
+    90% {
+        opacity: 1;
+    }
+
+    40%,
+    60% {
+        box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em, rgba(200, 49, 231, 0.8) 0px 0px 0.5em;
+    }
 }

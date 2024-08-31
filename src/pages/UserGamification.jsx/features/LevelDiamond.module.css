@@ -14,10 +14,14 @@
         scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     background-color: var(--db-gray-3);
 }
-.DiamondPosition:first-child .Diamond,
+/* .DiamondPosition:first-child .Diamond, */
 .DiamondPosition:last-child .Diamond {
     height: 14px;
     width: 14px;
+}
+
+.DiamondPosition:first-child .Diamond{
+    display: none;
 }
 
 .Complete.Diamond {

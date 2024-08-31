@@ -32,7 +32,7 @@
 }
 
 .Content {
-    margin-top: 0.625rem;
+    /* margin-top: 0.625rem; */
     display: flex;
     flex-direction: column;
     gap: 0.625rem;

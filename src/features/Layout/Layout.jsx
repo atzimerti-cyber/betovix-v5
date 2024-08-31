@@ -7,6 +7,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import Topbar from './features/Topbar';
+import Minibar from './features/Minibar';
+
 import classes from './Layout.module.css';
 import Footer from './features/Footer';
 import BetslipIcon from '../../assets/svgs/betslip.svg?react';
@@ -26,8 +28,8 @@ import NumberBadge from '../UI/Badges/NumberBudge';
 import LiveStream from './features/LiveStream';
 import Stats from './features/Stats';
 import Ticket from '../Ticket/Ticket';
+import OperatorView from './features/OperatorView';
 
-import LiveLoader from './features/LiveLoader';
 
 const Layout = () => {
     const dispatch = useDispatch();
@@ -89,9 +91,9 @@ const Layout = () => {
                 }}
             />
 
-            <Topbar />
 
-            <LiveLoader />
+            <Minibar />
+            <Topbar />
 
             <div className={classes.Content}>
                 {!isMobile && <LiveListContainer />}
@@ -120,6 +122,11 @@ const Layout = () => {
                 <div className={classes.CenterContainer} ref={centerContainerRef}>
                     <main>
                         <div className={pageNotAuthorized ? [classes.FullPage, classes.NotAuthorized].join(' ') : classes.FullPage}>
+
+                            {user?.Role < 40 && (
+                                <OperatorView />
+                            )}
+
                             <Outlet />
                         </div>
                     </main>
@@ -205,7 +212,8 @@ const Layout = () => {
             <div
                 className={!isDesktop && user && userDropdownVisible ? [classes.FullOverlay, classes.Show].join(' ') : classes.FullOverlay}
                 onClick={() => dispatch(layoutActions.setUserDropdownVisible(false))}
-            ></div>
+            >
+            </div>
             <AnimatePresence>{!isDesktop && user && userDropdownVisible && <UserDrawer />}</AnimatePresence>
 
             {isMobile && <Bottombar />}
