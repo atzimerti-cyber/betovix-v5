@@ -21,6 +21,7 @@
     --tw-text-opacity: 1;
     color: rgb(251 251 251 / var(--tw-text-opacity));
 }
+
 .StepText strong {
     font-weight: 700;
 }
@@ -103,26 +104,34 @@
     .StepContainer {
         box-sizing: initial;
     }
+
     .SignupTextContainer {
-        top: auto;
+        /* top: auto;
         bottom: 56px;
         right: 0;
         left: 0;
         font-size: 1rem;
+        line-height: 1.5rem; */
+        top: 10%;
+        font-size: 1rem;
         line-height: 1.5rem;
     }
+
     .SignUpTextV2 {
         font-size: 30px;
     }
+
     .RegisterButton {
         margin: 0.25rem auto 0.5rem;
         height: 44px;
         width: 240px;
     }
+
     .StepText {
         text-align: left;
         font-size: 9px;
     }
+
     .StepText strong {
         display: block;
     }

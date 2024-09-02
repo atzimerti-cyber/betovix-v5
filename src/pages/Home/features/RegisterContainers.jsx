@@ -24,26 +24,6 @@ const RegisterContainers = () => {
 
     return (
         <>
-            {/* <div className={classes.StepContainer}>
-                <div className={classes.SingleStep}>
-                    <Step1Icon />
-                    <span className={classes.StepText}>
-                        <strong>{translate('REGISTER')}</strong> {translate('AN ACCOUNT')}
-                    </span>
-                </div>
-                <div className={classes.SingleStep}>
-                    <Step2Icon />
-                    <span className={classes.StepText}>
-                        <strong>{translate('Make a deposit')}</strong> {translate('and play')}
-                    </span>
-                </div>
-                <div className={classes.SingleStep}>
-                    <Step3Icon />
-                    <span className={classes.StepText}>
-                        <strong>{translate('Receive 50%')}</strong> {translate('Rakeback')}
-                    </span>
-                </div>
-            </div> */}
 
             <div className={classes.SignupTextContainer}>
                 <span className={classes.SignUpTextV1}>{translate('Sign up')}</span>

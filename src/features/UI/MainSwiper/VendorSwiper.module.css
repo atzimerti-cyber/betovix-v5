@@ -1,7 +1,7 @@
 .SlideContainer {
     height: 100%;
     width: 100%;
-    max-width: 100px;
+    max-width: 135px;
     transition: transform 0.2s linear;
 }
 
@@ -92,21 +92,6 @@
     text-transform: capitalize;
 }
 
-/* .Rtp {
-    font-size: 1rem;
-    line-height: 1.5rem;
-    font-weight: 700;
-    color: var(--db-brand-green);
-    line-height: 0.8;
-}
-.RtpLabel {
-    display: block;
-    text-align: center;
-    font-size: 1rem;
-    line-height: 0.8rem;
-    font-weight: 700;
-    color: var(--db-brand-green);
-} */
 .NewLabel {
     position: absolute;
     bottom: 0;
@@ -138,31 +123,9 @@
         width: 1.5rem;
     }
 
-    .Rtp {
-        font-size: 1.125rem;
-        line-height: 1.75rem;
-    }
-
-    .RtpLabel {
-        font-size: 1rem;
-        line-height: 1.5rem;
-    }
-
     .NewLabel {
         height: 14px;
         font-size: 0.75rem;
         line-height: 1rem;
-    }
-}
-
-@media (min-width: 768px) {
-    .Rtp {
-        font-size: 1.5rem;
-        line-height: 2rem;
-    }
-
-    .RtpLabel {
-        font-size: 1.125rem;
-        line-height: 1.75rem;
     }
 }

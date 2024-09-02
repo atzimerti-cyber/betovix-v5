@@ -28,6 +28,8 @@ const Minibar = () => {
     const hasHero = useSelector((state) => state.gamification.selectedHero);
     const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
 
+    //console.log(userCurrentLevel);
+
     const getPathByItemName = (itemName) => {
         switch (itemName) {
             case 'Sports':
@@ -130,11 +132,11 @@ const Minibar = () => {
                                     {/* <div className={classes.ProgressTitle}>{translate('Progress')}</div> */}
                                     <div className={classes.Level}>{`${userCurrentLevel?.progress}%`}</div>
                                     <div className={classes.ProgressBar}>
-
                                         {userCurrentLevel && Object.keys(userCurrentLevel).length > 0 ? (
                                             <span style={{ width: `${userCurrentLevel?.progress}%` }}></span>
                                         ) : (
-                                            <span style={{ width: `50%` }}></span> ///////////////////////////////////////////////HARD CODED
+                                            <span style={{ width: `0%` }}></span> ///////////////////////////////////////////////HARD CODED
+                                            // <span style={{ width: `50%` }}></span> ///////////////////////////////////////////////HARD CODED
                                         )}
                                     </div>
                                     <div className={classes.Icon}>

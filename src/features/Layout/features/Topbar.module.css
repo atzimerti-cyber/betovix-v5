@@ -640,3 +640,17 @@
         width: 2rem !important;
     }
 }
+
+@media (max-width: 424px) {
+    .TopbarLeft button svg {
+        max-width: 140px;
+    }
+}
+@media (max-width: 374px) {
+    .TopbarLeft button svg {
+        max-width: 125px;
+    }
+    .HeaderRight{
+        gap: 0;
+    }
+}

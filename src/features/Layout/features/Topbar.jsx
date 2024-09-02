@@ -84,7 +84,7 @@ const Topbar = () => {
                     <div className={classes.HeaderHamburger}>
                         {!showingLiveEvent && (
                             <MainButton color='transparent' onClick={() => dispatch(layoutActions.setFullLeftContainer(!fullLeftContainer))}>
-                                    <MenuBurgerIcon className={fullLeftContainer ? classes.rotate : ''}/>
+                                <MenuBurgerIcon className={fullLeftContainer ? classes.rotate : ''} />
                             </MainButton>
                         )}
 
@@ -101,9 +101,19 @@ const Topbar = () => {
                             </MainButton>
                         )}
                     </div>
-                    <MainButton color='transparent' onClick={() => navigate('/')}>
-                        {isDesktop ? <LogoBig /> : <LogoSmall />}
-                    </MainButton>
+                    {isDesktop ? (
+                        <MainButton color='transparent' onClick={() => navigate('/')}>
+                            <LogoBig />
+                        </MainButton>
+                    ) : (
+                        <MainButton
+                            color='transparent'
+                            onClick={() => navigate('/')}
+                            noPad={user ? false : true}
+                        >
+                            {user ? <LogoSmall /> : <LogoBig />}
+                        </MainButton>
+                    )}
                 </div>
             </div>
 
@@ -207,7 +217,7 @@ const Topbar = () => {
                     )}
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

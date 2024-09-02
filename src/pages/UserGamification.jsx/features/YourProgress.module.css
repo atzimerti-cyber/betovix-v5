@@ -81,12 +81,14 @@
 
 .BackgroundContainer {
     position: relative;
+    height: 50px;
 }
 
 .MainContent {
     display: flex;
     flex-direction: column;
     gap: 18px;
+    margin-top: 1px;
 }
 
 .TopContent header {

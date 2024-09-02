@@ -23,6 +23,8 @@ const MainButton = (props) => {
         elClasses.push(classes.Disabled);
     }
 
+    if (props.noPad) elClasses.push(classes.noPadding);
+
     const onClick = (e) => {
         e.preventDefault();
         timeoutRef.current = setTimeout(props.onClick, 150);

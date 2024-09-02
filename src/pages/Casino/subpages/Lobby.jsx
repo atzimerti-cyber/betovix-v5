@@ -48,22 +48,27 @@ const Lobby = () => {
         setAllProviders(po);
     }, [casinoVendors]);
 
-    
-    const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
+    const isMobile = useMediaQuery({ query: '(max-width: 375px)' });
+    const isBigMobile = useMediaQuery({ query: '(max-width: 490px)' });
+    const isSmallTablet = useMediaQuery({ query: '(max-width: 650px)' });
     const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
     const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
     const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
 
-    let slidesPerView = 6;
+    let slidesPerView = 7;
 
     if (isMobile) {
-        slidesPerView = 2;
-    } else if (isTablet) {
+        slidesPerView = 1;
+    } else if (isBigMobile) {
+        slidesPerView = 1.5;
+    } else if (isSmallTablet) {
         slidesPerView = 3;
-    } else if (isDesktop) {
-        slidesPerView = 3.5;
-    } else if (isBigDesktop) {
+    } else if (isTablet) {
         slidesPerView = 4;
+    } else if (isDesktop) {
+        slidesPerView = 5;
+    } else if (isBigDesktop) {
+        slidesPerView = 7;
     }
 
 
@@ -91,7 +96,7 @@ const Lobby = () => {
 
     return (
         <>
-            <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} slidesPerView={slidesPerView + 5}/>
+            <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} slidesPerView={slidesPerView + 2} />
 
             <BigSwiper2 items={casinoBanners} autoplay />
 
@@ -101,11 +106,11 @@ const Lobby = () => {
                         <SwiperWithOverlay
                             key={key}
                             title={`${translate(menuItem?.Item?.Name)}`}
-                            icon={casinoIcons[menuItem?.Item?.Name] || null} 
+                            icon={casinoIcons[menuItem?.Item?.Name] || null}
                             link={getPathByItemName(menuItem?.Item?.Name)}
                             items={menuItem?.Data}
                             max={20}
-                            slidesPerView={slidesPerView}
+                            slidesPerView={slidesPerView -1}
                         />
                     );
                 }

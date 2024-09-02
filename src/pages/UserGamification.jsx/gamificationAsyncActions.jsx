@@ -95,9 +95,9 @@ export const getUserAchievements = () => {
             const lang = getLang();
 
             const response = await axiosApi.get(
-                `/Gamification/GetMembersSelectedHero`,
+                `/ModuleGamification/GetMembersSelectedHero`,
                 {
-                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                    baseURLOverride: import.meta.env.VITE_GAMIFICATION_STORETUBE,
                 }
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200 || response.data.Contents == null) {
@@ -134,29 +134,42 @@ export const getUserAchievements = () => {
             }
 
             // PROGRESS //
-            // let forCurrentLevel = [];
-            // let progress = 0;
-            // const levelProgress = (level) => {
-            //     let achList = [];
-            //     level.Milestones.map(milestone => {
-            //         achList.push(milestone);
-            //     });
-            //     //let achList = [level.Milestones];
-            //     achList.push(level.Level);
 
-            //     let progressSection;
+            const levelProgress = (level) => {
+                let progressXP = 0;
+                let progress = 0;
+                let achList = [];
+                level.MileStones.map(milestone => {
+                    achList.push(milestone);
+                });
 
-            //     if (achList.length > 0) {
-            //         progressSection = 100 / (achList.length);
+                let totalExp = 0;
+                let progressSection;
 
-            //         achList.forEach(item => {
-            //             const mP = item.optInStatus.percentageComplete;
-            //             progress += (mP / 100) * progressSection;
-            //         });
-            //     }
+                if (achList.length > 0) {
+                    achList.map(ach => {
+                        totalExp += ach.PointStrategy.BasePoints;
+                    })
 
-            //     return progress;
-            // }
+                    if (level.Level?.NextLevelBasePoints) {
+                        totalExp = totalExp + level.Level.NextLevelBasePoints;
+                        progressSection = totalExp / (achList.length + 1);
+                    } else {
+                        progressSection = totalExp / (achList.length);
+                    }
+
+                    achList.forEach(item => {
+                        //const mP = ((item.AchievementEntrand?.ScoreBoard) / (item.PointStrategy.BasePoints));
+                        progressXP += item.AchievementEntrand?.ScoreBoard;
+                    });
+                }
+                if (level.Level?.NextLevelEntrand?.ScoreBoard) {
+                    progressXP = progressXP + level.Level?.NextLevelEntrand?.ScoreBoard;
+                }
+                progress = (progressXP / totalExp) * 100;
+
+                return progress;
+            }
 
             // LEVELS AND MILESTONES //
             //OLD/////////////////////////////////////////////
@@ -190,12 +203,12 @@ export const getUserAchievements = () => {
 
             //NEW/////////////////////////////////////////////
             const heroLevels = response.data.Contents.Levels.map(level => {
-                const milestones = level.Milestones.map(milestone => ({
+                const milestones = level.MileStones.map(milestone => ({
                     id: milestone.Achievement.AchievementID,
                     name: milestone.MetaData?.Name,
                     percentageComplete: milestone.AchievementEntrand?.Progress,
                     points: milestone.AchievementEntrand?.ScoreBoard,
-                    pointsValue: milestone.PointsStrategy?.BasePoints,
+                    pointsValue: milestone.PointStrategy?.BasePoints,
                     rewardType: milestone.Rewards?.RewardType,
                     rewardValue: milestone.Rewards?.RewardValue,
 
@@ -209,8 +222,11 @@ export const getUserAchievements = () => {
                     milestones: milestones,
                     points: level.Level.AchievementEntrand?.ScoreBoard,
                     percentageComplete: level.Level.AchievementEntrand?.Progress,
-                    pointsValue: level.Level.PointsStrategy?.BasePoints,
-                    progress: level.Level.AchievementEntrand?.Progress,
+                    pointsValue: level.Level.PointStrategy?.BasePoints,
+                    progressEntrand: level.Level.AchievementEntrand?.Progress,
+                    nextLvlBP: level.Level?.NextLevelBasePoints,
+                    nextLvlXP: level.Level?.NextLevelEntrand?.ScoreBoard,
+                    progress: levelProgress(level),
                 };
             }).sort((a, b) => a.name.localeCompare(b.name));
 
@@ -251,29 +267,20 @@ export const getUserAchievements = () => {
             //     monthlyRewards: monthlyRewards
             // }
 
-            // CURRENT LEVEL // OLD
-            // heroLevels.map(heroLevel => {
-            //     let isCurrentLevel = false;
+            //CURRENT LEVEL 
+            let currentLevel;
+            heroLevels.some(heroLevel => {
+                const mil = heroLevel.milestones.find(milestone =>
+                    milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
+                ) !== undefined;
 
-            //     const mil = heroLevel.milestones.find(milestone =>
-            //         milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
-            //     ) !== undefined;
+                if (mil) {
+                    currentLevel = heroLevel;
+                    return true;
+                }
 
-            //     const lvl = heroLevel.percentageComplete >= 0 && heroLevel.percentageComplete < 100
-
-            //     if (mil || lvl) {
-            //         isCurrentLevel = true;
-            //     }
-
-            //     if (isCurrentLevel) {
-            //         forCurrentLevel.push(heroLevel);
-            //     }
-            // })
-
-            // const currentLevel = forCurrentLevel[0];
-
-            ///NEW///////////////////////
-            const currentLevel = heroLevels.find(level => level.completed === false);
+                return false;
+            });
 
             console.log("Hero: ", selectedHero);
             console.log("Hero Levels: ", heroLevels);
