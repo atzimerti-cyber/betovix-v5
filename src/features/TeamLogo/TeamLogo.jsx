@@ -6,12 +6,13 @@ import NoImageTennisHomeIcon from '../../assets/svgs/no-image-tennis-home.svg?re
 import NoImageTennisAwayIcon from '../../assets/svgs/no-image-tennis-away.svg?react';
 // import NoImagePersonHomeIcon from '../../assets/svgs/no-image-person.svg?react';
 import classes from './TeamLogo.module.css';
+import config from '../../config';
 
 const TeamLogo = (props) => {
     const [imageFailedToLoad, setImageFailedToLoad] = useState(false);
 
     const getTeamLogo = () => {
-        const competitorLogo = `${import.meta.env.VITE_SPORTS_LOGOS}/teams/b/${props.teamId}.png`;
+        const competitorLogo = `${config.VITE_SPORTS_LOGOS}/teams/b/${props.teamId}.png`;
         return competitorLogo;
     };
 

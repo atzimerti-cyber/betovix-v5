@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import axiosApi from '../../axios-api';
 import { myBetsActions } from './myBetsSlice';
 import { getLang } from '../../utils/storage';
+import config from '../../config';
 
 export const getTicketCashouts = (type, page, signal, isActive) => {
     return async (dispatch) => {
@@ -12,11 +13,11 @@ export const getTicketCashouts = (type, page, signal, isActive) => {
             // CashoutTypes: 1: in course, 2: Live, 3: Closed
             // CashoutPeriods 1: Day, 2: Week, 3: All
             const response = await axiosApi.post(
-                `Betting/PostData?action=ticket_cashouts&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `Betting/PostData?action=ticket_cashouts&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                 { data: `{"type":${type},"period":3,"page":${page}}` },
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_BETS_API,
+                    baseURLOverride: config.VITE_BETS_API,
                 }
             );
             if (response.data && response.data.Status && response.data.Status.StatusCode !== 200) throw Error();
@@ -43,11 +44,11 @@ export const getTicketCashoutsUpdates = (page, signal) => {
             // CashoutTypes: 1: in course, 2: Live, 3: Closed
             // CashoutPeriods 1: Day, 2: Week, 3: All
             const response = await axiosApi.post(
-                `Betting/PostData?action=ticket_cashouts_updates&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `Betting/PostData?action=ticket_cashouts_updates&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                 { data: `{"type":1,"period":3,"page":${page}}` },
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_BETS_API,
+                    baseURLOverride: config.VITE_BETS_API,
                 }
             );
             if (response.data && response.data.Status && response.data.Status.StatusCode !== 200) throw Error();
@@ -67,11 +68,11 @@ export const cashout = (ticketId, cashoutAmount, signal) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `Betting/PostData?action=make_cashout&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `Betting/PostData?action=make_cashout&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                 { data: `{"ticketId":${ticketId},"cashoutAmount":${cashoutAmount},"providerId":1}` },
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_BETS_API,
+                    baseURLOverride: config.VITE_BETS_API,
                 }
             );
             if (response.data && response.data.Status && response.data.Status.StatusCode !== 200) throw Error();

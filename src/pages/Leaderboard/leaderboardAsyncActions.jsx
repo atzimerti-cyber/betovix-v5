@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { getLang } from '../../utils/storage';
 import { leaderboardActions } from './leaderboardSlice';
 
+import config from '../../config';
 import leaderboard from '../../dummyData/leaderboard';
 
 export const getLeaderboard = (signal) => {
@@ -14,13 +15,13 @@ export const getLeaderboard = (signal) => {
             const lang = getLang();
 
             // const response = await axiosApi.post(
-            //     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+            //     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
             //     {
             //         data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
             //     },
             //     {
             //         signal: signal,
-            //         baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+            //         baseURLOverride: config.VITE_CASINO_BASE,
             //     }
             // );
             // if (response.data.Status.StatusCode !== 200) throw Error();

@@ -2,11 +2,12 @@ import { toast } from 'react-toastify';
 
 import axiosApi from '../../axios-api';
 import { homeActions } from './homeSlice';
-import { appActions } from '../../features/InitApp/appSlice';
+// import { appActions } from '../../features/InitApp/appSlice';
 import { getLang } from '../../utils/storage';
 import { casinoActions } from '../Casino/casinoSlice';
+import config from '../../config';
 
-import levels from '../../dummyData/levels';
+// import levels from '../../dummyData/levels';
 
 export const getHome = (signal) => {
     return async (dispatch) => {
@@ -14,38 +15,38 @@ export const getHome = (signal) => {
             const lang = getLang();
 
             const requests = [
-                axiosApi.get(`MyCasino/GetBanners?lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                axiosApi.get(`MyCasino/GetBanners?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                    baseURLOverride: config.VITE_CASINO_BASE,
                 }),
-                axiosApi.get(`Pregame/getBanners?providerId=1&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                axiosApi.get(`Pregame/getBanners?providerId=1&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                    baseURLOverride: config.VITE_SPORTS_API_BASE,
                 }),
-                axiosApi.get(`MyCasino/GetHome?lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                axiosApi.get(`MyCasino/GetHome?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                    baseURLOverride: config.VITE_CASINO_BASE,
                 }),
                 axiosApi.post(
-                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
                     {
                         // data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
                         data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":""}`,
                     },
                     {
                         signal: signal,
-                        baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                        baseURLOverride: config.VITE_CASINO_BASE,
                     }
                 ),
                 axiosApi.post(
-                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
                     {
                         // data: `{"Page":1,"PageItems":24,"Tag":"live","Search":"","ProviderId":0,"BrandId":0,"VendorId":0}`,
                         data: `{"Page":1,"PageItems":24,"Tag":"live","Search":""}`,
                     },
                     {
                         signal: signal,
-                        baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                        baseURLOverride: config.VITE_CASINO_BASE,
                     }
                 ),
             ];
@@ -93,9 +94,9 @@ export const getHome = (signal) => {
 //         try {
 //             const lang = getLang();
 
-//             const response = await axiosApi.get(`LiveCluster/getLiveStateJson2?lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+//             const response = await axiosApi.get(`LiveCluster/getLiveStateJson2?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
 //                 signal: signal,
-//                 baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+//                 baseURLOverride: config.VITE_SPORTS_API_BASE,
 //             });
 //             if ((response.status && response.status !== 200) || (response.data.Status && response.data.Status.StatusCode !== 200)) throw Error();
 
@@ -112,11 +113,11 @@ export const getEventsTop = (signal) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `Pregame/PostData/?action=coupon&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `Pregame/PostData/?action=coupon&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                 { data: `{"providerId":1,"coupon":"top"}` },
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                    baseURLOverride: config.VITE_SPORTS_API_BASE,
                 }
             );
             if ((response.status && response.status !== 200) || (response.data.Status && response.data.Status.StatusCode !== 200)) throw Error();

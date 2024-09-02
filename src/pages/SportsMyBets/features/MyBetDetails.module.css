@@ -8,6 +8,9 @@
     overflow-y: auto;
     scroll-behavior: smooth;
 }
+:global(.IsMobile) :local(.MyBetDetailsSection) {
+    max-height: unset;
+}
 
 .HeaderContainer {
     display: flex;

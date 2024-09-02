@@ -1,4 +1,5 @@
 import { createSlice, current } from '@reduxjs/toolkit';
+import _ from 'lodash';
 
 import { removeTokens } from '../../utils/auth';
 
@@ -31,12 +32,16 @@ export const loginSlice = createSlice({
     initialState,
     reducers: {
         setUser: (state, action) => {
-            state.user = action.payload;
-            state.permissions = action.payload.MyPermissions;
+            const currentUser = current(state)?.user;
+
+            // To prevent unnecessary recalculations when the user is set
+            if (!_.isEqual(action.payload, currentUser)) {
+                state.user = action.payload;
+                state.permissions = action.payload.MyPermissions;
+            }
         },
         logout: (state) => {
             state.user = null;
-            // const currentNotLoggedInPermissions = current(state.notLoggedInPermissions);
             state.permissions = state.notLoggedInPermissions;
             state.accountChildren = [];
             state.selectedAccount = null;
@@ -48,12 +53,11 @@ export const loginSlice = createSlice({
         setAccountChildren(state, action) {
             state.accountChildren = action.payload;
         },
-        setSelectedAccount(state, action) { 
+        setSelectedAccount(state, action) {
             state.selectedAccount = action.payload;
         },
     },
 });
-
 
 export const loginActions = loginSlice.actions;
 

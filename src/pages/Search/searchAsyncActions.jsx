@@ -2,6 +2,7 @@ import { toast } from 'react-toastify';
 import axiosApi from '../../axios-api';
 import { getLang } from '../../utils/storage';
 import { searchActions } from './searchSlice';
+import config from '../../config';
 
 export const getSlots = (signal, pageItems, isDesktop) => {
     return async (dispatch, getState) => {
@@ -10,10 +11,10 @@ export const getSlots = (signal, pageItems, isDesktop) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
                 // { data: `{"Page":1,"PageItems":${pageItems},"Tag":"","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}` },
                 { data: `{"Page":1,"PageItems":${pageItems},"Tag":"","Search":""}` },
-                { signal: signal, baseURLOverride: import.meta.env.VITE_CASINO_BASE }
+                { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
             );
             if (response.data.Status.StatusCode !== 200) throw Error();
 
@@ -32,15 +33,14 @@ export const getSlots = (signal, pageItems, isDesktop) => {
             };
 
             let Data = response.data.Contents.Data;
-            console.log(Data);    
+            console.log(Data);
 
             let sortedData = [];
             if (Array.isArray(Data)) {
                 sortedData = sortGames(Data, sortingState);
             }
 
-            console.log(sortedData);    
-
+            console.log(sortedData);
 
             // Desktop has load more, so the details are needed
             if (isDesktop) {
@@ -74,25 +74,25 @@ export const getCasinoSearch = (signal, debSearchString) => {
 
             const requests = [
                 axiosApi.post(
-                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
                     {
                         // data: `{"Page":1,"PageItems":24,"Tag":"","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
                         data: `{"Page":1,"PageItems":24,"Tag":"","Search":"${debSearchString}"}`,
                     },
                     {
                         signal: signal,
-                        baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                        baseURLOverride: config.VITE_CASINO_BASE,
                     }
                 ),
                 axiosApi.post(
-                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
                     {
                         // data: `{"Page":1,"PageItems":24,"Tag":"live","Search":"${debSearchString}","ProviderId":0,"BrandId":0,"VendorId":0}`,
                         data: `{"Page":1,"PageItems":24,"Tag":"live","Search":"${debSearchString}"}`,
                     },
                     {
                         signal: signal,
-                        baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                        baseURLOverride: config.VITE_CASINO_BASE,
                     }
                 ),
             ];
@@ -114,8 +114,8 @@ export const getCasinoSearch = (signal, debSearchString) => {
                 slotGames.Data.length >= 24 || liveGames.Data.length === 0
                     ? 0
                     : 24 - slotGames.Data.length >= liveGames.Data.length
-                        ? liveGames.Data.length
-                        : 24 - slotGames.Data.length;
+                    ? liveGames.Data.length
+                    : 24 - slotGames.Data.length;
             if (liveGames.Data.length > 0 && slotGames.Data.length > 0 && slotGames.Data.length < 24) {
                 const liveGamesLeftOut = liveGames.Data.slice(liveGamesAddedNum);
                 dispatch(searchActions.setNotRenderedLiveResults(liveGamesLeftOut));
@@ -159,14 +159,14 @@ export const addToSearchResults = (signal, debSearchString, providers) => {
                 if (providers && providers.length > 0) {
                     for (let provider of providers) {
                         const responseSlots = await axiosApi.post(
-                            `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                            `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
                             {
                                 // data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
                                 data: `{"Page":${slotPage},"PageItems":24,"Tag":"${provider}","Search":"${debSearchString}"}`,
                             },
                             {
                                 signal: signal,
-                                baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                                baseURLOverride: config.VITE_CASINO_BASE,
                             }
                         );
                         if (responseSlots.status !== 200 || responseSlots.data.Status.StatusCode !== 200) throw Error();
@@ -175,21 +175,20 @@ export const addToSearchResults = (signal, debSearchString, providers) => {
                     }
                 } else {
                     const responseSlots = await axiosApi.post(
-                        `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                        `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
                         {
                             // data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
                             data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}"}`,
                         },
                         {
                             signal: signal,
-                            baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                            baseURLOverride: config.VITE_CASINO_BASE,
                         }
                     );
                     if (responseSlots.status !== 200 || responseSlots.data.Status.StatusCode !== 200) throw Error();
                     // slotGames = responseSlots.data.Contents;
                     slotGames = [...slotGames, ...responseSlots.data.Contents.Data];
                 }
-
             }
 
             let liveGames = { Data: [] };
@@ -203,14 +202,14 @@ export const addToSearchResults = (signal, debSearchString, providers) => {
                 }
 
                 const responseLive = await axiosApi.post(
-                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
                     {
                         // data: `{"Page":${livePage},"PageItems":${pageItems},"Tag":"live","Search":"${debSearchString}","ProviderId":0,"BrandId":0,"VendorId":0}`,
                         data: `{"Page":${livePage},"PageItems":${pageItems},"Tag":"live","Search":"${debSearchString}"}`,
                     },
                     {
                         signal: signal,
-                        baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                        baseURLOverride: config.VITE_CASINO_BASE,
                     }
                 );
                 if (responseLive.status !== 200 || responseLive.data.Status.StatusCode !== 200) throw Error();
@@ -230,8 +229,8 @@ export const addToSearchResults = (signal, debSearchString, providers) => {
                 slotGames.length >= 24 || liveGames.Data.length === 0
                     ? 0
                     : 24 - slotGames.length >= liveGames.Data.length
-                        ? liveGames.Data.length
-                        : 24 - slotGames.length;
+                    ? liveGames.Data.length
+                    : 24 - slotGames.length;
             if (liveGames.Data.length > 0 && slotGames.length > 0 && slotGames.length < 24) {
                 const liveGamesLeftOut = liveGames.Data.slice(liveGamesAddedNum);
                 dispatch(searchActions.setNotRenderedLiveResults(liveGamesLeftOut));
@@ -254,7 +253,7 @@ export const addToSearchResults = (signal, debSearchString, providers) => {
                 liveGamesPage: livePage,
                 slotGamesAdded: slotGames.length,
                 liveGamesAdded: liveGamesAddedNum,
-            }
+            };
 
             //console.log('AFTER', casinoRes);
 
@@ -281,16 +280,16 @@ export const getCasinoSearchProviders = (signal, pageItems, debSearchString, sel
 
             for (let selectedProvider of selectedProviders) {
                 const response = await axiosApi.post(
-                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
                     {
                         // data: `{"Page":1,"PageItems":24,"Tag":"${selectedProvider}","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
                         data: `{"Page":1,"PageItems":"${pageItems}","Tag":"${selectedProvider}","Search":"${debSearchString}"}`,
                     },
                     {
                         signal: signal,
-                        baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                        baseURLOverride: config.VITE_CASINO_BASE,
                     }
-                )
+                );
 
                 if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error();
 
@@ -322,7 +321,6 @@ export const getCasinoSearchProviders = (signal, pageItems, debSearchString, sel
     };
 };
 
-
 //SEARCH SPORTS/////////////////////////////////////////////////////////////////////////
 export const getEventSearch = (signal, providerId, value) => {
     return async (dispatch) => {
@@ -331,13 +329,13 @@ export const getEventSearch = (signal, providerId, value) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `Pregame/PostData?action=searchpregamedata&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `Pregame/PostData?action=searchpregamedata&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                 {
                     data: `{"ProviderId":${providerId},"Value":"${value}"}`,
                 },
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                    baseURLOverride: config.VITE_SPORTS_API_BASE,
                 }
             );
 

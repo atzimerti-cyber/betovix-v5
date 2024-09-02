@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 import { getAccessToken } from './utils/auth';
+import config from './config';
 
 const fetchClient = () => {
     const defaultOptions = {
-        baseURL: import.meta.env.VITE_WALLET_API_BASE,
+        baseURL: config.VITE_WALLET_API_BASE,
         crossDomain: true,
         headers: {
             Accept: 'application/json',

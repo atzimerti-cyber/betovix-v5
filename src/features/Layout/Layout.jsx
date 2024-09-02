@@ -29,7 +29,7 @@ import LiveStream from './features/LiveStream';
 import Stats from './features/Stats';
 import Ticket from '../Ticket/Ticket';
 import OperatorView from './features/OperatorView';
-
+import LiveLoader from './features/LiveLoader';
 
 const Layout = () => {
     const dispatch = useDispatch();
@@ -91,7 +91,7 @@ const Layout = () => {
                 }}
             />
 
-
+            <LiveLoader />
             <Minibar />
             <Topbar />
 
@@ -122,10 +122,7 @@ const Layout = () => {
                 <div className={classes.CenterContainer} ref={centerContainerRef}>
                     <main>
                         <div className={pageNotAuthorized ? [classes.FullPage, classes.NotAuthorized].join(' ') : classes.FullPage}>
-
-                            {user?.Role < 40 && (
-                                <OperatorView />
-                            )}
+                            {user?.Role < 40 && <OperatorView />}
 
                             <Outlet />
                         </div>
@@ -138,6 +135,7 @@ const Layout = () => {
                     <AnimatePresence>
                         {showRightContainer && (
                             <motion.div
+                                className={classes.OuterContainerRightWrapper}
                                 initial={{ width: 0 }}
                                 animate={{ width: 330 }}
                                 exit={{ width: 0, transition: { duration: 0.2, delay: 0.2 } }}
@@ -212,8 +210,7 @@ const Layout = () => {
             <div
                 className={!isDesktop && user && userDropdownVisible ? [classes.FullOverlay, classes.Show].join(' ') : classes.FullOverlay}
                 onClick={() => dispatch(layoutActions.setUserDropdownVisible(false))}
-            >
-            </div>
+            ></div>
             <AnimatePresence>{!isDesktop && user && userDropdownVisible && <UserDrawer />}</AnimatePresence>
 
             {isMobile && <Bottombar />}

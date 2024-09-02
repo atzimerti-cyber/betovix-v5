@@ -19,8 +19,6 @@ import RegisterContainers from './features/RegisterContainers';
 import Crypto from './features/Crypto';
 import { translate } from '../../utils/translations';
 
-
-
 const Home = () => {
     const dispatch = useDispatch();
     // const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
@@ -109,18 +107,12 @@ const Home = () => {
     const hasRecentGames = filteredGames.recentGames?.Data?.length > 0;
     const hasFavoriteGames = filteredGames.favoriteGames?.Data?.length > 0;
 
-
-
-
     return (
         <div className={classes.PageContent}>
             <div className={classes.Home}>
+                {user && <Crypto />}
 
-                {user &&
-                    <Crypto />
-                }
-
-                <div className={isMobile || isTablet && !user ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
+                <div className={isMobile || (isTablet && !user) ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
                     {(isMobile === false || user === null) && <Banners banners={sportBanners} />}
                     {/* {(isMobile === false || user === null) && <HomeBanners isMobile={isMobile} />} */}
 
@@ -144,29 +136,39 @@ const Home = () => {
                     </>
                 )}
 
-                {permissions.AllowToCasino || permissions.AllowToSlots ? (
-                    hasNewGames && (
-                        <SwiperWithOverlay
-                            title={translate('New Games')}
-                            icon={<NewIcon className={classes.NewIcon} />}
-                            link='/casino/slots'
-                            items={filteredGames.newGames?.Data}
-                            slidesPerView={slidesPerView}
-                        />
-                    )
-                ) : null}
+                {permissions.AllowToCasino || permissions.AllowToSlots
+                    ? hasNewGames && (
+                          <SwiperWithOverlay
+                              title={translate('New Games')}
+                              icon={<NewIcon className={classes.NewIcon} />}
+                              link='/casino/slots'
+                              items={filteredGames.newGames?.Data}
+                              slidesPerView={slidesPerView}
+                          />
+                      )
+                    : null}
 
                 {user && (permissions.AllowToCasino || permissions.AllowToSlots) ? (
                     <>
                         {hasRecentGames && (
-                            <SwiperWithOverlay title={translate('Recently Played')} icon={<ClockIcon />} items={filteredGames.recentGames?.Data} slidesPerView={slidesPerView} />
+                            <SwiperWithOverlay
+                                title={translate('Recently Played')}
+                                icon={<ClockIcon />}
+                                items={filteredGames.recentGames?.Data}
+                                slidesPerView={slidesPerView}
+                            />
                         )}
 
                         {hasFavoriteGames && (
-                            <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} link='/casino/favorites' items={filteredGames.favoriteGames?.Data} slidesPerView={slidesPerView} />
+                            <SwiperWithOverlay
+                                title={translate('Favorites')}
+                                icon={<HeartIcon />}
+                                link='/casino/favorites'
+                                items={filteredGames.favoriteGames?.Data}
+                                slidesPerView={slidesPerView}
+                            />
                         )}
                     </>
-
                 ) : null}
             </div>
         </div>

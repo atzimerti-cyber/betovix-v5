@@ -53,7 +53,7 @@ const Betslip = memo(function (props) {
         const searchParams = new URLSearchParams(location.search);
         searchParams.set('modal', modal);
         if (tab) searchParams.set('tab', tab);
-    
+
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     };
 
@@ -184,7 +184,6 @@ const Betslip = memo(function (props) {
     };
 
     const getTicketPayload = () => {
-
         const ticket = getTicketFromStorage();
         const ticketChangesSettings = getTicketChangesSettings();
         if (!ticket) return;
@@ -230,16 +229,15 @@ const Betslip = memo(function (props) {
         const payload = JSON.stringify(betObj);
 
         return payload;
-
     };
 
     const onSaveBet = () => {
         const payload = getTicketPayload();
         const data = JSON.stringify(payload);
-    
+
         dispatch(saveBet(data))
             .then(() => {
-                addParamsToUrl('booked-bet')
+                addParamsToUrl('booked-bet');
             })
             .catch((error) => {
                 toast.error(error?.message);
@@ -247,7 +245,6 @@ const Betslip = memo(function (props) {
     };
 
     const onPlaceBet = () => {
-
         const ticket = getTicketFromStorage();
         const ticketChangesSettings = getTicketChangesSettings();
         if (!ticket) return;
@@ -288,12 +285,11 @@ const Betslip = memo(function (props) {
 
         if (selectedAccount && selectedAccount !== null && selectedAccount?.AccountId) {
             betObj.ForPlayer = selectedAccount.AccountId;
-       }
+        }
 
         const payload = JSON.stringify(betObj);
 
-        dispatch(placeBet(payload, slips, amounts, betType))
-           
+        dispatch(placeBet(payload, slips, amounts, betType));
     };
 
     const bonusButton = useMemo(() => {
@@ -301,11 +297,7 @@ const Betslip = memo(function (props) {
             return (
                 <div className={classNames(classes.BonusButton, { [classes.selected]: isBonus })}>
                     <label className={classes.bonusContainer}>
-                        <input
-                            checked={isBonus} 
-                            onChange={e => setIsBonus(e.target.checked)} 
-                            type="checkbox"
-                        />
+                        <input checked={isBonus} onChange={(e) => setIsBonus(e.target.checked)} type='checkbox' />
                         <span className={classes.checkMark} />
                         {translate('Play With Bonus')}
                     </label>
@@ -323,7 +315,7 @@ const Betslip = memo(function (props) {
                         <Spinner />
                     ) : (
                         <span>
-                           <SaveIcon className={classes.CoinsIcon} /> {translate('SHARE')}
+                            <SaveIcon className={classes.CoinsIcon} /> {translate('SHARE')}
                         </span>
                     )}
                 </button>
