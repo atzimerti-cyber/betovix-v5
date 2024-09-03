@@ -28,13 +28,14 @@ export const getHeroes = (signal) => {
                 icon: hero.Hero.Achievement?.Icon,
                 description: hero.Hero.Achievement?.TermsAndConditions,
                 metadata: {
-                    HeroName: hero.Hero.MetaData.Name,
+                    HeroName: hero.Hero.MetaData?.Name,
                     HeroSubName: hero.Hero.MetaData?.SubName,
                     action: hero.Hero.MetaData.Action,
                     lvlAction: hero.Hero.MetaData.LevelAction,
                 },
                 levels: hero.Levels?.map(level => ({
                     id: level.Level.Achievement?.AchievementID,
+                    sortName: level.Level.Achievement?.Name,
                     icon: level.Level.Achievement?.Icon,
                     name: level.Level.MetaData?.Name,
                     description: level.Level.Achievement?.TermsAndConditions,
@@ -46,11 +47,7 @@ export const getHeroes = (signal) => {
                     }))
                         .sort((a, b) => a.name.localeCompare(b.name))
                 }))
-                .sort((a, b) => {
-                    const levelANumber = parseInt(a.name.replace(/\D/g, ''), 10);
-                    const levelBNumber = parseInt(b.name.replace(/\D/g, ''), 10);
-                    return levelANumber - levelBNumber;
-                })
+                    .sort((a, b) => a.sortName.localeCompare(b.sortName))
             }))
                 .sort((a, b) => a.name.localeCompare(b.name));
 
@@ -397,6 +394,39 @@ export const rewardViewed = (rewardId) => {
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
+
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
+export const heroProgress = () => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.get(
+                `/ModuleGamification/GetHeroProgress`,
+                {
+                    baseURLOverride: import.meta.env.VITE_GAMIFICATION_STORETUBE,
+                }
+            );
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200 || response.data.Contents == null) throw Error(response.data.Contents);
+
+            const currentLevel = response.data.Contents.Level;
+            const progress = response.data.Contents.Progress;
+            //const progressFixed = progress.toFixed(2);
+            const selectedHero = response.data.Contents.Hero;
+
+            console.log(currentLevel);
+            console.log(progress);
+            console.log(selectedHero);
+
+            dispatch(gamificationActions.setCurrentLevel(currentLevel));
+            dispatch(gamificationActions.setProgressBar(progress));
+            dispatch(gamificationActions.setSelectedHero(selectedHero));
 
         } catch (error) {
             const message = error?.message ? error.message : error;

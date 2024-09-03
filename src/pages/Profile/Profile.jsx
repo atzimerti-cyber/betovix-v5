@@ -51,7 +51,7 @@ const Profile = () => {
                         <TabsVertical
                             tabs={[
                                 { id: 'overview', label: translate('Overview'), icon: <GlobeIcon />, active: selectedTab === 'overview' },
-                                { id: 'heroes', label: translate('Heroes'), icon: <LogoSmallIcon />, active: selectedTab === 'heroes' },
+                                { id: 'heroes', label: translate('Realm of Heroes'), icon: <LogoSmallIcon />, active: selectedTab === 'heroes' },
                                 { id: 'settings', label: translate('Settings'), icon: <Settings2Icon />, active: selectedTab === 'settings' },
                                 // { id: 'verification', label: translate('Verification'), icon: <CheckFilledIcon />, active: selectedTab === 'verification' },
                             ]}

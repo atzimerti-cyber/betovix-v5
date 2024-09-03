@@ -1,0 +1,84 @@
+.PageContent {
+    display: flex;
+    container-type: normal;
+    padding: 0px 10px 40px;
+    max-width: 1220px;
+    width: 100%;
+    container: page / inline-size;
+    min-height: 750px;
+    --tw-bg-opacity: 1;
+    background-color: var(--db-gray-banner);
+    flex-direction: column;
+    align-content: center;
+    align-items: center;
+}
+
+.Banner {
+    position: relative;
+    display: block;
+    justify-content: center;
+    padding: 1rem 2.5rem;
+    font-family: Byker, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    line-height: 1;
+    background-color: var(--db-gray-banner);
+    align-self: center;
+}
+
+.Banner::before,
+.Banner::after {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background-color: inherit;
+    width: 50vw;
+    content: '';
+}
+.Banner::before {
+    left: 100%;
+}
+.Banner::after {
+    right: 100%;
+}
+
+.BannerTitle {
+    font-size: 20px;
+    font-weight: 300;
+    --tw-text-opacity: 1;
+    color:  var(--db-brand-color);
+}
+.BannerTitle span {
+    display: block;
+    font-weight: 800;
+    color:var(--db-brand-green);
+}
+.BannerBoost {
+    white-space: nowrap;
+    text-align: end;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 800;
+    color: var(--db-purple-text);
+}
+
+.BannerBoost > span {
+    display: block;
+}
+.Container {
+    position: static;
+    background-color: #051825;
+    height: 800px;
+    width: 80vw;
+    overflow-y: scroll;
+}
+.Timeline{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+@media (min-width: 769px) {
+    .Container {
+        width: 65vw;
+    }
+}

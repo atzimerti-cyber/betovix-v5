@@ -119,9 +119,13 @@
 
 .ProgressTitle {
     color: #fff;
+    font-size: 12px;
+    font-weight: 400;
+    min-width: max-content;
 }
 
 .ProgressBar {
+    display: flex;
     width: 100%;
     overflow: hidden;
     position: relative;
@@ -134,11 +138,22 @@
     border-style: solid;
     border-color: var(--db-gray-4);
     z-index: 40;
+    align-content: center;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .Level {
-    font-size: 0.6rem;
+    position: absolute;
+    left: 45%;
+}
+
+.Level p {
+    font-size: 0.7rem;
+    font-weight: 600;
     color: #fff;
+    text-emphasis: none;
+    text-shadow: 1px 1px 0 #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
 }
 
 @keyframes shineLines {
@@ -231,7 +246,8 @@
     border-color: var(--db-gray-4);
     z-index: 40;
 }
-.ProgressBarMobile span{
+
+.ProgressBarMobile span {
     background: var(--db-brand-green);
 }
 

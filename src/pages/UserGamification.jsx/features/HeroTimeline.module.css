@@ -1,0 +1,36 @@
+.TimelineContent{
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.TimelineContent span{
+   font-size: 1.2rem;
+   font-weight: 500;
+   color: white;
+}
+.TimelineTree{
+    width: 100%;
+}
+.TimelineItem{
+    height: max-content;
+    display: flex;
+    position: relative;
+    min-height: 70px;
+    align-items: center;
+    width: 100%;
+}
+.MainSeparator {
+    display: flex;
+    align-items: center;
+}
+.Connector {
+    height: 40px;
+}
+.MainSeparator.Dot span{
+    padding: 8px;
+}
+.MainSeparator.SubDot span{ 
+    padding: 5px;
+}

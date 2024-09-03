@@ -2,18 +2,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
-import { NavLink } from 'react-router-dom';
-import { SwiperSlide } from 'swiper/react';
 
 import classes from './Minibar.module.css';
-import DropdownLang from '../../UI/Dropdown/DropdownLang';
 import MainButton from '../../UI/Buttons/MainButton';
 import { translate } from '../../../utils/translations';
-
-import SwiperMenu from '../../UI/MainSwiper/SwiperMenu';
 import MinibarMenu from '../../UI/HorizontalMenu/MinibarMenu';
-
-import LevelUpIcon from '../../../assets/svgs/level-up.svg?react';
 
 import { sportsbookActions } from '../../../pages/SportsBook/sportsbookSlice';
 
@@ -27,10 +20,9 @@ const Minibar = () => {
     const minibarMenu = useSelector((state) => state.layout.minibarMenu);
     const hasHero = useSelector((state) => state.gamification.selectedHero);
     const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
+    const levelProgress = useSelector((state) => state.gamification.progressBar);
 
     const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
-
-    //console.log(userCurrentLevel);
 
     const getPathByItemName = (itemName) => {
         switch (itemName) {
@@ -103,26 +95,31 @@ const Minibar = () => {
                     </div>
 
                     <div className={classes.MinibarRightWrapper}>
-                        {user && hasHero && Object.keys(hasHero).length > 0 && (
+                        {user && hasHero && Object.keys(hasHero).length > 0 ? (
                             <>
                                 <div className={classes.YourProgress}>
                                     <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
 
-                                        {/* <div className={classes.ProgressTitle}>{translate('Progress')}</div> */}
-                                        <div className={classes.Level}>{`${userCurrentLevel?.progress}%`}</div>
+                                        <div className={classes.ProgressTitle}>{userCurrentLevel}</div>
                                         <div className={classes.ProgressBar}>
-                                            {userCurrentLevel && Object.keys(userCurrentLevel).length > 0 ? (
-                                                <span style={{ width: `${userCurrentLevel?.progress}%` }}></span>
+                                            {levelProgress && Object.keys(levelProgress).length > 0 ? (
+                                                <>
+                                                    <div className={classes.Level}>
+                                                        <p>{`${(levelProgress)}%`}</p>
+                                                    </div>
+                                                    <span style={{ width: `${levelProgress}%` }}></span>
+                                                </>
                                             ) : (
                                                 <span style={{ width: `0%` }}></span>
                                             )}
                                         </div>
-                                        {/* <div className={classes.Icon}>
-                                            <LevelUpIcon />
-                                        </div> */}
                                     </MainButton>
                                 </div>
                             </>
+                        ) : (
+                            <MainButton color='bv-light-green' onClick={() => addParamsToUrl('your-progress')}>
+                                <p>Choose Hero</p>
+                            </MainButton>
                         )}
 
                     </div>
@@ -130,7 +127,7 @@ const Minibar = () => {
             ) : (
                 <div className={classes.Minibar}>
                     <div className={classes.MinibarLeftWrapper}>
-                        {user && hasHero && Object.keys(hasHero).length > 0 && (
+                        {user && hasHero && Object.keys(hasHero).length > 0 ? (
                             <>
 
                                 <div className={classes.YourProgressMobile}>
@@ -138,12 +135,12 @@ const Minibar = () => {
                                         <div className={classes.Container}>
                                             <div className={classes.ProgressBarMobile}>
                                                 {userCurrentLevel && Object.keys(userCurrentLevel).length > 0 ? (
-                                                    <span style={{ width: `${userCurrentLevel?.progress}%` }}></span>
+                                                    <span style={{ width: `${userCurrentLevel}%` }}></span>
                                                 ) : (
                                                     <span style={{ width: `0%` }}></span>
                                                 )}
                                             </div>
-                                            <div className={classes.LevelMobile}>{`${userCurrentLevel?.progress}%`}</div>
+                                            <div className={classes.LevelMobile}>{`${userCurrentLevel}%`}</div>
                                         </div>
 
                                         {/* <div className={classes.Icon}>
@@ -152,6 +149,24 @@ const Minibar = () => {
                                     </MainButton>
                                 </div>
                             </>
+                        ) : (
+
+                            <>
+                                <menu className={classes.MenuSelection}>
+                                    <div className={classes.MenuContent}>
+                                        {Object.keys(minibarMenu).length > 0 && (
+                                            <MinibarMenu
+                                                items={minibarMenu}
+                                                onSelect={(item) => {
+                                                    getPathByItemName(item.Name)
+                                                    handleClick(item.Name)
+                                                }}
+                                            />
+                                        )}
+                                    </div>
+                                </menu>
+                            </>
+
                         )}
                     </div>
 

@@ -25,14 +25,13 @@ import RewardsIcon from '../../assets/svgs/rewards.svg?react';
 
 import { getAccessToken } from '../../utils/auth';
 import { loginActions } from '../../pages/Login/loginSlice';
-import { cryptoActions } from '../../pages/Crypto/cryptoSlice';
 import { liveActions } from './liveSlice';
 import { setLang } from '../../utils/storage';
 import { ticketActions } from '../Ticket/ticketSlice';
 import { betslipActions } from '../Betslip/betslipSlice';
 
 import { getCrypto } from '../../pages/Crypto/cryptoAsyncActions';
-import { getRewards, getUserAchievements } from '../../pages/UserGamification.jsx/gamificationAsyncActions';
+import { getRewards, getUserAchievements, heroProgress } from '../../pages/UserGamification.jsx/gamificationAsyncActions';
 import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 
 export const loadInitData = (isMobile) => {
@@ -141,8 +140,9 @@ export const loadInitData = (isMobile) => {
             const signal = controller.signal;
             dispatch(getCrypto(signal));
 
-            //Get user achievements
-            dispatch(getUserAchievements());
+            //Get Progress
+            dispatch(heroProgress());
+            //dispatch(getUserAchievements());
             //Get user rewards
             dispatch(getRewards());
 
@@ -346,6 +346,12 @@ export const loadInitData = (isMobile) => {
                         label: `My Rewards`,
                         icon: <RewardsIcon color="#FF0000" />,
                         page: 'rewards',
+                    },
+                    {
+                        id: 3,
+                        label: `Hero’s Haven`,
+                        icon: <RewardsIcon color="#FF0000" />,
+                        page: 'hero',
                     },
                 ],
                 
