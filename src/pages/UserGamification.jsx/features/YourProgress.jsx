@@ -119,7 +119,10 @@ const YourProgress = () => {
                                             <div className={classes.LevelUpMilestone}>
                                                 <Milestones activeLevel={activeLevel} progressBar />
                                             </div>
-                                            <Rewards />
+                                            <div className={classes.ManualRewards}>
+                                                <Rewards />
+                                            </div>
+
                                         </section>
                                     }
 

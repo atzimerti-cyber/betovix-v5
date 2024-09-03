@@ -1,6 +1,8 @@
 .Modal {
     width: 780px;
-    max-height: 700px;
+    max-height: 70%;
+    height: auto;
+    /* height: 100%; */
     border-radius: 13px;
     position: absolute;
     /* position: relative; */
@@ -13,14 +15,14 @@
     --tw-translate-y: -0.5rem;
     --tw-scale-x: 0.9;
     --tw-scale-y: 0.9;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     background-color: var(--db-gray-6);
     border-radius: 10px;
     /* margin-top: 60px; */
     opacity: 0;
     animation: slide 0.2s ease-out forwards;
 }
+
 @keyframes slide {
     100% {
         transform: translateY(0) scale(1);
@@ -38,8 +40,13 @@
 }
 
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .Loading {
@@ -49,7 +56,7 @@
     height: 100px;
 }
 
-.GoToButton{
+.GoToButton {
     display: flex;
     justify-content: center;
     font-size: 8px;
@@ -174,19 +181,28 @@
     color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.ManualRewards{
+    justify-content: center;
+    margin-top: 1rem;
+    display: flex;
+    max-width: 100%;
+}
+
 /* Media */
 @media (min-width: 640px) {
-    .TopContent{
+    .TopContent {
         font-size: 1rem;
         line-height: 1.5rem;
     }
-    .TopContent header .Center{
+
+    .TopContent header .Center {
         left: 10%;
         font-size: 1rem;
     }
 }
 
 @media (min-width: 768px) {
+
     /* .Modal {
         margin-top: 220px;
     } */
@@ -194,29 +210,35 @@
         /* max-height: calc(100dvh - 130px); */
         padding: 1rem;
     }
+
     .ImageContainer {
         bottom: calc(100% - 250px);
         height: 420px;
     }
+
     .ImageContainer::before {
         top: 90px;
         height: 140px;
         width: 140px;
     }
+
     .MainContent {
         gap: 1rem;
     }
+
     .BreakdownGrid {
         gap: 1rem;
         grid-template-rows: 1fr;
         grid-template-columns: 0.5fr 1fr;
     }
+
     .TotalName,
     .TotalBits {
         font-size: 1rem;
         line-height: 1.5rem;
     }
-    .BreakdownGrid > div > div {
+
+    .BreakdownGrid>div>div {
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
@@ -225,11 +247,10 @@
     .LoginButtonContainer {
         top: 50%;
         --tw-translate-y: -50%;
-        transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-            scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+        transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     }
 
-    .TopContent header .Center{
+    .TopContent header .Center {
         left: 10%;
         font-size: 0.1rem;
     }

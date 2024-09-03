@@ -83,7 +83,7 @@ const Heroes = React.memo(() => {
                         {displayedHero && Object.keys(displayedHero).length > 0 &&
                             <section className={classes.LevelUpSection}>
                                 <div className={classes.LevelUpMilestone}>
-                                    <Levels activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
+                                    <Levels displayedHero={displayedHero} activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
                                     <Milestones activeLevel={activeLevel} profile />
                                 </div>
                             </section>

@@ -110,7 +110,7 @@ const Lobby = () => {
                             link={getPathByItemName(menuItem?.Item?.Name)}
                             items={menuItem?.Data}
                             max={20}
-                            slidesPerView={slidesPerView -1}
+                            slidesPerView={isMobile||isBigMobile ? (slidesPerView + 2):(slidesPerView)}
                         />
                     );
                 }
