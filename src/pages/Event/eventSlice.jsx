@@ -12,6 +12,8 @@ const initialState = {
     changedMarkets: 0,
     liveListOpenSportId: null,
     showingLiveEvent: null,
+
+    marketsList: null,
 };
 
 export const eventSlice = createSlice({
@@ -29,6 +31,8 @@ export const eventSlice = createSlice({
             state.changedMarkets = 0;
             state.liveListOpenSportId = null;
             state.showingLiveEvent = null;
+
+            state.marketsList = null;
         },
         setSports: (state, action) => {
             state.sports = action.payload;
@@ -75,6 +79,10 @@ export const eventSlice = createSlice({
         },
         setShowingLiveEvent: (state, action) => {
             state.showingLiveEvent = action.payload;
+        },
+
+        setMarketsList: (state, action) => {
+            state.marketsList = action.payload;
         },
     },
 });

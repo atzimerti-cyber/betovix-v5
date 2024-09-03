@@ -49,6 +49,7 @@ const Event = () => {
 
     const sportMarketTreeObj = useSelector((state) => state.event.sportMarketTreeObj);
     const sportMarketTree = useSelector((state) => state.sportsbook.sportMarketTree);
+    // const marketsList = useSelector((state) => state.event.marketsList);
 
     const [marketGroups, setMarketGroups] = useState(null);
     const [marketGroupsChanged, setMarketGroupsChanged] = useState(1);
@@ -56,6 +57,30 @@ const Event = () => {
     const [showTab, setShowTab] = useState('tab1');
 
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
+    // useEffect(() => {
+    //     if (!event) return;
+    //     if (!event.Markets) return;
+    //     if (!sportMarketTreeObj) return;
+
+    //     const groups = [];
+
+    //     event.Markets.forEach((market) => {
+    //         if (!market.MarketFields || market.MarketFields.length === 0) return;
+    //         const activeMarketFields = market.MarketFields.filter((mf) => mf.Active);
+    //         if (activeMarketFields.length === 0) return;
+
+    //         const marketTypeId = market.MarketTypeId;
+    //         const inTree = sportMarketTreeObj[marketTypeId];
+
+    //         // If not in tree, search for a similar name
+    //         if (!inTree){
+
+    //         } else {
+
+    //         }
+    //     });
+    // }, [changedMarkets, sportMarketTreeObj]);
 
     useEffect(() => {
         let handleResizeMessage = null;
@@ -179,7 +204,7 @@ const Event = () => {
         });
 
         let groups = Object.values(groupsObj);
-        groups.sort((a, b) => a.Id - b.Id);// maybe not needed
+        groups.sort((a, b) => a.Id - b.Id); // maybe not needed
 
         // Get auto...
         const marketTree = sportMarketTree && sportid ? sportMarketTree[sportid] : null;
@@ -332,11 +357,9 @@ const Event = () => {
                                         )}
                                         {event && !isLive && (
                                             <iframe
-                                            src={`/stats/Stats.html?styles=#${lang.id}/external/page/h2h/${
-                                                event.Info.HomeTeamId
-                                            }/${event.Info.AwayTeamId}`}
-                                            style={{ width: '100%', height: '100%', border: 'none' }}
-                                            title="Stats"
+                                                src={`/stats/Stats.html?styles=#${lang.id}/external/page/h2h/${event.Info.HomeTeamId}/${event.Info.AwayTeamId}`}
+                                                style={{ width: '100%', height: '100%', border: 'none' }}
+                                                title='Stats'
                                             />
                                         )}
                                     </div>

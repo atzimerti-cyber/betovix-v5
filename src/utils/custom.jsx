@@ -29,7 +29,6 @@ export function formatDateTimeObj(d) {
 }
 
 export function formatDateTime(d) {
-    
     if (!d || isNaN(new Date(d).getTime())) {
         d = new Date();
     } else if (typeof d === 'string') {
@@ -55,9 +54,9 @@ export function formatPoint(val) {
 
     if (typeof val === 'string') {
         if (stringIsNumber(val)) {
-            val = parseFloat(val.replace(",", "."));
+            val = parseFloat(val.replace(',', '.'));
         } else {
-            return "-";
+            return '-';
         }
     }
     return val.toFixed(2);
@@ -180,13 +179,17 @@ export function getSportMarketTreeObj(sportMarketTree) {
                     groups = smto[marketTypeId].groups;
                 }
 
-                groups.push({
-                    badge: group.badge,
-                    isActive: group.isActive,
-                    name: group.name,
-                    type: 'group',
-                    groupIndex: i,
-                });
+                let groupExists = groups.find((g) => g.groupIndex === i);
+                if (!groupExists) {
+                    groups.push({
+                        badge: group.badge,
+                        isActive: group.isActive,
+                        name: group.name,
+                        type: 'group',
+                        groupIndex: i,
+                        allIndex: i * 10000 + k * 1000 + m,
+                    });
+                }
 
                 smto[marketTypeId] = {
                     name: market.name,
@@ -232,6 +235,8 @@ export function getSportMarketTreeObjFromMarkets(markets) {
         const market = markets[m];
         const marketTypeId = market.MarketTypeId;
 
+        const allIndex = market.MarketSubTypeId ? parseInt(market.MarketSubTypeId) * 1000 + m : market.MarketTypeId * 1000 + m;
+
         smto[marketTypeId] = {
             name: market.MarketName.International,
             isActive: market.Active,
@@ -246,7 +251,7 @@ export function getSportMarketTreeObjFromMarkets(markets) {
                 type: 'sub',
                 subIndex: market.MarketSubTypeId ? parseInt(market.MarketSubTypeId) : market.MarketTypeId,
             },
-            groups: [{ badge: null, isActive: market.Active, name: 'All', type: 'group', groupIndex: 0 }],
+            groups: [{ badge: null, isActive: market.Active, name: 'All', type: 'group', groupIndex: 0, allIndex: allIndex }],
         };
 
         for (let field of market.MarketFields) {

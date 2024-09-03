@@ -60,7 +60,10 @@ export const liveSlice = createSlice({
             state.addedRemovedEvent += 1;
         },
         addIncomplete: (state, action) => {
-            // Check that there are not any very old incomplete events
+            const eventId = action.payload.MatchId;
+            state.incompleteDataEvents[eventId] = action.payload;
+
+            // Check that there are not any old incomplete events and if so, remove them
             const currentIncomplete = current(state.incompleteDataEvents);
 
             const now = new Date();
@@ -73,9 +76,6 @@ export const liveSlice = createSlice({
                     delete currentIncomplete[key];
                 }
             });
-
-            const eventId = action.payload.MatchId;
-            state.incompleteDataEvents[eventId] = action.payload;
         },
         checkAlives: (state, action) => {
             const currentLive = current(state.liveState);
