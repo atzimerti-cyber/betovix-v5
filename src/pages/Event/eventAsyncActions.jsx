@@ -53,9 +53,6 @@ export const getEvent = (sportId, eventId, signal) => {
                 sportMarketTreeObj = getSportMarketTreeObj(responses[0].data.Contents);
                 dispatch(eventActions.setSportMarketTreeObj(sportMarketTreeObj));
                 dispatch(sportsbookActions.setSportMarketTree({ sportId: sportId, value: responses[0].data.Contents }));
-
-                // marketsList = getMarketsList(responses[0].data.Contents);
-                // dispatch(eventActions.setMarketsList(marketsList));
             }
 
             dispatch(eventActions.setEvent(responses[1].data.Contents));

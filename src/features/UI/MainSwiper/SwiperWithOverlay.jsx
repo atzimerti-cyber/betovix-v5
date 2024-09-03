@@ -71,8 +71,10 @@ const SwiperWithOverlay = (props) => {
                         return (
                             <SwiperSlide key={item.Data.Id}>
                                 <div className={classes.SlideContainer}>
-                                    <Link to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}>
-                                    {/* <Link to={`/casino/game/${gameType}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}`}> */}
+                                    <Link
+                                        to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
+                                    >
+                                        {/* <Link to={`/casino/game/${gameType}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}`}> */}
                                         <article className={classes.Card}>
                                             <div className={classes.ImageContainer}>
                                                 {loadedImages.includes(index) === false && <LoaderPlaceholder />}
@@ -100,14 +102,15 @@ const SwiperWithOverlay = (props) => {
                                                 </div>
                                             </div>
                                         </article>
-                                       
                                     </Link>
                                     {bonusBalance > 0 && (
-                                        <Link to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}>
+                                        <Link
+                                            to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                                        >
                                             <div className={classes.isBonus}>
                                                 <button className={classes.bonusContainer}>
-                                                <GiftIcon />
-                                                {translate('Play With Bonus')}
+                                                    <GiftIcon />
+                                                    {translate('Play With Bonus')}
                                                 </button>
                                             </div>
                                         </Link>
