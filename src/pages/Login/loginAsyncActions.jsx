@@ -90,6 +90,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
         }
     };
 };
+
 export const verify = (code, navigate) => {
     return async (dispatch) => {
         try {
@@ -109,7 +110,7 @@ export const verify = (code, navigate) => {
             toast.error('An error has occurred!');
         }
     };
-}
+};
 
 export const getUser = (navigate) => {
     return async (dispatch) => {
@@ -152,6 +153,100 @@ export const getUser = (navigate) => {
             }
         } catch (error) {
             toast.error(error?.message);
+        }
+    };
+};
+
+export const sentRecoveryEmail = (email) => {
+    return async (dispatch) => {
+        dispatch(loginActions.setUpdateLoading(true));
+
+        try {
+            const response = await axiosApi.get(`/MyAccount/RecoverPassword?email=${email}`, {
+                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+            });
+            setTimeout(() => {
+                dispatch(loginActions.setUpdateLoading(false));
+            }, 1000);
+
+            if (response.data.Status.StatusCode === 200) {
+                toast.success(response.data.Contents);
+                dispatch(loginActions.setEmailSentCorrectly(true));
+            } else {
+                toast.error('Please ensure your email address is correct');
+                dispatch(loginActions.setEmailSentCorrectly(false));
+            }
+
+        } catch (error) {
+            toast.error('An error has occurred!');
+            dispatch(loginActions.setEmailSentCorrectly(false));
+            dispatch(loginActions.setUpdateLoading(false));
+        }
+    };
+};
+
+export const verifyCode = (code) => {
+    return async (dispatch) => {
+        dispatch(loginActions.setUpdateLoading(true));
+
+        try {
+            const response = await axiosApi.get(`/MyAccount/VerifyRecovery?RecoveryCode=${code}`, {
+                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+            });
+
+            setTimeout(() => {
+                dispatch(loginActions.setUpdateLoading(false));
+            }, 1000);
+
+            if (response.data.Status.StatusCode === 200) {
+                toast.success('Verification Successful!');
+                dispatch(loginActions.setRecoverAccountId(response.data.Contents));
+
+            } else {
+                toast.error('Invalid Code');         
+                dispatch(loginActions.setRecoverAccountId(null));
+            }
+
+        } catch (error) {
+            toast.error('An error has occurred!');
+            dispatch(loginActions.setRecoverAccountId(null));
+            dispatch(loginActions.setUpdateLoading(false));
+        }
+    };
+};
+
+export const updatePassword = (info, id, navigate, locationPathname) => {
+
+    return async (dispatch) => {   
+         dispatch(loginActions.setUpdateLoading(true));
+        try {
+            const response = await axiosApi.post(`MyAccount/ChangeRecoveredPassword`,  {
+                Password: info.Password,
+                RePassword: info.RePassword,
+                AccountId: id
+            },
+            {
+                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+            });
+
+            setTimeout(() => {
+                dispatch(loginActions.setUpdateLoading(false));
+            }, 1000);
+
+             if (response.data.Status.StatusCode !== 200) {
+                toast.error(response.data.Contents);
+            } else {
+              
+                toast.success('Update Successful!');
+                dispatch(loginActions.setEmailSentCorrectly(false));
+                dispatch(loginActions.setRecoverAccountId(null));
+
+                navigate(`${locationPathname}?modal=auth&tab=login`, { replace: true });
+            }
+
+        } catch (error) {
+            toast.error('An error has occurred!');
+            dispatch(loginActions.setUpdateLoading(false));
         }
     };
 };
