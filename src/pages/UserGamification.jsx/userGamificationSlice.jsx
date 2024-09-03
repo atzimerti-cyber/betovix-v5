@@ -32,6 +32,7 @@ const initialState = {
     loading: false,
     progressBar: null,
     manualRewards: {},
+    ericLevels:{}
 };
 
 export const userGamificationSlice = createSlice({
@@ -71,8 +72,11 @@ export const userGamificationSlice = createSlice({
         setProgressBar: (state, action) => {
             state.progressBar = action.payload;
         },
-        setManualRewards: (state, action) => {
-            state.manualRewards = action.payload;
+        // setManualRewards: (state, action) => {
+        //     state.manualRewards = action.payload;
+        // },
+        setEricLevels: (state, action) => {
+            state.ericLevels = action.payload;
         },
     },
 });

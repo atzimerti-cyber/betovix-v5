@@ -1,5 +1,11 @@
+.ManualRewards{
+    display: flex;
+    gap: 0.5rem;
+}
+
 .Card {
-    min-height: 230px;
+    max-height: 230px;
+    /* min-height: 230px; */
     height: auto;
     flex-basis: calc(25% - 10px);
     flex-grow: 1;
@@ -37,8 +43,8 @@
 }
 
 .IconContainer svg {
-    height: 40px;
-    width: 40px;
+    height: 2rem;
+    width: 2rem;
     text-rendering: geometricPrecision;
 }
 
@@ -159,6 +165,9 @@
 }
 
 @media (min-width: 768px) {
+    .Card{
+        min-width: max-content;
+    }
     .Card header {
         justify-content: flex-start;
     }

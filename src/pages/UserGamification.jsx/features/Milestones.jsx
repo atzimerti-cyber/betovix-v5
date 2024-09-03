@@ -31,10 +31,12 @@ const Milestones = (props) => {
     const selectedHeroLevels = useSelector((state) => state.gamification.heroLevels);
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
     const currentUserLevel = useSelector((state) => state.gamification.currentLevel);
+    const ericLevels = useSelector((state) => state.gamification.ericLevels);
 
     let heroLevels;
     if (!selectedHero) {
-        heroLevels = displayedHero.levels;
+        heroLevels = ericLevels;
+        // heroLevels = displayedHero.levels;
     } else if (selectedHero) {
         heroLevels = selectedHeroLevels;
     }
@@ -63,8 +65,9 @@ const Milestones = (props) => {
         const currentLevel = heroLevels[thisLevelIndex];
 
         var progress = 0;
-        let totalXP;
-        let progressSection;
+        let totalXP = 0;
+        let progressSection = 0;
+        let progressSectionRounded = 0;
 
         let achList = [...currentLevel.milestones];
 
@@ -79,15 +82,17 @@ const Milestones = (props) => {
             } else {
                 progressSection = totalXP / (achList.length);
             }
+            progressSectionRounded = parseFloat(progressSection.toFixed(2));
         }
 
-        let sections;
+        let xP = 0;
 
         achList.forEach(item => {
             const mP = item.percentageComplete;
-            sections += (mP / 100) * progressSection;
+            xP += (mP / 100) * progressSectionRounded;
         });
-///////////////////////////////////////////////////////////////////////////////UNFINISHED////////////////////////////////////////////////////
+
+        progress = (xP / totalXP) * 100;
         return progress;
     };
 
@@ -193,18 +198,18 @@ const Milestones = (props) => {
                                                 // />
                                                 <MilestoneCard
                                                     key={`${heroLevels[thisLevelIndex].milestone}_temp_locked`}
-                                                    label={heroLevels[thisLevelIndex].name}
+                                                    label={heroLevels[thisLevelIndex]?.name}
                                                     index={heroLevels[thisLevelIndex].milestones.length}
                                                     level={heroLevels[thisLevelIndex]}
                                                     firstCard
-                                                    complete={heroLevels[thisLevelIndex].name === currentUserLevel.name}
+                                                    complete={heroLevels[thisLevelIndex]?.name === currentUserLevel?.name}
                                                 />
                                             )}
 
                                             {heroLevels[thisLevelIndex]?.milestones.map((milestone, index) => (
                                                 <MilestoneCard
                                                     key={`${heroLevels[thisLevelIndex].id}_${milestone.id}`}
-                                                    label={`${milestone.name}`}
+                                                    label={`${milestone?.name}`}
                                                     index={index}
                                                     type={`${milestone.rewardType}`}
                                                     details={`${milestone.rewardValue}`}

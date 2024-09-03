@@ -46,14 +46,19 @@ export const getHeroes = (signal) => {
                     }))
                         .sort((a, b) => a.name.localeCompare(b.name))
                 }))
-                    .sort((a, b) => a.name.localeCompare(b.name))
+                .sort((a, b) => {
+                    const levelANumber = parseInt(a.name.replace(/\D/g, ''), 10);
+                    const levelBNumber = parseInt(b.name.replace(/\D/g, ''), 10);
+                    return levelANumber - levelBNumber;
+                })
             }))
                 .sort((a, b) => a.name.localeCompare(b.name));
 
 
-            console.log("Get All Heroes:", heroes);
+            console.log("Get All Heroes:", heroes[0].levels);
             dispatch(gamificationActions.setHeroes(heroes));
             dispatch(gamificationActions.setDisplayedHero(heroes[0]));
+            dispatch(gamificationActions.setEricLevels(heroes[0].levels));
 
             dispatch(appActions.setBarLoading(false));
         } catch (error) {
@@ -228,7 +233,11 @@ export const getUserAchievements = () => {
                     nextLvlXP: level.Level?.NextLevelEntrand?.ScoreBoard,
                     progress: levelProgress(level),
                 };
-            }).sort((a, b) => a.name.localeCompare(b.name));
+            }).sort((a, b) => {
+                const levelANumber = parseInt(a.name.replace(/\D/g, ''), 10);
+                const levelBNumber = parseInt(b.name.replace(/\D/g, ''), 10);
+                return levelANumber - levelBNumber;
+            });
 
 
 

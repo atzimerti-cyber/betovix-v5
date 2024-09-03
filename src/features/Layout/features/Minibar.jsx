@@ -28,6 +28,8 @@ const Minibar = () => {
     const hasHero = useSelector((state) => state.gamification.selectedHero);
     const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
 
+    const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
+
     //console.log(userCurrentLevel);
 
     const getPathByItemName = (itemName) => {
@@ -72,84 +74,90 @@ const Minibar = () => {
 
     return (
         <>
-            <div className={classes.Minibar}>
-                <div className={classes.MinibarLeftWrapper}>
-                    <>
+            {!isMobile ? (
+                <div className={classes.Minibar}>
+                    <div className={classes.MinibarLeftWrapper}>
+                        <>
+                            <menu className={classes.MenuSelection}>
+                                <div className={classes.MenuContent}>
+                                    {Object.keys(minibarMenu).length > 0 && (
+                                        <MinibarMenu
+                                            items={minibarMenu}
+                                            onSelect={(item) => {
+                                                getPathByItemName(item.Name)
+                                                handleClick(item.Name)
+                                            }}
+                                        />
+                                    )}
+                                </div>
+                            </menu>
+                        </>
+                    </div>
 
-                        {/* {Object.keys(minibarMenu).length > 0 && (
-                            <SwiperMenu
-                                slidesPerView={'auto'}
-                                // icon={<PricesIcon />}
-                                // title={<Link to='/crypto'>{translate('Crypto Prices')}</Link>}
-                                // viewAll='/crypto'
-                                spaceBetween={33}
-                                hideArrows>
-                                {minibarMenu.map((item) => (
-                                    <SwiperSlide key={item.Id}>
-                                        <div className={classes.MinibarItem} onClick={() => handleClick(item.Name)}>
-                                            <NavLink className={({ isActive }) => (isActive ? [classes.NavItem, classes.ActiveItem].join(' ') : classes.NavItem)} to={getPathByItemName(item.Name)}>
+                    <div className={classes.MinibarCenterWrapper}>
+                        {!user && (
+                            <>
 
-                                                {translate(`${item.Name}`)}
+                            </>
+                        )}
+                    </div>
 
-                                            </NavLink>
+                    <div className={classes.MinibarRightWrapper}>
+                        {user && hasHero && Object.keys(hasHero).length > 0 && (
+                            <>
+                                <div className={classes.YourProgress}>
+                                    <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
+
+                                        {/* <div className={classes.ProgressTitle}>{translate('Progress')}</div> */}
+                                        <div className={classes.Level}>{`${userCurrentLevel?.progress}%`}</div>
+                                        <div className={classes.ProgressBar}>
+                                            {userCurrentLevel && Object.keys(userCurrentLevel).length > 0 ? (
+                                                <span style={{ width: `${userCurrentLevel?.progress}%` }}></span>
+                                            ) : (
+                                                <span style={{ width: `0%` }}></span>
+                                            )}
                                         </div>
-                                    </SwiperSlide>
-                                ))}
-                            </SwiperMenu>
-                        )} */}
+                                        {/* <div className={classes.Icon}>
+                                            <LevelUpIcon />
+                                        </div> */}
+                                    </MainButton>
+                                </div>
+                            </>
+                        )}
 
-                        <menu className={classes.MenuSelection}>
-                            <div className={classes.MenuContent}>
-                                {Object.keys(minibarMenu).length > 0 && (
-                                    <MinibarMenu
-                                        items={minibarMenu}
-                                        onSelect={(item) => {
-                                            getPathByItemName(item.Name)
-                                            handleClick(item.Name)
-                                        }}
-                                    />
-                                )}
-                            </div>
-                        </menu>
-                    </>
+                    </div>
                 </div>
+            ) : (
+                <div className={classes.Minibar}>
+                    <div className={classes.MinibarLeftWrapper}>
+                        {user && hasHero && Object.keys(hasHero).length > 0 && (
+                            <>
 
-                <div className={classes.MinibarCenterWrapper}>
-                    {!user && (
-                        <>
+                                <div className={classes.YourProgressMobile}>
+                                    <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
+                                        <div className={classes.Container}>
+                                            <div className={classes.ProgressBarMobile}>
+                                                {userCurrentLevel && Object.keys(userCurrentLevel).length > 0 ? (
+                                                    <span style={{ width: `${userCurrentLevel?.progress}%` }}></span>
+                                                ) : (
+                                                    <span style={{ width: `0%` }}></span>
+                                                )}
+                                            </div>
+                                            <div className={classes.LevelMobile}>{`${userCurrentLevel?.progress}%`}</div>
+                                        </div>
 
-                        </>
-                    )}
-                </div>
-
-                <div className={classes.MinibarRightWrapper}>
-                    {user && hasHero && Object.keys(hasHero).length > 0 && (
-                        // {user && (
-                        <>
-                            <div className={classes.YourProgress}>
-                                <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
-
-                                    {/* <div className={classes.ProgressTitle}>{translate('Progress')}</div> */}
-                                    <div className={classes.Level}>{`${userCurrentLevel?.progress}%`}</div>
-                                    <div className={classes.ProgressBar}>
-                                        {userCurrentLevel && Object.keys(userCurrentLevel).length > 0 ? (
-                                            <span style={{ width: `${userCurrentLevel?.progress}%` }}></span>
-                                        ) : (
-                                            <span style={{ width: `0%` }}></span> ///////////////////////////////////////////////HARD CODED
-                                            // <span style={{ width: `50%` }}></span> ///////////////////////////////////////////////HARD CODED
-                                        )}
-                                    </div>
-                                    <div className={classes.Icon}>
-                                        <LevelUpIcon />
-                                    </div>
-                                </MainButton>
-                            </div>
-                        </>
-                    )}
+                                        {/* <div className={classes.Icon}>
+                                            <LevelUpIcon />
+                                        </div> */}
+                                    </MainButton>
+                                </div>
+                            </>
+                        )}
+                    </div>
 
                 </div>
+            )}
 
-            </div>
         </>
     );
 };
