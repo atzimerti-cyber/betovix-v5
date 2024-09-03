@@ -56,7 +56,6 @@ const MarketGroup = (props) => {
                 } else {
                     return;
                 }
-            } else if (!inTree && selectedMarketCategory.Id === 9999) {
             } else {
                 const thisGroup = inTree.groups.find((g) => g.groupIndex === selectedMarketCategory.Id);
                 if (!thisGroup && keyString && market.MarketName.International.includes(keyString)) {
@@ -124,117 +123,6 @@ const MarketGroup = (props) => {
 
         setMarketsWithSubgroups(subgroups);
     }, [changedMarkets, props.marketGroupsChanged, selectedMarketCategoryIndex, sportMarketTreeObj]);
-
-    // useEffect(() => {
-    //     if (!props.event) return;
-    //     if (!props.marketGroups) return;
-    //     if (!sportMarketTreeObj) return;
-
-    //     const selectedMarketCategory = props.marketGroups[selectedMarketCategoryIndex];
-    //     if (!selectedMarketCategory) return;
-
-    //     let keyString = null;
-    //     if (selectedMarketCategory.Auto) keyString = selectedMarketCategory.Auto.split('|| ')[1];
-
-    //     let updatedMarkets = [];
-    //     props.event.Markets.forEach((market, index) => {
-    //         if (!market.MarketFields || market.MarketFields.length === 0) return;
-    //         const activeMarketFields = market.MarketFields.filter((mf) => mf.Active);
-    //         if (activeMarketFields.length === 0) return;
-
-    //         const marketTypeId = market.MarketTypeId;
-    //         const treeObj = sportMarketTreeObj[marketTypeId];
-
-    //         let groupIndex;
-    //         let subIndex;
-    //         let subName;
-    //         let marketIndex;
-
-    //         if (treeObj) {
-    //             groupIndex = treeObj.groups.find((g) => g.groupIndex === selectedMarketCategory.Id);
-    //             if (!groupIndex && keyString && market.MarketName.International.includes(keyString)) {
-    //                 // If there confirms with auto, add it
-    //                 subIndex = treeObj.sub.subIndex;
-    //                 subName = treeObj.sub.name;
-    //                 marketIndex = 9999;
-    //             } else if (!groupIndex) {
-    //                 return;
-    //             }
-
-    //             subIndex = treeObj.sub.subIndex;
-    //             subName = treeObj.sub.name;
-    //             marketIndex = treeObj.marketIndex;
-    //         } else if (!treeObj && selectedMarketCategory.Auto) {
-    //             if (market.MarketName.International.includes(keyString)) {
-    //                 subIndex = market.MarketSubTypeId ? parseInt(market.MarketSubTypeId) : market.MarketTypeId;
-    //                 subName = market.MarketName.International;
-    //                 marketIndex = market.MarketTypeId;
-    //             } else {
-    //                 return;
-    //             }
-    //         } else if (!treeObj && selectedMarketCategory.Id === 9999) {
-    //             subIndex = market.MarketSubTypeId ? parseInt(market.MarketSubTypeId) : market.MarketTypeId;
-    //             subName = market.MarketName.International;
-    //             marketIndex = market.MarketTypeId;
-    //         } else if (!treeObj) {
-    //             return;
-    //         }
-
-    //         // Markets with the same subgroup and similar name (includes a number inside parenthesis) should be grouped together
-    //         let label = market.MarketName.International;
-
-    //         if (
-    //             market.MarketFields[0]?.FieldName?.International.startsWith('Over') ||
-    //             market.MarketFields[0]?.FieldName?.International.startsWith('Under') ||
-    //             market.MarketFields[0]?.FieldName?.International.startsWith('Team 1') ||
-    //             market.MarketFields[0]?.FieldName?.International.startsWith('Team 2')
-    //         ) {
-    //             label = removeNumberInParentheses(market.MarketName.International);
-    //         }
-
-    //         const updatedMarket = {
-    //             ...market,
-    //             MarketFields: activeMarketFields,
-    //             subIndex: subIndex,
-    //             subName: subName,
-    //             marketIndex: marketIndex,
-    //             label: label,
-    //         };
-    //         updatedMarkets.push(updatedMarket);
-    //     });
-
-    //     // Grouping objects by 'subIndex' and the first part of 'name' before '('
-    //     const grouped = updatedMarkets.reduce((acc, obj) => {
-    //         // const key = `${obj.subIndex}-${obj.label}`;
-    //         const key = `${obj.label}`;
-    //         if (!acc[key]) {
-    //             acc[key] = [];
-    //         }
-    //         acc[key].push(obj);
-    //         return acc;
-    //     }, {});
-
-    //     // Convert the object of groups into an array of groups and sort each group by 'marketIndex'
-    //     const subgroups = Object.values(grouped).map((group) => {
-    //         group.sort((a, b) => a.marketIndex - b.marketIndex);
-    //         return group;
-    //     });
-
-    //     // Sort the subgroups based on 'subIndex' and then by the smallest 'marketIndex' within each subgroup
-    //     subgroups.sort((a, b) => {
-    //         const subIndexDiff = a[0].subIndex - b[0].subIndex;
-    //         if (subIndexDiff !== 0) return subIndexDiff;
-
-    //         const marketIndexDiff = a[0].marketIndex - b[0].marketIndex;
-    //         if (subIndexDiff !== 0) return marketIndexDiff;
-
-    //         // If subIndex and marketIndex are the same, compare the smallest 'marketTypeId' of each subgroup
-    //         // return a[0].MarketTypeId - b[0].MarketTypeId;
-    //         return a[0].MarketName.International - b[0].MarketName.International;
-    //     });
-
-    //     setMarketsWithSubgroups(subgroups);
-    // }, [changedMarkets, props.marketGroupsChanged, selectedMarketCategoryIndex, sportMarketTreeObj, props.event?.MatchId]);
 
     const removeNumberInParentheses = (input) => {
         // Regular expression to find a number in parentheses
