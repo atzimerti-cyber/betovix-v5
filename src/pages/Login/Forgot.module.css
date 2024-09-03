@@ -5,6 +5,84 @@
     justify-content: flex-start;
 }
 
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+}
+
+.Required {
+    color: var(--db-gray-5);
+    font-size: 0.9rem;
+    margin-inline: 0.25ch;
+    transition: color 0.3s;
+}
+
+.Required.Fulfilled {
+    color: var(--db-brand-green);
+}
+
+.Container {
+    margin-bottom: 1rem;
+}
+
+.ShowPasswordIcon line {
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.ShowPasswordIcon.ShowLine line {
+    opacity: 1;
+}
+
+.FormValidationMessage {
+    animation: _fadeIn_2pkma_1 0.3s backwards;
+    color: var(--db-red-primary);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    line-height: 1.2;
+    margin-block: 0.375rem 0;
+    margin-inline: 0.25em;
+}
+
+.PasswordCheckContainer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.25rem;
+    margin-block: 0 0.25rem;
+    margin-block-start: 0.25rem;
+}
+
+.PasswordMessage {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    color: var(--db-gray-5);
+    transition: color 0.3s;
+}
+
+.PasswordMessage svg {
+    width: 0.75rem;
+    height: 0.75rem;
+}
+
+.PasswordMessage svg path {
+    fill: var(--db-gray-800);
+}
+
+.PasswordText {
+    line-height: 0.75rem;
+}
+
+.PasswordMessage.IsValid {
+    color: var(--db-brand-green);
+}
+
+.PasswordMessage.IsValid svg path {
+    fill: #33c16c;
+}
+
 .FormTitle {
     margin-top: 1.5rem;
     margin-bottom: 1.5rem;
@@ -30,4 +108,20 @@
     border-radius: 0.375rem;
     font-size: 0.75rem;
     line-height: 1rem;
+}
+
+.RecoverForm .InputOuter {
+    margin-bottom: 0.5rem;
+    border-radius: 0.5rem;
+    border-color: var(--db-gray-2);
+}
+
+.Text {
+    margin-bottom: 0.25rem;
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    line-height: 1rem;
+    color: var(--db-body-text);
+    margin-top: 0.75rem;
 }
