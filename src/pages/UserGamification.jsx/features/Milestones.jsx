@@ -25,11 +25,10 @@ const Milestones = (props) => {
 
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
-    const user = useSelector((state) => state.login.user);
+    const user = useSelector((state) => state.login.user.AccountId);
 
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
     const selectedHeroLevels = useSelector((state) => state.gamification.heroLevels);
-    const displayedHero = useSelector((state) => state.gamification.displayedHero);
     const currentUserLevel = useSelector((state) => state.gamification.currentLevel);
     const ericLevels = useSelector((state) => state.gamification.ericLevels);
 
@@ -62,38 +61,17 @@ const Milestones = (props) => {
             return 0;
         }
 
-        const currentLevel = heroLevels[thisLevelIndex];
+        const displayedLevel = heroLevels[thisLevelIndex];
+        // if (displayedLevel.id === currentUserLevel?.id) {
+        return displayedLevel.progress;
+        // } else if (displayedLevel.id !== currentUserLevel?.id) {
+        //     if (displayedLevel.completed == true) {
+        //         return 100;
+        //     } else {
+        //         return 0;
+        //     }
 
-        var progress = 0;
-        let totalXP = 0;
-        let progressSection = 0;
-        let progressSectionRounded = 0;
-
-        let achList = [...currentLevel.milestones];
-
-        if (achList.length > 0) {
-            achList.map(ach => {
-                totalXP += ach.pointsValue;
-            })
-
-            if (currentLevel.nextLvlBP) {
-                totalXP = totalXP + currentLevel.nextLvlBP;
-                progressSection = totalXP / (achList.length + 1);
-            } else {
-                progressSection = totalXP / (achList.length);
-            }
-            progressSectionRounded = parseFloat(progressSection.toFixed(2));
-        }
-
-        let xP = 0;
-
-        achList.forEach(item => {
-            const mP = item.percentageComplete;
-            xP += (mP / 100) * progressSectionRounded;
-        });
-
-        progress = (xP / totalXP) * 100;
-        return progress;
+        // }
     };
 
     const handleRefresh = () => {
@@ -135,7 +113,6 @@ const Milestones = (props) => {
                     ) : (
                         <button className={classes.LeftArrow} onClick={scrollLeft}>
                             <AngleLeftIcon />
-                            {/* &#8592; */}
                         </button>
                     )
 
@@ -161,12 +138,13 @@ const Milestones = (props) => {
                                                         ].map((milestone, index) => (
                                                             <LevelDiamond
                                                                 key={milestone.id}
-                                                                complete={(index == 0 || milestone.percentageComplete == 100) && true}
+                                                                complete={(index == 0 || milestone?.progress == 100) && true}
                                                                 index={index}
                                                             />
                                                         ))}
 
-                                                        {thisLevelIndex < heroLevels.length && (
+                                                        {/* NEXT LEVEL DIAMOND */}
+                                                        {/* {thisLevelIndex < heroLevels.length && (
                                                             <LevelDiamond
                                                                 // key={`${displayedHeroLevels[thisLevelIndex].id}_${displayedHeroLevels[thisLevelIndex].milestones[displayedHeroLevels[thisLevelIndex].milestones.length]
                                                                 //     }`}
@@ -174,7 +152,7 @@ const Milestones = (props) => {
                                                                 index=''
                                                                 complete={heroLevels[thisLevelIndex].percentageComplete === 100 ? true : false}
                                                             />
-                                                        )}
+                                                        )} */}
                                                     </>
                                                 ) : (
                                                     Array.from({ length: 6 }, (_, index) => <LevelDiamond key={index} complete={false} index={index} />)
@@ -202,7 +180,7 @@ const Milestones = (props) => {
                                                     index={heroLevels[thisLevelIndex].milestones.length}
                                                     level={heroLevels[thisLevelIndex]}
                                                     firstCard
-                                                    complete={heroLevels[thisLevelIndex]?.name === currentUserLevel?.name}
+                                                    complete={heroLevels[thisLevelIndex]?.id === currentUserLevel?.id || heroLevels[thisLevelIndex]?.completed}
                                                 />
                                             )}
 
@@ -214,11 +192,12 @@ const Milestones = (props) => {
                                                     type={`${milestone.rewardType}`}
                                                     details={`${milestone.rewardValue}`}
                                                     level={heroLevels[thisLevelIndex]}
-                                                    complete={milestone.percentageComplete === 100 ? true : false}
+                                                    complete={milestone.progress === 100 ? true : false}
                                                 />
                                             ))}
 
-                                            {thisLevelIndex < heroLevels.length && (
+                                            {/* NEXT LEVEL CARD */}
+                                            {/* {thisLevelIndex < heroLevels.length && (
                                                 <MilestoneCard
                                                     key={`${heroLevels[thisLevelIndex].id}_locked`}
                                                     // label=''
@@ -227,7 +206,7 @@ const Milestones = (props) => {
                                                     level={heroLevels[thisLevelIndex + 1] ? heroLevels[thisLevelIndex + 1] : null}
                                                     nextLevel
                                                 />
-                                            )}
+                                            )} */}
                                         </>
                                     ) : (
                                         Array.from({ length: 6 }, (_, index) => (
@@ -249,7 +228,6 @@ const Milestones = (props) => {
                     ) : (
                         <button className={classes.RightArrow} onClick={scrollRight}>
                             <AngleRightIcon />
-                            {/* &#8594; */}
                         </button>
                     )
 

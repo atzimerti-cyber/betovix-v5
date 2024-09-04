@@ -143,6 +143,7 @@ export const loadInitData = (isMobile) => {
             //Get Progress
             dispatch(heroProgress());
             //dispatch(getUserAchievements());
+            
             //Get user rewards
             dispatch(getRewards());
 

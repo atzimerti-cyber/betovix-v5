@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 import classes from './YourProgress.module.css';
-import StarOutlineIcon from '../../../assets/svgs/star-outline.svg?react';
-import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 import CloseButton from '../../../features/UI/Buttons/CloseButton';
 import MainButton from '../../../features/UI/Buttons/MainButton';
 

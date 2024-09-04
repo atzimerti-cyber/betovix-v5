@@ -40,7 +40,6 @@ const Topbar = () => {
     const showingLiveEvent = useSelector((state) => state.event.showingLiveEvent);
     const availableBonus = useSelector((state) => state.layout.availableBonus);
     const newRewards = useSelector((state) => state.gamification.newRewards);
-    const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
 
     const [balanceInteger, setBalanceInteger] = useState(0);
     const [balanceDecimal, setBalanceDecimal] = useState('00');

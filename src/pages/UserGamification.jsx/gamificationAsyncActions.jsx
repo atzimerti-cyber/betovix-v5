@@ -5,6 +5,7 @@ import axiosApi from '../../axios-api';
 import { gamificationActions } from './userGamificationSlice';
 import { appActions } from '../../features/InitApp/appSlice';
 
+////To get all heroes, levels, milestones (to display in profile?tab=horoes)(whether user has a hero or not)////
 export const getHeroes = (signal) => {
     return async (dispatch) => {
         try {
@@ -66,6 +67,7 @@ export const getHeroes = (signal) => {
     };
 };
 
+////To select the hero////
 export const selectedHero = (displayedHeroAction, lvlAction, signal) => {
     return async (dispatch) => {
         try {
@@ -91,6 +93,7 @@ export const selectedHero = (displayedHeroAction, lvlAction, signal) => {
     };
 };
 
+////To get the hero, levels, milestones of SELECTED hero////
 export const getUserAchievements = () => {
     return async (dispatch) => {
         try {
@@ -106,28 +109,15 @@ export const getUserAchievements = () => {
                 dispatch(gamificationActions.setSelectedHero(null));
                 dispatch(gamificationActions.setHeroLevels(null));
                 dispatch(gamificationActions.setCurrentLevel(null));
-                dispatch(gamificationActions.setManualRewards(null));
+                //dispatch(gamificationActions.setManualRewards(null));
                 throw Error(response.data.Contents);
             };
 
-
-            // SELECTED HERO //
-            //OLD/////////////////////////////////////////////
-            // const selectedHero = {
-            //     id: response.data.Contents.SelectedHero.id,
-            //     name: response.data.Contents.SelectedHero.metadata.HeroName,
-            //     subName: response.data.Contents.SelectedHero.metadata.HeroSubName,
-            //     banner: response.data.Contents.SelectedHero.metadata.PreviewImage,
-            //     icon: response.data.Contents.SelectedHero.metadata.CloseUp,
-            //     description: response.data.Contents.SelectedHero.description,
-            //     action: response.data.Contents.SelectedHero.metadata.action,
-            // }
-
-            //NEW/////////////////////////////////////////////
+            //SELECTED HERO
             const selectedHero = {
                 id: response.data.Contents.Hero.Achievement.AchievementID,
-                name: response.data.Contents.Hero.MetaData.Name, /////////
-                subName: response.data.Contents.Hero.MetaData.SubName, //////////////
+                name: response.data.Contents.Hero.MetaData.Name,
+                subName: response.data.Contents.Hero.MetaData.SubName,
                 banner: response.data.Contents.Hero.Achievement?.Banner,
                 icon: response.data.Contents.Hero.Achievement?.Icon,
                 description: response.data.Contents.Hero.Achievement?.TermsAndConditions,
@@ -135,80 +125,49 @@ export const getUserAchievements = () => {
                 lvlAction: response.data.Contents.Hero.MetaData?.LevelAction,
             }
 
-            // PROGRESS //
+            // // PROGRESS //
+            // const levelProgress = (level) => {
+            //     let progressXP = 0;
+            //     let progress = 0;
+            //     let achList = [];
+            //     level.MileStones.map(milestone => {
+            //         achList.push(milestone);
+            //     });
 
-            const levelProgress = (level) => {
-                let progressXP = 0;
-                let progress = 0;
-                let achList = [];
-                level.MileStones.map(milestone => {
-                    achList.push(milestone);
-                });
+            //     let totalExp = 0;
+            //     let progressSection;
 
-                let totalExp = 0;
-                let progressSection;
+            //     if (achList.length > 0) {
+            //         achList.map(ach => {
+            //             totalExp += ach.PointStrategy.BasePoints;
+            //         })
 
-                if (achList.length > 0) {
-                    achList.map(ach => {
-                        totalExp += ach.PointStrategy.BasePoints;
-                    })
+            //         if (level.Level?.NextLevelBasePoints) {
+            //             totalExp = totalExp + level.Level.NextLevelBasePoints;
+            //             progressSection = totalExp / (achList.length + 1);
+            //         } else {
+            //             progressSection = totalExp / (achList.length);
+            //         }
 
-                    if (level.Level?.NextLevelBasePoints) {
-                        totalExp = totalExp + level.Level.NextLevelBasePoints;
-                        progressSection = totalExp / (achList.length + 1);
-                    } else {
-                        progressSection = totalExp / (achList.length);
-                    }
+            //         achList.forEach(item => {
+            //             //const mP = ((item.AchievementEntrand?.ScoreBoard) / (item.PointStrategy.BasePoints));
+            //             progressXP += item.AchievementEntrand?.ScoreBoard;
+            //         });
+            //     }
+            //     if (level.Level?.NextLevelEntrand?.ScoreBoard) {
+            //         progressXP = progressXP + level.Level?.NextLevelEntrand?.ScoreBoard;
+            //     }
+            //     progress = (progressXP / totalExp) * 100;
 
-                    achList.forEach(item => {
-                        //const mP = ((item.AchievementEntrand?.ScoreBoard) / (item.PointStrategy.BasePoints));
-                        progressXP += item.AchievementEntrand?.ScoreBoard;
-                    });
-                }
-                if (level.Level?.NextLevelEntrand?.ScoreBoard) {
-                    progressXP = progressXP + level.Level?.NextLevelEntrand?.ScoreBoard;
-                }
-                progress = (progressXP / totalExp) * 100;
+            //     return progress;
+            // }
 
-                return progress;
-            }
-
-            // LEVELS AND MILESTONES //
-            //OLD/////////////////////////////////////////////
-            // const heroLevels = response.data.Contents.HeroLevels.map(level => {
-            //     const milestones = level.Milestones.map(milestone => ({
-            //         id: milestone.id,
-            //         name: milestone.metadata.Name,
-            //         percentageComplete: milestone.optInStatus.percentageComplete,
-            //         points: milestone.optInStatus.points > milestone.strategies.pointsStrategy.pointsValue ? milestone.strategies.pointsStrategy.pointsValue : milestone.optInStatus.points,
-            //         pointsValue: milestone.strategies.pointsStrategy.pointsValue,
-            //         rewardType: milestone.reward ? milestone.reward.RewardType.Key : null,
-            //         rewardValue: milestone.reward ? milestone.reward.RewardValue : null,
-
-            //     })).sort((a, b) => a.name.localeCompare(b.name));
-
-
-            //     return {
-            //         id: level.Level.id,
-            //         name: level.Level.metadata.Name,
-            //         statusCode: level.Level.optInStatus.statusCode,
-            //         milestones: milestones,
-            //         points: level.Level.optInStatus.points > level.Level.strategies.pointsStrategy.pointsValue ? level.Level.strategies.pointsStrategy.pointsValue : level.Level.optInStatus.points,
-            //         percentageComplete: level.Level.optInStatus.percentageComplete,
-            //         pointsValue: level.Level.strategies.pointsStrategy.pointsValue,
-            //         progress: levelProgress(level),
-            //         dailyRewards: dailyRewards,
-            //         weeklyRewards: weeklyRewards,
-            //         monthlyRewards: monthlyRewards,
-            //     };
-            // }).sort((a, b) => a.name.localeCompare(b.name));
-
-            //NEW/////////////////////////////////////////////
+            //LEVELS AND MILESTONES
             const heroLevels = response.data.Contents.Levels.map(level => {
                 const milestones = level.MileStones.map(milestone => ({
                     id: milestone.Achievement.AchievementID,
                     name: milestone.MetaData?.Name,
-                    percentageComplete: milestone.AchievementEntrand?.Progress,
+                    progress: milestone.AchievementEntrand?.Progress,
                     points: milestone.AchievementEntrand?.ScoreBoard,
                     pointsValue: milestone.PointStrategy?.BasePoints,
                     rewardType: milestone.Rewards?.RewardType,
@@ -222,21 +181,16 @@ export const getUserAchievements = () => {
                     name: level.Level.MetaData.Name,
                     completed: level.Level.AchievementEntrand?.Completed,
                     milestones: milestones,
-                    points: level.Level.AchievementEntrand?.ScoreBoard,
-                    percentageComplete: level.Level.AchievementEntrand?.Progress,
-                    pointsValue: level.Level.PointStrategy?.BasePoints,
-                    progressEntrand: level.Level.AchievementEntrand?.Progress,
-                    nextLvlBP: level.Level?.NextLevelBasePoints,
-                    nextLvlXP: level.Level?.NextLevelEntrand?.ScoreBoard,
-                    progress: levelProgress(level),
+                    scoreboard: level.Level.AchievementEntrand?.ScoreBoard,
+                    basePoints: level.Level.PointStrategy?.BasePoints,
+                    progress: level.Level.AchievementEntrand?.Progress,
+                    // progress: levelProgress(level),
                 };
             }).sort((a, b) => {
                 const levelANumber = parseInt(a.name.replace(/\D/g, ''), 10);
                 const levelBNumber = parseInt(b.name.replace(/\D/g, ''), 10);
                 return levelANumber - levelBNumber;
             });
-
-
 
             // DAILY, WEEKLY, MONTHLY REWARDS //
             // const dailyRewards = {
@@ -274,25 +228,32 @@ export const getUserAchievements = () => {
             // }
 
             //CURRENT LEVEL 
-            let currentLevel;
-            heroLevels.some(heroLevel => {
-                const mil = heroLevel.milestones.find(milestone =>
-                    milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
-                ) !== undefined;
+            // let currentLevel;
+            // heroLevels.some(heroLevel => {
+            //     const mil = heroLevel.milestones.find(milestone =>
+            //         milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
+            //     ) !== undefined;
 
-                if (mil) {
-                    currentLevel = heroLevel;
-                    return true;
-                }
+            //     if (mil) {
+            //         currentLevel = heroLevel;
+            //         return true;
+            //     }
 
-                return false;
-            });
+            //     return false;
+            // });
 
-            console.log("Hero: ", selectedHero);
-            console.log("Hero Levels: ", heroLevels);
-            console.log("Current Level: ", currentLevel);
+            const currentLevel = {
+                id: response.data.Contents.CurrentLevel.AchievementID,
+                name: response.data.Contents.CurrentLevel.LevelName,
+                completed: response.data.Contents.CurrentLevel.Completed,
+                scoreboard: response.data.Contents.CurrentLevel.ScoreBoard,
+                progress: response.data.Contents.CurrentLevel.Progress,
+            }
+
+            //console.log("Hero: ", selectedHero);
+            //console.log("Hero Levels: ", heroLevels);
+            //console.log("Current Level: ", currentLevel);
             //console.log("Manual Rewards: ", manualRewards);
-
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));
             dispatch(gamificationActions.setHeroLevels(heroLevels));
@@ -306,10 +267,10 @@ export const getUserAchievements = () => {
     };
 };
 
+////To get available rewards////
 export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
     return async (dispatch) => {
         try {
-            const lang = getLang();
 
             const response = await axiosApi.post(
                 `/Gamification/GetRewards`,
@@ -348,8 +309,6 @@ export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
                 }
             })
 
-
-
             dispatch(gamificationActions.setPopupRewards(popupRewards));
             dispatch(gamificationActions.setNewRewards(viewedRewards));
             dispatch(gamificationActions.setClaimedRewards(claimedRewards));
@@ -361,6 +320,7 @@ export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
     };
 };
 
+////To claim a reward/////
 export const claimReward = (Id) => {
     return async (dispatch) => {
         try {
@@ -381,6 +341,7 @@ export const claimReward = (Id) => {
     };
 };
 
+////To set isViewed in reward (in Reward Swiper)//////
 export const rewardViewed = (rewardId) => {
     return async (dispatch) => {
         try {
@@ -402,6 +363,7 @@ export const rewardViewed = (rewardId) => {
     };
 };
 
+//To get hero progress (for Minibar)/////
 export const heroProgress = () => {
     return async (dispatch) => {
         try {
@@ -415,14 +377,16 @@ export const heroProgress = () => {
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200 || response.data.Contents == null) throw Error(response.data.Contents);
 
-            const currentLevel = response.data.Contents.Level;
+            const currentLevel = {
+                name: response.data.Contents.Level
+            }
             const progress = response.data.Contents.Progress;
             //const progressFixed = progress.toFixed(2);
             const selectedHero = response.data.Contents.Hero;
 
-            console.log(currentLevel);
-            console.log(progress);
-            console.log(selectedHero);
+            //console.log(currentLevel);
+            //console.log(progress);
+            //console.log(selectedHero);
 
             dispatch(gamificationActions.setCurrentLevel(currentLevel));
             dispatch(gamificationActions.setProgressBar(progress));

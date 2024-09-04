@@ -95,12 +95,12 @@ const Minibar = () => {
                     </div>
 
                     <div className={classes.MinibarRightWrapper}>
-                        {user && hasHero && Object.keys(hasHero).length > 0 ? (
-                            <>
+                        {user &&
+                            (hasHero && Object.keys(hasHero).length > 0 ? (
+
                                 <div className={classes.YourProgress}>
                                     <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
-
-                                        <div className={classes.ProgressTitle}>{userCurrentLevel}</div>
+                                        <div className={classes.ProgressTitle}>{userCurrentLevel.name}</div>
                                         <div className={classes.ProgressBar}>
                                             {levelProgress && Object.keys(levelProgress).length > 0 ? (
                                                 <>
@@ -115,13 +115,14 @@ const Minibar = () => {
                                         </div>
                                     </MainButton>
                                 </div>
-                            </>
-                        ) : (
-                            <MainButton color='bv-light-green' onClick={() => addParamsToUrl('your-progress')}>
-                                <p>Choose Hero</p>
-                            </MainButton>
-                        )}
-
+                            ) : (
+                                <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
+                                    <div className={classes.NoHero}>
+                                        <p>Enter the Arena</p>
+                                    </div>
+                                </MainButton>
+                            ))
+                        }
                     </div>
                 </div>
             ) : (
@@ -142,10 +143,6 @@ const Minibar = () => {
                                             </div>
                                             <div className={classes.LevelMobile}>{`${userCurrentLevel}%`}</div>
                                         </div>
-
-                                        {/* <div className={classes.Icon}>
-                                            <LevelUpIcon />
-                                        </div> */}
                                     </MainButton>
                                 </div>
                             </>

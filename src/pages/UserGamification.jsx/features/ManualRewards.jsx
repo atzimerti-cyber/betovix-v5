@@ -66,37 +66,6 @@ const ManualRewards = (props) => {
             .padStart(2, '0')}`;
     };
 
-    // const descByKey = (key,value,symbol) => {
-    //    let obj = [];
-    //     switch (key) {
-    //         case '1':
-    //             return "Eric ";
-    //         case '2':
-    //             return "Nia";
-    //         case '3':
-    //             return "Jack";
-    //         case '4':
-    //             return "Lee";
-    //         case '5':
-    //             return "Lola";
-    //         case '6':
-    //             return "Sam";
-    //         case '7':
-    //              obj =["Win",<CoinsIcon style={{ marginLeft: '8px', paddingBottom: '4px' }} />,value]
-    //             return obj;
-    //         case '8':
-    //              obj = ["Increase Bet Limits by ",value,symbol]
-    //             return obj;
-    //         case '9':
-    //             obj = ["Cashback ",value,symbol]
-    //             return obj;
-    //         case '10':
-    //             return "Kati";
-    //         default:
-    //             return "Reward Type Key not found";
-    //     }
-    // };
-
     const descByKey = (key, value, symbol) => {
         let obj = [];
         switch (key) {

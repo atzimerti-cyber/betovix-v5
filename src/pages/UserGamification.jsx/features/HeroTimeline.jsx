@@ -1,3 +1,4 @@
+import React, { useEffect, useRef } from 'react';
 import Timeline from '@mui/lab/Timeline';
 import TimelineItem from '@mui/lab/TimelineItem';
 import TimelineSeparator from '@mui/lab/TimelineSeparator';
@@ -7,20 +8,38 @@ import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import TimelineDot from '@mui/lab/TimelineDot';
 import Typography from '@mui/material/Typography';
 import Logo from '../../../assets/svgs/logo-small.svg?react';
-import classes from './HeroTimeline.module.css'; 
+import classes from './HeroTimeline.module.css';
 
 const HeroTimeline = (props) => {
+    const timelineRef = useRef(null);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            const scrollY = window.scrollY;
+            if (timelineRef.current) {
+                timelineRef.current.style.transform = `rotate(${scrollY / 5}deg) translateY(${scrollY / 2}px)`;
+                timelineRef.current.style.opacity = 1 - (scrollY / 1000);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
-        <div className={classes.TimelineContent}>
+        <div className={classes.TimelineContainer}>
             <div className={classes.TimelineTitle}>
                 <span>{props.hero.name} {props.hero.subName}</span>
             </div>
 
-            <Timeline position="alternate" className={classes.TimelineTree}>
+            <Timeline ref={timelineRef} className={classes.TimelineTree}>
                 {props.levels && Object.keys(props.levels).length > 0 ? (
-                    props.levels.map((level) => (
-                        <>
-                            <TimelineItem className={classes.TimelineItem}>
+                    props.levels.map((level, index) => (
+                        <React.Fragment key={index}>
+                            <TimelineItem
+                                className={`${classes.TimelineItem}`}
+                                position="left"
+                            >
                                 <TimelineOppositeContent className={classes.oppositeContent}>
                                     <Typography>
                                         {/* {level.progress} */}
@@ -29,11 +48,13 @@ const HeroTimeline = (props) => {
                                 <TimelineSeparator className={classes.MainSeparator}>
                                     <TimelineConnector className={classes.Connector} />
                                     <TimelineDot className={classes.Dot}>
-                                        <Logo />
+                                        <div className={classes.MainSVG}>
+                                            <Logo />
+                                        </div>
                                     </TimelineDot>
-                                    <TimelineConnector className={classes.Connector} />
+                                    <TimelineConnector className={classes.SubConnector} />
                                 </TimelineSeparator>
-                                <TimelineContent className={classes.timelineContent}>
+                                <TimelineContent className={classes.TimelineContent}>
                                     <Typography>
                                         {level.name}
                                     </Typography>
@@ -44,20 +65,26 @@ const HeroTimeline = (props) => {
                             </TimelineItem>
 
                             {level.milestones && level.milestones.map((milestone, milestoneIndex) => (
-                                <TimelineItem className={classes.TimelineItem} key={`${`index`}-${milestoneIndex}`}>
+                                <TimelineItem
+                                    className={`${classes.TimelineItem}`}
+                                    key={`${index}-${milestoneIndex}`}
+                                    position="right"
+                                >
                                     <TimelineOppositeContent className={classes.oppositeContent}>
                                         <Typography>
                                             {/* {milestone.progress} */}
                                         </Typography>
                                     </TimelineOppositeContent>
                                     <TimelineSeparator className={classes.MainSeparator}>
-                                        <TimelineConnector className={classes.Connector} />
+                                        <TimelineConnector className={classes.SubConnector} />
                                         <TimelineDot className={classes.SubDot}>
-                                            <Logo />
+                                            <div className={classes.SubSVG}>
+                                                <Logo />
+                                            </div>
                                         </TimelineDot>
-                                        <TimelineConnector className={classes.Connector} />
+                                        <TimelineConnector className={classes.SubConnector} />
                                     </TimelineSeparator>
-                                    <TimelineContent className={classes.timelineContent}>
+                                    <TimelineContent className={classes.SubTimelineContent}>
                                         <Typography>
                                             {milestone.name}
                                         </Typography>
@@ -67,10 +94,10 @@ const HeroTimeline = (props) => {
                                     </TimelineContent>
                                 </TimelineItem>
                             ))}
-                        </>
+                        </React.Fragment>
                     ))
                 ) : (
-                null
+                    null
                 )}
             </Timeline>
         </div>
