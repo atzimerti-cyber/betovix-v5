@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
-
+import useIntersectionObserver from '../../hooks/IntersectionObserver';
 import classes from './Home.module.css';
 import HomeBanners from './features/HomeBanners';
 import Banners from '../../features/Banners/Banners';
@@ -10,7 +10,7 @@ import TopEvents from './features/TopEvents';
 import { getHome } from './homeAsyncActions';
 import { homeActions } from './homeSlice';
 import { getEventsTop } from './homeAsyncActions';
-import SwiperWithOverlay from '../../features/UI/MainSwiper/SwiperWithOverlay';
+//import SwiperWithOverlay from '../../features/UI/MainSwiper/SwiperWithOverlay';
 import ClockIcon from '../../assets/svgs/clock.svg?react';
 import HeartIcon from '../../assets/svgs/heart.svg?react';
 import NewIcon from '../../assets/casinoIcons/new.svg?react';
@@ -18,6 +18,9 @@ import VipProgress from './features/VipProgress';
 import RegisterContainers from './features/RegisterContainers';
 import Crypto from './features/Crypto';
 import { translate } from '../../utils/translations';
+
+// Lazy load the component
+const SwiperWithOverlay = React.lazy(() => import('../../features/UI/MainSwiper/SwiperWithOverlay'));
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -107,6 +110,47 @@ const Home = () => {
     const hasRecentGames = filteredGames.recentGames?.Data?.length > 0;
     const hasFavoriteGames = filteredGames.favoriteGames?.Data?.length > 0;
 
+    const { isVisible: isTopEventsVisible, elementRef: topEventsRef } = useIntersectionObserver();
+    const { isVisible: isSwiperVisible, elementRef: swiperRef } = useIntersectionObserver();
+    const { isVisible: isFavoritesVisible, elementRef: favoritesRef } = useIntersectionObserver();
+
+    useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        dispatch(getHome(signal));
+
+        if (isTopEventsVisible) {
+            dispatch(getEventsTop(signal));
+        }
+
+        return () => {
+            controller.abort();
+            dispatch(homeActions.reset());
+        };
+    }, [dispatch, isTopEventsVisible]);
+
+    // useEffect(() => {
+    //     const observer = new IntersectionObserver((entries) => {
+    //       entries.forEach((entry) => {
+    //         if (entry.isIntersecting) {
+    //           setIsVisible(true);
+    //           observer.disconnect(); // Stop observing once the component is visible
+    //         }
+    //       });
+    //     });
+
+    //     if (elementRef.current) {
+    //       observer.observe(elementRef.current);
+    //     }
+
+    //     return () => {
+    //       if (elementRef.current) {
+    //         observer.unobserve(elementRef.current);
+    //       }
+    //     };
+    //   }, []);
+
     return (
         <div className={classes.PageContent}>
             <div className={classes.Home}>
@@ -128,24 +172,27 @@ const Home = () => {
 
                 {permissions.AllowToSports && (
                     <>
-                        <LiveEvents />
-
-                        <div ref={divs[0].ref}>
-                            <TopEvents />
+                        <div ref={topEventsRef}>
+                             {isTopEventsVisible &&<LiveEvents />}
+                        </div>
+                        <div ref={divs[0].ref}> 
+                             <TopEvents />
                         </div>
                     </>
                 )}
 
                 {permissions.AllowToCasino || permissions.AllowToSlots
                     ? hasNewGames && (
-                          <SwiperWithOverlay
-                              title={translate('New Games')}
-                              icon={<NewIcon className={classes.NewIcon} />}
-                              link='/casino/slots'
-                              items={filteredGames.newGames?.Data}
-                              slidesPerView={slidesPerView}
-                          />
-                      )
+                        <div ref={swiperRef}>
+                       {isSwiperVisible && ( <SwiperWithOverlay
+                            title={translate('New Games')}
+                            icon={<NewIcon className={classes.NewIcon} />}
+                            link='/casino/slots'
+                            items={filteredGames.newGames?.Data}
+                            slidesPerView={slidesPerView}
+                        />)}
+                        </div>
+                    )
                     : null}
 
                 {user && (permissions.AllowToCasino || permissions.AllowToSlots) ? (
@@ -158,16 +205,17 @@ const Home = () => {
                                 slidesPerView={slidesPerView}
                             />
                         )}
-
-                        {hasFavoriteGames && (
-                            <SwiperWithOverlay
-                                title={translate('Favorites')}
-                                icon={<HeartIcon />}
-                                link='/casino/favorites'
-                                items={filteredGames.favoriteGames?.Data}
-                                slidesPerView={slidesPerView}
-                            />
-                        )}
+                        <div ref={favoritesRef}>
+                            {hasFavoriteGames && isFavoritesVisible  && (
+                                <SwiperWithOverlay
+                                    title={translate('Favorites')}
+                                    icon={<HeartIcon />}
+                                    link='/casino/favorites'
+                                    items={filteredGames.favoriteGames?.Data}
+                                    slidesPerView={slidesPerView}
+                                />
+                            )}
+                        </div>
                     </>
                 ) : null}
             </div>
