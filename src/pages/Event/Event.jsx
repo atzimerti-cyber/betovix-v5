@@ -179,7 +179,7 @@ const Event = () => {
         });
 
         let groups = Object.values(groupsObj);
-        groups.sort((a, b) => a.id - b.id);
+        groups.sort((a, b) => a.Id - b.Id); // maybe not needed
 
         // Get auto...
         const marketTree = sportMarketTree && sportid ? sportMarketTree[sportid] : null;
@@ -332,11 +332,9 @@ const Event = () => {
                                         )}
                                         {event && !isLive && (
                                             <iframe
-                                            src={`/stats/Stats.html?styles=#${lang.id}/external/page/h2h/${
-                                                event.Info.HomeTeamId
-                                            }/${event.Info.AwayTeamId}`}
-                                            style={{ width: '100%', height: '100%', border: 'none' }}
-                                            title="Stats"
+                                                src={`/stats/Stats.html?styles=#${lang.id}/external/page/h2h/${event.Info.HomeTeamId}/${event.Info.AwayTeamId}`}
+                                                style={{ width: '100%', height: '100%', border: 'none' }}
+                                                title='Stats'
                                             />
                                         )}
                                     </div>

@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { getLang } from '../../utils/storage';
 import axiosApi from '../../axios-api';
 import { cryptoActions } from './cryptoSlice';
+import config from '../../config';
 
 export const getCrypto = (signal) => {
     return async (dispatch) => {
@@ -10,11 +11,11 @@ export const getCrypto = (signal) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `/Payments/PostData?action=GetPaymentMethods&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `/Payments/PostData?action=GetPaymentMethods&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
                 {},
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                    baseURLOverride: config.VITE_WALLET_STORETUBE,
                 }
             );
 
@@ -30,7 +31,6 @@ export const getCrypto = (signal) => {
     };
 };
 
-
 export const getDepositAddress = (signal) => {
     return async (dispatch, getState) => {
         try {
@@ -40,13 +40,13 @@ export const getDepositAddress = (signal) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `/Payments/PostData?action=HandlePaymentMethod&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `/Payments/PostData?action=HandlePaymentMethod&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
                 {
                     data: `{ "Name":"${coin.Provider}", "curr": "${network.label}" }`,
                 },
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                    baseURLOverride: config.VITE_WALLET_STORETUBE,
                 }
             );
 

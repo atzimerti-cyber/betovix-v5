@@ -9,6 +9,7 @@ import { sportsLiveActions } from './subpages/sportsLiveSlice';
 import { getLang } from '../../utils/storage';
 import NoImageIcon from '../../assets/svgs/no-image.svg?react';
 import { childsNotExist } from '../../utils/custom';
+import config from '../../config';
 
 export const initSportsbook = (signal) => {
     return async (dispatch) => {
@@ -16,17 +17,17 @@ export const initSportsbook = (signal) => {
             const lang = getLang();
 
             const requests = [
-                axiosApi.get(`Pregame/getTopLeagues?lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                axiosApi.get(`Pregame/getTopLeagues?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                    baseURLOverride: config.VITE_SPORTS_API_BASE,
                 }),
-                axiosApi.get(`Pregame/getBanners?providerId=1&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                axiosApi.get(`Pregame/getBanners?providerId=1&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                    baseURLOverride: config.VITE_SPORTS_API_BASE,
                 }),
-                axiosApi.get(`Pregame/getBanners?providerId=1&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                axiosApi.get(`Pregame/getBanners?providerId=1&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                    baseURLOverride: config.VITE_SPORTS_API_BASE,
                 }),
             ];
 
@@ -58,9 +59,9 @@ export const getPregameData = (sportIcons, signal, isOutrights = false) => {
             const lang = getLang();
 
             const requests = [
-                axiosApi.get(`Pregame/getPregameData?providerId=1&h24=false&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                axiosApi.get(`Pregame/getPregameData?providerId=1&h24=false&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                    baseURLOverride: config.VITE_SPORTS_API_BASE,
                 }),
             ];
 
@@ -102,11 +103,11 @@ export const getTournamentEvents = (tournamentId, ids, slice, signal) => {
             const isOutright = slice === 'sportsOutrights' ? true : false;
 
             const response = await axiosApi.post(
-                `Pregame/PostData?action=events_per_league&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `Pregame/PostData?action=events_per_league&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                 { data: `{"ProviderId":1,"Value":"${ids}","H24":false,"IsOutright":${isOutright}}` },
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                    baseURLOverride: config.VITE_SPORTS_API_BASE,
                 }
             );
             if (response.data && response.data.Status && response.data.Status.StatusCode !== 200) throw Error();
@@ -131,11 +132,11 @@ export const getSportMarketTree = (sportId, signal) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `Pregame/PostData?action=get_sport_market_tree&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `Pregame/PostData?action=get_sport_market_tree&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                 { data: sportId },
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                    baseURLOverride: config.VITE_SPORTS_API_BASE,
                 }
             );
             if (response.data && response.data.Status && response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
@@ -158,9 +159,9 @@ export const getTournament = (sportId, categoryId, tournamentId, signal) => {
         try {
             const lang = getLang();
 
-            const response = await axiosApi.get(`Pregame/getPregameData?providerId=1&h24=false&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+            const response = await axiosApi.get(`Pregame/getPregameData?providerId=1&h24=false&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                 signal: signal,
-                baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                baseURLOverride: config.VITE_SPORTS_API_BASE,
             });
 
             if (response.status && response.status !== 200) throw Error(response.data.Contents);
@@ -185,9 +186,9 @@ export const getLiveStreams = (signal) => {
         try {
             const lang = getLang();
 
-            const response = await axiosApi.get(`Administration/sdata?lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+            const response = await axiosApi.get(`Administration/sdata?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                 signal: signal,
-                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                baseURLOverride: config.VITE_WALLET_API_BASE,
             });
 
             if (response.status !== 200) throw Error(response.data.Contents);

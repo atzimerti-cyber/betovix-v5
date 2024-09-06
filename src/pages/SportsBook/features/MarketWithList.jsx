@@ -34,7 +34,11 @@ const MarketWithList = (props) => {
     ) : (
         <div className={classes.Market}>
             <div className={classes.MarketContainer}>
-                <div className={classes.MarketGroup}>
+                <div
+                    className={
+                        props.group[selectedIndex]?.MarketFields.length === 3 ? [classes.MarketGroup, classes.ThreeParts].join(' ') : classes.MarketGroup
+                    }
+                >
                     {props.group[selectedIndex]?.MarketFields &&
                         props.group[selectedIndex].MarketFields.map((marketField) => {
                             return (

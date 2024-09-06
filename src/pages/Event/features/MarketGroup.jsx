@@ -27,50 +27,53 @@ const MarketGroup = (props) => {
         if (selectedMarketCategory.Auto) keyString = selectedMarketCategory.Auto.split('|| ')[1];
 
         let updatedMarkets = [];
-        props.event.Markets.forEach((market, index) => {
+
+        props.event.Markets.forEach((market) => {
             if (!market.MarketFields || market.MarketFields.length === 0) return;
             const activeMarketFields = market.MarketFields.filter((mf) => mf.Active);
             if (activeMarketFields.length === 0) return;
 
             const marketTypeId = market.MarketTypeId;
-            const treeObj = sportMarketTreeObj[marketTypeId];
 
-            let groupIndex;
+            const inTree = sportMarketTreeObj[marketTypeId];
             let subIndex;
             let subName;
             let marketIndex;
+            let allIndex;
 
-            if (treeObj) {
-                groupIndex = treeObj.groups.find((g) => g.groupIndex === selectedMarketCategory.Id);
-                if (!groupIndex && keyString && market.MarketName.International.includes(keyString)) {
-                    // If there confirms with auto, add it
-                    subIndex = treeObj.sub.subIndex;
-                    subName = treeObj.sub.name;
-                    marketIndex = 9999;
-                } else if (!groupIndex) {
-                    return;
-                }
-
-                subIndex = treeObj.sub.subIndex;
-                subName = treeObj.sub.name;
-                marketIndex = treeObj.marketIndex;
-            } else if (!treeObj && selectedMarketCategory.Auto) {
-                if (market.MarketName.International.includes(keyString)) {
+            // If not in tree, search for a similar name
+            if (!inTree) {
+                if (keyString && market.MarketName.International.includes(keyString)) {
                     subIndex = market.MarketSubTypeId ? parseInt(market.MarketSubTypeId) : market.MarketTypeId;
                     subName = market.MarketName.International;
                     marketIndex = market.MarketTypeId;
+                    allIndex = 100000 * market.MarketTypeId;
+                } else if (selectedMarketCategory.Id === 9999) {
+                    subIndex = market.MarketSubTypeId ? parseInt(market.MarketSubTypeId) : market.MarketTypeId;
+                    subName = market.MarketName.International;
+                    marketIndex = market.MarketTypeId;
+                    allIndex = 100000 * market.MarketTypeId;
                 } else {
                     return;
                 }
-            } else if (!treeObj && selectedMarketCategory.Id === 9999) {
-                subIndex = market.MarketSubTypeId ? parseInt(market.MarketSubTypeId) : market.MarketTypeId;
-                subName = market.MarketName.International;
-                marketIndex = market.MarketTypeId;
-            } else if (!treeObj) {
-                return;
+            } else {
+                const thisGroup = inTree.groups.find((g) => g.groupIndex === selectedMarketCategory.Id);
+                if (!thisGroup && keyString && market.MarketName.International.includes(keyString)) {
+                    subIndex = market.MarketSubTypeId ? parseInt(market.MarketSubTypeId) : market.MarketTypeId;
+                    subName = market.MarketName.International;
+                    marketIndex = market.MarketTypeId;
+                    allIndex = 100000 * market.MarketTypeId;
+                } else if (!thisGroup) {
+                    return;
+                } else {
+                    subIndex = inTree.sub.subIndex;
+                    subName = inTree.sub.name;
+                    marketIndex = inTree.marketIndex;
+                    allIndex = thisGroup.allIndex;
+                }
             }
 
-            // Markets with the same subgroup and similar name (includes a number inside parenthesis) should be grouped together
+            // Markets with similar name (includes a number inside parenthesis) should be grouped together
             let label = market.MarketName.International;
 
             if (
@@ -89,13 +92,15 @@ const MarketGroup = (props) => {
                 subName: subName,
                 marketIndex: marketIndex,
                 label: label,
+                allIndex: allIndex,
             };
             updatedMarkets.push(updatedMarket);
         });
 
-        // Grouping objects by 'subIndex' and the first part of 'name' before '('
+        updatedMarkets.sort((a, b) => a.allIndex - b.allIndex);
+
+        // Grouping objects by the first part of 'name' before '('
         const grouped = updatedMarkets.reduce((acc, obj) => {
-            // const key = `${obj.subIndex}-${obj.label}`;
             const key = `${obj.label}`;
             if (!acc[key]) {
                 acc[key] = [];
@@ -104,27 +109,20 @@ const MarketGroup = (props) => {
             return acc;
         }, {});
 
-        // Convert the object of groups into an array of groups and sort each group by 'marketIndex'
+        // Sort the items within each array by obj.MarketTypeId
+        for (const allIndex in grouped) {
+            if (grouped.hasOwnProperty(allIndex)) {
+                // grouped[allIndex].sort((a, b) => a.MarketTypeId - b.MarketTypeId);
+                grouped[allIndex].sort((a, b) => a.MarketName.International.localeCompare(b.MarketName.International));
+            }
+        }
+
         const subgroups = Object.values(grouped).map((group) => {
-            group.sort((a, b) => a.marketIndex - b.marketIndex);
             return group;
         });
 
-        // Sort the subgroups based on 'subIndex' and then by the smallest 'marketIndex' within each subgroup
-        subgroups.sort((a, b) => {
-            const subIndexDiff = a[0].subIndex - b[0].subIndex;
-            if (subIndexDiff !== 0) return subIndexDiff;
-
-            const marketIndexDiff = a[0].marketIndex - b[0].marketIndex;
-            if (subIndexDiff !== 0) return marketIndexDiff;
-
-            // If subIndex and marketIndex are the same, compare the smallest 'marketTypeId' of each subgroup
-            // return a[0].MarketTypeId - b[0].MarketTypeId;
-            return a[0].MarketName.International - b[0].MarketName.International;
-        });
-
         setMarketsWithSubgroups(subgroups);
-    }, [changedMarkets, props.marketGroupsChanged, selectedMarketCategoryIndex, sportMarketTreeObj, props.event?.MatchId]);
+    }, [changedMarkets, props.marketGroupsChanged, selectedMarketCategoryIndex, sportMarketTreeObj]);
 
     const removeNumberInParentheses = (input) => {
         // Regular expression to find a number in parentheses

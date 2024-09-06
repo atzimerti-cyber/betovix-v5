@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import axiosApi from '../../axios-api';
 import { getLang } from '../../utils/storage';
 import { modalActions } from './modalSlice';
+import config from '../../config';
 
 import levels from '../../dummyData/levels';
 import rewards from '../../dummyData/rewards';
@@ -10,19 +11,14 @@ import rewards from '../../dummyData/rewards';
 export const getBonuses = (signal, status) => {
     return async (dispatch) => {
         try {
-           
             dispatch(modalActions.setLoading(true));
-            const response = await axiosApi.get(
-                `/BonusForAccount/GetMyBonusesByStatus?status=${status}&lang=en&siteid=${import.meta.env.VITE_SITE_ID}`,
-                {
-                    signal: signal,
-                    baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
-                    // baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
-                }
-            );
+            const response = await axiosApi.get(`/BonusForAccount/GetMyBonusesByStatus?status=${status}&lang=en&siteid=${config.VITE_SITE_ID}`, {
+                signal: signal,
+                baseURLOverride: config.VITE_WALLET_API_BASE,
+            });
 
             if (response.data.Status.StatusCode !== 200) throw new Error('Failed to fetch bonuses');
-            dispatch(modalActions.setBonuses(response.data.Contents)); 
+            dispatch(modalActions.setBonuses(response.data.Contents));
             dispatch(modalActions.setLoading(false));
         } catch (error) {
             const message = error?.message || 'Error fetching bonuses';
@@ -32,18 +28,14 @@ export const getBonuses = (signal, status) => {
     };
 };
 
-export const claimBonus = (signal,bonusId, callback) => {
+export const claimBonus = (signal, bonusId, callback) => {
     return async (dispatch) => {
         try {
             dispatch(modalActions.setLoading(true));
-            const response = await axiosApi.get(
-                `/BonusForAccount/ClaimBonus?bonusFaId=${bonusId}&lang=en&siteid=${import.meta.env.VITE_SITE_ID}`,
-                {
-                    signal: signal,
-                    baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
-                    // baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
-                }
-            );
+            const response = await axiosApi.get(`/BonusForAccount/ClaimBonus?bonusFaId=${bonusId}&lang=en&siteid=${config.VITE_SITE_ID}`, {
+                signal: signal,
+                baseURLOverride: config.VITE_WALLET_API_BASE,
+            });
 
             if (response.data.Status.StatusCode !== 200) throw new Error('Failed to claim bonus');
             dispatch(modalActions.setLoading(false));
@@ -65,13 +57,13 @@ export const getVip = (signal) => {
             // const lang = getLang();
 
             // const response = await axiosApi.post(
-            //     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
+            //     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
             //     {
             //         data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
             //     },
             //     {
             //         signal: signal,
-            //         baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+            //         baseURLOverride: config.VITE_CASINO_BASE,
             //     }
             // );
 
@@ -93,19 +85,14 @@ export const getVip = (signal) => {
 export const getTicket = (signal, id) => {
     return async (dispatch) => {
         try {
-           
             dispatch(modalActions.setLoading(true));
-            const response = await axiosApi.get(
-                `/MyTicket/GetTicket?TicketId=${id}&lang=en&siteid=${import.meta.env.VITE_SITE_ID}`,
-                {
-                    signal: signal,
-                    baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
-                    // baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
-                }
-            );
+            const response = await axiosApi.get(`/MyTicket/GetTicket?TicketId=${id}&lang=en&siteid=${config.VITE_SITE_ID}`, {
+                signal: signal,
+                baseURLOverride: config.VITE_WALLET_API_BASE,
+            });
 
             if (response.data.Status.StatusCode !== 200) throw new Error('Failed to fetch ticket');
-            dispatch(modalActions.setTicket(response.data.Contents)); 
+            dispatch(modalActions.setTicket(response.data.Contents));
             dispatch(modalActions.setLoading(false));
         } catch (error) {
             const message = error?.message || 'Error fetching ticket';
@@ -114,4 +101,3 @@ export const getTicket = (signal, id) => {
         }
     };
 };
-

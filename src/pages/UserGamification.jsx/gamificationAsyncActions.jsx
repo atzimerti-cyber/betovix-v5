@@ -4,6 +4,7 @@ import { getLang } from '../../utils/storage';
 import axiosApi from '../../axios-api';
 import { gamificationActions } from './userGamificationSlice';
 import { appActions } from '../../features/InitApp/appSlice';
+import config from '../../config';
 
 ////To get all heroes, levels, milestones (to display in profile?tab=horoes)(whether user has a hero or not)////
 export const getHeroes = (signal) => {
@@ -12,17 +13,14 @@ export const getHeroes = (signal) => {
             dispatch(appActions.setBarLoading(true));
             const lang = getLang();
 
-            const response = await axiosApi.get(
-                `/ModuleGamification/GetAllHeroes`,
-                {
-                    signal: signal,
-                    baseURLOverride: import.meta.env.VITE_GAMIFICATION_STORETUBE,
-                }
-            );
+            const response = await axiosApi.get(`/ModuleGamification/GetAllHeroes`, {
+                signal: signal,
+                baseURLOverride: config.VITE_GAMIFICATION_STORETUBE,
+            });
 
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
-            const heroes = response.data.Contents.map(hero => ({
+            const heroes = response.data.Contents.map((hero) => ({
                 name: hero.Hero.Achievement?.Name,
                 banner: hero.Hero.Achievement?.Banner,
                 id: hero.Hero.Achievement?.AchievementID,
@@ -34,13 +32,13 @@ export const getHeroes = (signal) => {
                     action: hero.Hero.MetaData.Action,
                     lvlAction: hero.Hero.MetaData.LevelAction,
                 },
-                levels: hero.Levels?.map(level => ({
+                levels: hero.Levels?.map((level) => ({
                     id: level.Level.Achievement?.AchievementID,
                     sortName: level.Level.Achievement?.Name,
                     icon: level.Level.Achievement?.Icon,
                     name: level.Level.MetaData?.Name,
                     description: level.Level.Achievement?.TermsAndConditions,
-                    milestones: level.MileStones?.map(milestone => ({
+                    milestones: level.MileStones?.map((milestone) => ({
                         id: milestone.Achievement?.AchievementID,
                         icon: milestone.Achievement?.Icon,
                         name: milestone.MetaData?.Name,
@@ -73,19 +71,15 @@ export const selectedHero = (displayedHeroAction, lvlAction, signal) => {
         try {
             const lang = getLang();
 
-            const response = await axiosApi.get(
-                `/ModuleGamification/SelectHero?action=${displayedHeroAction}&levelAction=${lvlAction}`,
-                {
-                    signal: signal,
-                    baseURLOverride: import.meta.env.VITE_GAMIFICATION_STORETUBE,
-                }
-            );
+            const response = await axiosApi.get(`/ModuleGamification/SelectHero?action=${displayedHeroAction}&levelAction=${lvlAction}`, {
+                signal: signal,
+                baseURLOverride: config.VITE_GAMIFICATION_STORETUBE,
+            });
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
             setTimeout(() => {
                 dispatch(getUserAchievements());
             }, 5000);
-
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
@@ -123,7 +117,7 @@ export const getUserAchievements = () => {
                 description: response.data.Contents.Hero.Achievement?.TermsAndConditions,
                 action: response.data.Contents.Hero.MetaData?.Action,
                 lvlAction: response.data.Contents.Hero.MetaData?.LevelAction,
-            }
+            };
 
             // // PROGRESS //
             // const levelProgress = (level) => {
@@ -172,9 +166,7 @@ export const getUserAchievements = () => {
                     pointsValue: milestone.PointStrategy?.BasePoints,
                     rewardType: milestone.Rewards?.RewardType,
                     rewardValue: milestone.Rewards?.RewardValue,
-
                 })).sort((a, b) => a.name.localeCompare(b.name));
-
 
                 return {
                     id: level.Level.Achievement.AchievementID,
@@ -259,7 +251,6 @@ export const getUserAchievements = () => {
             dispatch(gamificationActions.setHeroLevels(heroLevels));
             dispatch(gamificationActions.setCurrentLevel(currentLevel));
             //dispatch(gamificationActions.setManualRewards(manualRewards));
-
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
@@ -275,8 +266,8 @@ export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
             const response = await axiosApi.post(
                 `/Gamification/GetRewards`,
                 {
-                    page: "1",
-                    count: "100",
+                    page: '1',
+                    count: '100',
                     filter: {
                         IsViewed: isViewed,
                         IsClaimed: isClaimed,
@@ -284,10 +275,10 @@ export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
                         WeeklyRewards: weekly,
                         MonthlyRewards: monthly,
                     },
-                    sort: "",
+                    sort: '',
                 },
                 {
-                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                    baseURLOverride: config.VITE_WALLET_STORETUBE,
                 }
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
@@ -312,7 +303,6 @@ export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
             dispatch(gamificationActions.setPopupRewards(popupRewards));
             dispatch(gamificationActions.setNewRewards(viewedRewards));
             dispatch(gamificationActions.setClaimedRewards(claimedRewards));
-
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
@@ -326,14 +316,10 @@ export const claimReward = (Id) => {
         try {
             const lang = getLang();
 
-            const response = await axiosApi.get(
-                `/Gamification/ClaimReward?rewardId=${Id}`,
-                {
-                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
-                }
-            );
+            const response = await axiosApi.get(`/Gamification/ClaimReward?rewardId=${Id}`, {
+                baseURLOverride: config.VITE_WALLET_STORETUBE,
+            });
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
-
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
@@ -347,15 +333,10 @@ export const rewardViewed = (rewardId) => {
         try {
             const lang = getLang();
 
-            const response = await axiosApi.get(
-                `/Gamification/RewardViewed?rewardId=${rewardId}`,
-                {
-                    baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
-                }
-            );
+            const response = await axiosApi.get(`/Gamification/RewardViewed?rewardId=${rewardId}`, {
+                baseURLOverride: config.VITE_WALLET_STORETUBE,
+            });
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
-
-
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);

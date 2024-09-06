@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 
 import { getVendorGame } from '../../../pages/Casino/casinoAsyncActions';
 
+import config from '../../../config';
 import classes from './BigSwiper2.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
 import { getLang } from '../../../utils/storage';
@@ -41,9 +42,9 @@ const BigSwiper2 = (props) => {
             const controller = new AbortController();
             const signal = controller.signal;
 
-            const response = await axiosApi.get(`MyCasino/GetGame?id=${gameId}&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+            const response = await axiosApi.get(`MyCasino/GetGame?id=${gameId}&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
                 signal: signal,
-                baseURLOverride: import.meta.env.VITE_CASINO_BASE,
+                baseURLOverride: config.VITE_CASINO_BASE,
             });
             if (response.data.Status.StatusCode !== 200) throw Error();
 

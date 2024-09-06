@@ -1,9 +1,11 @@
 import { useState, useRef, useEffect, memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 import classes from './AmountArea.module.css';
 import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 import { betslipActions } from '../betslipSlice';
+import { translate } from '../../../utils/translations';
 // import { ticketActions } from '../../Ticket/ticketSlice';
 
 const AmountArea = memo(function (props) {
@@ -18,17 +20,13 @@ const AmountArea = memo(function (props) {
 
     useEffect(() => {
         if (totalStake !== null) {
-          setBetAmount(totalStake.toFixed(2)); 
-          updateAmount(parseFloat(totalStake));
-
+            setBetAmount(totalStake.toFixed(2));
+            updateAmount(parseFloat(totalStake));
         } else {
-          setBetAmount('0.00');
-          updateAmount(parseFloat(0));
-
+            setBetAmount('0.00');
+            updateAmount(parseFloat(0));
         }
-
     }, [totalStake]);
-
 
     useEffect(() => {
         let thisAmount = amounts[props.amountId];
@@ -62,16 +60,20 @@ const AmountArea = memo(function (props) {
         if (thisAmount === '') {
             thisAmount = '0';
         } else {
-            // Allow only numbers, one decimal point, and two digits after the decimal point
-            thisAmount
-                .replace(/[^0-9.]/g, '')
-                .replace(/(\..*)\./g, '$1')
-                .replace(/(\.\d{2})\d+/g, '$1');
+            // Regular expression to match a number with up to two decimal places
+            const regex = /^\d*\.?\d{0,2}$/;
+            if (!regex.test(thisAmount)) {
+                return;
+            }
 
             // Remove leading zeros except for decimal numbers like "0.xx"
             thisAmount = thisAmount.replace(/^0+([1-9]\d*(\.\d+)?)/, '$1').replace(/^(0\.\d+)/, '$1');
 
-            if (maxBet && thisAmount > maxBet.maxbet) thisAmount = maxBet.maxbet;
+            if (maxBet && thisAmount > maxBet.maxbet) {
+                const finalMaxBet = maxBet.maxbet < 0 ? 0 : maxBet.maxbet;
+                thisAmount = finalMaxBet;
+                toast.error(translate(`Maximum stake for you at the moment is ${finalMaxBet}`));
+            }
             if (thisAmount === '.00') thisAmount = '0.00';
         }
 

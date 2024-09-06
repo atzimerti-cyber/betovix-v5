@@ -6,6 +6,7 @@ import { sportsbookActions } from '../SportsBook/sportsbookSlice';
 import { appActions } from '../../features/InitApp/appSlice';
 import { getLang } from '../../utils/storage';
 import { getSportMarketTreeObj, getSportMarketTreeObjFromMarkets, childsNotExist } from '../../utils/custom';
+import config from '../../config';
 
 export const getEvent = (sportId, eventId, signal) => {
     return async (dispatch, getState) => {
@@ -15,19 +16,19 @@ export const getEvent = (sportId, eventId, signal) => {
 
             const requests = [
                 axiosApi.post(
-                    `Pregame/PostData?action=get_sport_market_tree&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                    `Pregame/PostData?action=get_sport_market_tree&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                     { data: sportId },
                     {
                         signal: signal,
-                        baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                        baseURLOverride: config.VITE_SPORTS_API_BASE,
                     }
                 ),
                 axiosApi.post(
-                    `Pregame/PostData?action=get_event&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                    `Pregame/PostData?action=get_event&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                     { data: `{"ProviderId":1,"Value":${eventId},"H24":false}` },
                     {
                         signal: signal,
-                        baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                        baseURLOverride: config.VITE_SPORTS_API_BASE,
                     }
                 ),
             ];
@@ -44,6 +45,7 @@ export const getEvent = (sportId, eventId, signal) => {
             const emptyTree = responses[0].data.Contents === 'Not found' || childsNotExist(responses[0].data.Contents) ? true : false;
 
             let sportMarketTreeObj;
+            // let marketsList;
             if (emptyTree) {
                 sportMarketTreeObj = getSportMarketTreeObjFromMarkets(responses[1].data.Contents.Markets);
                 if (sportMarketTreeObj) dispatch(eventActions.setSportMarketTreeObj(sportMarketTreeObj));
@@ -71,16 +73,16 @@ export const getLiveEvent = (sportId, eventId, signal) => {
 
             const requests = [
                 axiosApi.post(
-                    `Pregame/PostData?action=get_sport_market_tree&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                    `Pregame/PostData?action=get_sport_market_tree&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                     { data: sportId },
                     {
                         signal: signal,
-                        baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                        baseURLOverride: config.VITE_SPORTS_API_BASE,
                     }
                 ),
-                axiosApi.get(`LiveCluster/getLiveEvent?eventid=${eventId}&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`, {
+                axiosApi.get(`LiveCluster/getLiveEvent?eventid=${eventId}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_SPORTS_API_BASE,
+                    baseURLOverride: config.VITE_SPORTS_API_BASE,
                 }),
             ];
             const responses = await Promise.all(requests);

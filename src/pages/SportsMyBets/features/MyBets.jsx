@@ -75,7 +75,7 @@ const MyBets = (props) => {
             {ticketsTable?.Total === 0 ? (
                 <div className={classes.NoBetsError}>
                     <div className={classes.NoBetsErrorInner}>
-                        <span>{translate('You have no active bets')}</span>
+                        <span>{translate(`You have no ${props.isActive ? 'active' : 'settled'} bets`)}</span>
                         <MainButton color='primary' onClick={() => navigate('/sportsbook/live')}>
                             {translate('Start Betting')}
                         </MainButton>

@@ -6,6 +6,7 @@ import Warning2Icon from '../../../assets/svgs/warning2.svg?react';
 import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 import { betslipActions } from '../betslipSlice';
 import { translate } from '../../../utils/translations';
+import { formatNumberTo } from '../../../utils/custom';
 
 const BetError = () => {
     const dispatch = useDispatch();
@@ -14,19 +15,24 @@ const BetError = () => {
     const slips = useSelector((state) => state.betslip.slips);
     const betType = useSelector((state) => state.betslip.betType);
     const amounts = useSelector((state) => state.betslip.amounts);
-    const settings = useSelector((state) => state.app.settings);
+    // const settings = useSelector((state) => state.app.settings);
+
+    const ticketSettings = useSelector((state) => state.ticket.ticketSettings);
+
     const user = useSelector((state) => state.login.user);
     const ticketChangesSettings = useSelector((state) => state.ticket.ticketChangesSettings);
     const ticketUpdated = useSelector((state) => state.ticket.ticketUpdated);
 
     const [errorContent, setErrorContent] = useState(null);
 
+    const minStake = ticketSettings?.TicketSettings?.MIN_STAKE_SINGLE ? formatNumberTo(ticketSettings.TicketSettings.MIN_STAKE_SINGLE, 2) : 0;
+
     const betErrors = useMemo(() => {
         return {
             minimumStake: (
                 <>
                     {translate('The minimum stake is')} <CoinsIcon className={classes.CoinIcon} />
-                    0.10
+                    {minStake}
                     <br />
                     {translate('Please adjust your stake')}.
                 </>
@@ -43,7 +49,7 @@ const BetError = () => {
             multiSame: translate('Cannot place a multi bet with selections from the same event') + '.',
             acceptChanges: translate('There are changes in the odds. Please accept the changes') + '.',
         };
-    }, []);
+    }, [minStake]);
 
     useEffect(() => {
         //TODO: Add wallet amount changing as condition to check again
@@ -55,8 +61,8 @@ const BetError = () => {
         Object.keys(amounts).forEach((key) => {
             totalBet = totalBet + amounts[key];
 
-            if ((betType === 'Single' || betType === 'Multiple') && amounts[key] < settings.minStake) lessThanMinStake = true;
-            else if (betType === 'System' && amounts[key] >= settings.minStake) hasSystemBet = true;
+            if ((betType === 'Single' || betType === 'Multiple') && amounts[key] < minStake) lessThanMinStake = true;
+            else if (betType === 'System' && amounts[key] >= minStake) hasSystemBet = true;
         });
         if (betType === 'System') {
             lessThanMinStake = hasSystemBet ? false : true;

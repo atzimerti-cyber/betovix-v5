@@ -1,10 +1,10 @@
 import { toast } from 'react-toastify';
-import { NavLink, useNavigate } from 'react-router-dom';
 
 import axiosApi from '../../axios-api';
 import { betslipActions } from './betslipSlice';
 import { getLang } from '../../utils/storage';
 import { getUser } from '../../pages/Login/loginAsyncActions';
+import config from '../../config';
 
 export const getTicketUpdates = (payload) => {
     return async (dispatch, getState) => {
@@ -12,10 +12,10 @@ export const getTicketUpdates = (payload) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `Betting/PostData?action=ticket_updates&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `Betting/PostData?action=ticket_updates&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                 { data: payload },
                 {
-                    baseURLOverride: import.meta.env.VITE_BETS_API,
+                    baseURLOverride: config.VITE_BETS_API,
                 }
             );
 
@@ -51,11 +51,10 @@ export const placeBet = (payload, slips, amounts, betType) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `Betting/PostData?action=buyticket&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `Betting/PostData?action=buyticket&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                 { data: payload },
                 {
-                    // baseURLOverride: import.meta.env.VITE_STORETUBE,
-                    baseURLOverride: import.meta.env.VITE_BETS_API,
+                    baseURLOverride: config.VITE_BETS_API,
                 }
             );
             if (response.status !== 200) throw Error(response.data.Contents.Message);
@@ -101,19 +100,19 @@ export const saveBet = (payload) => {
             const lang = getLang();
 
             const response = await axiosApi.post(
-                `Betting/PostData?action=saveticket&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `Betting/PostData?action=saveticket&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                 { data: payload },
                 {
-                    baseURLOverride: import.meta.env.VITE_BETS_API,
+                    baseURLOverride: config.VITE_BETS_API,
                 }
             );
 
-            if (response.status !== 200)  throw Error(response.data.Contents);
+            if (response.status !== 200) throw Error(response.data.Contents);
 
             dispatch(betslipActions.setLastBookedBet(response.data.Contents));
             dispatch(betslipActions.setSavingBetLoading(false));
 
-            return response.data.Contents;  // Return the response to indicate success
+            return response.data.Contents; // Return the response to indicate success
         } catch (error) {
             dispatch(betslipActions.setSavingBetLoading(false));
             toast.error(error?.message);
@@ -129,14 +128,13 @@ export const loadBooked = (signal, code, callback) => {
             const payload = JSON.stringify(code);
 
             const response = await axiosApi.post(
-                `Betting/PostData?action=loadticket&lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `Betting/PostData?action=loadticket&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                 {
                     data: payload,
                 },
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_BETS_API,
-                    // baseURLOverride: import.meta.env.VITE_WALLET_STORETUBE,
+                    baseURLOverride: config.VITE_BETS_API,
                 }
             );
 
@@ -147,8 +145,7 @@ export const loadBooked = (signal, code, callback) => {
 
             dispatch(betslipActions.resetSlips());
 
-            ticketData.points.forEach(point => {
-
+            ticketData.points.forEach((point) => {
                 const newSlip = {
                     HomeTeamId: point.HomeTeamId,
                     HomeTeamName: point.HomeTeamName,
@@ -178,7 +175,6 @@ export const loadBooked = (signal, code, callback) => {
             });
 
             if (callback) callback();
-            
         } catch (error) {
             const message = error?.message || 'Error loading bet';
             if (error?.code !== 'ERR_CANCELED') toast.error(message);
