@@ -18,7 +18,7 @@ import VipProgress from './features/VipProgress';
 import RegisterContainers from './features/RegisterContainers';
 import Crypto from './features/Crypto';
 import { translate } from '../../utils/translations';
-import ManualRewards from '../UserGamification.jsx/features/ManualRewards'; 
+import ManualRewards from '../UserGamification.jsx/features/ManualRewards';
 
 // Lazy load the component
 const SwiperWithOverlay = React.lazy(() => import('../../features/UI/MainSwiper/SwiperWithOverlay'));
@@ -167,20 +167,20 @@ const Home = () => {
                     {(isMobile === false || user === null) && <Banners banners={sportBanners} />}
                     {/* {(isMobile === false || user === null) && <HomeBanners isMobile={isMobile} />} */}
 
-                    {/* {!isMobile && user && (
+                    {!isMobile && user && (
                         <div className={classes.VipContainer}>
                             <VipProgress />
                         </div>
                     )}
-                    {isMobile && user && <VipProgress />} */}
+                    {isMobile && user && <VipProgress />}
 
                     {!user && <RegisterContainers />}
                 </div>
 
                 {user && hasHero && Object.keys(hasHero).length > 0 && (
-                    // <div className={classes.ManualRewards}>
+                    <div className={classes.ManualRewards}>
                         <ManualRewards />
-                    // </div>
+                    </div>
                 )}
 
 
