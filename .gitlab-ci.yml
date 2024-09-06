@@ -1,6 +1,6 @@
 #image: node:latest 
 # version 1
-#======================================= 
+#======================================= =
 stages:
     - build
     - storepreprod
@@ -12,7 +12,7 @@ job_build:
     only: 
         - main
     script:
-        - cmd.exe /c 'C:\gitlab-runner-TanitWeb\deploy_fullversion.bat' #deploy to test server only
+        - cmd.exe /c 'C:\gitlab-runner-TanitWeb\deploy_betovix.bat' #deploy to test server only
         
     tags:
         - TanitWeb
@@ -22,37 +22,18 @@ job_storepreprod:
     only:
         - main
     script:
-        - cmd.exe /c 'C:\gitlab-runner-TanitWeb\store_fullversion.bat' 
+        - cmd.exe /c 'C:\gitlab-runner-TanitWeb\store_betovix.bat' 
     tags:
         - TanitWeb
-#=======================================
-#Pick777
-job_production3:
-    stage: deployproduction
-    only:
-        - production_pick777
-    script:
-        - cmd.exe /c 'C:\gitlab-runner-tasks\deploy_website_fullversion.bat' 
-    tags:
-        - PICK777_ROUTER_RUNNER  
- #=======================================
-#Betslip100
-job_production4:
-    stage: deployproduction
-    only:
-        - production_betslip100
-    script:
-        - cmd.exe /c 'C:\gitlab-runner-tasks\deploy_website_fullversion.bat' 
-    tags:
-        - BETSLIP100_MAFIA_RUNNER  
+ 
  #=======================================
 #Meda.bet
 job_production7:
     stage: deployproduction
     only:  
-        - production_medabet
+        - production_betovix
     script:
-        - cmd.exe /c 'C:\gitlab-runner-tasks\deploy_website_fullversion.bat' 
+        - cmd.exe /c 'C:\gitlab-runner-tasks\deploy_website_betovix.bat' 
     tags:
         - Betovix.com_vm1.2_runner  
 
