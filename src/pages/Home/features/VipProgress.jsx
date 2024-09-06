@@ -15,6 +15,7 @@ const VipProgress = () => {
 
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
     const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
+    const levelProgress = useSelector((state) => state.gamification.progressBar);
     
 
     const addParamsToUrl = (modal, tab) => {
@@ -44,7 +45,7 @@ const VipProgress = () => {
                     </div>
                     <div className={classes.TextContainer}>
                         <span className={classes.TitleContainer}>
-                            {translate('Your progress to')}
+                            {translate('Your progress')}
                         </span>
                         <span className={classes.LevelName}>{userCurrentLevel.name}</span>
                     </div>
@@ -52,8 +53,8 @@ const VipProgress = () => {
 
                 <div className={classes.MilestoneProgressBar}>
                     <div className={classes.BarContainer}>
-                        {Object.keys(userCurrentLevel).length > 0 ? (
-                            <span style={{ width: `${userCurrentLevel.progress}%` }}></span>
+                        {levelProgress ? (
+                            <span style={{ width: `${levelProgress}%` }}></span>
                         ) : (
                             <span style={{ width: `0%` }}></span>
                         )}
