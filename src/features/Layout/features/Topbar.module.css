@@ -275,47 +275,6 @@
     padding-right: 0.75rem !important;
 }
 
-/* TO CHANGE */
-@media(max-width: 1024px) {
-    .ProgressTitle {
-        display: none;
-    }
-
-    .YourProgress>button {
-        display: none;
-    }
-
-}
-
-/* TO CHANGE */
-.ProgressTitle {
-    color: #fff;
-}
-
-.ProgressBar {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    height: 0.5rem;
-    /* right: 0.5rem; */
-    border-top-left-radius: 9999px;
-    border-bottom-left-radius: 9999px;
-    border-top-right-radius: 9999px;
-    border-bottom-right-radius: 9999px;
-    border-width: 1px;
-    border-style: solid;
-    border-color: var(--db-gray-4);
-    z-index: 40;
-}
-
-.ProgressBar>span {
-    display: block;
-    height: inherit;
-    border-radius: inherit;
-    background-color: var(--db-brand-green);
-    transition: width 0.3s linear;
-}
-
 .DropDownWrapper {
     z-index: 100000;
     position: relative;
@@ -570,7 +529,7 @@
         padding-right: 1rem;
         display: grid;
         grid-template-rows: inherit;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: 1fr auto 1fr;
     }
 
     .TopbarLeftWrapper {
@@ -646,11 +605,13 @@
         max-width: 140px;
     }
 }
+
 @media (max-width: 374px) {
     .TopbarLeft button svg {
         max-width: 125px;
     }
-    .HeaderRight{
+
+    .HeaderRight {
         gap: 0;
     }
 }

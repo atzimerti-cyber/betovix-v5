@@ -8,6 +8,13 @@
 
 }
 
+.Title {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
 .ProgressMask {
     pointer-events: none;
     position: absolute;
@@ -76,7 +83,7 @@
 }
 
 .LevelName {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     line-height: 1.5rem;
     font-weight: 500;
     --tw-text-opacity: 1;
@@ -92,7 +99,7 @@
 }
 
 .RightContainer {
-    margin-bottom: 0.25rem;
+    margin-right: 0.25rem;
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
@@ -141,6 +148,7 @@
     border-radius: inherit;
     background-color: var(--db-brand-green);
     transition: width 0.3s linear;
+    animation: shineLines 7s infinite linear;
 }
 
 .DiamondsContainer {
@@ -195,5 +203,23 @@
     .LeftContainer .NextLevelContainer .IconContainer {
         height: 2rem;
         width: 2rem;
+    }
+}
+
+@media (max-width: 575px) {
+    .VipProgress {
+        padding: 0.3rem 0.5rem 0 0.5rem;
+        min-width: 100%;
+        height: 70px;
+    }
+}
+
+@keyframes shineLines {
+    0% {
+        background-position: -200% 0;
+    }
+
+    100% {
+        background-position: 200% 0;
     }
 }

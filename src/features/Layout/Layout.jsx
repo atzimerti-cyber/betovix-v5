@@ -30,6 +30,7 @@ import Stats from './features/Stats';
 import Ticket from '../Ticket/Ticket';
 import OperatorView from './features/OperatorView';
 import LiveLoader from './features/LiveLoader';
+import VipProgress from '../../pages/Home/features/VipProgress';
 
 const Layout = () => {
     const dispatch = useDispatch();
@@ -50,6 +51,8 @@ const Layout = () => {
     const slips = useSelector((state) => state.betslip.slips);
     const pageNotAuthorized = useSelector((state) => state.layout.pageNotAuthorized);
     const scrollToTop = useSelector((state) => state.layout.scrollToTop);
+
+    const hasHero = useSelector((state) => state.gamification.selectedHero);
 
     const [isFirstRender, setIsFirstRender] = useState(true);
 
@@ -123,6 +126,11 @@ const Layout = () => {
                     <main>
                         <div className={pageNotAuthorized ? [classes.FullPage, classes.NotAuthorized].join(' ') : classes.FullPage}>
                             {user?.Role < 40 && <OperatorView />}
+                            {isMobile && hasHero && Object.keys(hasHero).length > 0 &&
+                                <div className={classes.HeroProgress}>
+                                    <VipProgress />
+                                </div>
+                            }
 
                             <Outlet />
                         </div>

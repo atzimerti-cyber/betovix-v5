@@ -32,6 +32,8 @@ const Topbar = () => {
     const location = useLocation();
 
     const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' });
+    const progressBar = useMediaQuery({ query: '(min-width: 576px) and (max-width: 950px)' });
+
 
     const fullLeftContainer = useSelector((state) => state.layout.fullLeftContainer);
     const userDropdownVisible = useSelector((state) => state.layout.userDropdownVisible);
@@ -40,6 +42,10 @@ const Topbar = () => {
     const showingLiveEvent = useSelector((state) => state.event.showingLiveEvent);
     const availableBonus = useSelector((state) => state.layout.availableBonus);
     const newRewards = useSelector((state) => state.gamification.newRewards);
+
+    const hasHero = useSelector((state) => state.gamification.selectedHero);
+    const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
+    const levelProgress = useSelector((state) => state.gamification.progressBar);
 
     const [balanceInteger, setBalanceInteger] = useState(0);
     const [balanceDecimal, setBalanceDecimal] = useState('00');
@@ -133,7 +139,6 @@ const Topbar = () => {
                                 <div className={classes.InPlay}>(In Play)</div>
                             </div>
                         </div>
-
                     </>
                 )}
             </div>
@@ -142,23 +147,6 @@ const Topbar = () => {
                 <div className={user ? [classes.HeaderRight, classes.UserHeaderRight].join(' ') : [classes.HeaderRight, classes.NoUserHeaderRight].join(' ')}>
                     {user ? (
                         <>
-                            {/* <div className={classes.YourProgress}>
-                                <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
-
-                                    <div className={classes.ProgressTitle}>{translate('Progress')}</div>
-                                    <div className={classes.ProgressBar}>
-
-                                        {Object.keys(userCurrentLevel).length > 0 ? (
-                                            <span style={{ width: `${userCurrentLevel.progress}%` }}></span>
-                                        ) : (
-                                            <span style={{ width: `0%` }}></span>
-                                        )}
-                                    </div>
-                                </MainButton>
-                            </div> */}
-
-
-
                             <div className={classes.BonusButtonContainer}>
                                 <MainButton className={classes.BonusButton} color='transparent' onClick={() => addParamsToUrl('bonus')}>
                                     <GiftIcon />
@@ -195,14 +183,6 @@ const Topbar = () => {
                                     <DropdownLang topbar />
                                 </div>
                             )}
-
-
-
-                            <div className={classes.Container}>
-                                {/* <MainButton color='transparent'>
-                                    <BellIcon />
-                                </MainButton> */}
-                            </div>
                         </>
                     ) : (
                         <>

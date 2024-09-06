@@ -35,11 +35,22 @@
 }
 
 .MinibarRightWrapper {
-    min-width: 30%;
+    
     position: relative;
     flex-grow: 0;
     display: flex;
     justify-content: flex-end;
+}
+
+.MinibarRightWrapper:before {
+    content: '';
+    position: absolute;
+    left: -49px;
+    z-index: 9;
+    background: linear-gradient(270deg, rgba(49, 88, 105, 0.48), transparent);
+    height: 100%;
+    width: 50px;
+    pointer-events: none;
 }
 
 .MinibarLeft {
@@ -96,7 +107,7 @@
 }
 
 .YourProgress {
-    width: 70%;
+    width: 100%;
 }
 
 .YourProgress>button {
@@ -179,17 +190,7 @@
     animation: shineLines 7s infinite linear;
 }
 
-/* TO CHANGE */
-@media(max-width: 1024px) {
-    .ProgressTitle {
-        margin-right: 0.3rem;
-    }
 
-    .YourProgress>button {
-        display: none;
-    }
-
-}
 
 .MenuSelection {
     position: relative;
@@ -258,9 +259,10 @@
 }
 
 /* /////////////////////////////////////// */
-@media (min-width: 640px) {
+@media (min-width: 575px) {
     .MinibarRightWrapper {
         flex-grow: 1;
+        min-width: 35%;
     }
 
     .MinibarCenterWrapper>button {
@@ -270,7 +272,6 @@
 
 @media (min-width: 768px) {
     .Minibar {
-        /* top: var(--db-topbar-height); */
         top: 0;
         height: var(--db-minibar-height);
         padding-left: 1rem;
@@ -291,5 +292,25 @@
 @media (min-width: 1024px) {
     .MinibarCenterWrapper>button span {
         display: inline-block;
+    }
+    .YourProgress {
+        max-width: 70%;
+    }
+    .MinibarRightWrapper:before {
+        display: none;
+    }
+}
+
+/* TO CHANGE */
+@media(max-width: 575px) {
+    .ProgressTitle {
+        margin-right: 0.3rem;
+    }
+
+    .YourProgress>button {
+        display: none;
+    }
+    .MinibarRightWrapper{
+        display: none;
     }
 }

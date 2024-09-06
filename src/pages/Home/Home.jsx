@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import useIntersectionObserver from '../../hooks/IntersectionObserver';
@@ -23,7 +24,11 @@ import ManualRewards from '../UserGamification.jsx/features/ManualRewards';
 // Lazy load the component
 const SwiperWithOverlay = React.lazy(() => import('../../features/UI/MainSwiper/SwiperWithOverlay'));
 
+
+
 const Home = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
     const dispatch = useDispatch();
     // const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
@@ -56,6 +61,14 @@ const Home = () => {
     const hasHero = useSelector((state) => state.gamification.selectedHero);
 
     const [axiosSignal, setAxiosSignal] = useState(null);
+
+    const addParamsToUrl = (modal, tab) => {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set('modal', modal);
+        if (tab) searchParams.set('tab', tab);
+
+        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+    };
 
     useEffect(() => {
         const controller = new AbortController();
@@ -165,20 +178,25 @@ const Home = () => {
 
                 <div className={isMobile || (isTablet && !user) ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
                     {(isMobile === false || user === null) && <Banners banners={sportBanners} />}
-                    {/* {(isMobile === false || user === null) && <HomeBanners isMobile={isMobile} />} */}
 
                     {!isMobile && user && (
                         <div className={classes.VipContainer}>
                             <VipProgress />
                         </div>
                     )}
-                    {isMobile && user && <VipProgress />}
+
 
                     {!user && <RegisterContainers />}
                 </div>
 
+                {/* {isMobile && user && hasHero && Object.keys(hasHero).length > 0 && (
+                    <div className={classes.VipContainer}>
+                        <VipProgress />
+                    </div>
+                )} */}
+
                 {user && hasHero && Object.keys(hasHero).length > 0 && (
-                    <div className={classes.ManualRewards}>
+                    <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
                         <ManualRewards />
                     </div>
                 )}

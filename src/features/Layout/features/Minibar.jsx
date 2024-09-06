@@ -22,7 +22,7 @@ const Minibar = () => {
     const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
     const levelProgress = useSelector((state) => state.gamification.progressBar);
 
-    const isMobile = useMediaQuery({ query: '(max-width: 1024px)' });
+    const isMobile = useMediaQuery({ query: '(max-width: 950px)' });
 
     const getPathByItemName = (itemName) => {
         switch (itemName) {
@@ -66,7 +66,7 @@ const Minibar = () => {
 
     return (
         <>
-            {!isMobile ? (
+            {/* {!isMobile ? ( */}
                 <div className={classes.Minibar}>
                     <div className={classes.MinibarLeftWrapper}>
                         <>
@@ -125,55 +125,31 @@ const Minibar = () => {
                         }
                     </div>
                 </div>
-            ) : (
-                <div className={classes.Minibar}>
-                    <div className={classes.MinibarLeftWrapper}>
-                        {user && hasHero && Object.keys(hasHero).length > 0 ? (
-                            <>
+            {/* // ) : (
+            //     <div className={classes.Minibar}>
+            //         <div className={classes.MinibarLeftWrapper}>
 
-                                <div className={classes.YourProgressMobile}>
-                                    <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
-                                        <div className={classes.Container}>
-                                            <div className={classes.ProgressTitle}>{userCurrentLevel.name}</div>
-                                            <div className={classes.ProgressBarMobile}>
-                                                {levelProgress && Object.keys(levelProgress).length > 0 ? (
-                                                    <>
-                                                        <div className={classes.Level}>
-                                                            <p>{`${(levelProgress)}%`}</p>
-                                                        </div>
-                                                        <span style={{ width: `${levelProgress}%` }}></span>
-                                                    </>
-                                                ) : (
-                                                    <span style={{ width: `0%` }}></span>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </MainButton>
-                                </div>
-                            </>
-                        ) : (
+            //             <>
+            //                 <menu className={classes.MenuSelection}>
+            //                     <div className={classes.MenuContent}>
+            //                         {Object.keys(minibarMenu).length > 0 && (
+            //                             <MinibarMenu
+            //                                 items={minibarMenu}
+            //                                 onSelect={(item) => {
+            //                                     getPathByItemName(item.Name)
+            //                                     handleClick(item.Name)
+            //                                 }}
+            //                             />
+            //                         )}
+            //                     </div>
+            //                 </menu>
+            //             </>
 
-                            <>
-                                <menu className={classes.MenuSelection}>
-                                    <div className={classes.MenuContent}>
-                                        {Object.keys(minibarMenu).length > 0 && (
-                                            <MinibarMenu
-                                                items={minibarMenu}
-                                                onSelect={(item) => {
-                                                    getPathByItemName(item.Name)
-                                                    handleClick(item.Name)
-                                                }}
-                                            />
-                                        )}
-                                    </div>
-                                </menu>
-                            </>
 
-                        )}
-                    </div>
+            //         </div>
 
-                </div>
-            )}
+            //     </div>
+            // )} */}
 
         </>
     );
