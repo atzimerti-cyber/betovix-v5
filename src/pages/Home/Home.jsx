@@ -18,7 +18,7 @@ import VipProgress from './features/VipProgress';
 import RegisterContainers from './features/RegisterContainers';
 import Crypto from './features/Crypto';
 import { translate } from '../../utils/translations';
-import ManualRewards from '../UserGamification.jsx/features/ManualRewards';
+import ManualRewards from '../UserGamification.jsx/features/ManualRewards'; 
 
 // Lazy load the component
 const SwiperWithOverlay = React.lazy(() => import('../../features/UI/MainSwiper/SwiperWithOverlay'));
@@ -53,6 +53,7 @@ const Home = () => {
     const user = useSelector((state) => state.login.user);
     const permissions = useSelector((state) => state.login.permissions);
     const sportBanners = useSelector((state) => state.home.sportBanners);
+    const hasHero = useSelector((state) => state.gamification.selectedHero);
 
     const [axiosSignal, setAxiosSignal] = useState(null);
 
@@ -176,9 +177,11 @@ const Home = () => {
                     {!user && <RegisterContainers />}
                 </div>
 
-                <div className={classes.ManualRewards}>
-                    <ManualRewards />
-                </div>
+                {user && hasHero && Object.keys(hasHero).length > 0 && (
+                    // <div className={classes.ManualRewards}>
+                        <ManualRewards />
+                    // </div>
+                )}
 
 
                 {permissions.AllowToSports && (
