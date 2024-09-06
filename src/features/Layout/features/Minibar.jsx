@@ -147,7 +147,6 @@ const Minibar = () => {
                                                     <span style={{ width: `0%` }}></span>
                                                 )}
                                             </div>
-                                            <div className={classes.LevelMobile}>{`${userCurrentLevel}%`}</div>
                                         </div>
                                     </MainButton>
                                 </div>

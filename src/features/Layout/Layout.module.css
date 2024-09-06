@@ -271,7 +271,7 @@
     }
 }
 
-@media (max-width: 960px) {
+@media (max-width: 1024px) {
     .OuterContainerRightWrapper {
         position: absolute;
         right: 0;

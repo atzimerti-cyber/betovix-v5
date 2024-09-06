@@ -18,6 +18,7 @@ import VipProgress from './features/VipProgress';
 import RegisterContainers from './features/RegisterContainers';
 import Crypto from './features/Crypto';
 import { translate } from '../../utils/translations';
+import ManualRewards from '../UserGamification.jsx/features/ManualRewards';
 
 // Lazy load the component
 const SwiperWithOverlay = React.lazy(() => import('../../features/UI/MainSwiper/SwiperWithOverlay'));
@@ -110,6 +111,7 @@ const Home = () => {
     const hasRecentGames = filteredGames.recentGames?.Data?.length > 0;
     const hasFavoriteGames = filteredGames.favoriteGames?.Data?.length > 0;
 
+    const { isVisible: isLiveEventsVisible, elementRef: liveEventsRef } = useIntersectionObserver();
     const { isVisible: isTopEventsVisible, elementRef: topEventsRef } = useIntersectionObserver();
     const { isVisible: isSwiperVisible, elementRef: swiperRef } = useIntersectionObserver();
     const { isVisible: isFavoritesVisible, elementRef: favoritesRef } = useIntersectionObserver();
@@ -170,13 +172,19 @@ const Home = () => {
                     {!user && <RegisterContainers />}
                 </div>
 
+                <div className={classes.ManualRewards}>
+                    <ManualRewards />
+                </div>
+
+
                 {permissions.AllowToSports && (
                     <>
-                        <div ref={topEventsRef}>
-                             {isTopEventsVisible &&<LiveEvents />}
+                        <div ref={liveEventsRef}>
+                            {isLiveEventsVisible && <LiveEvents />}
                         </div>
-                        <div ref={divs[0].ref}> 
-                             <TopEvents />
+                        {/* <div ref={divs[0].ref}>  */}
+                        <div ref={topEventsRef}>
+                            {isTopEventsVisible && <TopEvents />}
                         </div>
                     </>
                 )}
@@ -184,16 +192,17 @@ const Home = () => {
                 {permissions.AllowToCasino || permissions.AllowToSlots
                     ? hasNewGames && (
                         <div ref={swiperRef}>
-                       {isSwiperVisible && ( <SwiperWithOverlay
-                            title={translate('New Games')}
-                            icon={<NewIcon className={classes.NewIcon} />}
-                            link='/casino/slots'
-                            items={filteredGames.newGames?.Data}
-                            slidesPerView={slidesPerView}
-                        />)}
+                            {isSwiperVisible && (<SwiperWithOverlay
+                                title={translate('New Games')}
+                                icon={<NewIcon className={classes.NewIcon} />}
+                                link='/casino/slots'
+                                items={filteredGames.newGames?.Data}
+                                slidesPerView={slidesPerView}
+                            />)}
                         </div>
                     )
-                    : null}
+                    : null
+                }
 
                 {user && (permissions.AllowToCasino || permissions.AllowToSlots) ? (
                     <>
@@ -206,7 +215,7 @@ const Home = () => {
                             />
                         )}
                         <div ref={favoritesRef}>
-                            {hasFavoriteGames && isFavoritesVisible  && (
+                            {hasFavoriteGames && isFavoritesVisible && (
                                 <SwiperWithOverlay
                                     title={translate('Favorites')}
                                     icon={<HeartIcon />}

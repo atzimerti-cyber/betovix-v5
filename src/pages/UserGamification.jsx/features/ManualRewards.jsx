@@ -103,6 +103,52 @@ const ManualRewards = (props) => {
                 <article className={classes.Card}>
                     <header>
                         <div className={classes.IconContainer}>
+                            <Calendar7dIcon />
+                        </div>
+                        <p className={classes.Title}>Instant Reward</p>
+                        {/* <p className={classes.Title}>{translate(weeklyRewards?.name)}</p> */}
+                    </header>
+                    <main className={classes.CardMain}>
+                        {weeklyRewards ? (
+                            <>
+                                <p className={classes.ClaimIn}>
+                                    {translate('Claim until')} {timeUntilNextSunday}
+                                </p>
+                                <div className={classes.ProgressBar}>
+                                    <div className={classes.Progress} style={{ '--progress': `${weeklyRewards.progress}%` }}></div>
+                                </div>
+                                <p className={classes.Description}>
+                                    {weeklyRewards.description.replace(/<\/?p>/g, "")}
+                                </p>
+
+                                <p className={classes.Reward}>
+                                    {descByKey(weeklyRewards.rewardType, weeklyRewards.rewardValue, weeklyRewards.rewardSymbol)}
+                                </p>
+
+
+                                {weeklyRewards.progress < 100 ? (
+                                    <button className={classes.TempButton} disabled>
+                                        {translate('Not Completed')}
+                                    </button>
+                                ) : (
+                                    <button className={classes.TempButton}>
+                                        {translate('Claim')}
+                                    </button>
+                                )
+                                }
+                            </>
+                        ) : (
+                            <>
+                                <p className={classes.NotAvailable}>
+                                    {translate('Not available yet')}
+                                </p>
+                            </>
+                        )}
+                    </main>
+                </article>
+                <article className={classes.Card}>
+                    <header>
+                        <div className={classes.IconContainer}>
                             <Calendar1dIcon />
                         </div>
                         {/* <p className={classes.Title}>{dailyRewards?.name}</p> */}

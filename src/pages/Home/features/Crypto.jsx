@@ -77,11 +77,10 @@ const Crypto = () => {
                 <MainSwiper
                     // slidesPerView={slidesPerView}
                     slidesPerView={'auto'}
-                    // icon={<PricesIcon />}
-                    // title={<Link to='/crypto'>{translate('Crypto Prices')}</Link>}
-                    // viewAll='/crypto'
+                    icon={<PricesIcon />}
+                    title={<Link to='/crypto'>{translate('Crypto Prices')}</Link>}
+                    viewAll='/crypto'
                     spaceBetween={20}
-                    hideArrows
                     autoplay={true}
                     delay={4000}
                     loop={true}

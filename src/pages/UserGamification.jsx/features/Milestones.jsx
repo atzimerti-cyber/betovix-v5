@@ -180,6 +180,7 @@ const Milestones = (props) => {
                                                     index={heroLevels[thisLevelIndex].milestones.length}
                                                     level={heroLevels[thisLevelIndex]}
                                                     firstCard
+                                                    icon={heroLevels[thisLevelIndex]?.icon}
                                                     complete={heroLevels[thisLevelIndex]?.id === currentUserLevel?.id || heroLevels[thisLevelIndex]?.completed}
                                                 />
                                             )}
@@ -193,6 +194,7 @@ const Milestones = (props) => {
                                                     details={`${milestone.rewardValue}`}
                                                     level={heroLevels[thisLevelIndex]}
                                                     complete={milestone.progress === 100 ? true : false}
+                                                    icon={milestone?.icon}
                                                 />
                                             ))}
 

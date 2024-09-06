@@ -119,43 +119,6 @@ export const getUserAchievements = () => {
                 lvlAction: response.data.Contents.Hero.MetaData?.LevelAction,
             };
 
-            // // PROGRESS //
-            // const levelProgress = (level) => {
-            //     let progressXP = 0;
-            //     let progress = 0;
-            //     let achList = [];
-            //     level.MileStones.map(milestone => {
-            //         achList.push(milestone);
-            //     });
-
-            //     let totalExp = 0;
-            //     let progressSection;
-
-            //     if (achList.length > 0) {
-            //         achList.map(ach => {
-            //             totalExp += ach.PointStrategy.BasePoints;
-            //         })
-
-            //         if (level.Level?.NextLevelBasePoints) {
-            //             totalExp = totalExp + level.Level.NextLevelBasePoints;
-            //             progressSection = totalExp / (achList.length + 1);
-            //         } else {
-            //             progressSection = totalExp / (achList.length);
-            //         }
-
-            //         achList.forEach(item => {
-            //             //const mP = ((item.AchievementEntrand?.ScoreBoard) / (item.PointStrategy.BasePoints));
-            //             progressXP += item.AchievementEntrand?.ScoreBoard;
-            //         });
-            //     }
-            //     if (level.Level?.NextLevelEntrand?.ScoreBoard) {
-            //         progressXP = progressXP + level.Level?.NextLevelEntrand?.ScoreBoard;
-            //     }
-            //     progress = (progressXP / totalExp) * 100;
-
-            //     return progress;
-            // }
-
             //LEVELS AND MILESTONES
             const heroLevels = response.data.Contents.Levels.map(level => {
                 const milestones = level.MileStones.map(milestone => ({
@@ -166,6 +129,7 @@ export const getUserAchievements = () => {
                     pointsValue: milestone.PointStrategy?.BasePoints,
                     rewardType: milestone.Rewards?.RewardType,
                     rewardValue: milestone.Rewards?.RewardValue,
+                    icon: milestone.Achievement?.Icon,
                 })).sort((a, b) => a.name.localeCompare(b.name));
 
                 return {
@@ -176,7 +140,7 @@ export const getUserAchievements = () => {
                     scoreboard: level.Level.AchievementEntrand?.ScoreBoard,
                     basePoints: level.Level.PointStrategy?.BasePoints,
                     progress: level.Level.AchievementEntrand?.Progress,
-                    // progress: levelProgress(level),
+                    icon: level.Level.Achievement?.Icon,
                 };
             }).sort((a, b) => {
                 const levelANumber = parseInt(a.name.replace(/\D/g, ''), 10);
@@ -218,21 +182,6 @@ export const getUserAchievements = () => {
             //     weeklyRewards: weeklyRewards,
             //     monthlyRewards: monthlyRewards
             // }
-
-            //CURRENT LEVEL 
-            // let currentLevel;
-            // heroLevels.some(heroLevel => {
-            //     const mil = heroLevel.milestones.find(milestone =>
-            //         milestone.percentageComplete >= 0 && milestone.percentageComplete < 100
-            //     ) !== undefined;
-
-            //     if (mil) {
-            //         currentLevel = heroLevel;
-            //         return true;
-            //     }
-
-            //     return false;
-            // });
 
             const currentLevel = {
                 id: response.data.Contents.CurrentLevel.AchievementID,

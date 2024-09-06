@@ -8,14 +8,6 @@ import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 const MilestoneCard = (props) => {
     return (
         <motion.article
-            // className={props.firstCard ? (
-            //     [classes.MilestoneCard, classes.Milestone0].join(' ')
-            // ) : (
-            //     props.complete ? (
-            //         [classes.MilestoneCard, classes.Complete].join(' ')
-            //     ) : (
-            //         classes.MilestoneCard
-            //     ))}
             className={
                 props.complete ? (
                     [classes.MilestoneCard, classes.Complete].join(' ')
@@ -30,13 +22,24 @@ const MilestoneCard = (props) => {
             <div className={classes.Background}>
                 <div className={classes.ImageContainer}>
                     {props.firstCard ? (
-                        <div className={props.complete ? ([classes.ImageInner, classes.Complete].join(' ')) : classes.ImageInner}>
-                            <div className={`CardLevel CardLevel${props.level.id}`}></div>
-                        </div>
+                        props.icon ? (<div className={props.complete ? ([classes.ImageInner, classes.Complete].join(' ')) : classes.ImageInner}>
+                            <img src={props.icon} loading='lazy' alt='Coins' />
+                        </div>) : (
+                            <div className={props.complete ? ([classes.ImageInner, classes.Complete].join(' ')) : classes.ImageInner}>
+                                <div className={`CardLevel CardLevel${props.level.id}`}></div>
+                            </div>
+                        )
+
                     ) : (
-                        <div className={props.complete ? ([classes.ImageInner, classes.Complete].join(' ')) : classes.ImageInner}>
-                            <img src={largeCoin} loading='lazy' alt='Coins' />
-                        </div>
+                        props.icon ? (
+                            <div className={props.complete ? ([classes.ImageInner, classes.Complete].join(' ')) : classes.ImageInner}>
+                                <img src={props.icon} loading='lazy' alt='Coins' />
+                            </div>
+                        ) : (
+                            <div className={props.complete ? ([classes.ImageInner, classes.Complete].join(' ')) : classes.ImageInner}>
+                                <img src={largeCoin} loading='lazy' alt='Coins' />
+                            </div>
+                        )
                     )}
                 </div>
             </div>
