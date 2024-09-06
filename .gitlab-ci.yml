@@ -1,0 +1,41 @@
+#image: node:latest 
+# version 1
+#======================================= =
+stages:
+    - build
+    - storepreprod
+    - deployproduction
+   
+#=======================================
+job_build:
+    stage: build
+    only: 
+        - main
+    script:
+        - cmd.exe /c 'C:\gitlab-runner-TanitWeb\deploy_betovix.bat' #deploy to test server only
+        
+    tags:
+        - TanitWeb
+
+job_storepreprod:
+    stage: storepreprod
+    only:
+        - main
+    script:
+        - cmd.exe /c 'C:\gitlab-runner-TanitWeb\store_betovix.bat' 
+    tags:
+        - TanitWeb
+ 
+ #=======================================
+#Meda.bet
+job_production7:
+    stage: deployproduction
+    only:  
+        - production_betovix
+    script:
+        - cmd.exe /c 'C:\gitlab-runner-tasks\deploy_website_betovix.bat' 
+    tags:
+        - Betovix.com_vm1.2_runner  
+
+     
+ 
