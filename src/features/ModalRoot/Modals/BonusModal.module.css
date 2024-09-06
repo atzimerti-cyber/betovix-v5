@@ -14,6 +14,8 @@
     margin-top: 60px;
     opacity: 0;
     animation: slide 0.2s ease-out forwards;
+    max-height: calc(100vh - 20vh);
+    overflow: auto;
  }
  @keyframes loading {
    0% {
@@ -68,9 +70,8 @@
 }
  .bonusesContainer {
     min-height: 440px;
-    padding: 15px;
 }
-.bonusesContainerSmall {
+/* .bonusesContainerSmall {
    padding: 15px;
 }
 
@@ -78,11 +79,17 @@
      .bonusesContainerSmall {
         padding: 0;
    }
-}
+} */
 
 @media (max-width: 1024px) {
    .bonusesContainer {
       min-height: calc(100vh - 10vh);
+    }
+}
+
+@media (max-width: 768px) {
+   .bonusesContainer {
+      min-height: unset;
     }
 }
 
@@ -107,6 +114,7 @@
     display: flex;
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
+    padding: 10px;
     justify-content: space-between;
 }
   .bonusesHeader .bonusesHeaderWrapper {
@@ -169,7 +177,7 @@
 }
 @media (max-width: 776px) {
       .bonusesHeader .bonusesHeaderWrapper > div {
-        flex: 1 1 45%;
+        flex: 1 1 33.33%;
         height: 30px;
         font-size: 13px;
    }
@@ -218,11 +226,11 @@
       width: 155px;
    }
 }
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
    .BonusModal {
        margin-top: 130px;
    }
-}
+} */
 @media (max-width: 1024px) {
    .ImageContainer {
       display: none;
@@ -232,9 +240,6 @@
    display: flex;
    align-items: center;
    justify-content: flex-end;
-}
-.bonusesBodyWrapper {
-   padding-top: 25px;
 }
 
 header {
@@ -273,13 +278,11 @@ header .Right {
    color: rgb(255 255 255 / var(--tw-text-opacity));
 }
  .bonusesBody {
+   border-top: 1px solid;
+   padding: 10px;
     position: relative;
     padding-bottom: 50px;
-}
-@media (max-width: 768px) {
-     .bonusesBody {
-        border: 0;
-   }
+    padding-top: 20px; 
 }
  .bonusesBody > .bonusesBodyWrapper {
     min-height: 300px;

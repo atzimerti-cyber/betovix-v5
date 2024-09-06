@@ -58,7 +58,7 @@ const BonusModal = () => {
         <div className={classes.BonusModal}>
               <div className={classes.bonusesContainer}>
             <div className={classes.bonusesWrapper}>
-            <header>
+            <header style={{padding: 10}}>
                             <div className={classes.Center}>
                                 <h1 className={classes.Title}>
                                 <BonusIcon />
@@ -133,10 +133,7 @@ const BonusModal = () => {
             </div>
        
         </div>
-        
-        <div className={classes.ImageContainer}>
-                <img src={StarBonusIcon} alt='bonus' loading='lazy' />
-            </div>
+       
         </div>
       
     );

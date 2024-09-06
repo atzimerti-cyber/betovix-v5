@@ -30,12 +30,12 @@
     width: 100%;
     max-width: 433px;
 }
-
+/* 
 .BannersContent.AdjustMargins {
     margin-left: -1rem;
     margin-right: -1rem;
     margin-top: -1rem;
-}
+} */
 
 .BannersContent.AdjustMargins > div:first-child {
     margin-left: unset;
