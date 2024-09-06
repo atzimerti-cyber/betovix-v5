@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getBonuses } from '../modalAsyncActions'; 
 import CloseButton from '../../UI/Buttons/CloseButton';
-import StarBonusIcon from '../../../assets/svgs/bonus.webp';
 import BonusIcon from '../../../assets/svgs/gift-box.svg?react';
 import BonusItem from '../features/BonusItem';
 import NoBonusItem from '../features/NoBonusItem';
@@ -12,7 +11,7 @@ import { modalActions } from '../modalSlice';
 import { translate } from '../../../utils/translations';
 
 import classes from './BonusModal.module.css';
-
+ 
 const BonusModal = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
