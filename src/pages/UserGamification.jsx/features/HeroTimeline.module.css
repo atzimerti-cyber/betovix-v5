@@ -1,37 +1,62 @@
+/* Timeline Container */
 .TimelineContainer {
-    padding: 1rem;
+    padding: 0 1rem 1rem 1rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-
     position: relative;
     overflow: hidden;
 }
 
+/* Title Styling */
+.TimelineTitle {
+    text-align: center;
+    font-family: Byker, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-weight: 700;
+    font-size: 2rem;
+    position: fixed;
+    width: 65%;
+    background-color: #051825;
+    z-index: 10000;
+    padding-bottom: 1rem;
+    height: 60px;
+}
+
 .TimelineContainer span {
-    font-size: 1rem;
-    font-weight: 500;
+    /* font-size: 1rem; */
     color: white;
 }
 
+/* Timeline Structure */
 .TimelineTree {
+    margin-top: 60px;
     width: 100%;
-
+    position: relative;
+    transition: transform 0.5s ease;
     transform-style: preserve-3d;
     perspective: 1000px;
-    transition: transform 0.5s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
+.Entity {
+    width: 100%;
+}
+
+/* Timeline Items */
 .TimelineItem {
     height: max-content;
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr max-content 1fr;
+    width: 100%;
     position: relative;
     min-height: 70px;
-    align-items: center;
-    width: 100%;
-
     transition: transform 0.5s ease;
+    font-weight: 500;
+    justify-content: center;
+    align-items: center;
 }
 
 .TimelineItem.active {
@@ -43,75 +68,148 @@
     opacity: 0.3;
     transform: scale(0.6);
 }
-.active {
-    transform: scale(1.2);
-    opacity: 1;
-}
 
-.inactive {
-    transform: scale(0.8);
-    opacity: 0.5;
-}
-
+/* Separators and Connectors */
 .MainSeparator {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    position: relative;
+    padding: 0 1rem 0 1rem;
 }
 
 .Connector {
+    width: 2px;
     height: 50px;
+    background-color: #ccc;
 }
 
 .SubConnector {
-    height: 10px;
+    width: 2px;
+    height: 20px;
+    background-color: #ccc;
 }
 
-.MainSVG svg {
-    height: 2rem;
-    width: 2rem;
+/* Dots and SVGs */
+.Dot {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.SubSVG svg {
-    height: 1rem;
-    width: 1rem;
+.SubDot {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.TimelineContent p {
-    font-size: 0.9rem;
+/* Content Styling */
+.TimelineContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.TimelineContent span {
+    font-size: 1.1rem;
     font-weight: 600;
     color: white;
 }
 
-.SubTimelineContent p {
+.TimelineContent p {
+    font-family: Byker, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     font-size: 0.8rem;
-    font-weight: 400;
-    color: white;
+    font-weight: 600;
+    color: var(--db-brand-green);
 }
 
+.SubTimelineContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.SubTimelineContent p {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--db-brand-green);
+}
+
+/* Opposite Content */
+.OppositeContent {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.SubOppositeContent {
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+/* Responsive Styling */
 @media (min-width: 640px) {
     .TimelineContainer span {
         font-size: 1.1rem;
     }
+    .TimelineTitle {
+        width: 60%;
+    }
 
     .TimelineContent p {
-        font-size: 1.2rem;
+        font-size: 0.65rem;
     }
 
     .SubTimelineContent p {
-        font-size: 1.1rem;
+        font-size: 0.65rem;
     }
 }
 
 @media (min-width: 1024px) {
     .TimelineContainer span {
-        font-size: 1.2rem;
+        font-size: 1.1rem;
+    }
+    .TimelineTitle {
+        width: 65%;
     }
 
     .TimelineContent p {
-        font-size: 1rem;
+        font-size: 0.8rem;
     }
 
     .SubTimelineContent p {
-        font-size: 0.95rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media (min-width: 1500px) {
+    .TimelineContainer span {
+        font-size: 1.1rem;
+    }
+    .TimelineTitle {
+        width: 90%;
+    }
+
+    .TimelineContent p {
+        font-size: 0.8rem;
+    }
+
+    .SubTimelineContent p {
+        font-size: 0.8rem;
     }
 }

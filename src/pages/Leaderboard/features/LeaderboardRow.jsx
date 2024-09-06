@@ -20,8 +20,9 @@ const LeaderboardRow = (props) => {
             setRewardDecimal('.' + rd.padStart(2, '0'));
         }
 
-        if (props.standing.amount) {
-            const amount = props.standing.amount / 100; // TODO: this / 100 is because of duelbits way of sending the values
+        if (props.standing.stake) {
+            // const amount = props.standing.amount / 100; // TODO: this / 100 is because of duelbits way of sending the values
+            const amount = props.standing.stake; // TODO: this / 100 is because of duelbits way of sending the values
 
             let ai = Math.floor(amount);
             ai = addThousandsSeparator(ai, 0);
@@ -32,6 +33,16 @@ const LeaderboardRow = (props) => {
         }
     }, []);
 
+    function transformDate(dateString) {
+        const date = new Date(dateString);
+    
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
+    
+        return `${day}/${month}/${year}`;
+    }
+
     return (
         <tr className={[classes.TableRow, classes['Position' + props.position]].join(' ')}>
             <td className={classes.PositionColumn}>
@@ -39,26 +50,31 @@ const LeaderboardRow = (props) => {
             </td>
             <td className={classes.PlayerColumn}>
                 <div className={props.position <= 5 ? [classes.CellContent, classes.HasPosition].join(' ') : classes.CellContent}>
-                    <span className={classes.DisplayName}>{props.standing.user.displayName}</span>
+                    <CoinsIcon className={classes.CoinsIcon} />
+                    <span className={classes.DisplayName}>{props.standing.ticket.winnings}</span>
+                    {/* <span className={classes.DisplayName}>{props.standing.user.displayName}</span> */}
                 </div>
             </td>
             <td className={classes.PrizeColumn}>
                 <div className={classes.CellContent}>
-                    {rewardInteger !== '-' && <CoinsIcon className={classes.CoinsIcon} />}
+                    <CoinsIcon className={classes.CoinsIcon} />
+                    {/* {rewardInteger !== '-' && <CoinsIcon className={classes.CoinsIcon} />} */}
 
                     <span className={classes.BitsAmount}>
-                        {rewardInteger}
-                        <span>{rewardDecimal}</span>
+                        {/* {rewardInteger}
+                        <span>{rewardDecimal}</span> */}
+                         {props.standing.ticket.stake}
                     </span>
                 </div>
             </td>
             <td className={classes.WageredColumn}>
                 <div className={classes.CellContent}>
-                    {amountInteger !== '-' && <CoinsIcon className={classes.CoinsIcon} />}
+                    {/* {amountInteger !== '-' && <CoinsIcon className={classes.CoinsIcon} />} */}
 
                     <span className={classes.BitsAmount}>
-                        {amountInteger}
-                        <span>{amountDecimal}</span>
+                        {/* {amountInteger}
+                        <span>{amountDecimal}</span> */}
+                        {transformDate(props.standing.ticket.date)}
                     </span>
                 </div>
             </td>

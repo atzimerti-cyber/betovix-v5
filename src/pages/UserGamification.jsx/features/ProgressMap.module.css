@@ -33,9 +33,11 @@
     width: 50vw;
     content: '';
 }
+
 .Banner::before {
     left: 100%;
 }
+
 .Banner::after {
     right: 100%;
 }
@@ -44,13 +46,15 @@
     font-size: 20px;
     font-weight: 300;
     --tw-text-opacity: 1;
-    color:  var(--db-brand-color);
+    color: var(--db-brand-color);
 }
+
 .BannerTitle span {
     display: block;
     font-weight: 800;
-    color:var(--db-brand-green);
+    color: var(--db-brand-green);
 }
+
 .BannerBoost {
     white-space: nowrap;
     text-align: end;
@@ -60,17 +64,19 @@
     color: var(--db-purple-text);
 }
 
-.BannerBoost > span {
+.BannerBoost>span {
     display: block;
 }
+
 .Container {
     position: static;
-    background-color: #051825;
+    background-color: transparent;
     height: 750px;
-    width: 80vw;
+    width: 100vw;
     overflow-y: scroll;
 }
-.Timeline{
+
+.Timeline {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -80,5 +86,9 @@
 @media (min-width: 769px) {
     .Container {
         width: 65vw;
+        position: static;
+        background-color: #051825;
+        height: 750px;
+        overflow-y: scroll;
     }
 }

@@ -1,10 +1,10 @@
 import { toast } from 'react-toastify';
 
-// import axiosApi from '../../axios-api';
+import axiosApi from '../../axios-api';
 import { getLang } from '../../utils/storage';
 import { leaderboardActions } from './leaderboardSlice';
 
-import leaderboard from '../../dummyData/leaderboard';
+//import leaderboard from '../../dummyData/leaderboard';
 
 export const getLeaderboard = (signal) => {
     return async (dispatch) => {
@@ -13,17 +13,33 @@ export const getLeaderboard = (signal) => {
 
             const lang = getLang();
 
-            // const response = await axiosApi.post(
-            //     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${import.meta.env.VITE_SITE_ID}`,
-            //     {
-            //         data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
-            //     },
-            //     {
-            //         signal: signal,
-            //         baseURLOverride: import.meta.env.VITE_CASINO_BASE,
-            //     }
-            // );
-            // if (response.data.Status.StatusCode !== 200) throw Error();
+            const response = await axiosApi.get(
+                `MyTicket/GetTopWins?lang=${lang.id}&siteid=6`,
+                // `MyTicket/GetTopWins?lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                {
+                    signal: signal,
+                    baseURLOverride: import.meta.env.VITE_WALLET_API,
+                }
+            );
+            if (response.data.Status.StatusCode !== 200) throw Error();
+
+            const leaderboard = {
+                standings: {
+                    daily: {
+                        standings: response.data.Contents.map(top => (
+                            {
+                                ticket: {
+                                    id: top.TicketId,
+                                    winnings: top.Wins,
+                                    date: top.Settlement,
+                                    stake: top.Stake,
+                                }
+                            }
+                        ))
+                    }
+                }
+            }
+            console.log(leaderboard);
 
             // TODO:
             setTimeout(() => {

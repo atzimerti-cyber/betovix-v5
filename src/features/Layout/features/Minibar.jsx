@@ -134,9 +134,15 @@ const Minibar = () => {
                                 <div className={classes.YourProgressMobile}>
                                     <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
                                         <div className={classes.Container}>
+                                            <div className={classes.ProgressTitle}>{userCurrentLevel.name}</div>
                                             <div className={classes.ProgressBarMobile}>
-                                                {userCurrentLevel && Object.keys(userCurrentLevel).length > 0 ? (
-                                                    <span style={{ width: `${userCurrentLevel}%` }}></span>
+                                                {levelProgress && Object.keys(levelProgress).length > 0 ? (
+                                                    <>
+                                                        <div className={classes.Level}>
+                                                            <p>{`${(levelProgress)}%`}</p>
+                                                        </div>
+                                                        <span style={{ width: `${levelProgress}%` }}></span>
+                                                    </>
                                                 ) : (
                                                     <span style={{ width: `0%` }}></span>
                                                 )}

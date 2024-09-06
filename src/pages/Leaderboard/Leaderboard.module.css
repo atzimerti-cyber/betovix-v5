@@ -157,9 +157,9 @@
 .TableHeader th {
     padding-top: 0.625rem;
     padding-bottom: 0.625rem;
-    font-size: 0.75rem;
+    font-size: 1rem;
     line-height: 1rem;
-    font-weight: 300;
+    font-weight: 500;
     --tw-text-opacity: 1;
     color: rgb(204 204 204 / var(--tw-text-opacity));
     width: 50px;
