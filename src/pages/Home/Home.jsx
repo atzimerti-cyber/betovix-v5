@@ -156,7 +156,11 @@ const Home = () => {
     return (
         <div className={classes.PageContent}>
             <div className={classes.Home}>
-                {user && <Crypto />}
+                {user &&
+                    <div style={{ marginTop: '0.5rem' }}>
+                        <Crypto />
+                    </div>
+                }
 
                 <div className={isMobile || (isTablet && !user) ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
                     {(isMobile === false || user === null) && <Banners banners={sportBanners} />}

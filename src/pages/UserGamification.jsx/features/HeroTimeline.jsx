@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Logo from '../../../assets/svgs/logo-small.svg?react';
 import classes from './HeroTimeline.module.css';
 
