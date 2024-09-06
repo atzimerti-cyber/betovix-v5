@@ -26,21 +26,21 @@
 }
  .bonusItem > .bonusItemContent {
     padding: 15px;
-    padding-right: 25px;
     position: relative;
     display: flex;
     flex-direction: row;
 }
-@media (max-width: 768px) {
+@media (max-width: 425px) {
      .bonusItem > .bonusItemContent {
         flex-direction: column;
-        padding: 10px 0;
+        padding: 10px 8px;
    }
+  
 }
  .bonusItem > .bonusItemContent > .bonusItemImage {
     display: flex;
     height: 100px;
-    width: 118px;
+    width: 120px;
 }
  .bonusItem > .bonusItemContent > .bonusItemImage img {
     border-radius: 8px;
@@ -59,11 +59,23 @@
         padding: 0 5px;
    }
 }
+
+@media (max-width: 500px) {
+    .bonusItem > .bonusItemContent > .bonusContentContainer {
+       z-index: 2;
+  }
+  .bonusItem > .bonusItemContent > .bonusItemImage {
+    position: absolute;
+    right: 0;
+    opacity: 0.5;
+    width: 100px!important;
+}
+}
  .bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle {
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 12px;
+    gap: 6px;
 }
  .bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle h3 {
     font-size: 17px;
@@ -78,7 +90,6 @@
     display: flex;
     align-items: center;
     white-space: nowrap;
-    flex-wrap: wrap;
 }
  .bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle .bonusDate > div {
     padding: 3px 5px;
@@ -93,14 +104,9 @@
  .bonusItem > .bonusItemContent > .bonusContentContainer .wageringContent {
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
-    padding: 15px 0;
+    padding: 8px 0;
 }
-@media (max-width: 500px) {
-     .bonusItem > .bonusItemContent > .bonusContentContainer .wageringContent {
-        min-height: 90px;
-   }
-}
- 
+
 .bonusWrapperBtns {
     margin-top: auto;
 }

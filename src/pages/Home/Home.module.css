@@ -31,12 +31,12 @@
     overflow: hidden;
     border-radius: 0.375rem;
 }
-
+/* 
 .BannersContent.AdjustMargins {
     margin-left: -1rem;
     margin-right: -1rem;
     margin-top: -1rem;
-}
+} */
 
 .BannersContent.AdjustMargins>div:first-child {
     margin-left: unset;
