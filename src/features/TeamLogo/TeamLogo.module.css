@@ -5,14 +5,14 @@
     -webkit-box-pack: center;
     justify-content: center;
     font-size: 15px;
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     z-index: 1;
 }
 .Logo img,
 .Logo svg {
-    width: 20px;
-    height: 20px;
+    width: 30px;
+    height: 30px;
 }
 
 .Logo .BigSvg {
