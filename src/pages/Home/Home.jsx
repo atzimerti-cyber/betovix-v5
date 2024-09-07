@@ -11,6 +11,7 @@ import TopEvents from './features/TopEvents';
 //import { getHome } from './homeAsyncActions';
 import { homeActions } from './homeSlice';
 import { getEventsTop } from './homeAsyncActions';
+import { recRewards } from '../UserGamification.jsx/gamificationAsyncActions';
 import { getBanners } from './homeAsyncActions';
 import { getCasinoFavs } from './homeAsyncActions';
 import SwiperWithOverlay from '../../features/UI/MainSwiper/SwiperWithOverlay';
@@ -22,18 +23,25 @@ import RegisterContainers from './features/RegisterContainers';
 import Crypto from './features/Crypto';
 import { translate } from '../../utils/translations';
 import ManualRewards from '../UserGamification.jsx/features/ManualRewards';
+//const LiveEvents = React.lazy(() => import('./features/LiveEvents'));
 
-// Lazy load the component
-//const SwiperWithOverlay = React.lazy(() => import('../../features/UI/MainSwiper/SwiperWithOverlay'));
+function ObjectHasValue(obj) {
 
-
-
+    for (let key in obj) {
+        if (obj.hasOwnProperty(key)) {
+            return true
+        }
+    }
+    return false
+}
 const Home = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
-    // const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
+    const [axiosSignal, setAxiosSignal] = useState(null);
+
+    // const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
     const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
     const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
@@ -63,16 +71,8 @@ const Home = () => {
     const hasHero = useSelector((state) => state.gamification.selectedHero);
     const topEvents = useSelector((state) => state.home.eventsTop);
     const casinoFavs = useSelector((state) => state.home.casinoFavs);
-
-    const [axiosSignal, setAxiosSignal] = useState(null);
-
-    const addParamsToUrl = (modal, tab) => {
-        const searchParams = new URLSearchParams(location.search);
-        searchParams.set('modal', modal);
-        if (tab) searchParams.set('tab', tab);
-
-        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-    };
+    const liveState = useSelector((state) => state.live.liveState);
+    const manualRewards = useSelector((state) => state.gamification.manualRewards);
 
     // useEffect(() => {
     //     const controller = new AbortController();
@@ -128,64 +128,55 @@ const Home = () => {
     const hasNewGames = filteredGames.newGames?.Data?.length > 0;
     const hasRecentGames = filteredGames.recentGames?.Data?.length > 0;
     const hasFavoriteGames = casinoFavs?.length > 0;
+    const hasRewards = (manualRewards && ObjectHasValue(manualRewards)) ? true : false;
+    const hasBanners = (sportBanners && sportBanners.Banners) ? sportBanners.Banners.length > 0 : false;
+    const hasTopEvents = (topEvents) ? topEvents.length > 0 : false;
+    const hasLiveEvents = ObjectHasValue(liveState);
 
-    const { isVisible: isBanersVisible, elementRef: bannersRef } = useIntersectionObserver();
+    const { isVisible: isBannersVisible, elementRef: bannersRef } = useIntersectionObserver();
     const { isVisible: isLiveEventsVisible, elementRef: liveEventsRef } = useIntersectionObserver();
     const { isVisible: isTopEventsVisible, elementRef: topEventsRef } = useIntersectionObserver();
-    const { isVisible: isSwiperVisible, elementRef: swiperRef } = useIntersectionObserver();
     const { isVisible: isFavoritesVisible, elementRef: favoritesRef } = useIntersectionObserver();
-
-    // useEffect(() => {
-    //     const controller = new AbortController();
-    //     const signal = controller.signal;
-
-    //     if (isBanersVisible) dispatch(getBanners(signal));
-    //     if (isTopEventsVisible) dispatch(getEventsTop(signal));
-
-    //     return () => {
-    //         controller.abort();
-    //         dispatch(homeActions.reset());
-    //     };
-
-    // }, [dispatch, isBanersVisible, isTopEventsVisible]);
+    const { isVisible: isRewardsVisible, elementRef: rewardsRef } = useIntersectionObserver();
 
     useEffect(() => {
         const controller = new AbortController();
-        const signal = controller.signal;
-
-        if (permissions.AllowToCasino || permissions.AllowToSlots) {
-            dispatch(getCasinoFavs(signal));
-        }
-        dispatch(getBanners(signal));
-        dispatch(getEventsTop(signal));
-
         return () => {
             controller.abort();
             dispatch(homeActions.reset());
         };
-
     }, []);
 
-    // useEffect(() => {
-    //     const observer = new IntersectionObserver((entries) => {
-    //       entries.forEach((entry) => {
-    //         if (entry.isIntersecting) {
-    //           setIsVisible(true);
-    //           observer.disconnect(); // Stop observing once the component is visible
-    //         }
-    //       });
-    //     });
+    useEffect(() => {
 
-    //     if (elementRef.current) {
-    //       observer.observe(elementRef.current);
-    //     }
+        if ((permissions.AllowToCasino || permissions.AllowToSlots) && isFavoritesVisible) dispatch(getCasinoFavs());
+        if (isBannersVisible) dispatch(getBanners());
+        if (isTopEventsVisible) dispatch(getEventsTop());
+        if (isRewardsVisible) dispatch(recRewards());
 
-    //     return () => {
-    //       if (elementRef.current) {
-    //         observer.unobserve(elementRef.current);
-    //       }
-    //     };
-    //   }, []);
+    }, [isTopEventsVisible, isFavoritesVisible, isBannersVisible, isRewardsVisible]);
+
+
+    useEffect(() => {
+
+        if (isBannersVisible && hasBanners === false && sportBanners !== null) bannersRef.current.remove();
+        if (isTopEventsVisible && hasTopEvents === false && topEvents !== null) topEventsRef.current.remove();
+        if (isLiveEventsVisible && hasLiveEvents === false) liveEventsRef.current.remove();
+        if (isFavoritesVisible && hasFavoriteGames === false && casinoFavs !== null) favoritesRef.current.remove();
+        if (isRewardsVisible && hasRewards === false  && manualRewards !== null){
+            rewardsRef.current.remove();
+        } 
+
+    }, [hasBanners, hasTopEvents, hasLiveEvents, hasFavoriteGames, hasRewards]);
+
+
+    const addParamsToUrl = (modal, tab) => {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set('modal', modal);
+        if (tab) searchParams.set('tab', tab);
+
+        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+    };
 
     return (
         <div className={classes.PageContent}>
@@ -193,14 +184,24 @@ const Home = () => {
 
                 {/* CRYPTO */}
                 {user &&
-                    <div style={{ marginTop: '0.5rem' }}>
+                    <div style={{ marginTop: '0.5rem', minHeight: "60px" }}>
                         <Crypto />
                     </div>
                 }
 
+                {/* REWARDS */}
+                <div ref={rewardsRef} style={{ minHeight: "60px" }}>
+                    {isRewardsVisible && user && hasRewards && (
+                        <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
+                            <ManualRewards />
+                        </div>
+                    )}
+                </div>
+
                 {/* BANNERS */}
-                {<div ref={bannersRef} >
-                    {isBanersVisible &&
+                {<div ref={bannersRef} style={{ minHeight: "60px" }} >
+
+                    {isBannersVisible && hasBanners &&
                         <div className={isMobile || (isTablet) ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
                             <Banners banners={sportBanners} />
 
@@ -213,12 +214,13 @@ const Home = () => {
                             {!user && <RegisterContainers />}
                         </div>
                     }
+
                 </div>}
 
                 {/* TOP EVENTS */}
                 {permissions.AllowToSports && (
-                    <div ref={topEventsRef}>
-                        {isTopEventsVisible &&
+                    <div ref={topEventsRef} style={{ minHeight: "160px" }}>
+                        {isTopEventsVisible && hasTopEvents &&
                             <TopEvents />
                         }
                     </div>
@@ -227,28 +229,28 @@ const Home = () => {
 
                 {/* LIVE EVENTS */}
                 {permissions.AllowToSports && (
-                    <div ref={liveEventsRef} >
-                        {isLiveEventsVisible && <div>
+                    <div ref={liveEventsRef} style={{ minHeight: "218px" }} >
+                        {isLiveEventsVisible && hasLiveEvents &&
                             <LiveEvents />
-                        </div>}
+                        }
                     </div >
                 )}
 
                 {/* FAVORITES */}
-                <div ref={favoritesRef}  >
-                        {hasFavoriteGames && <div>
-                            {isFavoritesVisible && (
-                                <SwiperWithOverlay
-                                    title={translate('Favorites')}
-                                    icon={<HeartIcon />}
-                                    link='/casino/favorites'
-                                    items={casinoFavs}
-                                    slidesPerView={slidesPerView}
-                                />
-                            )}
-                        </div>}
-                    </div>
-               
+                <div ref={favoritesRef} style={{ minHeight: "164px" }}  >
+                    {isFavoritesVisible && hasFavoriteGames && (
+                        <SwiperWithOverlay
+                            title={translate('Favorites')}
+                            icon={<HeartIcon />}
+                            link='/casino/favorites'
+                            items={casinoFavs}
+                            slidesPerView={slidesPerView}
+                        />
+                    )}
+                </div>
+
+
+
 
 
                 {/* 

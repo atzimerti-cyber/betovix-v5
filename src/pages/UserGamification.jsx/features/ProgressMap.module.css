@@ -71,7 +71,8 @@
 .Container {
     position: static;
     background-color: transparent;
-    height: 750px;
+    /* height: 750px; */
+    height: 75vh;
     width: 100vw;
     overflow-y: scroll;
 }

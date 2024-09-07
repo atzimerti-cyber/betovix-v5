@@ -6,7 +6,7 @@ import classes from './YourProgress.module.css';
 import CloseButton from '../../../features/UI/Buttons/CloseButton';
 import MainButton from '../../../features/UI/Buttons/MainButton';
 
-import { getUserAchievements } from '../gamificationAsyncActions';
+import { getUserAchievements, recRewards } from '../gamificationAsyncActions';
 
 import { translate } from '../../../utils/translations';
 
@@ -33,6 +33,7 @@ const YourProgress = () => {
         const signal = controller.signal;
 
         dispatch(getUserAchievements(signal)).then(() => setLoading(false));
+        dispatch(recRewards(signal));
 
         return () => controller.abort();
     }, [dispatch]);

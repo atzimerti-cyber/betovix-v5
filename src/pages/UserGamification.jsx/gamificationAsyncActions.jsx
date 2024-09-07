@@ -329,4 +329,71 @@ export const heroProgress = () => {
     };
 };
 
+//To get hero progress (for Minibar)/////
+export const recRewards = () => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
 
+            const response = await axiosApi.get(
+                `/ModuleGamification/GetRecurrentRewards`,
+                {
+                    baseURLOverride: import.meta.env.VITE_GAMIFICATION_STORETUBE,
+                }
+            );
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200 || response.data.Contents == null) throw Error(response.data.Contents);
+
+            const instantRewards = {
+                id: response.data.Contents.instant?.AchievementId,
+                name: response.data.Contents.instant?.Name,
+                description: response.data.Contents.instant?.Description,
+                progress: response.data.Contents.instant?.Progress,
+                completed: response.data.Contents.instant?.Completed,
+                icon: response.data.Contents.instant?.Icon,
+                resetDate: response.data.Contents.instant?.ResetDate
+            }
+            const dailyRewards = {
+                id: response.data.Contents.daily?.AchievementId,
+                name: response.data.Contents.daily?.Name,
+                description: response.data.Contents.daily?.Description,
+                progress: response.data.Contents.daily?.Progress,
+                completed: response.data.Contents.daily?.Completed,
+                icon: response.data.Contents.daily?.Icon,
+                resetDate: response.data.Contents.daily?.ResetDate
+            }
+            const weeklyRewards = {
+                id: response.data.Contents.weekly?.AchievementId,
+                name: response.data.Contents.weekly?.Name,
+                description: response.data.Contents.weekly?.Description,
+                progress: response.data.Contents.weekly?.Progress,
+                completed: response.data.Contents.weekly?.Completed,
+                icon: response.data.Contents.weekly?.Icon,
+                resetDate: response.data.Contents.weekly?.ResetDate
+            }
+            const monthlyRewards = {
+                id: response.data.Contents.monthly?.AchievementId,
+                name: response.data.Contents.monthly?.Name,
+                description: response.data.Contents.monthly?.Description,
+                progress: response.data.Contents.monthly?.Progress,
+                completed: response.data.Contents.monthly?.Completed,
+                icon: response.data.Contents.monthly?.Icon,
+                resetDate: response.data.Contents.monthly?.ResetDate
+            }
+
+            const manualRewards = {
+                instantRewards: instantRewards,
+                dailyRewards: dailyRewards,
+                weeklyRewards: weeklyRewards,
+                monthlyRewards: monthlyRewards
+            }
+
+            console.log(manualRewards);
+
+            dispatch(gamificationActions.setManualRewards(manualRewards));
+
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};

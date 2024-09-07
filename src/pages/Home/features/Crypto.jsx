@@ -73,7 +73,7 @@ const Crypto = () => {
     return (
         <>
 
-            {crypto ? (
+            {crypto && Object.keys(crypto).length > 0  ? (
                 <MainSwiper
                     // slidesPerView={slidesPerView}
                     slidesPerView={'auto'}

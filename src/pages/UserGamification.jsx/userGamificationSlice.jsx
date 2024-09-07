@@ -26,13 +26,13 @@ const initialState = {
     levels: null,
     selectedHero: {},
     heroLevels: null,
-    popupRewards:{Id: 1},
+    popupRewards: { Id: 1 },
     newRewards: [],
     claimedRewards: [],
     loading: false,
     progressBar: null,
-    manualRewards: {},
-    ericLevels:{}
+    manualRewards: null,
+    ericLevels: {}
 };
 
 export const userGamificationSlice = createSlice({
@@ -72,9 +72,9 @@ export const userGamificationSlice = createSlice({
         setProgressBar: (state, action) => {
             state.progressBar = action.payload;
         },
-        // setManualRewards: (state, action) => {
-        //     state.manualRewards = action.payload;
-        // },
+        setManualRewards: (state, action) => {
+            state.manualRewards = action.payload;
+        },
         setEricLevels: (state, action) => {
             state.ericLevels = action.payload;
         },

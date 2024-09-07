@@ -12,6 +12,7 @@ const ManualRewards = (props) => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const user = useSelector((state) => state.login.user);
 
+    const instantRewards = useSelector((state) => state.gamification.manualRewards.instantRewards);
     const dailyRewards = useSelector((state) => state.gamification.manualRewards.dailyRewards);
     const weeklyRewards = useSelector((state) => state.gamification.manualRewards.weeklyRewards);
     const monthlyRewards = useSelector((state) => state.gamification.manualRewards.monthlyRewards);
@@ -105,40 +106,47 @@ const ManualRewards = (props) => {
                         <div className={classes.IconContainer}>
                             <Calendar7dIcon />
                         </div>
-                        <p className={classes.Title}>Instant Reward</p>
+                        <p className={classes.Title}>{translate(instantRewards?.name)}</p>
                         {/* <p className={classes.Title}>{translate(weeklyRewards?.name)}</p> */}
                     </header>
                     <main className={classes.CardMain}>
-                        {weeklyRewards ? (
+                        {instantRewards && Object.keys(instantRewards).length > 0 ? (
                             <>
+                                <p className={classes.Description}>
+                                    {instantRewards.description}
+                                </p>
+
                                 <p className={classes.ClaimIn}>
                                     {translate('Claim until')} {timeUntilNextSunday}
                                 </p>
+
                                 <div className={classes.ProgressBar}>
-                                    <div className={classes.Progress} style={{ '--progress': `${weeklyRewards.progress}%` }}></div>
+                                    <div className={classes.Progress} style={{ '--progress': `${instantRewards.progress}%` }}></div>
                                 </div>
-                                <p className={classes.Description}>
-                                    {weeklyRewards.description.replace(/<\/?p>/g, "")}
-                                </p>
-
-                                <p className={classes.Reward}>
-                                    {descByKey(weeklyRewards.rewardType, weeklyRewards.rewardValue, weeklyRewards.rewardSymbol)}
-                                </p>
 
 
-                                {weeklyRewards.progress < 100 ? (
-                                    <button className={classes.TempButton} disabled>
-                                        {translate('Not Completed')}
-                                    </button>
-                                ) : (
-                                    <button className={classes.TempButton}>
-                                        {translate('Claim')}
-                                    </button>
-                                )
+
+                                {instantRewards.progress < 100 ?
+                                    (
+                                        <div className={classes.ButtonContainer}>
+                                            <button className={classes.TempButton} disabled>
+                                                {translate('Not Completed')}
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className={classes.ButtonContainer}>
+                                            <button className={classes.TempButton}>
+                                                {translate('Claim')}
+                                            </button>
+                                        </div>
+                                    )
                                 }
                             </>
                         ) : (
                             <>
+                                {/* <p className={classes.ClaimIn}>
+                                    {translate('Claimed!!')}
+                                </p> */}
                                 <p className={classes.NotAvailable}>
                                     {translate('Not available yet')}
                                 </p>
@@ -152,43 +160,44 @@ const ManualRewards = (props) => {
                             <Calendar1dIcon />
                         </div>
                         {/* <p className={classes.Title}>{dailyRewards?.name}</p> */}
-                        <p className={classes.Title}>Daily Rewards</p>
+                        <p className={classes.Title}>{translate(dailyRewards?.name)}</p>
                     </header>
                     <main className={classes.CardMain}>
                         {dailyRewards ? (
                             <>
-                                <p className={classes.ClaimIn}>
-                                    {translate('Claim until')} {timeUntilEndOfDay}
-                                </p>
-                                <div className={classes.ProgressBar}>
-                                    <div className={classes.Progress} style={{ '--progress': `${dailyRewards.progress}%` }}></div>
-                                </div>
-
                                 <p className={classes.Description}>
                                     {dailyRewards.description.replace(/<\/?p>/g, "")}
                                 </p>
 
-                                <p className={classes.Reward}>
-
-                                    {descByKey(dailyRewards.rewardType, dailyRewards.rewardValue)}
-
+                                <p className={classes.ClaimIn}>
+                                    {translate('Claim until')} {timeUntilEndOfDay}
                                 </p>
 
+                                <div className={classes.ProgressBar}>
+                                    <div className={classes.Progress} style={{ '--progress': `${dailyRewards.progress}%` }}></div>
+                                </div>
 
-
-                                {dailyRewards.progress < 100 ? (
-                                    <button className={classes.TempButton} disabled>
-                                        {translate('Not Completed')}
-                                    </button>
-                                ) : (
-                                    <button className={classes.TempButton}>
-                                        {translate('Claim')}
-                                    </button>
-                                )
+                                {dailyRewards.progress < 100 ?
+                                    (
+                                        <div className={classes.ButtonContainer}>
+                                            <button className={classes.TempButton} disabled>
+                                                {translate('Not Completed')}
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className={classes.ButtonContainer}>
+                                            <button className={classes.TempButton}>
+                                                {translate('Claim')}
+                                            </button>
+                                        </div>
+                                    )
                                 }
                             </>
                         ) : (
                             <>
+                                {/* <p className={classes.ClaimIn}>
+                                    {translate('Claim until')} {timeUntilEndOfDay}
+                                </p> */}
                                 <p className={classes.NotAvailable}>
                                     {translate('Not available yet ')}
                                 </p>
@@ -202,40 +211,45 @@ const ManualRewards = (props) => {
                         <div className={classes.IconContainer}>
                             <Calendar7dIcon />
                         </div>
-                        <p className={classes.Title}>Weekly Rewards</p>
+                        <p className={classes.Title}>{translate(weeklyRewards?.name)}</p>
                         {/* <p className={classes.Title}>{translate(weeklyRewards?.name)}</p> */}
                     </header>
                     <main className={classes.CardMain}>
                         {weeklyRewards ? (
                             <>
-                                <p className={classes.ClaimIn}>
-                                    {translate('Claim until')} {timeUntilNextSunday}
-                                </p>
-                                <div className={classes.ProgressBar}>
-                                    <div className={classes.Progress} style={{ '--progress': `${weeklyRewards.progress}%` }}></div>
-                                </div>
                                 <p className={classes.Description}>
                                     {weeklyRewards.description.replace(/<\/?p>/g, "")}
                                 </p>
 
-                                <p className={classes.Reward}>
-                                    {descByKey(weeklyRewards.rewardType, weeklyRewards.rewardValue, weeklyRewards.rewardSymbol)}
+                                <p className={classes.ClaimIn}>
+                                    {translate('Claim until')} {timeUntilNextSunday}
                                 </p>
 
+                                <div className={classes.ProgressBar}>
+                                    <div className={classes.Progress} style={{ '--progress': `${weeklyRewards.progress}%` }}></div>
+                                </div>
 
-                                {weeklyRewards.progress < 100 ? (
-                                    <button className={classes.TempButton} disabled>
-                                        {translate('Not Completed')}
-                                    </button>
-                                ) : (
-                                    <button className={classes.TempButton}>
-                                        {translate('Claim')}
-                                    </button>
-                                )
+                                {weeklyRewards.progress < 100 ?
+                                    (
+                                        <div className={classes.ButtonContainer}>
+                                            <button className={classes.TempButton} disabled>
+                                                {translate('Not Completed')}
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className={classes.ButtonContainer}>
+                                            <button className={classes.TempButton}>
+                                                {translate('Claim')}
+                                            </button>
+                                        </div>
+                                    )
                                 }
                             </>
                         ) : (
                             <>
+                                {/* <p className={classes.ClaimIn}>
+                                    {translate('Claim until')} {timeUntilNextSunday}
+                                </p> */}
                                 <p className={classes.NotAvailable}>
                                     {translate('Not available yet')}
                                 </p>
@@ -249,41 +263,48 @@ const ManualRewards = (props) => {
                         <div className={classes.IconContainer}>
                             <Calendar30dIcon />
                         </div>
-                        <p className={classes.Title}>Monthly Rewards</p>
+                        <p className={classes.Title}>{translate(monthlyRewards?.name)}</p>
                         {/* <p className={classes.Title}>{translate(monthlyRewards?.name)}</p> */}
                     </header>
                     <main className={classes.CardMain}>
                         {monthlyRewards ? (
                             <>
-                                <p className={classes.ClaimIn}>
-                                    {translate('Claim until')} {timeUntilEndOfMonth}
-                                </p>
-                                <div className={classes.ProgressBar}>
-                                    <div className={classes.Progress} style={{ '--progress': `${monthlyRewards.progress}%` }}></div>
-                                </div>
                                 <p className={classes.Description}>
                                     {monthlyRewards.description.replace(/<\/?p>/g, "")}
                                 </p>
 
-                                <p className={classes.Reward}>
-                                    {descByKey(monthlyRewards.rewardType, monthlyRewards.rewardValue, monthlyRewards.rewardSymbol)}
+                                <p className={classes.ClaimIn}>
+                                    {translate('Claim until')} {timeUntilEndOfMonth}
                                 </p>
 
+                                <div className={classes.ProgressBar}>
+                                    <div className={classes.Progress} style={{ width: `${monthlyRewards.progress}%` }}></div>
+                                </div>
 
-                                {monthlyRewards.progress < 100 ? (
-                                    <button className={classes.TempButton} disabled>
-                                        {translate('Not Completed')}
-                                    </button>
-                                ) : (
-                                    <button className={classes.TempButton}>
-                                        {translate('Claim')}
-                                    </button>
-                                )
+
+
+                                {monthlyRewards.progress < 100 ?
+                                    (
+                                        <div className={classes.ButtonContainer}>
+                                            <button className={classes.TempButton} disabled>
+                                                {translate('Not Completed')}
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <div className={classes.ButtonContainer}>
+                                            <button className={classes.TempButton}>
+                                                {translate('Claim')}
+                                            </button>
+                                        </div>
+                                    )
                                 }
 
                             </>
                         ) : (
                             <>
+                                {/* <p className={classes.ClaimIn}>
+                                    {translate('Claim until')} {timeUntilEndOfMonth}
+                                </p> */}
                                 <p className={classes.NotAvailable}>
                                     {translate('Not available yet')}
                                 </p>
