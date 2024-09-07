@@ -8,7 +8,7 @@ import { casinoActions } from '../Casino/casinoSlice';
 import config from '../../config';
 
 // import levels from '../../dummyData/levels';
-
+/*
 export const getHome = (signal) => {
     return async (dispatch) => {
         try {
@@ -88,7 +88,7 @@ export const getHome = (signal) => {
         }
     };
 };
-
+*/
 // export const getEventsLive = (signal) => {
 //     return async (dispatch) => {
 //         try {
@@ -107,6 +107,30 @@ export const getHome = (signal) => {
 //     };
 // };
 
+ 
+export const getBanners = (signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+           const response = await axiosApi.get(`Pregame/getBanners?providerId=1&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
+                signal: signal,
+                baseURLOverride: config.VITE_SPORTS_API_BASE,
+            });
+
+            if ((response.status && response.status !== 200) || (response.data.Status && response.data.Status.StatusCode !== 200)) throw Error();
+
+            dispatch(
+                homeActions.setSportBanners({
+                    BannerEvents: response.data?.BannerEvents,
+                    Banners: response.data?.Banners?.filter((d) => d !== null),
+                })
+            );
+        } catch (error) {
+            if (!error?.code === 'ERR_CANCELED') toast.error(error?.message);
+        }
+    };
+};
 export const getEventsTop = (signal) => {
     return async (dispatch) => {
         try {
@@ -128,3 +152,24 @@ export const getEventsTop = (signal) => {
         }
     };
 };
+export const getCasinoFavs = (signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.get(
+                `MyCasino/LoadFavoriteGame?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+                {
+                    signal: signal,
+                    baseURLOverride: config.VITE_CASINO_BASE,
+                }
+            );
+            if ((response.status && response.status !== 200) || (response.data.Status && response.data.Status.StatusCode !== 200)) throw Error();
+
+           dispatch(homeActions.setCasinoFavs(response.data.Contents));
+        } catch (error) {
+            if (!error?.code === 'ERR_CANCELED') toast.error(error?.message);
+        }
+    };
+};
+

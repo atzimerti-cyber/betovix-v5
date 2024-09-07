@@ -11,8 +11,8 @@ const Preloader = () => {
     };
     return (
         <div className={classes.Preloader}>
-            {/* <img src={preloaderImage} alt='Loading' /> */}
-            <video
+              <img src={preloaderImage} alt='Loading' />  
+            {/* <video
                     autoPlay
                     muted
                     className={classes.PreloaderVideo}
@@ -20,7 +20,7 @@ const Preloader = () => {
                 >
                     <source src={preloaderVideo} type="video/mp4" />
                     Your browser does not support the video tag.
-                </video>
+                </video> */}
         </div>
     );
 };

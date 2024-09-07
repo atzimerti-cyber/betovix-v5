@@ -5,6 +5,7 @@ const initialState = {
     casinoItems: null,
     sportBanners: null,
     eventsTop: null,
+    casinoFavs: null,
     // levels: null,
 };
 
@@ -18,6 +19,7 @@ export const homeSlice = createSlice({
             state.sportBanners = null;
             state.eventsTop = null;
             state.levels = null;
+            state.casinoFavs = null;
         },
         setCasinoBanners: (state, action) => {
             state.casinoBanners = action.payload;
@@ -30,6 +32,9 @@ export const homeSlice = createSlice({
         },
         setEventsTop: (state, action) => {
             state.eventsTop = action.payload;
+        },
+        setCasinoFavs: (state, action) => {
+            state.casinoFavs = action.payload;
         },
         // setLevels: (state, action) => {
         //     state.levels = action.payload;

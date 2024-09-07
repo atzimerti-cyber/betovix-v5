@@ -9,7 +9,7 @@ const useIntersectionObserver = (threshold = 0.2) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
                     setIsVisible(true);
-                    observer.disconnect(); // Stop observing once the component is visible
+                    observer.unobserve(entry.target); // Stop observing this element, but keep the observer active
                 }
             });
         }, { threshold });

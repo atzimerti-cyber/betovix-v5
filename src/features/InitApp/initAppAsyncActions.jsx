@@ -379,7 +379,7 @@ export const loadInitData = (isMobile) => {
             dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
             dispatch(appActions.setSportsMenuItems(sportsMenuItems));
             dispatch(appActions.setMenuItems(allMenuItems));
-            setTimeout(function () {
+           setTimeout(function () {
                 dispatch(appActions.setInitDataLoaded(true));
             }, 2500);
         } catch (error) {

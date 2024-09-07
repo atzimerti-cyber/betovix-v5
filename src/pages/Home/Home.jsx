@@ -8,10 +8,12 @@ import HomeBanners from './features/HomeBanners';
 import Banners from '../../features/Banners/Banners';
 import LiveEvents from './features/LiveEvents';
 import TopEvents from './features/TopEvents';
-import { getHome } from './homeAsyncActions';
+//import { getHome } from './homeAsyncActions';
 import { homeActions } from './homeSlice';
 import { getEventsTop } from './homeAsyncActions';
-//import SwiperWithOverlay from '../../features/UI/MainSwiper/SwiperWithOverlay';
+import { getBanners } from './homeAsyncActions';
+import { getCasinoFavs } from './homeAsyncActions';
+import SwiperWithOverlay from '../../features/UI/MainSwiper/SwiperWithOverlay';
 import ClockIcon from '../../assets/svgs/clock.svg?react';
 import HeartIcon from '../../assets/svgs/heart.svg?react';
 import NewIcon from '../../assets/casinoIcons/new.svg?react';
@@ -22,7 +24,7 @@ import { translate } from '../../utils/translations';
 import ManualRewards from '../UserGamification.jsx/features/ManualRewards';
 
 // Lazy load the component
-const SwiperWithOverlay = React.lazy(() => import('../../features/UI/MainSwiper/SwiperWithOverlay'));
+//const SwiperWithOverlay = React.lazy(() => import('../../features/UI/MainSwiper/SwiperWithOverlay'));
 
 
 
@@ -59,6 +61,8 @@ const Home = () => {
     const permissions = useSelector((state) => state.login.permissions);
     const sportBanners = useSelector((state) => state.home.sportBanners);
     const hasHero = useSelector((state) => state.gamification.selectedHero);
+    const topEvents = useSelector((state) => state.home.eventsTop);
+    const casinoFavs = useSelector((state) => state.home.casinoFavs);
 
     const [axiosSignal, setAxiosSignal] = useState(null);
 
@@ -70,81 +74,97 @@ const Home = () => {
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     };
 
-    useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-        setAxiosSignal(signal);
+    // useEffect(() => {
+    //     const controller = new AbortController();
+    //     const signal = controller.signal;
+    //     setAxiosSignal(signal);
 
-        dispatch(getHome(signal));
+    //     dispatch(getHome(signal));
 
-        return () => {
-            controller.abort();
-            dispatch(homeActions.reset());
-        };
-    }, [user?.AccountId]);
+    //     return () => {
+    //         controller.abort();
+    //         dispatch(homeActions.reset());
+    //     };
+    // }, [user?.AccountId]);
 
     // Observers
-    const divs = [{ ref: useRef(null), type: 'getEventsTop' }];
+    // const divs = [{ ref: useRef(null), type: 'getEventsTop' }];
 
-    useEffect(() => {
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const divInfo = divs.find((div) => div.ref.current === entry.target);
-                        if (
-                            divInfo
-                            // && !data[divInfo.api]
-                        ) {
-                            // if (divInfo.type === 'getEventsLive') dispatch(getEventsLive(axiosSignal));
-                            if (divInfo.type === 'getEventsTop') dispatch(getEventsTop(axiosSignal));
-                        }
-                        observer.unobserve(entry.target); // Optionally stop observing
-                    }
-                });
-            },
-            {
-                root: null,
-                threshold: 0.2, // Adjust threshold as needed
-            }
-        );
+    // useEffect(() => {
+    //     const observer = new IntersectionObserver(
+    //         (entries) => {
+    //             entries.forEach((entry) => {
+    //                 if (entry.isIntersecting) {
+    //                     const divInfo = divs.find((div) => div.ref.current === entry.target);
+    //                     if (
+    //                         divInfo
+    //                         // && !data[divInfo.api]
+    //                     ) {
+    //                         // if (divInfo.type === 'getEventsLive') dispatch(getEventsLive(axiosSignal));
+    //                         if (divInfo.type === 'getEventsTop') dispatch(getEventsTop(axiosSignal));
+    //                     }
+    //                     observer.unobserve(entry.target); // Optionally stop observing
+    //                 }
+    //             });
+    //         },
+    //         {
+    //             root: null,
+    //             threshold: 0.2, // Adjust threshold as needed
+    //         }
+    //     );
 
-        // Observing all divs
-        divs.forEach((div) => {
-            if (div.ref.current) {
-                observer.observe(div.ref.current);
-            }
-        });
+    //     // Observing all divs
+    //     divs.forEach((div) => {
+    //         if (div.ref.current) {
+    //             observer.observe(div.ref.current);
+    //         }
+    //     });
 
-        return () => {
-            observer.disconnect();
-        };
-    }, [divs]);
+    //     return () => {
+    //         observer.disconnect();
+    //     };
+    // }, [divs]);
 
     const hasNewGames = filteredGames.newGames?.Data?.length > 0;
     const hasRecentGames = filteredGames.recentGames?.Data?.length > 0;
-    const hasFavoriteGames = filteredGames.favoriteGames?.Data?.length > 0;
+    const hasFavoriteGames = casinoFavs?.length > 0;
 
+    const { isVisible: isBanersVisible, elementRef: bannersRef } = useIntersectionObserver();
     const { isVisible: isLiveEventsVisible, elementRef: liveEventsRef } = useIntersectionObserver();
     const { isVisible: isTopEventsVisible, elementRef: topEventsRef } = useIntersectionObserver();
     const { isVisible: isSwiperVisible, elementRef: swiperRef } = useIntersectionObserver();
     const { isVisible: isFavoritesVisible, elementRef: favoritesRef } = useIntersectionObserver();
 
+    // useEffect(() => {
+    //     const controller = new AbortController();
+    //     const signal = controller.signal;
+
+    //     if (isBanersVisible) dispatch(getBanners(signal));
+    //     if (isTopEventsVisible) dispatch(getEventsTop(signal));
+
+    //     return () => {
+    //         controller.abort();
+    //         dispatch(homeActions.reset());
+    //     };
+
+    // }, [dispatch, isBanersVisible, isTopEventsVisible]);
+
     useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        dispatch(getHome(signal));
-
-        if (isTopEventsVisible) {
-            dispatch(getEventsTop(signal));
+        if (permissions.AllowToCasino || permissions.AllowToSlots) {
+            dispatch(getCasinoFavs(signal));
         }
+        dispatch(getBanners(signal));
+        dispatch(getEventsTop(signal));
 
         return () => {
             controller.abort();
             dispatch(homeActions.reset());
         };
-    }, [dispatch, isTopEventsVisible]);
+
+    }, []);
 
     // useEffect(() => {
     //     const observer = new IntersectionObserver((entries) => {
@@ -170,12 +190,68 @@ const Home = () => {
     return (
         <div className={classes.PageContent}>
             <div className={classes.Home}>
+
+                {/* CRYPTO */}
                 {user &&
                     <div style={{ marginTop: '0.5rem' }}>
                         <Crypto />
                     </div>
                 }
 
+                {/* BANNERS */}
+                {<div ref={bannersRef} >
+                    {isBanersVisible &&
+                        <div className={isMobile || (isTablet) ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
+                            <Banners banners={sportBanners} />
+
+                            {!isMobile && user && hasHero && (
+                                <div className={classes.VipContainer}>
+                                    <VipProgress />
+                                </div>
+                            )}
+
+                            {!user && <RegisterContainers />}
+                        </div>
+                    }
+                </div>}
+
+                {/* TOP EVENTS */}
+                {permissions.AllowToSports && (
+                    <div ref={topEventsRef}>
+                        {isTopEventsVisible &&
+                            <TopEvents />
+                        }
+                    </div>
+                )
+                }
+
+                {/* LIVE EVENTS */}
+                {permissions.AllowToSports && (
+                    <div ref={liveEventsRef} >
+                        {isLiveEventsVisible && <div>
+                            <LiveEvents />
+                        </div>}
+                    </div >
+                )}
+
+                {/* FAVORITES */}
+                <div ref={favoritesRef}  >
+                        {hasFavoriteGames && <div>
+                            {isFavoritesVisible && (
+                                <SwiperWithOverlay
+                                    title={translate('Favorites')}
+                                    icon={<HeartIcon />}
+                                    link='/casino/favorites'
+                                    items={casinoFavs}
+                                    slidesPerView={slidesPerView}
+                                />
+                            )}
+                        </div>}
+                    </div>
+               
+
+
+                {/* 
                 <div className={isMobile || (isTablet && !user) ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
                     {(isMobile === false || user === null) && <Banners banners={sportBanners} />}
 
@@ -185,15 +261,8 @@ const Home = () => {
                         </div>
                     )}
 
-
                     {!user && <RegisterContainers />}
                 </div>
-
-                {/* {isMobile && user && hasHero && Object.keys(hasHero).length > 0 && (
-                    <div className={classes.VipContainer}>
-                        <VipProgress />
-                    </div>
-                )} */}
 
                 {user && hasHero && Object.keys(hasHero).length > 0 && (
                     <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
@@ -207,7 +276,7 @@ const Home = () => {
                         <div ref={liveEventsRef}>
                             {isLiveEventsVisible && <LiveEvents />}
                         </div>
-                        {/* <div ref={divs[0].ref}>  */}
+                     
                         <div ref={topEventsRef}>
                             {isTopEventsVisible && <TopEvents />}
                         </div>
@@ -252,6 +321,8 @@ const Home = () => {
                         </div>
                     </>
                 ) : null}
+
+                 */}
             </div>
         </div>
     );
