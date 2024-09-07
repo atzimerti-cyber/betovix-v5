@@ -176,12 +176,17 @@
     color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.ManualRewards{
+.ManualRewards {
     justify-content: center;
     margin-top: 1rem;
     display: flex;
     max-width: 100%;
 }
+
+.ManualRewards>div {
+    width: 100%;
+}
+
 
 /* Media */
 @media (min-width: 640px) {

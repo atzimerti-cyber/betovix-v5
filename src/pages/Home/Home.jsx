@@ -163,9 +163,7 @@ const Home = () => {
         if (isTopEventsVisible && hasTopEvents === false && topEvents !== null) topEventsRef.current.remove();
         if (isLiveEventsVisible && hasLiveEvents === false) liveEventsRef.current.remove();
         if (isFavoritesVisible && hasFavoriteGames === false && casinoFavs !== null) favoritesRef.current.remove();
-        if (isRewardsVisible && hasRewards === false  && manualRewards !== null){
-            rewardsRef.current.remove();
-        } 
+        if (isRewardsVisible && hasRewards === false && manualRewards !== null) rewardsRef.current.remove();
 
     }, [hasBanners, hasTopEvents, hasLiveEvents, hasFavoriteGames, hasRewards]);
 
@@ -188,15 +186,6 @@ const Home = () => {
                         <Crypto />
                     </div>
                 }
-
-                {/* REWARDS */}
-                <div ref={rewardsRef} style={{ minHeight: "60px" }}>
-                    {isRewardsVisible && user && hasRewards && (
-                        <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
-                            <ManualRewards />
-                        </div>
-                    )}
-                </div>
 
                 {/* BANNERS */}
                 {<div ref={bannersRef} style={{ minHeight: "60px" }} >
@@ -246,6 +235,15 @@ const Home = () => {
                             items={casinoFavs}
                             slidesPerView={slidesPerView}
                         />
+                    )}
+                </div>
+
+                {/* REWARDS */}
+                <div ref={rewardsRef} style={{ minHeight: "60px" }}>
+                    {isRewardsVisible && user && hasRewards && (
+                        <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
+                            <ManualRewards />
+                        </div>
                     )}
                 </div>
 

@@ -115,7 +115,7 @@
     height: 45px;
     border-radius: 50%;
     /* background-color: #fff; */
-    background: radial-gradient(#38ce53a8, #38ce53a8);
+    background:radial-gradient(#204028, #228033);
     /* border: 2px solid #ccc; */
     display: flex;
     align-items: center;
@@ -127,28 +127,28 @@
 
 .Dot:hover,
 .SubDot:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
 }
 
 .DotAnimation {
-    animation: throbbing 2.5s infinite ease-in-out;
+    animation: throbbing 3s infinite ease-in-out;
     z-index: 10000;
 }
 
 @keyframes throbbing {
     0% {
         transform: scale(1);
-        background: radial-gradient(#228033, #228033);
+        background: radial-gradient(#228033, #204028);
     }
 
     50% {
-        transform: scale(1.2);
-        background: radial-gradient(#228033, #228033);
+        transform: scale(1.15);
+        background: radial-gradient(#228033, #204028);
     }
 
     100% {
         transform: scale(1);
-        background: radial-gradient(#228033, #228033);
+        background: radial-gradient(#228033, #204028);
     }
 }
 
@@ -156,7 +156,7 @@
     width: 25px;
     height: 25px;
     border-radius: 50%;
-    background: radial-gradient(#59f075d1, transparent);
+    background: radial-gradient(#4a5675, transparent);
     display: flex;
     align-items: center;
     justify-content: center;
