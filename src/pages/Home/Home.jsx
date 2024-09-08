@@ -40,6 +40,7 @@ const Home = () => {
     
     const hasLiveEvents = ObjectHasValue(liveState);
 
+    const { isVisible: isCryptoVisible, elementRef: cryptoRef } = useIntersectionObserver();
     const { isVisible: isBannersVisible, elementRef: bannersRef } = useIntersectionObserver();
     const { isVisible: isLiveEventsVisible, elementRef: liveEventsRef } = useIntersectionObserver();
     const { isVisible: isTopEventsVisible, elementRef: topEventsRef } = useIntersectionObserver();
@@ -54,23 +55,36 @@ const Home = () => {
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     };
 
+    // REMOVE COMPONENTS IF NO DATA EXISTS
+    const [showCrypto, setShowCrypto] = useState(true); // New state to control visibility
+    const handleRemoveCryptoComponent = () => { setShowCrypto(false); };
+    const [showBanners, setShowBanners] = useState(true); // New state to control visibility
+    const handleRemoveBannersComponent = () => { setShowBanners(false); };
+    const [showFavorites, setShowFavorites] = useState(true); // New state to control visibility
+    const handleRemoveFavoritesComponent = () => { setShowFavorites(false); };
+    const [showTopEvents, setShowTopEvents] = useState(true); // New state to control visibility
+    const handleRemoveTopEventsComponent = () => { setShowTopEvents(false); };
+    const [showRewards, setShowRewards] = useState(true); // New state to control visibility
+    const handleRemoveRewardsComponent = () => { setShowRewards(false); };
+    
     return (
         <div className={classes.PageContent}>
             <div className={classes.Home}>
 
                 {/* CRYPTO */}
-                {user &&
-                    <div style={{ marginTop: '0.5rem', minHeight: "60px" }}>
-                        <Crypto />
+                {user && showCrypto &&
+                    <div style={{ marginTop: '0.5rem', minHeight: "60px" }} ref={cryptoRef}>
+                        <Crypto onDataNotFound={handleRemoveCryptoComponent} />
                     </div>
                 }
 
                 {/* BANNERS */}
-                {<div ref={bannersRef} style={{ minHeight: "60px" }} >
+                { showBanners && <div ref={bannersRef} style={{ minHeight: "60px" }} >
 
                     {isBannersVisible &&
                         <div className={isMobile || (isTablet) ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
-                            <Banners />
+                            
+                            <Banners onDataNotFound={handleRemoveBannersComponent}  />
 
                             {!isMobile && user && hasHero && (
                                 <div className={classes.VipContainer}>
@@ -85,10 +99,10 @@ const Home = () => {
                 </div>}
 
                 {/* TOP EVENTS */}
-                {permissions.AllowToSports && (
+                {showTopEvents && permissions.AllowToSports && (
                     <div ref={topEventsRef} style={{ minHeight: "160px" }}>
                         {isTopEventsVisible && 
-                            <TopEvents />
+                            <TopEvents onDataNotFound={handleRemoveTopEventsComponent}  />
                         }
                     </div>
                 )
@@ -104,22 +118,22 @@ const Home = () => {
                 )}
 
                 {/* FAVORITES */}
-                {(permissions.AllowToCasino || permissions.AllowToSlots) && 
+                { showFavorites && user && (permissions.AllowToCasino || permissions.AllowToSlots) && 
                     <div ref={favoritesRef} style={{ minHeight: "164px" }}  >
                         {isFavoritesVisible && (
-                            <CasinoFavorites />
+                            <CasinoFavorites onDataNotFound={handleRemoveFavoritesComponent}   />
                         )}
                     </div>
                 }
 
                 {/* REWARDS */}
-                <div ref={rewardsRef} style={{ minHeight: "60px" }}>
-                    {isRewardsVisible && user &&   (
+                {showRewards && user && <div ref={rewardsRef} style={{ minHeight: "60px" }}>
+                    {isRewardsVisible &&   (
                         <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
-                            <ManualRewards />
+                            <ManualRewards onDataNotFound={handleRemoveRewardsComponent} />
                         </div>
                     )}
-                </div>
+                </div>}
 
 
 

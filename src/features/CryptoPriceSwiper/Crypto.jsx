@@ -15,7 +15,7 @@ import useSlidesResponsive from '../../hooks/useSlidesResponsive';
 import { getCrypto } from '../../pages/Crypto/cryptoAsyncActions';
 import { useEffect } from 'react';
 
-const Crypto = () => {
+const Crypto = ({ onDataNotFound }) => {
     const navigate = useNavigate();
     const location = useLocation();
     const dispatch = useDispatch();
@@ -58,13 +58,20 @@ const Crypto = () => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        dispatch(getCrypto(signal));
+        dispatch(getCrypto(signal)) 
 
         return () => {
             controller.abort();
             dispatch(cryptoActions.reset());
         };
     }, [])
+
+     //Remove Component if no favs found
+     useEffect(() => {
+        if (crypto !== null && (crypto.length === 0)) {
+            onDataNotFound(); 
+        }
+    }, [crypto, onDataNotFound]); 
 
     return (
         <>

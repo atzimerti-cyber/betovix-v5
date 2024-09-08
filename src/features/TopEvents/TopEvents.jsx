@@ -14,17 +14,12 @@ import { getEventsTop } from './TopEventsAsync';
 import { topEventsActions } from './TopEventsSlice';
 import { useEffect } from 'react';
 
-const TopEvents = () => {
+const TopEvents = ({onDataNotFound}) => {
     const dispatch = useDispatch();
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const eventsTop = useSelector((state) => state.topEvents.topEvents);
 
     const {slidesPerView,slidesPerGroup,isMobile,isTablet,isDesktop,isBigDesktop} =useSlidesResponsive("match");
-   
-
-    // if (!eventsTop || eventsTop.length === 0) {
-    //     return null;
-    // }
 
     useEffect(() => {
         const controller = new AbortController();
@@ -36,6 +31,14 @@ const TopEvents = () => {
             dispatch(topEventsActions.reset());
         };
     }, []);
+
+     //Remove Component if no favs found
+     useEffect(() => {
+        if (eventsTop !== null && (eventsTop.length === 0)) {
+            onDataNotFound(); 
+        }
+    }, [eventsTop, onDataNotFound]); 
+
 
     return (
         <MainSwiper

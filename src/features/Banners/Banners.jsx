@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { bannersActions } from './BannersSlice';
 
-const SportBanners = () => {
+const SportBanners = ({onDataNotFound}) => {
     const dispatch = useDispatch();
 
     const [loadedImages, setLoadedImages] = useState([]);
@@ -31,6 +31,15 @@ const SportBanners = () => {
             dispatch(bannersActions.reset());
         };
     }, []);
+
+    //Remove Component if no favs found
+    useEffect(() => {
+        if (sportBanners !== null && (sportBanners.Banners === null || sportBanners.Banners.length === 0)) {
+            onDataNotFound(); 
+        }
+    }, [sportBanners, onDataNotFound]); 
+
+
     return (
         <BigSwiper slidesPerView={1} autoplay delay={6000}>
             {sportBanners ? (

@@ -10,11 +10,12 @@ import { translate } from '../../../utils/translations';
 import { recRewards } from '../gamificationAsyncActions';
 import { gamificationActions } from '../userGamificationSlice';
 
-const ManualRewards = (props) => {
+const ManualRewards = ({ onDataNotFound }) => {
     const dispatch = useDispatch();
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const user = useSelector((state) => state.login.user);
 
+    const dataCame = useSelector((state) => state.gamification.dataCame); 
     const instantRewards = useSelector((state) => state.gamification.manualRewards.instantRewards);
     const dailyRewards = useSelector((state) => state.gamification.manualRewards.dailyRewards);
     const weeklyRewards = useSelector((state) => state.gamification.manualRewards.weeklyRewards);
@@ -27,6 +28,20 @@ const ManualRewards = (props) => {
     const [percentOfDay, setPercentOfDay] = useState(0);
     const [percentOfWeek, setPercentOfWeek] = useState(0);
     const [percentOfMonth, setPercentOfMonth] = useState(0);
+
+    //Remove Component if no favs found
+    useEffect(() => {
+        let foundOneNotNull = false;
+        for (let i = 0; i < rewards.length; i++) {
+            if (rewards[i] !== null) {
+                foundOneNotNull = true;
+                break;
+            }
+        }
+        if (dataCame !==null && foundOneNotNull === false) {
+            onDataNotFound();
+        }
+    }, [dataCame,rewards, onDataNotFound]);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -69,8 +84,8 @@ const ManualRewards = (props) => {
         };
         //return () => clearInterval(timer);
     }, []);
- 
-     
+
+
 
     const formatTime = (time) => {
         const days = Math.floor(time / (1000 * 60 * 60 * 24));
@@ -121,7 +136,7 @@ const ManualRewards = (props) => {
                                                     {translate('Ends in')} {timeUntilEndOfDay}
                                                 </p>
                                             </>
-                                            
+
                                         )
                                     }
                                 </>
@@ -135,13 +150,13 @@ const ManualRewards = (props) => {
                                             <div className={classes.Progress} style={{ '--progress': `0%` }}></div>
                                         </div>
                                     </div>
-                                   
+
                                 </>
                             )}
                         </main>
                     </article>
-                    )
-                 )}
+                )
+                )}
 
             </div >
 

@@ -37,6 +37,7 @@ const initialState = {
         weeklyRewards:null,
         monthlyRewards:null,
     },
+    dataCame:null,
     ericLevels: {}
 };
 
@@ -78,6 +79,7 @@ export const userGamificationSlice = createSlice({
             state.progressBar = action.payload;
         },
         setManualRewards: (state, action) => {
+            state.dataCame = true;
             state.manualRewards = action.payload;
         },
         setEricLevels: (state, action) => {
