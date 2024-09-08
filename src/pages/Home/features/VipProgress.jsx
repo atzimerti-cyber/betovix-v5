@@ -7,6 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 import classes from './VipProgress.module.css';
 import VipBackgroundIcon from '../../../assets/svgs/vip-background.svg?react';
 import { translate } from '../../../utils/translations';
+import LevelDiamond from '../../UserGamification.jsx/features/LevelDiamond';
 
 const VipProgress = () => {
     const navigate = useNavigate();
@@ -71,6 +72,14 @@ const VipProgress = () => {
                         ) : (
                             <span style={{ width: `0%` }}></span>
                         )}
+                    </div>
+                    <div className={classes.DiamondContainer}>
+                        <LevelDiamond small complete={levelProgress >= 0 && true}/>
+                        <LevelDiamond small complete={levelProgress >= 20 && true}/>
+                        <LevelDiamond small complete={levelProgress >= 40 && true}/>
+                        <LevelDiamond small complete={levelProgress >= 60 && true}/>
+                        <LevelDiamond small complete={levelProgress >= 80 && true}/>
+                        <LevelDiamond small complete={levelProgress >= 100 && true}/>
                     </div>
                 </div>
             </div>

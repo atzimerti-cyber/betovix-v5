@@ -28,6 +28,18 @@
     background-color: var(--db-brand-green);
 }
 
+.Complete.Diamond.Small {
+    background-color: var(--db-brand-green);
+    height: 12px;
+    width: 12px;
+}
+
+.Diamond.Small {
+    background-color:var(--db-dark-1);
+    height: 12px;
+    width: 12px;
+}
+
 .Diamond span {
     display: grid;
     --tw-rotate: 45deg;
