@@ -67,9 +67,7 @@ const Crypto = () => {
     }, [])
 
     return (
-        <>
-
-
+        <div className={classes.CryptoSwiper}>
             <MainSwiper
                 // slidesPerView={slidesPerView}
                 slidesPerView={'auto'}
@@ -100,18 +98,18 @@ const Crypto = () => {
                         ) : (
 
                             Array.from({ length: 15 }, (_, index) => (
-                                
+
                                 <SwiperSlide key={index} style={{ width: 'auto' }}>
                                     <SkeletonCrypto />
                                 </SwiperSlide>
-                                
-                                
+
+
                             ))
-                           
+
                         )
                 }
             </MainSwiper>
-        </>
+        </div>
     );
 };
 

@@ -24,6 +24,10 @@ import userGamificationSlice from '../pages/UserGamification.jsx/userGamificatio
 import casinoFavoritesSlice from '../features/CasinoFavorites/CasinoFavoritesSlice';
 import bannersSlice from '../features/Banners/BannersSlice';
 import topEventsSlice from '../features/TopEvents/TopEventsSlice';
+import casinoNewSlice from '../features/NewGames/CasinoNewGamesSlice';
+import crashGamesSlice from '../features/CrashGames/crashGamesSlice';
+import recommendedGamesSlice from '../features/RecommendedGames/recommendedGamesSlice';
+
 export const store = configureStore({
     reducer: {
         app: appSlice.reducer,
@@ -50,6 +54,9 @@ export const store = configureStore({
         casinoFavorites: casinoFavoritesSlice.reducer,
         banners: bannersSlice.reducer,
         topEvents: topEventsSlice.reducer,
+        casinoNew: casinoNewSlice.reducer,
+        crashGames: crashGamesSlice.reducer,
+        recommendedGames: recommendedGamesSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

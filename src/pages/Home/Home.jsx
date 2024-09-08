@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux'; 
+import { useDispatch, useSelector } from 'react-redux';
 
 import classes from './Home.module.css';
 
 import useIntersectionObserver from '../../hooks/IntersectionObserver';
 import useSlidesResponsive from '../../hooks/useSlidesResponsive';
- 
+
 import Banners from '../../features/Banners/Banners';
 import LiveEvents from './features/LiveEvents';
 import TopEvents from '../../features/TopEvents/TopEvents';
@@ -14,7 +14,10 @@ import VipProgress from './features/VipProgress';
 import RegisterContainers from './features/RegisterContainers';
 import Crypto from '../../features/CryptoPriceSwiper/Crypto';
 import ManualRewards from '../UserGamification.jsx/features/ManualRewards';
-import CasinoFavorites from '../../features/CasinoFavorites/CasinoFavorites'; 
+import CasinoFavorites from '../../features/CasinoFavorites/CasinoFavorites';
+import CasinoNewGames from '../../features/NewGames/CasinoNewGames';
+import CrashGames from '../../features/CrashGames/CrashGames';
+import RecommendedGames from '../../features/RecommendedGames/RecommendedGames';
 
 function ObjectHasValue(obj) {
 
@@ -30,21 +33,24 @@ const Home = () => {
     const location = useLocation();
 
     const [axiosSignal, setAxiosSignal] = useState(null);
-    const {slidesPerView,slidesPerGroup,isMobile,isTablet,isDesktop,isBigDesktop} =useSlidesResponsive();
+    const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive();
 
     const filteredGames = useSelector((state) => state.casino.filteredGames);
     const user = useSelector((state) => state.login.user);
     const permissions = useSelector((state) => state.login.permissions);
     const hasHero = useSelector((state) => state.gamification.selectedHero);
-    const liveState = useSelector((state) => state.live.liveState); 
-    
+    const liveState = useSelector((state) => state.live.liveState);
+
     const hasLiveEvents = ObjectHasValue(liveState);
 
     const { isVisible: isBannersVisible, elementRef: bannersRef } = useIntersectionObserver();
     const { isVisible: isLiveEventsVisible, elementRef: liveEventsRef } = useIntersectionObserver();
     const { isVisible: isTopEventsVisible, elementRef: topEventsRef } = useIntersectionObserver();
     const { isVisible: isFavoritesVisible, elementRef: favoritesRef } = useIntersectionObserver();
+    const { isVisible: isNewGamesVisible, elementRef: newGamesRef } = useIntersectionObserver();
     const { isVisible: isRewardsVisible, elementRef: rewardsRef } = useIntersectionObserver();
+    const { isVisible: isCrashGamesVisible, elementRef: crashGamesRef } = useIntersectionObserver();
+    const { isVisible: isRecommendedGamesVisible, elementRef: recommendedGamesRef } = useIntersectionObserver();
 
     const addParamsToUrl = (modal, tab) => {
         const searchParams = new URLSearchParams(location.search);
@@ -84,10 +90,19 @@ const Home = () => {
 
                 </div>}
 
+                {/* REWARDS */}
+                <div ref={rewardsRef} style={{ minHeight: "60px" }}>
+                    {isRewardsVisible && user && (
+                        <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
+                            <ManualRewards />
+                        </div>
+                    )}
+                </div>
+
                 {/* TOP EVENTS */}
                 {permissions.AllowToSports && (
                     <div ref={topEventsRef} style={{ minHeight: "160px" }}>
-                        {isTopEventsVisible && 
+                        {isTopEventsVisible &&
                             <TopEvents />
                         }
                     </div>
@@ -103,8 +118,35 @@ const Home = () => {
                     </div >
                 )}
 
+                {/* RECOMMENDED GAMES */}
+                {(permissions.AllowToCasino || permissions.AllowToSlots) &&
+                    <div ref={recommendedGamesRef} style={{ minHeight: "164px" }}  >
+                        {isRecommendedGamesVisible && (
+                            <RecommendedGames />
+                        )}
+                    </div>
+                }
+
+                {/* NEW GAMES */}
+                {(permissions.AllowToCasino || permissions.AllowToSlots) &&
+                    <div ref={newGamesRef} style={{ minHeight: "164px" }}  >
+                        {isNewGamesVisible && (
+                            <CasinoNewGames />
+                        )}
+                    </div>
+                }
+
+                {/* CRASH GAMES */}
+                {(permissions.AllowToCasino || permissions.AllowToSlots) &&
+                    <div ref={crashGamesRef} style={{ minHeight: "164px" }}  >
+                        {isCrashGamesVisible && (
+                            <CrashGames />
+                        )}
+                    </div>
+                }
+
                 {/* FAVORITES */}
-                {(permissions.AllowToCasino || permissions.AllowToSlots) && 
+                {(permissions.AllowToCasino || permissions.AllowToSlots) &&
                     <div ref={favoritesRef} style={{ minHeight: "164px" }}  >
                         {isFavoritesVisible && (
                             <CasinoFavorites />
@@ -112,20 +154,7 @@ const Home = () => {
                     </div>
                 }
 
-                {/* REWARDS */}
-                <div ref={rewardsRef} style={{ minHeight: "60px" }}>
-                    {isRewardsVisible && user &&   (
-                        <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
-                            <ManualRewards />
-                        </div>
-                    )}
-                </div>
 
-
-
-
-
-                 
             </div>
         </div>
     );

@@ -2,36 +2,36 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 import SwiperWithOverlay from '../UI/MainSwiper/SwiperWithOverlay';
-import HeartIcon from '../../assets/svgs/heart.svg?react';
-import { getCasinoFavs } from './CasinoFavoritesAsync';
-import { casinoFavoritesActions } from './CasinoFavoritesSlice';
+import NewIcon from '../../assets/casinoIcons/new.svg?react';
+import { getCasinoCrashGames } from './crashGamesAsyncActions';
+import { casinoCrashGamesActions } from './crashGamesSlice';
 import useSlidesResponsive from '../../hooks/useSlidesResponsive';
 import { translate } from '../../utils/translations';
 
-const CasinoFavorites = () => {
-    const casinoFavs = useSelector((state) => state.casinoFavorites.casinoFavs);
+const CrashGames = () => {
+    const crashGames = useSelector((state) => state.crashGames.casinoCrashGames);
     const slidesPerView = useSlidesResponsive().slidesPerView;
     const dispatch = useDispatch();
 
     useEffect(() => {
         const controller = new AbortController();
 
-        dispatch(getCasinoFavs(controller.signal));
+        dispatch(getCasinoCrashGames(controller.signal));
 
         return () => {
             controller.abort();
-            dispatch(casinoFavoritesActions.reset());
+            dispatch(casinoCrashGamesActions.reset());
         };
     }, []);
     return (
         <SwiperWithOverlay
-            title={translate('Favorite Games')}
-            icon={<HeartIcon />}
-            link='/casino/favorites'
-            items={casinoFavs}
+            title={translate('Crash Games')}
+            icon={<NewIcon />}
+            // link='/casino/new-games'
+            items={crashGames}
             slidesPerView={slidesPerView}
         />
     );
 };
 
-export default CasinoFavorites;
+export default CrashGames;
