@@ -8,7 +8,7 @@ import { casinoCrashGamesActions } from './crashGamesSlice';
 import useSlidesResponsive from '../../hooks/useSlidesResponsive';
 import { translate } from '../../utils/translations';
 
-const CrashGames = () => {
+const CrashGames = ({ onDataNotFound }) => {
     const crashGames = useSelector((state) => state.crashGames.casinoCrashGames);
     const slidesPerView = useSlidesResponsive().slidesPerView;
     const dispatch = useDispatch();
@@ -23,6 +23,14 @@ const CrashGames = () => {
             dispatch(casinoCrashGamesActions.reset());
         };
     }, []);
+
+    //Remove Component if no favs found
+    useEffect(() => {
+        if (crashGames !== null && (crashGames.length === 0)) {
+            onDataNotFound();
+        }
+    }, [crashGames, onDataNotFound]);
+
     return (
         <SwiperWithOverlay
             title={translate('Crash Games')}

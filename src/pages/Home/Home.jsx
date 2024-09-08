@@ -73,6 +73,13 @@ const Home = () => {
     const [showRewards, setShowRewards] = useState(true); // New state to control visibility
     const handleRemoveRewardsComponent = () => { setShowRewards(false); };
 
+    const [showNewGames, setShowNewGames] = useState(true); // New state to control visibility
+    const handleRemoveNewGamesComponent = () => { setShowNewGames(false); };
+    const [showCrashGames, setShowCrashGames] = useState(true); // New state to control visibility
+    const handleRemoveCrashGamesComponent = () => { setShowCrashGames(false); };
+    const [showRecommendedGames, setShowRecommendedGames] = useState(true); // New state to control visibility
+    const handleRemoveRecommendedGamesComponent = () => { setShowRecommendedGames(false); };
+
     return (
         <div className={classes.PageContent}>
             <div className={classes.Home}>
@@ -101,7 +108,6 @@ const Home = () => {
                             {!user && <RegisterContainers />}
                         </div>
                     }
-
                 </div>}
 
                 {/* REWARDS */}
@@ -133,28 +139,28 @@ const Home = () => {
                 )}
 
                 {/* RECOMMENDED GAMES */}
-                {(permissions.AllowToCasino || permissions.AllowToSlots) &&
+                {showRecommendedGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
                     <div ref={recommendedGamesRef} style={{ minHeight: "164px" }}  >
                         {isRecommendedGamesVisible && (
-                            <RecommendedGames />
+                            <RecommendedGames onDataNotFound={handleRemoveRecommendedGamesComponent}/>
                         )}
                     </div>
                 }
 
                 {/* NEW GAMES */}
-                {(permissions.AllowToCasino || permissions.AllowToSlots) &&
+                {showNewGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
                     <div ref={newGamesRef} style={{ minHeight: "164px" }}  >
                         {isNewGamesVisible && (
-                            <CasinoNewGames />
+                            <CasinoNewGames onDataNotFound={handleRemoveNewGamesComponent}/>
                         )}
                     </div>
                 }
 
                 {/* CRASH GAMES */}
-                {(permissions.AllowToCasino || permissions.AllowToSlots) &&
+                {showCrashGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
                     <div ref={crashGamesRef} style={{ minHeight: "164px" }}  >
                         {isCrashGamesVisible && (
-                            <CrashGames />
+                            <CrashGames onDataNotFound={handleRemoveCrashGamesComponent}/>
                         )}
                     </div>
                 }
@@ -167,14 +173,6 @@ const Home = () => {
                         )}
                     </div>
                 }
-
-
-
-
-
-
-
-
             </div>
         </div>
     );

@@ -8,7 +8,7 @@ import { casinoNewActions } from './CasinoNewGamesSlice';
 import useSlidesResponsive from '../../hooks/useSlidesResponsive';
 import { translate } from '../../utils/translations';
 
-const CasinoNewGames = () => {
+const CasinoNewGames = ({ onDataNotFound }) => {
     const casinoNew = useSelector((state) => state.casinoNew.casinoNew);
     const slidesPerView = useSlidesResponsive().slidesPerView;
     const dispatch = useDispatch();
@@ -23,6 +23,14 @@ const CasinoNewGames = () => {
             dispatch(casinoNewActions.reset());
         };
     }, []);
+
+    //Remove Component if no favs found
+    useEffect(() => {
+        if (casinoNew !== null && (casinoNew.length === 0)) {
+            onDataNotFound();
+        }
+    }, [casinoNew, onDataNotFound]);
+
     return (
         <SwiperWithOverlay
             title={translate('New Games')}
