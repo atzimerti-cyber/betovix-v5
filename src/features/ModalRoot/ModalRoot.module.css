@@ -10,6 +10,7 @@
     justify-content: center;
     background-color: var(--db-modal-overlay);
     z-index: 10000;
+    overflow: auto;
 }
 
 .Close {

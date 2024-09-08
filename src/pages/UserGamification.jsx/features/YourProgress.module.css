@@ -15,7 +15,7 @@
     /* margin-top: 60px; */
     opacity: 0;
     animation: slide 0.2s ease-out forwards;
-    overflow: auto;
+    
 }
 
 @keyframes slide {
