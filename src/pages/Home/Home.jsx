@@ -13,17 +13,19 @@ import { homeActions } from './homeSlice';
 import { getEventsTop } from './homeAsyncActions';
 import { recRewards } from '../UserGamification.jsx/gamificationAsyncActions';
 import { getBanners } from './homeAsyncActions';
-import { getCasinoFavs } from './homeAsyncActions';
+
 import SwiperWithOverlay from '../../features/UI/MainSwiper/SwiperWithOverlay';
 import ClockIcon from '../../assets/svgs/clock.svg?react';
-import HeartIcon from '../../assets/svgs/heart.svg?react';
+
 import NewIcon from '../../assets/casinoIcons/new.svg?react';
 import VipProgress from './features/VipProgress';
 import RegisterContainers from './features/RegisterContainers';
 import Crypto from './features/Crypto';
-import { translate } from '../../utils/translations';
+
 import ManualRewards from '../UserGamification.jsx/features/ManualRewards';
+import CasinoFavorites from '../../features/CasinoFavorites/CasinoFavorites';
 //const LiveEvents = React.lazy(() => import('./features/LiveEvents'));
+import useSlidesResponsive from '../../hooks/useSlidesResponsive';
 
 function ObjectHasValue(obj) {
 
@@ -40,96 +42,25 @@ const Home = () => {
     const dispatch = useDispatch();
 
     const [axiosSignal, setAxiosSignal] = useState(null);
-
-    // const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
-    const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
-    const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
-    const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
-    const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
-
-    let slidesPerView = 6;
-    let slidesPerGroup = 4;
-
-    if (isMobile) {
-        slidesPerView = 2.5;
-        slidesPerGroup = 2;
-    } else if (isTablet) {
-        slidesPerView = 3;
-        slidesPerGroup = 3;
-    } else if (isDesktop) {
-        slidesPerView = 3.5;
-        slidesPerGroup = 3;
-    } else if (isBigDesktop) {
-        slidesPerView = 4;
-        slidesPerGroup = 4;
-    }
+    const {isMobile,isTablet,isDesktop,isBigDesktop} =useSlidesResponsive();
+   
 
     const filteredGames = useSelector((state) => state.casino.filteredGames);
     const user = useSelector((state) => state.login.user);
     const permissions = useSelector((state) => state.login.permissions);
-    const sportBanners = useSelector((state) => state.home.sportBanners);
+    //const sportBanners = useSelector((state) => state.home.sportBanners);
     const hasHero = useSelector((state) => state.gamification.selectedHero);
     const topEvents = useSelector((state) => state.home.eventsTop);
-    const casinoFavs = useSelector((state) => state.home.casinoFavs);
+    
     const liveState = useSelector((state) => state.live.liveState);
     const manualRewards = useSelector((state) => state.gamification.manualRewards);
-
-    // useEffect(() => {
-    //     const controller = new AbortController();
-    //     const signal = controller.signal;
-    //     setAxiosSignal(signal);
-
-    //     dispatch(getHome(signal));
-
-    //     return () => {
-    //         controller.abort();
-    //         dispatch(homeActions.reset());
-    //     };
-    // }, [user?.AccountId]);
-
-    // Observers
-    // const divs = [{ ref: useRef(null), type: 'getEventsTop' }];
-
-    // useEffect(() => {
-    //     const observer = new IntersectionObserver(
-    //         (entries) => {
-    //             entries.forEach((entry) => {
-    //                 if (entry.isIntersecting) {
-    //                     const divInfo = divs.find((div) => div.ref.current === entry.target);
-    //                     if (
-    //                         divInfo
-    //                         // && !data[divInfo.api]
-    //                     ) {
-    //                         // if (divInfo.type === 'getEventsLive') dispatch(getEventsLive(axiosSignal));
-    //                         if (divInfo.type === 'getEventsTop') dispatch(getEventsTop(axiosSignal));
-    //                     }
-    //                     observer.unobserve(entry.target); // Optionally stop observing
-    //                 }
-    //             });
-    //         },
-    //         {
-    //             root: null,
-    //             threshold: 0.2, // Adjust threshold as needed
-    //         }
-    //     );
-
-    //     // Observing all divs
-    //     divs.forEach((div) => {
-    //         if (div.ref.current) {
-    //             observer.observe(div.ref.current);
-    //         }
-    //     });
-
-    //     return () => {
-    //         observer.disconnect();
-    //     };
-    // }, [divs]);
+ 
 
     const hasNewGames = filteredGames.newGames?.Data?.length > 0;
     const hasRecentGames = filteredGames.recentGames?.Data?.length > 0;
-    const hasFavoriteGames = casinoFavs?.length > 0;
+    
     const hasRewards = (manualRewards && ObjectHasValue(manualRewards)) ? true : false;
-    const hasBanners = (sportBanners && sportBanners.Banners) ? sportBanners.Banners.length > 0 : false;
+    //const hasBanners = (sportBanners && sportBanners.Banners) ? sportBanners.Banners.length > 0 : false;
     const hasTopEvents = (topEvents) ? topEvents.length > 0 : false;
     const hasLiveEvents = ObjectHasValue(liveState);
 
@@ -149,23 +80,22 @@ const Home = () => {
 
     useEffect(() => {
 
-        if ((permissions.AllowToCasino || permissions.AllowToSlots) && isFavoritesVisible) dispatch(getCasinoFavs());
-        if (isBannersVisible) dispatch(getBanners());
+        //if ((permissions.AllowToCasino || permissions.AllowToSlots) && isFavoritesVisible) dispatch(getCasinoFavs());
+        //if (isBannersVisible) dispatch(getBanners());
         if (isTopEventsVisible) dispatch(getEventsTop());
         if (isRewardsVisible) dispatch(recRewards());
 
-    }, [isTopEventsVisible, isFavoritesVisible, isBannersVisible, isRewardsVisible]);
+    }, [isTopEventsVisible, isFavoritesVisible, isRewardsVisible]);
 
 
     useEffect(() => {
 
-        if (isBannersVisible && hasBanners === false && sportBanners !== null) bannersRef.current.remove();
+        //if (isBannersVisible && hasBanners === false && sportBanners !== null) bannersRef.current.remove();
         if (isTopEventsVisible && hasTopEvents === false && topEvents !== null) topEventsRef.current.remove();
         if (isLiveEventsVisible && hasLiveEvents === false) liveEventsRef.current.remove();
-        if (isFavoritesVisible && hasFavoriteGames === false && casinoFavs !== null) favoritesRef.current.remove();
         if (isRewardsVisible && hasRewards === false && manualRewards !== null) rewardsRef.current.remove();
 
-    }, [hasBanners, hasTopEvents, hasLiveEvents, hasFavoriteGames, hasRewards]);
+    }, [hasTopEvents, hasLiveEvents,  hasRewards]);
 
 
     const addParamsToUrl = (modal, tab) => {
@@ -190,9 +120,9 @@ const Home = () => {
                 {/* BANNERS */}
                 {<div ref={bannersRef} style={{ minHeight: "60px" }} >
 
-                    {isBannersVisible && hasBanners &&
+                    {isBannersVisible &&
                         <div className={isMobile || (isTablet) ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
-                            <Banners banners={sportBanners} />
+                            <Banners />
 
                             {!isMobile && user && hasHero && (
                                 <div className={classes.VipContainer}>
@@ -226,17 +156,13 @@ const Home = () => {
                 )}
 
                 {/* FAVORITES */}
-                <div ref={favoritesRef} style={{ minHeight: "164px" }}  >
-                    {isFavoritesVisible && hasFavoriteGames && (
-                        <SwiperWithOverlay
-                            title={translate('Favorites')}
-                            icon={<HeartIcon />}
-                            link='/casino/favorites'
-                            items={casinoFavs}
-                            slidesPerView={slidesPerView}
-                        />
-                    )}
-                </div>
+                {(permissions.AllowToCasino || permissions.AllowToSlots) && 
+                    <div ref={favoritesRef} style={{ minHeight: "164px" }}  >
+                        {isFavoritesVisible && (
+                            <CasinoFavorites />
+                        )}
+                    </div>
+                }
 
                 {/* REWARDS */}
                 <div ref={rewardsRef} style={{ minHeight: "60px" }}>
@@ -251,78 +177,7 @@ const Home = () => {
 
 
 
-                {/* 
-                <div className={isMobile || (isTablet && !user) ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
-                    {(isMobile === false || user === null) && <Banners banners={sportBanners} />}
-
-                    {!isMobile && user && (
-                        <div className={classes.VipContainer}>
-                            <VipProgress />
-                        </div>
-                    )}
-
-                    {!user && <RegisterContainers />}
-                </div>
-
-                {user && hasHero && Object.keys(hasHero).length > 0 && (
-                    <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
-                        <ManualRewards />
-                    </div>
-                )}
-
-
-                {permissions.AllowToSports && (
-                    <>
-                        <div ref={liveEventsRef}>
-                            {isLiveEventsVisible && <LiveEvents />}
-                        </div>
-                     
-                        <div ref={topEventsRef}>
-                            {isTopEventsVisible && <TopEvents />}
-                        </div>
-                    </>
-                )}
-
-                {permissions.AllowToCasino || permissions.AllowToSlots
-                    ? hasNewGames && (
-                        <div ref={swiperRef}>
-                            {isSwiperVisible && (<SwiperWithOverlay
-                                title={translate('New Games')}
-                                icon={<NewIcon className={classes.NewIcon} />}
-                                link='/casino/slots'
-                                items={filteredGames.newGames?.Data}
-                                slidesPerView={slidesPerView}
-                            />)}
-                        </div>
-                    )
-                    : null
-                }
-
-                {user && (permissions.AllowToCasino || permissions.AllowToSlots) ? (
-                    <>
-                        {hasRecentGames && (
-                            <SwiperWithOverlay
-                                title={translate('Recently Played')}
-                                icon={<ClockIcon />}
-                                items={filteredGames.recentGames?.Data}
-                                slidesPerView={slidesPerView}
-                            />
-                        )}
-                        <div ref={favoritesRef}>
-                            {hasFavoriteGames && isFavoritesVisible && (
-                                <SwiperWithOverlay
-                                    title={translate('Favorites')}
-                                    icon={<HeartIcon />}
-                                    link='/casino/favorites'
-                                    items={filteredGames.favoriteGames?.Data}
-                                    slidesPerView={slidesPerView}
-                                />
-                            )}
-                        </div>
-                    </>
-                ) : null}
-
-                 */}
+                 
             </div>
         </div>
     );

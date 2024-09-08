@@ -6,24 +6,41 @@ import classes from './Banners.module.css';
 import BigSwiper from '../UI/MainSwiper/BigSwiper';
 import GameCard from '../Game/GameCard';
 import LoaderPlaceholder from '../UI/Skeletons/LoaderPlaceholder';
+import { getBanners } from '../../pages/Home/homeAsyncActions';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
-const SportBanners = (props) => {
+const SportBanners = () => {
+    const dispatch = useDispatch();
+
     const [loadedImages, setLoadedImages] = useState([]);
+    const sportBanners = useSelector((state) => state.home.sportBanners);
+     
 
     const updateLoadedImages = (index) => {
         setLoadedImages((prevData) => [...prevData, index]);
     };
 
+    useEffect(() => {
+        const controller = new AbortController();
+
+        dispatch(getBanners(controller.signal));
+
+        return () => {
+            controller.abort();
+            dispatch(casinoFavoritesActions.reset());
+        };
+    }, []);
     return (
         <BigSwiper slidesPerView={1} autoplay delay={6000}>
-            {props.banners ? (
-                props.banners.Banners &&
-                props.banners.Banners.map((banner, index) => {
+            {sportBanners ? (
+                sportBanners.Banners &&
+                sportBanners.Banners.map((banner, index) => {
                     let link = null;
                     let bannerEvent = null;
 
                     if (banner.EventId > 0) {
-                        bannerEvent = props.banners.BannerEvents[banner.EventId];
+                        bannerEvent = sportBanners.BannerEvents[banner.EventId];
                         if (bannerEvent) link = `/event/${bannerEvent.Info.SportName.International}/${bannerEvent.Info.SportId}/${banner.EventId}`;
                     }
 

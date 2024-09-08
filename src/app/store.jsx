@@ -22,6 +22,7 @@ import ticketSlice from '../features/Ticket/ticketSlice';
 import leaderboardSlice from '../pages/Leaderboard/leaderboardSlice';
 import myBetsSlice from '../pages/SportsMyBets/myBetsSlice';
 import userGamificationSlice from '../pages/UserGamification.jsx/userGamificationSlice';
+import casinoFavoritesSlice from '../features/CasinoFavorites/CasinoFavoritesSlice';
 
 export const store = configureStore({
     reducer: {
@@ -47,6 +48,7 @@ export const store = configureStore({
         leaderboard: leaderboardSlice.reducer,
         myBets: myBetsSlice.reducer,
         gamification: userGamificationSlice.reducer,
+        casinoFavorites: casinoFavoritesSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
