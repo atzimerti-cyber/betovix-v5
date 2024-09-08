@@ -30,7 +30,7 @@ import { ticketActions } from '../Ticket/ticketSlice';
 import { betslipActions } from '../Betslip/betslipSlice';
 import config from '../../config';
 
-import { getCrypto } from '../../pages/Crypto/cryptoAsyncActions';
+
 import { getRewards, getUserAchievements, heroProgress } from '../../pages/UserGamification.jsx/gamificationAsyncActions';
 import { ConsoleLogger } from '@microsoft/signalr/dist/esm/Utils';
 
@@ -130,9 +130,7 @@ export const loadInitData = (isMobile) => {
             });
             dispatch(appActions.setTranslations(responsesNecessary[0].data.Contents));
 
-            const controller = new AbortController();
-            const signal = controller.signal;
-            dispatch(getCrypto(signal));
+          
 
             //Get Progress
             dispatch(heroProgress());

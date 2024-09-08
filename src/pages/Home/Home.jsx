@@ -1,31 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { useMediaQuery } from 'react-responsive';
-import useIntersectionObserver from '../../hooks/IntersectionObserver';
+import { useDispatch, useSelector } from 'react-redux'; 
+
 import classes from './Home.module.css';
-import HomeBanners from './features/HomeBanners';
+
+import useIntersectionObserver from '../../hooks/IntersectionObserver';
+import useSlidesResponsive from '../../hooks/useSlidesResponsive';
+ 
 import Banners from '../../features/Banners/Banners';
 import LiveEvents from './features/LiveEvents';
-import TopEvents from './features/TopEvents';
-//import { getHome } from './homeAsyncActions';
-import { homeActions } from './homeSlice';
-import { getEventsTop } from './homeAsyncActions';
-import { recRewards } from '../UserGamification.jsx/gamificationAsyncActions';
-import { getBanners } from './homeAsyncActions';
-
-import SwiperWithOverlay from '../../features/UI/MainSwiper/SwiperWithOverlay';
-import ClockIcon from '../../assets/svgs/clock.svg?react';
-
-import NewIcon from '../../assets/casinoIcons/new.svg?react';
+import TopEvents from '../../features/TopEvents/TopEvents';
 import VipProgress from './features/VipProgress';
 import RegisterContainers from './features/RegisterContainers';
-import Crypto from './features/Crypto';
-
+import Crypto from '../../features/CryptoPriceSwiper/Crypto';
 import ManualRewards from '../UserGamification.jsx/features/ManualRewards';
-import CasinoFavorites from '../../features/CasinoFavorites/CasinoFavorites';
-//const LiveEvents = React.lazy(() => import('./features/LiveEvents'));
-import useSlidesResponsive from '../../hooks/useSlidesResponsive';
+import CasinoFavorites from '../../features/CasinoFavorites/CasinoFavorites'; 
 
 function ObjectHasValue(obj) {
 
@@ -39,29 +28,16 @@ function ObjectHasValue(obj) {
 const Home = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const dispatch = useDispatch();
 
     const [axiosSignal, setAxiosSignal] = useState(null);
-    const {isMobile,isTablet,isDesktop,isBigDesktop} =useSlidesResponsive();
-   
+    const {slidesPerView,slidesPerGroup,isMobile,isTablet,isDesktop,isBigDesktop} =useSlidesResponsive();
 
     const filteredGames = useSelector((state) => state.casino.filteredGames);
     const user = useSelector((state) => state.login.user);
     const permissions = useSelector((state) => state.login.permissions);
-    //const sportBanners = useSelector((state) => state.home.sportBanners);
     const hasHero = useSelector((state) => state.gamification.selectedHero);
-    const topEvents = useSelector((state) => state.home.eventsTop);
+    const liveState = useSelector((state) => state.live.liveState); 
     
-    const liveState = useSelector((state) => state.live.liveState);
-    const manualRewards = useSelector((state) => state.gamification.manualRewards);
- 
-
-    const hasNewGames = filteredGames.newGames?.Data?.length > 0;
-    const hasRecentGames = filteredGames.recentGames?.Data?.length > 0;
-    
-    const hasRewards = (manualRewards && ObjectHasValue(manualRewards)) ? true : false;
-    //const hasBanners = (sportBanners && sportBanners.Banners) ? sportBanners.Banners.length > 0 : false;
-    const hasTopEvents = (topEvents) ? topEvents.length > 0 : false;
     const hasLiveEvents = ObjectHasValue(liveState);
 
     const { isVisible: isBannersVisible, elementRef: bannersRef } = useIntersectionObserver();
@@ -69,34 +45,6 @@ const Home = () => {
     const { isVisible: isTopEventsVisible, elementRef: topEventsRef } = useIntersectionObserver();
     const { isVisible: isFavoritesVisible, elementRef: favoritesRef } = useIntersectionObserver();
     const { isVisible: isRewardsVisible, elementRef: rewardsRef } = useIntersectionObserver();
-
-    useEffect(() => {
-        const controller = new AbortController();
-        return () => {
-            controller.abort();
-            dispatch(homeActions.reset());
-        };
-    }, []);
-
-    useEffect(() => {
-
-        //if ((permissions.AllowToCasino || permissions.AllowToSlots) && isFavoritesVisible) dispatch(getCasinoFavs());
-        //if (isBannersVisible) dispatch(getBanners());
-        if (isTopEventsVisible) dispatch(getEventsTop());
-        if (isRewardsVisible) dispatch(recRewards());
-
-    }, [isTopEventsVisible, isFavoritesVisible, isRewardsVisible]);
-
-
-    useEffect(() => {
-
-        //if (isBannersVisible && hasBanners === false && sportBanners !== null) bannersRef.current.remove();
-        if (isTopEventsVisible && hasTopEvents === false && topEvents !== null) topEventsRef.current.remove();
-        if (isLiveEventsVisible && hasLiveEvents === false) liveEventsRef.current.remove();
-        if (isRewardsVisible && hasRewards === false && manualRewards !== null) rewardsRef.current.remove();
-
-    }, [hasTopEvents, hasLiveEvents,  hasRewards]);
-
 
     const addParamsToUrl = (modal, tab) => {
         const searchParams = new URLSearchParams(location.search);
@@ -139,7 +87,7 @@ const Home = () => {
                 {/* TOP EVENTS */}
                 {permissions.AllowToSports && (
                     <div ref={topEventsRef} style={{ minHeight: "160px" }}>
-                        {isTopEventsVisible && hasTopEvents &&
+                        {isTopEventsVisible && 
                             <TopEvents />
                         }
                     </div>
@@ -166,7 +114,7 @@ const Home = () => {
 
                 {/* REWARDS */}
                 <div ref={rewardsRef} style={{ minHeight: "60px" }}>
-                    {isRewardsVisible && user && hasRewards && (
+                    {isRewardsVisible && user &&   (
                         <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
                             <ManualRewards />
                         </div>

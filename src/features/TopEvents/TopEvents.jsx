@@ -1,37 +1,42 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { SwiperSlide } from 'swiper/react';
 import { useMediaQuery } from 'react-responsive';
 import { Link } from 'react-router-dom';
 
-import MainSwiper from '../../../features/UI/MainSwiper/MainSwiper';
-import TopEventsIcon from '../../../assets/svgs/top-events.svg?react';
-import classes from './LiveEvents.module.css';
-import SkeletonGame from '../../../features/UI/Skeletons/SkeletonGame';
-import GameCard from '../../../features/Game/GameCard';
-import { translate } from '../../../utils/translations';
+import MainSwiper from '../UI/MainSwiper/MainSwiper';
+import TopEventsIcon from '../../assets/svgs/top-events.svg?react';
+import classes from './TopEvents.module.css';
+import SkeletonGame from '../../features/UI/Skeletons/SkeletonGame';
+import GameCard from '../../features/Game/GameCard';
+import { translate } from '../../utils/translations';
+import useSlidesResponsive from '../../hooks/useSlidesResponsive';
+import { getEventsTop } from './TopEventsAsync';
+import { topEventsActions } from './TopEventsSlice';
+import { useEffect } from 'react';
 
 const TopEvents = () => {
+    const dispatch = useDispatch();
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-    const eventsTop = useSelector((state) => state.home.eventsTop);
+    const eventsTop = useSelector((state) => state.topEvents.topEvents);
 
-    const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
-    const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
+    const {slidesPerView,slidesPerGroup,isMobile,isTablet,isDesktop,isBigDesktop} =useSlidesResponsive("match");
+   
 
-    let slidesPerView = 3;
-    let slidesPerGroup = 3;
+    // if (!eventsTop || eventsTop.length === 0) {
+    //     return null;
+    // }
 
-    if (isTablet) {
-        slidesPerView = 1;
-        slidesPerGroup = 1;
-    } else if (isDesktop) {
-        slidesPerView = 2;
-        slidesPerGroup = 2;
-    }
+    useEffect(() => {
+        const controller = new AbortController();
 
-    if (!eventsTop || eventsTop.length === 0) {
-        return null;
-    }
-    
+        dispatch(getEventsTop(controller.signal));
+
+        return () => {
+            controller.abort();
+            dispatch(topEventsActions.reset());
+        };
+    }, []);
+
     return (
         <MainSwiper
             slidesPerView={slidesPerView}

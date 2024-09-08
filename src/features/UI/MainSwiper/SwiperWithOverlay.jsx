@@ -12,34 +12,16 @@ import classes from './SwiperWithOverlay.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
 import { addFavoriteCasino, removeFavoriteCasino } from '../../../pages/Casino/casinoAsyncActions';
 import { translate } from '../../../utils/translations';
+import useSlidesResponsive from '../../../hooks/useSlidesResponsive';
 
 const SwiperWithOverlay = (props) => {
     const dispatch = useDispatch();
     const [loadedImages, setLoadedImages] = useState([]);
-
-    const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
-    const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
-    const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
-    const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
     const user = useSelector((state) => state.login.user);
     const bonusBalance = useSelector((state) => state.layout.bonusBalance);
 
-    let slidesPerView = 5;
-    let slidesPerGroup = 5;
-
-    if (isMobile) {
-        slidesPerView = 2;
-        slidesPerGroup = 2;
-    } else if (isTablet) {
-        slidesPerView = 3;
-        slidesPerGroup = 3;
-    } else if (isDesktop) {
-        slidesPerView = 3.5;
-        slidesPerGroup = 3;
-    } else if (isBigDesktop) {
-        slidesPerView = 4;
-        slidesPerGroup = 4;
-    }
+ 
+    const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("casino");
 
     const updateLoadedImages = (index) => {
         setLoadedImages((prevData) => [...prevData, index]);
@@ -121,7 +103,7 @@ const SwiperWithOverlay = (props) => {
                     })
                 )
             ) : (
-                Array.from({ length: slidesPerView }, (_, index) => (
+                Array.from({ length: 15 }, (_, index) => (
                     <SwiperSlide key={index}>
                         <div className={[classes.SlideContainer, classes.Loading].join(' ')}>
                             <Link to={null}>

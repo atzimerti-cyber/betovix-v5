@@ -6,16 +6,16 @@ import classes from './Banners.module.css';
 import BigSwiper from '../UI/MainSwiper/BigSwiper';
 import GameCard from '../Game/GameCard';
 import LoaderPlaceholder from '../UI/Skeletons/LoaderPlaceholder';
-import { getBanners } from '../../pages/Home/homeAsyncActions';
+import { getBanners } from './BannersAsync';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { bannersActions } from './BannersSlice';
 
 const SportBanners = () => {
     const dispatch = useDispatch();
 
     const [loadedImages, setLoadedImages] = useState([]);
-    const sportBanners = useSelector((state) => state.home.sportBanners);
-     
+    const sportBanners = useSelector((state) => state.banners.banners);
 
     const updateLoadedImages = (index) => {
         setLoadedImages((prevData) => [...prevData, index]);
@@ -28,7 +28,7 @@ const SportBanners = () => {
 
         return () => {
             controller.abort();
-            dispatch(casinoFavoritesActions.reset());
+            dispatch(bannersActions.reset());
         };
     }, []);
     return (

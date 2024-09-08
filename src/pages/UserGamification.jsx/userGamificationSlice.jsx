@@ -31,7 +31,12 @@ const initialState = {
     claimedRewards: [],
     loading: false,
     progressBar: null,
-    manualRewards: null,
+    manualRewards: {
+        instantRewards:null,
+        dailyRewards:null,
+        weeklyRewards:null,
+        monthlyRewards:null,
+    },
     ericLevels: {}
 };
 
@@ -39,9 +44,9 @@ export const userGamificationSlice = createSlice({
     name: 'gamification',
     initialState,
     reducers: {
-        // reset: (state) => {
-        //    
-        // },
+        reset: (state) => {
+           
+        },
         setHeroes: (state, action) => {
             state.heroes = action.payload;
         },

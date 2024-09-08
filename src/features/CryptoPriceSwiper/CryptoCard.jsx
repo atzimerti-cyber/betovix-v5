@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import classes from './CryptoCard.module.css';
-import { addThousandsSeparator } from '../../../utils/custom';
+import { addThousandsSeparator } from '../../utils/custom';
 
 const CryptoCard = (props) => {
 

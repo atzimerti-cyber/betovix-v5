@@ -3,7 +3,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import appSlice from '../features/InitApp/appSlice';
 import liveSlice from '../features/InitApp/liveSlice';
 import layoutSlice from '../features/Layout/layoutSlice';
-import homeSlice from '../pages/Home/homeSlice';
 import loginSlice from '../pages/Login/loginSlice';
 import casinoSlice from '../pages/Casino/casinoSlice';
 import sportsbookSlice from '../pages/SportsBook/sportsbookSlice';
@@ -23,13 +22,13 @@ import leaderboardSlice from '../pages/Leaderboard/leaderboardSlice';
 import myBetsSlice from '../pages/SportsMyBets/myBetsSlice';
 import userGamificationSlice from '../pages/UserGamification.jsx/userGamificationSlice';
 import casinoFavoritesSlice from '../features/CasinoFavorites/CasinoFavoritesSlice';
-
+import bannersSlice from '../features/Banners/BannersSlice';
+import topEventsSlice from '../features/TopEvents/TopEventsSlice';
 export const store = configureStore({
     reducer: {
         app: appSlice.reducer,
         live: liveSlice.reducer,
         layout: layoutSlice.reducer,
-        home: homeSlice.reducer,
         login: loginSlice.reducer,
         casino: casinoSlice.reducer,
         sportsbook: sportsbookSlice.reducer,
@@ -49,6 +48,8 @@ export const store = configureStore({
         myBets: myBetsSlice.reducer,
         gamification: userGamificationSlice.reducer,
         casinoFavorites: casinoFavoritesSlice.reducer,
+        banners: bannersSlice.reducer,
+        topEvents: topEventsSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

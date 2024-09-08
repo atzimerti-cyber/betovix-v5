@@ -1,6 +1,6 @@
 import { useMediaQuery } from 'react-responsive';
 
-const useSlidesResponsive = () => {
+const useSlidesResponsive = (categ) => {
     // const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
     const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
@@ -10,20 +10,59 @@ const useSlidesResponsive = () => {
     let slidesPerView = 6;
     let slidesPerGroup = 4;
 
-    if (isMobile) {
-        slidesPerView = 2.5;
-        slidesPerGroup = 2;
-    } else if (isTablet) {
-        slidesPerView = 3;
-        slidesPerGroup = 3;
-    } else if (isDesktop) {
-        slidesPerView = 3.5;
-        slidesPerGroup = 3;
-    } else if (isBigDesktop) {
-        slidesPerView = 4;
-        slidesPerGroup = 4;
+    if (!categ || categ == "casino") {
+        if (isMobile) {
+            slidesPerView = 2.5;
+            slidesPerGroup = 2;
+        } else if (isTablet) {
+            slidesPerView = 3;
+            slidesPerGroup = 3;
+        } else if (isDesktop) {
+            slidesPerView = 3.5;
+            slidesPerGroup = 3;
+        } else if (isBigDesktop) {
+            slidesPerView = 4;
+            slidesPerGroup = 4;
+        }else{
+            slidesPerView = 6;
+            slidesPerGroup = 4;
+        }
+    }else if (categ == "match"){
+        if (isMobile) {
+            slidesPerView = 1;
+            slidesPerGroup = 1;
+        } else if (isTablet) {
+            slidesPerView = 1;
+            slidesPerGroup = 1;
+        } else if (isDesktop) {
+            slidesPerView = 1.5;
+            slidesPerGroup = 1;
+        } else if (isBigDesktop) {
+            slidesPerView = 3;
+            slidesPerGroup = 2;
+        }else{
+            slidesPerView = 3;
+            slidesPerGroup = 2;
+        }
+    }else if (categ == "crypto-line"){
+        if (isMobile) {
+            slidesPerView = 2.5;
+            slidesPerGroup = 2;
+        } else if (isTablet) {
+            slidesPerView = 3;
+            slidesPerGroup = 3;
+        } else if (isDesktop) {
+            slidesPerView = 3.5;
+            slidesPerGroup = 3;
+        } else if (isBigDesktop) {
+            slidesPerView = 4;
+            slidesPerGroup = 4;
+        }else{
+            slidesPerView = 6.5;
+            slidesPerGroup = 4;
+        }
     }
 
-    return {slidesPerView,slidesPerGroup,isMobile,isTablet,isDesktop,isBigDesktop};
+    return { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop };
 };
 export default useSlidesResponsive;
