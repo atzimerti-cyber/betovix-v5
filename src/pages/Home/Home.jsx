@@ -174,7 +174,7 @@ const Home = () => {
                 }
 
                   {/* REWARDS */}
-                  {showRewards && user && <div ref={rewardsRef} style={{ minHeight: "60px" }}>
+                  {showRewards && user && <div ref={rewardsRef} style={{ minHeight: "60px", marginTop: "16px" }}>
                     {isRewardsVisible && (
                         <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
                             <ManualRewards onDataNotFound={handleRemoveRewardsComponent} />

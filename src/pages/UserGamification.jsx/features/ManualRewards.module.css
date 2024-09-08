@@ -10,8 +10,8 @@
 }
 
 .Card {
-    min-height: 100px;
-    max-height: 110px;
+    /* min-height: 100px;
+    max-height: 110px; */
     height: auto;
     flex-basis: calc(25% - 10px);
     flex-grow: 1;
@@ -163,18 +163,20 @@
     font-size: 0.8rem;
     font-weight: 500;
     line-height: 1.3;
-    color: white;
+    color: #6d9aadc0;
 }
 
 .ClaimIn {
     grid-row: 2;
     padding: 0.2rem;
-    font-size: 0.625rem;
+    
+    font-size: 0.8rem;
     line-height: 0.8rem;
     font-weight: 500;
     font-variant-numeric: tabular-nums;
     font-feature-settings: 'tnum';
-    color: #4f7f93c0;
+    
+    color: white;
 }
 
 .ProgressBarContainer {
@@ -249,7 +251,7 @@
 
     .ClaimIn {
         font-size: 0.75rem;
-        line-height: 1rem;
+        line-height: 1.7rem;
     }
 }
 
