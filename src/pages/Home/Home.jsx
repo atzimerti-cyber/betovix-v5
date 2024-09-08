@@ -81,18 +81,12 @@ const Home = () => {
     const handleRemoveRecommendedGamesComponent = () => { setShowRecommendedGames(false); };
 
     return (
-        <div className={classes.PageContent}>
+        <div className={classes.PageContent} style={{ paddingTop: '16px', }} >
             <div className={classes.Home}>
 
-                {/* CRYPTO */}
-                {user && showCrypto &&
-                    <div style={{ marginTop: '0.5rem', minHeight: "60px" }} ref={cryptoRef}>
-                        <Crypto onDataNotFound={handleRemoveCryptoComponent} />
-                    </div>
-                }
 
                 {/* BANNERS */}
-                {showBanners && <div ref={bannersRef} style={{ minHeight: "60px" }} >
+                {showBanners && <div ref={bannersRef} style={{ minHeight: "60px", }} >
 
                     {isBannersVisible &&
                         <div className={isMobile || (isTablet) ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
@@ -109,24 +103,13 @@ const Home = () => {
                         </div>
                     }
                 </div>}
+ 
 
-                {/* REWARDS */}
-                {showRewards && user && <div ref={rewardsRef} style={{ minHeight: "60px" }}>
-                    {isRewardsVisible && (
-                        <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
-                            <ManualRewards onDataNotFound={handleRemoveRewardsComponent} />
-                        </div>
-                    )}
-                </div>}
-
-                {/* TOP EVENTS */}
-                {showTopEvents && permissions.AllowToSports && (
-                    <div ref={topEventsRef} style={{ minHeight: "160px" }}>
-                        {isTopEventsVisible &&
-                            <TopEvents onDataNotFound={handleRemoveTopEventsComponent} />
-                        }
+                {/* CRYPTO */}
+                {user && showCrypto &&
+                    <div style={{  minHeight: "60px" }} ref={cryptoRef}>
+                        <Crypto onDataNotFound={handleRemoveCryptoComponent} />
                     </div>
-                )
                 }
 
                 {/* LIVE EVENTS */}
@@ -142,25 +125,41 @@ const Home = () => {
                 {showRecommendedGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
                     <div ref={recommendedGamesRef} style={{ minHeight: "164px" }}  >
                         {isRecommendedGamesVisible && (
-                            <RecommendedGames onDataNotFound={handleRemoveRecommendedGamesComponent}/>
+                            <RecommendedGames onDataNotFound={handleRemoveRecommendedGamesComponent} />
                         )}
                     </div>
                 }
 
+              
+
+                {/* TOP EVENTS */}
+                {showTopEvents && permissions.AllowToSports && (
+                    <div ref={topEventsRef} style={{ minHeight: "160px" }}>
+                        {isTopEventsVisible &&
+                            <TopEvents onDataNotFound={handleRemoveTopEventsComponent} />
+                        }
+                    </div>
+                )
+                }
+
+
+
+
+
                 {/* NEW GAMES */}
-                {showNewGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
+                {/* {showNewGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
                     <div ref={newGamesRef} style={{ minHeight: "164px" }}  >
                         {isNewGamesVisible && (
-                            <CasinoNewGames onDataNotFound={handleRemoveNewGamesComponent}/>
+                            <CasinoNewGames onDataNotFound={handleRemoveNewGamesComponent} />
                         )}
                     </div>
-                }
+                } */}
 
                 {/* CRASH GAMES */}
                 {showCrashGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
                     <div ref={crashGamesRef} style={{ minHeight: "164px" }}  >
                         {isCrashGamesVisible && (
-                            <CrashGames onDataNotFound={handleRemoveCrashGamesComponent}/>
+                            <CrashGames onDataNotFound={handleRemoveCrashGamesComponent} />
                         )}
                     </div>
                 }
@@ -173,6 +172,15 @@ const Home = () => {
                         )}
                     </div>
                 }
+
+                  {/* REWARDS */}
+                  {showRewards && user && <div ref={rewardsRef} style={{ minHeight: "60px" }}>
+                    {isRewardsVisible && (
+                        <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
+                            <ManualRewards onDataNotFound={handleRemoveRewardsComponent} />
+                        </div>
+                    )}
+                </div>}
             </div>
         </div>
     );
