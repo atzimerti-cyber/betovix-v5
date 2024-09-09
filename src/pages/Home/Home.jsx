@@ -128,7 +128,7 @@ const Home = () => {
 
                 {/* RECOMMENDED GAMES */}
                 {showRecommendedGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
-                    <div ref={recommendedGamesRef} style={{ minHeight: "164px" }}  >
+                    <div ref={recommendedGamesRef} style={{ minHeight: "110px" }}  >
                         {isRecommendedGamesVisible && (
                             <RecommendedGames onDataNotFound={handleRemoveRecommendedGamesComponent} />
                         )}
@@ -147,22 +147,9 @@ const Home = () => {
                 )
                 }
 
-
-
-
-
-                {/* NEW GAMES */}
-                {/* {showNewGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
-                    <div ref={newGamesRef} style={{ minHeight: "164px" }}  >
-                        {isNewGamesVisible && (
-                            <CasinoNewGames onDataNotFound={handleRemoveNewGamesComponent} />
-                        )}
-                    </div>
-                } */}
-
                 {/* CRASH GAMES */}
                 {showCrashGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
-                    <div ref={crashGamesRef} style={{ minHeight: "164px" }}  >
+                    <div ref={crashGamesRef} style={{ minHeight: "110px" }}  >
                         {isCrashGamesVisible && (
                             <CrashGames onDataNotFound={handleRemoveCrashGamesComponent} />
                         )}
@@ -171,7 +158,7 @@ const Home = () => {
 
                 {/* FAVORITES */}
                 {showFavorites && user && (permissions.AllowToCasino || permissions.AllowToSlots) &&
-                    <div ref={favoritesRef} style={{ minHeight: "164px" }}  >
+                    <div ref={favoritesRef} style={{ minHeight: "110px" }}  >
                         {isFavoritesVisible && (
                             <CasinoFavorites onDataNotFound={handleRemoveFavoritesComponent} />
                         )}
