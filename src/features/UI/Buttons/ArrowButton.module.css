@@ -11,6 +11,19 @@
     justify-content: center;
 }
 
+.showArrows.ArrowButton {
+    position: relative;
+    display: flex;
+    height: 1.5rem;
+    width: 1.5rem;
+    cursor: pointer;
+    border-radius: 0.375rem;
+    border-style: none;
+    background-color: var(--db-gray-1);
+    align-items: center;
+    justify-content: center;
+}
+
 .ArrowButton svg {
     height: 0.5rem;
     width: 0.5rem;

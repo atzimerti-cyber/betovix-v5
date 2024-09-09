@@ -53,32 +53,35 @@ const GamificationBanner = React.memo(() => {
 
     }, [dispatch]);
 
-    const isBeginning = swiperRef.current?.swiper.isBeginning;
-    const isEnd = swiperRef.current?.swiper.isEnd;
-
     return (
         <div className={classes.BannerContainer}>
 
             <div className={classes.SwiperHeader}>
-                <div className={classes.Title}>
-                    {<LogoSmallIcon />}
-                    <span>Heroes</span>
-                </div>
+                <Link to={'/profile/?tab=heroes'} className={classes.ViewAllLink}>
+                    <div className={classes.Title}>
+                        {<LogoSmallIcon />}
+                        <span>Heroes</span>
+                    </div>
+                </Link>
                 <div className={classes.NavButtons}>
                     <>
                         <Link to={'/profile/?tab=heroes'} className={classes.ViewAllLink}>
                             View all
                         </Link>
 
-                        <ArrowButton disabled={isBeginning} onClick={() => swiperRef.current.swiper.slidePrev()}>
+                        <ArrowButton
+                            showArrows
+                            onClick={() => swiperRef.current?.swiper?.slidePrev()}
+                        >
                             <AngleLeftIcon />
                         </ArrowButton>
                         <ArrowButton
-                            disabled={isEnd || !heroes || heroes.length <= 1}
-                            onClick={() => swiperRef.current.swiper.slideNext()}
+                            showArrows
+                            onClick={() => swiperRef.current?.swiper?.slideNext()}
                         >
                             <AngleRightIcon />
                         </ArrowButton>
+
                     </>
                 </div>
             </div>
@@ -87,12 +90,14 @@ const GamificationBanner = React.memo(() => {
                 ref={swiperRef}
                 slidesPerView={1}
                 noPagination={true}
+                autoplay={true}
+                delay={7000}
+                loop={true}
+                noTouchMove={true}
             >
                 {heroes && Object.keys(heroes).length > 0 ? (
                     heroes.map((hero) => (
                         <SwiperSlide key={hero.Id}>
-
-
                             <div className={classes.HeroContainer}>
                                 <div className={classes.HeroName}>
                                     <p className={classes.DescTitle}>{translate(hero.metadata.HeroName + ' ' + hero.metadata.HeroSubName)}</p>
@@ -110,8 +115,6 @@ const GamificationBanner = React.memo(() => {
                                     </div>
                                 </div>
                             </div>
-
-
                         </SwiperSlide>
                     ))
 
