@@ -14,12 +14,12 @@ import { getEventsTop } from './TopEventsAsync';
 import { topEventsActions } from './TopEventsSlice';
 import { useEffect } from 'react';
 
-const TopEvents = ({onDataNotFound}) => {
+const TopEvents = ({ onDataNotFound }) => {
     const dispatch = useDispatch();
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const eventsTop = useSelector((state) => state.topEvents.topEvents);
 
-    const {slidesPerView,slidesPerGroup,isMobile,isTablet,isDesktop,isBigDesktop} =useSlidesResponsive("match");
+    const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("match");
 
     useEffect(() => {
         const controller = new AbortController();
@@ -32,44 +32,47 @@ const TopEvents = ({onDataNotFound}) => {
         };
     }, []);
 
-     //Remove Component if no favs found
-     useEffect(() => {
+    //Remove Component if no favs found
+    useEffect(() => {
         if (eventsTop !== null && (eventsTop.length === 0)) {
-            onDataNotFound(); 
+            onDataNotFound();
         }
-    }, [eventsTop, onDataNotFound]); 
+    }, [eventsTop, onDataNotFound]);
 
 
     return (
-        <MainSwiper
-            slidesPerView={slidesPerView}
-            slidesPerGroup={slidesPerGroup}
-            icon={<TopEventsIcon />}
-            title={<Link to='/sportsbook/home/football'>{translate('Top Events')}</Link>}
-            viewAll='/sportsbook/home/football'
-        >
-            {eventsTop
-                ? eventsTop.map((game, index) => {
-                      if (index > 9) return null;
+        <div className={classes.TopSwiper}>
+            <MainSwiper
+                slidesPerView={slidesPerView}
+                slidesPerGroup={slidesPerGroup}
+                icon={<TopEventsIcon />}
+                title={<Link to='/sportsbook/home/football'>{translate('Top Events')}</Link>}
+                viewAll='/sportsbook/home/football'
+            >
+                {eventsTop
+                    ? eventsTop.map((game, index) => {
+                        if (index > 9) return null;
 
-                      return (
-                          <SwiperSlide key={game.MatchId}>
-                              <div className={classes.SlideContainer}>
-                                  <GameCard game={game} type='scheduled' />
-                              </div>
-                          </SwiperSlide>
-                      );
-                  })
-                : Array.from({ length: slidesPerView }, (_, index) => (
-                      <SwiperSlide key={index}>
-                          <div className={[classes.SlideContainer, classes.Loading].join(' ')}>
-                              <Link to='/' className={classes.Card}>
-                                  <SkeletonGame />
-                              </Link>
-                          </div>
-                      </SwiperSlide>
-                  ))}
-        </MainSwiper>
+                        return (
+                            <SwiperSlide key={game.MatchId}>
+                                <div className={classes.SlideContainer}>
+                                    <GameCard game={game} type='scheduled' />
+                                </div>
+                            </SwiperSlide>
+                        );
+                    })
+                    : Array.from({ length: slidesPerView }, (_, index) => (
+                        <SwiperSlide key={index}>
+                            <div className={[classes.SlideContainer, classes.Loading].join(' ')}>
+                                <Link to='/' className={classes.Card}>
+                                    <SkeletonGame />
+                                </Link>
+                            </div>
+                        </SwiperSlide>
+                    ))}
+            </MainSwiper>
+        </div>
+
     );
 };
 

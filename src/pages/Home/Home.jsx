@@ -107,14 +107,14 @@ const Home = () => {
 
                 {/* CRYPTO */}
                 {user && showCrypto &&
-                    <div style={{  minHeight: "60px" }} ref={cryptoRef}>
+                    <div style={{  minHeight: "55px" }} ref={cryptoRef}>
                         <Crypto onDataNotFound={handleRemoveCryptoComponent} />
                     </div>
                 }
 
                 {/* LIVE EVENTS */}
                 {permissions.AllowToSports && (
-                    <div ref={liveEventsRef} style={{ minHeight: "218px" }} >
+                    <div ref={liveEventsRef} style={{ minHeight: "164px" }} >
                         {isLiveEventsVisible && hasLiveEvents &&
                             <LiveEvents />
                         }
@@ -174,7 +174,7 @@ const Home = () => {
                 }
 
                   {/* REWARDS */}
-                  {showRewards && user && <div ref={rewardsRef} style={{ minHeight: "60px", marginTop: "16px" }}>
+                  {showRewards && user && <div ref={rewardsRef} style={{ minHeight: "60px", marginTop: "5px" }}>
                     {isRewardsVisible && (
                         <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
                             <ManualRewards onDataNotFound={handleRemoveRewardsComponent} />

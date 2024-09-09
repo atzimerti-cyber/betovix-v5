@@ -15,7 +15,7 @@ const ManualRewards = ({ onDataNotFound }) => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const user = useSelector((state) => state.login.user);
 
-    const dataCame = useSelector((state) => state.gamification.dataCame); 
+    const dataCame = useSelector((state) => state.gamification.dataCame);
     const instantRewards = useSelector((state) => state.gamification.manualRewards.instantRewards);
     const dailyRewards = useSelector((state) => state.gamification.manualRewards.dailyRewards);
     const weeklyRewards = useSelector((state) => state.gamification.manualRewards.weeklyRewards);
@@ -38,10 +38,10 @@ const ManualRewards = ({ onDataNotFound }) => {
                 break;
             }
         }
-        if (dataCame !==null && foundOneNotNull === false) {
+        if (dataCame !== null && foundOneNotNull === false) {
             onDataNotFound();
         }
-    }, [dataCame,rewards, onDataNotFound]);
+    }, [dataCame, rewards, onDataNotFound]);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -85,8 +85,6 @@ const ManualRewards = ({ onDataNotFound }) => {
         //return () => clearInterval(timer);
     }, []);
 
-
-
     const formatTime = (time) => {
         const days = Math.floor(time / (1000 * 60 * 60 * 24));
         const hours = Math.floor((time / (1000 * 60 * 60)) % 24);
@@ -97,6 +95,17 @@ const ManualRewards = ({ onDataNotFound }) => {
             .padStart(2, '0')}`;
     };
 
+    const getTime = (id) => {
+        if (id === 148) {
+            return null
+        } else if (id === 145) {
+            return timeUntilEndOfDay
+        } else if (id === 146) {
+            return timeUntilNextSunday
+        } else if (id === 147) {
+            return timeUntilEndOfMonth
+        }
+    }
 
 
     return (
@@ -133,7 +142,7 @@ const ManualRewards = ({ onDataNotFound }) => {
                                         ) : (
                                             <>
                                                 <p className={classes.ClaimIn}>
-                                                    {translate('Ends in')} {timeUntilEndOfDay}
+                                                    {translate('Ends in')} {getTime(reward.id)}
                                                 </p>
                                             </>
 
