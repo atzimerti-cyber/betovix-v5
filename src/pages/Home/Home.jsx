@@ -110,6 +110,9 @@ const Home = () => {
                     }
                 </div>}
 
+                {/* HEROES */}
+                <GamificationBanner />
+
 
                 {/* CRYPTO */}
                 {user && showCrypto &&
@@ -117,6 +120,8 @@ const Home = () => {
                         <Crypto onDataNotFound={handleRemoveCryptoComponent} />
                     </div>
                 }
+
+
 
                 {/* LIVE EVENTS */}
                 {permissions.AllowToSports && (
@@ -126,6 +131,8 @@ const Home = () => {
                         }
                     </div >
                 )}
+
+
 
                 {/* RECOMMENDED GAMES */}
                 {showRecommendedGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
@@ -175,7 +182,7 @@ const Home = () => {
                     )}
                 </div>}
 
-                <GamificationBanner/>
+
             </div>
         </div>
     );

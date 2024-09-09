@@ -1,8 +1,18 @@
-
+.BannerContainer {
+    max-height: fit-content;
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    flex-direction: column;
+    background: rgba(0,0,0,.1);
+    padding: 0.5rem;
+}
 .HeroContainer{
     display: flex;
     min-height: 50px;
-    background: rgba(0,0,0,.1);
+     
    
 }
 .HeroName{
@@ -29,7 +39,7 @@
     flex: 1 0 214px;
     overflow: hidden;
     padding: 1rem;
-    max-width: 300px;
+    max-width: 255px;
 }
 .HeroLevelsContainer{
     flex:1;
@@ -50,15 +60,7 @@
  
 
 
-.BannerContainer {
-    max-height: fit-content;
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    flex-direction: column;
-}
+
 /* 
 .GridContainer {
     display: grid;
