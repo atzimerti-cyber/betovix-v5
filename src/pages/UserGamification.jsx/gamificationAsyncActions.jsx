@@ -308,19 +308,26 @@ export const heroProgress = () => {
             if (response.status !== 200 || response.data.Status.StatusCode !== 200 || response.data.Contents == null) throw Error(response.data.Contents);
 
             const currentLevel = {
-                name: response.data.Contents.Level
+                name: response.data.Contents.Level,
+                icon: response.data.Contents.Icon
             }
             const progress = response.data.Contents.Progress;
-            //const progressFixed = progress.toFixed(2);
+            const progressFixed = !isNaN(parseFloat(progress)) ? parseFloat(progress).toFixed(2) : progress;
             const selectedHero = response.data.Contents.Hero;
+            const nextLevel = {
+                name: response.data.Contents.NextLevel,
+                icon: response.data.Contents.NextLevelIcon
+            }
 
             //console.log(currentLevel);
             //console.log(progress);
             //console.log(selectedHero);
+            console.log('Nxt Level', nextLevel);
 
             dispatch(gamificationActions.setCurrentLevel(currentLevel));
-            dispatch(gamificationActions.setProgressBar(progress));
+            dispatch(gamificationActions.setProgressBar(progressFixed));
             dispatch(gamificationActions.setSelectedHero(selectedHero));
+            dispatch(gamificationActions.setNextLevel(nextLevel));
 
         } catch (error) {
             const message = error?.message ? error.message : error;
@@ -329,7 +336,7 @@ export const heroProgress = () => {
     };
 };
 
-//To get hero progress (for Minibar)/////
+//To get Recurrent Rewards/////
 export const recRewards = () => {
     return async (dispatch) => {
         try {

@@ -18,6 +18,7 @@ const VipProgress = () => {
 
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
     const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
+    const nextLevel = useSelector((state) => state.gamification.nextLevel);
     const levelProgress = useSelector((state) => state.gamification.progressBar);
 
     const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
@@ -44,25 +45,41 @@ const VipProgress = () => {
                     <div className={classes.LeftContainer}>
                         <div>
                             <div className={classes.IconContainer}>
-                                <div className={`CardLevel CardLevel`}></div>
+                                {userCurrentLevel.icon ? (
+                                    userCurrentLevel.icon
+                                ) : (
+                                    <div className={`CardLevel CardLevel`}></div>
+                                )}
                             </div>
                         </div>
                         <div className={classes.TextContainer}>
                             {isMobile ? (
-                                null
+                                <span className={classes.TitleContainer}>{userCurrentLevel.name}</span>
                             ) : (
-                                <span className={classes.TitleContainer}>
-                                    {translate('Your progress')}
-                                </span>
+                                <span className={classes.TitleContainer}>{userCurrentLevel.name}</span>
                             )}
 
-                            <span className={classes.LevelName}>{userCurrentLevel.name}</span>
+                            {/* <span className={classes.TextContainer}>
+                                {translate('Your progress to ')}{userCurrentLevel.name}
+                            </span> */}
+                            <span className={classes.LevelName}>{`${levelProgress}%`}</span>
 
                         </div>
 
                     </div>
                     <div className={classes.RightContainer}>
-                        <span className={classes.LevelName}>{`${levelProgress}%`}</span>
+                        {/* <span className={classes.LevelName}>{`${levelProgress}%`}</span> */}
+                        <span className={classes.TextContainer}>
+                            {translate('Your progress to ')}{nextLevel.name}
+                        </span>
+                        <div className={classes.IconContainer}>
+                            {nextLevel.icon ? (
+                                nextLevel.icon
+                            ) : (
+                                <div className={`CardLevel CardLevel`}></div>
+                            )}
+
+                        </div>
                     </div>
                 </div>
                 <div className={classes.MilestoneProgressBar}>
@@ -74,12 +91,12 @@ const VipProgress = () => {
                         )}
                     </div>
                     <div className={classes.DiamondContainer}>
-                        <LevelDiamond small complete={levelProgress >= 0 && true}/>
-                        <LevelDiamond small complete={levelProgress >= 20 && true}/>
-                        <LevelDiamond small complete={levelProgress >= 40 && true}/>
-                        <LevelDiamond small complete={levelProgress >= 60 && true}/>
-                        <LevelDiamond small complete={levelProgress >= 80 && true}/>
-                        <LevelDiamond small complete={levelProgress >= 100 && true}/>
+                        <LevelDiamond small complete={levelProgress >= 0 && true} />
+                        <LevelDiamond small complete={levelProgress >= 20 && true} />
+                        <LevelDiamond small complete={levelProgress >= 40 && true} />
+                        <LevelDiamond small complete={levelProgress >= 60 && true} />
+                        <LevelDiamond small complete={levelProgress >= 80 && true} />
+                        <LevelDiamond small complete={levelProgress >= 100 && true} />
                     </div>
                 </div>
             </div>

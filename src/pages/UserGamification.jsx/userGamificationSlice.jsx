@@ -38,7 +38,8 @@ const initialState = {
         monthlyRewards:null,
     },
     dataCame:null,
-    ericLevels: {}
+    ericLevels: {},
+    nextLevel: {},
 };
 
 export const userGamificationSlice = createSlice({
@@ -84,6 +85,9 @@ export const userGamificationSlice = createSlice({
         },
         setEricLevels: (state, action) => {
             state.ericLevels = action.payload;
+        },
+        setNextLevel: (state, action) => {
+            state.nextLevel = action.payload;
         },
     },
 });

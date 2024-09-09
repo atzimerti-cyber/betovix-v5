@@ -7,14 +7,13 @@ import PricesIcon from '../../assets/svgs/prices.svg?react';
 import Search3 from '../../features/Search/Search3';
 import CryptoCard from './features/CryptoCard';
 import { translate } from '../../utils/translations';
-/////
+
 import { getCrypto } from './cryptoAsyncActions';
 import { cryptoActions } from './cryptoSlice';
-/////
+
 
 const Crypto = () => {
-
-    const dispatch = useDispatch();//////////////
+    const dispatch = useDispatch();
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const crypto = useSelector((state) => state.crypto.crypto);
@@ -35,20 +34,6 @@ const Crypto = () => {
         };
     }, [dispatch]);
 
-    /////////////////
-    // useEffect(() => {
-    //     const controller = new AbortController();
-    //     const signal = controller.signal;
-    //     dispatch(getCryptoPrices(signal));
-
-    //     // Cleanup function to abort the request if the component unmounts
-    //     return () => {
-    //         controller.abort();
-    //         dispatch(cryptoActions.reset());
-    //     };
-    // }, [dispatch]);
-    /////////////////
-
     useEffect(() => {
         if (!crypto) return;
 
@@ -64,15 +49,10 @@ const Crypto = () => {
 
         if (searchStr === '') {
             setFiltered([...uniqueCrypto]);
-            // setFiltered([...crypto]);
             return;
         }
 
-        const f = uniqueCrypto.filter(
-        // const f = crypto.filter(
-            (c) => c.Name.toLowerCase().includes(searchStr.toLocaleLowerCase())
-            // (c) => c.id.toLowerCase().includes(searchStr.toLocaleLowerCase()) || c.label.toLowerCase().includes(searchStr.toLocaleLowerCase())
-        );
+        const f = uniqueCrypto.filter((c) => c.Name.toLowerCase().includes(searchStr.toLocaleLowerCase()));
         setFiltered(f);
     }, [searchStr, crypto]);
 

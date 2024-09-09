@@ -114,9 +114,7 @@
     width: 45px;
     height: 45px;
     border-radius: 50%;
-    /* background-color: #fff; */
-    background:radial-gradient(#204028, #228033);
-    /* border: 2px solid #ccc; */
+    background:rgb(220, 226, 249);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -131,24 +129,24 @@
 }
 
 .DotAnimation {
-    animation: throbbing 3s infinite ease-in-out;
+    animation: throbbing 2s infinite ease-in-out;
     z-index: 10000;
 }
 
 @keyframes throbbing {
     0% {
         transform: scale(1);
-        background: radial-gradient(#228033, #204028);
+        background: radial-gradient(#55a75c, #f6f9f7);
     }
 
     50% {
-        transform: scale(1.15);
-        background: radial-gradient(#228033, #204028);
+        transform: scale(1.17);
+        background: radial-gradient(#55a75c, #f6f9f7);
     }
 
     100% {
         transform: scale(1);
-        background: radial-gradient(#228033, #204028);
+        background: radial-gradient(#55a75c, #f6f9f7);
     }
 }
 

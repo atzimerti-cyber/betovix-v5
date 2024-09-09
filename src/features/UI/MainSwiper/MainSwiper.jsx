@@ -37,7 +37,7 @@ const MainSwiper = (props) => {
 
     let elClasses = [classes.MainSwiperWrapper];
     if (props.pagination) elClasses.push(classes.WithPagination);
-    if (props.scrolling) elClasses.push(classes.scrolling); //////////////
+    if (props.scrolling) elClasses.push(classes.scrolling);
 
     let delay = 6000;
     if (props.delay) {

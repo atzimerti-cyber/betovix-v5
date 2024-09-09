@@ -84,10 +84,14 @@ const Home = () => {
         <div className={classes.PageContent} style={{ paddingTop: '16px', }} >
             <div className={classes.Home}>
 
+                {isMobile && hasHero && Object.keys(hasHero).length > 0 &&
+                    <div className={classes.VipContainer}>
+                        <VipProgress />
+                    </div>
+                }
 
                 {/* BANNERS */}
                 {showBanners && <div ref={bannersRef} style={{ minHeight: "60px", }} >
-
                     {isBannersVisible &&
                         <div className={isMobile || (isTablet) ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
 
@@ -100,21 +104,22 @@ const Home = () => {
                             )}
 
                             {!user && <RegisterContainers />}
+
                         </div>
                     }
                 </div>}
- 
+
 
                 {/* CRYPTO */}
                 {user && showCrypto &&
-                    <div style={{  minHeight: "55px" }} ref={cryptoRef}>
+                    <div style={{ minHeight: "55px" }} ref={cryptoRef}>
                         <Crypto onDataNotFound={handleRemoveCryptoComponent} />
                     </div>
                 }
 
                 {/* LIVE EVENTS */}
                 {permissions.AllowToSports && (
-                    <div ref={liveEventsRef} style={{ minHeight: "164px" }} >
+                    <div ref={liveEventsRef} style={{ minHeight: "160px" }} >
                         {isLiveEventsVisible && hasLiveEvents &&
                             <LiveEvents />
                         }
@@ -130,7 +135,7 @@ const Home = () => {
                     </div>
                 }
 
-              
+
 
                 {/* TOP EVENTS */}
                 {showTopEvents && permissions.AllowToSports && (
@@ -173,8 +178,8 @@ const Home = () => {
                     </div>
                 }
 
-                  {/* REWARDS */}
-                  {showRewards && user && <div ref={rewardsRef} style={{ minHeight: "60px", marginTop: "5px" }}>
+                {/* REWARDS */}
+                {showRewards && user && <div ref={rewardsRef} style={{ minHeight: "60px", marginTop: "5px" }}>
                     {isRewardsVisible && (
                         <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
                             <ManualRewards onDataNotFound={handleRemoveRewardsComponent} />

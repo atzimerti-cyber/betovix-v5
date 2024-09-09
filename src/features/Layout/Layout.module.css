@@ -262,7 +262,7 @@
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 769px) {
     .Content {
         padding-top: var(--db-header-height);
     }

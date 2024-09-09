@@ -9,3 +9,7 @@
     border-radius: 15px;
     padding: 7px;
 }
+
+.TopSwiper>div>div{
+    margin-bottom: 0;
+}

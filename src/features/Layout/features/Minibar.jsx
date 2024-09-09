@@ -9,6 +9,7 @@ import { translate } from '../../../utils/translations';
 import MinibarMenu from '../../UI/HorizontalMenu/MinibarMenu';
 
 import { sportsbookActions } from '../../../pages/SportsBook/sportsbookSlice';
+import useSlidesResponsive from '../../../hooks/useSlidesResponsive';
 
 
 const Minibar = () => {
@@ -22,7 +23,10 @@ const Minibar = () => {
     const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
     const levelProgress = useSelector((state) => state.gamification.progressBar);
 
-    const isMobile = useMediaQuery({ query: '(max-width: 950px)' });
+    // const isMobile = useMediaQuery({ query: '(max-width: 950px)' });
+
+    const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive();
+
 
     const getPathByItemName = (itemName) => {
         switch (itemName) {
@@ -66,11 +70,11 @@ const Minibar = () => {
 
     return (
         <>
-            {/* {!isMobile ? ( */}
+            {!(isMobile || isTablet) ? (
                 <div className={classes.Minibar}>
                     <div className={classes.MinibarLeftWrapper}>
                         <>
-                            <menu className={classes.MenuSelection}>
+                            {/* <menu className={classes.MenuSelection}>
                                 <div className={classes.MenuContent}>
                                     {Object.keys(minibarMenu).length > 0 && (
                                         <MinibarMenu
@@ -82,7 +86,7 @@ const Minibar = () => {
                                         />
                                     )}
                                 </div>
-                            </menu>
+                            </menu> */}
                         </>
                     </div>
 
@@ -125,31 +129,28 @@ const Minibar = () => {
                         }
                     </div>
                 </div>
-            {/* // ) : (
-            //     <div className={classes.Minibar}>
-            //         <div className={classes.MinibarLeftWrapper}>
-
-            //             <>
-            //                 <menu className={classes.MenuSelection}>
-            //                     <div className={classes.MenuContent}>
-            //                         {Object.keys(minibarMenu).length > 0 && (
-            //                             <MinibarMenu
-            //                                 items={minibarMenu}
-            //                                 onSelect={(item) => {
-            //                                     getPathByItemName(item.Name)
-            //                                     handleClick(item.Name)
-            //                                 }}
-            //                             />
-            //                         )}
-            //                     </div>
-            //                 </menu>
-            //             </>
-
-
-            //         </div>
-
-            //     </div>
-            // )} */}
+            ) : (
+                // <div className={classes.Minibar}>
+                //     <div className={classes.MinibarLeftWrapper}>
+                //         <>
+                //             <menu className={classes.MenuSelection}>
+                //                 <div className={classes.MenuContent}>
+                //                     {Object.keys(minibarMenu).length > 0 && (
+                //                         <MinibarMenu
+                //                             items={minibarMenu}
+                //                             onSelect={(item) => {
+                //                                 getPathByItemName(item.Name)
+                //                                 handleClick(item.Name)
+                //                             }}
+                //                         />
+                //                     )}
+                //                 </div>
+                //             </menu>
+                //         </>
+                //     </div>
+                // </div>
+                null
+            )}
 
         </>
     );

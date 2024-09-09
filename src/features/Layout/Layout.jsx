@@ -126,11 +126,11 @@ const Layout = () => {
                     <main>
                         <div className={pageNotAuthorized ? [classes.FullPage, classes.NotAuthorized].join(' ') : classes.FullPage}>
                             {user?.Role < 40 && <OperatorView />}
-                            {isMobile && hasHero && Object.keys(hasHero).length > 0 &&
+                            {/* {isMobile && hasHero && Object.keys(hasHero).length > 0 &&
                                 <div className={classes.HeroProgress}>
                                     <VipProgress />
                                 </div>
-                            }
+                            } */}
 
                             <Outlet />
                         </div>

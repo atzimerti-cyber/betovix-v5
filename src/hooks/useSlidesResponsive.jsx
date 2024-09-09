@@ -1,7 +1,6 @@
 import { useMediaQuery } from 'react-responsive';
 
 const useSlidesResponsive = (categ) => {
-    // const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
     const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
     const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
     const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });

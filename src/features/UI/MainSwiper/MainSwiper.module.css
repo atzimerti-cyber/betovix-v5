@@ -6,7 +6,7 @@
 }
 
 .SwiperHeader {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
     display: flex;
     align-items: center;
 }
@@ -59,7 +59,7 @@
 }
 
 .MainSwiperWrapper .MainSwiper {
-    padding-top: 0.25rem;
+    padding-top: 0.45rem;
 }
 
 .WithPagination .MainSwiper {
@@ -104,7 +104,7 @@
 
 @media (min-width: 768px) {
     .SwiperHeader {
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.3rem;
     }
 
     .NavButtons>a {

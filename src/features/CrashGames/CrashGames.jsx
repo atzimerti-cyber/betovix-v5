@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 import SwiperWithOverlay from '../UI/MainSwiper/SwiperWithOverlay';
-import NewIcon from '../../assets/casinoIcons/new.svg?react';
+import NewIcon from '../../assets/svgs/crash-games.svg?react';
 import { getCasinoCrashGames } from './crashGamesAsyncActions';
 import { casinoCrashGamesActions } from './crashGamesSlice';
 import useSlidesResponsive from '../../hooks/useSlidesResponsive';
