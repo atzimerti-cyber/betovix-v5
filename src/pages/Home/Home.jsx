@@ -111,8 +111,8 @@ const Home = () => {
                 </div>}
 
                 {/* HEROES */}
-                <GamificationBanner />
-
+                {!user && <GamificationBanner />}
+                
 
                 {/* CRYPTO */}
                 {user && showCrypto &&
@@ -120,8 +120,6 @@ const Home = () => {
                         <Crypto onDataNotFound={handleRemoveCryptoComponent} />
                     </div>
                 }
-
-
 
                 {/* LIVE EVENTS */}
                 {permissions.AllowToSports && (
@@ -132,8 +130,6 @@ const Home = () => {
                     </div >
                 )}
 
-
-
                 {/* RECOMMENDED GAMES */}
                 {showRecommendedGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
                     <div ref={recommendedGamesRef} style={{ minHeight: "110px" }}  >
@@ -142,8 +138,6 @@ const Home = () => {
                         )}
                     </div>
                 }
-
-
 
                 {/* TOP EVENTS */}
                 {showTopEvents && permissions.AllowToSports && (

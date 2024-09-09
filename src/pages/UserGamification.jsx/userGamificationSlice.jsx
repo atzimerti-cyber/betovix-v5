@@ -24,7 +24,7 @@ const initialState = {
     displayedHero: {},
     currentLevel: {},
     levels: null,
-    selectedHero: {},
+    selectedHero: null,
     heroLevels: null,
     popupRewards: { Id: 1 },
     newRewards: [],

@@ -95,9 +95,7 @@ const GamificationBanner = React.memo(() => {
 
                             <div className={classes.HeroContainer}>
                                 <div className={classes.HeroName}>
-                                  
-                                        <p className={classes.DescTitle}>{translate(hero.metadata.HeroName + ' ' + hero.metadata.HeroSubName)}</p>
-                                     
+                                    <p className={classes.DescTitle}>{translate(hero.metadata.HeroName + ' ' + hero.metadata.HeroSubName)}</p>
                                 </div>
                                 <div className={classes.HeroImg}>
                                     <img src={hero.banner} loading='lazy' alt={hero.name} />
@@ -109,13 +107,11 @@ const GamificationBanner = React.memo(() => {
                                     </div>
                                     <div className={classes.HeroMilestones}>
                                         <Milestones activeLevel={activeLevel} profile />
-
                                     </div>
-
                                 </div>
                             </div>
 
- 
+
                         </SwiperSlide>
                     ))
 

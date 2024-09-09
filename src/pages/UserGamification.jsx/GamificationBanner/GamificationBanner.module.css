@@ -12,7 +12,7 @@
 .HeroContainer{
     display: flex;
     min-height: 50px;
-     
+     flex-wrap: wrap;
    
 }
 .HeroName{
@@ -47,6 +47,7 @@
     flex-direction: column;
     padding:1rem;
     overflow: hidden;
+    min-width: 400px;
 }
 .HeroLevels{
     display: flex;

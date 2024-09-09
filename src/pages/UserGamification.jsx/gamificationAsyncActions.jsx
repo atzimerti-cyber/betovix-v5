@@ -7,7 +7,7 @@ import { appActions } from '../../features/InitApp/appSlice';
 import config from '../../config';
 
 ////To get all heroes, levels, milestones (to display in profile?tab=horoes)(whether user has a hero or not)////
-export const getHeroes = (signal) => {
+export const getHeroes = (signal) => { 
     return async (dispatch) => {
         try {
             dispatch(appActions.setBarLoading(true));
@@ -54,7 +54,7 @@ export const getHeroes = (signal) => {
             console.log("Get All Heroes:", heroes[0].levels);
             dispatch(gamificationActions.setHeroes(heroes));
             dispatch(gamificationActions.setDisplayedHero(heroes[0]));
-            dispatch(gamificationActions.setEricLevels(heroes[0].levels));
+           // dispatch(gamificationActions.setEricLevels(heroes[0].levels));
 
             dispatch(appActions.setBarLoading(false));
         } catch (error) {
