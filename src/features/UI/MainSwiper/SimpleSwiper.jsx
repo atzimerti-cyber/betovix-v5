@@ -49,7 +49,7 @@ const SimpleSwiper = (props) => {
                 <Swiper
                     onSwiper={(swiper) => (swiperRef.current = swiper)}
                     onSlideChange={handleSwiperUpdate}
-                    slidesPerView='auto'
+                    slidesPerView={props.slidesPerView ? props.slidesPerView : 'auto'}
                     // slidesPerGroup={props.slidesPerGroup}
                     spaceBetween={11}
                     className={classes.MainSwiper}

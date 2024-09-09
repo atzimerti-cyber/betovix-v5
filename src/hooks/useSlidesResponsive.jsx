@@ -60,6 +60,40 @@ const useSlidesResponsive = (categ) => {
             slidesPerView = 6.5;
             slidesPerGroup = 4;
         }
+    }else if (categ == "levels"){
+        if (isMobile) {
+            slidesPerView = 2;
+            slidesPerGroup = 2;
+        } else if (isTablet) {
+            slidesPerView = 3;
+            slidesPerGroup = 3;
+        } else if (isDesktop) {
+            slidesPerView = 3;
+            slidesPerGroup = 3;
+        } else if (isBigDesktop) {
+            slidesPerView = 4;
+            slidesPerGroup = 4;
+        }else{
+            slidesPerView = 4.5;
+            slidesPerGroup = 4;
+        }
+    }else if (categ == "milestones"){
+        if (isMobile) {
+            slidesPerView = 2.5;
+            slidesPerGroup = 2;
+        } else if (isTablet) {
+            slidesPerView = 3;
+            slidesPerGroup = 3;
+        } else if (isDesktop) {
+            slidesPerView = 3.5;
+            slidesPerGroup = 3;
+        } else if (isBigDesktop) {
+            slidesPerView = 4;
+            slidesPerGroup = 4;
+        }else{
+            slidesPerView = 6.5;
+            slidesPerGroup = 4;
+        }
     }
 
     return { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop };

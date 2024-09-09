@@ -1,75 +1,62 @@
+.container {
+    display: flex;
+    width: 100%;
+    overflow: hidden;
+    min-height: 100px;
+   
+}
+.leftCol{
+    flex:1;
+    padding: 1rem;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: relative;
+}
+.rightCol{
+    flex:1;
+    padding: 1rem;
+    overflow: hidden;
+}
+.heroBtn{
+    position: absolute;
+    bottom: 20px;
+}
+.heroName{
+    padding-bottom: 1rem;
+}
+.heroText{
+    padding-bottom: 1rem;
+
+}
+@media (max-width: 1200px) {
+    .container {
+        flex-direction:column;
+
+    }
+    .heroImg{
+        max-width: 50%;
+    }
+}
+
 .TabContent {
     --tw-translate-y: 3rem;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     opacity: 0;
     background-color: initial;
     position: relative;
-    /* padding: 1rem 2.5rem 1rem; */
     padding: 0.5rem;
 }
 
-
-.GridContainer {
-    display: grid;
-    gap: 1.25rem;
-    grid-template-columns: auto;
-    grid-template-rows: max-content auto auto;
-    justify-items: center;
-}
+ 
 
 .HeroesContainer {
     padding: 0 1rem 0 1rem;
     margin-top: 1rem;
     width: 100%;
 }
-
-.DisplayContainer {
-    grid-column: 1;
-    grid-row: 1;
-    margin-left: 0;
-    margin-bottom: 0;
-    margin-right: 0rem;
-    margin-top: 0;
-    width: fit-content;
-    max-height: 250px;
-    min-height: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    background-size: cover;
-    background-position: 50%;
-    background-repeat: no-repeat;
-    text-align: center;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-    aspect-ratio: 8/7;
-    padding: 1rem;
-}
-
-.DisplayContainer img {
-    max-height: 350px;
-}
-
-.SelectHeroBtn {
-    grid-row: 4;
-    grid-column: 1;
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-}
-
-.HeroDescription {
-    grid-column: 1;
-    grid-row: 2;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    --tw-text-opacity: 1;
-    margin-top: 1rem;
-    padding: 1rem;
-}
-
 .DescTitle {
     font-weight: bold;
     font-size: 20px;
@@ -80,13 +67,7 @@
     font-size: 15px;
     color: var(--value-100);
 }
-
-.LevelUpSection {
-    grid-row: 3;
-    grid-column: 1/span 2;
-    max-width: 100%;
-}
-
+ 
 .NotAvailable{
     display: flex;
     flex-direction: row;
@@ -116,81 +97,5 @@
     .TabContent {
         background-color: var(--db-duelbits-gray);
         padding: 1rem 2.5rem 1rem;
-    }
-
-    .GridContainer {
-        display: grid;
-        gap: 1rem;
-        /* grid-template-columns: max-content auto; */
-        grid-template-columns: 3fr 4fr;
-        grid-template-rows: 250px auto;
-    }
-
-    .HeroesContainer {
-        padding: 0 1rem 0 1rem;
-        margin-top: 1rem;
-        width: 100%;
-    }
-
-    .DisplayContainer {
-        grid-column: 1;
-        grid-row: 1 /span 2;
-        margin-left: 0;
-        margin-bottom: 0;
-        margin-right: 0rem;
-        margin-top: 0;
-        width: fit-content;
-        max-height: 400px;
-        min-height: 500px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        background-size: cover;
-        background-position: 50%;
-        background-repeat: no-repeat;
-        text-align: center;
-        --tw-text-opacity: 1;
-        color: rgb(255 255 255 / var(--tw-text-opacity));
-        aspect-ratio: 6/7;
-        padding: 1rem;
-    }
-
-    .DisplayContainer img {
-        max-height: 380px;
-    }
-
-    .SelectHeroBtn {
-        grid-row: 2;
-        grid-column: 1;
-        display: flex;
-        justify-content: center;
-        align-items: flex-end;
-    }
-
-    .HeroDescription {
-        grid-column: 2 / 4;
-        grid-row: 1;
-        display: flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        --tw-text-opacity: 1;
-        margin-top: 1rem;
-    }
-
-    .DescTitle {
-        font-weight: bold;
-        font-size: 20px;
-        color: var(--db-brand-green);
-    }
-
-    .Description {
-        font-size: 15px;
-        color: var(--value-100);
-    }
-
-    .LevelUpSection {
-        grid-row: 2;
-        grid-column: 2 / 4;
-    }
+    } 
 }

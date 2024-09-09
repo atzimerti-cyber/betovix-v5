@@ -61,7 +61,10 @@ export function setLeftbar(isOpen) {
 
 // Right bar
 export function getRightbar() {
-    const isOpen = localStorage.getItem('rightbar');
+    let isOpen = localStorage.getItem('rightbar');
+    if (isOpen === null){
+        isOpen = 'false';
+    }
     let isOpenBool = isOpen !== 'false';
     return isOpenBool;
 }

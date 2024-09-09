@@ -17,14 +17,21 @@ const BigSwiper = (props) => {
                 autoplay={
                     props.autoplay
                         ? {
-                              delay: props.delay || 6000,
-                              disableOnInteraction: false,
-                          }
+                            delay: props.delay || 6000,
+                            disableOnInteraction: false,
+                        }
                         : null
                 }
-                pagination={{
-                    clickable: true,
-                }}
+                pagination={
+                    props.noPagination ? (
+                        false
+                    ) : (
+                        {
+                            clickable: true,
+                        }
+                    )
+                }
+
                 modules={modules}
                 className={classes.MainSwiper}
             >

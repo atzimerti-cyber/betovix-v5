@@ -18,6 +18,7 @@ import CasinoFavorites from '../../features/CasinoFavorites/CasinoFavorites';
 import CasinoNewGames from '../../features/NewGames/CasinoNewGames';
 import CrashGames from '../../features/CrashGames/CrashGames';
 import RecommendedGames from '../../features/RecommendedGames/RecommendedGames';
+import GamificationBanner from '../UserGamification.jsx/GamificationBanner/GamificationBanner';
 
 function ObjectHasValue(obj) {
 
@@ -173,6 +174,8 @@ const Home = () => {
                         </div>
                     )}
                 </div>}
+
+                <GamificationBanner/>
             </div>
         </div>
     );

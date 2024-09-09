@@ -19,6 +19,11 @@
     height: 14px;
     width: 14px;
 }
+.DiamondPosition:first-child .Diamond.Small,
+.DiamondPosition:last-child .Diamond.Small {
+    height: 0px;
+    width: 0px;
+}
 
 /* .DiamondPosition:first-child .Diamond{
     display: none;

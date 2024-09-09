@@ -12,6 +12,8 @@ const Levels = (props) => {
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
     const ericLevels = useSelector((state) => state.gamification.ericLevels);
 
+    
+
     let heroLevels;
     if (!selectedHero) {
         heroLevels = ericLevels;
@@ -21,8 +23,10 @@ const Levels = (props) => {
     }
 
     return (
-        <div className={classes.Levels}>
-            <SimpleSwiper  >
+        <div className={classes.Levels} style={{maxWidth:"100%",overflow:"hidden"}}>
+            <SimpleSwiper  
+            //slidesPerView={props.slidesPerView}
+            >
                 {heroLevels
                     ? heroLevels.map((level) => {
                         return (
@@ -47,7 +51,7 @@ const Levels = (props) => {
                             </SwiperSlide>
                         );
                     })
-                    : Array.from({ length: 8 }, (_, index) => (
+                    : Array.from({ length: props.slidesPerView }, (_, index) => (
                         <SwiperSlide style={{ width: '75px', height: '33.3px' }} key={index}>
                             <LoaderPlaceholder extraStyles={{ backgroundColor: 'var(--db-gray-3)', borderRadius: '0.375rem' }} />
                         </SwiperSlide>

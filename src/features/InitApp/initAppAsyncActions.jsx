@@ -130,12 +130,12 @@ export const loadInitData = (isMobile) => {
             });
             dispatch(appActions.setTranslations(responsesNecessary[0].data.Contents));
 
-          
+
 
             //Get Progress
             dispatch(heroProgress());
             //dispatch(getUserAchievements());
-            
+
             //Get user rewards
             dispatch(getRewards());
 
@@ -348,7 +348,7 @@ export const loadInitData = (isMobile) => {
                         page: 'hero',
                     },
                 ],
-                
+
             });
             allMenuItems.push({
                 category: { id: 6, label: 'More', visible: false },
@@ -377,7 +377,7 @@ export const loadInitData = (isMobile) => {
             dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
             dispatch(appActions.setSportsMenuItems(sportsMenuItems));
             dispatch(appActions.setMenuItems(allMenuItems));
-           setTimeout(function () {
+            setTimeout(function () {
                 dispatch(appActions.setInitDataLoaded(true));
             }, 2500);
         } catch (error) {

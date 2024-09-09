@@ -14,6 +14,7 @@ import Levels from './Levels';
 import Milestones from './Milestones';
 
 import { getHeroes } from '../gamificationAsyncActions';
+import useSlidesResponsive from '../../../hooks/useSlidesResponsive';
 
 const Heroes = React.memo(() => {
     const dispatch = useDispatch();
@@ -23,11 +24,12 @@ const Heroes = React.memo(() => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
     const heroes = useSelector((state) => state.gamification.heroes);
-    //const user = useSelector((state) => state.login.user);
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
 
     const [activeLevel, setActiveLevel] = useState(null);
+    const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive('levels');
+    const { slidesPerView: mSlidesPerView } = useSlidesResponsive('milestones');
 
 
     const addParamsToUrl = (modal, tab) => {
@@ -60,43 +62,46 @@ const Heroes = React.memo(() => {
 
             {displayedHero && Object.keys(displayedHero).length > 0 ? (
                 <>
-                    <div className={classes.GridContainer}>
-                        <div className={classes.DisplayContainer}>
-                            {/* <div className={classes.ImageContainer}> */}
-                            <img src={displayedHero.banner} loading='lazy' alt={displayedHero.name} />
-                            {/* </div> */}
-                        </div>
+                    <diV className={classes.container}>
+                        <div className={classes.leftCol}>
+                            <div className={classes.heroImg}>
+                                <img src={displayedHero.banner} loading='lazy' alt={displayedHero.name} />
+                            </div>
+                            <div className={classes.heroBtn}>
+                                <div className={classes.SelectHeroBtn}>
+                                    {selectedHero && Object.keys(selectedHero).length > 0 ? (
+                                        <MainButton disabled>
+                                            <span>You have selected a hero</span>
+                                        </MainButton>
+                                    ) : (
+                                        <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
+                                            <span>Select Hero</span>
+                                        </MainButton>
+                                    )}
 
-                        <div className={classes.SelectHeroBtn}>
-                            {selectedHero && Object.keys(selectedHero).length > 0 ? (
-                                <MainButton disabled>
-                                    <span>You have selected a hero</span>
-                                </MainButton>
-                            ) : (
-                                <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
-                                    <span>Select Hero</span>
-                                </MainButton>
-                            )}
-
-                        </div>
-
-                        {displayedHero && Object.keys(displayedHero).length > 0 &&
-                            <section className={classes.LevelUpSection}>
-                                <div className={classes.LevelUpMilestone}>
-                                    <Levels displayedHero={displayedHero} activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
-                                    <Milestones activeLevel={activeLevel} profile />
                                 </div>
-                            </section>
-                        }
-
-
-                        <div className={classes.HeroDescription}>
-                            <p className={classes.DescTitle}>{translate(displayedHero.metadata.HeroName + ' ' + displayedHero.metadata.HeroSubName)}</p>
-                            <div className={classes.ImageContainer}>
-                                <p className={classes.Description}>{displayedHero?.description?.replace(/<\/?p>/g, "")}</p>
                             </div>
                         </div>
-                    </div>
+                        <div className={classes.rightCol}>
+                            <div className={classes.heroName}>
+                                <p className={classes.DescTitle}>{translate(displayedHero.metadata.HeroName + ' ' + displayedHero.metadata.HeroSubName)}</p>
+                            </div>
+                            <div className={classes.heroText}>
+                                <p className={classes.Description}>{displayedHero?.description?.replace(/<\/?p>/g, "")}</p>
+                            </div>
+
+                            <Levels slidesPerView={slidesPerView} displayedHero={displayedHero} activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
+
+                              
+                                <Milestones
+                                    slidesPerView={mSlidesPerView}
+                                    activeLevel={activeLevel} profile />
+                             
+
+                        </div>
+                    </diV>
+
+                    
 
                     <div className={classes.HeroesContainer}>
                         <HeroDisplaySwiper title='Heroes' icon={<LogoSmallIcon />} items={heroes} />

@@ -62,16 +62,16 @@ const VipProgress = () => {
                             {/* <span className={classes.TextContainer}>
                                 {translate('Your progress to ')}{userCurrentLevel.name}
                             </span> */}
-                            <span className={classes.LevelName}>{`${levelProgress}%`}</span>
+                            <span className={classes.LevelName} style={{ color: 'var(--db-brand-green)' }}>{`${levelProgress}%`}</span>
 
                         </div>
 
                     </div>
                     <div className={classes.RightContainer}>
-                        {/* <span className={classes.LevelName}>{`${levelProgress}%`}</span> */}
                         <span className={classes.TextContainer}>
-                            {translate('Your progress to ')}{nextLevel.name}
+                            {translate('Your progress to ')}
                         </span>
+                        <span style={{ color: 'var(--db-brand-green)' }}>{nextLevel.name}</span>
                         <div className={classes.IconContainer}>
                             {nextLevel.icon ? (
                                 nextLevel.icon

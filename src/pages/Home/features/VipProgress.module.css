@@ -106,10 +106,10 @@
 .RightContainer {
     margin-right: 0.25rem;
     display: flex;
-    align-items: flex-end;
     justify-content: flex-end;
     gap: 0.25rem;
     flex-direction: row;
+    align-items: center;
 }
 
 .MilestoneProgressBar {
