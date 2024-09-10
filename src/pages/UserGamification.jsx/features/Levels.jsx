@@ -12,7 +12,7 @@ const Levels = (props) => {
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
     //const ericLevels = useSelector((state) => state.gamification.ericLevels);
 
-    
+
 
     let heroLevels;
     if (!selectedHero) {
@@ -23,39 +23,40 @@ const Levels = (props) => {
     }
 
     return (
-        <div className={classes.Levels} style={{maxWidth:"100%",overflow:"hidden"}}>
-            <SimpleSwiper  
-            //slidesPerView={props.slidesPerView}
-            >
-                {heroLevels
-                    ? heroLevels.map((level) => {
-                        return (
-                            <SwiperSlide style={{ width: 'auto' }} key={level.id}>
-                                <div
-                                    className={props.activeLevel?.id === level.id ? [classes.CardContainer, classes.Active].join(' ') : classes.CardContainer}
-                                    onClick={() => props.onChangeLevel(level)}
-                                >
-                                    <div className={classes.LevelCard}>
-                                        <div className={classes.LevelHeader}>
-                                            <div className={classes.IconContainer}>
-                                                {level.icon ? (
-                                                    level.icon
-                                                ) : (
-                                                    <div className={`CardLevel CardLevel`}></div>
-                                                )}
+        <div className={classes.Levels} style={{ maxWidth: "100%", overflow: "hidden" }}>
+            <SimpleSwiper>
+                {heroLevels && Object.keys(heroLevels) > 0 ?
+                    (
+                        heroLevels.map((level) => {
+                            return (
+                                <SwiperSlide style={{ width: 'auto' }} key={level.id}>
+                                    <div
+                                        className={props.activeLevel?.id === level.id ? [classes.CardContainer, classes.Active].join(' ') : classes.CardContainer}
+                                        onClick={() => props.onChangeLevel(level)}
+                                    >
+                                        <div className={classes.LevelCard}>
+                                            <div className={classes.LevelHeader}>
+                                                <div className={classes.IconContainer}>
+                                                    {level.icon ? (
+                                                        level.icon
+                                                    ) : (
+                                                        <div className={`CardLevel CardLevel`}></div>
+                                                    )}
+                                                </div>
+                                                <p className={classes.LevelName}>{level.name}</p>
                                             </div>
-                                            <p className={classes.LevelName}>{level.name}</p>
                                         </div>
                                     </div>
-                                </div>
-                            </SwiperSlide>
-                        );
-                    })
-                    : Array.from({ length: props.slidesPerView }, (_, index) => (
+                                </SwiperSlide>
+                            );
+                        })
+                    )
+                    : Array.from({ length: 10 }, (_, index) => (
                         <SwiperSlide style={{ width: '75px', height: '33.3px' }} key={index}>
                             <LoaderPlaceholder extraStyles={{ backgroundColor: 'var(--db-gray-3)', borderRadius: '0.375rem' }} />
                         </SwiperSlide>
-                    ))}
+                    ))
+                }
             </SimpleSwiper>
         </div>
     );

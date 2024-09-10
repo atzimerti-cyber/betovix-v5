@@ -148,41 +148,6 @@ export const getUserAchievements = () => {
                 return levelANumber - levelBNumber;
             });
 
-            // DAILY, WEEKLY, MONTHLY REWARDS //
-            // const dailyRewards = {
-            //     id: response.data.Contents.Daily?.id,
-            //     name: response.data.Contents.Daily?.metadata.Name,
-            //     description: response.data.Contents.Daily?.description,
-            //     progress: response.data.Contents.Daily?.optInStatus.percentageComplete,
-            //     rewardType: response.data.Contents.Daily?.reward?.RewardType?.Key,
-            //     rewardValue: response.data.Contents.Daily?.reward?.RewardValue,
-            //     rewardSymbol: response.data.Contents.Daily?.reward?.RewardType?.UomSymbol
-            // }
-            // const weeklyRewards = {
-            //     id: response.data.Contents.Weekly?.id,
-            //     name: response.data.Contents.Weekly?.metadata.Name,
-            //     description: response.data.Contents.Weekly?.description,
-            //     progress: response.data.Contents.Weekly?.optInStatus.percentageComplete,
-            //     rewardType: response.data.Contents.Weekly?.reward?.RewardType?.Key,
-            //     rewardValue: response.data.Contents.Weekly?.reward?.RewardValue,
-            //     rewardSymbol: response.data.Contents.Weekly?.reward?.RewardType?.UomSymbol
-            // }
-            // const monthlyRewards = {
-            //     id: response.data.Contents.Monthly?.id,
-            //     name: response.data.Contents.Monthly?.metadata.Name,
-            //     description: response.data.Contents.Monthly?.description,
-            //     progress: response.data.Contents.Monthly?.optInStatus.percentageComplete,
-            //     rewardType: response.data.Contents.Monthly?.reward?.RewardType?.Key,
-            //     rewardValue: response.data.Contents.Monthly?.reward?.RewardValue,
-            //     rewardSymbol: response.data.Contents.Monthly?.reward?.RewardType?.UomSymbol
-            // }
-
-            // const manualRewards = {
-            //     dailyRewards: dailyRewards,
-            //     weeklyRewards: weeklyRewards,
-            //     monthlyRewards: monthlyRewards
-            // }
-
             const currentLevel = {
                 id: response.data.Contents.CurrentLevel.AchievementID,
                 name: response.data.Contents.CurrentLevel.LevelName,
@@ -194,12 +159,10 @@ export const getUserAchievements = () => {
             //console.log("Hero: ", selectedHero);
             //console.log("Hero Levels: ", heroLevels);
             //console.log("Current Level: ", currentLevel);
-            //console.log("Manual Rewards: ", manualRewards);
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));
             dispatch(gamificationActions.setHeroLevels(heroLevels));
             dispatch(gamificationActions.setCurrentLevel(currentLevel));
-            //dispatch(gamificationActions.setManualRewards(manualRewards));
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);

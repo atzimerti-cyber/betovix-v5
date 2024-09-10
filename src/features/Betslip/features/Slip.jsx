@@ -14,6 +14,9 @@ import { translate, translateNameWithLang } from '../../../utils/translations';
 import IndicatorDownIcon from '../../../assets/svgs/indicator-down.svg?react';
 import IndicatorUpIcon from '../../../assets/svgs/indicator-up.svg?react';
 
+
+import { layoutActions } from '../../Layout/layoutSlice';
+
 const Slip = (props) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -27,12 +30,22 @@ const Slip = (props) => {
     const [currentValue, setCurrentValue] = useState(props.slip.Odd);
     const [previousValue, setPreviousValue] = useState(null);
     const [showIndicator, setShowIndicator] = useState(false);
+    const [checkAmounts, setCheckAmounts] = useState(false);
 
     useEffect(() => {
         if (inputRef.current) {
             inputRef.current.select();
         }
     }, []);
+
+    useEffect(() => {
+        if (checkAmounts) {
+            if (Object.keys(amounts).length === 0) {
+                dispatch(layoutActions.setShowRight('betslip'));
+                dispatch(layoutActions.setShowRightContainer(false));
+            }
+        }
+    }, [checkAmounts]);
 
     useEffect(() => {
         let timer;
@@ -118,8 +131,9 @@ const Slip = (props) => {
     };
 
     const handleRemoveSlip = (event) => {
-        event.stopPropagation(); 
+        event.stopPropagation();
         dispatch(betslipActions.removeFromSlips(props.slip.FieldId));
+        setCheckAmounts(true);
     };
 
     const handleAmountClick = (event) => {

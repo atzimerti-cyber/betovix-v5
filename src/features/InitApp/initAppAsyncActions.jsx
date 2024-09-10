@@ -150,7 +150,7 @@ export const loadInitData = (isMobile) => {
                     axiosApi.get(`MyCasino/GetVendors?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
                         baseURLOverride: config.VITE_CASINO_BASE,
                     }),
-                    axiosApi.get(`MyCasino/MyMenu?type=casino&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
+                    axiosApi.get(`MyCasino/MyMenu?type=casinobetovix&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                         baseURLOverride: config.VITE_CASINO_BASE,
                     }),
                 ];
@@ -178,7 +178,8 @@ export const loadInitData = (isMobile) => {
                                     id: subItem.Id,
                                     label: subItem.Name,
                                     icon: icon,
-                                    page: `casino/${slug}`,
+                                    // page: `casino/${slug}`,
+                                    page: `casino/${subItem.BadgeType}`,
                                 };
                             }),
                         };
@@ -191,7 +192,8 @@ export const loadInitData = (isMobile) => {
                                     id: item.Categ.Id,
                                     label: item.Categ.Name,
                                     icon: icon,
-                                    page: `casino/${slug}`,
+                                    page: `casino/${item.Categ.BadgeType}`,
+                                    // page: `casino/${slug}`,
                                 },
                             ],
                         };
@@ -300,7 +302,7 @@ export const loadInitData = (isMobile) => {
                 });
                 sportsMenuItems.push(topTournamentsMenu);
 
-                let topSportsMenu = { category: { id: 3, label: 'Top Sports', visible: false }, items: [] };
+                let topSportsMenu = { category: { id: 3, label: 'Top Sports', visible: true }, items: [] };
                 topSports.forEach((topSport) => {
                     topSportsMenu.items.push({
                         id: topSport.Id,

@@ -26,7 +26,8 @@
 
 .Header {
     background: var(--db-gray-4);
-    color: rgb(113, 142, 152);
+    color: #83bccb;
+    /* color: rgb(113, 142, 152); */
     display: flex;
     flex-direction: column;
     -webkit-box-pack: center;

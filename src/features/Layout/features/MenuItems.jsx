@@ -46,18 +46,6 @@ const MenuItems = (props) => {
 
                 </a>
             </li>
-            {/* <li>
-                <a>
-                    <TransactionIcon />
-                    <span>{translate('Transactions')}</span>
-                </a>
-            </li> */}
-            {/* <li>
-                <a>
-                    <VaultIcon />
-                    <span>{translate('Vault')}</span>
-                </a>
-            </li> */}
             <li>
                 <a
                     onClick={() => {

@@ -13,14 +13,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     topGames: null,
-    heroes: [
-        // { id: 1, name: "Erik", icon: erik, icontb: eriktb, description: "the Viking" },
-        // { id: 2, name: "Lola", icon: lola, icontb: lolatb, description: "the Carnival Queen" },
-        // { id: 3, name: "Lee", icon: lee, icontb: leetb, description: "the Dragon Warrior" },
-        // { id: 4, name: "Jack", icon: jack, icontb: jacktb, description: "the Jackaroo" },
-        // { id: 5, name: "Sam", icon: sam, icontb: samtb, description: "the Eagle" },
-        // { id: 6, name: "Nia", icon: "", icontb: "", description: "the Numbian Queen" },
-    ],
+    heroes: null,
     displayedHero: {},
     currentLevel: {},
     levels: null,

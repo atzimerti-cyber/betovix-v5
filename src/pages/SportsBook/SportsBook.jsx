@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -18,6 +18,9 @@ const SportsBook = () => {
     const params = useParams();
 
     const sportBanners = useSelector((state) => state.sportsbook.sportBanners);
+
+    const [showBanners, setShowBanners] = useState(true); // New state to control visibility
+    const handleRemoveBannersComponent = () => { setShowBanners(false); };
 
     useEffect(() => {
         const controller = new AbortController();
@@ -46,7 +49,7 @@ const SportsBook = () => {
 
                 <div className={classes.Content}>
                     <div className={classes.SportsBookInner}>
-                        {!params['*'].includes('live') && !params['*'].includes('outrights') && <Banners banners={sportBanners} />}
+                        {!params['*'].includes('live') && !params['*'].includes('outrights') && <Banners onDataNotFound={handleRemoveBannersComponent} banners={sportBanners} />}
                         {page}
                     </div>
                 </div>

@@ -164,7 +164,7 @@ const Milestones = (props) => {
 
 
                                 <div className={classes.CardsContainer}>
-                                    {heroLevels ? (
+                                    {heroLevels && Object.keys(heroLevels) > 0 ? (
                                         <>
                                             {thisLevelIndex < heroLevels.length && (
                                                 // <MilestoneCard
@@ -212,7 +212,7 @@ const Milestones = (props) => {
                                             )} */}
                                         </>
                                     ) : (
-                                        Array.from({ length: 6 }, (_, index) => (
+                                        Array.from({ length: 8 }, (_, index) => (
                                             <div key={index} className={classes.SkeletonWrapper}>
                                                 <div className={classes.Background}>
                                                     <SkeletonMilestone />

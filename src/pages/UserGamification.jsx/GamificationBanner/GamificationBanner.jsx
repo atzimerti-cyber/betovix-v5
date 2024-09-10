@@ -5,45 +5,41 @@ import { translate } from '../../../utils/translations';
 
 import classes from './GamificationBanner.module.css';
 
-import MainButton from '../../../features/UI/Buttons/MainButton';
-import HeroDisplaySwiper from '../../../features/UI/MainSwiper/HeroDisplaySwiper';
+import AngleLeftIcon from '../../../assets/svgs/angle-left.svg?react';
+import AngleRightIcon from '../../../assets/svgs/angle-right.svg?react';
 import LogoSmallIcon from '../../../assets/svgs/logo-small.svg?react';
 
 import ArrowButton from '../../../features/UI/Buttons/ArrowButton';
-import AngleLeftIcon from '../../../assets/svgs/angle-left.svg?react';
-import AngleRightIcon from '../../../assets/svgs/angle-right.svg?react';
-import AngleRight2Icon from '../../../assets/svgs/angle-right2.svg?react';
-
 import BigSwiper from '../../../features/UI/MainSwiper/BigSwiper';
-
 import Levels from '../features/Levels';
 import Milestones from '../features/Milestones';
 
 import { getHeroes } from '../gamificationAsyncActions';
-import { SwiperSlide } from 'swiper/react';
-import LoaderPlaceholder from '../../../features/UI/Skeletons/LoaderPlaceholder';
 
-const GamificationBanner = React.memo(() => {
+import { SwiperSlide } from 'swiper/react';
+
+import LoaderPlaceholder from '../../../features/UI/Skeletons/LoaderPlaceholder';
+import SkeletonMilestone from '../../../features/UI/Skeletons/SkeletonMilestone';
+
+const GamificationBanner = ({ onDataNotFound }) => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const location = useLocation();
+    // const navigate = useNavigate();
+    // const location = useLocation();
     const swiperRef = useRef(null);
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
     const heroes = useSelector((state) => state.gamification.heroes);
-    const displayedHero = useSelector((state) => state.gamification.displayedHero);
-    const selectedHero = useSelector((state) => state.gamification.selectedHero);
 
     const [activeLevel, setActiveLevel] = useState(null);
 
-    const addParamsToUrl = (modal, tab) => {
-        const searchParams = new URLSearchParams(location.search);
-        searchParams.set('modal', modal);
-        if (tab) searchParams.set('tab', tab);
+    // const addParamsToUrl = (modal, tab) => {
+    //     const searchParams = new URLSearchParams(location.search);
+    //     searchParams.set('modal', modal);
+    //     if (tab) searchParams.set('tab', tab);
 
-        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-    };
+    //     navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+    // };
 
     useEffect(() => {
         const controller = new AbortController();
@@ -52,6 +48,13 @@ const GamificationBanner = React.memo(() => {
         dispatch(getHeroes(signal));
 
     }, [dispatch]);
+
+    //Remove Component if no favs found
+    useEffect(() => {
+        if (heroes !== null && (!heroes || Object.keys(heroes).length === 0)) {
+            onDataNotFound();
+        }
+    }, [heroes, onDataNotFound]);
 
     return (
         <div className={classes.BannerContainer}>
@@ -90,44 +93,70 @@ const GamificationBanner = React.memo(() => {
                 ref={swiperRef}
                 slidesPerView={1}
                 noPagination={true}
-                autoplay={true}
+                //autoplay={true}
                 delay={7000}
                 loop={true}
                 noTouchMove={true}
             >
-                {heroes && Object.keys(heroes).length > 0 ? (
-                    heroes.map((hero) => (
-                        <SwiperSlide key={hero.Id}>
-                            <div className={classes.HeroContainer}>
-                                <div className={classes.HeroName}>
-                                    <p className={classes.DescTitle}>{translate(hero.metadata.HeroName + ' ' + hero.metadata.HeroSubName)}</p>
-                                </div>
-                                <div className={classes.HeroImg}>
-                                    <img src={hero.banner} loading='lazy' alt={hero.name} />
-                                </div>
-                                <div className={classes.HeroLevelsContainer}>
-                                    <div className={classes.HeroLevels}>
-                                        <Levels displayedHero={hero} activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
-
+                {heroes && Object.keys(heroes).length > 0 ?
+                    (
+                        heroes.map((hero) => (
+                            <SwiperSlide key={hero.Id}>
+                                <div className={classes.HeroContainer}>
+                                    <div className={classes.HeroName}>
+                                        <p className={classes.DescTitle}>{translate(hero.metadata.HeroName + ' ' + hero.metadata.HeroSubName)}</p>
                                     </div>
-                                    <div className={classes.HeroMilestones}>
-                                        <Milestones activeLevel={activeLevel} profile />
+                                    <div className={classes.HeroImg}>
+                                        <img src={hero.banner} loading='lazy' alt={<LoaderPlaceholder />} />
+                                    </div>
+                                    <div className={classes.HeroLevelsContainer}>
+                                        <div className={classes.HeroLevels}>
+                                            <Levels displayedHero={hero} activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
+
+                                        </div>
+                                        <div className={classes.HeroMilestones}>
+                                            <Milestones activeLevel={activeLevel} profile />
+                                        </div>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))
+                    ) : (
+                        <SwiperSlide>
+                            <div className={classes.BannerBackground}>
+                                <div className={classes.HeroContainer}>
+                                    <div className={classes.HeroName}>
+                                        <LoaderPlaceholder />
+                                    </div>
+                                    <div className={classes.HeroImg}>
+                                        <LoaderPlaceholder />
+                                    </div>
+                                    <div className={classes.HeroLevelsContainer}>
+                                        <div className={classes.HeroLevels}>
+                                            {Array.from({ length: 10 }, (_, index) => (
+                                                <SwiperSlide style={{ width: '75px', height: '33.3px', marginLeft: '5px', marginRight: '5px' }} key={index}>
+                                                    <LoaderPlaceholder extraStyles={{ backgroundColor: 'var(--db-gray-3)', borderRadius: '0.375rem' }} />
+                                                </SwiperSlide>
+                                            ))}
+                                        </div>
+                                        <div className={classes.CardsContainer}>
+                                            {Array.from({ length: 7 }, (_, index) => (
+                                                <div key={index} className={classes.SkeletonWrapper}>
+                                                    <div className={classes.Background}>
+                                                        <SkeletonMilestone />
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </SwiperSlide>
-                    ))
-
-                ) : (
-                    <SwiperSlide>
-                        <div className={classes.BannerBackground}>
-                            <LoaderPlaceholder />
-                        </div>
-                    </SwiperSlide>
-                )}
+                    )
+                }
             </BigSwiper>
         </div>
     );
-});
+};
 
 export default GamificationBanner;

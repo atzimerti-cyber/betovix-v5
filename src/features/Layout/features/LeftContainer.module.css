@@ -8,7 +8,7 @@
 }
 
 .SideMenuAllButtonsContainer {
-    margin: 1rem 0.5rem 0.2rem;
+    margin: 0.5rem 0.5rem 0.2rem;
     display: flex;
     align-items: center;
     gap: 1.5rem;
@@ -170,7 +170,7 @@
     white-space: nowrap;
     margin-left: 1rem;
     margin-right: 1rem;
-    margin-top: 0.5rem;
+    margin-top: 0rem;
 }
 
 .SideMenuDivider::before,

@@ -151,7 +151,8 @@ export const getUser = (navigate) => {
                 dispatch(layoutActions.setAvailableBonusBalance(user));
             }
         } catch (error) {
-            toast.error(error?.message);
+            null
+            //toast.error(error?.message);
         }
     };
 };
@@ -202,7 +203,7 @@ export const verifyCode = (code) => {
                 dispatch(loginActions.setRecoverAccountId(response.data.Contents));
 
             } else {
-                toast.error('Invalid Code');         
+                toast.error('Invalid Code');
                 dispatch(loginActions.setRecoverAccountId(null));
             }
 
@@ -216,26 +217,26 @@ export const verifyCode = (code) => {
 
 export const updatePassword = (info, id, navigate, locationPathname) => {
 
-    return async (dispatch) => {   
-         dispatch(loginActions.setUpdateLoading(true));
+    return async (dispatch) => {
+        dispatch(loginActions.setUpdateLoading(true));
         try {
-            const response = await axiosApi.post(`MyAccount/ChangeRecoveredPassword`,  {
+            const response = await axiosApi.post(`MyAccount/ChangeRecoveredPassword`, {
                 Password: info.Password,
                 RePassword: info.RePassword,
                 AccountId: id
             },
-            {
-                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
-            });
+                {
+                    baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                });
 
             setTimeout(() => {
                 dispatch(loginActions.setUpdateLoading(false));
             }, 1000);
 
-             if (response.data.Status.StatusCode !== 200) {
+            if (response.data.Status.StatusCode !== 200) {
                 toast.error(response.data.Contents);
             } else {
-              
+
                 toast.success('Update Successful!');
                 dispatch(loginActions.setEmailSentCorrectly(false));
                 dispatch(loginActions.setRecoverAccountId(null));

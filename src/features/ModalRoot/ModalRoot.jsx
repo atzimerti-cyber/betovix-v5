@@ -6,7 +6,6 @@ import classes from './ModalRoot.module.css';
 import CashierModal from './Modals/CashierModal';
 import LoginModal from './Modals/LoginModal';
 import OddsFormatModal from './Modals/OddsFormatModal';
-import VipModal from './Modals/VipModal';
 import BonusModal from './Modals/BonusModal';
 
 import SearchModal from './Modals/SearchModal';

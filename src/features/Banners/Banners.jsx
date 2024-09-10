@@ -11,7 +11,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { bannersActions } from './BannersSlice';
 
-const SportBanners = ({onDataNotFound}) => {
+const Banners = ({onDataNotFound}) => {
     const dispatch = useDispatch();
 
     const [loadedImages, setLoadedImages] = useState([]);
@@ -85,4 +85,4 @@ const SportBanners = ({onDataNotFound}) => {
     );
 };
 
-export default SportBanners;
+export default Banners;
