@@ -25,7 +25,7 @@ const Levels = (props) => {
     return (
         <div className={classes.Levels} style={{ maxWidth: "100%", overflow: "hidden" }}>
             <SimpleSwiper>
-                {heroLevels && Object.keys(heroLevels) > 0 ?
+                {heroLevels && Object.keys(heroLevels).length > 0 ?
                     (
                         heroLevels.map((level) => {
                             return (

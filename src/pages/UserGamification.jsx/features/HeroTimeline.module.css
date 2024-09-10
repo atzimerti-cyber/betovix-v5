@@ -52,11 +52,10 @@
     grid-template-columns: 1fr max-content 1fr;
     width: 100%;
     position: relative;
-    min-height: 70px;
     font-weight: 500;
     justify-content: center;
     align-items: center;
-    transition: filter 0.5s ease;
+    transition: transform 0.5s ease;
 }
 
 .SubTimelineItem {
@@ -65,7 +64,6 @@
     grid-template-columns: 1fr max-content 1fr;
     width: 100%;
     position: relative;
-    min-height: 70px;
     font-weight: 500;
     justify-content: center;
     align-items: center;
@@ -73,17 +71,17 @@
     visibility: hidden;
     overflow: hidden;
     transition: opacity 0.5s ease, visibility 0.5s ease;
-    transition: filter 0.5s ease;
+    transition: transform 0.5s ease;
 }
 
-.SubTimelineItem.SubTimelineItemVisible {
+.SubTimelineItem {
     opacity: 1;
     visibility: visible;
 }
 
 .TimelineItem:hover,
 .SubTimelineItem:hover {
-    filter: brightness(1.1) contrast(1.2);
+    transform:scale(1.07);
 }
 
 /* Separators and Connectors */
@@ -96,25 +94,25 @@
 }
 
 .Connector {
-    width: 2px;
-    height: 40px;
-    background-color: #ccc;
+    width: 1px;
+    height: 30px;
+    background-color: #f6f9f7;
     z-index: 1000;
 }
 
 .SubConnector {
-    width: 2px;
-    height: 30px;
-    background-color: #ccc;
+    width: 1px;
+    height: 20px;
+    background-color: #f6f9f7;
     z-index: 1000;
 }
 
 /* Dots and SVGs */
 .Dot {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
-    background:rgb(220, 226, 249);
+    background: #f6f9f7;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -128,7 +126,7 @@
     transform: scale(1.1);
 }
 
-.DotAnimation {
+.Dot.DotAnimation {
     animation: throbbing 2s infinite ease-in-out;
     z-index: 10000;
 }
@@ -136,25 +134,25 @@
 @keyframes throbbing {
     0% {
         transform: scale(1);
-        background: radial-gradient(#55a75c, #f6f9f7);
+        background: radial-gradient(#f6f9f7, #f6f9f7);
     }
 
     50% {
         transform: scale(1.17);
-        background: radial-gradient(#55a75c, #f6f9f7);
+        background: radial-gradient(#f6f9f7, #f6f9f7);
     }
 
     100% {
         transform: scale(1);
-        background: radial-gradient(#55a75c, #f6f9f7);
+        background: radial-gradient(#f6f9f7, #f6f9f7);
     }
 }
 
 .SubDot {
-    width: 25px;
-    height: 25px;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    background: radial-gradient(#4a5675, transparent);
+    background: whitesmoke;
     display: flex;
     align-items: center;
     justify-content: center;

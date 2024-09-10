@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Logo from '../../../assets/svgs/logo-small.svg?react';
 import classes from './HeroTimeline.module.css';
 
+import { getUserAchievements } from '../gamificationAsyncActions';
+
 const HeroTimeline = (props) => {
 
     const [visibleMilestoneIndex, setVisibleMilestoneIndex] = useState(null);
@@ -11,7 +13,19 @@ const HeroTimeline = (props) => {
         setVisibleMilestoneIndex(prevIndex => (prevIndex === index ? null : index));
     };
 
-    const currentLevel = useSelector((state) => state.gamification.currentLevel); //useSelector
+    //const currentLevel = useSelector((state) => state.gamification.currentLevel); 
+    const currentLevel = {
+        id: 2,
+        name: "Eric",
+        subName: "The Viking",
+        progress: 63,
+        milestones: {
+            milestone: {
+                id: 2,
+                name: "milestone 2",
+            }
+        }
+    };
 
     return (
         <div className={classes.TimelineContainer}>
@@ -25,7 +39,7 @@ const HeroTimeline = (props) => {
                         <div className={classes.Entity} key={index}>
                             <div
                                 className={`${classes.TimelineItem} ${classes.Left}`}
-                                onClick={() => toggleMilestone(index)}  // Toggle on click
+                                onClick={() => toggleMilestone(index)}
                             >
                                 <div className={classes.TimelineContent}>
                                     <span>Level Name</span>

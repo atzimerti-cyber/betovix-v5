@@ -6,7 +6,7 @@ import { gamificationActions } from './userGamificationSlice';
 import { appActions } from '../../features/InitApp/appSlice';
 import config from '../../config';
 
-////To get all heroes, levels, milestones (to display in profile?tab=horoes)(whether user has a hero or not)////
+////To get all heroes, levels, milestones (to display in profile?tab=horoes && GamificationBanner.jsx)(whether user has a hero or not)////
 export const getHeroes = (signal) => { 
     return async (dispatch) => {
         try {
@@ -38,17 +38,25 @@ export const getHeroes = (signal) => {
                     icon: level.Level.Achievement?.Icon,
                     name: level.Level.MetaData?.Name,
                     description: level.Level.Achievement?.TermsAndConditions,
+                    reward : level.Level.Rewards?.Description.map((reward) => ({
+                        id: reward.RewardID,
+                        description: reward.Description,
+                    })),
                     milestones: level.MileStones?.map((milestone) => ({
                         id: milestone.Achievement?.AchievementID,
                         icon: milestone.Achievement?.Icon,
                         name: milestone.MetaData?.Name,
                         description: milestone.Achievement?.TermsAndConditions,
+                        reward: milestone.Rewards?.Description.map((reward) => ({
+                            id: reward.RewardID,
+                            description: reward.Description,
+                        })),
                     }))
-                        .sort((a, b) => a.name.localeCompare(b.name))
+                        .sort((a, b) => a?.name.localeCompare(b?.name))
                 }))
-                    .sort((a, b) => a.sortName.localeCompare(b.sortName))
+                    .sort((a, b) => a?.sortName.localeCompare(b?.sortName))
             }))
-                .sort((a, b) => a.name.localeCompare(b.name));
+                .sort((a, b) => a?.name.localeCompare(b?.name));
 
 
             console.log("Get All Heroes:", heroes[0].levels);

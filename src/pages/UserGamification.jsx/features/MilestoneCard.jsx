@@ -45,21 +45,8 @@ const MilestoneCard = (props) => {
             </div>
             <div className={classes.Content}>
                 <div>
-                    {/* {props.needed && (
-                        <p className={classes.WageredNeeded}>
-                            <CoinsIcon />
-                            {formatNumberTo(props.needed)} wager needed
-                        </p>
-                    )} */}
-
-                    {props.nextLevel && (
-                        <p className={props.level?.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
-                            {props.level?.name}
-                        </p>
-                    )}
 
                     <p className={props.level?.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
-                        {/* {props.level.name} */}
                         <span>{props.label}</span>
                     </p>
 
@@ -91,11 +78,6 @@ const MilestoneCard = (props) => {
                     )
                 )}
 
-                {/* {props.firstCard && (
-                    <DsButton disabled>
-                        GOOD LUCK
-                    </DsButton>
-                )} */}
                 {props.nextLevel && (
                     <DsButton disabled>
                         LEVEL UP

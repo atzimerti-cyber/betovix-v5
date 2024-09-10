@@ -164,7 +164,7 @@ const Milestones = (props) => {
 
 
                                 <div className={classes.CardsContainer}>
-                                    {heroLevels && Object.keys(heroLevels) > 0 ? (
+                                    {heroLevels && Object.keys(heroLevels).length > 0 ? (
                                         <>
                                             {thisLevelIndex < heroLevels.length && (
                                                 // <MilestoneCard

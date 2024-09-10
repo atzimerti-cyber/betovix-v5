@@ -54,9 +54,6 @@ const Heroes = React.memo(() => {
         }
     }, [displayedHero]);
 
-    //console.log(activeLevel);
-    //console.log(displayedHero);
-
     return (
         <motion.div className={classes.TabContent} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.2 }}>
 
@@ -96,8 +93,6 @@ const Heroes = React.memo(() => {
                                 <Milestones
                                     slidesPerView={mSlidesPerView}
                                     activeLevel={activeLevel} profile />
-                             
-
                         </div>
                     </diV>
 

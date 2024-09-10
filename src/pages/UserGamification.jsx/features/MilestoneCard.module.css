@@ -52,6 +52,7 @@
     padding-left: 4px;
     opacity: 0.4;
 }
+
 .ImageInner.Complete {
     position: relative;
     height: 100%;
@@ -63,7 +64,7 @@
     height: 100%;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
-    
+
 }
 
 .Content {
@@ -78,6 +79,11 @@
     align-items: center;
     padding: 0.75rem 5px 5px;
     opacity: 0.3;
+
+}
+
+.Content>div {
+    width: 100%;
 }
 
 .MilestoneCard.Complete .Content,
@@ -85,11 +91,6 @@
     opacity: 1;
     pointer-events: none;
 }
-
-/* .MilestoneCard.Milestone0 .Content,
-.MilestoneCard.Milestone0 .Background {
-    display: none;
-} */
 
 .Title {
     text-align: center;
@@ -100,6 +101,7 @@
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
     margin-bottom: 0.4rem;
+    text-wrap: pretty;
 }
 
 .Title.LongTitle {
@@ -108,7 +110,7 @@
 
 .Title span {
     display: block;
-    white-space: nowrap;
+    line-height: 1rem;
     color: var(--db-body-text);
 }
 
