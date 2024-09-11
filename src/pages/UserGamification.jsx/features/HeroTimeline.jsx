@@ -5,17 +5,15 @@ import classes from './HeroTimeline.module.css';
 
 import Shimmer from '../../../features/UI/Shimmer/Shimmer'
 
-import { getUserAchievements } from '../gamificationAsyncActions';
-
 const HeroTimeline = (props) => {
 
-    const [visibleMilestoneIndex, setVisibleMilestoneIndex] = useState(null);
+    const currentLevel = useSelector((state) => state.gamification.currentLevel);
+
+    const [visibleMilestoneIndex, setVisibleMilestoneIndex] = useState(0);
 
     const toggleMilestone = (index) => {
         setVisibleMilestoneIndex(prevIndex => (prevIndex === index ? null : index));
     };
-
-    const currentLevel = useSelector((state) => state.gamification.currentLevel); 
 
     return (
         <div className={classes.TimelineContainer}>
@@ -58,7 +56,7 @@ const HeroTimeline = (props) => {
                                     key={`${index}-${milestoneIndex}`}
                                 >
                                     <div className={classes.SubOppositeContent}>
-                                       
+
                                         <p>{milestone.reward[0].description}</p>
                                     </div>
                                     <div className={classes.MainSeparator}>

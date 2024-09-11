@@ -6,7 +6,7 @@
     --tw-scale-x: 1;
     --tw-scale-y: 1;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    opacity: 0.5;
+    opacity: 0.4;
 }
 
 .MilestoneCard.Complete .Content,
@@ -14,11 +14,14 @@
     opacity: 1;
     pointer-events: none;
 }
+.MilestoneCard.Complete .Background {
+    background-color: var(--db-gray-1);
+}
 
 .Background {
     display: grid;
     place-items: center;
-    background-color: var(--db-gray-1);
+    background-color: var(--db-gray-banner);
     position: absolute;
     top: 0;
     left: 0;
@@ -39,7 +42,7 @@
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     background-color: inherit;
     content: '';
-    opacity: 0.35;
+    opacity: 0.3;
 }
 
 .ImageContainer {

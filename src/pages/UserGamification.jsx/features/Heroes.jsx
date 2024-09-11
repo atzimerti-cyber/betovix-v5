@@ -88,7 +88,7 @@ const Heroes = React.memo(() => {
                             </div>
 
                             <Levels slidesPerView={slidesPerView} displayedHero={displayedHero} activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} profile={true}/>
-                            <Milestones slidesPerView={mSlidesPerView} activeLevel={activeLevel} profile />
+                            <Milestones slidesPerView={mSlidesPerView} activeLevel={activeLevel} profile={true} />
                         </div>
                     </div>
 

@@ -46,13 +46,13 @@ const MilestoneCard = (props) => {
 
             <div className={classes.Content}>
                 <div>
-                    <p className={props.level?.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
-                        <span>{props.label}</span>
+                    <p className={[classes.Title, classes.LongTitle].join(' ')}>
+                        <span>{props.label ? props.label : 'Milestone'}</span>
                     </p>
 
                     {props.reward &&
                         <div className={classes.Details}>
-                            <span>{props.reward.description}</span>
+                            <span>{props.reward.description ? (props.reward.description):('Big Rewards!')}</span>
                         </div>
                     }
                 </div>

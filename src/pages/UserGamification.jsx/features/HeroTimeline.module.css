@@ -28,11 +28,11 @@
     content: '';
     position: absolute;
     left: 0;
-    bottom: -5px;
+    bottom: 0px;
     width: 100%;
-    height: 10px;
+    height: 5px;
     background: rgb(0 0 0 / 27%);
-    filter: blur(10px);
+    filter: blur(13px);
     z-index: -8;
 }
 

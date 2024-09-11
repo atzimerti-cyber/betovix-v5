@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { SwiperSlide } from 'swiper/react';
 import { useMediaQuery } from 'react-responsive';
-import { toast } from 'react-toastify';
+
+import classes from './HeroDisplaySwiper.module.css';
 
 import MainSwiper from './MainSwiper';
-import classes from './HeroDisplaySwiper.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
+
 import { gamificationActions } from '../../../pages/UserGamification.jsx/userGamificationSlice';
 
 const HeroDisplaySwiper = (props) => {

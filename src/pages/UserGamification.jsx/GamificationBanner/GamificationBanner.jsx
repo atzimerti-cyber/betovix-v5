@@ -122,13 +122,13 @@ const GamificationBanner = ({ onDataNotFound }) => {
                             </SwiperSlide>
                         ))
                     ) : (
-                        <SwiperSlide  key={1}>
+                        <SwiperSlide key={1}>
                             <div className={classes.BannerBackground}>
                                 <div className={classes.HeroContainer}>
-                                    <div className={classes.HeroName}>
+                                    <div className={classes.HeroName} style={{ height: '200px' ,marginTop:'20px'}}>
                                         <LoaderPlaceholder />
                                     </div>
-                                    <div className={classes.HeroImg}>
+                                    <div className={classes.HeroImg} style={{ width: '300px'}}>
                                         <LoaderPlaceholder />
                                     </div>
                                     <div className={classes.HeroLevelsContainer}>

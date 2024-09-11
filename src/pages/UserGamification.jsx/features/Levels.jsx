@@ -2,9 +2,9 @@ import { useSelector } from 'react-redux';
 import { SwiperSlide } from 'swiper/react';
 
 import classes from './Levels.module.css';
+
 import SimpleSwiper from '../../../features/UI/MainSwiper/SimpleSwiper';
 import LoaderPlaceholder from '../../../features/UI/Skeletons/LoaderPlaceholder';
-import { useEffect, useState } from 'react';
 
 const Levels = (props) => {
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
@@ -43,7 +43,7 @@ const Levels = (props) => {
                                                         <div className={`CardLevel CardLevel`}></div>
                                                     )}
                                                 </div>
-                                                <p className={classes.LevelName}>{level.name}</p>
+                                                <p className={classes.LevelName}>{level.name ? level.name : 'Level'}</p>
                                             </div>
                                         </div>
                                     </div>

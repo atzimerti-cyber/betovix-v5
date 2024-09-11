@@ -1,27 +1,25 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
 
 import classes from './Milestones.module.css';
+import { useMediaQuery } from 'react-responsive';
 
-import DraggableDiv from '../../../features/DraggableDiv/DraggableDiv';
-import MilestoneCard from './MilestoneCard';
-import LevelDiamond from './LevelDiamond';
-import SkeletonMilestone from '../../../features/UI/Skeletons/SkeletonMilestone'
-import DsButton from '../../../features/UI/Buttons/DsButton'
-
-import { getUserAchievements } from '../gamificationAsyncActions';
-import { translate } from '../../../utils/translations';
 import RefreshIcon from '../../../assets/svgs/refresh.svg';
 import AngleLeftIcon from '../../../assets/svgs/angle-left.svg?react';
 import AngleRightIcon from '../../../assets/svgs/angle-right.svg?react';
 
-import { useMediaQuery } from 'react-responsive';
+import MilestoneCard from './MilestoneCard';
+import LevelDiamond from './LevelDiamond';
+import SkeletonMilestone from '../../../features/UI/Skeletons/SkeletonMilestone'
+//import DsButton from '../../../features/UI/Buttons/DsButton'
+import DraggableDiv from '../../../features/DraggableDiv/DraggableDiv';
+
+import { getUserAchievements } from '../gamificationAsyncActions';
+
+import { translate } from '../../../utils/translations';
 
 const Milestones = (props) => {
-    const location = useLocation();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
@@ -36,7 +34,11 @@ const Milestones = (props) => {
     if (!selectedHero) {
         heroLevels = props.displayedHero ? (props.displayedHero.levels) : displayedHero.levels;
     } else if (selectedHero) {
-        heroLevels = selectedHeroLevels;
+        if (props.profile) {
+            heroLevels = displayedHero.levels;
+        } else {
+            heroLevels = selectedHeroLevels;
+        }
     }
 
     const [thisLevelIndex, setThisLevelIndex] = useState(0);
@@ -61,16 +63,7 @@ const Milestones = (props) => {
         }
 
         const displayedLevel = heroLevels[thisLevelIndex];
-        // if (displayedLevel.id === currentUserLevel?.id) {
         return displayedLevel.progress;
-        // } else if (displayedLevel.id !== currentUserLevel?.id) {
-        //     if (displayedLevel.completed == true) {
-        //         return 100;
-        //     } else {
-        //         return 0;
-        //     }
-
-        // }
     };
 
     const handleRefresh = () => {
@@ -114,9 +107,7 @@ const Milestones = (props) => {
                             <AngleLeftIcon />
                         </button>
                     )
-
                 )}
-
 
                 <div className={classes.MilestoneCarousel}>
                     <DraggableDiv ref={scrollContainerRef}>
@@ -141,17 +132,6 @@ const Milestones = (props) => {
                                                                 index={index}
                                                             />
                                                         ))}
-
-                                                        {/* NEXT LEVEL DIAMOND */}
-                                                        {/* {thisLevelIndex < heroLevels.length && (
-                                                            <LevelDiamond
-                                                                // key={`${displayedHeroLevels[thisLevelIndex].id}_${displayedHeroLevels[thisLevelIndex].milestones[displayedHeroLevels[thisLevelIndex].milestones.length]
-                                                                //     }`}
-                                                                key={heroLevels[thisLevelIndex].id}
-                                                                index=''
-                                                                complete={heroLevels[thisLevelIndex].percentageComplete === 100 ? true : false}
-                                                            />
-                                                        )} */}
                                                     </>
                                                 ) : (
                                                     Array.from({ length: 6 }, (_, index) => <LevelDiamond key={index} complete={false} index={index} />)
@@ -165,14 +145,6 @@ const Milestones = (props) => {
                                     {heroLevels && Object.keys(heroLevels).length > 0 ? (
                                         <>
                                             {thisLevelIndex < heroLevels.length && (
-                                                // <MilestoneCard
-                                                //     key={`${heroLevels[thisLevelIndex].milestone}_temp_locked`}
-                                                //     label='Milestone 0'
-                                                //     index={heroLevels[thisLevelIndex].milestones.length}
-                                                //     level={heroLevels[thisLevelIndex]}
-                                                //     firstCard
-                                                //     complete={currentUserLevel === heroLevels[thisLevelIndex] || heroLevels[thisLevelIndex].name < currentUserLevel?.name}
-                                                // />
                                                 <MilestoneCard
                                                     key={`${heroLevels[thisLevelIndex].milestone}_temp_locked`}
                                                     label={heroLevels[thisLevelIndex]?.name}
@@ -180,7 +152,7 @@ const Milestones = (props) => {
                                                     level={heroLevels[thisLevelIndex]}
                                                     firstCard
                                                     icon={heroLevels[thisLevelIndex]?.icon}
-                                                    complete={heroLevels[thisLevelIndex]?.id === currentUserLevel?.id || heroLevels[thisLevelIndex]?.completed || !user || !selectedHero}
+                                                    complete={heroLevels[thisLevelIndex]?.id === currentUserLevel?.id || heroLevels[thisLevelIndex]?.completed || !user || !selectedHero || props.profile}
                                                 />
                                             )}
 
@@ -189,26 +161,12 @@ const Milestones = (props) => {
                                                     key={`${heroLevels[thisLevelIndex].id}_${milestone.id}`}
                                                     label={`${milestone?.name}`}
                                                     index={index}
-                                                    // type={`${milestone.rewardType}`}
-                                                    // details={`${milestone.rewardValue}`}
                                                     reward={milestone.reward[0]}
                                                     level={heroLevels[thisLevelIndex]}
-                                                    complete={milestone.progress === 100 ? true : false || !user || !selectedHero}
+                                                    complete={milestone.progress === 100 ? true : false || !user || !selectedHero || props.profile}
                                                     icon={milestone?.icon}
                                                 />
                                             ))}
-
-                                            {/* NEXT LEVEL CARD */}
-                                            {/* {thisLevelIndex < heroLevels.length && (
-                                                <MilestoneCard
-                                                    key={`${heroLevels[thisLevelIndex].id}_locked`}
-                                                    // label=''
-                                                    index={heroLevels[thisLevelIndex].milestones.length}
-                                                    complete={heroLevels[thisLevelIndex + 1]?.percentageComplete === 100 ? true : false}
-                                                    level={heroLevels[thisLevelIndex + 1] ? heroLevels[thisLevelIndex + 1] : null}
-                                                    nextLevel
-                                                />
-                                            )} */}
                                         </>
                                     ) : (
                                         Array.from({ length: 8 }, (_, index) => (
