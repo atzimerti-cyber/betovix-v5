@@ -30,13 +30,11 @@ const Milestones = (props) => {
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
     const selectedHeroLevels = useSelector((state) => state.gamification.heroLevels);
     const currentUserLevel = useSelector((state) => state.gamification.currentLevel);
-    const ericLevels = useSelector((state) => state.gamification.ericLevels);
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
 
     let heroLevels;
     if (!selectedHero) {
-        //heroLevels = ericLevels;
-         heroLevels = displayedHero.levels;
+        heroLevels = displayedHero.levels;
     } else if (selectedHero) {
         heroLevels = selectedHeroLevels;
     }
@@ -107,7 +105,7 @@ const Milestones = (props) => {
                         </div>
                     </div>
                 )}
-            <div className={ classes.CarouselContainer}>
+            <div className={classes.CarouselContainer}>
                 {props.profile && (
                     isMobile ? (
                         null
@@ -182,7 +180,7 @@ const Milestones = (props) => {
                                                     level={heroLevels[thisLevelIndex]}
                                                     firstCard
                                                     icon={heroLevels[thisLevelIndex]?.icon}
-                                                    complete={heroLevels[thisLevelIndex]?.id === currentUserLevel?.id || heroLevels[thisLevelIndex]?.completed || !user}
+                                                    complete={heroLevels[thisLevelIndex]?.id === currentUserLevel?.id || heroLevels[thisLevelIndex]?.completed || !user || !selectedHero}
                                                 />
                                             )}
 
@@ -191,10 +189,11 @@ const Milestones = (props) => {
                                                     key={`${heroLevels[thisLevelIndex].id}_${milestone.id}`}
                                                     label={`${milestone?.name}`}
                                                     index={index}
-                                                    type={`${milestone.rewardType}`}
-                                                    details={`${milestone.rewardValue}`}
+                                                    // type={`${milestone.rewardType}`}
+                                                    // details={`${milestone.rewardValue}`}
+                                                    reward={milestone.reward[0]}
                                                     level={heroLevels[thisLevelIndex]}
-                                                    complete={milestone.progress === 100 ? true : false || !user}
+                                                    complete={milestone.progress === 100 ? true : false || !user || !selectedHero}
                                                     icon={milestone?.icon}
                                                 />
                                             ))}

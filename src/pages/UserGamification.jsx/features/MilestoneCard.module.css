@@ -9,8 +9,10 @@
     opacity: 0.5;
 }
 
-.Milestone0 {
-    display: flex;
+.MilestoneCard.Complete .Content,
+.MilestoneCard.Complete .Background {
+    opacity: 1;
+    pointer-events: none;
 }
 
 .Background {
@@ -43,13 +45,13 @@
 .ImageContainer {
     height: calc(73px - var(--title-fix));
     width: calc(73px - var(--title-fix));
-    margin-top: calc(20px + var(--title-fix) * 2);
+    margin-top: calc(70px + var(--title-fix)* 2);
+    ;
 }
 
 .ImageInner {
     position: relative;
     height: 100%;
-    padding-left: 4px;
     opacity: 0.4;
 }
 
@@ -64,7 +66,7 @@
     height: 100%;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
-
+    padding: 5px;
 }
 
 .Content {
@@ -86,10 +88,11 @@
     width: 100%;
 }
 
-.MilestoneCard.Complete .Content,
-.MilestoneCard.Complete .Background {
-    opacity: 1;
-    pointer-events: none;
+.Content>div>div span {
+    color: #fff;
+    font-size: 0.83rem;
+    display: block;
+    line-height: 0.9rem;
 }
 
 .Title {
@@ -122,34 +125,20 @@
     color: white;
 }
 
-.Content button {
+.Status {
     margin-top: auto;
     height: unset !important;
-    min-height: 28px !important;
+    min-height: 15px !important;
     width: 100%;
-    padding: 0 !important;
+    padding: 5px !important;
     font-size: 0.75rem !important;
-    line-height: 1rem !important;
-    line-height: 1 !important;
     --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+    color: #6d9aadc0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.WageredNeeded {
-    margin-top: 0.125rem;
-    text-align: center;
-    font-size: 0.625rem;
-    line-height: 0.8rem;
-    font-weight: 600;
-    line-height: 1;
-    color: var(--db-brand-green);
-}
-
-.WageredNeeded svg {
-    margin-left: 0.125rem;
-    margin-right: 0.125rem;
-    margin-bottom: 0.125rem;
-    display: inline;
-    height: 0.625rem;
-    width: 0.625rem;
+.Status.Completed {
+    color: #6d9aadc0;
 }

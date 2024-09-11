@@ -38,18 +38,18 @@ export const getHeroes = (signal) => {
                     icon: level.Level.Achievement?.Icon,
                     name: level.Level.MetaData?.Name,
                     description: level.Level.Achievement?.TermsAndConditions,
-                    reward : level.Level.Rewards?.Description.map((reward) => ({
-                        id: reward.RewardID,
-                        description: reward.Description,
+                    reward : level.Level.Rewards?.map((reward) => ({
+                        id: reward?.RewardID,
+                        description: reward?.Description,
                     })),
                     milestones: level.MileStones?.map((milestone) => ({
                         id: milestone.Achievement?.AchievementID,
                         icon: milestone.Achievement?.Icon,
                         name: milestone.MetaData?.Name,
                         description: milestone.Achievement?.TermsAndConditions,
-                        reward: milestone.Rewards?.Description.map((reward) => ({
-                            id: reward.RewardID,
-                            description: reward.Description,
+                        reward: milestone.Rewards?.map((reward) => ({
+                            id: reward?.RewardID,
+                            description: reward?.Description,
                         })),
                     }))
                         .sort((a, b) => a?.name.localeCompare(b?.name))

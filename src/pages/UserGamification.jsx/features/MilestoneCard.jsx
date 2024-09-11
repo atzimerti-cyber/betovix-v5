@@ -43,46 +43,32 @@ const MilestoneCard = (props) => {
                     )}
                 </div>
             </div>
+
             <div className={classes.Content}>
                 <div>
-
                     <p className={props.level?.name.length > 7 ? [classes.Title, classes.LongTitle].join(' ') : classes.Title}>
                         <span>{props.label}</span>
                     </p>
 
-
-                    {props.type == 7 &&
-                        <p className={classes.Details}>
-                            <span>Earn</span>
-                            <CoinsIcon style={{ marginLeft: '8px', marginTop: '3px', paddingTop: '1px', marginRight: '1px' }} />
-                            <span>{props.details}</span>
-                        </p>
+                    {props.reward &&
+                        <div className={classes.Details}>
+                            <span>{props.reward.description}</span>
+                        </div>
                     }
                 </div>
 
-                {props.firstCard ? (
-                    null
-                ) : (
-                    !props.nextLevel ? (
-                        !props.complete ? (
-                            <DsButton locked color='transparent'>
-                                Not yet unlocked
-                            </DsButton>
-                        ) : (
-                            <DsButton locked color='transparent'>
-                                Completed
-                            </DsButton>
-                        )
-                    ) : (
+                {props.firstCard ?
+                    (
                         null
-                    )
-                )}
+                    ) : (
+                        !props.complete ? (
+                            <p className={[classes.Status, classes.Completed].join(' ')}>Not yet unlocked</p>
+                        ) : (
+                            <p className={classes.Status}></p>
+                        )
 
-                {props.nextLevel && (
-                    <DsButton disabled>
-                        LEVEL UP
-                    </DsButton>
-                )}
+                    )
+                }
             </div>
         </motion.article>
     );
