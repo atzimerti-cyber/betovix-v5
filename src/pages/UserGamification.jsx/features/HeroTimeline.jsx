@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Logo from '../../../assets/svgs/logo-small.svg?react';
 import classes from './HeroTimeline.module.css';
 
+import Shimmer from '../../../features/UI/Shimmer/Shimmer'
+
 import { getUserAchievements } from '../gamificationAsyncActions';
 
 const HeroTimeline = (props) => {
@@ -13,19 +15,7 @@ const HeroTimeline = (props) => {
         setVisibleMilestoneIndex(prevIndex => (prevIndex === index ? null : index));
     };
 
-    //const currentLevel = useSelector((state) => state.gamification.currentLevel); 
-    const currentLevel = {
-        id: 2,
-        name: "Eric",
-        subName: "The Viking",
-        progress: 63,
-        milestones: {
-            milestone: {
-                id: 2,
-                name: "milestone 2",
-            }
-        }
-    };
+    const currentLevel = useSelector((state) => state.gamification.currentLevel); 
 
     return (
         <div className={classes.TimelineContainer}>
@@ -42,8 +32,8 @@ const HeroTimeline = (props) => {
                                 onClick={() => toggleMilestone(index)}
                             >
                                 <div className={classes.TimelineContent}>
-                                    <span>Level Name</span>
-                                    <p>{level.name.toUpperCase()}</p>
+                                    <span>{level.name}</span>
+                                    <p>{`LEVEL ${index + 1}`}</p>
                                 </div>
                                 <div className={classes.MainSeparator}>
                                     <div className={classes.Connector}></div>
@@ -58,36 +48,34 @@ const HeroTimeline = (props) => {
                                     <div className={classes.SubConnector}></div>
                                 </div>
                                 <div className={classes.OppositeContent}>
-                                    <p>{level.progress}</p>
+                                    {/* <p>{level.reward[0].description}</p> */}
                                 </div>
                             </div>
 
-                            {/* Conditionally render milestones based on visibility */}
-                            {
-                                visibleMilestoneIndex === index && level.milestones && level.milestones.map((milestone, milestoneIndex) => (
-                                    <div
-                                        className={visibleMilestoneIndex === index ? [`${classes.SubTimelineItem}`, `${classes.SubTimelineItemVisible}`].join(' ') : `${classes.SubTimelineItem}`}
-                                        key={`${index}-${milestoneIndex}`}
-                                    >
-                                        <div className={classes.SubOppositeContent}>
-                                            <p>{milestone.progress}</p>
-                                        </div>
-                                        <div className={classes.MainSeparator}>
-                                            <div className={classes.SubConnector}></div>
-                                            <div className={classes.SubDot}>
-                                                <div className={classes.SubSVG}>
-                                                    {/* <Logo /> */}
-                                                </div>
-                                            </div>
-                                            <div className={classes.SubConnector}></div>
-                                        </div>
-                                        <div className={classes.SubTimelineContent}>
-                                            <span>Milestone Name</span>
-                                            <p>{milestone.name}</p>
-                                        </div>
+                            {level.milestones && level.milestones.map((milestone, milestoneIndex) => (
+                                <div
+                                    className={`${classes.SubTimelineItem} ${visibleMilestoneIndex === index ? classes.SubTimelineItemVisible : ''}`}
+                                    key={`${index}-${milestoneIndex}`}
+                                >
+                                    <div className={classes.SubOppositeContent}>
+                                       
+                                        <p>{milestone.reward[0].description}</p>
                                     </div>
-                                ))
-                            }
+                                    <div className={classes.MainSeparator}>
+                                        <div className={classes.SubConnector}></div>
+                                        <div className={classes.SubDot}>
+                                            <div className={classes.SubSVG}>
+                                                {/* <Logo /> */}
+                                            </div>
+                                        </div>
+                                        <div className={classes.SubConnector}></div>
+                                    </div>
+                                    <div className={classes.SubTimelineContent}>
+                                        <span>{milestone.name}</span>
+                                        <p>{milestone.progress === 0 ? ("Locked") : (`${milestone.progress}%`)}</p>
+                                    </div>
+                                </div>
+                            ))}
                         </div>
                     ))
                 ) : (

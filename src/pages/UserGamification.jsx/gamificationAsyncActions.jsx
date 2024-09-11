@@ -7,7 +7,7 @@ import { appActions } from '../../features/InitApp/appSlice';
 import config from '../../config';
 
 ////To get all heroes, levels, milestones (to display in profile?tab=horoes && GamificationBanner.jsx)(whether user has a hero or not)////
-export const getHeroes = (signal) => { 
+export const getHeroes = (signal) => {
     return async (dispatch) => {
         try {
             dispatch(appActions.setBarLoading(true));
@@ -38,31 +38,32 @@ export const getHeroes = (signal) => {
                     icon: level.Level.Achievement?.Icon,
                     name: level.Level.MetaData?.Name,
                     description: level.Level.Achievement?.TermsAndConditions,
-                    reward : level.Level.Rewards?.map((reward) => ({
+                    reward: level.Level.Rewards?.map((reward) => ({
                         id: reward?.RewardID,
-                        description: reward?.Description,
+                        description: reward?.Name,
                     })),
                     milestones: level.MileStones?.map((milestone) => ({
                         id: milestone.Achievement?.AchievementID,
                         icon: milestone.Achievement?.Icon,
                         name: milestone.MetaData?.Name,
+                        sortName: milestone.Achievement?.Name,
                         description: milestone.Achievement?.TermsAndConditions,
                         reward: milestone.Rewards?.map((reward) => ({
                             id: reward?.RewardID,
-                            description: reward?.Description,
+                            description: reward?.Name,
                         })),
                     }))
-                        .sort((a, b) => a?.name.localeCompare(b?.name))
+                        .sort((a, b) => a?.sortName.localeCompare(b?.sortName))
                 }))
                     .sort((a, b) => a?.sortName.localeCompare(b?.sortName))
             }))
                 .sort((a, b) => a?.name.localeCompare(b?.name));
 
 
-            console.log("Get All Heroes:", heroes[0].levels);
+
+            console.log("Get All Heroes:", heroes[1].levels);
             dispatch(gamificationActions.setHeroes(heroes));
             dispatch(gamificationActions.setDisplayedHero(heroes[0]));
-           // dispatch(gamificationActions.setEricLevels(heroes[0].levels));
 
             dispatch(appActions.setBarLoading(false));
         } catch (error) {
@@ -132,29 +133,33 @@ export const getUserAchievements = () => {
                 const milestones = level.MileStones.map(milestone => ({
                     id: milestone.Achievement.AchievementID,
                     name: milestone.MetaData?.Name,
+                    sortName: milestone.Achievement?.Name,
                     progress: milestone.AchievementEntrand?.Progress,
                     points: milestone.AchievementEntrand?.ScoreBoard,
                     pointsValue: milestone.PointStrategy?.BasePoints,
-                    rewardType: milestone.Rewards?.RewardType,
-                    rewardValue: milestone.Rewards?.RewardValue,
                     icon: milestone.Achievement?.Icon,
-                })).sort((a, b) => a.name.localeCompare(b.name));
+                    reward: milestone.Rewards?.map((reward) => ({
+                        id: reward?.RewardID,
+                        description: reward?.Name,
+                    }))
+                })).sort((a, b) => a.sortName.localeCompare(b.sortName));
 
                 return {
                     id: level.Level.Achievement.AchievementID,
                     name: level.Level.MetaData.Name,
+                    sortName: level.Level.Achievement?.Name,
                     completed: level.Level.AchievementEntrand?.Completed,
                     milestones: milestones,
                     scoreboard: level.Level.AchievementEntrand?.ScoreBoard,
                     basePoints: level.Level.PointStrategy?.BasePoints,
                     progress: level.Level.AchievementEntrand?.Progress,
                     icon: level.Level.Achievement?.Icon,
+                    reward: level.Level.Rewards?.map((reward) => ({
+                        id: reward?.RewardID,
+                        description: reward?.Name,
+                    }))
                 };
-            }).sort((a, b) => {
-                const levelANumber = parseInt(a.name.replace(/\D/g, ''), 10);
-                const levelBNumber = parseInt(b.name.replace(/\D/g, ''), 10);
-                return levelANumber - levelBNumber;
-            });
+            }).sort((a, b) => a.sortName.localeCompare(b.sortName));
 
             const currentLevel = {
                 id: response.data.Contents.CurrentLevel.AchievementID,
@@ -165,7 +170,7 @@ export const getUserAchievements = () => {
             }
 
             //console.log("Hero: ", selectedHero);
-            //console.log("Hero Levels: ", heroLevels);
+            console.log("Hero Levels: ", heroLevels);
             //console.log("Current Level: ", currentLevel);
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));

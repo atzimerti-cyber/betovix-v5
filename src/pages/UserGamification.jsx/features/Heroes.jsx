@@ -59,7 +59,7 @@ const Heroes = React.memo(() => {
 
             {displayedHero && Object.keys(displayedHero).length > 0 ? (
                 <>
-                    <diV className={classes.container}>
+                    <div className={classes.container}>
                         <div className={classes.leftCol}>
                             <div className={classes.heroImg}>
                                 <img src={displayedHero.banner} loading='lazy' alt={displayedHero.name} />
@@ -87,16 +87,12 @@ const Heroes = React.memo(() => {
                                 <p className={classes.Description}>{displayedHero?.description?.replace(/<\/?p>/g, "")}</p>
                             </div>
 
-                            <Levels slidesPerView={slidesPerView} displayedHero={displayedHero} activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
-
-                              
-                                <Milestones
-                                    slidesPerView={mSlidesPerView}
-                                    activeLevel={activeLevel} profile />
+                            <Levels slidesPerView={slidesPerView} displayedHero={displayedHero} activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} profile={true}/>
+                            <Milestones slidesPerView={mSlidesPerView} activeLevel={activeLevel} profile />
                         </div>
-                    </diV>
+                    </div>
 
-                    
+
 
                     <div className={classes.HeroesContainer}>
                         <HeroDisplaySwiper title='Heroes' icon={<LogoSmallIcon />} items={heroes} />
@@ -107,7 +103,6 @@ const Heroes = React.memo(() => {
             ) : (
                 <div className={classes.NotAvailable}>
                     <span> <LogoSmallIcon /> </span>
-                    {/* <p>Not available yet</p> */}
                 </div>
             )}
 

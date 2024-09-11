@@ -115,7 +115,7 @@ const GamificationBanner = ({ onDataNotFound }) => {
 
                                         </div>
                                         <div className={classes.HeroMilestones}>
-                                            <Milestones activeLevel={activeLevel} profile />
+                                            <Milestones displayedHero={hero} activeLevel={activeLevel} profile />
                                         </div>
                                     </div>
                                 </div>

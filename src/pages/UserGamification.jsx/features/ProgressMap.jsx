@@ -2,12 +2,13 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 
-import HeroTimeline from './HeroTimeline'
-
 import classes from './ProgressMap.module.css';
+
+import HeroTimeline from './HeroTimeline'
+import MainButton from '../../../features/UI/Buttons/MainButton'
 import { translate } from '../../../utils/translations';
 
-//import { getUserAchievements } from '../gamificationAsyncActions';
+import { getUserAchievements } from '../gamificationAsyncActions';
 
 
 const ProgressMap = () => {
@@ -15,48 +16,19 @@ const ProgressMap = () => {
     const navigate = useNavigate();
     const params = useParams();
 
-    //const selectedHero = useSelector((state) => state.gamification.selectedHero);
-    //const selectedHeroLevels = useSelector((state) => state.gamification.heroLevels);
+    useEffect(() => {
+        dispatch(getUserAchievements());
+    }, [])
 
-    const selectedHero = {
-        name: "Eric",
-        subName: "The Viking",
-    }
+    const addParamsToUrl = (tab) => {
+        const searchParams = new URLSearchParams();
+        if (tab) searchParams.set('tab', tab);
 
-    const selectedHeroLevels = [
-        {
-            id: 1,
-            name: "level 1",
-            subName: "The Viking",
-            progress: 100,
-            milestones: [
-                {
-                    id: 1,
-                    name: "milestone 1",
-                },
-                {
-                    id: 2,
-                    name: "milestone 2",
-                }
-            ]
-        },
-        {
-            id: 2,
-            name: "level 2",
-            subName: "The Viking",
-            progress: 63,
-            milestones: [
-                {
-                    id: 1,
-                    name: "milestone 1",
-                },
-                {
-                    id: 2,
-                    name: "milestone 2",
-                }
-            ]
-        }
-    ];
+        navigate(`/profile?${searchParams.toString()}`, { replace: true });
+    };
+
+    const selectedHero = useSelector((state) => state.gamification.selectedHero);
+    const selectedHeroLevels = useSelector((state) => state.gamification.heroLevels);
 
     return (
         <div className={classes.PageContent}>
@@ -67,14 +39,17 @@ const ProgressMap = () => {
             </div>
 
             <div className={classes.Container}>
-                <div className={classes.Timeline}>
-                    {selectedHero && Object.keys(selectedHero).length > 0 ? (
+                {selectedHero && Object.keys(selectedHero).length > 0 ? (
+                    <div className={classes.Timeline}>
                         <HeroTimeline hero={selectedHero} levels={selectedHeroLevels} />
-                    ) : (
-                        null
-                    )}
-
-                </div>
+                    </div>
+                ) : (
+                    <div className={classes.ButtonContainer}>
+                        <MainButton color='bv-light-green' size='small' onClick={() => addParamsToUrl('heroes')}>
+                            Select a hero
+                        </MainButton>
+                    </div>
+                )}
             </div>
         </div>
     );

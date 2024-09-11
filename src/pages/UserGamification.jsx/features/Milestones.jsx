@@ -34,7 +34,7 @@ const Milestones = (props) => {
 
     let heroLevels;
     if (!selectedHero) {
-        heroLevels = displayedHero.levels;
+        heroLevels = props.displayedHero ? (props.displayedHero.levels) : displayedHero.levels;
     } else if (selectedHero) {
         heroLevels = selectedHeroLevels;
     }

@@ -10,16 +10,16 @@ const Levels = (props) => {
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
     const selectedHeroLevels = useSelector((state) => state.gamification.heroLevels);
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
-    //const ericLevels = useSelector((state) => state.gamification.ericLevels);
-
-
 
     let heroLevels;
     if (!selectedHero) {
-        //heroLevels = ericLevels;
-        heroLevels = displayedHero.levels;
+        heroLevels = props.displayedHero ? (props.displayedHero.levels) : displayedHero.levels;
     } else if (selectedHero) {
-        heroLevels = selectedHeroLevels;
+        if (props.profile) {
+            heroLevels = displayedHero.levels;
+        } else {
+            heroLevels = selectedHeroLevels;
+        }
     }
 
     return (

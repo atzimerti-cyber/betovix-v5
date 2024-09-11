@@ -14,13 +14,26 @@
     text-align: center;
     font-family: Byker, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     font-weight: 700;
-    font-size: 2rem;
+    font-size: 1.5rem;
     position: fixed;
-    width: 65%;
-    background-color: #051825;
+    width: 100%;
+    background-color: #0d2a3e;
     z-index: 1000;
     padding-bottom: 1rem;
     height: 60px;
+    overflow: hidden;
+}
+
+.TimelineTitle:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 10px;
+    background: rgb(0 0 0 / 27%);
+    filter: blur(10px);
+    z-index: -8;
 }
 
 .TimelineContainer span {
@@ -60,28 +73,28 @@
 
 .SubTimelineItem {
     height: max-content;
+    visibility: hidden;
     display: grid;
+    max-height: 0;
     grid-template-columns: 1fr max-content 1fr;
     width: 100%;
     position: relative;
     font-weight: 500;
     justify-content: center;
     align-items: center;
-    opacity: 0;
-    visibility: hidden;
     overflow: hidden;
-    transition: opacity 0.5s ease, visibility 0.5s ease;
-    transition: transform 0.5s ease;
+    transition: transform 0.5s ease, visibility 0s 1s, max-height 1s;
 }
 
-.SubTimelineItem {
-    opacity: 1;
+.SubTimelineItemVisible {
     visibility: visible;
+    transition-delay: 0s, 0s, 0s;
+    max-height: 60px;
 }
 
 .TimelineItem:hover,
 .SubTimelineItem:hover {
-    transform:scale(1.07);
+    transform: scale(1.03);
 }
 
 /* Separators and Connectors */
@@ -116,9 +129,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     z-index: 10000;
     cursor: pointer;
     transition: transform 0.5s ease;
+}
+
+.Dot.DotAnimation::before {
+    content: '';
+    position: absolute;
+    top: 49.7%;
+    left: 49.5%;
+    width: 40px;
+    height: 40px;
+    background: #f6f9f7;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    animation: throbbingShadow 2s infinite ease-in-out;
 }
 
 .Dot:hover,
@@ -126,25 +154,20 @@
     transform: scale(1.1);
 }
 
-.Dot.DotAnimation {
-    animation: throbbing 2s infinite ease-in-out;
-    z-index: 10000;
-}
-
-@keyframes throbbing {
+@keyframes throbbingShadow {
     0% {
-        transform: scale(1);
-        background: radial-gradient(#f6f9f7, #f6f9f7);
+        transform: translate(-50%, -50%) scale(1);
+        background: radial-gradient(circle, #f6f9f7 0%, #23b60928 50%, transparent 85%);
     }
 
     50% {
-        transform: scale(1.17);
-        background: radial-gradient(#f6f9f7, #f6f9f7);
+        transform: translate(-50%, -50%) scale(1.25);
+        background: radial-gradient(circle, #f6f9f7 0%, #2eee0c2e 50%, transparent 85%);
     }
 
     100% {
-        transform: scale(1);
-        background: radial-gradient(#f6f9f7, #f6f9f7);
+        transform: translate(-50%, -50%) scale(1);
+        background: radial-gradient(circle, #f6f9f7 0%, #23b60928 50%, transparent 85%);
     }
 }
 
@@ -165,7 +188,7 @@
 .TimelineContent {
     display: flex;
     flex-direction: column;
-    align-items: flex-end;
+    align-items: flex-start;
 }
 
 .TimelineContent span {
@@ -189,8 +212,8 @@
 
 .SubTimelineContent p {
     font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--db-brand-green);
+    font-weight: 400;
+    color: #6d9aadc0;
 }
 
 /* Opposite Content */
@@ -210,14 +233,44 @@
     align-items: flex-end;
 }
 
+/* @keyframes sparkle {
+    0% {
+        text-shadow: 0 0 0px #fff89480;
+    }
+
+    50% {
+        text-shadow: 0 0 6px #fff89480;
+    }
+
+    100% {
+        text-shadow: 0 0 0px #fff89480;
+    }
+}
+
+.SubOppositeContent p {
+    animation: sparkle 1.5s infinite ease-in-out;
+} */
+
 /* Responsive Styling */
+@media (min-width: 455px) {
+
+    .TimelineContent {
+        align-items: flex-end;
+    }
+}
+
 @media (min-width: 640px) {
     .TimelineContainer span {
         font-size: 1.1rem;
     }
 
     .TimelineTitle {
-        width: 60%;
+        width: 100%;
+        background-color: #0d2a3e;
+    }
+
+    .TimelineContent {
+        align-items: flex-end;
     }
 
     .TimelineContent p {
@@ -225,7 +278,30 @@
     }
 
     .SubTimelineContent p {
-        font-size: 0.65rem;
+        font-size: 0.7rem;
+    }
+}
+
+@media (min-width: 769px) {
+    .TimelineContainer span {
+        font-size: 1.1rem;
+    }
+
+    .TimelineTitle {
+        width: 65%;
+        background-color: #051825;
+    }
+
+    .TimelineContent {
+        align-items: flex-end;
+    }
+
+    .TimelineContent p {
+        font-size: 0.8rem;
+    }
+
+    .SubTimelineContent p {
+        font-size: 0.7rem;
     }
 }
 
@@ -238,12 +314,16 @@
         width: 65%;
     }
 
+    .TimelineContent {
+        align-items: flex-end;
+    }
+
     .TimelineContent p {
         font-size: 0.8rem;
     }
 
     .SubTimelineContent p {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
 }
 
@@ -253,7 +333,11 @@
     }
 
     .TimelineTitle {
-        width: 90%;
+        width: 75%;
+    }
+
+    .TimelineContent {
+        align-items: flex-end;
     }
 
     .TimelineContent p {
@@ -261,6 +345,6 @@
     }
 
     .SubTimelineContent p {
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
 }

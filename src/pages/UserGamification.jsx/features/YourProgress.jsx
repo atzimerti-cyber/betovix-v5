@@ -128,7 +128,7 @@ const YourProgress = () => {
                                 </div>
                             ) : (
                                 <div className={classes.GoToButton}>
-                                    <MainButton color='primary' size='small' onClick={() => addParamsToUrl('heroes')}>
+                                    <MainButton color='bv-light-green' size='small' onClick={() => addParamsToUrl('heroes')}>
                                         {translate('Select a Hero')}
                                     </MainButton>
                                 </div>
