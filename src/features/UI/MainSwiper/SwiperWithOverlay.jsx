@@ -11,6 +11,7 @@ import GiftIcon from '../../../assets/svgs/gift.svg?react';
 import classes from './SwiperWithOverlay.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
 import { addFavoriteCasino, removeFavoriteCasino } from '../../../pages/Casino/casinoAsyncActions';
+import { addCasinoFav, removeCasinoFav } from '../../../features/CasinoFavorites/CasinoFavoritesAsync';
 import { translate } from '../../../utils/translations';
 import useSlidesResponsive from '../../../hooks/useSlidesResponsive';
 
@@ -19,8 +20,9 @@ const SwiperWithOverlay = (props) => {
     const [loadedImages, setLoadedImages] = useState([]);
     const user = useSelector((state) => state.login.user);
     const bonusBalance = useSelector((state) => state.layout.bonusBalance);
+    const casinoFavs = useSelector((state) => state.casinoFavorites.casinoFavs)
 
- 
+
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("casino");
 
     const updateLoadedImages = (index) => {
@@ -28,8 +30,13 @@ const SwiperWithOverlay = (props) => {
     };
 
     const onToggleFavorite = (item) => {
-        if (item.isFav) dispatch(removeFavoriteCasino(item.Data.Id));
-        else dispatch(addFavoriteCasino(item.Data.Id));
+        if (item.isFav) {
+            dispatch(removeFavoriteCasino(item.Data.Id))
+            dispatch(removeCasinoFav(item.Data.Id))
+        } else {
+            dispatch(addFavoriteCasino(item.Data.Id))
+            dispatch(addCasinoFav(item.Data.Id))
+        }
     };
 
     return (
@@ -51,52 +58,72 @@ const SwiperWithOverlay = (props) => {
                         const gameType = item.Data.Tags.toLowerCase().includes('live') ? 'live' : 'slots';
 
                         return (
-                            <SwiperSlide key={item.Data.Id}>
+                            <SwiperSlide key={item.Data.Id} style={{maxWidth:'180px'}}>
                                 <div className={classes.SlideContainer}>
-                                    <Link
-                                        to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
-                                    >
-                                        {/* <Link to={`/casino/game/${gameType}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}`}> */}
-                                        <article className={classes.Card}>
-                                            <div className={classes.ImageContainer}>
-                                                {loadedImages.includes(index) === false && <LoaderPlaceholder />}
-                                                <img src={item.Data.ImageUrl} loading='lazy' onLoad={() => updateLoadedImages(index)} />
-                                            </div>
-                                            {item.isNew && <div className={classes.NewLabel}>NEW</div>}
-                                            <div className={classes.InfoOverlay}>
-                                                <div className={classes.InfoContent}>
-                                                    <div>
-                                                        <p className={classes.InfoCategory}>{item.Data.BrandName}</p>
-                                                        <p className={classes.RtpLabel}>{item.Data.Name}</p>
-                                                    </div>
-                                                    <HeartIcon
-                                                        className={item.isFav ? classes.FavoriteIcon : null}
-                                                        onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            e.preventDefault();
-                                                            if (user) {
-                                                                onToggleFavorite(item);
-                                                            } else {
-                                                                toast.warning('Login to access this feature');
-                                                            }
-                                                        }}
-                                                    />
+                                    <>
+                                        <Link to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`} >
+                                            {/* <Link to={`/casino/game/${gameType}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}`}> */}
+                                            <article className={classes.Card}>
+                                                <div className={classes.ImageContainer}>
+                                                    {loadedImages.includes(index) === false && <LoaderPlaceholder />}
+                                                    <img src={item.Data.ImageUrl} loading='lazy' onLoad={() => updateLoadedImages(index)} />
                                                 </div>
-                                            </div>
-                                        </article>
-                                    </Link>
-                                    {bonusBalance > 0 && (
-                                        <Link
-                                            to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
-                                        >
-                                            <div className={classes.isBonus}>
-                                                <button className={classes.bonusContainer}>
-                                                    <GiftIcon />
-                                                    {translate('Play With Bonus')}
-                                                </button>
-                                            </div>
+                                                {item.isNew && <div className={classes.NewLabel}>NEW</div>}
+                                                {/* <div className={classes.InfoOverlay}>
+                                                    <div className={classes.InfoContent}>
+                                                        <div>
+                                                            <p className={classes.InfoCategory}>{item.Data.BrandName}</p>
+                                                            <p className={classes.RtpLabel}>{item.Data.Name}</p>
+                                                        </div>
+                                                        <HeartIcon
+                                                            className={item.isFav ? classes.FavoriteIcon : null}
+                                                            onClick={(e) => {
+                                                                e.stopPropagation();
+                                                                e.preventDefault();
+                                                                if (user) {
+                                                                    onToggleFavorite(item);
+                                                                } else {
+                                                                    toast.warning('Login to access this feature');
+                                                                }
+                                                            }}
+                                                        />
+                                                    </div>
+                                                </div> */}
+                                            </article>
                                         </Link>
-                                    )}
+                                        {bonusBalance > 0 && (
+                                            <Link
+                                                to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                                            >
+                                                <div className={classes.isBonus}>
+                                                    <button className={classes.bonusContainer}>
+                                                        <GiftIcon />
+                                                        {translate('Play With Bonus')}
+                                                    </button>
+                                                </div>
+                                            </Link>
+                                        )}
+                                    </>
+                                    {/* ============================== */}
+                                    <div className={classes.BackgroundContainer}>
+                                        <div>
+                                            <p className={classes.BgGameName}>{item.Data.Name}</p>
+                                            <p className={classes.BgVendor}>{item.Data.BrandName}</p>
+                                        </div>
+                                        <HeartIcon
+                                            className={item.isFav ? classes.FavoriteIcon : null}
+                                            onClick={(e) => {
+                                                e.stopPropagation();
+                                                e.preventDefault();
+                                                if (user) {
+                                                    onToggleFavorite(item);
+                                                } else {
+                                                    toast.warning('Login to access this feature');
+                                                }
+                                            }}
+                                        />
+                                    </div>
+                                    {/* ============================== */}
                                 </div>
                             </SwiperSlide>
                         );

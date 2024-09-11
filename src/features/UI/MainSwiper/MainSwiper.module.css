@@ -62,6 +62,10 @@
     padding-top: 0.45rem;
 }
 
+.MainSwiperWrapper .MainSwiper>div>div {
+   width: 150px;
+}
+
 .WithPagination .MainSwiper {
     padding-bottom: 2rem;
 }

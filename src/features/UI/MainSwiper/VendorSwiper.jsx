@@ -52,6 +52,10 @@ const VendorSwiper = (props) => {
     }, [loadedImages]);
 
     function getDominantColor(imgElement) {
+        if (!imgElement.complete || imgElement.naturalWidth === 0) {
+            console.warn('Image failed to load or is broken:', imgElement.src);
+            return null; // Return early if the image is broken
+        }
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
         canvas.width = imgElement.width;

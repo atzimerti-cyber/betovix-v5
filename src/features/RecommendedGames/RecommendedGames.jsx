@@ -35,7 +35,6 @@ const RecommendedGames = ({ onDataNotFound }) => {
         <SwiperWithOverlay
             title={translate('Recommended Games')}
             icon={<RecIcon />}
-            // link='/casino/new-games'
             items={recommendedGames}
             slidesPerView={slidesPerView}
         />
