@@ -26,16 +26,25 @@ const HeroConfirmationModal = () => {
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
 
     const [preMessage, setPreMessage] = useState(true);
-    // const [heroSelectionLoading, setHeroSelectionLoading] = useState(false);
-    // const [postMessage, setPostMessage] = useState(false);
+    const [heroSelectionLoading, setHeroSelectionLoading] = useState(false);
+    const [postMessage, setPostMessage] = useState(false);
 
     const handleButtonClick = () => {
         const controller = new AbortController();
         const signal = controller.signal;
-        // setPreMessage(false)
-        // setHeroSelectionLoading(true);
-        dispatch(selectedHero(displayedHeroAction, lvlAction, signal));
-        // await => setHeroSelectionLoading(false) ,setPostMessage(true)
+
+        setPreMessage(false);
+        setHeroSelectionLoading(true);
+
+        dispatch(selectedHero(displayedHeroAction, lvlAction, signal))
+            .then(() => {
+                setHeroSelectionLoading(false);
+                setPostMessage(true);
+            })
+            .catch((error) => {
+                // Handle error if necessary
+                setHeroSelectionLoading(false);
+            });
 
         navigate(location.pathname);
     };
@@ -76,7 +85,7 @@ const HeroConfirmationModal = () => {
                     </div>
                 </div>
             }
-            {/* {heroSelectionLoading &&
+            {heroSelectionLoading &&
                 <div className={classes.ModalContent}>
                     <div className={classes.NotAvailable}>
                         <span> <LogoSmallIcon /> </span>
@@ -87,7 +96,7 @@ const HeroConfirmationModal = () => {
                 <div className={classes.ModalContent}>
 
                 </div>
-            } */}
+            }
         </div>
     );
 };
