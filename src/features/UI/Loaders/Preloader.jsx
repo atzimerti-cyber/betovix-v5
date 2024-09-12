@@ -17,16 +17,25 @@ const Preloader = () => {
           video.play();      // Force autoplay when video is ready
         };
     
-        if (video) {
-          video.addEventListener('canplaythrough', handleCanPlayThrough);
-        }
+        const fallbackAutoplay = () => {
+            setTimeout(() => {
+              if (!isLoaded && video) {
+                video.play();
+              }
+            }, 1000);  // Attempt to play after 1 second as a fallback
+          };
+        
+          if (video) {
+            video.addEventListener('canplaythrough', handleCanPlayThrough);
+            fallbackAutoplay();  // Fallback in case iPhone 11 doesn't handle canplaythrough
+          }
     
         return () => {
           if (video) {
             video.removeEventListener('canplaythrough', handleCanPlayThrough);
           }
         };
-      }, []);
+      }, [isLoaded]);
 
     return (
         <div className={classes.Preloader}>
@@ -42,6 +51,7 @@ const Preloader = () => {
                 playsInline
                 style={{ width: '100%', height: 'auto' }}  // Adjust to fit your layout
                 controls={false}  // Ensure controls are hidden
+                autoplay
             />
                 {!isLoaded && <div>Loading video...</div>}  {/* Show loading indicator */}
             {/* <video
