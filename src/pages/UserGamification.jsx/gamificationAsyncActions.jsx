@@ -22,8 +22,9 @@ export const getHeroes = (signal) => {
 
             const heroes = response.data.Contents.map((hero) => ({
                 name: hero.Hero.Achievement?.Name,
-                banner: hero.Hero.Achievement?.Banner,
                 id: hero.Hero.Achievement?.AchievementID,
+                banner: hero.Hero.Achievement?.Banner,
+                cropped: hero.Hero.Achievement?.BannerHighResolution,
                 icon: hero.Hero.Achievement?.Icon,
                 description: hero.Hero.Achievement?.TermsAndConditions,
                 metadata: {
@@ -122,6 +123,7 @@ export const getUserAchievements = () => {
                 name: response.data.Contents.Hero.MetaData.Name,
                 subName: response.data.Contents.Hero.MetaData.SubName,
                 banner: response.data.Contents.Hero.Achievement?.Banner,
+                cropped: response.data.Contents.Hero.Achievement?.BannerHighResolution,
                 icon: response.data.Contents.Hero.Achievement?.Icon,
                 description: response.data.Contents.Hero.Achievement?.TermsAndConditions,
                 action: response.data.Contents.Hero.MetaData?.Action,

@@ -137,7 +137,7 @@ const Home = () => {
 
                 {/* RECOMMENDED GAMES */}
                 {showRecommendedGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
-                    <div ref={recommendedGamesRef} style={{ minHeight: "110px" }} >
+                    <div ref={recommendedGamesRef} style={{ minHeight: "180px" }} >
                         {isRecommendedGamesVisible && (
                             <RecommendedGames onDataNotFound={handleRemoveRecommendedGamesComponent} />
                         )}
@@ -157,7 +157,7 @@ const Home = () => {
 
                 {/* CRASH GAMES */}
                 {showCrashGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
-                    <div ref={crashGamesRef} style={{ minHeight: "110px" }}  >
+                    <div ref={crashGamesRef} style={{ minHeight: "180px" }}  >
                         {isCrashGamesVisible && (
                             <CrashGames onDataNotFound={handleRemoveCrashGamesComponent} />
                         )}
@@ -166,7 +166,7 @@ const Home = () => {
 
                 {/* FAVORITES */}
                 {showFavorites && user && (permissions.AllowToCasino || permissions.AllowToSlots) &&
-                    <div ref={favoritesRef} style={{ minHeight: "110px" }}  >
+                    <div ref={favoritesRef} style={{ minHeight: "180px" }}  >
                         {isFavoritesVisible && (
                             <CasinoFavorites onDataNotFound={handleRemoveFavoritesComponent} />
                         )}

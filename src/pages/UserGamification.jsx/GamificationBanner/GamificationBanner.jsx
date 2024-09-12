@@ -107,7 +107,7 @@ const GamificationBanner = ({ onDataNotFound }) => {
                                         <p className={classes.DescTitle}>{translate(hero.metadata.HeroName + ' ' + hero.metadata.HeroSubName)}</p>
                                     </div>
                                     <div className={classes.HeroImg}>
-                                        <img src={hero.banner} loading='lazy' alt={<LoaderPlaceholder />} />
+                                        <img src={hero.cropped} loading='lazy' alt={<LoaderPlaceholder />} />
                                     </div>
                                     <div className={classes.HeroLevelsContainer}>
                                         <div className={classes.HeroLevels}>

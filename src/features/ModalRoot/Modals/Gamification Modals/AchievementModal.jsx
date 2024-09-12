@@ -9,17 +9,17 @@ import 'swiper/css/bundle';
 
 import classes from './AchievementModal.module.css';
 
-import RewardImage from '../../../assets/images/reward.png';
-import smallLogo from '../../../assets/svgs/logo-small.svg';
+import RewardImage from '../../../../assets/images/reward.png';
+import smallLogo from '../../../../assets/svgs/logo-small.svg';
 
-import CloseButton from '../../UI/Buttons/CloseButton';
-import AngleLeftIcon from '../../../assets/svgs/swipe-prev.svg';
-import AngleRightIcon from '../../../assets/svgs/swipe-next.svg';
-import MainButton from '../../UI/Buttons/MainButton';
+import CloseButton from '../../../UI/Buttons/CloseButton';
+import AngleLeftIcon from '../../../../assets/svgs/swipe-prev.svg';
+import AngleRightIcon from '../../../../assets/svgs/swipe-next.svg';
+import MainButton from '../../../UI/Buttons/MainButton';
 
-import { translate } from '../../../utils/translations';
-import { claimReward } from '../../../pages/UserGamification.jsx/gamificationAsyncActions';
-import { rewardViewed } from '../../../pages/UserGamification.jsx/gamificationAsyncActions';
+import { translate } from '../../../../utils/translations';
+import { claimReward } from '../../../../pages/UserGamification.jsx/gamificationAsyncActions';
+import { rewardViewed } from '../../../../pages/UserGamification.jsx/gamificationAsyncActions';
 
 
 const AchievementModal = (props) => {
@@ -41,7 +41,7 @@ const AchievementModal = (props) => {
         setShowSparkle(true);
         const timer = setTimeout(() => setShowSparkle(false), 7000);
         return () => clearTimeout(timer);
-    }, []);
+    }, [rewards]);
 
     const handleClaimButton = async (id) => {
         dispatch(claimReward(id));

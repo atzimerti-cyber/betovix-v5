@@ -10,7 +10,7 @@ import BonusModal from './Modals/BonusModal';
 
 import SearchModal from './Modals/SearchModal';
 
-import AchievementModal from './Modals/AchievementModal';
+import AchievementModal from './Modals/Gamification Modals/AchievementModal';
 import HeroConfirmation from './Modals/HeroConfirmation'
 import YourProgress from '../../pages/UserGamification.jsx/features/YourProgress';
 
