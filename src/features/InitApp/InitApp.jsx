@@ -23,7 +23,7 @@ const InitApp = () => {
 
     // Loads once on start
     useEffect(() => {
-        dispatch(loadInitData(isMobile));
+       // dispatch(loadInitData(isMobile));
     }, []);
 
     // For loading initial data. Loads on change log in
@@ -47,7 +47,7 @@ const InitApp = () => {
         };
     }, [userAccountId]);
 
-    return initDataLoaded ? <Outlet /> : <Preloader />;
+    return initDataLoaded  ? <Outlet /> : <Preloader />;
 };
 
 export default InitApp;
