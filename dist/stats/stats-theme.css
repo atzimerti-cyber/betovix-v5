@@ -46,12 +46,15 @@
 .h2h-block .h2h-box .main .comparison .comparison-box .comparison-tab .content > div.result-history-line:before,
 .bread-crumbs .bc-item:nth-child(even):after, .bread-crumbs .bc-item:nth-child(even):before,
 .match-details-block .match-details .match-teams:before,
-.playoff .playoff-title {
+.playoff .playoff-title,
+.search-field-layer,
+.search-bar {
 	background: var(--dark-theme-two);
 }
 
 .matches-table .matches-table_scores > div,
-ul.open.f-dropdown {
+ul.open.f-dropdown,
+table.matches-table tr td.scores > div {
 	border: 1px solid var(--dark-theme-two);
 }
 
@@ -87,4 +90,11 @@ ul.open.f-dropdown li a, .left-menu .game-list ul li a {
     .h2h-block .h2h-box .main .team-info-box .latest-games-result > div.title-text {
         border-bottom: 1px solid var(--dark-theme-two);
     }
+}
+
+.search-input, .search-input::placeholder, 
+.left-menu .game-list ul.level-2 li.navigation-search-li input[type="text"], 
+.left-menu .game-list ul.level-2 li.navigation-search-li input[type="search"],
+.left-menu .game-list ul.level-2 li.navigation-search-li input::placeholder {
+    color: #fff !important;
 }

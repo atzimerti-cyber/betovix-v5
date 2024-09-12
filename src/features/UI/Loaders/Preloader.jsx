@@ -1,6 +1,6 @@
 import classes from './Preloader.module.css';
 import { useState } from 'react';
-import preloaderImage from '../../../assets/images/loading.webp';
+//import preloaderImage from '../../../assets/images/loading.webp';
 import preloaderVideo from '../../../assets/mp4/betovix_logo_animation.mp4';
 
 const Preloader = () => {
@@ -11,7 +11,8 @@ const Preloader = () => {
     };
     return (
         <div className={classes.Preloader}>
-              <img src={preloaderImage} alt='Loading' />  
+              {/* <img src={preloaderImage} alt='Loading' />   */}
+              <img src='loading.gif' alt='Loading' />  
             {/* <video
                     autoPlay
                     muted

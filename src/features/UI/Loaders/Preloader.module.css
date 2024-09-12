@@ -23,3 +23,7 @@
     /* max-width: 100%; */
     height: auto;
 }
+
+.Preloader  video::-webkit-media-controls {
+    display: none !important;
+  }
