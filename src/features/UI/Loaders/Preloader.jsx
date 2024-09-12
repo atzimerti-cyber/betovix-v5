@@ -1,28 +1,49 @@
 import classes from './Preloader.module.css';
-import { useState } from 'react';
+import { useState, useRef , useEffect} from 'react';
 //import preloaderImage from '../../../assets/images/loading.webp';
 import preloaderVideo from '../../../assets/mp4/betovix_logo_animation.mp4';
 
 const Preloader = () => {
-    const [loading, setLoading] = useState(true);
+     
+    const videoRef = useRef(null);
+    const [isLoaded, setIsLoaded] = useState(false);
 
-    const handleVideoEnd = () => {
-        setLoading(false);
-    };
+    useEffect(() => {
+        const video = videoRef.current;
+    
+        // Ensure the video plays after it's preloaded
+        const handleCanPlayThrough = () => {
+          setIsLoaded(true); // Video is ready to play
+          video.play();      // Force autoplay when video is ready
+        };
+    
+        if (video) {
+          video.addEventListener('canplaythrough', handleCanPlayThrough);
+        }
+    
+        return () => {
+          if (video) {
+            video.removeEventListener('canplaythrough', handleCanPlayThrough);
+          }
+        };
+      }, []);
+
     return (
         <div className={classes.Preloader}>
               {/* <img src={preloaderImage} alt='Loading' />   */}
               {/* <img src='loading.webp' alt='Loading' />  */}
               
-              <video 
-                src={preloaderVideo}   // Path to your MP4 video
-                autoPlay 
-                loop 
-                muted 
-                playsInline  // Prevents iOS fullscreen autoplay
-                style={{ width: '100%', height: 'auto' }}  // Adjust this to fit your layout
+              <video
+                ref={videoRef}
+                src={preloaderVideo} // Replace with the correct video source
+                preload="auto"  // Preload the entire video
+                loop
+                muted
+                playsInline
+                style={{ width: '100%', height: 'auto' }}  // Adjust to fit your layout
+                controls={false}  // Ensure controls are hidden
             />
-               
+                {!isLoaded && <div>Loading video...</div>}  {/* Show loading indicator */}
             {/* <video
                     autoPlay
                     muted
