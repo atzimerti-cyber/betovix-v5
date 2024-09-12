@@ -34,28 +34,28 @@ const InitApp = () => {
 
     // Loads once on start
     useEffect(() => {
-        // dispatch(loadInitData(isMobile));
-    }, []);
+         dispatch(loadInitData(isMobile));
+    }, [!userAccountId]);
 
     // For loading initial data. Loads on change log in
     useEffect(() => {
         if (!initDataLoaded) return;
 
-        //dispatch(loadInitData(isMobile));
+        dispatch(loadInitData(isMobile));
     }, [userAccountId]);
 
     // For setting timer for getting user. Loads on change log in
     useEffect(() => {
-        // // Get user every 5 seconds...
-        // clearInterval(timerIdRef.current);
-        // const pollingCallback = () => {
-        //     dispatch(getUser(navigate));
-        // };
-        // if (userAccountId) timerIdRef.current = setInterval(pollingCallback, 5000);
+        // Get user every 5 seconds...
+        clearInterval(timerIdRef.current);
+        const pollingCallback = () => {
+            dispatch(getUser(navigate));
+        };
+        if (userAccountId) timerIdRef.current = setInterval(pollingCallback, 5000);
 
-        // return () => {
-        //     if (!userAccountId) clearInterval(timerIdRef.current);
-        // };
+        return () => {
+            if (!userAccountId) clearInterval(timerIdRef.current);
+        };
     }, [userAccountId]);
 
     //return initDataLoaded ? <Outlet /> : <Preloader />;
