@@ -22,14 +22,15 @@ const InitApp = () => {
     const timerIdRef = useRef(null);
 
 
-    // const [isLoaded, setIsLoaded] = useState (false);
-    // useEffect(() => {
-    //     const img = new Image();
-    //     img.src = 'loading.webp';  // URL of your WebP animation
-    //     img.onload = () => {
-    //         setIsLoaded(true);  // Set the state to indicate the image is fully loaded
-    //     };
-    // }, []);
+    const [isLoaded, setIsLoaded] = useState (false);
+
+    useEffect(() => {
+        const img = new Image();
+        img.src = 'loading.gif';  // URL of your WebP animation
+        img.onload = () => {
+            setIsLoaded(true);  // Set the state to indicate the image is fully loaded
+        };
+    }, []);
 
     // Loads once on start
     useEffect(() => {
@@ -57,10 +58,10 @@ const InitApp = () => {
         };
     }, [userAccountId]);
 
-    return initDataLoaded ? <Outlet /> : <Preloader />;
-    // if( isLoaded && initDataLoaded ) return  <Outlet />;
-    // if( isLoaded) return  <Preloader />;
-    // return null;
+    //return initDataLoaded ? <Outlet /> : <Preloader />;
+    if( isLoaded && initDataLoaded ) return  <Outlet />;
+    if( isLoaded) return  <Preloader />;
+    return null;
 };
 
 export default InitApp;
