@@ -15,7 +15,7 @@ const Banners = ({onDataNotFound}) => {
     const dispatch = useDispatch();
 
     const [loadedImages, setLoadedImages] = useState([]);
-    const sportBanners = useSelector((state) => state.banners.banners);
+    const banners = useSelector((state) => state.banners.banners);
 
     const updateLoadedImages = (index) => {
         setLoadedImages((prevData) => [...prevData, index]);
@@ -34,24 +34,17 @@ const Banners = ({onDataNotFound}) => {
 
     //Remove Component if no favs found
     useEffect(() => {
-        if (sportBanners !== null && (sportBanners.Banners === null || sportBanners.Banners.length === 0)) {
+        if (banners !== null && (banners === null || banners.length === 0)) {
             onDataNotFound(); 
         }
-    }, [sportBanners, onDataNotFound]); 
+    }, [banners, onDataNotFound]); 
 
 
     return (
         <BigSwiper slidesPerView={1} autoplay delay={6000}>
-            {sportBanners ? (
-                sportBanners.Banners &&
-                sportBanners.Banners.map((banner, index) => {
+            {banners && banners.length > 0 ? (
+                banners.map((banner, index) => {
                     let link = null;
-                    let bannerEvent = null;
-
-                    if (banner.EventId > 0) {
-                        bannerEvent = sportBanners.BannerEvents[banner.EventId];
-                        if (bannerEvent) link = `/event/${bannerEvent.Info.SportName.International}/${bannerEvent.Info.SportId}/${banner.EventId}`;
-                    }
 
                     return (
                         <SwiperSlide key={banner.Id}>
@@ -60,14 +53,6 @@ const Banners = ({onDataNotFound}) => {
                                     {loadedImages.includes(index) === false && <LoaderPlaceholder />}
                                     <img src={banner.Img} alt='Banner' onLoad={() => updateLoadedImages(index)} />
                                 </div>
-
-                                {bannerEvent && (
-                                    <div className={classes.EventInfoWrapper}>
-                                        <div className={classes.EventInfo}>
-                                            <GameCard game={bannerEvent} type='scheduled' />
-                                        </div>
-                                    </div>
-                                )}
                             </Link>
                         </SwiperSlide>
                     );
