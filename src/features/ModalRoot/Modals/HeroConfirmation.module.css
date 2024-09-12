@@ -1,6 +1,47 @@
+.NotAvailable{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center; 
+    height: 200px;
+    color: white;
+}
+.NotAvailable span {
+    display: inline-block; 
+    animation: rotateAnimation 4s linear infinite;
+}
+.NotAvailable svg{
+    height: 5rem;
+    width: 5rem;
+}
+
+/* @keyframes rotateAnimation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+} */
+@keyframes rotateAnimation {
+    0% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.25);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+/* ======================================================== */
+
 .ConfirmationModal {
     width: 780px;
-
+    border-radius: 0.4rem;
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -8,13 +49,13 @@
     --tw-translate-y: -0.5rem;
     --tw-scale-x: 0.9;
     --tw-scale-y: 0.9;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     background-color: var(--db-gray-6);
     margin-top: 60px;
     opacity: 0;
     animation: slide 0.2s ease-out forwards;
 }
+
 @keyframes slide {
     100% {
         transform: translateY(0) scale(1);
@@ -103,7 +144,7 @@
     grid-template-rows: 40px 1fr;
 }
 
-.BreakdownGrid > div > div {
+.BreakdownGrid>div>div {
     font-size: 0.75rem;
     line-height: 1rem;
     flex-direction: row;
@@ -121,7 +162,7 @@
     color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.Buttons{
+.Buttons {
     display: flex;
     flex-direction: row;
     gap: 0.5rem;
@@ -131,6 +172,7 @@
 
 /* Media */
 @media (min-width: 640px) {
+
     .TotalName,
     .TotalBits {
         font-size: 1rem;
@@ -142,33 +184,40 @@
     .AchievementModal {
         margin-top: 130px;
     }
+
     .ModalContent {
         max-height: calc(100dvh - 130px);
         padding: 1rem;
     }
+
     .ImageContainer {
         bottom: calc(100% - 19px);
         height: 152px;
     }
+
     .ImageContainer::before {
         top: 90px;
         height: 140px;
         width: 140px;
     }
+
     .MainContent {
         gap: 1rem;
     }
+
     .BreakdownGrid {
         gap: 1rem;
         grid-template-rows: 1fr;
         grid-template-columns: 0.5fr 1fr;
     }
+
     .TotalName,
     .TotalBits {
         font-size: 1rem;
         line-height: 1.5rem;
     }
-    .BreakdownGrid > div > div {
+
+    .BreakdownGrid>div>div {
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
@@ -177,7 +226,6 @@
     .LoginButtonContainer {
         top: 50%;
         --tw-translate-y: -50%;
-        transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-            scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+        transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     }
 }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
+import useSlidesResponsive from '../../../hooks/useSlidesResponsive';
 
 import classes from './Lobby.module.css';
 import { casinoActions } from '../casinoSlice';
@@ -13,6 +14,7 @@ import BigSwiper2 from '../../../features/UI/MainSwiper/BigSwiper2';
 import ProvidersIcon from '../../../assets/casinoIcons/providers.svg?react';
 import { translate } from '../../../utils/translations';
 
+
 const Lobby = () => {
     const dispatch = useDispatch();
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
@@ -24,6 +26,8 @@ const Lobby = () => {
     const user = useSelector((state) => state.login.user);
 
     const [allProviders, setAllProviders] = useState([]);
+
+    const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("casino");
 
     useEffect(() => {
         const controller = new AbortController();
@@ -48,28 +52,28 @@ const Lobby = () => {
         setAllProviders(po);
     }, [casinoVendors]);
 
-    const isMobile = useMediaQuery({ query: '(max-width: 375px)' });
-    const isBigMobile = useMediaQuery({ query: '(max-width: 490px)' });
-    const isSmallTablet = useMediaQuery({ query: '(max-width: 650px)' });
-    const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
-    const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
-    const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
+    // const isMobile = useMediaQuery({ query: '(max-width: 375px)' });
+    // const isBigMobile = useMediaQuery({ query: '(max-width: 490px)' });
+    // const isSmallTablet = useMediaQuery({ query: '(max-width: 650px)' });
+    // const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
+    // const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
+    // const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
 
-    let slidesPerView = 7;
+    // let slidesPerView = 7;
 
-    if (isMobile) {
-        slidesPerView = 1;
-    } else if (isBigMobile) {
-        slidesPerView = 1.5;
-    } else if (isSmallTablet) {
-        slidesPerView = 3;
-    } else if (isTablet) {
-        slidesPerView = 4;
-    } else if (isDesktop) {
-        slidesPerView = 5;
-    } else if (isBigDesktop) {
-        slidesPerView = 7;
-    }
+    // if (isMobile) {
+    //     slidesPerView = 1;
+    // } else if (isBigMobile) {
+    //     slidesPerView = 1.5;
+    // } else if (isSmallTablet) {
+    //     slidesPerView = 3;
+    // } else if (isTablet) {
+    //     slidesPerView = 4;
+    // } else if (isDesktop) {
+    //     slidesPerView = 5;
+    // } else if (isBigDesktop) {
+    //     slidesPerView = 7;
+    // }
 
 
 
@@ -96,7 +100,7 @@ const Lobby = () => {
 
     return (
         <>
-            <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} slidesPerView={slidesPerView + 2} />
+            <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} slidesPerView={slidesPerView <= 5 ? (slidesPerView + 2) : (slidesPerView + 3)} />
 
             <BigSwiper2 items={casinoBanners} autoplay />
 
@@ -110,7 +114,8 @@ const Lobby = () => {
                             link={getPathByItemName(menuItem?.Item?.Name)}
                             items={menuItem?.Data}
                             max={20}
-                            slidesPerView={isMobile||isBigMobile ? (slidesPerView + 2):(slidesPerView)}
+                            slidesPerView={slidesPerView}
+                        // slidesPerView={isMobile||isBigMobile ? (slidesPerView + 2):(slidesPerView)}
                         />
                     );
                 }

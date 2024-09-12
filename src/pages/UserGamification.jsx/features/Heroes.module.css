@@ -41,6 +41,23 @@
     }
 }
 
+@media (max-width: 980px) {
+    .heroImg{
+        max-width: 60%;
+    }
+}
+
+@media (max-width: 555px) {
+    .heroImg{
+        max-width: 85%;
+    }
+}
+@media (max-width: 420px) {
+    .heroImg{
+        max-width: 100%;
+    }
+}
+
 .TabContent {
     --tw-translate-y: 3rem;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));

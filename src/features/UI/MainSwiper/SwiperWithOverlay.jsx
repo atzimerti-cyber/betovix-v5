@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { SwiperSlide } from 'swiper/react';
@@ -20,8 +20,11 @@ const SwiperWithOverlay = (props) => {
     const [loadedImages, setLoadedImages] = useState([]);
     const user = useSelector((state) => state.login.user);
     const bonusBalance = useSelector((state) => state.layout.bonusBalance);
-    const casinoFavs = useSelector((state) => state.casinoFavorites.casinoFavs)
+    // const casinoFavs = useSelector((state) => state.casinoFavorites.casinoFavs);
 
+    // useEffect(() => {
+    //     // Perform any necessary updates or rerender the component when casinoFavs updates
+    // }, [casinoFavs]);
 
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("casino");
 
@@ -34,7 +37,7 @@ const SwiperWithOverlay = (props) => {
             dispatch(removeFavoriteCasino(item.Data.Id))
             dispatch(removeCasinoFav(item.Data.Id))
         } else {
-            dispatch(addFavoriteCasino(item.Data.Id))
+            //dispatch(addFavoriteCasino(item.Data.Id))
             dispatch(addCasinoFav(item.Data.Id))
         }
     };
@@ -48,6 +51,7 @@ const SwiperWithOverlay = (props) => {
             viewText={props.text}
             onTask={props.task}
             icon={props.icon}
+            spaceBetween={7}
         >
             {props.items ? (
                 props.items.length === 0 ? (
@@ -58,8 +62,8 @@ const SwiperWithOverlay = (props) => {
                         const gameType = item.Data.Tags.toLowerCase().includes('live') ? 'live' : 'slots';
 
                         return (
-                            <SwiperSlide key={item.Data.Id} style={{maxWidth:'180px'}}>
-                                <div className={classes.SlideContainer}>
+                            <SwiperSlide key={item.Data.Id} style={{ maxWidth: '175px' }}>
+                                <div className={classes.SlideContainer} style={bonusBalance > 0 ? { minHeight: '213px' } : { minHeight: '178px' }}>
                                     <>
                                         <Link to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`} >
                                             {/* <Link to={`/casino/game/${gameType}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}`}> */}
@@ -104,7 +108,7 @@ const SwiperWithOverlay = (props) => {
                                             </Link>
                                         )}
                                     </>
-                                    {/* ============================== */}
+
                                     <div className={classes.BackgroundContainer}>
                                         <div>
                                             <p className={classes.BgGameName}>{item.Data.Name}</p>
@@ -123,7 +127,7 @@ const SwiperWithOverlay = (props) => {
                                             }}
                                         />
                                     </div>
-                                    {/* ============================== */}
+
                                 </div>
                             </SwiperSlide>
                         );

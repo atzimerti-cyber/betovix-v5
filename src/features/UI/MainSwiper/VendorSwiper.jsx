@@ -90,56 +90,59 @@ const VendorSwiper = (props) => {
     }
 
     return (
-        <MainSwiper
-            slidesPerView={props.slidesPerView ? props.slidesPerView : slidesPerView}
-            slidesPerGroup={slidesPerGroup}
-            viewText={props.text}
-            onTask={props.task}
-            hideArrows
-            noHeader
-        >
-            {props.items ? (
-                props.items.length === 0 ? (
-                    <p className={classes.NoResults}></p>
-                ) : (
-                    props.items.map((item, index) => {
-                        if (props.max && index > props.max + 1) return null;
+        <div className={classes.VendorsSwiper}>
+            <MainSwiper
+                slidesPerView={props.slidesPerView ? props.slidesPerView : slidesPerView}
+                slidesPerGroup={slidesPerGroup}
+                viewText={props.text}
+                onTask={props.task}
+                hideArrows
+                noHeader
+                spaceBetween={5}
+            >
+                {props.items ? (
+                    props.items.length === 0 ? (
+                        <p className={classes.NoResults}></p>
+                    ) : (
+                        props.items.map((item, index) => {
+                            if (props.max && index > props.max + 1) return null;
 
-                        return (
-                            <SwiperSlide key={item.Data.Id}>
-                                <Link to={`/search?provider=${item.Data.Name}`}>
-                                    <div
-                                        className={classes.SlideContainer}
-                                    >
-                                        <article className={classes.Card}>
-                                            <div className={classes.ImageContainer} ref={el => imageRefs.current[index] = el}>
-                                                {loadedImages.includes(index) === false && <LoaderPlaceholder />}
-                                                <img src={item.Data.Logo} crossOrigin="anonymous" loading='lazy' onLoad={() => updateLoadedImages(index)} />
-                                            </div>
-                                            {props.isNew && <div className={classes.NewLabel}>NEW</div>}
-                                        </article>
-                                    </div>
+                            return (
+                                <SwiperSlide key={item.Data.Id}>
+                                    <Link to={`/search?provider=${item.Data.Name}`}>
+                                        <div
+                                            className={classes.SlideContainer}
+                                        >
+                                            <article className={classes.Card}>
+                                                <div className={classes.ImageContainer} ref={el => imageRefs.current[index] = el}>
+                                                    {loadedImages.includes(index) === false && <LoaderPlaceholder />}
+                                                    <img src={item.Data.Logo} crossOrigin="anonymous" loading='lazy' onLoad={() => updateLoadedImages(index)} />
+                                                </div>
+                                                {props.isNew && <div className={classes.NewLabel}>NEW</div>}
+                                            </article>
+                                        </div>
+                                    </Link>
+                                </SwiperSlide>
+                            );
+                        })
+                    )
+                ) : (
+                    Array.from({ length: slidesPerView }, (_, index) => (
+                        <SwiperSlide key={index}>
+                            <div className={[classes.SlideContainer, classes.Loading].join(' ')}>
+                                <Link to={null}>
+                                    <article className={classes.Card}>
+                                        <div className={classes.ImageContainer}>
+                                            <LoaderPlaceholder />
+                                        </div>
+                                    </article>
                                 </Link>
-                            </SwiperSlide>
-                        );
-                    })
-                )
-            ) : (
-                Array.from({ length: slidesPerView }, (_, index) => (
-                    <SwiperSlide key={index}>
-                        <div className={[classes.SlideContainer, classes.Loading].join(' ')}>
-                            <Link to={null}>
-                                <article className={classes.Card}>
-                                    <div className={classes.ImageContainer}>
-                                        <LoaderPlaceholder />
-                                    </div>
-                                </article>
-                            </Link>
-                        </div>
-                    </SwiperSlide>
-                ))
-            )}
-        </MainSwiper>
+                            </div>
+                        </SwiperSlide>
+                    ))
+                )}
+            </MainSwiper>
+        </div>
     );
 };
 

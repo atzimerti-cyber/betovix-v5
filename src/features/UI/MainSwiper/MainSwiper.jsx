@@ -114,7 +114,6 @@ const MainSwiper = (props) => {
                 className={classes.MainSwiper}
             >
                 {props.children}
-
             </Swiper>
         </div>
     );

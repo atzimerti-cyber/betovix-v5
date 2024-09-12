@@ -13,21 +13,15 @@ import config from '../../../config';
 import classes from './BigSwiper2.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
 import { getLang } from '../../../utils/storage';
+import useSlidesResponsive from '../../../hooks/useSlidesResponsive';
 
 const BigSwiper2 = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [loadedImages, setLoadedImages] = useState([]);
 
-    const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
-
-    let slidesPerView = 2.5;
-    let slidesPerGroup = 2;
-
-    if (isMobile) {
-        slidesPerView = 1;
-        slidesPerGroup = 1;
-    }
+    const slidesPerView = useSlidesResponsive('casinoBanners').slidesPerView;
+    const slidesPerGroup = useSlidesResponsive('casinoBanners').slidesPerGroup;
 
     const updateLoadedImages = (index) => {
         setLoadedImages((prevData) => [...prevData, index]);
@@ -69,7 +63,7 @@ const BigSwiper2 = (props) => {
             <Swiper
                 slidesPerView={slidesPerView}
                 slidesPerGroup={slidesPerGroup}
-                spaceBetween={16}
+                spaceBetween={5}
                 autoplay={
                     props.autoplay
                         ? {
@@ -83,7 +77,6 @@ const BigSwiper2 = (props) => {
                 }}
                 modules={modules}
                 className={classes.BigSwiper2}
-                // loop={true}
             >
                 {props.items
                     ? props.items.map((item, index) => {
