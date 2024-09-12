@@ -26,7 +26,7 @@ const InitApp = () => {
 
     useEffect(() => {
         const img = new Image();
-        img.src = '/src/assets/images/loading.webp';  // URL of your WebP animation
+        img.src = 'loading.webp';  // URL of your WebP animation
         img.onload = () => {
             setIsLoaded(true);  // Set the state to indicate the image is fully loaded
         };
