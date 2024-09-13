@@ -21,7 +21,3 @@
         width: 1.4rem;
     }
 }
-
-.SocialSm a svg path {
-    fill: var(--db-white-primary);
-}
