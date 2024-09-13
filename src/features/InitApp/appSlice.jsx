@@ -32,6 +32,25 @@ import LeagueOfLegendsIcon from '../../assets/sportIcons/league-of-legends.svg?r
 import RainbowSixIcon from '../../assets/sportIcons/rainbow-six.svg?react';
 import Warcraft3Icon from '../../assets/sportIcons/warcraft-3.svg?react';
 
+import CallOfDutyIcon from '../../assets/sportIcons/cod.svg?react';
+import CyclingIcon from '../../assets/sportIcons/cycling.svg?react';
+import GolfIcon from '../../assets/sportIcons/golf.svg?react';
+import MotorbikesIcon from '../../assets/sportIcons/motor.svg?react';
+import NASCARIcon from '../../assets/sportIcons/nascar.svg?react';
+import PesapalloIcon from '../../assets/sportIcons/pesapallo.svg?react';
+import PoliticsIcon from '../../assets/sportIcons/politics.svg?react';
+import RallyIcon from '../../assets/sportIcons/rally.svg?react';
+import RocketLeagueIcon from '../../assets/sportIcons/rocket-league.svg?react';
+import SailingIcon from '../../assets/sportIcons/sailing.svg?react';
+import SumoIcon from '../../assets/sportIcons/sumo.svg?react';
+import GaelicFootballIcon from '../../assets/sportIcons/gaelic-football.svg?react';
+import FloorballIcon from '../../assets/sportIcons/floorball.svg?react';
+import FutsalIcon from '../../assets/sportIcons/futsal.svg?react';
+import CrossFireIcon from '../../assets/sportIcons/crossfire.svg?react';
+import eSoccerIcon from '../../assets/sportIcons/esoccer.svg?react';
+import RugbyLeagueIcon from '../../assets/sportIcons/rugby.svg?react';
+import BeachVolleyIcon from '../../assets/sportIcons/beach-volley.svg?react';
+
 import Amatic from '../../assets/casinoIcons/amatic.svg?react'
 import Aristocrat from '../../assets/casinoIcons/aristocrat-logo.svg?react';
 import Egt from '../../assets/casinoIcons/egt-logo.svg?react';
@@ -108,6 +127,7 @@ const initialState = {
         Badminton: <CricketIcon />,
         Soccer: <SoccerIcon />,
         Basketball: <BasketballIcon />,
+        '3x3 Basketball': <BasketballIcon />,
         Tennis: <TennisIcon />,
         MMA: <MMAIcon />,
         Football: <SoccerIcon />,
@@ -117,29 +137,50 @@ const initialState = {
         'American Football': <AmericanFootballIcon />,
         'Table Tennis': <TableTennisIcon />,
         Volleyball: <VolleyballIcon />,
+        'Beach Volleyball': <BeachVolleyIcon />,
         Boxing: <BoxingIcon />,
         Snooker: <SnookerIcon />,
         Waterpolo: <WaterpoloIcon />,
         'Starcraft 1': <Starcraft1Icon />,
         'Starcraft 2': <Starcraft2Icon />,
         'Gaelic Football': <VolleyballIcon />,
-        Futsal: <SoccerIcon />,
+        Futsal: <FutsalIcon />,
+        CrossFire: <CrossFireIcon />,
         'Counter-Strike 2': <CounterStrike2Icon />,
-        'Counter-Strike: GO (CS:GO)': <CounterStrike2Icon />,
+        'Call of Duty (COD)': <CallOfDutyIcon />,
+        Cycling: <CyclingIcon />,
+        'Field hockey': <IceHockeyIcon />,
+        Floorball: <FloorballIcon />,
+        'Gaelic football': <GaelicFootballIcon />,
+        Golf: <GolfIcon />,
+        'King of Glory (KoG)': <KingOfGloryIcon />,
+        'League of Legends (LoL)': <LeagueOfLegendsIcon />,
+        Motorbikes: <MotorbikesIcon />,
+        NASCAR: <NASCARIcon />,
+        'Overwatch (Owatch)': <OverwatchIcon />,
+        Pesapallo: <PesapalloIcon />,
+        Politics: <PoliticsIcon />,
+        'Rainbow Six (R6)': <RainbowSixIcon />,
+        Rally: <RallyIcon />,
         Valorant: <ValorantIcon />,
         'Dota 2': <Dota2Icon />,
-        eSoccer: <FootballIcon />,
+        eSoccer: <eSoccerIcon />,
         'King of Glory': <KingOfGloryIcon />,
         'Aussie Rules': <AmericanFootballIcon />,
         Darts: <DartsIcon />,
         'Gaelic Hurling': <GaelicHurlingIcon />,
         Overwatch: <OverwatchIcon />,
         'Rugby Union': <RugbyUnionIcon />,
-        'Rugby League': <RugbyUnionIcon />,
+        'Rugby League': <RugbyLeagueIcon />,
         'Mobile Legends': <MobileLegendsIcon />,
         'League of Legends': <LeagueOfLegendsIcon />,
         'Rainbow Six': <RainbowSixIcon />,
         'Warcraft 3': <Warcraft3Icon />,
+        'Rocket League (Rocket L)': <RocketLeagueIcon />,
+        Sailing: <SailingIcon />,
+        Speedway: <RallyIcon />,
+        Sumo: <SumoIcon />,
+        'Water Polo': <WaterpoloIcon />,
     },
     casinoIcons: {
         Slots : <CricketIcon />,
