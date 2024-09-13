@@ -170,6 +170,8 @@ const initialState = {
         New : <New/>
     },
     sportSettings: null,
+    siteSettings: null,
+    socialMedia: null,
 };
 
 export const appSlice = createSlice({
@@ -226,6 +228,12 @@ export const appSlice = createSlice({
         },
         setSportSettings: (state, action) => {
             state.sportSettings = action.payload;
+        },
+        setSiteSettings: (state, action) => {
+            state.siteSettings = action.payload;
+        },
+        setSocialMedia: (state, action) => {
+            state.socialMedia = action.payload;
         },
     },
 });
