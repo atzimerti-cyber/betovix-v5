@@ -14,8 +14,10 @@ const initialState = {
     sorting: 'Default Sort',
     filteredGames: {},
     promotionCasino: null,
-
     casinoGame: null,
+
+    casinoTags: null,
+    casinoByTags:{}
 };
 
 export const casinoSlice = createSlice({
@@ -127,9 +129,16 @@ export const casinoSlice = createSlice({
             }
             state.filteredGames = updated;
         },
-
         setPromotionCasino: (state, action) => {
             state.promotionCasino = action.payload;
+        },
+
+        setCasinoTags: (state, action) => {
+            state.casinoTags = action.payload;
+        },
+        setCasinoByTags: (state, action) => {
+            let tag = action.payload.Tag;
+            state.casinoByTags[tag] = action.payload.Contents;
         },
     },
 });

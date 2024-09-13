@@ -506,3 +506,44 @@ export const getFavoriteGamesLiveToFiltered = (signal) => {
         }
     };
 };
+
+
+//=============================================================
+export const getCasinoTags = (signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.get(`MyCasino/GetHomeTags?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
+                signal: signal,
+                baseURLOverride: config.VITE_CASINO_BASE,
+            });
+
+            if (response.data.Status.StatusCode !== 200) throw Error();
+
+            dispatch(casinoActions.setCasinoTags(response.data.Contents));
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+export const getCasinoByTags = (signal,tag) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.get(`MyCasino/GetHomeGames?tags=${tag}&siteid=${config.VITE_SITE_ID}`, {
+                signal: signal,
+                baseURLOverride: config.VITE_CASINO_BASE,
+            });
+
+            if (response.data.Status.StatusCode !== 200) throw Error();
+
+            dispatch(casinoActions.setCasinoByTags({Contents:response.data.Contents, Tag:tag}));
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};

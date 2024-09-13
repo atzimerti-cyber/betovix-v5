@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 import useSlidesResponsive from '../../../hooks/useSlidesResponsive';
 
 import classes from './Lobby.module.css';
 import { casinoActions } from '../casinoSlice';
-import { getCasino } from '../casinoAsyncActions';
+import { getCasino, getCasinoTags } from '../casinoAsyncActions';
 import SwiperWithOverlay from '../../../features/UI/MainSwiper/SwiperWithOverlay';
 
 import VendorSwiper from '../../../features/UI/MainSwiper/VendorSwiper';
@@ -14,6 +14,7 @@ import BigSwiper2 from '../../../features/UI/MainSwiper/BigSwiper2';
 import ProvidersIcon from '../../../assets/casinoIcons/providers.svg?react';
 import { translate } from '../../../utils/translations';
 
+import useIntersectionObserver from '../../../hooks/IntersectionObserver';
 
 const Lobby = () => {
     const dispatch = useDispatch();
@@ -24,15 +25,19 @@ const Lobby = () => {
     const casinoVendors = useSelector((state) => state.casino.casinoVendors);
     const casinoIcons = useSelector((state) => state.app.casinoIcons);
     const user = useSelector((state) => state.login.user);
-
+    const tags = useSelector((state) => state.casino.casinoTags);
+    const [filteredTags, setFilteredTags] = useState([]);
     const [allProviders, setAllProviders] = useState([]);
+    const loadMoreRef = useRef(null);
 
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("casino");
+    let specials = ['recent', 'favs', 'new']
 
     useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
         dispatch(getCasino(signal));
+        dispatch(getCasinoTags(signal));
 
         return () => {
             controller.abort();
@@ -52,59 +57,92 @@ const Lobby = () => {
         setAllProviders(po);
     }, [casinoVendors]);
 
-    // const isMobile = useMediaQuery({ query: '(max-width: 375px)' });
-    // const isBigMobile = useMediaQuery({ query: '(max-width: 490px)' });
-    // const isSmallTablet = useMediaQuery({ query: '(max-width: 650px)' });
-    // const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
-    // const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
-    // const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
+    // const getPathByItemName = (itemName) => {
+    //     switch (itemName) {
+    //         case 'Recommended':
+    //             return null;
+    //         case 'Recently Played':
+    //             return null;
+    //         case 'Favorites':
+    //             return '/casino/favorites';
+    //         case 'New Games':
+    //             return null;
+    //         case 'Amatic':
+    //             return `/search?provider=${itemName}`;
+    //         case 'Novomatic':
+    //             return `/search?provider=${itemName}`;
+    //         case 'Egypt':
+    //             return `/search?provider=egt`;
+    //         default:
+    //             return '/';
+    //     }
+    // };
 
-    // let slidesPerView = 7;
+    useEffect(() => {
+        // Callback function to execute when observed element is in view
+        const handleIntersection = (entries) => {
+            if (entries[0].isIntersecting) {
+                loadMoreItems(); // Load more items when the observed element comes into view
+            }
+        };
 
-    // if (isMobile) {
-    //     slidesPerView = 1;
-    // } else if (isBigMobile) {
-    //     slidesPerView = 1.5;
-    // } else if (isSmallTablet) {
-    //     slidesPerView = 3;
-    // } else if (isTablet) {
-    //     slidesPerView = 4;
-    // } else if (isDesktop) {
-    //     slidesPerView = 5;
-    // } else if (isBigDesktop) {
-    //     slidesPerView = 7;
-    // }
+        // Create an IntersectionObserver instance
+        const observer = new IntersectionObserver(handleIntersection, {
+            root: null, // Use the viewport as the container
+            rootMargin: '0px',
+            threshold: 0.7, // Trigger when 100% of the target is in view
+        });
 
+        // Start observing the target element
+        if (loadMoreRef.current) {
+            observer.observe(loadMoreRef.current);
+        }
 
+        // Cleanup observer on component unmount
+        return () => {
+            if (loadMoreRef.current) {
+                observer.unobserve(loadMoreRef.current);
+            }
+        };
+    }, [tags]);
 
-    const getPathByItemName = (itemName) => {
-        switch (itemName) {
-            case 'Recommended':
-                return null;
-            case 'Recently Played':
-                return null;
-            case 'Favorites':
-                return '/casino/favorites';
-            case 'New Games':
-                return null;
-            case 'Amatic':
-                return `/search?provider=${itemName}`;
-            case 'Novomatic':
-                return `/search?provider=${itemName}`;
-            case 'Egypt':
-                return `/search?provider=egt`;
-            default:
-                return '/';
+    // Function to load more items
+    const loadMoreItems = () => {
+        if (tags) {
+
+            setFilteredTags((filteredTags) => {
+                let nextTags = tags.slice(filteredTags.length, filteredTags.length + 3);
+                let newTags = [...filteredTags, ...nextTags];
+                return newTags;
+            })
         }
     };
 
+
     return (
         <>
+
+
             <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} slidesPerView={slidesPerView <= 5 ? (slidesPerView + 2) : (slidesPerView + 3)} />
 
             <BigSwiper2 items={casinoBanners} autoplay />
 
-            {Object.entries(filteredGames).map(([key, menuItem]) => {
+
+            {filteredTags.map((tag, index) => {
+                
+                return  (!specials.includes(tag) &&   <SwiperWithOverlay
+                    key={tag}
+                    title={`${translate(tag)}`}
+                    icon={''}
+                    tag={tag}
+
+                    max={20}
+                    slidesPerView={slidesPerView}
+                />)
+            })}
+
+
+            {/* {Object.entries(filteredGames).map(([key, menuItem]) => {
                 if (menuItem?.Data.length > 0) {
                     return (
                         <SwiperWithOverlay
@@ -115,12 +153,15 @@ const Lobby = () => {
                             items={menuItem?.Data}
                             max={20}
                             slidesPerView={slidesPerView}
-                        // slidesPerView={isMobile||isBigMobile ? (slidesPerView + 2):(slidesPerView)}
                         />
                     );
                 }
                 return null;
-            })}
+            })} */}
+
+            <div ref={loadMoreRef} style={{ height: '200px', backgroundColor: 'lightgray', margin: '20px 0',visibility:'hidden' }}>
+                Loading more items...
+            </div>
         </>
     );
 };

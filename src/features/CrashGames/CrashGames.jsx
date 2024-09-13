@@ -10,14 +10,10 @@ import { translate } from '../../utils/translations';
 
 const CrashGames = ({ onDataNotFound }) => {
     const crashGames = useSelector((state) => state.crashGames.casinoCrashGames);
-    const casinoFavs = useSelector((state) => state.casinoFavorites.casinoFavs);
+    //const casinoFavs = useSelector((state) => state.casinoFavorites.casinoFavs);
 
     const slidesPerView = useSlidesResponsive().slidesPerView;
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        // Perform any necessary updates or rerender the component when casinoFavs updates
-    }, [casinoFavs]);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -30,12 +26,14 @@ const CrashGames = ({ onDataNotFound }) => {
         };
     }, []);
 
+   
+
     //Remove Component if no favs found
     useEffect(() => {
         if (crashGames !== null && (crashGames.length === 0)) {
             onDataNotFound();
         }
-    }, [crashGames, onDataNotFound, casinoFavs]);
+    }, [crashGames, onDataNotFound]);
 
     return (
         <SwiperWithOverlay

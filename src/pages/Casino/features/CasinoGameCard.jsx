@@ -46,7 +46,7 @@ const CasinoGameCard = (props) => {
                         <img src={props.game.Data.ImageUrl} loading='lazy' onLoad={() => setIsLoaded(true)} />
                     </div>
                     {props.game.isNew && <div className={classes.NewLabel}>{translate('NEW')}</div>}
-                    <div className={classes.InfoOverlay}>
+                    {/* <div className={classes.InfoOverlay}>
                         <div className={classes.InfoContent}>
                             <div>
                                 <p className={classes.InfoCategory}>{props.game.Data.BrandName}</p>
@@ -61,19 +61,38 @@ const CasinoGameCard = (props) => {
                                 }}
                             />
                         </div>
-                    </div>
+                    </div> */}
                 </article>
             </Link>
             {bonusBalance > 0 && (
                 <Link to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}?isBonus=true`}>
                     <div className={classes.isBonus}>
                         <button className={classes.bonusContainer}>
-                        <GiftIcon />
-                        {translate('Play With Bonus')}
+                            <GiftIcon />
+                            {translate('Play With Bonus')}
                         </button>
                     </div>
                 </Link>
             )}
+            <div className={classes.BackgroundContainer}>
+                <div>
+                    <p className={classes.BgGameName}>{props.game.Data.Name}</p>
+                    <p className={classes.BgVendor}>{props.game.Data.BrandName}</p>
+                </div>
+                <HeartIcon
+                    className={isFavorite ? classes.FavoriteIcon : null}
+                    // className={props.game.isFav ? classes.FavoriteIcon : null}
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        e.preventDefault();
+                        if (user) {
+                            onToggleFavorite(props.game);
+                        } else {
+                            toast.warning('Login to access this feature');
+                        }
+                    }}
+                />
+            </div>
         </div>
     );
 };

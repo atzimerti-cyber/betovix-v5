@@ -32,7 +32,7 @@ export const cryptoSlice = createSlice({
                 state.selectedNetwork = null;
                 state.depositAddress = '';
             }
-            state.crypto = null;
+            //state.crypto = null;
         },
         resetCurrency: (state) => {
             state.selectedCurrency = null;
@@ -42,9 +42,6 @@ export const cryptoSlice = createSlice({
         setCrypto: (state, action) => {
             state.crypto = action.payload;
         },
-        // setCryptoPrices: (state, action) => {
-        //     state.cryptoPrices = action.payload;
-        // },
         setSelectedCurrency: (state, action) => {
             state.selectedCurrency = action.payload;
         },

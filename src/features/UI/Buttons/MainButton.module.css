@@ -105,7 +105,7 @@
 .Transparent.MainButton:hover {
     --tw-border-opacity: 0;
     background-color: hsl(var(--bc) / var(--tw-bg-opacity));
-    --tw-bg-opacity: 0.2;
+    --tw-bg-opacity: 0.1;
 }
 
 .Dark.MainButton {

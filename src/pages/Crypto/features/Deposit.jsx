@@ -48,7 +48,7 @@ const Deposit = () => {
     const uniqueCrypto = [];
     const names = new Set();
 
-    crypto.forEach((item) => {
+    crypto.map((item) => {
         if (!names.has(item.Name)) {
             names.add(item.Name);
             if (item.AllowDeposit) {

@@ -5,14 +5,14 @@ import preloaderVideo from '../../../assets/mp4/betovix_logo_animation.mp4';
 
 const Preloader = () => {
     const [loading, setLoading] = useState(true);
-
+    const basePath = window.location.origin;
     const handleVideoEnd = () => {
         setLoading(false);
     };
     return (
         <div className={classes.Preloader}>
               {/* <img src={preloaderImage} alt='Loading' />   */}
-              <img src='loading.gif' alt='Loading' />  
+              <img src={`${basePath}/loading.gif`} alt='Loading' />  
             {/* <video
                     autoPlay
                     muted

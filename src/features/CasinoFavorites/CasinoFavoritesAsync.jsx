@@ -82,7 +82,7 @@ export const removeCasinoFav = (gameId) => {
                 }
             );
             if (response.data.Status.StatusCode !== 200) throw Error();
-
+                    
             dispatch(casinoFavoritesActions.removeCasinoFavorite(gameId));
         } catch (error) {
             toast.error(error?.message);

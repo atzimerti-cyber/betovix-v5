@@ -10,35 +10,79 @@ import HeartIcon from '../../../assets/svgs/heart.svg?react';
 import GiftIcon from '../../../assets/svgs/gift.svg?react';
 import classes from './SwiperWithOverlay.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
-import { addFavoriteCasino, removeFavoriteCasino } from '../../../pages/Casino/casinoAsyncActions';
+import { addFavoriteCasino, getCasinoByTags, removeFavoriteCasino } from '../../../pages/Casino/casinoAsyncActions';
 import { addCasinoFav, removeCasinoFav } from '../../../features/CasinoFavorites/CasinoFavoritesAsync';
 import { translate } from '../../../utils/translations';
 import useSlidesResponsive from '../../../hooks/useSlidesResponsive';
+import _ from 'lodash';
 
 const SwiperWithOverlay = (props) => {
     const dispatch = useDispatch();
     const [loadedImages, setLoadedImages] = useState([]);
     const user = useSelector((state) => state.login.user);
     const bonusBalance = useSelector((state) => state.layout.bonusBalance);
-    // const casinoFavs = useSelector((state) => state.casinoFavorites.casinoFavs);
+    const casinoByTags = useSelector((state) => state.casino.casinoByTags);
 
-    // useEffect(() => {
-    //     // Perform any necessary updates or rerender the component when casinoFavs updates
-    // }, [casinoFavs]);
-
+    const [items, setItems] = useState(props.items); // Add state for items
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("casino");
-
+ 
     const updateLoadedImages = (index) => {
         setLoadedImages((prevData) => [...prevData, index]);
     };
 
+
+    useEffect(() => {
+        if(!props.items) return
+        setItems(props.items); // Update local state when props.items changes
+    }, [props.items]);
+
+
+    useEffect(() => {
+        if(!props.tag) return;
+        const controller = new AbortController();
+        const signal = controller.signal;
+ 
+            dispatch(getCasinoByTags(signal, props.tag))
+        
+
+        return () => {
+            controller.abort();
+        };
+    }, [props.tag]);
+
+
+    useEffect(() => {
+        if(!props.tag) return;
+        if (casinoByTags[props.tag]) {
+            setItems(casinoByTags[props.tag]); // Update local state when props.items changes
+        }
+
+    }, [casinoByTags]);
+
     const onToggleFavorite = (item) => {
+
         if (item.isFav) {
-            dispatch(removeFavoriteCasino(item.Data.Id))
-            dispatch(removeCasinoFav(item.Data.Id))
+            dispatch(removeCasinoFav(item.Data.Id)).then(() => {
+                let newItems = _.cloneDeep(items);
+                for (let i = 0; i < newItems.length; i++) {
+                    if (newItems[i].Data.Id === item.Data.Id) {
+                        newItems[i].isFav = false;
+                        break;
+                    }
+                }
+                setItems(newItems);
+            })
         } else {
-            //dispatch(addFavoriteCasino(item.Data.Id))
-            dispatch(addCasinoFav(item.Data.Id))
+            dispatch(addCasinoFav(item.Data.Id)).then(() => {
+                let newItems = _.cloneDeep(items);
+                for (let i = 0; i < newItems.length; i++) {
+                    if (newItems[i].Data.Id === item.Data.Id) {
+                        newItems[i].isFav = true;
+                        break;
+                    }
+                }
+                setItems(newItems);
+            })
         }
     };
 
@@ -53,11 +97,11 @@ const SwiperWithOverlay = (props) => {
             icon={props.icon}
             spaceBetween={7}
         >
-            {props.items ? (
-                props.items.length === 0 ? (
+            {items ? (
+                items.length === 0 ? (
                     <p className={classes.NoResults}>No {props.title}</p>
                 ) : (
-                    props.items.map((item, index) => {
+                    items.map((item, index) => {
                         if (props.max && index > props.max + 1) return null;
                         const gameType = item.Data.Tags.toLowerCase().includes('live') ? 'live' : 'slots';
 

@@ -79,13 +79,19 @@
     position: relative;
 }
 
-@media (min-width: 640px) {
+@media (max-width: 400px) {
+    .GameGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 400px) {
     .GameGrid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 
-@media (min-width: 768px) {
+@media (min-width: 550px) {
     .GameGrid {
         gap: 1rem;
         grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -95,8 +101,18 @@
     }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: 815px) {
     .GameGrid {
+        gap: 1rem;
         grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+    .Header {
+        margin-bottom: 1rem;
+    }
+}
+
+@media (min-width: 1090px) {
+    .GameGrid {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
     }
 }

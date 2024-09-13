@@ -83,11 +83,6 @@
     align-items: center;
 }
 
-.MinibarItem:hover {
-    color: white;
-    background-color: #185f7e;
-}
-
 .NavItem {
     display: flex;
     cursor: pointer;
@@ -103,7 +98,6 @@
 
 .ActiveItem {
     background-color: #185f7e;
-    /* background-color: #185f7ebd; */
 }
 
 .YourProgress {
