@@ -17,7 +17,7 @@ const SocialMedia = () => {
         TiktokUrl: <TiktokIcon />,
         TwitterUrl: <TwitterIcon />,
         YouTubeUrl: <YouTubeIcon />,
-        LinkedinUrl: <LinkedInIcon />,
+        LinkedInUrl: <LinkedInIcon />,
     };
 
     if (!social) return null;
