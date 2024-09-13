@@ -1,0 +1,23 @@
+
+.SocialSm {
+    margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+.SocialSm a svg {
+    margin: 0;
+    height: 1.6rem;
+    width: 1.6rem;
+}
+
+@media(max-width: 425px) {
+    .SocialSm {
+        gap: 1rem;
+    }
+
+    .SocialSm a svg {
+        height: 1.4rem;
+        width: 1.4rem;
+    }
+}

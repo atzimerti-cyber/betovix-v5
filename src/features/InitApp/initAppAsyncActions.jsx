@@ -493,3 +493,22 @@ export const getTranslations = (lang) => {
         }
     };
 };
+
+export const getSiteSettings = (signal) => {
+    return async (dispatch) => {
+        try {
+            const response = await axiosApi.get(`Site/GetSiteSettings?SiteId=${config.VITE_SITE_ID}`, {
+                signal: signal,
+                baseURLOverride: config.VITE_WALLET_API_BASE,
+            });
+
+            if (response.status !== 200) throw Error();
+
+            dispatch(appActions.setSiteSettings(response.data.Contents['Site']));
+            dispatch(appActions.setSocialMedia(response.data.Contents['Social Media']));
+
+        } catch (error) {
+            toast.error(error?.message);
+        }
+    };
+};
