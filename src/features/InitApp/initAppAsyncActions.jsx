@@ -192,7 +192,7 @@ export const loadInitData = (isMobile) => {
                                     id: item.Categ.Id,
                                     label: item.Categ.Name,
                                     icon: icon,
-                                    page: `casino/${item.Categ.BadgeType}`,
+                                    page: `casino/menu?tag=${item.Categ.BadgeType}`,
                                     // page: `casino/${slug}`,
                                 },
                             ],

@@ -14,6 +14,7 @@ import FilterBar from '../features/FilterBar';
 import useDebounce from '../../../hooks/useDebounce';
 import GridGames from '../features/GridGames';
 import { translate } from '../../../utils/translations';
+import useSlidesResponsive from '../../../hooks/useSlidesResponsive';
 
 const SlotGames = () => {
     const dispatch = useDispatch();
@@ -30,27 +31,7 @@ const SlotGames = () => {
     const [axiosController, setAxiosController] = useState(null);
 
 
-    const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
-    const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
-    const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
-    const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
-
-    let slidesPerView = 6;
-    let slidesPerGroup = 4;
-
-    if (isMobile) {
-        slidesPerView = 2;
-        slidesPerGroup = 2;
-    } else if (isTablet) {
-        slidesPerView = 3;
-        slidesPerGroup = 3;
-    } else if (isDesktop) {
-        slidesPerView = 3.5;
-        slidesPerGroup = 3;
-    } else if (isBigDesktop) {
-        slidesPerView = 4;
-        slidesPerGroup = 4;
-    }
+    const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("casino");
 
     useEffect(() => {
         const controller = new AbortController();
@@ -118,7 +99,14 @@ const SlotGames = () => {
 
             {!debSearchString && selectedProviders.length === 0 && sorting === 'Default Sort' && (
                 <>
-                    {user && <SwiperWithOverlay title={translate('Favorites')} icon={<HeartIcon />} items={filteredGames.favoriteGames?.Data} max={10} slidesPerView={slidesPerView} />}
+                    {user &&
+                        <SwiperWithOverlay
+                            title={translate('Favorites')}
+                            icon={<HeartIcon />}
+                            items={filteredGames.favoriteGames?.Data}
+                            max={10}
+                            slidesPerView={slidesPerView}
+                        />}
                     <SwiperWithOverlay
                         title={translate('New Games')}
                         icon={<NewIcon className={classes.NewIcon} />}

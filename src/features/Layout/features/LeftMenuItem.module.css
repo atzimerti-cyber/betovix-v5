@@ -1,17 +1,13 @@
 .LeftMenuItem {
     background-color: #0c2233;
-    /* margin-bottom: 0.13rem; */
-    /* margin-top: 0.13rem; */
-    /* border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px; */
 }
 
 .LeftMenuItem a {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+    font-size: 0.855rem;
+    line-height: 1.1rem;
     font-weight: 600;
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -121,20 +117,6 @@
     overflow: hidden;
 }
 
-/* .LeftMenuItem.NotCateg::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300%;
-    height: 300%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, rgba(255, 255, 255, 0) 80%);
-    transform: translate(-50%, -50%) scale(0.01);
-    opacity: 0;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    border-radius: 20px;
-} */
-
 .LeftMenuItem.NotCateg:hover {
     background-color: var(--db-white-hover);
 }
@@ -144,17 +126,3 @@
     border-bottom-right-radius: 20px;
     background: var(--db-gray-4);
 }
-
-/* @keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-} */

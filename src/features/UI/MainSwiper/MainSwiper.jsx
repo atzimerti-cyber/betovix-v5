@@ -53,6 +53,7 @@ const MainSwiper = (props) => {
                 <div className={classes.SwiperHeader}>
                     <div className={classes.Title}>
                         {props.icon && props.icon}
+                        {props.thIcon && <i className={`${props.thIcon}`}></i>}
                         {props.title && props.title}
                     </div>
                     <div className={classes.NavButtons}>

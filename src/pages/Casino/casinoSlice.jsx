@@ -37,11 +37,13 @@ export const casinoSlice = createSlice({
             state.filteredGames = {};
             state.promotionCasino = null;
             state.casinoGame = null;
+            state.casinoByTags = {};
         },
         resetLobby: (state) => {
             state.casinoHome = null;
             state.casinoBanners = null;
             state.casinoVendors = null;
+            state.casinoByTags = {};
         },
         resetSlots: (state) => {
             state.slotGames = null;
@@ -50,7 +52,7 @@ export const casinoSlice = createSlice({
             state.searchLoading = false;
             state.sorting = 'Default Sort';
             state.casinoVendors = null;
-
+            state.casinoByTags = {};
             state.filteredGames = {};
         },
         setCasinoHome: (state, action) => {

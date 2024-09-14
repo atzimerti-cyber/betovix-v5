@@ -20,6 +20,10 @@
     color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.Title i {
+    color:var(--db-gray-5);
+    margin-right: 5px;
+}
 .Title svg {
     margin-right: 0.5rem;
     height: 1.25rem;

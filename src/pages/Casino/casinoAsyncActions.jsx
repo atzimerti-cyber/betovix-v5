@@ -13,10 +13,10 @@ export const getCasino = (signal) => {
             const lang = getLang();
 
             const requests = [
-                axiosApi.get(`MyCasino/GetHome?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
-                    signal: signal,
-                    baseURLOverride: config.VITE_CASINO_BASE,
-                }),
+                // axiosApi.get(`MyCasino/GetHome?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
+                //     signal: signal,
+                //     baseURLOverride: config.VITE_CASINO_BASE,
+                // }),
                 axiosApi.get(`MyCasino/GetBanners?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
                     signal: signal,
                     baseURLOverride: config.VITE_CASINO_BASE,
@@ -26,28 +26,28 @@ export const getCasino = (signal) => {
                     baseURLOverride: config.VITE_CASINO_BASE,
                 }),
 
-                axiosApi.post(
-                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
-                    {
-                        // data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
-                        data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":""}`,
-                    },
-                    {
-                        signal: signal,
-                        baseURLOverride: config.VITE_CASINO_BASE,
-                    }
-                ),
-                axiosApi.post(
-                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
-                    {
-                        // data: `{"Page":1,"PageItems":24,"Tag":"live","Search":"","ProviderId":0,"BrandId":0,"VendorId":0}`,
-                        data: `{"Page":1,"PageItems":24,"Tag":"live","Search":""}`,
-                    },
-                    {
-                        signal: signal,
-                        baseURLOverride: config.VITE_CASINO_BASE,
-                    }
-                ),
+                // axiosApi.post(
+                //     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+                //     {
+                //         // data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                //         data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":""}`,
+                //     },
+                //     {
+                //         signal: signal,
+                //         baseURLOverride: config.VITE_CASINO_BASE,
+                //     }
+                // ),
+                // axiosApi.post(
+                //     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+                //     {
+                //         // data: `{"Page":1,"PageItems":24,"Tag":"live","Search":"","ProviderId":0,"BrandId":0,"VendorId":0}`,
+                //         data: `{"Page":1,"PageItems":24,"Tag":"live","Search":""}`,
+                //     },
+                //     {
+                //         signal: signal,
+                //         baseURLOverride: config.VITE_CASINO_BASE,
+                //     }
+                // ),
             ];
             const responses = await Promise.all(requests);
 
@@ -61,36 +61,19 @@ export const getCasino = (signal) => {
 
             //const casinoHomeItems = responses[0].data.Contents;
 
-            const casinoHomeItems = Object.keys(responses[0].data.Contents)
-                .map((menuItem) => ({
-                    Item: responses[0].data.Contents[menuItem].Item,
-                    Data: responses[0].data.Contents[menuItem].Data,
-                }))
-                .sort((a, b) => a.Item.Min.localeCompare(b.Item.Min));
+            // const casinoHomeItems = Object.keys(responses[0].data.Contents)
+            //     .map((menuItem) => ({
+            //         Item: responses[0].data.Contents[menuItem].Item,
+            //         Data: responses[0].data.Contents[menuItem].Data,
+            //     }))
+            //     .sort((a, b) => a.Item.Min.localeCompare(b.Item.Min));
 
-            // const home = {
-            //     recentGames: recentGames,
-            //     newGames: newGames,
-            //     favoriteGames: favoriteGames,
-            //     allSlots: responses[3].data.Contents,
-            //     allLive: responses[4].data.Contents,
-            // };
-
-            //TODEL
-            // const casinoVendors = Object.keys(responses[2].data.Contents)
-            // .map(vendor => ({
-            //    id: vendor.Data.Id,
-            //    id: vendor.Data.Id,
-            //    id: vendor.Data.Id,
-            //    id: vendor.Data.Id,
-            // }))
-            ///////
-            const casinoVendors = Object.keys(responses[2].data.Contents).sort;
+            //const casinoVendors = Object.keys(responses[2].data.Contents).sort;
             //console.log("Vendors(getCasino)", responses[2].data.Contents);
-            dispatch(casinoActions.setFilteredGames(casinoHomeItems));
+            //dispatch(casinoActions.setFilteredGames(casinoHomeItems));
             // dispatch(casinoActions.setFilteredGames(home));
-            dispatch(casinoActions.setCasinoBanners(responses[1].data.Contents));
-            dispatch(casinoActions.setCasinoVendors(responses[2].data.Contents));
+            dispatch(casinoActions.setCasinoBanners(responses[0].data.Contents));
+            dispatch(casinoActions.setCasinoVendors(responses[1].data.Contents));
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
@@ -528,7 +511,7 @@ export const getCasinoTags = (signal) => {
         }
     };
 };
-export const getCasinoByTags = (signal,tag) => {
+export const getCasinoByTags = (signal, tag) => {
     return async (dispatch) => {
         try {
             const lang = getLang();
@@ -540,7 +523,7 @@ export const getCasinoByTags = (signal,tag) => {
 
             if (response.data.Status.StatusCode !== 200) throw Error();
 
-            dispatch(casinoActions.setCasinoByTags({Contents:response.data.Contents, Tag:tag}));
+            dispatch(casinoActions.setCasinoByTags({ Contents: response.data.Contents, Tag: tag }));
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);

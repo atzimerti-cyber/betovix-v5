@@ -42,26 +42,15 @@ const CasinoGameCard = (props) => {
             <Link to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}?isBonus=false`}>
                 <article className={classes.Card}>
                     <div className={classes.ImageContainer}>
-                        {!isLoaded && <LoaderPlaceholder />}
-                        <img src={props.game.Data.ImageUrl} loading='lazy' onLoad={() => setIsLoaded(true)} />
+                        {/* {!isLoaded && <LoaderPlaceholder />} */}
+                        {/* <img src={props.game.Data.ImageUrl} loading='lazy' onLoad={() => setIsLoaded(true)} /> */}
+                        <div
+                            style={{ backgroundImage: `url(${props.game.Data.ImageUrl})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100%' }}
+                            onLoad={() => updateLoadedImages(index)}
+                        >
+                        </div>
                     </div>
                     {props.game.isNew && <div className={classes.NewLabel}>{translate('NEW')}</div>}
-                    {/* <div className={classes.InfoOverlay}>
-                        <div className={classes.InfoContent}>
-                            <div>
-                                <p className={classes.InfoCategory}>{props.game.Data.BrandName}</p>
-                                <p className={classes.Rtp}>{props.game.Data.Name}</p>
-                            </div>
-                            <HeartIcon
-                                className={isFavorite ? classes.FavoriteIcon : null}
-                                onClick={(e) => {
-                                    e.stopPropagation();
-                                    e.preventDefault();
-                                    onToggleFavorite();
-                                }}
-                            />
-                        </div>
-                    </div> */}
                 </article>
             </Link>
             {bonusBalance > 0 && (

@@ -25,25 +25,25 @@ const SwiperWithOverlay = (props) => {
 
     const [items, setItems] = useState(props.items); // Add state for items
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("casino");
- 
+
     const updateLoadedImages = (index) => {
         setLoadedImages((prevData) => [...prevData, index]);
     };
 
 
     useEffect(() => {
-        if(!props.items) return
+        if (!props.items) return
         setItems(props.items); // Update local state when props.items changes
     }, [props.items]);
 
 
     useEffect(() => {
-        if(!props.tag) return;
+        if (!props.tag) return;
         const controller = new AbortController();
         const signal = controller.signal;
- 
-            dispatch(getCasinoByTags(signal, props.tag))
-        
+
+        dispatch(getCasinoByTags(signal, props.tag))
+
 
         return () => {
             controller.abort();
@@ -52,7 +52,7 @@ const SwiperWithOverlay = (props) => {
 
 
     useEffect(() => {
-        if(!props.tag) return;
+        if (!props.tag) return;
         if (casinoByTags[props.tag]) {
             setItems(casinoByTags[props.tag]); // Update local state when props.items changes
         }
@@ -87,6 +87,7 @@ const SwiperWithOverlay = (props) => {
     };
 
     return (
+        items &&
         <MainSwiper
             slidesPerView={props.slidesPerView ? props.slidesPerView : slidesPerView}
             slidesPerGroup={slidesPerGroup}
@@ -95,6 +96,7 @@ const SwiperWithOverlay = (props) => {
             viewText={props.text}
             onTask={props.task}
             icon={props.icon}
+            thIcon={props.thIcon}
             spaceBetween={7}
         >
             {items ? (
@@ -113,8 +115,12 @@ const SwiperWithOverlay = (props) => {
                                             {/* <Link to={`/casino/game/${gameType}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}`}> */}
                                             <article className={classes.Card}>
                                                 <div className={classes.ImageContainer}>
-                                                    {loadedImages.includes(index) === false && <LoaderPlaceholder />}
-                                                    <img src={item.Data.ImageUrl} loading='lazy' onLoad={() => updateLoadedImages(index)} />
+                                                    {/* {loadedImages.includes(index) === false && <LoaderPlaceholder />} */}
+                                                    <div
+                                                        style={{ backgroundImage: `url(${item.Data.ImageUrl})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100%' }}
+                                                        onLoad={() => updateLoadedImages(index)}
+                                                    >
+                                                    </div>
                                                 </div>
                                                 {item.isNew && <div className={classes.NewLabel}>NEW</div>}
                                                 {/* <div className={classes.InfoOverlay}>
@@ -193,6 +199,8 @@ const SwiperWithOverlay = (props) => {
                 ))
             )}
         </MainSwiper>
+
+
     );
 };
 

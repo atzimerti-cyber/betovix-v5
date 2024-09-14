@@ -26,7 +26,12 @@ const LeftMenuItem = (props) => {
     const onClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        if (props.item.page) navigate(props.item.page);
+        if (props.item.page) {
+            navigate(props.item.page, {
+                state: {label: props.item.label },
+            });
+        }
+        // if (props.item.page) navigate(props.item.page);
         else if (props.item.modal) {
             const searchParams = new URLSearchParams(location.search);
             searchParams.set('modal', props.item.modal);
@@ -45,7 +50,7 @@ const LeftMenuItem = (props) => {
 
 
                 {props.item.label ? (
-                   <span>{translate(props.item.label)}</span>
+                    <span>{translate(props.item.label)}</span>
                 ) : (
                     <span>{translate(props.item.Name)}</span>
                 )

@@ -20,10 +20,8 @@ const Lobby = () => {
     const dispatch = useDispatch();
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
-    const filteredGames = useSelector((state) => state.casino.filteredGames);
     const casinoBanners = useSelector((state) => state.casino.casinoBanners);
     const casinoVendors = useSelector((state) => state.casino.casinoVendors);
-    const casinoIcons = useSelector((state) => state.app.casinoIcons);
     const user = useSelector((state) => state.login.user);
     const tags = useSelector((state) => state.casino.casinoTags);
     const [filteredTags, setFilteredTags] = useState([]);
@@ -31,7 +29,7 @@ const Lobby = () => {
     const loadMoreRef = useRef(null);
 
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("casino");
-    let specials = ['recent', 'favs', 'new']
+    //let specials = ['recent', 'favs', 'new']
 
     useEffect(() => {
         const controller = new AbortController();
@@ -129,37 +127,22 @@ const Lobby = () => {
 
 
             {filteredTags.map((tag, index) => {
-                
-                return  (!specials.includes(tag) &&   <SwiperWithOverlay
-                    key={tag}
-                    title={`${translate(tag)}`}
-                    icon={''}
-                    tag={tag}
 
-                    max={20}
-                    slidesPerView={slidesPerView}
-                />)
+                return (
+                    // !specials.includes(tag) &&
+                    <SwiperWithOverlay
+                        key={tag.Tags}
+                        title={`${translate(tag.Name)}`}
+                        icon={''}
+                        thIcon={tag.Icon}
+                        tag={tag.Tags}
+                        max={20}
+                        slidesPerView={slidesPerView}
+                    />
+                )
             })}
 
-
-            {/* {Object.entries(filteredGames).map(([key, menuItem]) => {
-                if (menuItem?.Data.length > 0) {
-                    return (
-                        <SwiperWithOverlay
-                            key={key}
-                            title={`${translate(menuItem?.Item?.Name)}`}
-                            icon={casinoIcons[menuItem?.Item?.Name] || null}
-                            link={getPathByItemName(menuItem?.Item?.Name)}
-                            items={menuItem?.Data}
-                            max={20}
-                            slidesPerView={slidesPerView}
-                        />
-                    );
-                }
-                return null;
-            })} */}
-
-            <div ref={loadMoreRef} style={{ height: '200px', backgroundColor: 'lightgray', margin: '20px 0',visibility:'hidden' }}>
+            <div ref={loadMoreRef} style={{ height: '200px', backgroundColor: 'lightgray', margin: '20px 0', visibility: 'hidden' }}>
                 Loading more items...
             </div>
         </>
