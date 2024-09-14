@@ -86,7 +86,8 @@ const VendorSwiper = (props) => {
             b = 54;
         }
 
-        return `linear-gradient(50deg, rgba(${r},${g},${b},1), transparent)`;
+        // return `linear-gradient(50deg, rgba(${r},${g},${b},1), transparent)`;
+        return `linear-gradient(50deg, #0e1b26), transparent)`;
     }
 
     return (

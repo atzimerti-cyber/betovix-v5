@@ -60,8 +60,9 @@ const VendorCard = (props) => {
             b = 54;
         }
 
-        // return `rgba(${r},${g},${b}`;
-        return `linear-gradient(50deg, rgba(${r},${g},${b},0.6), transparent)`;
+        //  return `rgba(${r},${g},${b}`;
+         return `linear-gradient(50deg, rgba(${r},${g},${b},0.6), transparent)`;
+        // return `linear-gradient(50deg, #0e1b26), transparent)`;
     }
 
     return (

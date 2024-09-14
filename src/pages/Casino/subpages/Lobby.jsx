@@ -14,8 +14,6 @@ import BigSwiper2 from '../../../features/UI/MainSwiper/BigSwiper2';
 import ProvidersIcon from '../../../assets/casinoIcons/providers.svg?react';
 import { translate } from '../../../utils/translations';
 
-import useIntersectionObserver from '../../../hooks/IntersectionObserver';
-
 const Lobby = () => {
     const dispatch = useDispatch();
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
