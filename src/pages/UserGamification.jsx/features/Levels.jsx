@@ -18,7 +18,7 @@ const Levels = (props) => {
         if (props.profile) {
             heroLevels = displayedHero.levels;
         } else {
-            heroLevels = selectedHeroLevels;
+            heroLevels = selectedHeroLevels; 
         }
     }
 

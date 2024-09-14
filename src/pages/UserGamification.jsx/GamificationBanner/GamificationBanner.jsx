@@ -21,7 +21,7 @@ import { SwiperSlide } from 'swiper/react';
 import LoaderPlaceholder from '../../../features/UI/Skeletons/LoaderPlaceholder';
 import SkeletonMilestone from '../../../features/UI/Skeletons/SkeletonMilestone';
 
-const GamificationBanner = ({ onDataNotFound }) => {
+const GamificationBanner = ({ onDataNotFound }) => { 
     const dispatch = useDispatch();
     const swiperRef = useRef(null);
 

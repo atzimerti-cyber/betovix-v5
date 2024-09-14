@@ -92,7 +92,7 @@
 }
 
 .Content>div>div span {
-    color: #fff;
+    color: #88fbc3;
     font-size: 0.83rem;
     display: block;
     line-height: 0.9rem;
@@ -100,24 +100,27 @@
 
 .Title {
     text-align: center;
-    font-size: 0.875rem;
+    font-size: 0.575rem;
     line-height: 1.25rem;
     font-weight: 600;
     line-height: 1;
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.7rem;
     text-wrap: pretty;
+    
 }
 
 .Title.LongTitle {
-    font-size: 0.75rem;
+    font-size: 0.6rem;
 }
 
 .Title span {
     display: block;
     line-height: 1rem;
-    color: var(--db-body-text);
+    color: rgba(255, 255, 255, 0.678);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
 }
 
 .Details {
@@ -125,7 +128,10 @@
     justify-content: center;
     text-align: center;
     font-size: 0.9rem;
-    color: white;
+  
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight:700;
+    text-transform: uppercase;
 }
 
 .Status {
