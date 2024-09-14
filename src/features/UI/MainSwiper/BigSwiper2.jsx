@@ -63,7 +63,7 @@ const BigSwiper2 = (props) => {
             <Swiper
                 slidesPerView={slidesPerView}
                 slidesPerGroup={slidesPerGroup}
-                spaceBetween={5}
+                spaceBetween={15}
                 autoplay={
                     props.autoplay
                         ? {
