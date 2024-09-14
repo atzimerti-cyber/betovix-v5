@@ -10,6 +10,7 @@ import useDebounce from '../../hooks/useDebounce';
 import { searchActions } from '../Search/searchSlice';
 import { casinoActions } from '../Casino/casinoSlice';
 import CasinoGames from './features/CasinoGames';
+import CasinoMenu from '../Casino/features/CasinoMenu';
 
 const Search = () => {
     const dispatch = useDispatch();
@@ -77,38 +78,42 @@ const Search = () => {
     }, [axiosController, debSearchString, selectedProviders, sorting]);
 
     return (
-        <div className={classes.PageContent}>
-            <div className={classes.Search}>
-                <FilterBar
-                    searchString={searchString}
-                    onChangeSearch={(value) => dispatch(searchActions.setSearchString(value))}
-                    onChangeProviders={(value) => setSelectedProviders(value)}
-                    placeholder='Search Casino'
+        <div className={classes.Content}>
+            <CasinoMenu />
+            <div className={classes.PageContent}>
+                <div className={classes.Search}>
+                    <FilterBar
+                        searchString={searchString}
+                        onChangeSearch={(value) => dispatch(searchActions.setSearchString(value))}
+                        onChangeProviders={(value) => setSelectedProviders(value)}
+                        placeholder='Search Casino'
 
-                />
-                {
-                    selectedProviders.length === 0 ? (
-                        <CasinoGames
-                            collection={casinoResults}
-                            icon={<CherriesIcon />}
-                            title="Search results"
-                            loading={loading}
-                            searchString={debSearchString}
-                        />
-                    ) : (
-                        <CasinoGames
-                            collection={casinoResults}
-                            icon={<CherriesIcon />}
-                            title={selectedProviders.join(', ')}
-                            loading={loading}
-                            searchString={debSearchString}
-                            providers={casinoResults?.providers}
-                        />
-                    )
-                }
+                    />
+                    {
+                        selectedProviders.length === 0 ? (
+                            <CasinoGames
+                                collection={casinoResults}
+                                icon={<CherriesIcon />}
+                                title="Search results"
+                                loading={loading}
+                                searchString={debSearchString}
+                            />
+                        ) : (
+                            <CasinoGames
+                                collection={casinoResults}
+                                icon={<CherriesIcon />}
+                                title={selectedProviders.join(', ')}
+                                loading={loading}
+                                searchString={debSearchString}
+                                providers={casinoResults?.providers}
+                            />
+                        )
+                    }
 
+                </div>
             </div>
         </div>
+
     );
 };
 
