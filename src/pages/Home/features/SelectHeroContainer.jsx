@@ -31,7 +31,7 @@ const RegisterContainers = () => {
                 <span className={classes.SignUpTextV1}>{translate('choose')}</span> */}
                 <span className={classes.SignUpTextV2}>{translate('choose')}</span>
                 <span className={classes.SignUpTextV2}>{translate('your hero!')}</span>
-                <button className={classes.RegisterButton} onClick={() => addParamsToUrl('auth', 'register')}>
+                <button className={classes.RegisterButton} onClick={() => navigate(`/profile?tab=heroes`)}>
                     {translate('Select')}
                 </button>
             </div>
