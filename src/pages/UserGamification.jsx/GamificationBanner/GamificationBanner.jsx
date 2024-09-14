@@ -23,8 +23,6 @@ import SkeletonMilestone from '../../../features/UI/Skeletons/SkeletonMilestone'
 
 const GamificationBanner = ({ onDataNotFound }) => {
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
-    // const location = useLocation();
     const swiperRef = useRef(null);
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
@@ -32,14 +30,6 @@ const GamificationBanner = ({ onDataNotFound }) => {
     const heroes = useSelector((state) => state.gamification.heroes);
 
     const [activeLevel, setActiveLevel] = useState(null);
-
-    // const addParamsToUrl = (modal, tab) => {
-    //     const searchParams = new URLSearchParams(location.search);
-    //     searchParams.set('modal', modal);
-    //     if (tab) searchParams.set('tab', tab);
-
-    //     navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-    // };
 
     useEffect(() => {
         const controller = new AbortController();
@@ -125,7 +115,7 @@ const GamificationBanner = ({ onDataNotFound }) => {
                         <SwiperSlide key={1}>
                             <div className={classes.BannerBackground}>
                                 <div className={classes.HeroContainer}>
-                                    <div className={classes.HeroName} style={{ height: '200px' ,marginTop:'20px'}}>
+                                    <div className={classes.HeroName} style={{ height: '218px' ,marginTop:'15px'}}>
                                         <LoaderPlaceholder />
                                     </div>
                                     <div className={classes.HeroImg} style={{ width: '300px'}}>

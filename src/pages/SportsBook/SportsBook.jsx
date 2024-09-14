@@ -9,8 +9,9 @@ import SportsHome from './subpages/SportsHome';
 import SportsLive from './subpages/SportsLive';
 import SportsUpcoming from './subpages/SportsUpcoming';
 import SportsOutrights from './subpages/SportsOutrights';
-import Banners from '../../features/Banners/Banners';
+//import Banners from '../../features/Banners/Banners';
 import { sportsbookActions } from './sportsbookSlice';
+import SportsBanners from './features/SportsBanners';
 
 const SportsBook = () => {
     const dispatch = useDispatch();
@@ -18,9 +19,6 @@ const SportsBook = () => {
     const params = useParams();
 
     const sportBanners = useSelector((state) => state.sportsbook.sportBanners);
-
-    const [showBanners, setShowBanners] = useState(true); // New state to control visibility
-    const handleRemoveBannersComponent = () => { setShowBanners(false); };
 
     useEffect(() => {
         const controller = new AbortController();
@@ -49,7 +47,7 @@ const SportsBook = () => {
 
                 <div className={classes.Content}>
                     <div className={classes.SportsBookInner}>
-                        {!params['*'].includes('live') && !params['*'].includes('outrights') && <Banners onDataNotFound={handleRemoveBannersComponent} banners={sportBanners} />}
+                        {!params['*'].includes('live') && !params['*'].includes('outrights') && <SportsBanners banners={sportBanners} />}
                         {page}
                     </div>
                 </div>
