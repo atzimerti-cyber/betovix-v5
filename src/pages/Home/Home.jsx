@@ -104,7 +104,7 @@ const Home = () => {
                             )}
 
                             {!user && <RegisterContainers />}
-                            {!hasHero && <SelectHeroContainer />}
+                            {!hasHero && user && <SelectHeroContainer />}
 
                         </div>
                     }
