@@ -12,6 +12,7 @@ import LiveEvents from './features/LiveEvents';
 import TopEvents from '../../features/TopEvents/TopEvents';
 import VipProgress from './features/VipProgress';
 import RegisterContainers from './features/RegisterContainers';
+import SelectHeroContainer from './features/SelectHeroContainer';
 import Crypto from '../../features/CryptoPriceSwiper/Crypto';
 import ManualRewards from '../UserGamification.jsx/features/ManualRewards';
 import CasinoFavorites from '../../features/CasinoFavorites/CasinoFavorites';
@@ -103,6 +104,7 @@ const Home = () => {
                             )}
 
                             {!user && <RegisterContainers />}
+                            {!hasHero && user && <SelectHeroContainer />}
 
                         </div>
                     }
