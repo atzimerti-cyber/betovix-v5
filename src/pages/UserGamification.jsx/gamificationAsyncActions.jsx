@@ -8,7 +8,7 @@ import config from '../../config';
 
 ////To get all heroes, levels, milestones (to display in profile?tab=horoes && GamificationBanner.jsx)(whether user has a hero or not)////
 export const getHeroes = (signal) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
             dispatch(appActions.setBarLoading(true));
             const lang = getLang();
@@ -60,11 +60,12 @@ export const getHeroes = (signal) => {
             }))
                 .sort((a, b) => a?.name.localeCompare(b?.name));
 
-
-
-            console.log("Get All Heroes:", heroes[1].levels);
             dispatch(gamificationActions.setHeroes(heroes));
-            dispatch(gamificationActions.setDisplayedHero(heroes[0]));
+
+            const state = getState();
+            if (Object.keys(state.gamification.displayedHero).length == 0 && heroes.length > 0) {
+                dispatch(gamificationActions.setDisplayedHero(heroes[0]));
+            }
 
             dispatch(appActions.setBarLoading(false));
         } catch (error) {

@@ -15,21 +15,33 @@ import Levels from '../features/Levels';
 import Milestones from '../features/Milestones';
 
 import { getHeroes } from '../gamificationAsyncActions';
+import { gamificationActions } from '../userGamificationSlice';
 
 import { SwiperSlide } from 'swiper/react';
-
 import LoaderPlaceholder from '../../../features/UI/Skeletons/LoaderPlaceholder';
 import SkeletonMilestone from '../../../features/UI/Skeletons/SkeletonMilestone';
 
-const GamificationBanner = ({ onDataNotFound }) => { 
+const GamificationBanner = ({ onDataNotFound }) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const swiperRef = useRef(null);
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
     const heroes = useSelector((state) => state.gamification.heroes);
+    const user = useSelector((state) => state.login.user);
+    const displayedHero = useSelector((state) => state.gamification.displayedHero);
 
     const [activeLevel, setActiveLevel] = useState(null);
+    const [redirectAfterLogin, setRedirectAfterLogin] = useState(null);
+
+    const addParamsToUrl = (modal, tab) => {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set('modal', modal);
+        searchParams.set('tab', tab);
+
+        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+    };
 
     useEffect(() => {
         const controller = new AbortController();
@@ -45,6 +57,24 @@ const GamificationBanner = ({ onDataNotFound }) => {
             onDataNotFound();
         }
     }, [heroes, onDataNotFound]);
+
+    const handleBannerClick = (hero) => {
+        if (user) {
+            dispatch(gamificationActions.setDisplayedHero(hero));
+            navigate(`/profile?tab=heroes`);
+        } else {
+            setRedirectAfterLogin(`/profile?tab=heroes`);
+            addParamsToUrl('auth', 'login');
+            dispatch(gamificationActions.setDisplayedHero(hero));
+        }
+    };
+
+    useEffect(() => {
+        if (user && redirectAfterLogin) {
+            navigate(redirectAfterLogin);
+            setRedirectAfterLogin(null);
+        }
+    }, [user, redirectAfterLogin]);
 
     return (
         <div className={classes.BannerContainer}>
@@ -87,25 +117,25 @@ const GamificationBanner = ({ onDataNotFound }) => {
                 delay={7000}
                 loop={true}
                 noTouchMove={true}
+                onSlideChange={() => setActiveLevel(null)}
             >
                 {heroes && Object.keys(heroes).length > 0 ?
                     (
                         heroes.map((hero) => (
-                            <SwiperSlide key={hero.Id}>
-                                <div className={classes.HeroContainer}>
+                            <SwiperSlide key={hero.id} >
+                                <div className={classes.HeroContainer} >
                                     <div className={classes.HeroName}>
                                         <p className={classes.DescTitle}>{translate(hero.metadata.HeroName + ' ' + hero.metadata.HeroSubName)}</p>
                                     </div>
-                                    <div className={classes.HeroImg}>
+                                    <div className={classes.HeroImg} onClick={() => handleBannerClick(hero)}>
                                         <img src={hero.cropped} loading='lazy' alt={<LoaderPlaceholder />} />
                                     </div>
                                     <div className={classes.HeroLevelsContainer}>
                                         <div className={classes.HeroLevels}>
-                                            <Levels displayedHero={hero} activeLevel={activeLevel} onChangeLevel={(level) => setActiveLevel(level)} />
-
+                                            <Levels displayedHero={hero} activeLevel={activeLevel ? activeLevel : hero.levels[0]} onChangeLevel={(level) => setActiveLevel(level)} />
                                         </div>
                                         <div className={classes.HeroMilestones}>
-                                            <Milestones displayedHero={hero} activeLevel={activeLevel} profile />
+                                            <Milestones displayedHero={hero} activeLevel={activeLevel ? activeLevel : hero.levels[0]} profile />
                                         </div>
                                     </div>
                                 </div>
@@ -115,10 +145,10 @@ const GamificationBanner = ({ onDataNotFound }) => {
                         <SwiperSlide key={1}>
                             <div className={classes.BannerBackground}>
                                 <div className={classes.HeroContainer}>
-                                    <div className={classes.HeroName} style={{ height: '218px' ,marginTop:'15px'}}>
+                                    <div className={classes.HeroName} style={{ height: '218px', marginTop: '15px' }}>
                                         <LoaderPlaceholder />
                                     </div>
-                                    <div className={classes.HeroImg} style={{ width: '300px'}}>
+                                    <div className={classes.HeroImg} style={{ width: '300px' }}>
                                         <LoaderPlaceholder />
                                     </div>
                                     <div className={classes.HeroLevelsContainer}>
