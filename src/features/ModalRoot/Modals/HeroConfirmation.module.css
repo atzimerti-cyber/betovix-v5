@@ -1,16 +1,16 @@
-.NotAvailable{
+.NotAvailable, .Result{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center; 
     height: 200px;
-    color: white;
+    gap: 20px;
+    color: rgb(225, 225, 225);
 }
-.NotAvailable span {
-    display: inline-block; 
+.NotAvailable span:first-child {
     animation: rotateAnimation 4s linear infinite;
 }
-.NotAvailable svg{
+.NotAvailable svg, .Result svg{
     height: 5rem;
     width: 5rem;
 }
@@ -25,18 +25,17 @@
 } */
 @keyframes rotateAnimation {
     0% {
-        transform: translate(-50%, -50%) scale(1);
+        transform: scale(1);
     }
 
     50% {
-        transform: translate(-50%, -50%) scale(1.25);
+        transform: scale(1.25);
     }
 
     100% {
-        transform: translate(-50%, -50%) scale(1);
+        transform: scale(1);
     }
 }
-
 /* ======================================================== */
 
 .ConfirmationModal {

@@ -34,6 +34,9 @@ const Heroes = React.memo(() => {
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive('levels');
     const { slidesPerView: mSlidesPerView } = useSlidesResponsive('milestones');
 
+    const openConfirm = () => {
+        addParamsToUrl('hero-confirm');
+    };
 
     const addParamsToUrl = (modal, tab) => {
         const searchParams = new URLSearchParams(location.search);
@@ -83,7 +86,7 @@ const Heroes = React.memo(() => {
                                         //     <span>Select Hero</span>
                                         // </MainButton>
                                     ) : (
-                                        <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
+                                        <MainButton color='bv-light-green' onClick={openConfirm}>
                                             <span>{translate('Select Hero')}</span>
                                         </MainButton>
                                     )}
