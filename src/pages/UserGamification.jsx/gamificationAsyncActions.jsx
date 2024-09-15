@@ -262,7 +262,7 @@ export const claimReward = (Id) => {
             const response = await axiosApi.get(`/Gamification/ClaimReward?rewardId=${Id}`, {
                 baseURLOverride: config.VITE_WALLET_STORETUBE,
             });
-            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw toast.error(response.data.Contents);
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);

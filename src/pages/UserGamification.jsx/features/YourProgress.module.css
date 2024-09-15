@@ -212,8 +212,8 @@
     }
 
     .ImageContainer {
-        bottom: calc(100% - 250px);
-        height: 420px;
+        bottom: calc(100% - 130px);
+        height: 340px;
     }
 
     .ImageContainer::before {

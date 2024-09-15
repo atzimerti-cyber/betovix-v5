@@ -37,7 +37,7 @@ const HeroConfirmationModal = () => {
         const signal = controller.signal;
 
         setPreMessage(false);
-        setHeroSelectionLoading(true);
+        // setHeroSelectionLoading(true);
 
         dispatch(selectedHero(displayedHeroAction, lvlAction, signal))
             .then(() => {
