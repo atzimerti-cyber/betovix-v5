@@ -3,8 +3,8 @@
     display: grid;
     transition: grid-template-rows 0.3s ease-out;
     grid-template-rows: 1fr;
-    margin-left: -0.625rem;
-    margin-right: -0.625rem;
+    /* margin-left: -0.625rem;
+    margin-right: -0.625rem; */
     width: 100%;
 }
 
@@ -59,8 +59,8 @@
 }
 
 .CarouselContainer {
-    padding-left: 0.625rem;
-    padding-right: 0.625rem;
+    /* padding-left: 0.625rem;
+    padding-right: 0.625rem; */
     overflow: hidden;
 }
 
@@ -143,9 +143,50 @@
     display: flex;
     gap: 13px;
 
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
+.CardsContainer:after {
+    content: '';
+    position: absolute;
+    right: 15px;
+    z-index: 9;
+    background: linear-gradient(270deg, #0d2233f5, transparent);
+    height: 100%;
+    width: 50px;
+    pointer-events: none;
+}
+
+.CardsContainer:before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    z-index: 9;
+    background: linear-gradient(90deg, #0d2233bd, transparent);
+    height: 100%;
+    width: 50px;
+    pointer-events: none;
+}
+
+@media(max-width: 767px) {
+    .CardsContainer:after {
+        right: 0;
+    }
+    
+    .CardsContainer:before {
+        left: 0px;
+    }
+}
+
+@media(max-width: 1199px) {
+    .CardsContainer:after {
+        background: linear-gradient(270deg, #0d2233f5, transparent);
+    }
+    
+    .CardsContainer:before {
+        background: linear-gradient(90deg, #0d2233bd, transparent);
+    }
+}
 .SkeletonWrapper {
     position: relative;
     height: 152px;
@@ -225,10 +266,10 @@
 
 /* Media */
 @media (min-width: 768px) {
-    .MilestoneSection {
+    /* .MilestoneSection {
         margin-left: -1rem;
         margin-right: -1rem;
-    }
+    } */
 
     .CarouselContainer {
         padding-left: 1rem;

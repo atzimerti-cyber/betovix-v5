@@ -16,7 +16,7 @@ const HeroDisplaySwiper = (props) => {
     const dispatch = useDispatch();
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
 
-    const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
+    const isMobile = useMediaQuery({ query: '(max-width: 425px)' });
     const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
     const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
     const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
@@ -34,14 +34,14 @@ const HeroDisplaySwiper = (props) => {
     let slidesPerGroup = 5;
 
     if (isMobile) {
-        slidesPerView = 2;
+        slidesPerView = 2.5;
         slidesPerGroup = 2;
     } else if (isTablet) {
-        slidesPerView = 3;
-        slidesPerGroup = 3;
-    } else if (isDesktop) {
         slidesPerView = 3.5;
         slidesPerGroup = 3;
+    } else if (isDesktop) {
+        slidesPerView = 4;
+        slidesPerGroup = 4;
     } else if (isBigDesktop) {
         slidesPerView = 4;
         slidesPerGroup = 4;

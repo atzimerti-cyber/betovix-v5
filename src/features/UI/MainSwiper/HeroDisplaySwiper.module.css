@@ -48,13 +48,25 @@
     font-weight: 700;
     font-size: 1rem;
     color: var(--db-brand-green);
-    line-height: 1.5;
+    line-height: 1.4;
 }
 .HeroName .Desc{
-    font-weight: 300;
-    font-size: 0.9rem;
-    color: white;
-    line-height: 1.5;
+    font-weight: 400;
+    font-size: 0.8rem;
+    color: rgb(225, 225, 225);
+    line-height: 1.4;
+}
+
+@media(max-width: 575px) {
+    .HeroName{
+        margin-top: 0.2rem;
+    }
+    .HeroName .Name{
+        font-size: .87rem;
+    }
+    .HeroName .Desc{
+        font-size: 0.689rem;
+    }
 }
 
 .InfoContent {

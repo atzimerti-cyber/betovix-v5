@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { translate } from '../../../utils/translations';
+import { useMediaQuery } from 'react-responsive';
 
 import classes from './Heroes.module.css';
 
@@ -20,6 +21,8 @@ const Heroes = React.memo(() => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+
+    const isDesktopSite = useMediaQuery({ query: '(min-width: 1024px)' });
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
@@ -59,6 +62,12 @@ const Heroes = React.memo(() => {
 
             {displayedHero && Object.keys(displayedHero).length > 0 ? (
                 <>
+                 {!isDesktopSite && (  
+                        <div className={classes.HeroesContainer}>
+                        <HeroDisplaySwiper title='Heroes' icon={<LogoSmallIcon />} items={heroes} />
+                    </div>
+                    )}
+                  
                     <div className={classes.container}>
                         <div className={classes.leftCol}>
                             <div className={classes.heroImg}>
@@ -72,7 +81,7 @@ const Heroes = React.memo(() => {
                                         </MainButton>
                                     ) : (
                                         <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
-                                            <span>Select Hero</span>
+                                            <span>{translate('Select Hero')}</span>
                                         </MainButton>
                                     )}
 
@@ -93,10 +102,12 @@ const Heroes = React.memo(() => {
                     </div>
 
 
-
-                    <div className={classes.HeroesContainer}>
+                    {isDesktopSite && (  
+                        <div className={classes.HeroesContainer}>
                         <HeroDisplaySwiper title='Heroes' icon={<LogoSmallIcon />} items={heroes} />
                     </div>
+                    )}
+                  
 
                 </>
 

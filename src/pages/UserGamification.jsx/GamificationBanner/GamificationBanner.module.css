@@ -12,10 +12,12 @@
     min-height: 300px;
 }
 
+
 .HeroContainer {
     display: flex;
     min-height: 50px;
     flex-wrap: wrap;
+    justify-content: center;
     /* background: #0c1e2d; */
 }
 
@@ -42,7 +44,7 @@
 .HeroImg {
     flex: 1 0 214px;
     overflow: hidden;
-    padding: 1rem;
+    /* padding: 1rem; */
     max-width: 240px;
 }
 
@@ -136,4 +138,14 @@
 .CardsContainer {
     display: flex;
     gap: 13px;
+}
+
+@media(max-width: 550px) {
+    .BannerContainer {
+        padding: 0.5rem;
+    }
+
+    .HeroLevelsContainer {
+        padding: 0.5rem;
+    }
 }
