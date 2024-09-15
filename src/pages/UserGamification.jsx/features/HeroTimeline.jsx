@@ -40,7 +40,8 @@ const HeroTimeline = (props) => {
                                         className={level.id == currentLevel.id ? [`${classes.Dot}`, `${classes.DotAnimation}`].join(' ') : `${classes.Dot}`}
                                     >
                                         <div className={classes.MainSVG}>
-                                            <Logo />
+                                            {/* <Logo /> */}
+                                            <img src={level.icon}/>
                                         </div>
                                     </div>
                                     <div className={classes.SubConnector}></div>

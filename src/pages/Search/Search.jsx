@@ -89,24 +89,34 @@ const Search = () => {
                         placeholder='Search Casino'
 
                     />
-                    {
-                        selectedProviders.length === 0 ? (
-                            <CasinoGames
-                                collection={casinoResults}
-                                icon={<CherriesIcon />}
-                                title="Search results"
-                                loading={loading}
-                                searchString={debSearchString}
-                            />
+
+                    {casinoResults ?
+                        (casinoResults.Data.length !== 0 ?
+                            (
+                                selectedProviders.length === 0 ?
+                                    (
+                                        <CasinoGames
+                                            collection={casinoResults}
+                                            icon={<CherriesIcon />}
+                                            title="Search results"
+                                            loading={loading}
+                                            searchString={debSearchString}
+                                        />
+                                    ) : (
+                                        <CasinoGames
+                                            collection={casinoResults}
+                                            icon={<CherriesIcon />}
+                                            title={selectedProviders.join(', ')}
+                                            loading={loading}
+                                            searchString={debSearchString}
+                                            providers={casinoResults?.providers}
+                                        />
+                                    )
+                            ) : (
+                                <p>No Results</p>
+                            )
                         ) : (
-                            <CasinoGames
-                                collection={casinoResults}
-                                icon={<CherriesIcon />}
-                                title={selectedProviders.join(', ')}
-                                loading={loading}
-                                searchString={debSearchString}
-                                providers={casinoResults?.providers}
-                            />
+                            null
                         )
                     }
 
