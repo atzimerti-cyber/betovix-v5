@@ -38,6 +38,7 @@ const BigSwiper = forwardRef((props, ref) => {
                 className={classes.MainSwiper}
                 loop={props.loop ? true : false}
                 allowTouchMove={props.noTouchMove ? false : true}
+                onSlideChange={props.onSlideChange}
             >
                 {props.children}
             </Swiper>

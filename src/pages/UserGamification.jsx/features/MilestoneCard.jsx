@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import React from 'react';
 
 import classes from './MilestoneCard.module.css';
 import largeCoin from '../../../assets/images/large-coin.webp';
@@ -50,11 +51,30 @@ const MilestoneCard = (props) => {
                         <span>{props.label ? props.label : 'Milestone'}</span>
                     </p>
 
-                    {props.reward &&
+                    {props.reward && (
                         <div className={classes.Details}>
-                            <span>{props.reward.description ? (props.reward.description):('Big Rewards!')}</span>
+                            <span>
+                                {props.reward.description ?
+                                    (
+                                        props.reward.description.split('?').map((part, index) => (
+                                            <React.Fragment key={index}>
+                                                {index === 0 ? (
+                                                    <>{part}</>
+                                                ) : (
+                                                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                                                        <CoinsIcon />
+                                                        {part}
+                                                    </div>
+                                                )}
+                                            </React.Fragment>
+                                        ))
+                                    ) : (
+                                        'Big Rewards!'
+                                    )
+                                }
+                            </span>
                         </div>
-                    }
+                    )}
                 </div>
 
                 {props.firstCard ?

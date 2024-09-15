@@ -70,9 +70,6 @@ const Heroes = React.memo(() => {
                                         <MainButton disabled>
                                             <span>You have selected a hero</span>
                                         </MainButton>
-                                        // <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
-                                        //     <span>Select Hero</span>
-                                        // </MainButton>
                                     ) : (
                                         <MainButton color='bv-light-green' onClick={() => addParamsToUrl('hero-confirm')}>
                                             <span>Select Hero</span>
