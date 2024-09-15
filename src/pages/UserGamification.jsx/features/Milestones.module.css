@@ -142,14 +142,14 @@
 .CardsContainer {
     display: flex;
     gap: 13px;
-
+position: relative;
     justify-content: space-between;
 }
 
-.CardsContainer:after {
+.MilestoneCarousel:after {
     content: '';
     position: absolute;
-    right: 15px;
+    right: 16px;
     z-index: 9;
     background: linear-gradient(270deg, #0d2233f5, transparent);
     height: 100%;
@@ -157,7 +157,7 @@
     pointer-events: none;
 }
 
-.CardsContainer:before {
+.MilestoneCarousel:before {
     content: '';
     position: absolute;
     left: 16px;
@@ -169,21 +169,21 @@
 }
 
 @media(max-width: 767px) {
-    .CardsContainer:after {
+    .MilestoneCarousel:after {
         right: 0;
     }
     
-    .CardsContainer:before {
+    .MilestoneCarousel:before {
         left: 0px;
     }
 }
 
 @media(max-width: 1199px) {
-    .CardsContainer:after {
+    .MilestoneCarousel:after {
         background: linear-gradient(270deg, #0d2233f5, transparent);
     }
     
-    .CardsContainer:before {
+    .MilestoneCarousel:before {
         background: linear-gradient(90deg, #0d2233bd, transparent);
     }
 }

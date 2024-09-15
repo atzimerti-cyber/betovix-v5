@@ -27,7 +27,7 @@
 .Background {
     display: grid;
     place-items: center;
-    background-color: var(--db-gray-banner);
+    background-color: var(--db-gray-1);
     position: absolute;
     top: 0;
     left: 0;
@@ -161,6 +161,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    display: none;
 }
 
 .Status.Completed {
