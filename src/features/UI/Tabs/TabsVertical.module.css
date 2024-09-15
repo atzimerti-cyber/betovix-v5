@@ -85,9 +85,6 @@
         width: 170px;
         display: flex;
         overflow-x: hidden;
-        
-        border-right: 1px solid #0e1b26;
-        padding-inline: 5px;
     }
     .Tab {
         justify-content: flex-start;
