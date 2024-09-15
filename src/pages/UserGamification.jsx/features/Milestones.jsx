@@ -169,7 +169,7 @@ const Milestones = (props) => {
                                             ))}
                                         </>
                                     ) : (
-                                        Array.from({ length: 8 }, (_, index) => (
+                                        Array.from({ length: !props.banner ? (5) : (8) }, (_, index) => (
                                             <div key={index} className={classes.SkeletonWrapper}>
                                                 <div className={classes.Background}>
                                                     <SkeletonMilestone />

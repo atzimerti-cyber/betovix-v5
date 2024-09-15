@@ -321,7 +321,7 @@ export const getCasinoSearchProviders = (signal, pageItems, debSearchString, sel
     };
 };
 
-//SEARCH SPORTS/////////////////////////////////////////////////////////////////////////
+//SEARCH SPORTS EVENTS/////////////////////////////////////////////////////////////////////////
 export const getEventSearch = (signal, providerId, value) => {
     return async (dispatch) => {
         try {
