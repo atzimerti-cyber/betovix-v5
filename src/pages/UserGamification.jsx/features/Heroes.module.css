@@ -121,7 +121,7 @@
 
 @media (min-width: 1200px) {
     .TabContent {
-        background-color: var(--db-duelbits-gray);
+        /* background-color: var(--db-duelbits-gray); */
         padding: 1rem 2.5rem 1rem;
     } 
 }

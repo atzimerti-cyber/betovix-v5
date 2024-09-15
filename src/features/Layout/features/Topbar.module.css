@@ -178,7 +178,7 @@
     flex-grow: 0;
     align-items: center;
     margin-left: 0.5rem;
-    margin-right: 0.25rem;
+    margin-right: 0.75rem;
 }
 
 .UserHeaderRight>button {
@@ -199,6 +199,7 @@
 .BonusButtonContainer {
     position: relative;
     display: inline-block;
+  
 }
 
 .BonusButtonContainer>button {
@@ -232,6 +233,11 @@
 @media(max-width: 1024px) {
     .BonusButtonContainer>button>div {
         display: none;
+    }
+
+    .BonusButtonContainer {
+        border-radius: 35%;
+        background-color: var(--db-gray-banner);
     }
 
 }
@@ -484,7 +490,7 @@
     }
 }
 
-@media (min-width: 640px) {
+@media (min-width: 500px) {
     .TopbarRightWrapper {
         flex-grow: 1;
     }
@@ -610,8 +616,8 @@
     .TopbarLeft button svg {
         max-width: 125px;
     }
-
+/* 
     .HeaderRight {
         gap: 0;
-    }
+    } */
 }

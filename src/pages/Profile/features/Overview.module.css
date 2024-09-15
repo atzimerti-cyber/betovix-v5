@@ -134,7 +134,7 @@
 
 @media (min-width: 768px) {
     .TabContent {
-        background-color: var(--db-duelbits-gray);
+        /* background-color: var(--db-duelbits-gray); */
         padding: 3rem 2.5rem;
     }
     .OverviewTitle {
