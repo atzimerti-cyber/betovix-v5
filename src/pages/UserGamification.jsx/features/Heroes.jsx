@@ -29,7 +29,7 @@ const Heroes = React.memo(() => {
     const heroes = useSelector((state) => state.gamification.heroes);
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
-
+    const canSelect1 = useSelector((state) => state.gamification.canSelect);
     const [activeLevel, setActiveLevel] = useState(null);
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive('levels');
     const { slidesPerView: mSlidesPerView } = useSlidesResponsive('milestones');
@@ -46,6 +46,7 @@ const Heroes = React.memo(() => {
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     };
 
+  
     useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
@@ -59,6 +60,17 @@ const Heroes = React.memo(() => {
             setActiveLevel(displayedHero?.levels[0]);
         }
     }, [displayedHero]);
+
+
+   
+
+    const renderSelectButton = (canSelect,selectedHero) => {
+            selectedHero = selectedHero && Object.keys(selectedHero).length > 0
+             if(selectedHero) return <MainButton disabled> <span>You have selected a hero</span> </MainButton>
+             else if(!selectedHero && !canSelect) return <MainButton disabled> <span>Pending...</span> </MainButton>
+             else if(canSelect) return <MainButton color='bv-light-green' onClick={openConfirm}> <span>{translate('Select Hero')}</span> </MainButton>
+              
+    };
 
     return (
         <motion.div className={classes.TabContent} initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.2 }}>
@@ -78,15 +90,8 @@ const Heroes = React.memo(() => {
                             </div>
                             <div className={classes.heroBtn}>
                                 <div className={classes.SelectHeroBtn}>
-                                    {selectedHero && Object.keys(selectedHero).length > 0 ? (
-                                        <MainButton disabled>
-                                            <span>You have selected a hero</span>
-                                        </MainButton>
-                                    ) : (
-                                        <MainButton color='bv-light-green' onClick={openConfirm}>
-                                            <span>{translate('Select Hero')}</span>
-                                        </MainButton>
-                                    )}
+                                    
+                                  {renderSelectButton(canSelect1,selectedHero)}
 
                                 </div>
                             </div>

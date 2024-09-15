@@ -20,7 +20,10 @@ export const getHeroes = (signal) => {
 
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
 
-            const heroes = response.data.Contents.map((hero) => ({
+            const canSelect = response.data.Contents.CanSelect;
+            dispatch(gamificationActions.setCanSelect(canSelect));
+
+            const heroes = response.data.Contents.Heroes?.map((hero) => ({
                 name: hero.Hero.Achievement?.Name,
                 id: hero.Hero.Achievement?.AchievementID,
                 banner: hero.Hero.Achievement?.Banner,
@@ -96,7 +99,13 @@ export const selectedHero = (displayedHeroAction, lvlAction, signal) => {
 
             setTimeout(() => {
                 dispatch(getUserAchievements());
-            }, 5000);
+            }, 1000 * 10);
+            setTimeout(() => {
+                dispatch(getUserAchievements());
+            }, 1000 * 20);
+            setTimeout(() => {
+                dispatch(getUserAchievements());
+            }, 1000 * 30);
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);

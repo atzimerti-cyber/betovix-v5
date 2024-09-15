@@ -24,9 +24,9 @@ const HeroConfirmationModal = () => {
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
     const displayedHeroAction = useSelector((state) => state.gamification.displayedHero?.metadata?.action);
     const lvlAction = useSelector((state) => state.gamification.displayedHero?.metadata?.lvlAction);
-
-    const selectError = useSelector((state) => state.gamification.selectedHeroError);
+   
     
+    const selectError = useSelector((state) => state.gamification.selectedHeroError);
     const [preMessage, setPreMessage] = useState(true);
     const [heroSelectionLoading, setHeroSelectionLoading] = useState(false);
     const [postMessageError, setPostMessageError] = useState(false);
@@ -41,22 +41,32 @@ const HeroConfirmationModal = () => {
 
         dispatch(selectedHero(displayedHeroAction, lvlAction, signal))
             .then(() => {
-                setTimeout(() => {
-                setHeroSelectionLoading(false);
-                if(selectError) {
-                    setPostMessageError(true);
-                } else {
-                    setPostMessageSuccess(true);
-                }
-                }, 10000);
+                navigate(location.pathname);
+             
+                // setTimeout(() => {
+                // setHeroSelectionLoading(false);
+                // if(selectError) {
+                //     setPostMessageError(true);
+                // } else {
+                //     setPostMessageSuccess(true);
+                // }
+                // }, 10000);
             })
             .catch((error) => {
+                navigate(location.pathname);
+
                 // Handle error if necessary
-                setHeroSelectionLoading(false);
+                //setHeroSelectionLoading(false);
             });
 
         // navigate(location.pathname);
     };
+
+    useEffect(() => {
+        if(selectError === false) {
+            dispatch(gamificationActions.setCanSelect(false))
+        }
+    }, [selectError]);
 
     useEffect(() => {
         if (postMessageSuccess || postMessageError) {

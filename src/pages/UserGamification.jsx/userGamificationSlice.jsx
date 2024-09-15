@@ -23,6 +23,7 @@ const initialState = {
     ericLevels: {},
     nextLevel: {},
     selectedHeroError: true,
+    canSelect: false,
 };
 
 export const userGamificationSlice = createSlice({
@@ -74,6 +75,9 @@ export const userGamificationSlice = createSlice({
         },
         setSelectedHeroError: (state, action) => {
             state.selectedHeroError = action.payload;
+        },
+        setCanSelect: (state, action) => {
+            state.canSelect = action.payload;
         },
     },
 });
