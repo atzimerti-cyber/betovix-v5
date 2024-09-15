@@ -38,7 +38,8 @@ const Levels = (props) => {
                                             <div className={classes.LevelHeader}>
                                                 <div className={classes.IconContainer}>
                                                     {level.icon ? (
-                                                        level.icon
+                                                        
+                                                        <div className={`CardLevel CardLevel`} style={{backgroundImage:`url(${level.icon})`}}></div>
                                                     ) : (
                                                         <div className={`CardLevel CardLevel`}></div>
                                                     )}
