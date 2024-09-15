@@ -70,7 +70,7 @@
 .ImageInner.Complete {
     position: relative;
     height: 100%;
-    padding-left: 4px;
+    /* padding-left: 4px; */
     opacity: 1;
 }
 
@@ -79,7 +79,7 @@
     max-width: 100%;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
-    padding: 5px;
+    /* padding: 5px; */
 }
 
 .Content {
@@ -103,7 +103,7 @@
 
 .Content>div>div span {
     color: #88fbc3;
-    font-size: 0.83rem;
+    font-size: 0.75rem;
     display: block;
     line-height: 0.9rem;
 }
@@ -121,7 +121,7 @@
     line-height: 1;
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
-    margin-bottom: 0.7rem;
+    margin-bottom: 0.6rem;
     text-wrap: pretty;
     
 }
@@ -132,7 +132,7 @@
 
 .Title span {
     display: block;
-    line-height: 1rem;
+    line-height: 0.6rem;
     color: rgba(255, 255, 255, 0.678);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-transform: uppercase;
@@ -142,7 +142,7 @@
     display: flex;
     justify-content: center;
     text-align: center;
-    font-size: 0.9rem;
+    font-size: 0.77rem;
   
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight:700;
