@@ -38,15 +38,17 @@ const HeroConfirmationModal = () => {
 
         dispatch(selectedHero(displayedHeroAction, lvlAction, signal))
             .then(() => {
+                setTimeout(() => {
                 setHeroSelectionLoading(false);
-                setPostMessage(true);
+                    setPostMessage(true);
+                }, 5000);
             })
             .catch((error) => {
                 // Handle error if necessary
                 setHeroSelectionLoading(false);
             });
 
-        navigate(location.pathname);
+        // navigate(location.pathname);
     };
 
 
@@ -77,10 +79,10 @@ const HeroConfirmationModal = () => {
                     </div>
                     <div className={classes.Buttons}>
                         <MainButton color='bv-light-green' onClick={handleButtonClick}>
-                            <span>YES, I am sure</span>
+                            <span>{translate('YES, I am sure')}</span>
                         </MainButton>
                         <MainButton color='dark' onClick={() => navigate(location.pathname)}>
-                            <span>NO, go back</span>
+                            <span>{translate('NO, go back')}</span>
                         </MainButton>
                     </div>
                 </div>
@@ -89,12 +91,16 @@ const HeroConfirmationModal = () => {
                 <div className={classes.ModalContent}>
                     <div className={classes.NotAvailable}>
                         <span> <LogoSmallIcon /> </span>
+                        <span> {translate('Pending')}...</span>
                     </div>
                 </div>
             }
             {postMessage &&
                 <div className={classes.ModalContent}>
-
+<div className={classes.Result}>
+                        <span> <LogoSmallIcon /> </span>
+                        <span> {translate('Selected Hero Successfully')}</span>
+                    </div>
                 </div>
             }
         </div>

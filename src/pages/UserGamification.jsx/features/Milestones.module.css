@@ -162,7 +162,7 @@
     position: absolute;
     left: 16px;
     z-index: 9;
-    background: linear-gradient(90deg, #0d2233bd, transparent);
+    background: linear-gradient(90deg, #0c1e2db0, transparent);
     height: 100%;
     width: 50px;
     pointer-events: none;
