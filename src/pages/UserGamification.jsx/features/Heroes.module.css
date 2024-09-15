@@ -6,8 +6,8 @@
    
 }
 .leftCol{
-    flex:1;
-    padding: 1rem;
+    flex:0.75;
+    /* padding: 1rem; */
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -64,7 +64,7 @@
     opacity: 0;
     background-color: initial;
     position: relative;
-    padding: 0.5rem;
+    padding: 1.5rem 0.5rem;
 }
 
  
@@ -73,6 +73,15 @@
     padding: 0 1rem 0 1rem;
     margin-top: 1rem;
     width: 100%;
+}
+
+@media(max-width: 1023px) {
+    .HeroesContainer {
+        margin-top: 0;
+        margin-bottom: 1.85rem;
+    }
+    
+
 }
 .DescTitle {
     font-weight: bold;

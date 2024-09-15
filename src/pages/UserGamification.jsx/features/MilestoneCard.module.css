@@ -8,7 +8,12 @@
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     opacity: 0.4;
 }
+@media(max-width: 550px) {
+    .MilestoneCard {
+        min-width: 120px;
 
+    }
+}
 .MilestoneCard.Complete .Content,
 .MilestoneCard.Complete .Background {
     opacity: 1;
@@ -97,7 +102,12 @@
     display: block;
     line-height: 0.9rem;
 }
-
+@media(max-width: 550px) {
+    
+    .Content>div>div span {
+        font-size: 0.77rem;
+    }
+    }
 .Title {
     text-align: center;
     font-size: 0.575rem;

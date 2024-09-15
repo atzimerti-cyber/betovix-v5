@@ -3,8 +3,8 @@
     display: grid;
     transition: grid-template-rows 0.3s ease-out;
     grid-template-rows: 1fr;
-    margin-left: -0.625rem;
-    margin-right: -0.625rem;
+    /* margin-left: -0.625rem;
+    margin-right: -0.625rem; */
 }
 
 .MilestoneSection > button {
@@ -24,6 +24,12 @@
     padding-left: 0.625rem;
     padding-right: 0.625rem;
     overflow: hidden;
+}
+
+@media(max-width: 550px) {
+    .CarouselContainer {
+        padding: 0;
+    }
 }
 .NotLoggedIn.CarouselContainer {
     opacity: 0.2;
@@ -141,10 +147,10 @@
 
 /* Media */
 @media (min-width: 768px) {
-    .MilestoneSection {
+    /* .MilestoneSection {
         margin-left: -1rem;
         margin-right: -1rem;
-    }
+    } */
     .CarouselContainer {
         padding-left: 1rem;
         padding-right: 1rem;
