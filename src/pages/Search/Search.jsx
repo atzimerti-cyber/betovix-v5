@@ -70,6 +70,7 @@ const Search = () => {
 
         if (debSearchString.trim() === '' && selectedProviders.length === 0) {
             dispatch(getSlots(axiosController.signal, 24, true));
+            //dispatch(searchCasino(axiosController.signal, 1, 24, tagsList, debSearchString, order, true));
         } else if (selectedProviders.length === 0) {
             dispatch(getCasinoSearch(axiosController.signal, debSearchString));
         } else if (selectedProviders.length > 0) {

@@ -61,7 +61,7 @@
 
 .LeftContainer .NextLevelContainer .IconContainer {
     margin: 0;
-    display: none;
+    /* display: none; */
     height: 1.5rem;
     width: 1.5rem;
 }
@@ -196,9 +196,9 @@
 }
 
 @media (min-width: 640px) {
-    .RightContainer .IconContainer {
+    /* .RightContainer .IconContainer {
         display: none;
-    }
+    } */
 
     .LeftContainer .NextLevelContainer .IconContainer {
         display: block;

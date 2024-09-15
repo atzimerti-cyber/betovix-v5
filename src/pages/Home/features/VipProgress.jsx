@@ -46,7 +46,7 @@ const VipProgress = () => {
                         <div>
                             <div className={classes.IconContainer}>
                                 {userCurrentLevel.icon ? (
-                                    userCurrentLevel.icon
+                                    <img src={userCurrentLevel.icon} alt='' />
                                 ) : (
                                     <div className={`CardLevel CardLevel`}></div>
                                 )}
@@ -71,15 +71,18 @@ const VipProgress = () => {
                         <span className={classes.TextContainer}>
                             {translate('Your progress to ')}
                         </span>
-                        <span style={{ color: 'var(--db-brand-green)' }}>{nextLevel.name}</span>
-                        <div className={classes.IconContainer}>
-                            {nextLevel.icon ? (
-                                nextLevel.icon
-                            ) : (
-                                <div className={`CardLevel CardLevel`}></div>
-                            )}
+                        <div style={{ display: "flex", flexDirection: "row" }}>
+                            <span style={{ color: 'var(--db-brand-green)' }}>{nextLevel.name}</span>
+                            <div className={classes.IconContainer} style={{ marginLeft: "5px" }}>
+                                {nextLevel.icon ? (
+                                    <img src={nextLevel.icon} alt='' />
+                                ) : (
+                                    <div className={`CardLevel CardLevel`}></div>
+                                )}
 
+                            </div>
                         </div>
+
                     </div>
                 </div>
                 <div className={classes.MilestoneProgressBar}>

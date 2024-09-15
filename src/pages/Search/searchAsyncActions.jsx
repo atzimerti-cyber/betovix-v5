@@ -114,8 +114,8 @@ export const getCasinoSearch = (signal, debSearchString) => {
                 slotGames.Data.length >= 24 || liveGames.Data.length === 0
                     ? 0
                     : 24 - slotGames.Data.length >= liveGames.Data.length
-                    ? liveGames.Data.length
-                    : 24 - slotGames.Data.length;
+                        ? liveGames.Data.length
+                        : 24 - slotGames.Data.length;
             if (liveGames.Data.length > 0 && slotGames.Data.length > 0 && slotGames.Data.length < 24) {
                 const liveGamesLeftOut = liveGames.Data.slice(liveGamesAddedNum);
                 dispatch(searchActions.setNotRenderedLiveResults(liveGamesLeftOut));
@@ -229,8 +229,8 @@ export const addToSearchResults = (signal, debSearchString, providers) => {
                 slotGames.length >= 24 || liveGames.Data.length === 0
                     ? 0
                     : 24 - slotGames.length >= liveGames.Data.length
-                    ? liveGames.Data.length
-                    : 24 - slotGames.length;
+                        ? liveGames.Data.length
+                        : 24 - slotGames.length;
             if (liveGames.Data.length > 0 && slotGames.length > 0 && slotGames.length < 24) {
                 const liveGamesLeftOut = liveGames.Data.slice(liveGamesAddedNum);
                 dispatch(searchActions.setNotRenderedLiveResults(liveGamesLeftOut));
@@ -357,3 +357,72 @@ export const getEventSearch = (signal, providerId, value) => {
         }
     };
 };
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// export const searchCasino = (signal, page, pageItems, tags, searchStr, order, isDesktop) => {
+//     return async (dispatch, getState) => {
+//         try {
+//             dispatch(searchActions.setLoading(true));
+//             const lang = getLang();
+
+//             const response = await axiosApi.post(
+//                 `MyCasino/SearchGames?siteid=${config.VITE_SITE_ID}`,
+//                 {
+//                     data: `{"Page":${page},"PageItems":${pageItems},"Tags":${tags},"Search":"${searchStr}",Order:"${order}"}`
+//                 },
+//                 {
+//                     signal: signal,
+//                     baseURLOverride: config.VITE_CASINO_BASE
+//                 }
+//             );
+
+//             if (response.data.Status.StatusCode !== 200) throw Error();
+
+//             const sortingState = getState().casino.sorting;
+
+//             const sortGames = (games, sortOrder) => {
+//                 return games.slice().sort((a, b) => {
+//                     if (sortOrder === 'Default Sort') return 0;
+//                     if (sortOrder === 'A - Z') {
+//                         return a.Data.Name.localeCompare(b.Data.Name);
+//                     } else if (sortOrder === 'Z - A') {
+//                         return b.Data.Name.localeCompare(a.Data.Name);
+//                     }
+//                     return 0;
+//                 });
+//             };
+
+//             let Data = response.data.Contents.Data;
+//             console.log(Data);
+
+//             let sortedData = [];
+//             if (Array.isArray(Data)) {
+//                 sortedData = sortGames(Data, sortingState);
+//             }
+
+//             console.log(sortedData);
+
+//             // Desktop has load more, so the details are needed
+//             if (isDesktop) {
+//                 const allGames = {
+//                     Data: sortedData,
+//                     Total: response.data.Contents.Total,
+//                     slotGamesPage: 1,
+//                     liveGamesPage: 0,
+//                     slotGamesAdded: 24,
+//                     liveGamesAdded: 0,
+//                 };
+//                 dispatch(searchActions.setCasinoResults(allGames));
+//             } else {
+//                 dispatch(searchActions.setCasinoResults(response.data.Contents));
+//             }
+
+//             dispatch(searchActions.setLoading(false));
+//         } catch (error) {
+//             const message = error?.message ? error.message : error;
+//             if (!error?.code === 'ERR_CANCELED') toast.error(message);
+//             dispatch(searchActions.setLoading(false));
+//         }
+//     };
+// };

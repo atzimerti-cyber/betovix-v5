@@ -303,14 +303,14 @@ export const heroProgress = () => {
 
             const currentLevel = {
                 name: response.data.Contents.Level,
-                icon: response.data.Contents.Icon
+                icon: response.data.Contents.LevelIcon
             }
             const progress = response.data.Contents.Progress;
             const progressFixed = !isNaN(parseFloat(progress)) ? parseFloat(progress).toFixed(2) : progress;
             const selectedHero = response.data.Contents.Hero;
             const nextLevel = {
                 name: response.data.Contents.NextLevel,
-                icon: response.data.Contents.NextLevelIcon
+                icon: response.data.Contents.NextIcon
             }
 
             //console.log(currentLevel);
