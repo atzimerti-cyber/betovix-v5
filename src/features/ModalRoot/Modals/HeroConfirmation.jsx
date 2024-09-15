@@ -21,13 +21,16 @@ const HeroConfirmationModal = () => {
     const location = useLocation();
 
     const user = useSelector((state) => state.login.user);
-    const displayedHeroAction = useSelector((state) => state.gamification.displayedHero.metadata.action);
-    const lvlAction = useSelector((state) => state.gamification.displayedHero.metadata.lvlAction);
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
+    const displayedHeroAction = useSelector((state) => state.gamification.displayedHero?.metadata?.action);
+    const lvlAction = useSelector((state) => state.gamification.displayedHero?.metadata?.lvlAction);
 
+    const selectError = useSelector((state) => state.gamification.selectedHeroError);
+    
     const [preMessage, setPreMessage] = useState(true);
     const [heroSelectionLoading, setHeroSelectionLoading] = useState(false);
-    const [postMessage, setPostMessage] = useState(false);
+    const [postMessageError, setPostMessageError] = useState(false);
+    const [postMessageSuccess, setPostMessageSuccess] = useState(false);
 
     const handleButtonClick = () => {
         const controller = new AbortController();
@@ -40,8 +43,12 @@ const HeroConfirmationModal = () => {
             .then(() => {
                 setTimeout(() => {
                 setHeroSelectionLoading(false);
-                    setPostMessage(true);
-                }, 5000);
+                if(selectError) {
+                    setPostMessageError(true);
+                } else {
+                    setPostMessageSuccess(true);
+                }
+                }, 10000);
             })
             .catch((error) => {
                 // Handle error if necessary
@@ -51,6 +58,16 @@ const HeroConfirmationModal = () => {
         // navigate(location.pathname);
     };
 
+    useEffect(() => {
+        if (postMessageSuccess || postMessageError) {
+            setTimeout(() => { navigate(location.pathname); }, 10000);
+        }
+    }, [postMessageError, postMessageSuccess]);
+
+    if (!displayedHero || !displayedHeroAction || !lvlAction) {
+        navigate(location.pathname);
+        return null
+    }
 
     return (
         <div className={classes.ConfirmationModal}>
@@ -95,11 +112,19 @@ const HeroConfirmationModal = () => {
                     </div>
                 </div>
             }
-            {postMessage &&
+            {postMessageSuccess &&
                 <div className={classes.ModalContent}>
-<div className={classes.Result}>
+                <div className={classes.Result}>
                         <span> <LogoSmallIcon /> </span>
                         <span> {translate('Selected Hero Successfully')}</span>
+                    </div>
+                </div>
+            }
+             {postMessageError &&
+                <div className={classes.ModalContent}>
+                <div className={classes.Result}>
+                        <span> <LogoSmallIcon /> </span>
+                        <span> {translate('Error Selecting Hero')}</span>
                     </div>
                 </div>
             }
