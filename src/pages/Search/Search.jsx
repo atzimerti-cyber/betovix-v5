@@ -19,8 +19,8 @@ const Search = () => {
     const casinoResults = useSelector((state) => state.search.casinoResults);
     // const filteredGames = useSelector((state) => state.casino.filteredGames);
 
-    // const sorting = useSelector((state) => state.casino.sorting);
-    const sorting = 'Default';
+    const sorting = useSelector((state) => state.casino.sorting);
+    // const sorting = 'Default';
     const searchString = useSelector((state) => state.search.searchString);
     const debSearchString = useDebounce(searchString);
     const [selectedProviders, setSelectedProviders] = useState([]);
@@ -69,13 +69,14 @@ const Search = () => {
         dispatch(searchActions.setCasinoResults(null));
 
         if (debSearchString.trim() === '' && selectedProviders.length === 0) {
-           // dispatch(getSlots(axiosController.signal, 24, true));
+            // dispatch(getSlots(axiosController.signal, 24, true));
             dispatch(searchCasino(axiosController.signal, 1, 24, selectedProviders, debSearchString, sorting, true));
         } else if (selectedProviders.length === 0) {
             //dispatch(getCasinoSearch(axiosController.signal, debSearchString));
             dispatch(searchCasino(axiosController.signal, 1, 24, selectedProviders, debSearchString, sorting, true));
         } else if (selectedProviders.length > 0) {
-            dispatch(getCasinoSearchProviders(axiosController.signal, 24, debSearchString, selectedProviders));
+            // dispatch(getCasinoSearchProviders(axiosController.signal, 24, debSearchString, selectedProviders));
+            dispatch(searchCasino(axiosController.signal, 1, 24, selectedProviders, debSearchString, sorting, true));
         }
     }, [axiosController, debSearchString, selectedProviders, sorting]);
 
@@ -103,6 +104,7 @@ const Search = () => {
                                             title="Search results"
                                             loading={loading}
                                             searchString={debSearchString}
+                                            sorting={sorting}
                                         />
                                     ) : (
                                         <CasinoGames
@@ -112,6 +114,7 @@ const Search = () => {
                                             loading={loading}
                                             searchString={debSearchString}
                                             providers={casinoResults?.providers}
+                                            sorting={sorting}
                                         />
                                     )
                             ) : (

@@ -391,10 +391,8 @@ export const searchCasino = (signal, page, pageItems, tags, searchStr, order, is
                 const allGames = {
                     Data: response.data.Contents.Data,
                     Total: response.data.Contents.Total,
-                    slotGamesPage: 1,
-                    liveGamesPage: 0,
-                    slotGamesAdded: 24,
-                    liveGamesAdded: 0,
+                    casinoSearchPage: 1,
+                    casinoGamesAdded: 24,
                 };
                 dispatch(searchActions.setCasinoResults(allGames));
             } else {
@@ -406,6 +404,124 @@ export const searchCasino = (signal, page, pageItems, tags, searchStr, order, is
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
             dispatch(searchActions.setLoading(false));
+        }
+    };
+};
+
+export const loadMoreSearch = (signal, pageItems, tags, searchStr, order) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(searchActions.setMoreLoading(true));
+            const lang = getLang();
+
+            const currentState = getState().search;
+            const searchResults = currentState.casinoResults;
+            //console.log('BEFORE', searchResults);
+            const notRenderedLiveResults = currentState.notRenderedLiveResults;
+
+            let slotGames = [];
+            // let slotGames = { Data: [] };
+            let slotPage = searchResults.slotGamesPage;
+            if (searchResults.slotGamesAdded && !searchResults.liveGamesAdded) {
+                slotPage = searchResults.slotGamesPage + 1;
+                if (providers && providers.length > 0) {
+                    for (let provider of providers) {
+                        const responseSlots = await axiosApi.post(
+                            `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+                            {
+                                // data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                                data: `{"Page":${slotPage},"PageItems":24,"Tag":"${provider}","Search":"${debSearchString}"}`,
+                            },
+                            {
+                                signal: signal,
+                                baseURLOverride: config.VITE_CASINO_BASE,
+                            }
+                        );
+                        if (responseSlots.status !== 200 || responseSlots.data.Status.StatusCode !== 200) throw Error();
+                        // slotGames += responseSlots.data.Contents.Data;
+                        slotGames = [...slotGames, ...responseSlots.data.Contents.Data];
+                    }
+                } else {
+                    const responseSlots = await axiosApi.post(
+                        `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+                        {
+                            // data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}","ProviderId":1,"BrandId":0,"VendorId":0}`,
+                            data: `{"Page":${slotPage},"PageItems":24,"Tag":"","Search":"${debSearchString}"}`,
+                        },
+                        {
+                            signal: signal,
+                            baseURLOverride: config.VITE_CASINO_BASE,
+                        }
+                    );
+                    if (responseSlots.status !== 200 || responseSlots.data.Status.StatusCode !== 200) throw Error();
+                    // slotGames = responseSlots.data.Contents;
+                    slotGames = [...slotGames, ...responseSlots.data.Contents.Data];
+                }
+            }
+
+            let liveGames = { Data: [] };
+            let livePage = searchResults.liveGamesPage;
+            let pageItems = 24;
+            if (searchResults.liveGamesAdded) {
+                livePage = livePage + 1;
+                // If both slots and live added in the previous iteration, complete the 24 with the notRenderedLiveResults
+                if (searchResults.slotGamesAdded && searchResults.liveGamesAdded && notRenderedLiveResults.length) {
+                    pageItems = 24 - notRenderedLiveResults.length;
+                }
+
+                const responseLive = await axiosApi.post(
+                    `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+                    {
+                        // data: `{"Page":${livePage},"PageItems":${pageItems},"Tag":"live","Search":"${debSearchString}","ProviderId":0,"BrandId":0,"VendorId":0}`,
+                        data: `{"Page":${livePage},"PageItems":${pageItems},"Tag":"live","Search":"${debSearchString}"}`,
+                    },
+                    {
+                        signal: signal,
+                        baseURLOverride: config.VITE_CASINO_BASE,
+                    }
+                );
+                if (responseLive.status !== 200 || responseLive.data.Status.StatusCode !== 200) throw Error();
+                liveGames = responseLive.data.Contents;
+
+                if (notRenderedLiveResults && notRenderedLiveResults.length > 0) {
+                    liveGames.Data = [...liveGames.Data, ...notRenderedLiveResults];
+                    dispatch(searchActions.setNotRenderedLiveResults(null));
+                }
+            }
+
+            const combinedData = [...slotGames, ...liveGames.Data];
+            const trimmedData = combinedData.slice(0, 24);
+
+            // If only some of the live games were rendered, keep the rest
+            const liveGamesAddedNum =
+                slotGames.length >= 24 || liveGames.Data.length === 0
+                    ? 0
+                    : 24 - slotGames.length >= liveGames.Data.length
+                        ? liveGames.Data.length
+                        : 24 - slotGames.length;
+            if (liveGames.Data.length > 0 && slotGames.length > 0 && slotGames.length < 24) {
+                const liveGamesLeftOut = liveGames.Data.slice(liveGamesAddedNum);
+                dispatch(searchActions.setNotRenderedLiveResults(liveGamesLeftOut));
+            }
+
+            const casinoRes = {
+                Data: trimmedData,
+                Total: trimmedData.length ? searchResults.Total : searchResults.Data.length, // Sometimes there is a difference with the Total and the results
+                slotGamesPage: slotPage,
+                liveGamesPage: livePage,
+                slotGamesAdded: slotGames.length,
+                liveGamesAdded: liveGamesAddedNum,
+            };
+
+            //console.log('AFTER', casinoRes);
+
+            dispatch(searchActions.addToCasinoResults(casinoRes));
+
+            dispatch(searchActions.setMoreLoading(false));
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+            dispatch(searchActions.setMoreLoading(false));
         }
     };
 };

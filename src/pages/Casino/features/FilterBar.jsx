@@ -23,6 +23,18 @@ const FilterBar = (props) => {
     const [showSortingDD, setShowSortingDD] = useState(false);
     const [providersOptions, setProvidersOptions] = useState([]);
     const [checkedProviders, setCheckedProviders] = useState([]);
+    const [sortingValue, setSortingValue] = useState('Default Sort');
+
+
+    useEffect(() => {
+        if (sorting == 'Default'){
+            setSortingValue('Default Sort');
+        }else if(sorting == 'Name_Asc'){
+            setSortingValue('A-Z');
+        }else if(sorting == 'Name_Desc'){
+            setSortingValue('Z-A');
+        }
+    }, [sorting]);
 
 
     useEffect(() => {
@@ -63,7 +75,7 @@ const FilterBar = (props) => {
                 <div className={classes.FiltersSection}>
                     <div className={classes.DropdownWrapper}>
                         <div className={classes.DropdownInner}>
-                            <input id='sort' readOnly role='textbox' value={sorting} onClick={() => setShowSortingDD(!showSortingDD)} />
+                            <input id='sort' readOnly role='textbox' value={sortingValue} onClick={() => setShowSortingDD(!showSortingDD)} />
                             <span className={classes.RightIcon}>
                                 <CaretDownIcon />
                             </span>
@@ -72,27 +84,27 @@ const FilterBar = (props) => {
                                 {showSortingDD && (
                                     <Dropdown3 onClickOutside={() => setShowSortingDD(false)}>
                                         <li
-                                            className={sorting === 'Default Sort' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
+                                            className={sorting === 'Default' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
                                             onClick={() => {
-                                                dispatch(casinoActions.setSorting('Default Sort'));
+                                                dispatch(casinoActions.setSorting('Default'));
                                                 setShowSortingDD(false);
                                             }}
                                         >
                                             {translate('Default Sort')}
                                         </li>
                                         <li
-                                            className={sorting === 'A - Z' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
+                                            className={sorting === 'Name_Asc' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
                                             onClick={() => {
-                                                dispatch(casinoActions.setSorting('A - Z'));
+                                                dispatch(casinoActions.setSorting('Name_Asc'));
                                                 setShowSortingDD(false);
                                             }}
                                         >
                                             {translate('A - Z')}
                                         </li>
                                         <li
-                                            className={sorting === 'Z - A' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
+                                            className={sorting === 'Name_Desc' ? [classes.DropdownItem, classes.Active].join(' ') : classes.DropdownItem}
                                             onClick={() => {
-                                                dispatch(casinoActions.setSorting('Z - A'));
+                                                dispatch(casinoActions.setSorting('Name_Desc'));
                                                 setShowSortingDD(false);
                                             }}
                                         >
@@ -114,7 +126,7 @@ const FilterBar = (props) => {
                             props.onChangeProviders(providers);
                             dispatch(searchActions.setSearchSelectedProviders(providers));
                         }}
-                        max={3}
+                        // max={3}
                         maxMessage={translate('A maximum of three providers is allowed')}
                         selected={checkedProviders && checkedProviders.length > 0 ? (checkedProviders) : (null)}
                     />
