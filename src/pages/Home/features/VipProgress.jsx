@@ -71,7 +71,7 @@ const VipProgress = () => {
                         <span className={classes.TextContainer}>
                             {translate('Your progress to ')}
                         </span>
-                        <div style={{ display: "flex", flexDirection: "row" }}>
+                        <div style={{ display: "flex", flexDirection: "row" , alignItems: "center"}}>
                             <span style={{ color: 'var(--db-brand-green)' }}>{nextLevel.name}</span>
                             <div className={classes.IconContainer} style={{ marginLeft: "5px" }}>
                                 {nextLevel.icon ? (
