@@ -6,12 +6,14 @@ import _ from 'lodash';
 import { getCasinoByTags, getCasinoTags } from '../casinoAsyncActions';
 import classes from './GamesByTag.module.css';
 
-import LogoSmallIcon from '../../../assets/svgs/logo-small.svg?react';
-
 import GridGames from '../features/GridGames';
 import { translate } from '../../../utils/translations';
 import { casinoActions } from '../casinoSlice';
 import { layoutActions } from '../../../features/Layout/layoutSlice';
+import { appActions } from '../../../features/InitApp/appSlice';
+import { AnimatePresence } from 'framer-motion';
+
+import BarLoading from '../../../features/UI/BarLoading/BarLoading';
 
 
 
@@ -27,7 +29,7 @@ const GamesByTag = () => {
     const [items, setItems] = useState({ Data: null });
 
     const casinoByTags = useSelector((state) => state.casino.casinoByTags);
-    const loading = useSelector((state) => state.layout.loading);
+    const barLoading = useSelector((state) => state.app.barLoading);
 
     useEffect(() => {
         return () => {
@@ -49,12 +51,12 @@ const GamesByTag = () => {
 
     useEffect(() => {
         if (!menuTag) return;
-        dispatch(layoutActions.setLoading(true));
+        dispatch(appActions.setBarLoading(true));
 
         const controller = new AbortController();
         const signal = controller.signal;
 
-            dispatch(getCasinoByTags(signal, menuTag));
+        dispatch(getCasinoByTags(signal, menuTag));
    
 
         return () => {
@@ -66,12 +68,8 @@ const GamesByTag = () => {
     useEffect(() => {
         if (casinoByTags) {
             if (casinoByTags[menuTag]) {
-                setTimeout(() => {
-
-                dispatch(layoutActions.setLoading(false));
-
                 setItems({ Data: casinoByTags[menuTag] });
-            }, 1500);
+                dispatch(appActions.setBarLoading(false));
             }
         }
 
@@ -79,7 +77,9 @@ const GamesByTag = () => {
 
     return (
         <>
-            {!loading ? (
+           <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
+
+            {!barLoading ? (
                 <div className={classes.TagGames}>
                     {items?.Data ? (
                         <GridGames
@@ -91,9 +91,7 @@ const GamesByTag = () => {
                     ) : null}
                 </div>
             ) : (
-            <div className={classes.Loading}>
-                <span> <LogoSmallIcon /> </span>
-            </div>
+                <div className={classes.Header}><p className={classes.Title}>Loading...</p></div>
             )}
         </>
     );

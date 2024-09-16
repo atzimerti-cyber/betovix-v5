@@ -11,6 +11,11 @@ import { searchActions } from '../Search/searchSlice';
 import { casinoActions } from '../Casino/casinoSlice';
 import CasinoGames from './features/CasinoGames';
 import CasinoMenu from '../Casino/features/CasinoMenu';
+import { appActions } from '../../features/InitApp/appSlice';
+
+import { AnimatePresence } from 'framer-motion';
+
+import BarLoading from '../../features/UI/BarLoading/BarLoading';
 
 const Search = () => {
     const dispatch = useDispatch();
@@ -25,6 +30,8 @@ const Search = () => {
     const debSearchString = useDebounce(searchString);
     const [selectedProviders, setSelectedProviders] = useState([]);
     const [axiosController, setAxiosController] = useState(null);
+
+    const barLoading = useSelector((state) => state.app.barLoading);
 
     useEffect(() => {
         const controller = new AbortController();
@@ -48,6 +55,7 @@ const Search = () => {
             setSelectedProviders(providerArray);
             dispatch(searchActions.setSearchSelectedProviders(providerArray));
         }
+
     }, [dispatch]);
 
     useEffect(() => {
@@ -65,6 +73,7 @@ const Search = () => {
 
     useEffect(() => {
         if (!axiosController) return;
+        dispatch(appActions.setBarLoading(true));
 
         dispatch(searchActions.setCasinoResults(null));
 
@@ -78,9 +87,19 @@ const Search = () => {
             // dispatch(getCasinoSearchProviders(axiosController.signal, 24, debSearchString, selectedProviders));
             dispatch(searchCasino(axiosController.signal, 1, 24, selectedProviders, debSearchString, sorting, true));
         }
+
+
     }, [axiosController, debSearchString, selectedProviders, sorting]);
 
+    useEffect(() => {
+        
+        dispatch(appActions.setBarLoading(false));
+
+    }, [casinoResults]);
+
     return (
+        <>
+        <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
         <div className={classes.Content}>
             <CasinoMenu />
             <div className={classes.PageContent}>
@@ -118,7 +137,7 @@ const Search = () => {
                                         />
                                     )
                             ) : (
-                                <p>No Results</p>
+                                <p> {translate('No Results')}</p>
                             )
                         ) : (
                             null
@@ -128,7 +147,7 @@ const Search = () => {
                 </div>
             </div>
         </div>
-
+        </>
     );
 };
 

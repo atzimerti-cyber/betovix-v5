@@ -20,7 +20,7 @@ const Minibar = () => {
     const user = useSelector((state) => state.login.user);
     const minibarMenu = useSelector((state) => state.layout.minibarMenu);
     const hasHero = useSelector((state) => state.gamification.selectedHero);
-    const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
+    const userCurrentLevel = useSelector((state) => state.progress.currentLevel);
     const levelProgress = useSelector((state) => state.gamification.progressBar);
 
     // const isMobile = useMediaQuery({ query: '(max-width: 950px)' });
@@ -104,7 +104,15 @@ const Minibar = () => {
 
                                 <div className={classes.YourProgress}>
                                     <MainButton color='transparent' onClick={() => addParamsToUrl('your-progress')}>
-                                        <div className={classes.ProgressTitle}>{userCurrentLevel.name}</div>
+                                        <div className={classes.ProgressTitle}>Level</div>
+                                    <div className={classes.IconContainer}>
+                                        {userCurrentLevel.icon ? (
+                                            <img src={userCurrentLevel.icon} alt='' />
+                                        ) : (
+                                            <div className={`CardLevel CardLevel`}></div>
+                                        )}
+
+                                    </div>
                                         <div className={classes.ProgressBar}>
                                             {levelProgress && Object.keys(levelProgress).length > 0 ? (
                                                 <>

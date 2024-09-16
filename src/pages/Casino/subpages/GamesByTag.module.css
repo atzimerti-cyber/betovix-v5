@@ -8,16 +8,30 @@
     flex-direction: column;
     justify-content: center;
     align-items: center; 
-    height: 200px;
+    height: 220px;
     gap: 20px;
     color: rgb(225, 225, 225);
 }
-.Loading span {
-    animation: rotateAnimation 4s linear infinite;
+.Header {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
 }
-.Loading svg {
-    height: 5rem;
-    width: 5rem;
+
+.Title {
+    display: flex;
+    align-items: center;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 700;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.MoreLoadingAnimation {
+    height: 15rem;
+    width: 15rem;
+    border-radius: 0.375rem;
 }
 
 @keyframes rotateAnimation {

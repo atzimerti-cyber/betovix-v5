@@ -67,23 +67,26 @@ const VipProgress = () => {
                         </div>
 
                     </div>
-                    <div className={classes.RightContainer}>
-                        <span className={classes.TextContainer}>
-                            {translate('Your progress to ')}
-                        </span>
-                        <div style={{ display: "flex", flexDirection: "row" , alignItems: "center"}}>
-                            <span style={{ color: 'var(--db-brand-green)' }}>{nextLevel.name}</span>
-                            <div className={classes.IconContainer} style={{ marginLeft: "5px" }}>
-                                {nextLevel.icon ? (
-                                    <img src={nextLevel.icon} alt='' />
-                                ) : (
-                                    <div className={`CardLevel CardLevel`}></div>
+                    {nextLevel.icon && (
+                                  <div className={classes.RightContainer}>
+                                  <span className={classes.TextContainer}>
+                                      {translate('Your progress to ')}
+                                  </span>
+                                  <div style={{ display: "flex", flexDirection: "row" , alignItems: "center"}}>
+                                      <span style={{ color: 'var(--db-brand-green)' }}>{nextLevel.name}</span>
+                                      <div className={classes.IconContainer} style={{ marginLeft: "5px" }}>
+                                          {nextLevel.icon ? (
+                                              <img src={nextLevel.icon} alt='' />
+                                          ) : (
+                                              <div className={`CardLevel CardLevel`}></div>
+                                          )}
+          
+                                      </div>
+                                  </div>
+          
+                              </div>
                                 )}
-
-                            </div>
-                        </div>
-
-                    </div>
+                    
                 </div>
                 <div className={classes.MilestoneProgressBar}>
                     <div className={classes.BarContainer}>
