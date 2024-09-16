@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { casinoActions } from '../casinoSlice';
 import classes from './SlotGames.module.css';
 import SlotsIcon from '../../../assets/svgs/slots.svg?react';
+import logoAnimation from '../../../assets/images/small-logo-animation.gif';
 import { getSlotsVendors, searchCasino } from '../casinoAsyncActions';
 import FilterBar from '../features/FilterBar';
 import useDebounce from '../../../hooks/useDebounce';
@@ -63,7 +64,12 @@ const SlotGames = () => {
             />
 
             <>
-                {filteredGames && Object.keys(filteredGames).length > 0 &&
+                {searchLoading ? (
+                    <div className={classes.LoadingContainer}>
+                       <img src={logoAnimation} className={classes.MoreLoadingAnimation}></img>
+                    </div>
+                ) : (
+                    filteredGames && Object.keys(filteredGames).length > 0 &&
                     <GridGames
                         collection={filteredGames}
                         icon={<SlotsIcon />}
@@ -75,8 +81,7 @@ const SlotGames = () => {
                         sorting={sorting}
                         tag={['slot']}
                     />
-                }
-
+                )}
             </>
         </div>
     );

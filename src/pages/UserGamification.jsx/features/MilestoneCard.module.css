@@ -47,10 +47,6 @@
 }
 
 .ImageContainer {
-    /* height: calc(73px - var(--title-fix));
-    width: calc(73px - var(--title-fix));
-    margin-top: calc(70px + var(--title-fix)* 2);
-     */
      height: 120px;
     width: 120px;
     margin-top: 50px;
@@ -142,6 +138,12 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-weight:700;
     text-transform: uppercase;
+}
+
+.Details>button {
+    cursor: pointer;
+    min-height: 25px;
+    height: 25px;
 }
 
 .Status {

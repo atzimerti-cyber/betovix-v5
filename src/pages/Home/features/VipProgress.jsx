@@ -38,7 +38,7 @@ const VipProgress = () => {
     };
 
     return (
-        <div className={classes.VipProgress} onClick={Object.keys(selectedHero).length > 0 ? () => addParamsToUrl('your-progress') : () => addParamsToUrl(null, 'heroes')}>
+        <div className={classes.VipProgress} onClick={ selectedHero && Object.keys(selectedHero).length > 0 ? () => addParamsToUrl('your-progress') : () => addParamsToUrl(null, 'heroes')}>
             <VipBackgroundIcon className={classes.ProgressMask} />
             <div>
                 <div className={classes.Title}>

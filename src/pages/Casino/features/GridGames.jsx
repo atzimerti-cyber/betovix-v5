@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import classes from './GridGames.module.css';
 import diceAnimation from '../../../assets/images/dice_animation_1.webp';
+import logoAnimation from '../../../assets/images/small-logo-animation.gif';
 import CasinoGameCard from '../features/CasinoGameCard';
 import MainButton from '../../../features/UI/Buttons/MainButton';
 import { addToGamesWithFilter, loadMoreSearch } from '../casinoAsyncActions';
@@ -34,7 +35,7 @@ const GridGames = (props) => {
     };
 
     return (
-        <div className={classes.VendorGames}>
+        <div className={classes.Games}>
             <div className={classes.Header}>
                 {props.icon}
                 <p className={classes.Title}>{translate(props.title)}</p>
@@ -69,7 +70,7 @@ const GridGames = (props) => {
             {props.collection?.Total > props.collection?.Data.length && props.collection?.Data.length > 0 && (
                 <div className={classes.LoadMore}>
                     {moreLoading ? (
-                        <img src={diceAnimation} className={classes.MoreLoadingAnimation}></img>
+                        <img src={logoAnimation} className={classes.MoreLoadingAnimation}></img>
                     ) : (
                         <MainButton color='primary' onClick={addToGames}>
                             <span>{translate('Load More')}</span>

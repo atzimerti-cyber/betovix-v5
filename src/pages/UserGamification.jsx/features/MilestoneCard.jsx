@@ -5,6 +5,7 @@ import classes from './MilestoneCard.module.css';
 import largeCoin from '../../../assets/images/large-coin.webp';
 import DsButton from '../../../features/UI/Buttons/DsButton';
 import CoinsIcon from '../../../assets/svgs/coins.svg?react';
+import MainButton from '../../../features/UI/Buttons/MainButton';
 
 const MilestoneCard = (props) => {
     return (
@@ -75,6 +76,15 @@ const MilestoneCard = (props) => {
                             </span>
                         </div>
                     )}
+                    {props.buyLevel &&
+                        (
+                            <div className={classes.Details}>
+                                <MainButton color='bv-light-green'>
+                                    Buy Level
+                                </MainButton>
+                            </div>
+                        )
+                    }
                 </div>
 
                 {props.firstCard ?
