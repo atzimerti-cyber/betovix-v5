@@ -101,7 +101,7 @@
         row-gap: 0.75rem;
         border-radius: 0.375rem;
         background-color: var(--db-gray-1);
-        padding: 1.5rem;
+        padding: 0.6rem;
     }
     .SearchSection {
         margin-left: 0;

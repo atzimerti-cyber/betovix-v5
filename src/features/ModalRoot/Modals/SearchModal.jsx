@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useMediaQuery } from 'react-responsive';
 
 import classes from './SearchModal.module.css';
-import { getSlots, getCasinoSearch } from '../../../pages/Search/searchAsyncActions';
+import { searchCasino } from '../../../pages/Search/searchAsyncActions';
 import { searchActions } from '../../../pages/Search/searchSlice';
 import Search3 from '../../Search/Search3';
 import useDebounce from '../../../hooks/useDebounce';
@@ -30,7 +30,7 @@ const SearchModal = () => {
         const signal = controller.signal;
         setAxiosController(controller);
 
-        dispatch(getSlots(signal, 10));
+        dispatch(searchCasino(signal, 1, 15, [], debSearchString, 'Default', false));
 
         return () => {
             if (axiosController) axiosController.abort();
@@ -48,9 +48,9 @@ const SearchModal = () => {
         dispatch(searchActions.setCasinoResults(null));
 
         if (debSearchString === '') {
-            dispatch(getSlots(axiosController.signal, 10));
+            dispatch(searchCasino(axiosController.signal, 1, 15, [], debSearchString, 'Default', false));
         } else {
-            dispatch(getCasinoSearch(axiosController.signal, debSearchString));
+            dispatch(searchCasino(axiosController.signal, 1, 15, [], debSearchString, 'Default', false));
         }
     }, [debSearchString, axiosController]);
 

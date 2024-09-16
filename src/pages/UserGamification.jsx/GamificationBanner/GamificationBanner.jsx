@@ -113,7 +113,7 @@ const GamificationBanner = ({ onDataNotFound }) => {
                 ref={swiperRef}
                 slidesPerView={1}
                 noPagination={true}
-                //autoplay={true}
+                // autoplay={true}
                 delay={7000}
                 loop={true}
                 noTouchMove={true}

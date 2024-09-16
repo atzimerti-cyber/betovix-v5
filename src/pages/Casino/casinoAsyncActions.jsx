@@ -491,7 +491,7 @@ export const getFavoriteGamesLiveToFiltered = (signal) => {
 };
 
 
-//=============================================================
+//=============================================================//
 export const getCasinoTags = (signal) => {
     return async (dispatch) => {
         try {
@@ -527,6 +527,121 @@ export const getCasinoByTags = (signal, tag) => {
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
+///////////////////////////////////      SEARCH CASINO        ////////////////////////////////////
+export const searchCasino = (signal, page, pageItems, tags, searchStr, order, isDesktop) => {
+    return async (dispatch) => {
+        try {
+            dispatch(casinoActions.setSearchLoading(true));
+            const lang = getLang();
+
+            const payload = {
+                Page: 1,
+                PageItems: pageItems,
+                Tags: tags,
+                Search: searchStr,
+                Order: order
+            }
+
+            const response = await axiosApi.post(
+                `MyCasino/SearchGames?siteid=${config.VITE_SITE_ID}`,
+
+                payload,
+
+                {
+                    signal: signal,
+                    baseURLOverride: config.VITE_CASINO_BASE
+                }
+            );
+
+            if (response.data.Status.StatusCode !== 200) throw Error();
+
+            if (isDesktop) {
+                const allGames = {
+                    Data: response.data.Contents.Data,
+                    Total: response.data.Contents.Total,
+                    casinoSearchPage: 1,
+                    casinoGamesAdded: 24,
+                    providers: tags,
+                };
+                dispatch(casinoActions.setSlotGames(allGames));
+            } else {
+                const allGames = {
+                    Data: response.data.Contents.Data,
+                    Total: response.data.Contents.Total,
+                    casinoSearchPage: 1,
+                    casinoGamesAdded: 24,
+                    providers: tags,
+                };
+                dispatch(casinoActions.setSlotGames(allGames));
+            }
+
+            dispatch(casinoActions.setSearchLoading(false));
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+            dispatch(casinoActions.setSearchLoading(false));
+        }
+    };
+};
+
+export const loadMoreSearch = (signal, pageItems, tags, searchStr, order) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(casinoActions.setMoreLoading(true));
+            const lang = getLang();
+
+            const currentState = getState().casino;
+            const searchResults = currentState.slotGames;
+
+            let casinoGames = [];
+
+            let searchPage = searchResults.casinoSearchPage;
+            searchPage = searchResults.casinoSearchPage + 1;
+
+            let stateTags = searchResults.providers;
+
+
+            const payload = {
+                Page: searchPage,
+                PageItems: pageItems,
+                Tags: stateTags,
+                Search: searchStr,
+                Order: order,
+            }
+
+            const response = await axiosApi.post(
+                `MyCasino/SearchGames?siteid=${config.VITE_SITE_ID}`,
+
+                payload,
+
+                {
+                    signal: signal,
+                    baseURLOverride: config.VITE_CASINO_BASE,
+                }
+            );
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error();
+
+            casinoGames = [...casinoGames, ...response.data.Contents.Data];
+
+            const casinoRes = {
+                Data: casinoGames,
+                Total: casinoGames.length ? searchResults.Total : searchResults.Data.length,
+                casinoSearchPage: searchPage,
+                casinoGamesAdded: casinoGames.length,
+                providers: stateTags,
+            };
+
+            dispatch(casinoActions.addToAllSlots(casinoRes));
+
+            dispatch(casinoActions.setMoreLoading(false));
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+            dispatch(casinoActions.setMoreLoading(false));
         }
     };
 };

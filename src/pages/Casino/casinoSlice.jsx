@@ -83,7 +83,11 @@ export const casinoSlice = createSlice({
             state.slotGames = action.payload;
         },
         addToAllSlots: (state, action) => {
-            state.slotGames.allSlots.Data = [...state.slotGames.allSlots.Data, ...action.payload];
+            state.slotGames.Data = [...state.slotGames.Data, ...action.payload.Data];
+            state.slotGames.Total = action.payload.Total;
+            state.slotGames.casinoSearchPage = action.payload.casinoSearchPage;
+            state.slotGames.casinoGamesAdded = action.payload.casinoGamesAdded;
+            state.slotGames.providers = action.payload.providers;
         },
         setSearchResults: (state, action) => {
             state.searchResults = action.payload;
@@ -101,7 +105,13 @@ export const casinoSlice = createSlice({
             state.filteredGames[action.payload.property].Data = [...state.filteredGames[action.payload.property].Data, ...action.payload.values];
             state.filteredGames[action.payload.property].filter.Page = state.filteredGames[action.payload.property].filter.Page + 1;
         },
-
+        loadMoreFilteredGames: (state, action) => {
+            state.filteredGames.Data = [...state.filteredGames.Data, ...action.payload.Data];
+            state.filteredGames.Total = action.payload.Total;
+            state.filteredGames.casinoSearchPage = action.payload.casinoSearchPage;
+            state.filteredGames.casinoGamesAdded = action.payload.casinoGamesAdded;
+            state.filteredGames.providers = action.payload.providers;
+        },
         addFavorite: (state, action) => {
             const currentState = current(state);
             const updated = _.cloneDeep(currentState.filteredGames);

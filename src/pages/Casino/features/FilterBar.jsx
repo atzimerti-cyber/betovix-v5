@@ -30,9 +30,9 @@ const FilterBar = (props) => {
         if (sorting == 'Default'){
             setSortingValue('Default Sort');
         }else if(sorting == 'Name_Asc'){
-            setSortingValue('A-Z');
+            setSortingValue('A - Z');
         }else if(sorting == 'Name_Desc'){
-            setSortingValue('Z-A');
+            setSortingValue('Z - A');
         }
     }, [sorting]);
 

@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useMediaQuery } from 'react-responsive';
 
 import classes from './Search.module.css';
 import CherriesIcon from '../../assets/svgs/cherries.svg?react';
 import { getAllVendors } from '../Casino/casinoAsyncActions';
-import { getSlots, getCasinoSearch, getCasinoSearchProviders, searchCasino } from './searchAsyncActions';
+import { searchCasino } from './searchAsyncActions';
 import FilterBar from '../Casino/features/FilterBar';
 import useDebounce from '../../hooks/useDebounce';
 import { searchActions } from '../Search/searchSlice';
@@ -17,10 +18,10 @@ const Search = () => {
 
     const loading = useSelector((state) => state.search.loading);
     const casinoResults = useSelector((state) => state.search.casinoResults);
-    // const filteredGames = useSelector((state) => state.casino.filteredGames);
+    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+
 
     const sorting = useSelector((state) => state.casino.sorting);
-    // const sorting = 'Default';
     const searchString = useSelector((state) => state.search.searchString);
     const debSearchString = useDebounce(searchString);
     const [selectedProviders, setSelectedProviders] = useState([]);
@@ -68,16 +69,11 @@ const Search = () => {
 
         dispatch(searchActions.setCasinoResults(null));
 
-        if (debSearchString.trim() === '' && selectedProviders.length === 0) {
-            // dispatch(getSlots(axiosController.signal, 24, true));
-            dispatch(searchCasino(axiosController.signal, 1, 24, selectedProviders, debSearchString, sorting, true));
-        } else if (selectedProviders.length === 0) {
-            //dispatch(getCasinoSearch(axiosController.signal, debSearchString));
-            dispatch(searchCasino(axiosController.signal, 1, 24, selectedProviders, debSearchString, sorting, true));
-        } else if (selectedProviders.length > 0) {
-            // dispatch(getCasinoSearchProviders(axiosController.signal, 24, debSearchString, selectedProviders));
+        if (!isMobile) {
             dispatch(searchCasino(axiosController.signal, 1, 24, selectedProviders, debSearchString, sorting, true));
         }
+
+
     }, [axiosController, debSearchString, selectedProviders, sorting]);
 
     return (
@@ -90,7 +86,6 @@ const Search = () => {
                         onChangeSearch={(value) => dispatch(searchActions.setSearchString(value))}
                         onChangeProviders={(value) => setSelectedProviders(value)}
                         placeholder='Search Casino'
-
                     />
 
                     {casinoResults ?

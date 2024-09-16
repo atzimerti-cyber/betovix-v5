@@ -4,10 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import classes from './CasinoGames.module.css';
 import CasinoGameCard from '../../Casino/features/CasinoGameCard';
 import LoaderPlaceholder from '../../../features/UI/Skeletons/LoaderPlaceholder';
-// import diceAnimation from '../../../assets/images/dice_animation_2.webp';
 import logoAnimation from '../../../assets/images/small-logo-animation.gif';
 import MainButton from '../../../features/UI/Buttons/MainButton';
-import { addToSearchResults, loadMoreSearch } from '../../../pages/Search/searchAsyncActions';
+import { loadMoreSearch } from '../../../pages/Search/searchAsyncActions';
 import { translate } from '../../../utils/translations';
 
 const CasinoGames = (props) => {
@@ -32,7 +31,6 @@ const CasinoGames = (props) => {
         setAxiosController(controller);
 
         dispatch(loadMoreSearch(signal, 24, props.providers, props.searchString, props.sorting));
-        // dispatch(addToSearchResults(signal, 24,  props.searchString, props.providers));
     };
 
     return (
@@ -54,10 +52,10 @@ const CasinoGames = (props) => {
 
                 {props.loading || props.collection === null || moreLoading
                     ? Array.from({ length: 24 }, (_, index) => (
-                          <div key={index} className={classes.ImageContainer}>
-                              <LoaderPlaceholder />
-                          </div>
-                      ))
+                        <div key={index} className={classes.ImageContainer}>
+                            <LoaderPlaceholder />
+                        </div>
+                    ))
                     : null}
             </div>
 
