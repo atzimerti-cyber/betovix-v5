@@ -69,6 +69,29 @@ import Pragmatic from '../../assets/casinoIcons/pragmatic-logo.svg?react';
 import RedTiger from '../../assets/casinoIcons/redtiger-logo.svg?react';
 import Yggdrasil from '../../assets/casinoIcons/yggdrasil-logo.svg?react';
 import Providers from '../../assets/casinoIcons/providers.svg?react';
+import Popular from '../../assets/casinoIcons/popular.svg?react';
+import Slots from '../../assets/casinoIcons/slots.svg?react';
+import AllGames from '../../assets/casinoIcons/allgames.svg?react';
+import Crash from '../../assets/casinoIcons/crash.svg?react';
+import Amarix from '../../assets/casinoIcons/amarix.svg?react';
+import Megaways from '../../assets/casinoIcons/megaways.svg?react';
+import Halloween from '../../assets/casinoIcons/halloween.svg?react';
+import Classic from '../../assets/casinoIcons/classic.svg?react';
+import Book from '../../assets/casinoIcons/book.svg?react';
+import Greek from '../../assets/casinoIcons/greek.svg?react';
+import GameArt from '../../assets/casinoIcons/gameart.svg?react';
+import Beter from '../../assets/casinoIcons/beter.svg?react';
+import Aviator from '../../assets/casinoIcons/aviator.svg?react';
+import Aviatrix from '../../assets/casinoIcons/aviatrix.svg?react';
+import CrazyTooth from '../../assets/casinoIcons/crazytooth.svg?react';
+import Top20 from '../../assets/casinoIcons/top20.svg?react';
+import Premium from '../../assets/casinoIcons/premium.svg?react';
+import TrendingNow from '../../assets/casinoIcons/trendingnow.svg?react';
+import BuffaloSlots from '../../assets/casinoIcons/buffaloslots.svg?react';
+import Roulette from '../../assets/casinoIcons/roulette.svg?react';
+import CardGames from '../../assets/casinoIcons/cardgames.svg?react';
+import BTG from '../../assets/casinoIcons/btg.svg?react';
+
 import Favorites from '../../assets/svgs/heart.svg?react';
 
 
@@ -192,32 +215,49 @@ const initialState = {
         'Counter-Strike: GO (CS:GO)': <CsgoIcon />,
     },
     casinoIcons: {
-        Slots : <CricketIcon />,
+        Slots : <Slots />,
         Favorites : <Favorites />,
-        Popular : <CricketIcon />,
-        AllGames :<New />,
-        Vegas : <CricketIcon />,
+        Popular : <Popular />,
+        'All Games' :<AllGames />,
         Amatic : <Amatic />,
         Egyptian : <Egyptian />,
         Egypt : <Egyptian />,
-        Megaways : <CricketIcon />,
-        Halloween : <CricketIcon />,
-        Classic : <CricketIcon />,
-        Book : <CricketIcon />,
-        Greek : <CricketIcon />,
+        Megaways : <Megaways />,
+        Halloween : <Halloween />,
+        Classic : <Classic />,
+        Book : <Book />,
+        Greek : <Greek />,
         Aristocrat : <Aristocrat />,
         Egt : <Egt />,
+        EGT : <Egt />,
         Evolution : <Evolution />,
         Netent : <Netent />,
         Novomatic : <Novomatic />,
         PlayNGo : <PlayNGo />,
+        "Play'n Go" : <PlayNGo />,
         Playtech : <Playtech />,
         Pragmatic : <Pragmatic />,
         RedTiger : <RedTiger />,
+        'Red Tiger' : <RedTiger />,
         Yggdrasil : <Yggdrasil />,
         Providers : <Providers />,
+        'New Games' : <New/>,
+        New : <New/>,
         NewGames : <New/>,
-        New : <New/>
+        'Crash Games' : <Crash/>,
+        Amarix : <Amarix/>,
+        'Big Time Gaming' : <BTG/>,
+        'Game Art' : <GameArt/>,
+        Beter : <Beter/>,
+        Aviator : <Aviator/>,
+        Aviatrix : <Aviatrix/>,
+        'Crazy Tooth' : <CrazyTooth/>,
+        'Top 20' : <Top20/>,
+        'Trending Now' : <TrendingNow/>,
+        'Buffalo Slots' : <BuffaloSlots/>,
+        Roulette : <Roulette/>,
+        'Card Games' : <CardGames/>,
+        Premium : <Premium/>
     },
     sportSettings: null,
     siteSettings: null,

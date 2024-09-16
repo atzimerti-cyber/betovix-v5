@@ -172,7 +172,7 @@ export const loadInitData = (isMobile) => {
                                 visible: false,
                             },
                             items: item.Items.map((subItem) => {
-                                const icon = casinoIcons[subItem.Icon] || <NoImageIcon />;
+                                const icon = casinoIcons[subItem.Name] || <NoImageIcon />;
                                 const slug = subItem.Name?.toLowerCase().replace(/ /g, '-');
                                 return {
                                     id: subItem.Id,
@@ -184,7 +184,7 @@ export const loadInitData = (isMobile) => {
                             }),
                         };
                     } else {
-                        const icon = casinoIcons[item.Categ.Icon] || <NoImageIcon />;
+                        const icon = casinoIcons[item.Categ.Name] || <NoImageIcon />;
                         const slug = item.Categ.Icon?.toLowerCase().replace(/ /g, '-');
                         return {
                             items: [
