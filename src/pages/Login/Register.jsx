@@ -135,20 +135,20 @@ const Register = () => {
 
     useEffect(() => {
         if (!debPassword) return;
-    
+
         const validMinSize = debPassword.length >= settings.passwordMinLength;
-    
+
         const hasUppercase = /[A-Z]/.test(debPassword);
         const hasLowercase = /[a-z]/.test(debPassword);
         const validCases = hasUppercase && hasLowercase;
-    
+
         const validNumbers = /\d/.test(debPassword);
-    
+
         const specialCharRegex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
         const validSpecial = specialCharRegex.test(debPassword);
-    
+
         const isValid = validMinSize && validCases && validNumbers && validSpecial;
-    
+
         // Functional update to avoid stale state
         setValidChecks((prevValidChecks) => ({
             ...prevValidChecks,
@@ -162,7 +162,7 @@ const Register = () => {
             },
         }));
     }, [debPassword, settings.passwordMinLength]);
-    
+
 
     useEffect(() => {
         if (!debPassword || !debVerifyPassword) return;
@@ -367,8 +367,8 @@ const Register = () => {
                 {translate('Register')}
             </MainButton>
 
-            {/* <p className={classes.LoginWith}>{translate('or login with')}</p>
-            <AlternativeMethods /> */}
+            <p className={classes.LoginWith}>{translate('or login with')}</p>
+            <AlternativeMethods />
 
             {/* <div className={classes.CaptchaText}>
                 {translate('This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.')}

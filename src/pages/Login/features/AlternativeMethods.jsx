@@ -8,7 +8,7 @@ const AlternativeMethods = () => {
             <button type='button' title='Log in with Google'>
                 <GoogleIcon />
             </button>
-            <button type='button' title='Login with Steam'>
+            <button type='button'disabled title='Login with Steam'>
                 <SteamIcon />
             </button>
         </div>

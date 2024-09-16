@@ -101,6 +101,7 @@ const SwiperWithOverlay = (props) => {
         >
             {items ? (
                 items.length === 0 ? (
+
                     <p className={classes.NoResults}>No {props.title}</p>
                 ) : (
                     items.map((item, index) => {

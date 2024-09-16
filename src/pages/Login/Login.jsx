@@ -120,9 +120,8 @@ const Login = () => {
                             {translate('Login')}
                         </MainButton>
 
-                        {/* <p className={classes.LoginWith}>{translate('or login with')}</p>
-
-            <AlternativeMethods /> */}
+                        <p className={classes.LoginWith}>{translate('or login with')}</p>
+                        <AlternativeMethods />
 
                         <MainButton color='transparent' onClick={() => changeTab('forgot-password')}>
                             {translate('Forgot your password?')}

@@ -67,6 +67,7 @@
     width: 100%;
     height: 100%;
     aspect-ratio: 272 / 296;
+    z-index: -1;
 }
 
 .ImageContainer img {
@@ -75,6 +76,7 @@
     height: 100%;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
+    z-index: -1;
 }
 
 /* .PromoText {
@@ -186,7 +188,8 @@
         width: 550px;
         /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
     }
+
     .TabContent {
-        width:60%;
+        width: 60%;
     }
 }
