@@ -5,10 +5,15 @@ import _ from 'lodash';
 
 import { getCasinoByTags, getCasinoTags } from '../casinoAsyncActions';
 import classes from './GamesByTag.module.css';
-import HeartIcon from '../../../assets/svgs/heart.svg?react';
+
+import LogoSmallIcon from '../../../assets/svgs/logo-small.svg?react';
+
 import GridGames from '../features/GridGames';
 import { translate } from '../../../utils/translations';
 import { casinoActions } from '../casinoSlice';
+import { layoutActions } from '../../../features/Layout/layoutSlice';
+
+
 
 const GamesByTag = () => {
     const dispatch = useDispatch();
@@ -22,6 +27,7 @@ const GamesByTag = () => {
     const [items, setItems] = useState({ Data: null });
 
     const casinoByTags = useSelector((state) => state.casino.casinoByTags);
+    const loading = useSelector((state) => state.layout.loading);
 
     useEffect(() => {
         return () => {
@@ -43,11 +49,13 @@ const GamesByTag = () => {
 
     useEffect(() => {
         if (!menuTag) return;
+        dispatch(layoutActions.setLoading(true));
 
         const controller = new AbortController();
         const signal = controller.signal;
 
-        dispatch(getCasinoByTags(signal, menuTag));
+            dispatch(getCasinoByTags(signal, menuTag));
+   
 
         return () => {
             controller.abort();
@@ -58,30 +66,37 @@ const GamesByTag = () => {
     useEffect(() => {
         if (casinoByTags) {
             if (casinoByTags[menuTag]) {
+                setTimeout(() => {
+
+                dispatch(layoutActions.setLoading(false));
+
                 setItems({ Data: casinoByTags[menuTag] });
+            }, 1500);
             }
         }
 
     }, [casinoByTags]);
 
     return (
-        <div className={classes.TagGames}>
-
-            {items.Data != null ? (
-                <GridGames
-                    collection={items}
-                    icon={''}
-                    title={translate(`${label}`)}
-                    loading={false}
-                />
+        <>
+            {!loading ? (
+                <div className={classes.TagGames}>
+                    {items?.Data ? (
+                        <GridGames
+                            collection={items}
+                            icon={''}
+                            title={translate(`${label}`)}
+                            loading={false}
+                        />
+                    ) : null}
+                </div>
             ) : (
-                null
+            <div className={classes.Loading}>
+                <span> <LogoSmallIcon /> </span>
+            </div>
             )}
-
-
-
-        </div>
-    )
+        </>
+    );
 };
 
 export default GamesByTag;
