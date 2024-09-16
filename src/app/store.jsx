@@ -27,6 +27,7 @@ import topEventsSlice from '../features/TopEvents/TopEventsSlice';
 import casinoNewSlice from '../features/NewGames/CasinoNewGamesSlice';
 import crashGamesSlice from '../features/CrashGames/crashGamesSlice';
 import recommendedGamesSlice from '../features/RecommendedGames/recommendedGamesSlice';
+import progressSlice from '../pages/Home/features/ProgressSlice';
 
 export const store = configureStore({
     reducer: {
@@ -57,6 +58,7 @@ export const store = configureStore({
         casinoNew: casinoNewSlice.reducer,
         crashGames: crashGamesSlice.reducer,
         recommendedGames: recommendedGamesSlice.reducer,
+        progress: progressSlice.reducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

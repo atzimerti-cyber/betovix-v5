@@ -4,6 +4,7 @@ import { getLang } from '../../utils/storage';
 import axiosApi from '../../axios-api';
 import { gamificationActions } from './userGamificationSlice';
 import { appActions } from '../../features/InitApp/appSlice';
+import { progressActions } from '../Home/features/ProgressSlice';
 import config from '../../config';
 
 ////To get all heroes, levels, milestones (to display in profile?tab=horoes && GamificationBanner.jsx)(whether user has a hero or not)////
@@ -317,6 +318,11 @@ export const heroProgress = () => {
             //console.log(progress);
             //console.log(selectedHero);
             console.log('Nxt Level', nextLevel);
+
+            dispatch(progressActions.setCurrentLevel(currentLevel));
+            dispatch(progressActions.setProgressBar(progressFixed));
+            dispatch(progressActions.setSelectedHero(selectedHero));
+            dispatch(progressActions.setNextLevel(nextLevel));
 
             dispatch(gamificationActions.setCurrentLevel(currentLevel));
             dispatch(gamificationActions.setProgressBar(progressFixed));

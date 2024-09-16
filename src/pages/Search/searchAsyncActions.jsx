@@ -360,69 +360,69 @@ export const getEventSearch = (signal, providerId, value) => {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// export const searchCasino = (signal, page, pageItems, tags, searchStr, order, isDesktop) => {
-//     return async (dispatch, getState) => {
-//         try {
-//             dispatch(searchActions.setLoading(true));
-//             const lang = getLang();
+export const searchCasino = (signal, page, pageItems, tags, searchStr, order, isDesktop) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch(searchActions.setLoading(true));
+            const lang = getLang();
 
-//             const response = await axiosApi.post(
-//                 `MyCasino/SearchGames?siteid=${config.VITE_SITE_ID}`,
-//                 {
-//                     data: `{"Page":${page},"PageItems":${pageItems},"Tags":${tags},"Search":"${searchStr}",Order:"${order}"}`
-//                 },
-//                 {
-//                     signal: signal,
-//                     baseURLOverride: config.VITE_CASINO_BASE
-//                 }
-//             );
+            const response = await axiosApi.post(
+                `MyCasino/SearchGames?siteid=${config.VITE_SITE_ID}`,
+                {
+                    data: `{"Page":1,"PageItems":${pageItems},"Tags":${tags},"Search":"${searchStr}",Order:"${order}"}`
+                },
+                {
+                    signal: signal,
+                    baseURLOverride: config.VITE_CASINO_BASE
+                }
+            );
 
-//             if (response.data.Status.StatusCode !== 200) throw Error();
+            if (response.data.Status.StatusCode !== 200) throw Error();
 
-//             const sortingState = getState().casino.sorting;
+            const sortingState = getState().casino.sorting;
 
-//             const sortGames = (games, sortOrder) => {
-//                 return games.slice().sort((a, b) => {
-//                     if (sortOrder === 'Default Sort') return 0;
-//                     if (sortOrder === 'A - Z') {
-//                         return a.Data.Name.localeCompare(b.Data.Name);
-//                     } else if (sortOrder === 'Z - A') {
-//                         return b.Data.Name.localeCompare(a.Data.Name);
-//                     }
-//                     return 0;
-//                 });
-//             };
+            const sortGames = (games, sortOrder) => {
+                return games.slice().sort((a, b) => {
+                    if (sortOrder === 'Default Sort') return 0;
+                    if (sortOrder === 'A - Z') {
+                        return a.Data.Name.localeCompare(b.Data.Name);
+                    } else if (sortOrder === 'Z - A') {
+                        return b.Data.Name.localeCompare(a.Data.Name);
+                    }
+                    return 0;
+                });
+            };
 
-//             let Data = response.data.Contents.Data;
-//             console.log(Data);
+            let Data = response.data.Contents.Data;
+            console.log(Data);
 
-//             let sortedData = [];
-//             if (Array.isArray(Data)) {
-//                 sortedData = sortGames(Data, sortingState);
-//             }
+            let sortedData = [];
+            if (Array.isArray(Data)) {
+                sortedData = sortGames(Data, sortingState);
+            }
 
-//             console.log(sortedData);
+            console.log(sortedData);
 
-//             // Desktop has load more, so the details are needed
-//             if (isDesktop) {
-//                 const allGames = {
-//                     Data: sortedData,
-//                     Total: response.data.Contents.Total,
-//                     slotGamesPage: 1,
-//                     liveGamesPage: 0,
-//                     slotGamesAdded: 24,
-//                     liveGamesAdded: 0,
-//                 };
-//                 dispatch(searchActions.setCasinoResults(allGames));
-//             } else {
-//                 dispatch(searchActions.setCasinoResults(response.data.Contents));
-//             }
+            // Desktop has load more, so the details are needed
+            if (isDesktop) {
+                const allGames = {
+                    Data: sortedData,
+                    Total: response.data.Contents.Total,
+                    slotGamesPage: 1,
+                    liveGamesPage: 0,
+                    slotGamesAdded: 24,
+                    liveGamesAdded: 0,
+                };
+                dispatch(searchActions.setCasinoResults(allGames));
+            } else {
+                dispatch(searchActions.setCasinoResults(response.data.Contents));
+            }
 
-//             dispatch(searchActions.setLoading(false));
-//         } catch (error) {
-//             const message = error?.message ? error.message : error;
-//             if (!error?.code === 'ERR_CANCELED') toast.error(message);
-//             dispatch(searchActions.setLoading(false));
-//         }
-//     };
-// };
+            dispatch(searchActions.setLoading(false));
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+            dispatch(searchActions.setLoading(false));
+        }
+    };
+};

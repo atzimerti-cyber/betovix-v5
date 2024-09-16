@@ -16,10 +16,10 @@ const VipProgress = () => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const user = useSelector((state) => state.login.user);
 
-    const selectedHero = useSelector((state) => state.gamification.selectedHero);
-    const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
-    const nextLevel = useSelector((state) => state.gamification.nextLevel);
-    const levelProgress = useSelector((state) => state.gamification.progressBar);
+    const selectedHero = useSelector((state) => state.progress.selectedHero);
+    const userCurrentLevel = useSelector((state) => state.progress.currentLevel);
+    const nextLevel = useSelector((state) => state.progress.nextLevel);
+    const levelProgress = useSelector((state) => state.progress.progressBar);
 
     const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
 
