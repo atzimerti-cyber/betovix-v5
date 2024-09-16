@@ -143,10 +143,20 @@
     text-transform: uppercase;
 }
 
-.Details>button {
+.BuyButton{
+    position: absolute;
+    z-index: 9999;
+}
+
+.BuyButton>button {
     cursor: pointer;
     min-height: 25px;
     height: 25px;
+    z-index: 999;
+    top: 30px;
+    left: 25px;
+    position: absolute;
+    white-space: nowrap;
 }
 
 .Status {

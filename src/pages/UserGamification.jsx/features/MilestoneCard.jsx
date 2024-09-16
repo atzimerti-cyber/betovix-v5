@@ -21,6 +21,16 @@ const MilestoneCard = (props) => {
             transition={{ duration: 0.7, delay: props.index * 0.07 }}
             style={{ '--title-fix': '-5px' }}
         >
+
+            {props.buyLevel &&
+                (
+                    <div className={classes.BuyButton}>
+                        <MainButton color='bv-light-green'>
+                            Buy Level
+                        </MainButton>
+                    </div>
+                )
+            }
             <div className={classes.Background}>
                 <div className={classes.ImageContainer}>
                     {props.firstCard ? (
@@ -46,7 +56,9 @@ const MilestoneCard = (props) => {
                 </div>
             </div>
 
+
             <div className={classes.Content}>
+
                 <div>
                     <p className={[classes.Title, classes.LongTitle].join(' ')}>
                         <span>{props.label ? props.label : 'Milestone'}</span>
@@ -76,15 +88,7 @@ const MilestoneCard = (props) => {
                             </span>
                         </div>
                     )}
-                    {props.buyLevel &&
-                        (
-                            <div className={classes.Details}>
-                                <MainButton color='bv-light-green'>
-                                    Buy Level
-                                </MainButton>
-                            </div>
-                        )
-                    }
+
                 </div>
 
                 {props.firstCard ?
