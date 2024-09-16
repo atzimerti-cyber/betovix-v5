@@ -87,7 +87,7 @@ const SwiperWithOverlay = (props) => {
     };
 
     return (
-        items &&
+        items && items.length > 0 &&
         <MainSwiper
             slidesPerView={props.slidesPerView ? props.slidesPerView : slidesPerView}
             slidesPerGroup={slidesPerGroup}

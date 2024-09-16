@@ -366,11 +366,19 @@ export const searchCasino = (signal, page, pageItems, tags, searchStr, order, is
             dispatch(searchActions.setLoading(true));
             const lang = getLang();
 
+            const payload = {
+                Page: 1,
+                PageItems: pageItems,
+                Tags: tags,
+                Search: searchStr,
+                Order: order
+            }
+
             const response = await axiosApi.post(
                 `MyCasino/SearchGames?siteid=${config.VITE_SITE_ID}`,
-                {
-                    data: `{"Page":1,"PageItems":${pageItems},"Tags":${tags},"Search":"${searchStr}",Order:"${order}"}`
-                },
+
+                payload,
+
                 {
                     signal: signal,
                     baseURLOverride: config.VITE_CASINO_BASE
@@ -379,34 +387,9 @@ export const searchCasino = (signal, page, pageItems, tags, searchStr, order, is
 
             if (response.data.Status.StatusCode !== 200) throw Error();
 
-            const sortingState = getState().casino.sorting;
-
-            const sortGames = (games, sortOrder) => {
-                return games.slice().sort((a, b) => {
-                    if (sortOrder === 'Default Sort') return 0;
-                    if (sortOrder === 'A - Z') {
-                        return a.Data.Name.localeCompare(b.Data.Name);
-                    } else if (sortOrder === 'Z - A') {
-                        return b.Data.Name.localeCompare(a.Data.Name);
-                    }
-                    return 0;
-                });
-            };
-
-            let Data = response.data.Contents.Data;
-            console.log(Data);
-
-            let sortedData = [];
-            if (Array.isArray(Data)) {
-                sortedData = sortGames(Data, sortingState);
-            }
-
-            console.log(sortedData);
-
-            // Desktop has load more, so the details are needed
             if (isDesktop) {
                 const allGames = {
-                    Data: sortedData,
+                    Data: response.data.Contents.Data,
                     Total: response.data.Contents.Total,
                     slotGamesPage: 1,
                     liveGamesPage: 0,
