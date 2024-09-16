@@ -98,10 +98,10 @@ const Ticket = () => {
 
         const pointsStr = JSON.stringify(points);
 
-        let  payload = `{'tickettype':'${betType}','points':${pointsStr}}`;
+        let  payload = `{"tickettype":"${betType}","points":${pointsStr}}`;
 
         if (selectedAccount && selectedAccount !== null && selectedAccount?.AccountId) {
-             payload = `{'tickettype':'${betType}','points':${pointsStr},'ForPlayer':${selectedAccount.AccountId}}`;
+             payload = `{"tickettype":"${betType}","points":${pointsStr},"ForPlayer":${selectedAccount.AccountId}}`;
         }
 
         dispatch(getMaxBet(payload));

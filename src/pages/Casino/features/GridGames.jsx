@@ -5,7 +5,7 @@ import classes from './GridGames.module.css';
 import diceAnimation from '../../../assets/images/dice_animation_1.webp';
 import CasinoGameCard from '../features/CasinoGameCard';
 import MainButton from '../../../features/UI/Buttons/MainButton';
-import { addToGamesWithFilter } from '../casinoAsyncActions';
+import { addToGamesWithFilter, loadMoreSearch } from '../casinoAsyncActions';
 import LoaderPlaceholder from '../../../features/UI/Skeletons/LoaderPlaceholder';
 import { translate } from '../../../utils/translations';
 
@@ -28,7 +28,9 @@ const GridGames = (props) => {
         const signal = controller.signal;
         setAxiosController(controller);
 
-        dispatch(addToGamesWithFilter(props.property, signal));
+        //dispatch(addToGamesWithFilter(props.property, signal));
+        let tags = [...props.providers, props.tag];
+        dispatch(loadMoreSearch(signal, 28, tags, props.searchString, props.sorting));
     };
 
     return (
@@ -44,16 +46,19 @@ const GridGames = (props) => {
             </div>
 
             <div className={classes.GameGrid}>
-                {props.collection?.Data.map((game) => {
-                    return <CasinoGameCard key={game.Data.Id} game={game} />;
-                })}
+                {props.collection &&
+                    props.collection.Data.map((game) => {
+                        return <CasinoGameCard key={game.Data.Id} game={game} />;
+                    })
+                }
+
 
                 {props.loading || props.collection === null || moreLoading
                     ? Array.from({ length: 24 }, (_, index) => (
-                          <div key={index} className={classes.ImageContainer}>
-                              <LoaderPlaceholder />
-                          </div>
-                      ))
+                        <div key={index} className={classes.ImageContainer}>
+                            <LoaderPlaceholder />
+                        </div>
+                    ))
                     : null}
             </div>
 

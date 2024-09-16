@@ -6,7 +6,7 @@ import CasinoGameCard from './CasinoGameCard';
 import SkeletonGameCardRow from '../../UI/Skeletons/SkeletonGameCardRow';
 import diceAnimation from '../../../assets/images/dice_animation_2.webp';
 import MainButton from '../../UI/Buttons/MainButton';
-import { addToSearchResults } from '../../../pages/Search/searchAsyncActions';
+import { loadMoreSearch } from '../../../pages/Search/searchAsyncActions';
 
 const CasinoGames = (props) => {
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const CasinoGames = (props) => {
         const signal = controller.signal;
         setAxiosController(controller);
 
-        dispatch(addToSearchResults(signal, props.searchString));
+        dispatch(loadMoreSearch(signal, 24, [], props.searchString, 'Default'));
     };
 
     return (

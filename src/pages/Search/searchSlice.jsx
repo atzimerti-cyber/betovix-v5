@@ -40,10 +40,9 @@ export const searchSlice = createSlice({
         addToCasinoResults: (state, action) => {
             state.casinoResults.Data = [...state.casinoResults.Data, ...action.payload.Data];
             state.casinoResults.Total = action.payload.Total;
-            state.casinoResults.slotGamesPage = action.payload.slotGamesPage;
-            state.casinoResults.liveGamesPage = action.payload.liveGamesPage;
-            state.casinoResults.slotGamesAdded = action.payload.slotGamesAdded;
-            state.casinoResults.liveGamesAdded = action.payload.liveGamesAdded;
+            state.casinoResults.casinoSearchPage = action.payload.casinoSearchPage;
+            state.casinoResults.casinoGamesAdded = action.payload.casinoGamesAdded;
+            state.casinoResults.providers = action.payload.providers;
         },
         setNotRenderedLiveResults: (state, action) => {
             state.notRenderedLiveResults = action.payload;
