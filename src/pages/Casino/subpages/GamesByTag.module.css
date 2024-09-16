@@ -3,3 +3,33 @@
     padding: 0.5rem;
     border-radius: 10px;
 }
+.Loading {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    height: 200px;
+    gap: 20px;
+    color: rgb(225, 225, 225);
+}
+.Loading span {
+    animation: rotateAnimation 4s linear infinite;
+}
+.Loading svg {
+    height: 5rem;
+    width: 5rem;
+}
+
+@keyframes rotateAnimation {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.25);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}

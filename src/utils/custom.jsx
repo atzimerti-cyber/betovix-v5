@@ -145,8 +145,12 @@ export function getOrdinal(n) {
 export function addThousandsSeparator(value, decimals = 2) {
     if (value === null) return null;
 
-    value = Number(value).toFixed(decimals);
-    if (value >= 1000) value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+    value = parseFloat(value.toString().replace(/,/g, ''));
+    if (isNaN(value)) return null;
+
+    value = value.toFixed(decimals);
+    value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+
     return value;
 }
 
