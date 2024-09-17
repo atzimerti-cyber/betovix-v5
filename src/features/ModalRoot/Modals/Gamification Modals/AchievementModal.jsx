@@ -21,11 +21,12 @@ import { translate } from '../../../../utils/translations';
 import { claimReward } from '../../../../pages/UserGamification.jsx/gamificationAsyncActions';
 import { rewardViewed } from '../../../../pages/UserGamification.jsx/gamificationAsyncActions';
 
-
-const AchievementModal = (props) => {
+const AchievementModal = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+
+    const mountComponent = useSelector((state) => state.gamification.mountPopUp)
 
     const rewards = useSelector((state) => state.gamification.popupRewards);
     const user = useSelector((state) => state.login.user);
@@ -39,7 +40,8 @@ const AchievementModal = (props) => {
 
     useEffect(() => {
         setShowSparkle(true);
-        const timer = setTimeout(() => setShowSparkle(false), 7000);
+        const timer = setTimeout(() => setShowSparkle(false), 4000);
+
         return () => clearTimeout(timer);
     }, [rewards]);
 
@@ -48,10 +50,11 @@ const AchievementModal = (props) => {
     }
 
     return (
+        rewards &&
         <div className={classes.AchievementModal}>
             <div className={`${classes.backgroundOverlay} ${showSparkle ? classes.sparkle : ''}`}></div>
 
-            <Swiper
+            {rewards.length > 0 && <Swiper
                 modules={[Navigation, Pagination, Scrollbar, EffectCreative]}
                 spaceBetween={30}
                 slidesPerView={1}
@@ -119,20 +122,27 @@ const AchievementModal = (props) => {
                             </div>
 
                             <div className={classes.MainContent}>
-                                {reward.RewardMetaData.Picture ? (
-                                    <img src={reward.RewardMetaData.Picture} alt='' />
+                                {reward.MetaData.Icon ? (
+                                    <img src={reward.MetaData.Icon} alt='' />
                                 ) : (
                                     <img src={RewardImage} alt='' />
                                 )}
                                 <div className={classes.RewardDetails}>
-                                    {reward.RewardName ? (
-                                        <>
-                                            <h1>{reward.RewardName}</h1>
-                                            <p>{reward.RewardName}</p>
-                                        </>
-                                    ) : (
-                                        null
-                                    )}
+                                    {reward.RewardName ?
+                                        (
+                                            <>
+                                                <h1>{reward.RewardName}</h1>
+                                                {reward.MetaData.Description ?
+                                                    (
+                                                        <p>{reward.MetaData.Description}</p>
+                                                    ) : (
+                                                        null
+                                                    )}
+
+                                            </>
+                                        ) : (
+                                            null
+                                        )}
                                 </div>
 
                                 <div className={classes.ClaimButton}>
@@ -144,7 +154,7 @@ const AchievementModal = (props) => {
                         </div>
                     </SwiperSlide>
                 ))}
-            </Swiper>
+            </Swiper>}
 
             <div className={`${classes.customPrevArrow} ${isBeginning ? classes.disabled : ''}`}>
                 <img src={AngleLeftIcon} alt="Previous" />

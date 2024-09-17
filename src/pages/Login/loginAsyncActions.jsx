@@ -124,7 +124,6 @@ export const getUser = (navigate) => {
                 // TODO: The rest should come from the backend
                 const user = {
                     ...response.data.Contents,
-
                     // profileHidden: false,
                     // marketingEmails: true,
                     // level: 0,
@@ -132,20 +131,20 @@ export const getUser = (navigate) => {
                     // registered: 1712505696754,
                 };
 
+                //REWARDS
                 let rewards = [];
-
                 const params = new URLSearchParams(window.location.search);
                 const isModalAchievementOpen = params.get('modal') === 'achievement';
 
                 if (!isModalAchievementOpen && response.data.Contents.Rewards && response.data.Contents.Rewards.length > 0) {
                     rewards = response.data.Contents.Rewards;
                     dispatch(gamificationActions.setPopupRewards(rewards));
-
+                    //console.log(rewards);
                     const params = new URLSearchParams(location.search);
                     params.set('modal', 'achievement');
-
                     navigate(`${location.pathname}?modal=achievement`, { replace: false });
                 }
+
                 dispatch(loginActions.setUser(user));
                 dispatch(layoutActions.setAvailableBonus(user));
                 dispatch(layoutActions.setAvailableBonusBalance(user));

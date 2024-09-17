@@ -13,9 +13,9 @@
     transform: translateY(-1%);
 }
 
-.NoResults{
+.NoResults {
     text-align: center;
-    font-size: large;
+    font-size: 0.9rem;
 }
 
 .Card {
@@ -25,16 +25,12 @@
     aspect-ratio: 8 / 4;
     position: relative;
     cursor: pointer;
-    /* overflow: hidden; */
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
-
+    cursor: default;
     display: grid;
-    grid-template-columns: auto 1fr; /* Changed */
+    grid-template-columns: auto 1fr;
     grid-template-rows: auto 1fr auto;
-    /* grid-template-rows: 1fr auto;  */
-    /* grid-template-columns: auto auto;
-    grid-template-rows: auto auto; */
     gap: 0.5rem;
 }
 
@@ -47,7 +43,6 @@
     border-radius: 10px;
     grid-column: 1;
     grid-row: 1 / span 3;
-    /* grid-row: 1 / span 2; */
     width: 100%;
     aspect-ratio: 6 / 6;
     position: relative;
@@ -56,7 +51,6 @@
 .ImageContainer img {
     border-radius: 10px;
     object-fit: cover;
-    /* object-fit: fill; */
     aspect-ratio: 6 /6;
     height: 100%;
     transform: translateZ(0);

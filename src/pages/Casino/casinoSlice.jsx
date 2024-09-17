@@ -9,15 +9,16 @@ const initialState = {
     moreLoading: false,
     showCasinoGame: false,
     slotGames: null,
+    liveGames: null,
     searchResults: null,
     searchLoading: true,
-    sorting: 'Default Sort',
+    sorting: 'Default',
     filteredGames: {},
     promotionCasino: null,
     casinoGame: null,
 
     casinoTags: null,
-    casinoByTags:{}
+    casinoByTags: {}
 };
 
 export const casinoSlice = createSlice({
@@ -33,7 +34,7 @@ export const casinoSlice = createSlice({
             state.slotGames = null;
             state.searchResults = null;
             state.searchLoading = true;
-            state.sorting = 'Default Sort';
+            state.sorting = 'Default';
             state.filteredGames = {};
             state.promotionCasino = null;
             state.casinoGame = null;
@@ -47,10 +48,11 @@ export const casinoSlice = createSlice({
         },
         resetSlots: (state) => {
             state.slotGames = null;
+            state.liveGames = null;
             state.searchResults = null;
             state.moreLoading = false;
             state.searchLoading = false;
-            state.sorting = 'Default Sort';
+            state.sorting = 'Default';
             state.casinoVendors = null;
             state.casinoByTags = {};
             state.filteredGames = {};
@@ -89,6 +91,18 @@ export const casinoSlice = createSlice({
             state.slotGames.casinoGamesAdded = action.payload.casinoGamesAdded;
             state.slotGames.providers = action.payload.providers;
         },
+
+        setLiveGames: (state, action) => {
+            state.liveGames = action.payload;
+        },
+        addToAllLives: (state, action) => {
+            state.liveGames.Data = [...state.liveGames.Data, ...action.payload.Data];
+            state.liveGames.Total = action.payload.Total;
+            state.liveGames.casinoSearchPage = action.payload.casinoSearchPage;
+            state.liveGames.casinoGamesAdded = action.payload.casinoGamesAdded;
+            state.liveGames.providers = action.payload.providers;
+        },
+
         setSearchResults: (state, action) => {
             state.searchResults = action.payload;
         },

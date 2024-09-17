@@ -59,11 +59,12 @@
     --tw-text-opacity: 1;
     color: hsl(var(--pc) / var(--tw-text-opacity));
 }
+
 .BVixLGreen.MainButton:hover {
     --tw-border-opacity: 1;
     border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
     --tw-bg-opacity: 1;
-    background-color: hsl(var(--pf, var(--p)) / var(--tw-bg-opacity));
+    background-color: hsl(112, 90%, 32%);
 }
 
 .Primary.MainButton {
@@ -74,6 +75,7 @@
     --tw-text-opacity: 1;
     color: hsl(var(--pc) / var(--tw-text-opacity));
 }
+
 .Primary.MainButton:hover {
     --tw-border-opacity: 1;
     border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
@@ -89,6 +91,7 @@
     --tw-text-opacity: 1;
     color: hsl(var(--sc) / var(--tw-text-opacity));
 }
+
 .Secondary.MainButton:hover {
     --tw-border-opacity: 1;
     border-color: hsl(var(--sf, var(--s)) / var(--tw-border-opacity));
@@ -102,6 +105,7 @@
     background-color: initial;
     color: currentColor;
 }
+
 .Transparent.MainButton:hover {
     --tw-border-opacity: 0;
     background-color: hsl(var(--bc) / var(--tw-bg-opacity));
@@ -114,6 +118,7 @@
     border-color: var(--value-30);
     background-color: var(--value-30);
 }
+
 .Dark.MainButton:hover {
     --tw-border-opacity: 1;
     --tw-bg-opacity: 1;
@@ -142,7 +147,7 @@
     --tw-text-opacity: 0.4;
 }
 
-.MainButton.noPadding{
+.MainButton.noPadding {
     padding-left: 0;
     padding-right: 0;
 }

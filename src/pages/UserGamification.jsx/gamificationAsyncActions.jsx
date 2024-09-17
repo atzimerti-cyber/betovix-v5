@@ -103,9 +103,11 @@ export const selectedHero = (displayedHeroAction, lvlAction, signal) => {
             }, 1000 * 10);
             setTimeout(() => {
                 dispatch(getUserAchievements());
+                dispatch(heroProgress());
             }, 1000 * 20);
             setTimeout(() => {
                 dispatch(getUserAchievements());
+                dispatch(heroProgress());
             }, 1000 * 30);
         } catch (error) {
             const message = error?.message ? error.message : error;
@@ -189,7 +191,7 @@ export const getUserAchievements = () => {
             }
 
             //console.log("Hero: ", selectedHero);
-            console.log("Hero Levels: ", heroLevels);
+            //console.log("Hero Levels: ", heroLevels);
             //console.log("Current Level: ", currentLevel);
 
             dispatch(gamificationActions.setSelectedHero(selectedHero));
@@ -317,7 +319,7 @@ export const heroProgress = () => {
             //console.log(currentLevel);
             //console.log(progress);
             //console.log(selectedHero);
-            console.log('Nxt Level', nextLevel);
+            //console.log('Nxt Level', nextLevel);
 
             dispatch(progressActions.setCurrentLevel(currentLevel));
             dispatch(progressActions.setProgressBar(progressFixed));
@@ -394,7 +396,7 @@ export const recRewards = () => {
                 monthlyRewards: monthlyRewards
             }
 
-            console.log(manualRewards);
+            //console.log(manualRewards);
 
             dispatch(gamificationActions.setManualRewards(manualRewards));
 

@@ -1,26 +1,23 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    topGames: null,
     heroes: null,
     displayedHero: {},
-    currentLevel: {},
-    levels: null,
     selectedHero: null,
+    currentLevel: {},
     heroLevels: null,
-    popupRewards: { Id: 1 },
+    popupRewards: {},
     newRewards: [],
     claimedRewards: [],
     loading: false,
     progressBar: null,
     manualRewards: {
-        instantRewards:null,
-        dailyRewards:null,
-        weeklyRewards:null,
-        monthlyRewards:null,
+        instantRewards: null,
+        dailyRewards: null,
+        weeklyRewards: null,
+        monthlyRewards: null,
     },
-    dataCame:null,
-    ericLevels: {},
+    dataCame: null,
     nextLevel: {},
     selectedHeroError: true,
     canSelect: false,
@@ -31,7 +28,7 @@ export const userGamificationSlice = createSlice({
     initialState,
     reducers: {
         reset: (state) => {
-           
+        
         },
         setHeroes: (state, action) => {
             state.heroes = action.payload;
@@ -66,9 +63,6 @@ export const userGamificationSlice = createSlice({
         setManualRewards: (state, action) => {
             state.dataCame = true;
             state.manualRewards = action.payload;
-        },
-        setEricLevels: (state, action) => {
-            state.ericLevels = action.payload;
         },
         setNextLevel: (state, action) => {
             state.nextLevel = action.payload;

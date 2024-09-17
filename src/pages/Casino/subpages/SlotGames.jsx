@@ -1,14 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { casinoActions } from '../casinoSlice';
 import classes from './SlotGames.module.css';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { casinoActions } from '../casinoSlice';
+import { getSlotsVendors, searchCasino } from '../casinoAsyncActions';
+
 import SlotsIcon from '../../../assets/svgs/slots.svg?react';
 import logoAnimation from '../../../assets/images/small-logo-animation.gif';
-import { getSlotsVendors, searchCasino } from '../casinoAsyncActions';
+
 import FilterBar from '../features/FilterBar';
 import useDebounce from '../../../hooks/useDebounce';
 import GridGames from '../features/GridGames';
+
 import { translate } from '../../../utils/translations';
 
 const SlotGames = () => {
@@ -46,13 +50,13 @@ const SlotGames = () => {
 
         if (selectedProviders.length === 0) {
             tags = ['slot'];
-            dispatch(searchCasino(axiosController.signal, 1, 28, tags, debSearchString, sorting, true));
+            dispatch(searchCasino(axiosController.signal, 1, 28, tags, debSearchString, sorting));
         } else if (selectedProviders.length > 0) {
             tags = [...selectedProviders, 'slot'];
-            dispatch(searchCasino(axiosController.signal, 1, 28, tags, debSearchString, sorting, true));
+            dispatch(searchCasino(axiosController.signal, 1, 28, tags, debSearchString, sorting));
         }
 
-    }, [selectedProviders, debSearchString, axiosController]);
+    }, [selectedProviders, debSearchString, axiosController, sorting]);
 
     return (
         <div className={classes.SlotGames}>

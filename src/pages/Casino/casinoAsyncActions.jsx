@@ -13,10 +13,6 @@ export const getCasino = (signal) => {
             const lang = getLang();
 
             const requests = [
-                // axiosApi.get(`MyCasino/GetHome?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
-                //     signal: signal,
-                //     baseURLOverride: config.VITE_CASINO_BASE,
-                // }),
                 axiosApi.get(`MyCasino/GetBanners?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
                     signal: signal,
                     baseURLOverride: config.VITE_CASINO_BASE,
@@ -25,29 +21,6 @@ export const getCasino = (signal) => {
                     signal: signal,
                     baseURLOverride: config.VITE_CASINO_BASE,
                 }),
-
-                // axiosApi.post(
-                //     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
-                //     {
-                //         // data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
-                //         data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":""}`,
-                //     },
-                //     {
-                //         signal: signal,
-                //         baseURLOverride: config.VITE_CASINO_BASE,
-                //     }
-                // ),
-                // axiosApi.post(
-                //     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
-                //     {
-                //         // data: `{"Page":1,"PageItems":24,"Tag":"live","Search":"","ProviderId":0,"BrandId":0,"VendorId":0}`,
-                //         data: `{"Page":1,"PageItems":24,"Tag":"live","Search":""}`,
-                //     },
-                //     {
-                //         signal: signal,
-                //         baseURLOverride: config.VITE_CASINO_BASE,
-                //     }
-                // ),
             ];
             const responses = await Promise.all(requests);
 
@@ -55,23 +28,6 @@ export const getCasino = (signal) => {
                 if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error();
             });
 
-            // const favoriteGames = responses[0].data.Contents['Favorites'];
-            // const newGames = responses[0].data.Contents['New Games'];
-            // const recentGames = responses[0].data.Contents['Recently Played'];
-
-            //const casinoHomeItems = responses[0].data.Contents;
-
-            // const casinoHomeItems = Object.keys(responses[0].data.Contents)
-            //     .map((menuItem) => ({
-            //         Item: responses[0].data.Contents[menuItem].Item,
-            //         Data: responses[0].data.Contents[menuItem].Data,
-            //     }))
-            //     .sort((a, b) => a.Item.Min.localeCompare(b.Item.Min));
-
-            //const casinoVendors = Object.keys(responses[2].data.Contents).sort;
-            //console.log("Vendors(getCasino)", responses[2].data.Contents);
-            //dispatch(casinoActions.setFilteredGames(casinoHomeItems));
-            // dispatch(casinoActions.setFilteredGames(home));
             dispatch(casinoActions.setCasinoBanners(responses[0].data.Contents));
             dispatch(casinoActions.setCasinoVendors(responses[1].data.Contents));
         } catch (error) {
@@ -491,7 +447,8 @@ export const getFavoriteGamesLiveToFiltered = (signal) => {
 };
 
 
-//=============================================================//
+//============================         TAGS        =================================//
+
 export const getCasinoTags = (signal) => {
     return async (dispatch) => {
         try {
@@ -532,7 +489,8 @@ export const getCasinoByTags = (signal, tag) => {
 };
 
 ///////////////////////////////////      SEARCH CASINO        ////////////////////////////////////
-export const searchCasino = (signal, page, pageItems, tags, searchStr, order, isDesktop) => {
+
+export const searchCasino = (signal, page, pageItems, tags, searchStr, order) => {
     return async (dispatch) => {
         try {
             dispatch(casinoActions.setSearchLoading(true));
@@ -559,26 +517,21 @@ export const searchCasino = (signal, page, pageItems, tags, searchStr, order, is
 
             if (response.data.Status.StatusCode !== 200) throw Error();
 
-            if (isDesktop) {
-                const allGames = {
-                    Data: response.data.Contents.Data,
-                    Total: response.data.Contents.Total,
-                    casinoSearchPage: 1,
-                    casinoGamesAdded: 24,
-                    providers: tags,
-                };
+            const allGames = {
+                Data: response.data.Contents.Data,
+                Total: response.data.Contents.Total,
+                casinoSearchPage: 1,
+                casinoGamesAdded: 24,
+                providers: tags,
+            };
+
+            if (tags.includes('slot')) {
                 dispatch(casinoActions.setSlotGames(allGames));
-            } else {
-                const allGames = {
-                    Data: response.data.Contents.Data,
-                    Total: response.data.Contents.Total,
-                    casinoSearchPage: 1,
-                    casinoGamesAdded: 24,
-                    providers: tags,
-                };
-                dispatch(casinoActions.setSlotGames(allGames));
+            }else if(tags.includes('live')){
+                dispatch(casinoActions.setLiveGames(allGames));
             }
 
+            dispatch(casinoActions.setSlotGames(allGames));
             dispatch(casinoActions.setSearchLoading(false));
         } catch (error) {
             const message = error?.message ? error.message : error;
@@ -635,7 +588,11 @@ export const loadMoreSearch = (signal, pageItems, tags, searchStr, order) => {
                 providers: stateTags,
             };
 
-            dispatch(casinoActions.addToAllSlots(casinoRes));
+            if (stateTags.includes('slot')) {
+                dispatch(casinoActions.addToAllSlots(casinoRes));
+            }else if(stateTags.includes('live')){
+                dispatch(casinoActions.addToAllLives(casinoRes));
+            }
 
             dispatch(casinoActions.setMoreLoading(false));
         } catch (error) {

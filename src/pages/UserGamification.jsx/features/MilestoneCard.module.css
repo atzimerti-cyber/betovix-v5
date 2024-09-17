@@ -9,12 +9,13 @@
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     opacity: 0.4;
 }
- 
+
 .MilestoneCard.Complete .Content,
 .MilestoneCard.Complete .Background {
     opacity: 1;
     pointer-events: none;
 }
+
 .MilestoneCard.Complete .Background {
     background-color: var(--db-gray-1);
 }
@@ -47,7 +48,7 @@
 }
 
 .ImageContainer {
-     height: 120px;
+    height: 120px;
     width: 120px;
     margin-top: 50px;
 }
@@ -101,12 +102,14 @@
     display: block;
     line-height: 0.9rem;
 }
+
 @media(max-width: 550px) {
-    
+
     .Content>div>div span {
         font-size: 0.77rem;
     }
-    }
+}
+
 .Title {
     text-align: center;
     font-size: 0.575rem;
@@ -117,7 +120,6 @@
     color: rgb(255 255 255 / var(--tw-text-opacity));
     margin-bottom: 0.6rem;
     text-wrap: pretty;
-    
 }
 
 .Title.LongTitle {
@@ -137,26 +139,29 @@
     justify-content: center;
     text-align: center;
     font-size: 0.77rem;
-  
+
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-weight:700;
+    font-weight: 700;
     text-transform: uppercase;
 }
 
-.BuyButton{
+.BuyButton {
     position: absolute;
     z-index: 9999;
 }
 
 .BuyButton>button {
     cursor: pointer;
-    min-height: 25px;
-    height: 25px;
+    min-height: 22px;
+    height: 23px;
     z-index: 999;
     top: 30px;
-    left: 25px;
+    left: 36px;
     position: absolute;
     white-space: nowrap;
+    padding-right: 0.5rem;
+    padding-left: 0.5rem;
+    font-size: 0.79rem;
 }
 
 .Status {

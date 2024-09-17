@@ -24,12 +24,6 @@ const RewardsSwiper = (props) => {
     const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
     const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
     const [loadedImages, setLoadedImages] = useState([]);
-    // const [claimFunction, setClaimFunction] = useState(0);
-
-    // useEffect(() => {
-    //     console.log('Claimed');
-    //     dispatch(getRewards(true));
-    //   }, [claimFunction]);
 
     const updateLoadedImages = (index) => {
         setLoadedImages((prevState) => [...prevState, index]);
@@ -80,15 +74,20 @@ const RewardsSwiper = (props) => {
                             <SwiperSlide key={item.Id}>
                                 <div className={`${classes.SlideContainer}`}>
                                     <article className={classes.Card}>
+                                        
                                         <div className={classes.ImageContainer}>
                                             {loadedImages.includes(index) === false && <LoaderPlaceholder />}
-                                            <img src={DefaultReward} alt={''} loading='lazy' onLoad={() => updateLoadedImages(index)} />
-                                            {/* <img src={item.RewardMetaData.Picture} alt={''} loading='lazy' onLoad={() => updateLoadedImages(index)} /> */}
+                                            {item.RewardMetaData.Icon ?
+                                                (
+                                                    <img src={item.RewardMetaData.Icon} alt={''} loading='lazy' onLoad={() => updateLoadedImages(index)} />
+                                                ) : (
+                                                    <img src={DefaultReward} alt={''} loading='lazy' onLoad={() => updateLoadedImages(index)} />
+                                                )}
                                         </div>
 
                                         <div className={classes.Text}>
                                             <h1>{item.RewardName}</h1>
-                                            <p>Earn {item.Value} coins</p>
+                                            <p>{item.RewardMetaData.Description}</p>
                                         </div>
 
                                         <div className={classes.ClaimButton}>
@@ -102,6 +101,7 @@ const RewardsSwiper = (props) => {
                                                 </MainButton>
                                             )}
                                         </div>
+
                                     </article>
                                 </div>
                             </SwiperSlide>

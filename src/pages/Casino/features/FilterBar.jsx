@@ -27,18 +27,21 @@ const FilterBar = (props) => {
 
 
     useEffect(() => {
-        if (sorting == 'Default'){
+        if (sorting == 'Default') {
             setSortingValue('Default Sort');
-        }else if(sorting == 'Name_Asc'){
+        } else if (sorting == 'Name_Asc') {
             setSortingValue('A - Z');
-        }else if(sorting == 'Name_Desc'){
+        } else if (sorting == 'Name_Desc') {
             setSortingValue('Z - A');
         }
     }, [sorting]);
 
 
     useEffect(() => {
-        if (!casinoVendors) return;
+        if (!casinoVendors) {
+            setCheckedProviders([]);
+            return;
+        }
 
         const po = casinoVendors.map((v) => {
             return {
