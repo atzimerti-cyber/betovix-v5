@@ -12,6 +12,7 @@ import SearchModal from './Modals/SearchModal';
 
 import AchievementModal from './Modals/Gamification Modals/AchievementModal';
 import HeroConfirmation from './Modals/HeroConfirmation'
+import BuyLevelConfirmation from './Modals/BuyLevelConfirmation'
 import YourProgress from '../../pages/UserGamification.jsx/features/YourProgress';
 
 import { modalActions } from './modalSlice';
@@ -81,6 +82,7 @@ const ModalRoot = () => {
         else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;
     }
     else if (modal === 'hero-confirm') modalPage = <HeroConfirmation />;
+    else if (modal === 'buy-level-confirm') modalPage = <BuyLevelConfirmation />;
     else if (modal === 'your-progress') {
         if (user) modalPage = <YourProgress />;
         else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;

@@ -15,6 +15,7 @@ import smallLogo from '../../../../assets/svgs/logo-small.svg';
 import CloseButton from '../../../UI/Buttons/CloseButton';
 import AngleLeftIcon from '../../../../assets/svgs/swipe-prev.svg';
 import AngleRightIcon from '../../../../assets/svgs/swipe-next.svg';
+import LogoIcon from '../../../../assets/svgs/logo-small.svg?react';
 import MainButton from '../../../UI/Buttons/MainButton';
 
 import { translate } from '../../../../utils/translations';
@@ -110,7 +111,7 @@ const AchievementModal = (props) => {
                                 <header>
                                     <div className={classes.Title}>
                                         <img src={smallLogo} alt='' style={{ margin: '2%' }} />
-                                        <h1>{translate("You have earned a reward.")}</h1>
+                                        <h1>{translate("You have earned a reward")}</h1>
                                     </div>
                                     <div className={classes.CloseButton}>
                                         <CloseButton timesIcon onClick={() => navigate(location.pathname)} />
@@ -125,6 +126,7 @@ const AchievementModal = (props) => {
                                     <img src={RewardImage} alt='' />
                                 )}
                                 <div className={classes.RewardDetails}>
+                                    <LogoIcon/>
                                     {reward.RewardName ? (
                                         <>
                                             <h1>{reward.RewardName}</h1>

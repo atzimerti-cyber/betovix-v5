@@ -114,7 +114,7 @@
 }
 
 .RightContainer {
-    margin-right: 0.25rem;
+    /* margin-right: 0.25rem; */
     display: flex;
     justify-content: flex-end;
     gap: 0.25rem;

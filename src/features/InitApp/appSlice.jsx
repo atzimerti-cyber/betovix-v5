@@ -54,6 +54,7 @@ import SquashIcon from '../../assets/sportIcons/squash.svg?react';
 import WarcraftIcon from '../../assets/sportIcons/warcraft.svg?react';
 import StarcraftIcon from '../../assets/sportIcons/starcraft.svg?react';
 import CsgoIcon from '../../assets/sportIcons/csgo.svg?react';
+import ChessIcon from '../../assets/sportIcons/chess.svg?react';
 
 import Amatic from '../../assets/casinoIcons/amatic.svg?react'
 import Aristocrat from '../../assets/casinoIcons/aristocrat-logo.svg?react';
@@ -211,8 +212,10 @@ const initialState = {
         'Water Polo': <WaterpoloIcon />,
         'Warcraft III (W3:TFT)': <WarcraftIcon />,
         'StarCraft (SC)': <StarcraftIcon />,
+        'StarCraft 2 (SC2)': <StarcraftIcon />,
         StarCraft: <StarcraftIcon />,
         'Counter-Strike: GO (CS:GO)': <CsgoIcon />,
+        Chess: <ChessIcon />,
     },
     casinoIcons: {
         Slots : <Slots />,
