@@ -77,9 +77,9 @@ const RewardsSwiper = (props) => {
                                         
                                         <div className={classes.ImageContainer}>
                                             {loadedImages.includes(index) === false && <LoaderPlaceholder />}
-                                            {item.RewardMetaData.Icon ?
+                                            {item.MetaData.Icon ?
                                                 (
-                                                    <img src={item.RewardMetaData.Icon} alt={''} loading='lazy' onLoad={() => updateLoadedImages(index)} />
+                                                    <img src={item.MetaData.Icon} alt={''} loading='lazy' onLoad={() => updateLoadedImages(index)} />
                                                 ) : (
                                                     <img src={DefaultReward} alt={''} loading='lazy' onLoad={() => updateLoadedImages(index)} />
                                                 )}
@@ -87,7 +87,7 @@ const RewardsSwiper = (props) => {
 
                                         <div className={classes.Text}>
                                             <h1>{item.RewardName}</h1>
-                                            <p>{item.RewardMetaData.Description}</p>
+                                            <p>{item.MetaData.Description}</p>
                                         </div>
 
                                         <div className={classes.ClaimButton}>
