@@ -45,12 +45,12 @@ const AchievementModal = () => {
 
         if (swiperRef.current) {
             // Call swiper.update() to refresh it
-            setTimeout(()=>{
+            setTimeout(() => {
                 swiperRef.current.update();
 
 
-            },1000)
-          }
+            }, 1000)
+        }
 
         setShowSparkle(true);
         const timer = setTimeout(() => setShowSparkle(false), 4000);
@@ -59,7 +59,13 @@ const AchievementModal = () => {
     }, [rewards]);
 
     const handleClaimButton = async (id) => {
-        dispatch(claimReward(id));
+        dispatch(claimReward(id).then(() => {
+            if (swiperRef.current) {
+                const currentIndex = swiperRef.current.activeIndex; // Get the current active slide index
+                swiperRef.current.removeSlide(currentIndex); // Remove the current slide
+            }
+
+        }));
     }
 
     return (
@@ -90,9 +96,9 @@ const AchievementModal = () => {
                         dispatch(rewardViewed(currentReward.Id));
                         setViewedRewards((prev) => new Set(prev).add(currentReward.Id));
                     }
- 
-                        
-                     
+
+
+
                 }}
                 onSlideChange={(swiper) => {
                     console.log("onSlideChange: ", swiper);
@@ -127,13 +133,13 @@ const AchievementModal = () => {
             >
                 {rewards.map((reward) => (
                     <SwiperSlide key={reward.Id} style={{ maxWidth: '580px' }}>
-                        <div className={classes.ModalContent}>
+                        <div className={classes.ModalContent} >
 
                             {/* CLOSE BUTTON */}
                             <div className={classes.TopContent}>
                                 <header>
                                     <div className={classes.Title}>
-                                        <img src={smallLogo} alt='' style={{ margin: '2%' }} />
+                                        <img src={smallLogo} alt='' />
                                         <h1>{translate("You have earned a reward")}</h1>
                                     </div>
                                     <div className={classes.CloseButton}>
@@ -143,17 +149,19 @@ const AchievementModal = () => {
                             </div>
 
                             {/* MAIN CONTENT */}
-                            <div className={classes.MainContent} style={{ maxWidth: "476px", maxHeight: "768px", height: "100%", width: "100%" }}>
+                            <div className={classes.MainContent} >
 
-                                {/* <img src={RewardImage} alt='' /> */} 
- 
-                                <div className={classes.RewardDetails}>
+                                {/* <img src={RewardImage} alt='' /> */}
+
+
+
+                                <div className={classes.RewardDetails} style={{ backgroundImage: `url(${reward.MetaData.Icon})` }}>
                                     <LogoIcon />
                                     {reward.RewardName ?
                                         (
                                             <>
                                                 <h1>{reward.RewardName}</h1>
-                                                {reward.MetaData.Description ?
+                                                <p>{reward.MetaData.Description ?
                                                     (
                                                         reward.MetaData.Description.split('?').map((part, index) => (
                                                             <React.Fragment key={index}>
@@ -170,14 +178,14 @@ const AchievementModal = () => {
                                                     ) : (
                                                         'Big Win!'
                                                     )
-                                                }
+                                                }</p>
+                                                {reward.RewardName != 'Level Up' &&
+                                                    <div className={classes.ClaimButton}>
+                                                        <MainButton color='bv-light-green' onClick={() => handleClaimButton(reward.Id)}>
+                                                            {translate('Claim Reward')}
+                                                        </MainButton>
+                                                    </div>}
 
-                                                {reward.MetaData.Icon ?
-                                                    (
-                                                        <img src={reward.MetaData.Icon} alt='' />
-                                                    ) : (
-                                                        null
-                                                    )}
 
                                             </>
                                         ) : (
@@ -185,11 +193,7 @@ const AchievementModal = () => {
                                         )}
                                 </div>
 
-                                <div className={classes.ClaimButton}>
-                                    <MainButton color='bv-light-green' onClick={() => handleClaimButton(reward.Id)}>
-                                        {translate('Claim Reward')}
-                                    </MainButton>
-                                </div>
+
                             </div>
 
 
