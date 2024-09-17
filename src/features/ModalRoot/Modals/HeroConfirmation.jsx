@@ -24,6 +24,7 @@ const HeroConfirmationModal = () => {
     const displayedHero = useSelector((state) => state.gamification.displayedHero);
     const displayedHeroAction = useSelector((state) => state.gamification.displayedHero?.metadata?.action);
     const lvlAction = useSelector((state) => state.gamification.displayedHero?.metadata?.lvlAction);
+    const selectError = useSelector((state) => state.gamification.selectedHeroError);
    
     const [preMessage, setPreMessage] = useState(true);
 
@@ -42,6 +43,12 @@ const HeroConfirmationModal = () => {
             });
 
     };
+
+    useEffect(() => {
+        if(selectError === false) {
+            dispatch(gamificationActions.setCanSelect(false))
+        }
+    }, [selectError]);
 
     if (!displayedHero || !displayedHeroAction || !lvlAction) {
         navigate(location.pathname);

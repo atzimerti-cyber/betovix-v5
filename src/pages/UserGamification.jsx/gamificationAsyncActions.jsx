@@ -91,9 +91,11 @@ export const selectedHero = (displayedHeroAction, lvlAction, signal) => {
                 baseURLOverride: config.VITE_GAMIFICATION_STORETUBE,
             });
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
-
+                dispatch(gamificationActions.setSelectedHeroError(true));
                 throw Error(response.data.Contents);
             } 
+
+            dispatch(gamificationActions.setSelectedHeroError(false));
 
             setTimeout(() => {
                 dispatch(getUserAchievements());

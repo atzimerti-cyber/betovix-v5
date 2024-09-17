@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination, Scrollbar, EffectCreative, Thumbs } from 'swiper/modules';
+import React from 'react';
 
 import 'swiper/css';
 import 'swiper/css/bundle';
@@ -16,6 +17,7 @@ import CloseButton from '../../../UI/Buttons/CloseButton';
 import AngleLeftIcon from '../../../../assets/svgs/swipe-prev.svg';
 import AngleRightIcon from '../../../../assets/svgs/swipe-next.svg';
 import LogoIcon from '../../../../assets/svgs/logo-small.svg?react';
+import CoinsIcon from '../../../../assets/svgs/coins.svg?react';
 import MainButton from '../../../UI/Buttons/MainButton';
 
 import { translate } from '../../../../utils/translations';
@@ -26,7 +28,7 @@ const AchievementModal = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-
+    const swiperRef = useRef(null);
     const mountComponent = useSelector((state) => state.gamification.mountPopUp)
 
     const rewards = useSelector((state) => state.gamification.popupRewards);
@@ -40,6 +42,16 @@ const AchievementModal = () => {
     const [showSparkle, setShowSparkle] = useState(false);
 
     useEffect(() => {
+
+        if (swiperRef.current) {
+            // Call swiper.update() to refresh it
+            setTimeout(()=>{
+                swiperRef.current.update();
+
+
+            },1000)
+          }
+
         setShowSparkle(true);
         const timer = setTimeout(() => setShowSparkle(false), 4000);
 
@@ -66,6 +78,9 @@ const AchievementModal = () => {
                 pagination={{ clickable: true }}
                 scrollbar={{ draggable: true }}
                 onSwiper={(swiper) => {
+
+                    swiperRef.current = swiper; // Store the swiper instance in ref
+
                     setIsBeginning(swiper.isBeginning);
                     setIsEnd(swiper.isEnd);
 
@@ -75,6 +90,9 @@ const AchievementModal = () => {
                         dispatch(rewardViewed(currentReward.Id));
                         setViewedRewards((prev) => new Set(prev).add(currentReward.Id));
                     }
+ 
+                        
+                     
                 }}
                 onSlideChange={(swiper) => {
                     console.log("onSlideChange: ", swiper);
@@ -110,6 +128,8 @@ const AchievementModal = () => {
                 {rewards.map((reward) => (
                     <SwiperSlide key={reward.Id} style={{ maxWidth: '580px' }}>
                         <div className={classes.ModalContent}>
+
+                            {/* CLOSE BUTTON */}
                             <div className={classes.TopContent}>
                                 <header>
                                     <div className={classes.Title}>
@@ -122,12 +142,11 @@ const AchievementModal = () => {
                                 </header>
                             </div>
 
-                            <div className={classes.MainContent}>
-                                {reward.MetaData.Icon ? (
-                                    <img src={reward.MetaData.Icon} alt='' />
-                                ) : (
-                                    <img src={RewardImage} alt='' />
-                                )}
+                            {/* MAIN CONTENT */}
+                            <div className={classes.MainContent} style={{ maxWidth: "476px", maxHeight: "768px", height: "100%", width: "100%" }}>
+
+                                <img src={RewardImage} alt='' />
+ 
                                 <div className={classes.RewardDetails}>
                                     <LogoIcon />
                                     {reward.RewardName ?
@@ -136,7 +155,26 @@ const AchievementModal = () => {
                                                 <h1>{reward.RewardName}</h1>
                                                 {reward.MetaData.Description ?
                                                     (
-                                                        <p>{reward.MetaData.Description}</p>
+                                                        reward.MetaData.Description.split('?').map((part, index) => (
+                                                            <React.Fragment key={index}>
+                                                                {index === 0 ? (
+                                                                    <>{part}</>
+                                                                ) : (
+                                                                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
+                                                                        <CoinsIcon />
+                                                                        {part}
+                                                                    </div>
+                                                                )}
+                                                            </React.Fragment>
+                                                        ))
+                                                    ) : (
+                                                        'Big Win!'
+                                                    )
+                                                }
+
+                                                {reward.MetaData.Icon ?
+                                                    (
+                                                        <img src={reward.MetaData.Icon} alt='' />
                                                     ) : (
                                                         null
                                                     )}
@@ -153,6 +191,8 @@ const AchievementModal = () => {
                                     </MainButton>
                                 </div>
                             </div>
+
+
                         </div>
                     </SwiperSlide>
                 ))}

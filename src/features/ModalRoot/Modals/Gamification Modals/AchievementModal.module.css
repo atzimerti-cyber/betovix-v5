@@ -159,6 +159,7 @@
     max-width: 100%;
     max-height: 100%;
     object-fit: contain;
+    align-self: center;
 }
 
 .TopContent {
@@ -227,7 +228,7 @@
     width: 90%;
     padding: 1.3rem 1.4rem;
     z-index: 90;
-    background: #032c40bf;
+    background: var(--db-gray-1);
     border-radius: 12px;
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;

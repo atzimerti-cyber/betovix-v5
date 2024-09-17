@@ -66,8 +66,8 @@ const Heroes = React.memo(() => {
 
     const renderSelectButton = (canSelect,selectedHero) => {
             selectedHero = selectedHero && Object.keys(selectedHero).length > 0
-             if(selectedHero) return <MainButton disabled> <span>You have selected a hero</span> </MainButton>
-             else if(!selectedHero && !canSelect) return <MainButton disabled> <span>Pending...</span> </MainButton>
+             if(selectedHero) return <MainButton disabled> <span>{translate('You have selected a hero')}</span> </MainButton>
+             else if(!selectedHero && !canSelect) return <MainButton disabled> <span>{translate('Pending')}...</span> </MainButton>
              else if(canSelect) return <MainButton color='bv-light-green' onClick={openConfirm}> <span>{translate('Select Hero')}</span> </MainButton>
               
     };
