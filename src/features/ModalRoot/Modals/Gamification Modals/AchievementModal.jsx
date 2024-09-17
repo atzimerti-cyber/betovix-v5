@@ -45,12 +45,12 @@ const AchievementModal = () => {
 
         if (swiperRef.current) {
             // Call swiper.update() to refresh it
-            setTimeout(()=>{
+            setTimeout(() => {
                 swiperRef.current.update();
 
 
-            },1000)
-          }
+            }, 1000)
+        }
 
         setShowSparkle(true);
         const timer = setTimeout(() => setShowSparkle(false), 4000);
@@ -90,9 +90,9 @@ const AchievementModal = () => {
                         dispatch(rewardViewed(currentReward.Id));
                         setViewedRewards((prev) => new Set(prev).add(currentReward.Id));
                     }
- 
-                        
-                     
+
+
+
                 }}
                 onSlideChange={(swiper) => {
                     console.log("onSlideChange: ", swiper);
@@ -145,8 +145,8 @@ const AchievementModal = () => {
                             {/* MAIN CONTENT */}
                             <div className={classes.MainContent} style={{ maxWidth: "476px", maxHeight: "768px", height: "100%", width: "100%" }}>
 
-                                {/* <img src={RewardImage} alt='' /> */} 
- 
+                                {/* <img src={RewardImage} alt='' /> */}
+
                                 <div className={classes.RewardDetails}>
                                     <LogoIcon />
                                     {reward.RewardName ?

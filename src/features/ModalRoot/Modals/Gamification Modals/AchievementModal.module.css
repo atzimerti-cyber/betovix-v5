@@ -16,10 +16,10 @@
     left: 50%;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 0, 0.6) 0%, rgba(255, 255, 0, 0) 70%);
+    background: radial-gradient(circle, rgb(10 255 159 / 68%) 0%, rgba(255, 255, 0, 0) 51%);
     transform: translate(-50%, -50%);
     opacity: 0;
-    animation: sparkle 7s forwards;
+    animation: _sparkle_drz2a_23 7s forwards;
 }
 
 @keyframes sparkle {
@@ -44,22 +44,17 @@
     grid-template-columns: auto 1fr auto;
     grid-template-rows: auto 1fr auto;
     aspect-ratio: 10/16;
-    /* max-width: 580px; */
     max-height: 80%;
     max-width: calc(100% - 20px);
-
     position: relative;
     margin-left: auto;
     margin-right: auto;
     margin-top: 3rem;
     margin-bottom: 3rem;
-
     --tw-translate-y: -0.5rem;
     --tw-scale-x: 0.9;
     --tw-scale-y: 0.9;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-
-    /* background-color: var(--db-gray-6); */
     opacity: 0;
     animation: slide 0.2s ease-out forwards;
     z-index: 50;
@@ -155,7 +150,7 @@
     gap: 18px;
     align-items: center;
     max-width: 100%;
-    background: radial-gradient(#012441 30%, #001020 81%);
+    /* background: radial-gradient(#012441 30%, #001020 81%); */
 }
 
 .MainContent img {
@@ -228,7 +223,7 @@
     position: absolute;
     top: 10%;
     margin: 1rem;
-    width: 90%;
+    width: 80%;
     padding: 1.3rem 1.4rem;
     z-index: 90;
     background: var(--db-gray-1);
@@ -236,7 +231,7 @@
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     overflow: hidden;
     text-transform: uppercase;
-
+    height: 62%;
 }
 
 .RewardDetails svg {
