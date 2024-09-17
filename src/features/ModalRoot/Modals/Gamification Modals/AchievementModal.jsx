@@ -129,15 +129,22 @@ const AchievementModal = () => {
                                     <img src={RewardImage} alt='' />
                                 )}
                                 <div className={classes.RewardDetails}>
-                                    <LogoIcon/>
-                                    {reward.RewardName ? (
-                                        <>
-                                            <h1>{reward.RewardName}</h1>
-                                            <p>{reward.RewardName}</p>
-                                        </>
-                                    ) : (
-                                        null
-                                    )}
+                                    <LogoIcon />
+                                    {reward.RewardName ?
+                                        (
+                                            <>
+                                                <h1>{reward.RewardName}</h1>
+                                                {reward.MetaData.Description ?
+                                                    (
+                                                        <p>{reward.MetaData.Description}</p>
+                                                    ) : (
+                                                        null
+                                                    )}
+
+                                            </>
+                                        ) : (
+                                            null
+                                        )}
                                 </div>
 
                                 <div className={classes.ClaimButton}>
