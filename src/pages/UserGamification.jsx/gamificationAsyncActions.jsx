@@ -295,7 +295,8 @@ export const claimReward = (Id) => {
                 baseURLOverride: config.VITE_WALLET_STORETUBE,
             });
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw toast.error(response.data.Contents);
-
+            
+            dispatch(gamificationActions.removeCurrentReward(Id));  
 
         } catch (error) {
             const message = error?.message ? error.message : error;

@@ -73,6 +73,18 @@ export const userGamificationSlice = createSlice({
         setCanSelect: (state, action) => {
             state.canSelect = action.payload;
         },
+        removeCurrentReward:(state,action) =>{
+            let id = action.payload;
+            let arr = [];
+            if(!state.popupRewards.length) return;
+
+            for(let i =0; i<state.popupRewards.length; i++){
+                if(state.popupRewards[i].Id == id) continue;
+                arr.push(state.popupRewards[i])
+            }
+            state.popupRewards = arr;
+
+        }
     },
 });
 

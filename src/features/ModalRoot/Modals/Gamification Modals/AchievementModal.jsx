@@ -59,17 +59,11 @@ const AchievementModal = () => {
     }, [rewards]);
 
     const handleClaimButton = async (id) => {
-        dispatch(claimReward(id).then(() => {
-            if (swiperRef.current) {
-                const currentIndex = swiperRef.current.activeIndex; // Get the current active slide index
-                swiperRef.current.removeSlide(currentIndex); // Remove the current slide
-            }
-
-        }));
+        dispatch(claimReward(id));
     }
 
     return (
-        rewards &&
+        rewards && rewards.length ?(
         <div className={classes.AchievementModal}>
             <div className={`${classes.backgroundOverlay} ${showSparkle ? classes.sparkle : ''}`}></div>
 
@@ -209,6 +203,7 @@ const AchievementModal = () => {
                 <img src={AngleRightIcon} alt="Next" />
             </div>
         </div>
+        ):(navigate(location.pathname))
     );
 };
 
