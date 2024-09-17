@@ -44,11 +44,7 @@ const HeroConfirmationModal = () => {
 
     };
 
-    useEffect(() => {
-        if(selectError === false) {
-            dispatch(gamificationActions.setCanSelect(false))
-        }
-    }, [selectError]);
+   
 
     if (!displayedHero || !displayedHeroAction || !lvlAction) {
         navigate(location.pathname);

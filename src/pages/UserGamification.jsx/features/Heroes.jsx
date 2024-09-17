@@ -33,6 +33,7 @@ const Heroes = React.memo(() => {
     const [activeLevel, setActiveLevel] = useState(null);
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive('levels');
     const { slidesPerView: mSlidesPerView } = useSlidesResponsive('milestones');
+   
 
     const openConfirm = () => {
         addParamsToUrl('hero-confirm');
@@ -46,7 +47,7 @@ const Heroes = React.memo(() => {
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     };
 
-  
+     
     useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
@@ -61,10 +62,11 @@ const Heroes = React.memo(() => {
         }
     }, [displayedHero]);
 
-
+  
    
-
+   
     const renderSelectButton = (canSelect,selectedHero) => {
+          
             selectedHero = selectedHero && Object.keys(selectedHero).length > 0
              if(selectedHero) return <MainButton disabled> <span>{translate('You have selected a hero')}</span> </MainButton>
              else if(!selectedHero && !canSelect) return <MainButton disabled> <span>{translate('Pending')}...</span> </MainButton>
@@ -91,7 +93,7 @@ const Heroes = React.memo(() => {
                             <div className={classes.heroBtn}>
                                 <div className={classes.SelectHeroBtn}>
                                     
-                                  {renderSelectButton(canSelect1,selectedHero)}
+                                  { renderSelectButton(canSelect1,selectedHero)}
 
                                 </div>
                             </div>

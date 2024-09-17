@@ -71,7 +71,7 @@ export const userGamificationSlice = createSlice({
             state.nextLevel = action.payload;
         },
         setCanSelect: (state, action) => {
-            state.selectedHeroError = action.payload;
+            state.canSelect = action.payload;
         },
     },
 });

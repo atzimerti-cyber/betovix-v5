@@ -91,11 +91,25 @@ export const selectedHero = (displayedHeroAction, lvlAction, signal) => {
                 baseURLOverride: config.VITE_GAMIFICATION_STORETUBE,
             });
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
-                dispatch(gamificationActions.setSelectedHeroError(true));
+                //dispatch(gamificationActions.setSelectedHeroError(true));
+                dispatch(gamificationActions.setCanSelect(true))
                 throw Error(response.data.Contents);
             } 
 
-            dispatch(gamificationActions.setSelectedHeroError(false));
+            // useEffect(() => {
+            //     if(selectError === false) {
+            //         dispatch(gamificationActions.setCanSelect(false))
+            //     }else{
+            //         dispatch(gamificationActions.setCanSelect(true))
+            //     }
+            // }, [selectError]);
+
+            //dispatch(gamificationActions.setSelectedHeroError(false));
+            if(response.data.Contents === true){
+                dispatch(gamificationActions.setCanSelect(false))
+            }else{
+                dispatch(gamificationActions.setCanSelect(true))
+            }
 
             setTimeout(() => {
                 dispatch(getUserAchievements());
