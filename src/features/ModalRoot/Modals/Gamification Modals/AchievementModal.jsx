@@ -153,13 +153,9 @@ const AchievementModal = () => {
 
                                 {/* <img src={RewardImage} alt='' /> */}
 
-<<<<<<< HEAD
 
 
                                 <div className={classes.RewardDetails} style={{ backgroundImage: `url(${reward.MetaData.Icon})` }}>
-=======
-                                <div className={classes.RewardDetails}>
->>>>>>> cb6c28be713c560558b79ff920a7cef9bb7e2689
                                     <LogoIcon />
                                     {reward.RewardName ?
                                         (
