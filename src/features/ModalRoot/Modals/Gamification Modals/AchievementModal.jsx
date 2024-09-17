@@ -145,7 +145,7 @@ const AchievementModal = () => {
                             {/* MAIN CONTENT */}
                             <div className={classes.MainContent} style={{ maxWidth: "476px", maxHeight: "768px", height: "100%", width: "100%" }}>
 
-                                <img src={RewardImage} alt='' />
+                                {/* <img src={RewardImage} alt='' /> */} 
  
                                 <div className={classes.RewardDetails}>
                                     <LogoIcon />

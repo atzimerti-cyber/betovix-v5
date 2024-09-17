@@ -19,7 +19,7 @@ const initialState = {
     },
     dataCame: null,
     nextLevel: {},
-    canSelect: false,
+    canSelect: true,
     selectedHeroError: true,
 };
 
