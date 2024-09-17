@@ -180,7 +180,7 @@
     align-items: center;
     justify-content: flex-start;
     color: white;
-    font-size: 17px;
+    font-size: 14px;
     font-weight: bold;
 }
 
@@ -217,19 +217,31 @@
 }
 
 .RewardDetails {
-    width: 100%;
-    margin: 1rem;
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
     flex-direction: column;
     position: absolute;
     top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
+    margin: 1rem;
+    width: 90%;
+    padding: 1.3rem 1.4rem;
     z-index: 90;
-    padding: 0;
-    /* overflow: hidden; */
+    background: #032c40bf;
+    border-radius: 12px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+    text-transform: uppercase;
+
+}
+
+.RewardDetails svg {
+    position: absolute;
+    width: 10rem;
+    height: 10rem;
+    opacity: 0.3;
+    top: -28px;
+    right: -26px;
 }
 
 .RewardDetails h1 {
@@ -237,13 +249,19 @@
     color: white;
     font-size: 35px;
     font-weight: bold;
+    line-height: 38px;
+    margin-bottom: 4px;
+    --tw-text-opacity: 1;
+    z-index: 99;
+    color: rgb(136 251 195 / var(--tw-text-opacity));
 }
 
 .RewardDetails p {
     overflow: hidden;
     color: white;
     font-size: 17px;
-    font-weight: 300;
+    font-weight: 600;
+    z-index: 99;
 }
 
 .ClaimButton {

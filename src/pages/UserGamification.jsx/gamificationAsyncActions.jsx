@@ -91,12 +91,9 @@ export const selectedHero = (displayedHeroAction, lvlAction, signal) => {
                 baseURLOverride: config.VITE_GAMIFICATION_STORETUBE,
             });
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
-                dispatch(gamificationActions.setSelectedHeroError(true));
 
                 throw Error(response.data.Contents);
             } 
-
-            dispatch(gamificationActions.setSelectedHeroError(false));
 
             setTimeout(() => {
                 dispatch(getUserAchievements());
@@ -109,6 +106,22 @@ export const selectedHero = (displayedHeroAction, lvlAction, signal) => {
                 dispatch(getUserAchievements());
                 dispatch(heroProgress());
             }, 1000 * 30);
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
+export const BuyHeroLevel = (hero, level, signal) => {
+    return async (dispatch) => {
+        try {
+            const response = await axiosApi.get(`/ModuleGamification/BuyHeroLevel?heroId=${hero}&levelId=${level}`, {
+                signal: signal,
+                baseURLOverride: config.VITE_GAMIFICATION_STORETUBE,
+            });
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
+           
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);

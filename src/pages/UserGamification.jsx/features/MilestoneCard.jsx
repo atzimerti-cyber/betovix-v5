@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import React from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import classes from './MilestoneCard.module.css';
 import largeCoin from '../../../assets/images/large-coin.webp';
@@ -8,6 +9,20 @@ import CoinsIcon from '../../../assets/svgs/coins.svg?react';
 import MainButton from '../../../features/UI/Buttons/MainButton';
 
 const MilestoneCard = (props) => {
+    const navigate = useNavigate();
+
+    const openConfirm = () => {
+        addParamsToUrl('buy-level-confirm');
+    };
+
+    const addParamsToUrl = (modal, tab) => {
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set('modal', modal);
+        if (tab) searchParams.set('tab', tab);
+
+        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+    };
+
     return (
         <motion.article
             className={

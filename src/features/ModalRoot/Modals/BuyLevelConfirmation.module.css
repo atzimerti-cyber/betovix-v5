@@ -1,21 +1,58 @@
-.Modal {
-    width: 850px;
-    max-height: 70%;
-    height: auto;
-    border-radius: 13px;
-    position: absolute;
-    margin-top: 3rem;
+.NotAvailable, .Result{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    height: 200px;
+    gap: 20px;
+    color: rgb(225, 225, 225);
+}
+.NotAvailable span:first-child {
+    animation: rotateAnimation 4s linear infinite;
+}
+.NotAvailable svg, .Result svg{
+    height: 5rem;
+    width: 5rem;
+}
+
+/* @keyframes rotateAnimation {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+} */
+@keyframes rotateAnimation {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.25);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+/* ======================================================== */
+
+.ConfirmationModal {
+    width: 780px;
+    border-radius: 0.4rem;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
     max-width: calc(100% - 20px);
     --tw-translate-y: -0.5rem;
     --tw-scale-x: 0.9;
     --tw-scale-y: 0.9;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     background-color: var(--db-gray-6);
-    border-radius: 10px;
-    /* margin-top: 60px; */
+    margin-top: 60px;
     opacity: 0;
     animation: slide 0.2s ease-out forwards;
-    
 }
 
 @keyframes slide {
@@ -25,72 +62,23 @@
     }
 }
 
-.Spinner {
-    border: 4px solid rgba(0, 0, 0, 0.1);
-    border-top: 4px solid var(--db-brand-green);
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.Loading {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-}
-
-.GoToButton {
-    display: flex;
-    justify-content: center;
-    font-size: 8px;
-}
-
 .ModalContent {
-    max-height: 100%;
+    max-height: 100dvh;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0.625rem;
-    background-color: #0c2233;
-    border-radius: 10px;
-}
-
-.ImageContainer {
-    width: 100%;
-    z-index: -1;
-    display: flex;
-    justify-content: center;
-    position: absolute;
-    bottom: 100%;
-    bottom: calc(100% - 90px);
-    height: 220px;
-}
-
-.ImageContainer img {
-    height: 100%;
+    max-height: calc(100dvh - 80px);
 }
 
 .BackgroundContainer {
     position: relative;
-    height: 50px;
 }
 
 .MainContent {
     display: flex;
     flex-direction: column;
     gap: 18px;
-    margin-top: 1px;
+    justify-content: center;
 }
 
 .TopContent header {
@@ -98,8 +86,6 @@
     height: var(--db-modal-header-height);
     padding-bottom: 1rem;
     grid-template-columns: auto 1fr auto;
-    grid-template-rows: auto auto;
-    justify-items: center
 }
 
 .TopContent header .Center {
@@ -110,30 +96,10 @@
 }
 
 .TopContent header .Right {
-    position: absolute;
-    right: 0;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     grid-column: 3;
-    grid-row: 1;
-}
-
-.TopContent header .Left {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    grid-column: 1;
-    grid-row: 1;
-}
-
-.Hero {
-    display: flex;
-    align-items: center;
-    font-size: 0.9rem;
-    font-weight: 700;
-    --tw-text-opacity: 1;
-    grid-row: 2;
 }
 
 .Title {
@@ -153,7 +119,7 @@
 }
 
 .Title svg path {
-    fill: var(--db-brand-green);
+    fill: var(--db-error);
 }
 
 .TopContent header .Right button svg {
@@ -161,11 +127,30 @@
 }
 
 /* Content */
-
-.LevelUpMilestone {
+.Message {
     display: flex;
-    flex-direction: column;
-    gap: 11px;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 700;
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.BreakdownGrid {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-rows: 40px 1fr;
+}
+
+.BreakdownGrid>div>div {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
 }
 
 .Container {
@@ -176,44 +161,37 @@
     color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.ManualRewards {
-    justify-content: center;
-    margin-top: 1rem;
+.Buttons {
     display: flex;
-    max-width: 100%;
+    flex-direction: row;
+    gap: 0.5rem;
+    justify-content: center;
+    margin: 1rem;
 }
-
-.ManualRewards>div {
-    width: 100%;
-}
-
 
 /* Media */
 @media (min-width: 640px) {
-    .TopContent {
+
+    .TotalName,
+    .TotalBits {
         font-size: 1rem;
         line-height: 1.5rem;
-    }
-
-    .TopContent header .Center {
-        left: 10%;
-        font-size: 1rem;
     }
 }
 
 @media (min-width: 768px) {
+    .AchievementModal {
+        margin-top: 130px;
+    }
 
-    /* .Modal {
-        margin-top: 220px;
-    } */
     .ModalContent {
-        /* max-height: calc(100dvh - 130px); */
+        max-height: calc(100dvh - 130px);
         padding: 1rem;
     }
 
     .ImageContainer {
-        bottom: calc(100% - 130px);
-        height: 340px;
+        bottom: calc(100% - 19px);
+        height: 152px;
     }
 
     .ImageContainer::before {
@@ -248,10 +226,5 @@
         top: 50%;
         --tw-translate-y: -50%;
         transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    }
-
-    .TopContent header .Center {
-        left: 10%;
-        font-size: 0.1rem;
     }
 }

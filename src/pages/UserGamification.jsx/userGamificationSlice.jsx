@@ -19,7 +19,6 @@ const initialState = {
     },
     dataCame: null,
     nextLevel: {},
-    selectedHeroError: true,
     canSelect: false,
 };
 
@@ -66,9 +65,6 @@ export const userGamificationSlice = createSlice({
         },
         setNextLevel: (state, action) => {
             state.nextLevel = action.payload;
-        },
-        setSelectedHeroError: (state, action) => {
-            state.selectedHeroError = action.payload;
         },
         setCanSelect: (state, action) => {
             state.canSelect = action.payload;

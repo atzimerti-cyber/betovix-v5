@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 
-import classes from './HeroConfirmation.module.css';
+import classes from './BuyLevelConfirmation.module.css';
 
 import WarningIcon from '../../../assets/svgs/warning.svg?react'
 import LogoSmallIcon from '../../../assets/svgs/logo-small.svg?react';
@@ -11,11 +11,11 @@ import CloseButton from '../../UI/Buttons/CloseButton';
 
 import { translate } from '../../../utils/translations';
 import MainButton from '../../UI/Buttons/MainButton';
-import { selectedHero } from '../../../pages/UserGamification.jsx/gamificationAsyncActions';
+import { BuyHeroLevel } from '../../../pages/UserGamification.jsx/gamificationAsyncActions';
 import { gamificationActions } from '../../../pages/UserGamification.jsx/userGamificationSlice';
 
 
-const HeroConfirmationModal = () => {
+const BuyLevelConfirmationModal = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -33,14 +33,13 @@ const HeroConfirmationModal = () => {
 
         setPreMessage(false);
 
-        dispatch(selectedHero(displayedHeroAction, lvlAction, signal))
+        dispatch(BuyHeroLevel(displayedHeroAction, lvlAction, signal))
             .then(() => {
                 navigate(location.pathname);
             })
             .catch((error) => {
                 navigate(location.pathname);
             });
-
     };
 
     if (!displayedHero || !displayedHeroAction || !lvlAction) {
@@ -69,8 +68,8 @@ const HeroConfirmationModal = () => {
                     </div>
                     <div className={classes.MainContent}>
                         <p className={classes.Message}>
-                            {translate(`You picked ${displayedHero.metadata.HeroName} ${displayedHero.metadata.HeroSubName}.`)}<br></br>
-                            {translate('Once you select a hero, you cannot go back! Are you sure you want to select this hero?')}
+                            {translate(`You picked to buy level ${lvlAction} of ${displayedHero} ${displayedHero}.`)}<br></br>
+                            {translate('Once you buy a level, you cannot go back! Are you sure you want to buy this level?')}
                         </p>
                     </div>
                     <div className={classes.Buttons}>
@@ -87,4 +86,4 @@ const HeroConfirmationModal = () => {
     );
 };
 
-export default HeroConfirmationModal;
+export default BuyLevelConfirmationModal;
