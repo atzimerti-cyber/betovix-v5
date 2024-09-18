@@ -39,7 +39,7 @@ const Topbar = () => {
     const showLiveListContainer = useSelector((state) => state.layout.showLiveListContainer);
     const showingLiveEvent = useSelector((state) => state.event.showingLiveEvent);
     const availableBonus = useSelector((state) => state.layout.availableBonus);
-    const newRewards = useSelector((state) => state.gamification.newRewards);
+    const newRewards = useSelector((state) => state.gamification.availableRewards);
 
     const hasHero = useSelector((state) => state.gamification.selectedHero);
     const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
@@ -160,8 +160,8 @@ const Topbar = () => {
                                         <UserIcon />
                                         <span>{user?.Username}</span>
                                     </MainButton>
-                                    {newRewards.length > 0 &&
-                                        <div className={[classes.NumberBadge, classes.FloatingBadge].join(' ')}>{newRewards.length}</div>
+                                    {newRewards > 0 &&
+                                        <div className={[classes.NumberBadge, classes.FloatingBadge].join(' ')}>{newRewards}</div>
                                     }
 
                                 </div>

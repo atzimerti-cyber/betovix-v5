@@ -21,8 +21,7 @@ const BuyLevelConfirmationModal = () => {
     const location = useLocation();
 
     const user = useSelector((state) => state.login.user);
-    const displayedHero = useSelector((state) => state.gamification.displayedHero);
-    const displayedHeroAction = useSelector((state) => state.gamification.displayedHero?.metadata?.action);
+    const selectedHero = useSelector((state) => state.gamification.selectedHero);
     const lvlAction = useSelector((state) => state.gamification.displayedHero?.metadata?.lvlAction);
    
     const [preMessage, setPreMessage] = useState(true);
@@ -33,7 +32,7 @@ const BuyLevelConfirmationModal = () => {
 
         setPreMessage(false);
 
-        dispatch(BuyHeroLevel(displayedHeroAction, lvlAction, signal))
+        dispatch(BuyHeroLevel(selectedHero, lvlAction, signal))
             .then(() => {
                 navigate(location.pathname);
             })
@@ -42,7 +41,7 @@ const BuyLevelConfirmationModal = () => {
             });
     };
 
-    if (!displayedHero || !displayedHeroAction || !lvlAction) {
+    if (!selectedHero || !lvlAction) {
         navigate(location.pathname);
         return null
     }
@@ -68,7 +67,7 @@ const BuyLevelConfirmationModal = () => {
                     </div>
                     <div className={classes.MainContent}>
                         <p className={classes.Message}>
-                            {translate(`You picked to buy level ${lvlAction} of ${displayedHero.name} ${displayedHero}.`)}<br></br>
+                            {translate(`You picked to buy level ${lvlAction} of ${selectedHero?.name}.`)}<br></br>
                             {translate('Once you buy a level, you cannot go back! Are you sure you want to buy this level?')}
                         </p>
                     </div>

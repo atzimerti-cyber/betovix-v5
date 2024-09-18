@@ -21,6 +21,7 @@ const initialState = {
     nextLevel: {},
     canSelect: true,
     selectedHeroError: true,
+    availableRewards: 0,
 };
 
 export const userGamificationSlice = createSlice({
@@ -72,6 +73,9 @@ export const userGamificationSlice = createSlice({
         },
         setCanSelect: (state, action) => {
             state.canSelect = action.payload;
+        },
+        setAvailableRewards: (state, action) => {
+            state.availableRewards = action.payload;
         },
         removeCurrentReward:(state,action) =>{
             let id = action.payload;

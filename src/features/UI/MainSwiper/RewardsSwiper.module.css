@@ -47,6 +47,7 @@
     aspect-ratio: 6 / 6;
     position: relative;
     margin: 15px;
+    display: flex;
     background: var(--db-gray-1);
 }
 
@@ -58,6 +59,9 @@
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
     padding: 10px;
+    max-height: 140px;
+    width: 100%;
+    align-self: center;
 }
 
 .Text {

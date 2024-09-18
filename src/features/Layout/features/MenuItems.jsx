@@ -16,7 +16,7 @@ const MenuItems = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const newRewards = useSelector((state) => state.gamification.newRewards);
+    const newRewards = useSelector((state) => state.gamification.availableRewards);
 
     return (
         <>
@@ -40,8 +40,8 @@ const MenuItems = (props) => {
                 >
                     <StarIcon />
                     <span>{translate('My Rewards')}</span>
-                    {newRewards.length > 0 &&
-                        <div className={classes.NumberBadge}>{newRewards.length}</div>
+                    {newRewards > 0 &&
+                        <div className={classes.NumberBadge}>{newRewards}</div>
                     }
 
                 </a>

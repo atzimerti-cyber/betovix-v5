@@ -91,15 +91,18 @@ const RewardsSwiper = (props) => {
                                         </div>
 
                                         <div className={classes.ClaimButton}>
-                                            {props.claimed ? (
-                                                <MainButton disabled>
-                                                    Claimed
-                                                </MainButton>
-                                            ) : (
-                                                <MainButton color='bv-light-green' onClick={() => handleClaim(item.Id)}>
-                                                    Claim Reward
-                                                </MainButton>
-                                            )}
+                                            {item.RewardName.toLowerCase() !== 'level up' ? (
+                                                props.claimed ? (
+                                                    <MainButton disabled>
+                                                        Claimed
+                                                    </MainButton>
+                                                ) : (
+                                                    <MainButton color='bv-light-green' onClick={() => handleClaim(item.Id)}>
+                                                        Claim Reward
+                                                    </MainButton>
+                                                )
+                                            ) : (null)}
+
                                         </div>
 
                                     </article>

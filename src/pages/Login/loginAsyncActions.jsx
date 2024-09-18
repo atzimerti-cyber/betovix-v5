@@ -113,7 +113,7 @@ export const verify = (code, navigate) => {
 };
 
 export const getUser = (navigate) => {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         try {
             const response = await axiosApi.get(`login/State/?lang=en&siteid=${config.VITE_SITE_ID}`, {
                 baseURLOverride: config.VITE_WALLET_API_BASE,
@@ -143,6 +143,13 @@ export const getUser = (navigate) => {
                     const params = new URLSearchParams(location.search);
                     params.set('modal', 'achievement');
                     navigate(`${location.pathname}?modal=achievement`, { replace: false });
+
+                    const currentState = getState().gamification;
+
+                    const rew = currentState.availableRewards;
+                    const newRew = rew + response.data.Contents.Rewards.length
+
+                    dispatch(gamificationActions.setAvailableRewards(newRew));
                 }
 
                 dispatch(loginActions.setUser(user));

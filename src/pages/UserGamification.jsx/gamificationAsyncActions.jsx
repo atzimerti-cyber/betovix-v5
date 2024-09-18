@@ -277,6 +277,7 @@ export const getRewards = (isViewed, isClaimed, daily, weekly, monthly) => {
 
             dispatch(gamificationActions.setPopupRewards(popupRewards));
             dispatch(gamificationActions.setNewRewards(viewedRewards));
+            dispatch(gamificationActions.setAvailableRewards(viewedRewards.length));
             dispatch(gamificationActions.setClaimedRewards(claimedRewards));
         } catch (error) {
             const message = error?.message ? error.message : error;
@@ -295,7 +296,8 @@ export const claimReward = (Id) => {
                 baseURLOverride: config.VITE_WALLET_STORETUBE,
             });
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw toast.error(response.data.Contents);
-            
+
+            toast.success(response.data.Contents);
             dispatch(gamificationActions.removeCurrentReward(Id));  
 
         } catch (error) {
