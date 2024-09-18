@@ -68,7 +68,7 @@ const BuyLevelConfirmationModal = () => {
                     </div>
                     <div className={classes.MainContent}>
                         <p className={classes.Message}>
-                            {translate(`You picked to buy level ${lvlAction} of ${displayedHero} ${displayedHero}.`)}<br></br>
+                            {translate(`You picked to buy level ${lvlAction} of ${displayedHero.name} ${displayedHero}.`)}<br></br>
                             {translate('Once you buy a level, you cannot go back! Are you sure you want to buy this level?')}
                         </p>
                     </div>

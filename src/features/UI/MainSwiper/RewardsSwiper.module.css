@@ -43,18 +43,21 @@
     border-radius: 10px;
     grid-column: 1;
     grid-row: 1 / span 3;
-    width: 100%;
+    /* width: 100%; */
     aspect-ratio: 6 / 6;
     position: relative;
+    margin: 15px;
+    background: var(--db-gray-1);
 }
 
 .ImageContainer img {
     border-radius: 10px;
-    object-fit: cover;
+    object-fit: contain;
     aspect-ratio: 6 /6;
     height: 100%;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
+    padding: 10px;
 }
 
 .Text {
@@ -111,7 +114,7 @@
 
     .ImageContainer {
         aspect-ratio: 6 / 4;
-        min-width: 100%;
+        /* min-width: 100%; */
         position: relative;
         grid-column: 1;
         grid-row: 1;
@@ -119,7 +122,7 @@
 
     .ImageContainer img {
         aspect-ratio: 6 / 4;
-        object-fit: fill;
+        /* object-fit: fill; */
         height: 100%;
         transform: translateZ(0);
         -webkit-transform: translateZ(0);
@@ -164,7 +167,7 @@
 
     .ImageContainer {
         aspect-ratio: 6 / 5;
-        min-width: 100%;
+        /* min-width: 100%; */
         position: relative;
         grid-column: 1;
         grid-row: 1;
@@ -172,7 +175,7 @@
 
     .ImageContainer img {
         aspect-ratio: 6 / 4;
-        object-fit: fill;
+        /* object-fit: fill; */
         height: 100%;
         transform: translateZ(0);
         -webkit-transform: translateZ(0);

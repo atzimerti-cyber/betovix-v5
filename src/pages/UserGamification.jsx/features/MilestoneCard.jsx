@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import classes from './MilestoneCard.module.css';
 import largeCoin from '../../../assets/images/large-coin.webp';
@@ -10,6 +11,8 @@ import MainButton from '../../../features/UI/Buttons/MainButton';
 
 const MilestoneCard = (props) => {
     const navigate = useNavigate();
+    const selectedHero = useSelector((state) => state.gamification.selectedHero);
+    const displayedHero = useSelector((state) => state.gamification.displayedHero);
 
     const openConfirm = () => {
         addParamsToUrl('buy-level-confirm');
@@ -37,10 +40,10 @@ const MilestoneCard = (props) => {
             style={{ '--title-fix': '-5px' }}
         >
 
-            {props.buyLevel &&
+            {props.buyLevel && selectedHero && displayedHero && selectedHero.id === displayedHero.id &&
                 (
                     <div className={classes.BuyButton}>
-                        <MainButton color='bv-light-green'>
+                        <MainButton color='bv-light-green' onClick={openConfirm}>
                             Buy Level
                         </MainButton>
                     </div>
