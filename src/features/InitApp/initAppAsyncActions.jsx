@@ -250,7 +250,7 @@ export const loadInitData = (isMobile) => {
                     axiosApi.get(`LiveCluster/getLiveStateJson2?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                         baseURLOverride: config.VITE_SPORTS_API_BASE,
                     }),
-                    axiosApi.get(`Setting/SportSettings?Siteid=0`, {
+                    axiosApi.get(`Setting/SportSettings?Siteid=${config.VITE_SITE_ID}`, {
                         baseURLOverride: config.VITE_WALLET_API_BASE,
                     }),
                 ];
