@@ -47,55 +47,55 @@ const VendorSwiper = (props) => {
     //     slidesPerGroup = 4;
     // }
 
-    useEffect(() => {
-        loadedImages.forEach((index) => {
-            const container = imageRefs.current[index];
-            if (container) {
-                const img = container.querySelector('img');
-                const dominantColor = getDominantColor(img);
-                container.style.backgroundImage = dominantColor;
-            }
-        });
-    }, [loadedImages]);
+    // useEffect(() => {
+    //     loadedImages.forEach((index) => {
+    //         const container = imageRefs.current[index];
+    //         if (container) {
+    //             const img = container.querySelector('img');
+    //             const dominantColor = getDominantColor(img);
+    //             container.style.backgroundImage = dominantColor;
+    //         }
+    //     });
+    // }, [loadedImages]);
 
-    function getDominantColor(imgElement) {
-        if (!imgElement.complete || imgElement.naturalWidth === 0) {
-            console.warn('Image failed to load or is broken:', imgElement.src);
-            return null; // Return early if the image is broken
-        }
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        canvas.width = imgElement.width;
-        canvas.height = imgElement.height;
-        context.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
+    // function getDominantColor(imgElement) {
+    //     if (!imgElement.complete || imgElement.naturalWidth === 0) {
+    //         console.warn('Image failed to load or is broken:', imgElement.src);
+    //         return null; // Return early if the image is broken
+    //     }
+    //     const canvas = document.createElement('canvas');
+    //     const context = canvas.getContext('2d');
+    //     canvas.width = imgElement.width;
+    //     canvas.height = imgElement.height;
+    //     context.drawImage(imgElement, 0, 0, canvas.width, canvas.height);
 
-        const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-        const data = imageData.data;
+    //     const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+    //     const data = imageData.data;
 
-        let r = 0, g = 0, b = 0, count = 0;
+    //     let r = 0, g = 0, b = 0, count = 0;
 
-        for (let i = 0; i < data.length; i += 4) {
-            r += data[i];
-            g += data[i + 1];
-            b += data[i + 2];
-            count++;
-        }
+    //     for (let i = 0; i < data.length; i += 4) {
+    //         r += data[i];
+    //         g += data[i + 1];
+    //         b += data[i + 2];
+    //         count++;
+    //     }
 
-        r = Math.floor(r / count);
-        g = Math.floor(g / count);
-        b = Math.floor(b / count);
+    //     r = Math.floor(r / count);
+    //     g = Math.floor(g / count);
+    //     b = Math.floor(b / count);
 
-        const isGrayscale = Math.abs(r - g) < 10 && Math.abs(g - b) < 10 && Math.abs(r - b) < 10;
+    //     const isGrayscale = Math.abs(r - g) < 10 && Math.abs(g - b) < 10 && Math.abs(r - b) < 10;
 
-        if (isGrayscale) {
-            r = 50;
-            g = 87;
-            b = 54;
-        }
+    //     if (isGrayscale) {
+    //         r = 50;
+    //         g = 87;
+    //         b = 54;
+    //     }
 
-        // return `linear-gradient(50deg, rgba(${r},${g},${b},1), transparent)`;
-        return `linear-gradient(50deg, #0e1b26), transparent)`;
-    }
+    //     // return `linear-gradient(50deg, rgba(${r},${g},${b},1), transparent)`;
+    //     return `linear-gradient(50deg, #0e1b26), transparent)`;
+    // }
 
     const handleVendorClick = (vendor) => {
         // if (goToSearchModal) {
@@ -139,9 +139,9 @@ const VendorSwiper = (props) => {
                                         onClick={() => handleVendorClick(item.Data.Name)}
                                     >
                                         <article className={classes.Card}>
-                                            <div className={classes.ImageContainer} ref={el => imageRefs.current[index] = el}>
-                                                {loadedImages.includes(index) === false && <LoaderPlaceholder />}
-                                                <img src={item.Data.Logo} crossOrigin="anonymous" loading='lazy' onLoad={() => updateLoadedImages(index)} />
+                                            <div className={classes.ImageContainer} ref={el => imageRefs.current[index] = el} style={{backgroundImage:`url('${item.Data.Logo}')`}}>
+                                                {/* {loadedImages.includes(index) === false && <LoaderPlaceholder />} */}
+                                                {/* <img src={item.Data.Logo} crossOrigin="anonymous" loading='lazy' onLoad={() => updateLoadedImages(index)} /> */}
                                             </div>
                                             {props.isNew && <div className={classes.NewLabel}>NEW</div>}
                                         </article>
