@@ -183,6 +183,10 @@ const Betslip = memo(function (props) {
         dispatch(betslipActions.setAmounts({}));
     };
 
+    useEffect(() => {
+        if (slips?.length === 1) onChangeTab('Single');
+    }, [slips?.length]);
+
     const getTicketPayload = () => {
         const ticket = getTicketFromStorage();
         const ticketChangesSettings = getTicketChangesSettings();

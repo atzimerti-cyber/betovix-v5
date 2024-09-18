@@ -1,6 +1,7 @@
 import { toast } from 'react-toastify';
 
 import { getLang } from '../../utils/storage';
+import { getTicketSettings } from '../../features/Ticket/ticketAsyncActions';
 import axiosApi from '../../axios-api';
 import { gamificationActions } from './userGamificationSlice';
 import { appActions } from '../../features/InitApp/appSlice';
@@ -298,6 +299,7 @@ export const claimReward = (Id) => {
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw toast.error(response.data.Contents);
 
             toast.success(response.data.Contents);
+            dispatch(getTicketSettings());
             dispatch(gamificationActions.removeCurrentReward(Id));  
 
         } catch (error) {
