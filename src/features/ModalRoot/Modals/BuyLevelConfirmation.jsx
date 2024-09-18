@@ -23,8 +23,8 @@ const BuyLevelConfirmationModal = () => {
     const user = useSelector((state) => state.login.user);
     const selectedHero = useSelector((state) => state.gamification.selectedHero);
     const lvlAction = useSelector((state) => state.gamification.displayedHero?.metadata?.lvlAction);
-   
-    const [preMessage, setPreMessage] = useState(true);
+
+    const [buyLevel, setbuyLevel] = useState(false);
 
     const handleButtonClick = () => {
         const controller = new AbortController();
@@ -48,39 +48,58 @@ const BuyLevelConfirmationModal = () => {
 
     return (
         <div className={classes.ConfirmationModal}>
-            {preMessage &&
-                <div className={classes.ModalContent}>
-                    <div className={classes.BackgroundContainer}>
-                        <div className={classes.TopContent}>
-                            <header>
-                                <div className={classes.Center}>
-                                    <h1 className={classes.Title}>
-                                        <WarningIcon className={classes.WarningIcon} />
-                                        {translate('Warning!')}
-                                    </h1>
-                                </div>
-                                <div className={classes.Right}>
-                                    <CloseButton timesIcon onClick={() => navigate(location.pathname)} />
-                                </div>
-                            </header>
+            {buyLevel ?
+                (
+                    <div className={classes.ModalContent}>
+                        <div className={classes.BackgroundContainer}>
+                            <div className={classes.TopContent}>
+                                <header>
+                                    <div className={classes.Center}>
+                                        <h1 className={classes.Title}>
+                                            <WarningIcon className={classes.WarningIcon} />
+                                            {translate('Warning!')}
+                                        </h1>
+                                    </div>
+                                    <div className={classes.Right}>
+                                        <CloseButton timesIcon onClick={() => navigate(location.pathname)} />
+                                    </div>
+                                </header>
+                            </div>
+                        </div>
+                        <div className={classes.MainContent}>
+                            <p className={classes.Message}>
+                                {translate(`You picked to buy level ${lvlAction} of ${selectedHero?.name}.`)}<br></br>
+                                {translate('Once you buy a level, you cannot go back! Are you sure you want to buy this level?')}
+                            </p>
+                        </div>
+                        <div className={classes.Buttons}>
+                            <MainButton color='bv-light-green' onClick={handleButtonClick}>
+                                <span>{translate('YES, I am sure')}</span>
+                            </MainButton>
+                            <MainButton color='dark' onClick={() => navigate(location.pathname)}>
+                                <span>{translate('NO, go back')}</span>
+                            </MainButton>
                         </div>
                     </div>
-                    <div className={classes.MainContent}>
-                        <p className={classes.Message}>
-                            {translate(`You picked to buy level ${lvlAction} of ${selectedHero?.name}.`)}<br></br>
-                            {translate('Once you buy a level, you cannot go back! Are you sure you want to buy this level?')}
-                        </p>
+                ) : (
+                    <div className={classes.ModalContent} >
+                        <div className={classes.BackgroundContainer}>
+                            <div className={classes.TopContent}>
+                                <header>
+                                    <div className={classes.Center}>
+                                        <h1 className={classes.Title} style={{ fontSize: "0.9rem", fontWeight: "500" }}>
+                                            <LogoSmallIcon className={classes.WarningIcon} style={{ width: '27px', height: '27px' }} />
+                                            {translate('Coming Soon!')}
+                                        </h1>
+                                    </div>
+                                    <div className={classes.Right}>
+                                        <CloseButton timesIcon onClick={() => navigate(location.pathname)} />
+                                    </div>
+                                </header>
+                            </div>
+                        </div>
                     </div>
-                    <div className={classes.Buttons}>
-                        <MainButton color='bv-light-green' onClick={handleButtonClick}>
-                            <span>{translate('YES, I am sure')}</span>
-                        </MainButton>
-                        <MainButton color='dark' onClick={() => navigate(location.pathname)}>
-                            <span>{translate('NO, go back')}</span>
-                        </MainButton>
-                    </div>
-                </div>
-            }
+                )}
         </div>
     );
 };

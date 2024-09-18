@@ -40,7 +40,9 @@ const MilestoneCard = (props) => {
             style={{ '--title-fix': '-5px' }}
         >
 
-            {props.buyLevel && selectedHero && displayedHero && selectedHero.id === displayedHero.id &&
+            {/* {props.buyLevel && selectedHero && displayedHero && selectedHero.id === displayedHero.id && */}
+
+            {props.buyLevel && selectedHero &&
                 (
                     <div className={classes.BuyButton}>
                         <MainButton color='bv-light-green' onClick={openConfirm}>
@@ -49,6 +51,8 @@ const MilestoneCard = (props) => {
                     </div>
                 )
             }
+
+
             <div className={classes.Background}>
                 <div className={classes.ImageContainer}>
                     {props.firstCard ? (

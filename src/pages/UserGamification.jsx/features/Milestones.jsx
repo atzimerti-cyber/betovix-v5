@@ -153,7 +153,7 @@ const Milestones = (props) => {
                                                     firstCard
                                                     icon={heroLevels[thisLevelIndex]?.icon}
                                                     complete={heroLevels[thisLevelIndex]?.id === currentUserLevel?.id || heroLevels[thisLevelIndex]?.completed || !user || !selectedHero || props.profile}
-                                                    buyLevel={!heroLevels[thisLevelIndex]?.completed ? true : false}
+                                                    buyLevel={!props.profile && !heroLevels[thisLevelIndex]?.completed ? true : false}
                                                 />
                                             )}
 
