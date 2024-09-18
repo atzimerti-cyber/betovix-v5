@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 import classes from './CashierModal.module.css';
 import WalletIcon from '../../../assets/svgs/wallet.svg?react';
@@ -9,10 +10,12 @@ import Deposit from '../../../pages/Crypto/features/Deposit';
 import Withdraw from '../../../pages/Crypto/features/Withdraw';
 //import BuyCrypto from '../../../pages/Crypto/features/BuyCrypto';
 import { translate } from '../../../utils/translations';
+import { getCrypto } from '../../../pages/Crypto/cryptoAsyncActions';
 
 const CashierModal = (props) => {
     const navigate = useNavigate();
     const location = useLocation();
+    const dispatch = useDispatch();
 
     const [selectedTab, setSelectedTab] = useState(props.tab);
 
@@ -27,9 +30,21 @@ const CashierModal = (props) => {
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     };
 
+    useEffect(() => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        dispatch(getCrypto(signal));
+
+        return () => {
+            controller.abort();
+            // dispatch(cryptoActions.reset());
+        };
+    }, [])
+
     return (
         <div className={classes.CashierModal}>
-            <ModalHeader icon={<WalletIcon />} title={translate('Wallet')} />
+            <ModalHeader icon={<WalletIcon />} title={translate('My Wallet')} />
 
             <div className={classes.TabContainer}>
                 <Tabs
@@ -39,9 +54,10 @@ const CashierModal = (props) => {
                         // { id: 'buy-crypto', label: 'Buy Crypto', active: selectedTab === 'buy-crypto' },
                     ]}
                     onChangeTab={(tab) => changeTab(tab)}
-                    // onChangeTab={(tab) => setSelectedTab(tab)}
+                // onChangeTab={(tab) => setSelectedTab(tab)}
                 />
             </div>
+
             <div className={classes.TabContentHiddenBox}>
                 <div className={contentInnerClasses.join(' ')}>
                     <div className={selectedTab === 'deposit' ? [classes.TabContent, classes.Active].join(' ') : classes.TabContent}>
@@ -55,6 +71,7 @@ const CashierModal = (props) => {
                     </div> */}
                 </div>
             </div>
+
         </div>
     );
 };

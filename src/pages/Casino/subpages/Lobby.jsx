@@ -117,7 +117,7 @@ const Lobby = () => {
 
     return (
         <>
-            <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} slidesPerView={slidesPerView <= 5 ? (slidesPerView + 2) : (slidesPerView + 3)} />
+            <VendorSwiper title={translate('Our Vendors')} icon={<ProvidersIcon />} link='/search' items={allProviders} />
 
             <BigSwiper2 items={casinoBanners} autoplay />
 

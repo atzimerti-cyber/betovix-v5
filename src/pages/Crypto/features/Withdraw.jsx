@@ -20,6 +20,8 @@ const Withdraw = () => {
 
     const containerRefs = useRef([]);
 
+
+//================  DOMINANT COLOR FOR BACKGROUND ======================//
     useEffect(() => {
         containerRefs.current.forEach((ref, index) => {
             if (ref && ref.querySelector('img')) {
@@ -62,7 +64,7 @@ const Withdraw = () => {
             g = 87;
             b = 54;
         }
-        
+
         return `linear-gradient(60deg, var(--db-gray-banner), rgba(${r},${g},${b},0.7))`;
     }
 
@@ -83,12 +85,15 @@ const Withdraw = () => {
     const uniqueCrypto = [];
     const names = new Set();
 
-    crypto.forEach((item, index) => {
-        if (!names.has(item.Name) && item.AllowWithdraw) {
-            names.add(item.Name);
-            uniqueCrypto.push(item);
-        }
-    });
+    {
+        crypto &&
+            crypto.forEach((item, index) => {
+                if (!names.has(item.Name) && item.AllowWithdraw) {
+                    names.add(item.Name);
+                    uniqueCrypto.push(item);
+                }
+            });
+    }
 
     let elClasses = [classes.PaymentVerticalWrapper];
     if (method === 'crypto') elClasses.push(classes.Crypto);

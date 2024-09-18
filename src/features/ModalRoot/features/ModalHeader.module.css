@@ -4,23 +4,30 @@
     height: 2.75rem;
     flex-shrink: 0;
 }
+
 .ModalHeaderStart {
     display: flex;
     align-items: center;
     padding-left: 0.625rem;
 }
+
 .ModalHeaderCenter {
-    display: none;
+    /* display: none; */
+    display: flex;
+    align-items: center;
     flex-grow: 1;
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
+    transform: translate(-2%);
 }
+
 .ModalHeaderCenter svg path {
     fill: var(--db-brand-green);
 }
+
 .ModalHeaderCenter h2 {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 700;
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -41,9 +48,11 @@
     .ModalHeader {
         height: 3.5rem;
     }
+
     .ModalHeaderStart {
         display: none;
     }
+
     .ModalHeaderCenter {
         display: flex;
     }

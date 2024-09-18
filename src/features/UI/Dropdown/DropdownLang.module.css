@@ -6,7 +6,7 @@
 
 .Dropdown>button {
     width: 100%;
-    min-height: 2rem;
+    min-height: 2.5rem;
     height: 2rem !important;
     justify-content: space-between !important;
     border: 0;

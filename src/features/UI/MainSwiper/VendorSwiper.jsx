@@ -4,17 +4,24 @@ import { Link } from 'react-router-dom';
 import { SwiperSlide } from 'swiper/react';
 import { useMediaQuery } from 'react-responsive';
 import { toast } from 'react-toastify';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 import MainSwiper from './MainSwiper';
 import classes from './VendorSwiper.module.css';
 import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
+import SearchModal from '../../ModalRoot/Modals/SearchModal';
+import useSlidesResponsive from '../../../hooks/useSlidesResponsive';
 
 const VendorSwiper = (props) => {
+    const navigate = useNavigate();
+    const goToSearchModal = useMediaQuery({ query: '(max-width: 768px)' });
 
-    const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
-    const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
-    const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
-    const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
+    // const isMobile = useMediaQuery({ query: '(max-width: 575px)' });
+    // const isTablet = useMediaQuery({ query: '(max-width: 768px)' });
+    // const isDesktop = useMediaQuery({ query: '(max-width: 992px)' });
+    // const isBigDesktop = useMediaQuery({ query: '(max-width: 1200px)' });
+
+    const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("vendors");
 
     const imageRefs = useRef([]);
     const [loadedImages, setLoadedImages] = useState([]);
@@ -23,22 +30,22 @@ const VendorSwiper = (props) => {
         setLoadedImages((prevState) => [...prevState, index]);
     };
 
-    let slidesPerView = 9.5;
-    let slidesPerGroup = 6;
+    // let slidesPerView = 9.5;
+    // let slidesPerGroup = 6;
 
-    if (isMobile) {
-        slidesPerView = 2;
-        slidesPerGroup = 2;
-    } else if (isTablet) {
-        slidesPerView = 3;
-        slidesPerGroup = 3;
-    } else if (isDesktop) {
-        slidesPerView = 3.5;
-        slidesPerGroup = 3;
-    } else if (isBigDesktop) {
-        slidesPerView = 4;
-        slidesPerGroup = 4;
-    }
+    // if (isMobile) {
+    //     slidesPerView = 2;
+    //     slidesPerGroup = 2;
+    // } else if (isTablet) {
+    //     slidesPerView = 3;
+    //     slidesPerGroup = 3;
+    // } else if (isDesktop) {
+    //     slidesPerView = 3.5;
+    //     slidesPerGroup = 3;
+    // } else if (isBigDesktop) {
+    //     slidesPerView = 4;
+    //     slidesPerGroup = 4;
+    // }
 
     useEffect(() => {
         loadedImages.forEach((index) => {
@@ -90,6 +97,22 @@ const VendorSwiper = (props) => {
         return `linear-gradient(50deg, #0e1b26), transparent)`;
     }
 
+    const handleVendorClick = (vendor) => {
+        // if (goToSearchModal) {
+        //     addParamsToUrl('search');
+        // } else {
+            navigate(`/search?provider=${vendor}`)
+        // }
+    }
+
+    // const addParamsToUrl = (modal, tab) => {
+    //     const searchParams = new URLSearchParams(location.search);
+    //     searchParams.set('modal', modal);
+    //     if (tab) searchParams.set('tab', tab);
+
+    //     navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+    // };
+
     return (
         <div className={classes.VendorsSwiper}>
             <MainSwiper
@@ -110,19 +133,20 @@ const VendorSwiper = (props) => {
 
                             return (
                                 <SwiperSlide key={item.Data.Id}>
-                                    <Link to={`/search?provider=${item.Data.Name}`}>
-                                        <div
-                                            className={classes.SlideContainer}
-                                        >
-                                            <article className={classes.Card}>
-                                                <div className={classes.ImageContainer} ref={el => imageRefs.current[index] = el}>
-                                                    {loadedImages.includes(index) === false && <LoaderPlaceholder />}
-                                                    <img src={item.Data.Logo} crossOrigin="anonymous" loading='lazy' onLoad={() => updateLoadedImages(index)} />
-                                                </div>
-                                                {props.isNew && <div className={classes.NewLabel}>NEW</div>}
-                                            </article>
-                                        </div>
-                                    </Link>
+                                    {/* <Link to={goToSearchModal ?(null):(`/search?provider=${item.Data.Name}`)}> */}
+                                    <div
+                                        className={classes.SlideContainer}
+                                        onClick={() => handleVendorClick(item.Data.Name)}
+                                    >
+                                        <article className={classes.Card}>
+                                            <div className={classes.ImageContainer} ref={el => imageRefs.current[index] = el}>
+                                                {loadedImages.includes(index) === false && <LoaderPlaceholder />}
+                                                <img src={item.Data.Logo} crossOrigin="anonymous" loading='lazy' onLoad={() => updateLoadedImages(index)} />
+                                            </div>
+                                            {props.isNew && <div className={classes.NewLabel}>NEW</div>}
+                                        </article>
+                                    </div>
+                                    {/* </Link> */}
                                 </SwiperSlide>
                             );
                         })

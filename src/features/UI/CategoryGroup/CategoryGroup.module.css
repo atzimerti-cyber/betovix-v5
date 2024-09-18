@@ -11,7 +11,7 @@
     cursor: pointer;
     position: relative;
     display: flex;
-    height: 2.5rem;
+    height: 2.75rem;
     align-items: center;
     justify-content: space-between;
     padding-left: 1rem;
@@ -114,6 +114,7 @@
 
 @media (min-width: 768px) {
     .Title {
+        height: 2.5rem;
         font-size: 0.875rem;
         line-height: 1.25rem;
     }

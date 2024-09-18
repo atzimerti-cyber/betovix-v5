@@ -17,9 +17,11 @@ import { appActions } from '../../features/InitApp/appSlice';
 import { AnimatePresence } from 'framer-motion';
 
 import BarLoading from '../../features/UI/BarLoading/BarLoading';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const Search = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const loading = useSelector((state) => state.search.loading);
     const casinoResults = useSelector((state) => state.search.casinoResults);
@@ -34,7 +36,13 @@ const Search = () => {
 
     const barLoading = useSelector((state) => state.app.barLoading);
 
+
     useEffect(() => {
+        // if (isMobile) {
+        //     navigate('/casino/lobby?modal=search');
+        //     return;
+        // };
+
         const controller = new AbortController();
         const signal = controller.signal;
         setAxiosController(controller);
@@ -48,6 +56,7 @@ const Search = () => {
         };
     }, []);
 
+
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
         const provider = searchParams.get('provider');
@@ -56,8 +65,8 @@ const Search = () => {
             setSelectedProviders(providerArray);
             dispatch(searchActions.setSearchSelectedProviders(providerArray));
         }
-
     }, [dispatch]);
+
 
     useEffect(() => {
         const searchParams = new URLSearchParams(location.search);
@@ -66,11 +75,11 @@ const Search = () => {
         } else {
             searchParams.delete('provider');
         }
-
         const newUrl = `${location.pathname}?${searchParams.toString()}`;
         window.history.replaceState(null, '', newUrl);
 
     }, [selectedProviders, location]);
+
 
     useEffect(() => {
         if (!axiosController) return;
@@ -78,68 +87,65 @@ const Search = () => {
 
         dispatch(searchActions.setCasinoResults(null));
 
-        if (!isMobile) {
+        // if (!isMobile) {
             dispatch(searchCasino(axiosController.signal, 1, 24, selectedProviders, debSearchString, sorting, true));
-        }
-
-
+        // }
     }, [axiosController, debSearchString, selectedProviders, sorting]);
 
-    useEffect(() => {
-        
-        dispatch(appActions.setBarLoading(false));
 
+    useEffect(() => {
+        dispatch(appActions.setBarLoading(false));
     }, [casinoResults]);
 
     return (
         <>
-        <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
-        <div className={classes.Content}>
-            <CasinoMenu />
-            <div className={classes.PageContent}>
-                <div className={classes.Search}>
-                    <FilterBar
-                        searchString={searchString}
-                        onChangeSearch={(value) => dispatch(searchActions.setSearchString(value))}
-                        onChangeProviders={(value) => setSelectedProviders(value)}
-                        placeholder='Search Casino'
-                    />
+            <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
+            <div className={classes.Content}>
+                <CasinoMenu />
+                <div className={classes.PageContent}>
+                    <div className={classes.Search}>
+                        <FilterBar
+                            searchString={searchString}
+                            onChangeSearch={(value) => dispatch(searchActions.setSearchString(value))}
+                            onChangeProviders={(value) => setSelectedProviders(value)}
+                            placeholder='Search Casino'
+                        />
 
-                    {casinoResults ?
-                        (casinoResults.Data.length !== 0 ?
-                            (
-                                selectedProviders.length === 0 ?
-                                    (
-                                        <CasinoGames
-                                            collection={casinoResults}
-                                            icon={<CherriesIcon />}
-                                            title="Search results"
-                                            loading={loading}
-                                            searchString={debSearchString}
-                                            sorting={sorting}
-                                        />
-                                    ) : (
-                                        <CasinoGames
-                                            collection={casinoResults}
-                                            icon={<CherriesIcon />}
-                                            title={selectedProviders.join(', ')}
-                                            loading={loading}
-                                            searchString={debSearchString}
-                                            providers={casinoResults?.providers}
-                                            sorting={sorting}
-                                        />
-                                    )
+                        {casinoResults ?
+                            (casinoResults.Data.length !== 0 ?
+                                (
+                                    selectedProviders.length === 0 ?
+                                        (
+                                            <CasinoGames
+                                                collection={casinoResults}
+                                                icon={<CherriesIcon />}
+                                                title="Search results"
+                                                loading={loading}
+                                                searchString={debSearchString}
+                                                sorting={sorting}
+                                            />
+                                        ) : (
+                                            <CasinoGames
+                                                collection={casinoResults}
+                                                icon={<CherriesIcon />}
+                                                title={selectedProviders.join(', ')}
+                                                loading={loading}
+                                                searchString={debSearchString}
+                                                providers={casinoResults?.providers}
+                                                sorting={sorting}
+                                            />
+                                        )
+                                ) : (
+                                    <p> {translate('No Results')}</p>
+                                )
                             ) : (
-                                <p> {translate('No Results')}</p>
+                                null
                             )
-                        ) : (
-                            null
-                        )
-                    }
+                        }
 
+                    </div>
                 </div>
             </div>
-        </div>
         </>
     );
 };

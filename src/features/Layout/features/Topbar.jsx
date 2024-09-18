@@ -41,10 +41,6 @@ const Topbar = () => {
     const availableBonus = useSelector((state) => state.layout.availableBonus);
     const newRewards = useSelector((state) => state.gamification.availableRewards);
 
-    const hasHero = useSelector((state) => state.gamification.selectedHero);
-    const userCurrentLevel = useSelector((state) => state.gamification.currentLevel);
-    const levelProgress = useSelector((state) => state.gamification.progressBar);
-
     const [balanceInteger, setBalanceInteger] = useState(0);
     const [balanceDecimal, setBalanceDecimal] = useState('00');
 
@@ -75,8 +71,6 @@ const Topbar = () => {
         setBalanceInteger(integer);
         setBalanceDecimal(decimal.padStart(2, '0'));
     };
-
-    const onMenuButtonClicked = () => { };
 
     const inCasinoGame = location.pathname.includes('/casino/game/');
 
@@ -174,6 +168,7 @@ const Topbar = () => {
                                     </Dropdown>
                                 )}
                             </div>
+
                             <div className={classes.HeaderRightDivider}></div>
 
                             {isDesktop && (

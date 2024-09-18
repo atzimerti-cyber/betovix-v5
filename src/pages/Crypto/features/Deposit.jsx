@@ -9,7 +9,7 @@ import DepositFiat from './DepositFiat';
 import MainButton from '../../../features/UI/Buttons/MainButton';
 import { addThousandsSeparator } from '../../../utils/custom';
 import allCrypto from '../../../assets/cryptoIcons/all-crypto.svg';
-import allCards from '../../../assets/cryptoIcons/all-cards.png';
+// import allCards from '../../../assets/cryptoIcons/all-cards.png';
 import { translate } from '../../../utils/translations';
 
 const Deposit = () => {
@@ -19,11 +19,15 @@ const Deposit = () => {
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const crypto = useSelector((state) => state.crypto.crypto);
-
     const query = new URLSearchParams(location.search);
     const method = query.get('method');
 
     const containerRefs = useRef([]);
+
+    let elClasses = [classes.PaymentVerticalWrapper];
+    if (method === 'crypto') elClasses.push(classes.Crypto);
+    else if (method === 'fiat') elClasses.push(classes.Fiat);
+
 
     useEffect(() => {
         return () => dispatch(cryptoActions.setSelectedCurrency(null));
@@ -45,22 +49,25 @@ const Deposit = () => {
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     };
 
+
+    //=============== REMOVE DUPLICATES ====================//
     const uniqueCrypto = [];
     const names = new Set();
+    {
+        crypto && (
+            crypto.map((item) => {
+                if (!names.has(item.Name)) {
+                    names.add(item.Name);
+                    if (item.AllowDeposit) {
+                        uniqueCrypto.push(item);
+                    }
+                }
+            })
+        )
+    }
 
-    crypto.map((item) => {
-        if (!names.has(item.Name)) {
-            names.add(item.Name);
-            if (item.AllowDeposit) {
-                uniqueCrypto.push(item);
-            }
-        }
-    });
 
-    let elClasses = [classes.PaymentVerticalWrapper];
-    if (method === 'crypto') elClasses.push(classes.Crypto);
-    else if (method === 'fiat') elClasses.push(classes.Fiat);
-
+    //========== DOMINANT COLOR FOR BACKGROUND ============//
     useEffect(() => {
         containerRefs.current.forEach((ref, index) => {
             if (ref && ref.querySelector('img')) {
@@ -111,7 +118,7 @@ const Deposit = () => {
         <div className={elClasses.join(' ')}>
             <div className={classes.PaymentOptionsWrapper}>
                 <div className={classes.Grid}>
-                    {crypto && (
+                    {crypto && uniqueCrypto && (
                         <>
                             {uniqueCrypto.map((item, index) => {
                                 if (item.id === 'BEP-20') return null;
@@ -156,7 +163,8 @@ const Deposit = () => {
                                     <h2>{translate('All crypto coins/tokens')}</h2>
                                 </MainButton>
                             </div>
-                            <div className={classes.PaymentButtonContainer}>
+
+                            {/* <div className={classes.PaymentButtonContainer}>
                                 <MainButton
                                     color='transparent'
                                     onClick={() => {
@@ -167,7 +175,8 @@ const Deposit = () => {
                                     <img className={classes.AllCrypto} src={allCards} loading='lazy' alt='All crypto' />
                                     <h2>{translate('Fiat for the giftcards')}</h2>
                                 </MainButton>
-                            </div>
+                            </div> */}
+
                         </>
                     )}
                 </div>
