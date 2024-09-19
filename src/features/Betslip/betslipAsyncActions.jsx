@@ -57,11 +57,11 @@ export const placeBet = (payload, slips, amounts, betType) => {
                     baseURLOverride: config.VITE_BETS_API,
                 }
             );
-            if (response.status !== 200) throw Error(response.data.Contents.Message);
+            if (response.status !== 200) throw Error(response.data.Contents?.Message || response.data.Contents);
 
-            if (response.data.Contents.Message !== 'Success') {
+            if (response.data.Contents?.Message !== 'Success') {
                 // toast.error(response.data.Contents.Message);
-                throw Error(response.data.Contents.Message);
+                throw Error(response.data.Contents?.Message || response.data.Contents);
             }
 
             dispatch(getUser());

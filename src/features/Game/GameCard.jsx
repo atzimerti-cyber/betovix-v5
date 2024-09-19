@@ -21,22 +21,22 @@ const GameCard = (props) => {
 
         // Datetime. TODO: Timezone?
         if (props.type === 'scheduled') {
-            const datetime = formatDateTimeObj(props.game.Info.DateOfMatch);
+            const datetime = formatDateTimeObj(props.game.Info?.DateOfMatch);
             setDatetime({ date: datetime.date, time: datetime.time });
         }
     }, [props.game]);
 
     const getScore = () => {
         if (props.type !== 'live') return 'vs';
-        else if (props.game.Header.Status === 0) return '0 : 0';
+        else if (props.game.Header?.Status === 0) return '0 : 0';
         else {
-            return props.game.Header.Score;
+            return props.game.Header?.Score;
         }
     };
 
     const getDescription = () => {
-        if (props.game.Header.Status === 0) return 'Not Started';
-        else if (props.game.Header.MatchTimeExtended) return props.game.Header.MatchTimeExtended;
+        if (props.game.Header?.Status === 0) return 'Not Started';
+        else if (props.game.Header?.MatchTimeExtended) return props.game.Header?.MatchTimeExtended;
         else return 'Not Started';
     };
 
@@ -49,19 +49,19 @@ const GameCard = (props) => {
     };
 
     const gotoEvent = () => {
-        const sportName = props.game?.Info?.SportName?.International.toLowerCase().replace(/ /g, '-');
-        const sportId = props.game?.Info?.SportId;
-        const eventId = props.game?.Info?.MatchId;
+        const sportName = props.game.Info?.SportName?.International.toLowerCase().replace(/ /g, '-');
+        const sportId = props.game.Info?.SportId;
+        const eventId = props.game.Info?.MatchId;
 
         navigate(`/event/${sportName}/${sportId}/${eventId}`);
     };
 
     return (
         <div onClick={gotoEvent} className={classes.Card}>
-            <div className={classes.SportDecoration}>{sportIcons[props.game.Info.SportName.International] || null}</div>
+            <div className={classes.SportDecoration}>{sportIcons[props.game.Info?.SportName?.International] || null}</div>
 
             <p className={classes.LeftComponent}>
-                {props.game.Header.Status > 0 || props.type === 'live' ? (
+                {props.game.Header?.Status > 0 || props.type === 'live' ? (
                     <>
                         <span className={classes.LiveBadge}>Live</span>
                         <span className={classes.Time}>{getDescription()}</span>
@@ -77,18 +77,18 @@ const GameCard = (props) => {
             <div className={classes.TeamContainer}>
                 <div className={classes.TeamHome}>
                     <div className={classes.TeamLogoWrapper}>
-                        <TeamLogo teamId={props.game.Info.HomeTeamId} isHome={true} sportName={props.game.Info.SportName.International} />
+                        <TeamLogo teamId={props.game.Info?.HomeTeamId} isHome={true} sportName={props.game.Info?.SportName?.International} />
                     </div>
-                    <div className={classes.TeamName}>{translateNameWithLang(props.game.Info.HomeTeamName)}</div>
+                    <div className={classes.TeamName}>{translateNameWithLang(props.game.Info?.HomeTeamName)}</div>
                 </div>
                 <div className={classes.MiddleText}>{getScore()}</div>
 
                 {props.game.Info.AwayTeamName && (
                     <div className={classes.TeamAway}>
                         <div className={classes.TeamLogoWrapper}>
-                            <TeamLogo teamId={props.game.Info.AwayTeamId} isHome={false} sportName={props.game.Info.SportName.International} />
+                            <TeamLogo teamId={props.game.Info?.AwayTeamId} isHome={false} sportName={props.game.Info?.SportName?.International} />
                         </div>
-                        <div className={classes.TeamName}>{translateNameWithLang(props.game.Info.AwayTeamName)}</div>
+                        <div className={classes.TeamName}>{translateNameWithLang(props.game.Info?.AwayTeamName)}</div>
                     </div>
                 )}
             </div>
@@ -103,7 +103,7 @@ const GameCard = (props) => {
                         return selectedMarket.MarketFields.map((marketField) => (
                             <OddsButton
                                 key={marketField.FieldId}
-                                label={getOddsLabel(marketField.FieldName.International)}
+                                label={getOddsLabel(marketField.FieldName?.International)}
                                 event={props.game}
                                 market={selectedMarket}
                                 marketField={marketField}

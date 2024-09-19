@@ -50,8 +50,8 @@ const Slip = (props) => {
     useEffect(() => {
         let timer;
 
-        if (!props.slip.Odd) return;
-        if (!props.slip.Active) return;
+        if (!props.slip?.Odd) return;
+        if (!props.slip?.Active) return;
 
         if (props.slip.Odd !== currentValue) {
             if (previousValue !== null && props.slip.Odd !== previousValue) {
@@ -84,10 +84,10 @@ const Slip = (props) => {
     };
 
     const getOddsLabel = () => {
-        if (props.slip.FieldName.International === 'W1' || props.slip.FieldName.International === '1') return translateNameWithLang(props.slip.HomeTeamName);
-        else if (props.slip.AwayTeamName && (props.slip.FieldName.International === 'W2' || props.slip.FieldName.International === '2'))
+        if (props.slip.FieldName?.International === 'W1' || props.slip.FieldName?.International === '1') return translateNameWithLang(props.slip.HomeTeamName);
+        else if (props.slip.AwayTeamName && (props.slip.FieldName?.International === 'W2' || props.slip.FieldName?.International === '2'))
             return translateNameWithLang(props.slip.AwayTeamName);
-        else if (props.slip.FieldName.International === 'x' || props.slip.FieldName.International === 'X') return translate('Draw');
+        else if (props.slip.FieldName?.International === 'x' || props.slip.FieldName?.International === 'X') return translate('Draw');
 
         return translateNameWithLang(props.slip.FieldName);
     };
@@ -126,7 +126,7 @@ const Slip = (props) => {
     };
 
     const handleNavigate = () => {
-        const url = `/event/${props.slip.SportName.International}/${props.slip.SportId}/${props.slip.MatchId}`;
+        const url = `/event/${props.slip.SportName?.International}/${props.slip.SportId}/${props.slip.MatchId}`;
         navigate(url);
     };
 
@@ -157,7 +157,7 @@ const Slip = (props) => {
                                 <div className={classes.TeamText}>
                                     <div className={classes.TeamLogoWrapper}>
                                         <div className={classes.TeamLogo}>
-                                            <TeamLogo teamId={props.slip.HomeTeamId} isHome={true} sportName={props.slip.SportName.International} />
+                                            <TeamLogo teamId={props.slip.HomeTeamId} isHome={true} sportName={props.slip.SportName?.International} />
                                         </div>
                                     </div>
                                     <div className={classes.TeamName}>{translateNameWithLang(props.slip.HomeTeamName)}</div>
@@ -172,7 +172,7 @@ const Slip = (props) => {
                                         <div className={classes.TeamText}>
                                             <div className={classes.TeamLogoWrapper}>
                                                 <div className={classes.TeamLogo}>
-                                                    <TeamLogo teamId={props.slip.AwayTeamId} isHome={false} sportName={props.slip.SportName.International} />
+                                                    <TeamLogo teamId={props.slip.AwayTeamId} isHome={false} sportName={props.slip.SportName?.International} />
                                                 </div>
                                             </div>
                                             <div className={classes.TeamName}>{translateNameWithLang(props.slip.AwayTeamName)}</div>
