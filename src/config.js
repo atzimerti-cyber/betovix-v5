@@ -32,5 +32,7 @@ const config = {
     VITE_CASINO_STORETUBE_BASE: SETTINGS.VITE_CASINO_STORETUBE_BASE,
 
     VITE_GAMIFICATION_STORETUBE: SETTINGS.VITE_GAMIFICATION_STORETUBE,
+    
+    GOOGLE_CLIENT_ID: '123237647216-37l136jdsgkhcv2mb5larb2jaujstv4r.apps.googleusercontent.com',
 };
 export default config;

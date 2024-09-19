@@ -10,8 +10,11 @@ import MainButton from '../../features/UI/Buttons/MainButton';
 import classes from './Login.module.css';
 import { login } from './loginAsyncActions';
 import { verify } from './loginAsyncActions';
+import React from 'react';
+import { GoogleOAuthProvider } from '@react-oauth/google';
 import AlternativeMethods from './features/AlternativeMethods';
 import { translate } from '../../utils/translations';
+import config from '../../config';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -121,8 +124,9 @@ const Login = () => {
                         </MainButton>
 
                         <p className={classes.LoginWith}>{translate('or login with')}</p>
-                        <AlternativeMethods />
-
+                            <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_ID}>
+                                <AlternativeMethods />
+                            </GoogleOAuthProvider>
                         <MainButton color='transparent' onClick={() => changeTab('forgot-password')}>
                             {translate('Forgot your password?')}
                         </MainButton>
