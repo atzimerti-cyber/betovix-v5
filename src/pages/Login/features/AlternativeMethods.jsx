@@ -10,9 +10,9 @@ const AlternativeMethods = () => {
                 {/* <GoogleIcon /> */}
                 <GoogleLoginButton/>
             </button>
-            <button type='button'disabled title='Login with Steam'>
+            {/* <button type='button'disabled title='Login with Steam'>
                 <SteamIcon />
-            </button>
+            </button> */}
         </div>
     );
 };
