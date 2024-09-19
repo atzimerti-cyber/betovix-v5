@@ -55,6 +55,11 @@ import WarcraftIcon from '../../assets/sportIcons/warcraft.svg?react';
 import StarcraftIcon from '../../assets/sportIcons/starcraft.svg?react';
 import CsgoIcon from '../../assets/sportIcons/csgo.svg?react';
 import ChessIcon from '../../assets/sportIcons/chess.svg?react';
+import BandyIcon from '../../assets/sportIcons/bandy.svg?react';
+import TvIcon from '../../assets/sportIcons/tv.svg?react';
+import FormulaIcon from '../../assets/sportIcons/formula.svg?react';
+import HurlingIcon from '../../assets/sportIcons/hurling.svg?react';
+
 
 import Amatic from '../../assets/casinoIcons/amatic.svg?react'
 import Aristocrat from '../../assets/casinoIcons/aristocrat-logo.svg?react';
@@ -216,6 +221,10 @@ const initialState = {
         StarCraft: <StarcraftIcon />,
         'Counter-Strike: GO (CS:GO)': <CsgoIcon />,
         Chess: <ChessIcon />,
+        Bandy: <BandyIcon />,
+        Hurling: <HurlingIcon />,
+        'TV Shows and Movies': <TvIcon />,
+        'Formula 1': <FormulaIcon />,
     },
     casinoIcons: {
         Slots : <Slots />,
