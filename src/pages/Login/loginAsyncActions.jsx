@@ -8,6 +8,42 @@ import { toast } from 'react-toastify';
 import { setAccessToken } from '../../utils/auth';
 import config from '../../config';
 
+
+export const logingGoogle = (loginInfo, navigate, locationPathname) => {
+    return async (dispatch) => {
+        dispatch(loginActions.setLoginLoading(true));
+
+        try {
+            const response = await axiosApi.post('login/AuthenticateGoogle', loginInfo, { baseURLOverride: config.VITE_WALLET_API_BASE });
+            if (response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
+            setAccessToken(response.data.Contents.Token);
+
+            const response2 = await axiosApi.get(`login/State/?lang=en&siteid=${config.VITE_SITE_ID}`, {
+                baseURLOverride: config.VITE_WALLET_API_BASE,
+            });
+            if (response2.data.Status.StatusCode !== 200) throw Error(response2.data.Contents);
+
+            // TODO: The rest should come from the backend
+            const user = {
+                ...response2.data.Contents,
+
+                // profileHidden: false,
+                // marketingEmails: true,
+                // level: 0,
+                // wagered: 500,
+                // registered: 1712505696754,
+            };
+
+            dispatch(loginActions.setUser(user));
+
+            dispatch(loginActions.setLoginLoading(false));
+            navigate(locationPathname, { replace: true });
+        } catch (error) {
+            toast.error(error?.message);
+            dispatch(loginActions.setLoginLoading(false));
+        }
+    };
+};
 export const login = (loginInfo, navigate, locationPathname) => {
     return async (dispatch) => {
         dispatch(loginActions.setLoginLoading(true));

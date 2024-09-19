@@ -15,6 +15,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import AlternativeMethods from './features/AlternativeMethods';
 import { translate } from '../../utils/translations';
 import config from '../../config';
+import { loginActions } from './loginSlice';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -117,7 +118,8 @@ const Login = () => {
                             color='primary'
                             disabled={isLoginDisabled}
                             onClick={() => {
-                                dispatch(login(loginInfo, navigate, location.pathname));
+                                 dispatch(login(loginInfo, navigate, location.pathname));
+                                 
                             }}
                         >
                             {translate('Login')}
