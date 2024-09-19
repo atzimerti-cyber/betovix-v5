@@ -143,6 +143,101 @@ export const loadInitData = (isMobile) => {
             const currentLoginState = getState().login;
             const permissions = currentLoginState.permissions;
 
+            // Sports
+            // -------------------------------------
+            if (permissions.AllowToSports) {
+                const requestsSports = [
+                    axiosApi.post(
+                        `Pregame/PostData?action=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+                        { data: `{"ProviderId":1,"Value":"","H24":false}` },
+                        { baseURLOverride: config.VITE_SPORTS_API_BASE }
+                    ),
+                    axiosApi.get(`Pregame/getTopLeagues?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
+                        baseURLOverride: config.VITE_SPORTS_API_BASE,
+                    }),
+                    axiosApi.get(`LiveCluster/getLiveStateJson2?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
+                        baseURLOverride: config.VITE_SPORTS_API_BASE,
+                    }),
+                    axiosApi.get(`Setting/SportSettings?Siteid=${config.VITE_SITE_ID}`, {
+                        baseURLOverride: config.VITE_WALLET_API_BASE,
+                    }),
+                ];
+
+                const responsesSports = await Promise.all(requestsSports);
+                responsesSports.forEach((response) => {
+                    if (response.status !== 200) throw Error();
+                });
+
+                dispatch(appActions.setSportSettings(responsesSports[3].data.Contents));
+
+                // Update sports with icon and slug
+                const currentState = getState().app;
+                const sportIcons = currentState.sportIcons;
+                let updatedSports = [];
+                responsesSports[0].data.Contents.forEach((sport) => {
+                    let icon = sportIcons[sport.Name?.International] || <NoImageIcon />;
+                    updatedSports.push({ ...sport, slug: sport.Name?.International.toLowerCase().replace(/ /g, '-'), icon: icon });
+                });
+
+                // Five top sports
+                const topSports = updatedSports.slice(0, 5);
+
+                // Top tournaments
+                const topTournaments = responsesSports[1].data;
+
+                // Init live
+                const matchesObj = responsesSports[2].data.Matches.reduce((acc, match) => {
+                    acc[match.MatchId] = match;
+                    return acc;
+                }, {});
+
+                dispatch(appActions.setAllSports(updatedSports));
+                dispatch(appActions.setTopSports(topSports));
+                dispatch(appActions.setTopTournaments(topTournaments));
+                dispatch(liveActions.setLiveState(matchesObj));
+
+                // For menu
+                let topTournamentsMenu = { category: { id: 2, label: 'Top Leagues', visible: true }, items: [] };
+                topTournaments.SubCategs[0].Items.forEach((topTournament) => {
+                    const value = topTournament.Value.split(',');
+                    topTournamentsMenu.items.push({
+                        id: topTournament.Value,
+                        label: topTournament.Par2 + ' ' + topTournament.Name,
+                        icon: <img src={topTournament.Icon} alt='-' />,
+                        // icon: sportIcons[topTournaments.SubCategs[0].SubCateg.Name],
+                        page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
+                    });
+                });
+                sportsMenuItems.push(topTournamentsMenu);
+
+                let topSportsMenu = { category: { id: 3, label: 'Top Sports', visible: true }, items: [] };
+                topSports.forEach((topSport) => {
+                    topSportsMenu.items.push({
+                        id: topSport.Id,
+                        label: topSport.Name.International,
+                        icon: topSport.icon,
+                        page: `sportsbook/home/${topSport.slug}`,
+                    });
+                });
+                sportsMenuItems.push(topSportsMenu);
+
+                let alphabeticalAllSports = [...updatedSports];
+                alphabeticalAllSports.sort((a, b) => a.Name.International.localeCompare(b.Name.International));
+                let allSportsMenu = { category: { id: 4, label: 'All Sports', visible: false }, items: [] };
+                alphabeticalAllSports.forEach((sport) => {
+                    allSportsMenu.items.push({
+                        id: sport.Id,
+                        label: sport.Name.International,
+                        icon: sport.icon,
+                        page: `sportsbook/home/${sport.slug}`,
+                    });
+                });
+                sportsMenuItems.push(allSportsMenu);
+
+                dispatch(appActions.setSportsMenuItems(sportsMenuItems));
+
+            }
+
             // Casino
             // -------------------------------------
             if (permissions.AllowToCasino || permissions.AllowToSlots) {
@@ -235,98 +330,9 @@ export const loadInitData = (isMobile) => {
                 });
 
                 casinoMenuItems.push(...casinoWalletMenu);
-            }
 
-            // Sports
-            // -------------------------------------
-            if (permissions.AllowToSports) {
-                const requestsSports = [
-                    axiosApi.post(
-                        `Pregame/PostData?action=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-                        { data: `{"ProviderId":1,"Value":"","H24":false}` },
-                        { baseURLOverride: config.VITE_SPORTS_API_BASE }
-                    ),
-                    axiosApi.get(`Pregame/getTopLeagues?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
-                        baseURLOverride: config.VITE_SPORTS_API_BASE,
-                    }),
-                    axiosApi.get(`LiveCluster/getLiveStateJson2?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
-                        baseURLOverride: config.VITE_SPORTS_API_BASE,
-                    }),
-                    axiosApi.get(`Setting/SportSettings?Siteid=${config.VITE_SITE_ID}`, {
-                        baseURLOverride: config.VITE_WALLET_API_BASE,
-                    }),
-                ];
+                dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
 
-                const responsesSports = await Promise.all(requestsSports);
-                responsesSports.forEach((response) => {
-                    if (response.status !== 200) throw Error();
-                });
-
-                dispatch(appActions.setSportSettings(responsesSports[3].data.Contents));
-
-                // Update sports with icon and slug
-                const currentState = getState().app;
-                const sportIcons = currentState.sportIcons;
-                let updatedSports = [];
-                responsesSports[0].data.Contents.forEach((sport) => {
-                    let icon = sportIcons[sport.Name?.International] || <NoImageIcon />;
-                    updatedSports.push({ ...sport, slug: sport.Name?.International.toLowerCase().replace(/ /g, '-'), icon: icon });
-                });
-
-                // Five top sports
-                const topSports = updatedSports.slice(0, 5);
-
-                // Top tournaments
-                const topTournaments = responsesSports[1].data;
-
-                // Init live
-                const matchesObj = responsesSports[2].data.Matches.reduce((acc, match) => {
-                    acc[match.MatchId] = match;
-                    return acc;
-                }, {});
-
-                dispatch(appActions.setAllSports(updatedSports));
-                dispatch(appActions.setTopSports(topSports));
-                dispatch(appActions.setTopTournaments(topTournaments));
-                dispatch(liveActions.setLiveState(matchesObj));
-
-                // For menu
-                let topTournamentsMenu = { category: { id: 2, label: 'Top Leagues', visible: true }, items: [] };
-                topTournaments.SubCategs[0].Items.forEach((topTournament) => {
-                    const value = topTournament.Value.split(',');
-                    topTournamentsMenu.items.push({
-                        id: topTournament.Value,
-                        label: topTournament.Par2 + ' ' + topTournament.Name,
-                        icon: <img src={topTournament.Icon} alt='-' />,
-                        // icon: sportIcons[topTournaments.SubCategs[0].SubCateg.Name],
-                        page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
-                    });
-                });
-                sportsMenuItems.push(topTournamentsMenu);
-
-                let topSportsMenu = { category: { id: 3, label: 'Top Sports', visible: true }, items: [] };
-                topSports.forEach((topSport) => {
-                    topSportsMenu.items.push({
-                        id: topSport.Id,
-                        label: topSport.Name.International,
-                        icon: topSport.icon,
-                        page: `sportsbook/home/${topSport.slug}`,
-                    });
-                });
-                sportsMenuItems.push(topSportsMenu);
-
-                let alphabeticalAllSports = [...updatedSports];
-                alphabeticalAllSports.sort((a, b) => a.Name.International.localeCompare(b.Name.International));
-                let allSportsMenu = { category: { id: 4, label: 'All Sports', visible: false }, items: [] };
-                alphabeticalAllSports.forEach((sport) => {
-                    allSportsMenu.items.push({
-                        id: sport.Id,
-                        label: sport.Name.International,
-                        icon: sport.icon,
-                        page: `sportsbook/home/${sport.slug}`,
-                    });
-                });
-                sportsMenuItems.push(allSportsMenu);
             }
 
             // Rest of menu items
@@ -378,8 +384,6 @@ export const loadInitData = (isMobile) => {
                 ],
             });
             //console.log(allMenuItems);
-            dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
-            dispatch(appActions.setSportsMenuItems(sportsMenuItems));
             dispatch(appActions.setMenuItems(allMenuItems));
             setTimeout(function () {
                 dispatch(appActions.setInitDataLoaded(true));

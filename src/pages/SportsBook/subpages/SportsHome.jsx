@@ -161,7 +161,9 @@ const SportsHome = () => {
         let newCategories = [];
 
         Object.values(liveState).forEach((event) => {
-            const { CategoryId, TournamentId, TournamentName, CategoryName, SportId } = event.Info;
+            
+            const { CategoryId, TournamentId, TournamentName, CategoryName, SportId } = (event?.Info || {});
+            
             if (SportId !== selectedSport.Id) return;
 
             const newTournament = {
