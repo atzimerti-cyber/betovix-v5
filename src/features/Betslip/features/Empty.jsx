@@ -21,8 +21,15 @@ const Empty = () => {
     if (isInSports) elClasses.push(classes.Disabled);
     if (showReceiptFor) elClasses.push(classes.ShowingReceipt);
 
+    const handleClick = () => {
+        // If we are in sports or showing the receipt, don't navigate
+        if (isInSports || showReceiptFor) return;
+        
+        navigate('/sportsbook/home/football');
+    };
+
     return (
-        <div className={elClasses.join(' ')} onClick={isInSports ? null : () => navigate('/sportsbook/home/football')}>
+        <div className={elClasses.join(' ')} onClick={handleClick}>
             <BetslipEmptyIcon />
             <div className={classes.EmptyTitle}>{translate('Betslip is empty')}</div>
             {isInSports ? (

@@ -88,5 +88,6 @@
 }
 
 .Empty.ShowingReceipt {
+    pointer-events: none; 
     padding-block-end: 394px;
 }
