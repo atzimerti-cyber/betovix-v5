@@ -91,6 +91,13 @@
     .RightContainer .TextContainer {
         display: none;
     }
+
+    .RightContainer span {
+        max-width: 100px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
     
 }
 .TitleAccent {

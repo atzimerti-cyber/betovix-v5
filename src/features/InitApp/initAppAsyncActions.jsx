@@ -143,98 +143,6 @@ export const loadInitData = (isMobile) => {
             const currentLoginState = getState().login;
             const permissions = currentLoginState.permissions;
 
-            // Casino
-            // -------------------------------------
-            if (permissions.AllowToCasino || permissions.AllowToSlots) {
-                const requestsCasino = [
-                    axiosApi.get(`MyCasino/GetVendors?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
-                        baseURLOverride: config.VITE_CASINO_BASE,
-                    }),
-                    axiosApi.get(`MyCasino/MyMenu?type=casinobetovix&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
-                        baseURLOverride: config.VITE_CASINO_BASE,
-                    }),
-                ];
-                const responsesCasino = await Promise.all(requestsCasino);
-                responsesCasino.forEach((response) => {
-                    if (response.status !== 200) throw Error();
-                });
-
-                if (Array.isArray(responsesCasino[0].data.Contents)) dispatch(appActions.setAllCasinoVendors(responsesCasino[0].data.Contents));
-
-                const currentState = getState().app;
-                const casinoIcons = currentState.casinoIcons;
-                const casinoWalletMenu = responsesCasino[1].data.Contents.Categs.map((item) => {
-                    if (item.Items.length > 0) {
-                        return {
-                            category: {
-                                id: item.Categ.Id,
-                                label: `${item.Categ.Name}`,
-                                visible: false,
-                            },
-                            items: item.Items.map((subItem) => {
-                                const icon = casinoIcons[subItem.Name] || <NoImageIcon />;
-                                const slug = subItem.Name?.toLowerCase().replace(/ /g, '-');
-                                return {
-                                    id: subItem.Id,
-                                    label: subItem.Name,
-                                    icon: icon,
-                                    // page: `casino/${slug}`,
-                                    page: `casino/${subItem.BadgeType}`,
-                                };
-                            }),
-                        };
-                    } else {
-                        const icon = casinoIcons[item.Categ.Name] || <NoImageIcon />;
-                        const slug = item.Categ.Icon?.toLowerCase().replace(/ /g, '-');
-                        return {
-                            items: [
-                                {
-                                    id: item.Categ.Id,
-                                    label: item.Categ.Name,
-                                    icon: icon,
-                                    page: `casino/menu?tag=${item.Categ.BadgeType}`,
-                                    // page: `casino/${slug}`,
-                                },
-                            ],
-                        };
-                    }
-                });
-
-                //console.log('casinoWalletMenu', casinoWalletMenu);
-
-                casinoMenuItems.push({
-                    category: { id: 1, label: 'Casino', visible: true },
-                    items: [
-                        {
-                            id: 1,
-                            label: 'Lobby',
-                            icon: <HomeIcon />,
-                            page: 'casino/lobby',
-                        },
-                        {
-                            id: 2,
-                            label: 'Slots',
-                            icon: <SlotsIcon />,
-                            page: 'casino/slots',
-                        },
-                        {
-                            id: 3,
-                            label: 'Live Casino',
-                            icon: <BlackjackIcon />,
-                            page: 'casino/live',
-                        },
-                        {
-                            id: 4,
-                            label: 'Favorites',
-                            icon: <HeartIcon />,
-                            page: 'casino/favorites',
-                        },
-                    ],
-                });
-
-                casinoMenuItems.push(...casinoWalletMenu);
-            }
-
             // Sports
             // -------------------------------------
             if (permissions.AllowToSports) {
@@ -325,6 +233,104 @@ export const loadInitData = (isMobile) => {
                     });
                 });
                 sportsMenuItems.push(allSportsMenu);
+
+                dispatch(appActions.setSportsMenuItems(sportsMenuItems));
+
+            }
+
+            // Casino
+            // -------------------------------------
+            if (permissions.AllowToCasino || permissions.AllowToSlots) {
+                const requestsCasino = [
+                    axiosApi.get(`MyCasino/GetVendors?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
+                        baseURLOverride: config.VITE_CASINO_BASE,
+                    }),
+                    axiosApi.get(`MyCasino/MyMenu?type=casinobetovix&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
+                        baseURLOverride: config.VITE_CASINO_BASE,
+                    }),
+                ];
+                const responsesCasino = await Promise.all(requestsCasino);
+                responsesCasino.forEach((response) => {
+                    if (response.status !== 200) throw Error();
+                });
+
+                if (Array.isArray(responsesCasino[0].data.Contents)) dispatch(appActions.setAllCasinoVendors(responsesCasino[0].data.Contents));
+
+                const currentState = getState().app;
+                const casinoIcons = currentState.casinoIcons;
+                const casinoWalletMenu = responsesCasino[1].data.Contents.Categs.map((item) => {
+                    if (item.Items.length > 0) {
+                        return {
+                            category: {
+                                id: item.Categ.Id,
+                                label: `${item.Categ.Name}`,
+                                visible: false,
+                            },
+                            items: item.Items.map((subItem) => {
+                                const icon = casinoIcons[subItem.Name] || <NoImageIcon />;
+                                const slug = subItem.Name?.toLowerCase().replace(/ /g, '-');
+                                return {
+                                    id: subItem.Id,
+                                    label: subItem.Name,
+                                    icon: icon,
+                                    // page: `casino/${slug}`,
+                                    page: `casino/${subItem.BadgeType}`,
+                                };
+                            }),
+                        };
+                    } else {
+                        const icon = casinoIcons[item.Categ.Name] || <NoImageIcon />;
+                        const slug = item.Categ.Icon?.toLowerCase().replace(/ /g, '-');
+                        return {
+                            items: [
+                                {
+                                    id: item.Categ.Id,
+                                    label: item.Categ.Name,
+                                    icon: icon,
+                                    page: `casino/menu?tag=${item.Categ.BadgeType}`,
+                                    // page: `casino/${slug}`,
+                                },
+                            ],
+                        };
+                    }
+                });
+
+                //console.log('casinoWalletMenu', casinoWalletMenu);
+
+                casinoMenuItems.push({
+                    category: { id: 1, label: 'Casino', visible: true },
+                    items: [
+                        {
+                            id: 1,
+                            label: 'Lobby',
+                            icon: <HomeIcon />,
+                            page: 'casino/lobby',
+                        },
+                        {
+                            id: 2,
+                            label: 'Slots',
+                            icon: <SlotsIcon />,
+                            page: 'casino/slots',
+                        },
+                        {
+                            id: 3,
+                            label: 'Live Casino',
+                            icon: <BlackjackIcon />,
+                            page: 'casino/live',
+                        },
+                        {
+                            id: 4,
+                            label: 'Favorites',
+                            icon: <HeartIcon />,
+                            page: 'casino/favorites',
+                        },
+                    ],
+                });
+
+                casinoMenuItems.push(...casinoWalletMenu);
+
+                dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
+
             }
 
             // Rest of menu items
@@ -376,8 +382,6 @@ export const loadInitData = (isMobile) => {
                 ],
             });
             //console.log(allMenuItems);
-            dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
-            dispatch(appActions.setSportsMenuItems(sportsMenuItems));
             dispatch(appActions.setMenuItems(allMenuItems));
             setTimeout(function () {
                 dispatch(appActions.setInitDataLoaded(true));
