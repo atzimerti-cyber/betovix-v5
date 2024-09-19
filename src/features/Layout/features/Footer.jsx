@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 
+import { useNavigate } from 'react-router-dom';
 import classes from './Footer.module.css';
 import LogoBig from '../../../assets/svgs/logo-big.svg?react';
 import Plus18Icon from '../../../assets/svgs/plus-18.svg?react';
@@ -11,6 +12,7 @@ import { getSiteSettings } from '../../InitApp/initAppAsyncActions';
 
 const Footer = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const lang = useSelector((state) => state.app.lang);
 
     useEffect(() => {
@@ -36,7 +38,7 @@ const Footer = () => {
                 <div className={classes.LinksLayout}>
                     <h2>{translate('About')}</h2>
                     <a href='#'>{translate('Support')}</a>
-                    <a href='#'>{translate('Terms of service')}</a>
+                    <a onClick={()=>(navigate('/termsofservice'))} style={{cursor:'pointer'}}>{translate('Terms of service')}</a>
                 </div>
                 <div className={classes.LinksLayout}>
                     <h2>{translate('Platform')}</h2>
