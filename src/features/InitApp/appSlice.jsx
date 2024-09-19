@@ -164,6 +164,7 @@ const initialState = {
         Tennis: <TennisIcon />,
         MMA: <MMAIcon />,
         Football: <SoccerIcon />,
+        'E-Football': <eSoccerIcon />,
         Baseball: <BaseballIcon />,
         'Ice Hockey': <IceHockeyIcon />,
         Handball: <HandballIcon />,
