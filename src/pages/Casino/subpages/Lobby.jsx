@@ -53,26 +53,9 @@ const Lobby = () => {
         setAllProviders(po);
     }, [casinoVendors]);
 
-    // const getPathByItemName = (itemName) => {
-    //     switch (itemName) {
-    //         case 'Recommended':
-    //             return null;
-    //         case 'Recently Played':
-    //             return null;
-    //         case 'Favorites':
-    //             return '/casino/favorites';
-    //         case 'New Games':
-    //             return null;
-    //         case 'Amatic':
-    //             return `/search?provider=${itemName}`;
-    //         case 'Novomatic':
-    //             return `/search?provider=${itemName}`;
-    //         case 'Egypt':
-    //             return `/search?provider=egt`;
-    //         default:
-    //             return '/';
-    //     }
-    // };
+    useEffect(() => {
+        if (!casinoBanners) return;
+    }, [casinoBanners]);
 
     useEffect(() => {
         // Callback function to execute when observed element is in view

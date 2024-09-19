@@ -36,14 +36,14 @@ const Overview = () => {
             <div className={classes.GridContainer}>
                 <div className={classes.UserClassContainer}>
                     <div className={classes.LevelContainer}>
-                        <div className={classes.LevelBadge}>
+                        {/* <div className={classes.LevelBadge}>
                             <div>{user?.level}</div>
-                        </div>
+                        </div> */}
                     </div>
                     <p className={classes.Username}>{user?.Username}</p>
-                    <p className={classes.MemberSince}>
+                    {/* <p className={classes.MemberSince}>
                         {translate('Member since')} {millisecondsToDateStr(user?.registered)}
-                    </p>
+                    </p> */}
                 </div>
 
                 <DecorationDiv color='primary'>

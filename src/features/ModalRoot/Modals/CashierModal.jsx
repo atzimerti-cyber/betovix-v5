@@ -10,7 +10,7 @@ import Deposit from '../../../pages/Crypto/features/Deposit';
 import Withdraw from '../../../pages/Crypto/features/Withdraw';
 //import BuyCrypto from '../../../pages/Crypto/features/BuyCrypto';
 import { translate } from '../../../utils/translations';
-import { getCrypto } from '../../../pages/Crypto/cryptoAsyncActions';
+import { getWallet } from '../../../pages/Crypto/cryptoAsyncActions';
 
 const CashierModal = (props) => {
     const navigate = useNavigate();
@@ -34,7 +34,7 @@ const CashierModal = (props) => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        dispatch(getCrypto(signal));
+        dispatch(getWallet(signal));
 
         return () => {
             controller.abort();

@@ -21,6 +21,7 @@ export const getCasinoCrashGames = (signal) => {
            dispatch(casinoCrashGamesActions.setCasinoCrashGames(response.data.Contents));
         } catch (error) {
             if (!error?.code === 'ERR_CANCELED') toast.error(error?.message);
+            dispatch(recommendedGamesActions.setCasinoCrashGames([]));
         }
     };
 };

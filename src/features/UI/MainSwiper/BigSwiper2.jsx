@@ -59,6 +59,7 @@ const BigSwiper2 = (props) => {
     };
 
     return (
+        props.items &&
         <div className={classes.MainSwiperWrapper}>
             <Swiper
                 slidesPerView={slidesPerView}

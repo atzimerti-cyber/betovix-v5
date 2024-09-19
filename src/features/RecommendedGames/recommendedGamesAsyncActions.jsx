@@ -3,7 +3,7 @@ import axiosApi from '../../axios-api';
 import { getLang } from '../../utils/storage';
 import { recommendedGamesActions } from './recommendedGamesSlice';
 import config from '../../config';
- 
+
 export const getRecommendedGames = (signal) => {
     return async (dispatch) => {
         try {
@@ -14,13 +14,15 @@ export const getRecommendedGames = (signal) => {
                 {
                     signal: signal,
                     baseURLOverride: config.VITE_CASINO_BASE,
+                    timeout: 1000,
                 }
             );
             if ((response.status && response.status !== 200) || (response.data.Status && response.data.Status.StatusCode !== 200)) throw Error();
 
-           dispatch(recommendedGamesActions.setRecommendedGames(response.data.Contents));
+            dispatch(recommendedGamesActions.setRecommendedGames(response.data.Contents));
         } catch (error) {
             if (!error?.code === 'ERR_CANCELED') toast.error(error?.message);
+            dispatch(recommendedGamesActions.setRecommendedGames([]));
         }
     };
 };

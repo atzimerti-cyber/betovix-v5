@@ -5,7 +5,7 @@ import axiosApi from '../../axios-api';
 import { cryptoActions } from './cryptoSlice';
 import config from '../../config';
 
-export const getCrypto = (signal) => {
+export const getWallet = (signal) => {
     return async (dispatch) => {
         try {
             const lang = getLang();
@@ -22,7 +22,30 @@ export const getCrypto = (signal) => {
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch crypto');
 
             const crypto = response.data.Contents;
-            //console.log("All crypto", crypto);
+            dispatch(cryptoActions.setCrypto(crypto));
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
+export const getCrypto = (signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.get(
+                `/Payments/GetCryptoRates`,
+                {
+                    signal: signal,
+                    baseURLOverride: config.VITE_WALLET_STORETUBE,
+                }
+            );
+
+            if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch crypto');
+
+            const crypto = response.data.Contents;
             dispatch(cryptoActions.setCrypto(crypto));
         } catch (error) {
             const message = error?.message ? error.message : error;
