@@ -23,7 +23,7 @@ const SearchSports = React.lazy(() => import('./pages/Search/SearchSports'));
 const Leaderboard = React.lazy(() => import('./pages/Leaderboard/Leaderboard'));
 const ProgressMap = React.lazy(() => import('./pages/UserGamification.jsx/features/ProgressMap'));
 const Gamification = React.lazy(() => import('./pages/UserGamification.jsx/Gamification'));
-
+const TermsOfService = React.lazy(() => import('./pages/Footer Pages/TermsOfService'))
 
 function App() {
     const router = createBrowserRouter([
@@ -181,6 +181,14 @@ function App() {
                                     <PrivateRoute roleId={40}>
                                         <ProgressMap />
                                     </PrivateRoute>
+                                </Suspense>
+                            ),
+                        },
+                        {
+                            path: '/termsofservice',
+                            element: (
+                                <Suspense fallback={<PageFallback />}>
+                                    <TermsOfService />
                                 </Suspense>
                             ),
                         },

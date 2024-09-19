@@ -14,11 +14,11 @@ export const getLeaderboard = (signal) => {
             const lang = getLang();
 
             const response = await axiosApi.get(
-                `MyTicket/GetTopWins?lang=${lang.id}&siteid=6`,
-                // `MyTicket/GetTopWins?lang=${lang.id}&siteid=${import.meta.env.VITE_SITE_ID}`,
+                `MyTicket/GetTopWins?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+                // `MyTicket/GetTopWins?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
                 {
                     signal: signal,
-                    baseURLOverride: import.meta.env.VITE_WALLET_API,
+                    baseURLOverride: config.VITE_WALLET_API,
                 }
             );
             if (response.data.Status.StatusCode !== 200) throw Error();
