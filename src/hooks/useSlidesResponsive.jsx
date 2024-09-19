@@ -22,11 +22,11 @@ const useSlidesResponsive = (categ) => {
         } else if (isBigDesktop) {
             slidesPerView = 6;
             slidesPerGroup = 5;
-        }else{
+        } else {
             slidesPerView = 7;
             slidesPerGroup = 6;
         }
-    }else if (categ == "match"){
+    } else if (categ == "match") {
         if (isMobile) {
             slidesPerView = 1;
             slidesPerGroup = 1;
@@ -39,11 +39,11 @@ const useSlidesResponsive = (categ) => {
         } else if (isBigDesktop) {
             slidesPerView = 3;
             slidesPerGroup = 2;
-        }else{
+        } else {
             slidesPerView = 3;
             slidesPerGroup = 2;
         }
-    }else if (categ == "crypto-line"){
+    } else if (categ == "crypto-line") {
         if (isMobile) {
             slidesPerView = 2.5;
             slidesPerGroup = 2;
@@ -56,11 +56,11 @@ const useSlidesResponsive = (categ) => {
         } else if (isBigDesktop) {
             slidesPerView = 4;
             slidesPerGroup = 4;
-        }else{
+        } else {
             slidesPerView = 6.5;
             slidesPerGroup = 4;
         }
-    }else if (categ == "levels"){
+    } else if (categ == "levels") {
         if (isMobile) {
             slidesPerView = 2;
             slidesPerGroup = 2;
@@ -73,11 +73,11 @@ const useSlidesResponsive = (categ) => {
         } else if (isBigDesktop) {
             slidesPerView = 4;
             slidesPerGroup = 4;
-        }else{
+        } else {
             slidesPerView = 4.5;
             slidesPerGroup = 4;
         }
-    }else if (categ == "milestones"){
+    } else if (categ == "milestones") {
         if (isMobile) {
             slidesPerView = 2.5;
             slidesPerGroup = 2;
@@ -90,12 +90,12 @@ const useSlidesResponsive = (categ) => {
         } else if (isBigDesktop) {
             slidesPerView = 4;
             slidesPerGroup = 4;
-        }else{
+        } else {
             slidesPerView = 6.5;
             slidesPerGroup = 4;
         }
     }
-    else if (categ == "casinoBanners"){
+    else if (categ == "casinoBanners") {
         if (isMobile) {
             slidesPerView = 1;
             slidesPerGroup = 1;
@@ -108,9 +108,27 @@ const useSlidesResponsive = (categ) => {
         } else if (isBigDesktop) {
             slidesPerView = 2.2;
             slidesPerGroup = 2;
-        }else{
+        } else {
             slidesPerView = 2.2;
             slidesPerGroup = 2;
+        }
+    }
+    else if (categ == "vendors") {
+        if (isMobile) {
+            slidesPerView = 2.5;
+            slidesPerGroup = 2;
+        } else if (isTablet) {
+            slidesPerView = 4;
+            slidesPerGroup = 3;
+        } else if (isDesktop) {
+            slidesPerView = 5;
+            slidesPerGroup = 4;
+        } else if (isBigDesktop) {
+            slidesPerView = 7;
+            slidesPerGroup = 5;
+        } else {
+            slidesPerView = 8;
+            slidesPerGroup = 6;
         }
     }
 

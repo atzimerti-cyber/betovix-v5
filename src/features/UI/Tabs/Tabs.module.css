@@ -4,10 +4,11 @@
     align-items: center;
     -webkit-box-pack: justify;
     justify-content: space-between;
-    margin-block: 0px 16px;
+    margin-block: 0px 5px;
     position: relative;
-    margin-block: 0px;
     margin-inline: 14px;
+    
+    min-height: 40px;
 }
 .Tabs::after {
     background: rgb(42, 65, 74);
