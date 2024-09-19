@@ -154,7 +154,7 @@ const Betslip = memo(function (props) {
                     <span>{translate('Deposit to Place Bet')}</span>
                 </button>
             );
-        else if (betError || slips?.length === 0)
+        else if (betError || slips?.length === 0 || betslip?.totalStake === '0.00' || betslip?.totalStake === 0)
             return (
                 <button className={classes.BetButton} disabled>
                     <span>{translate('Place Bet')}</span>
@@ -308,6 +308,8 @@ const Betslip = memo(function (props) {
                 </div>
             );
         }
+
+        setIsBonus(false)
         return null;
     }, [user?.AccountId, slips?.length, betslip?.totalStake, bonusBalance, isBonus]);
 
