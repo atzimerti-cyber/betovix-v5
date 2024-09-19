@@ -169,7 +169,7 @@ export const sentRecoveryEmail = (email) => {
 
         try {
             const response = await axiosApi.get(`/MyAccount/RecoverPassword?email=${email}`, {
-                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                baseURLOverride: config.VITE_WALLET_API_BASE,
             });
             setTimeout(() => {
                 dispatch(loginActions.setUpdateLoading(false));
@@ -197,7 +197,7 @@ export const verifyCode = (code) => {
 
         try {
             const response = await axiosApi.get(`/MyAccount/VerifyRecovery?RecoveryCode=${code}`, {
-                baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                baseURLOverride: config.VITE_WALLET_API_BASE,
             });
 
             setTimeout(() => {
@@ -232,7 +232,7 @@ export const updatePassword = (info, id, navigate, locationPathname) => {
                 AccountId: id
             },
                 {
-                    baseURLOverride: import.meta.env.VITE_WALLET_API_BASE,
+                    baseURLOverride: config.VITE_WALLET_API_BASE,
                 });
 
             setTimeout(() => {

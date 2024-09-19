@@ -155,7 +155,7 @@ export const getUserAchievements = () => {
             const response = await axiosApi.get(
                 `/ModuleGamification/GetMembersSelectedHero`,
                 {
-                    baseURLOverride: import.meta.env.VITE_GAMIFICATION_STORETUBE,
+                    baseURLOverride: config.VITE_GAMIFICATION_STORETUBE,
                 }
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200 || response.data.Contents == null) {
@@ -336,7 +336,7 @@ export const heroProgress = () => {
             const response = await axiosApi.get(
                 `/ModuleGamification/GetHeroProgress`,
                 {
-                    baseURLOverride: import.meta.env.VITE_GAMIFICATION_STORETUBE,
+                    baseURLOverride: config.VITE_GAMIFICATION_STORETUBE,
                 }
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200 || response.data.Contents == null) throw Error(response.data.Contents);
@@ -384,7 +384,7 @@ export const recRewards = () => {
             const response = await axiosApi.get(
                 `/ModuleGamification/GetRecurrentRewards`,
                 {
-                    baseURLOverride: import.meta.env.VITE_GAMIFICATION_STORETUBE,
+                    baseURLOverride: config.VITE_GAMIFICATION_STORETUBE,
                 }
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200 || response.data.Contents == null) throw Error(response.data.Contents);
