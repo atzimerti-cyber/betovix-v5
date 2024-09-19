@@ -21,7 +21,7 @@ const CryptoCard = (props) => {
             {/* {props.item.Code && <div className={classes.Network}>({props.item.Code})</div>} */}
             {props.item.Rate &&
                 // <span className={classes.Price}>{props.item.Id} €</span>}
-                <span className={classes.Price}>{props.item.Rate > 0.01 ? addThousandsSeparator(props.item.Rate) : parseFloat((props.item.Rate).toFixed(6))} €</span>}
+                <span className={classes.Price}>{props.item.Rate > 0.01 ? addThousandsSeparator(props.item.Rate) : parseFloat((props.item.Rate).toFixed(6))}$</span>}
             {/* {currentPrice.price &&
                 <span className={classes.Price}>${currentPrice.price > 0.01 ? addThousandsSeparator(currentPrice.price) : parseFloat((currentPrice.price).toFixed(6))}</span>} */}
 

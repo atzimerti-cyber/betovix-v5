@@ -16,10 +16,12 @@ export const getCasino = (signal) => {
                 axiosApi.get(`MyCasino/GetBanners?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
                     signal: signal,
                     baseURLOverride: config.VITE_CASINO_BASE,
+                    timeout: 10000,
                 }),
                 axiosApi.get(`MyCasino/GetVendors?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
                     signal: signal,
                     baseURLOverride: config.VITE_CASINO_BASE,
+                    timeout: 10000,
                 }),
             ];
             const responses = await Promise.all(requests);
@@ -32,7 +34,15 @@ export const getCasino = (signal) => {
             dispatch(casinoActions.setCasinoVendors(responses[1].data.Contents));
         } catch (error) {
             const message = error?.message ? error.message : error;
-            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+            if (error?.code === 'ERR_CANCELED') {
+                // Handle request cancellation (e.g., user navigated away)
+                console.log("Request was cancelled", message);
+            } else if (error?.code === 'ECONNABORTED') {
+                // Handle timeout error specifically
+                toast.error("Request timed out, please try again.");
+            } else {
+                toast.error(message);
+            }
         }
     };
 };
@@ -457,6 +467,7 @@ export const getCasinoTags = (signal) => {
             const response = await axiosApi.get(`MyCasino/GetHomeTags?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
                 signal: signal,
                 baseURLOverride: config.VITE_CASINO_BASE,
+                timeout: 10000,
             });
 
             if (response.data.Status.StatusCode !== 200) throw Error();
@@ -527,7 +538,7 @@ export const searchCasino = (signal, page, pageItems, tags, searchStr, order) =>
 
             if (tags.includes('slot')) {
                 dispatch(casinoActions.setSlotGames(allGames));
-            }else if(tags.includes('live')){
+            } else if (tags.includes('live')) {
                 dispatch(casinoActions.setLiveGames(allGames));
             }
 
@@ -590,7 +601,7 @@ export const loadMoreSearch = (signal, pageItems, tags, searchStr, order) => {
 
             if (stateTags.includes('slot')) {
                 dispatch(casinoActions.addToAllSlots(casinoRes));
-            }else if(stateTags.includes('live')){
+            } else if (stateTags.includes('live')) {
                 dispatch(casinoActions.addToAllLives(casinoRes));
             }
 

@@ -244,9 +244,11 @@ export const loadInitData = (isMobile) => {
                 const requestsCasino = [
                     axiosApi.get(`MyCasino/GetVendors?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`, {
                         baseURLOverride: config.VITE_CASINO_BASE,
+                        timeout: 10000,
                     }),
                     axiosApi.get(`MyCasino/MyMenu?type=casinobetovix&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                         baseURLOverride: config.VITE_CASINO_BASE,
+                        timeout: 10000,
                     }),
                 ];
                 const responsesCasino = await Promise.all(requestsCasino);

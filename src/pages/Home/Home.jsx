@@ -120,7 +120,7 @@ const Home = () => {
                 }
 
                 {/* CRYPTO */}
-                {user && showCrypto &&
+                {showCrypto &&
                     <div style={{ minHeight: "55px" }} ref={cryptoRef}>
                         {isCryptoVisible &&
                             <Crypto onDataNotFound={handleRemoveCryptoComponent} />

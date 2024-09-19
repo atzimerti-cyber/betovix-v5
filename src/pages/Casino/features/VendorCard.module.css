@@ -22,6 +22,7 @@
 }
 
 .ImageContainer {
+    height: 100%;
     width: 100%;
     aspect-ratio: 6 / 4;
     position: relative;
@@ -30,8 +31,7 @@
 
 .ImageContainer img {
     padding: 4px;
-    object-fit: fill;
-    aspect-ratio: 6 / 4;
+    object-fit: contain;
     height: 100%;
     transform: translateZ(0);
     -webkit-transform: translateZ(0);
