@@ -11,9 +11,11 @@ import config from '../../config';
 
 export const logingGoogle = (loginInfo, navigate, locationPathname) => {
     return async (dispatch) => {
+        console.log(" dispatch(loginActions.setLoginLoading(true));")
         dispatch(loginActions.setLoginLoading(true));
 
         try {
+            console.log("const response = await axiosApi.post('login/AuthenticateGoogle', loginInfo, { baseURLOverride: config.VITE_WALLET_API_BASE });")
             const response = await axiosApi.post('login/AuthenticateGoogle', loginInfo, { baseURLOverride: config.VITE_WALLET_API_BASE });
             if (response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
             setAccessToken(response.data.Contents.Token);
