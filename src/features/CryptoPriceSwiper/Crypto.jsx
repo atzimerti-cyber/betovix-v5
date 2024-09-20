@@ -22,7 +22,7 @@ const Crypto = ({ onDataNotFound }) => {
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const cryptoPrices = useSelector((state) => state.crypto.cryptoPrices);
-    const crypto = useSelector((state) => state.crypto.crypto);
+    const crypto = useSelector((state) => state.crypto.cryptoSwiper);
     const user = useSelector((state) => state.login.user);
 
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("crypto-line");
@@ -38,27 +38,11 @@ const Crypto = ({ onDataNotFound }) => {
         navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
     };
 
-    const onClick = (item) => {
-        if (user) {
-
-            dispatch(cryptoActions.setSelectedCurrency(item));
-            if (item.AllowDeposit && item.AllowWithdraw) {
-                navigateToModal('cashier', 'deposit', 'crypto');
-            } else if (item.AllowDeposit && !item.AllowWithdraw) {
-                navigateToModal('cashier', 'deposit', 'crypto');
-            } else if (item.AllowWithdraw && !item.AllowDeposit) {
-                navigateToModal('cashier', 'withdraw', 'crypto');
-            } else {
-                return null;
-            }
-        } else navigateToModal('auth', 'login');
-    };
-
     useEffect(() => {
         const controller = new AbortController();
         const signal = controller.signal;
 
-        dispatch(getCrypto(signal)) 
+        dispatch(getCrypto(signal))
 
         return () => {
             controller.abort();
@@ -66,12 +50,12 @@ const Crypto = ({ onDataNotFound }) => {
         };
     }, [])
 
-     //Remove Component if no favs found
-     useEffect(() => {
+    //Remove Component if no favs found
+    useEffect(() => {
         if (crypto !== null && (crypto.length === 0)) {
-            onDataNotFound(); 
+            onDataNotFound();
         }
-    }, [crypto, onDataNotFound]); 
+    }, [crypto, onDataNotFound]);
 
     return (
         <div className={classes.CryptoSwiper}>
@@ -91,8 +75,8 @@ const Crypto = ({ onDataNotFound }) => {
                         (
                             crypto.map((item, index) => {
                                 return (
-                                    <SwiperSlide key={`${item.Id}-${index}`} style={{ width: 'auto' }}>
-                                        <div className={classes.SlideContainer} onClick={() => onClick(item)}>
+                                    <SwiperSlide key={`${item.Id}-${index}`} style={{ width: 'auto', cursor: 'none' }}>
+                                        <div className={classes.SlideContainer}>
                                             <div className={classes.Slide}>
                                                 <div className={classes.SlideContent}>
                                                     <CryptoCard item={item} />

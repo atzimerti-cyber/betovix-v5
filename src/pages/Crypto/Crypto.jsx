@@ -16,7 +16,7 @@ const Crypto = () => {
     const dispatch = useDispatch();
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-    const crypto = useSelector((state) => state.crypto.crypto);
+    const crypto = useSelector((state) => state.crypto.cryptoSwiper);
 
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
