@@ -47,7 +47,7 @@ import GaelicFootballIcon from '../../assets/sportIcons/gaelic-football.svg?reac
 import FloorballIcon from '../../assets/sportIcons/floorball.svg?react';
 import FutsalIcon from '../../assets/sportIcons/futsal.svg?react';
 import CrossFireIcon from '../../assets/sportIcons/crossfire.svg?react';
-import eSoccerIcon from '../../assets/sportIcons/esoccer.svg?react';
+import ESoccerIcon from '../../assets/sportIcons/esoccer.svg?react';
 import RugbyLeagueIcon from '../../assets/sportIcons/rugby.svg?react';
 import BeachVolleyIcon from '../../assets/sportIcons/beach-volley.svg?react';
 import SquashIcon from '../../assets/sportIcons/squash.svg?react';
@@ -164,7 +164,7 @@ const initialState = {
         Tennis: <TennisIcon />,
         MMA: <MMAIcon />,
         Football: <SoccerIcon />,
-        'E-Football': <eSoccerIcon />,
+        'E-Football': <ESoccerIcon />,
         Baseball: <BaseballIcon />,
         'Ice Hockey': <IceHockeyIcon />,
         Handball: <HandballIcon />,

@@ -48,7 +48,7 @@
 .match-details-block .match-details .match-teams:before,
 .playoff .playoff-title,
 .search-field-layer,
-.search-bar {
+.search-bar, .matches-table .match-table_date-title-style {
 	background: var(--dark-theme-two);
 }
 

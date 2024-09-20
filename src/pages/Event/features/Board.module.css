@@ -1,5 +1,5 @@
 .Board {
-    background: rgb(27, 42, 46);
+    /* background: rgb(27, 42, 46); */
     border-radius: 8px;
     display: flex;
     flex-wrap: nowrap;
