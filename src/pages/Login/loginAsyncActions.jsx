@@ -14,7 +14,9 @@ export const logingGoogle = (loginInfo, navigate, locationPathname) => {
         dispatch(loginActions.setLoginLoading(true));
 
         try {
-            const response = await axiosApi.post('login/AuthenticateGoogle', loginInfo, { baseURLOverride: config.VITE_WALLET_API_BASE });
+            const response = await axiosApi.post(`login/AuthenticateGoogle?siteId=${config.VITE_SITE_ID}`, loginInfo, {
+                baseURLOverride: config.VITE_WALLET_API_BASE,
+            });
             if (response.data.Status.StatusCode !== 200) throw Error(response.data.Contents);
             setAccessToken(response.data.Contents.Token);
 
