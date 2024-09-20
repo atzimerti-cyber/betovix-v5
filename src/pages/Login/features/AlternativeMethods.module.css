@@ -8,11 +8,11 @@
 .AlternativeMethods button, .AlternativeMethods div {
     cursor: pointer;
     border-radius: 0.375rem;
-    background-color: var(--db-gray-4);
+    /* background-color: var(--db-gray-4); */
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    /* color: #fff; */
 }
 
 

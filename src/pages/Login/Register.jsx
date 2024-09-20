@@ -367,8 +367,8 @@ const Register = () => {
                 {translate('Register')}
             </MainButton>
 
-            <p className={classes.LoginWith}>{translate('or login with')}</p>
-            <AlternativeMethods />
+            {/* <p className={classes.LoginWith}>{translate('or login with')}</p> */}
+            {/* <AlternativeMethods /> */}
 
             {/* <div className={classes.CaptchaText}>
                 {translate('This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.')}
