@@ -126,7 +126,7 @@ const Login = () => {
                         </MainButton>
 
                         <p className={classes.LoginWith}>{translate('or login with')}</p>
-                            <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_ID}>
+                            <GoogleOAuthProvider clientId={config.VITE_GOOGLE_CLIENT_ID}>
                                 <AlternativeMethods />
                             </GoogleOAuthProvider>
                         <MainButton color='transparent' onClick={() => changeTab('forgot-password')}>
