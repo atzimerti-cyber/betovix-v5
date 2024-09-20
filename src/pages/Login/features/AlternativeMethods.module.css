@@ -15,9 +15,15 @@
     /* color: #fff; */
     background: none;
     color: #fff;
+border-color: var(--db-gray-4);
 }
 
-
+.AlternativeMethods span {
+    font-size: 13px;
+}
+.AlternativeMethods svg {
+fill: none;
+}
 .AlternativeMethods button:disabled {
     cursor: default;
     background-color: rgba(42, 50, 65, 0.5);
