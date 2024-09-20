@@ -52,6 +52,9 @@ const GoogleLoginButton = () => {
     <GoogleLogin
       onSuccess={onSuccess}
       onError={onFailure}
+      buttonText="" 
+      theme="dark"
+      icon={true} 
     />
   );
 };
