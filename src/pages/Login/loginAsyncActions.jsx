@@ -11,6 +11,7 @@ import config from '../../config';
 
 export const logingGoogle = (loginInfo, navigate, locationPathname) => {
     return async (dispatch) => {
+        console.log(" dispatch(loginActions.setLoginLoading(true));")
         dispatch(loginActions.setLoginLoading(true));
 
         try {

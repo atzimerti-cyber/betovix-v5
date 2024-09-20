@@ -16,6 +16,7 @@ const GoogleLoginButton = () => {
   const onSuccess = (credentialResponse) => {
     const body = { Token: credentialResponse.credential };
     
+    console.log("dispatch(logingGoogle(body, navigate, location.pathname));")
     // Dispatch the login action
     dispatch(logingGoogle(body, navigate, location.pathname));
 
