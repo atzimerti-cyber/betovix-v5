@@ -14,8 +14,7 @@ import usdt from '../../assets/cryptoIcons/usdt.svg';
 
 const initialState = {
     crypto: null,
-    // cryptoPrices: null,
-    //cryptoPrices: [],
+    cryptoSwiper: null,
     selectedCurrency: null,
     selectedNetwork: null,
     depositAddress: '',
@@ -41,6 +40,9 @@ export const cryptoSlice = createSlice({
         },
         setCrypto: (state, action) => {
             state.crypto = action.payload;
+        },
+        setCryptoSwiper: (state, action) => {
+            state.cryptoSwiper = action.payload;
         },
         setSelectedCurrency: (state, action) => {
             state.selectedCurrency = action.payload;

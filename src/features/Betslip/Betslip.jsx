@@ -297,7 +297,13 @@ const Betslip = memo(function (props) {
     };
 
     const bonusButton = useMemo(() => {
-        if (user && slips.length && betslip.totalStake && betslip.totalStake > 0 && bonusBalance && bonusBalance >= betslip.totalStake) {
+
+        const storageTicket = getTicketFromStorage();
+        if (!storageTicket) return;
+
+        const totalTemp = storageTicket.stakes.total;
+
+        if (user && slips.length && totalTemp && totalTemp > 0 && bonusBalance && bonusBalance >= totalTemp) {
             return (
                 <div className={classNames(classes.BonusButton, { [classes.selected]: isBonus })}>
                     <label className={classes.bonusContainer}>

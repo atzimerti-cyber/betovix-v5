@@ -46,7 +46,7 @@ export const getCrypto = (signal) => {
             if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch crypto');
 
             const crypto = response.data.Contents;
-            dispatch(cryptoActions.setCrypto(crypto));
+            dispatch(cryptoActions.setCryptoSwiper(crypto));
         } catch (error) {
             const message = error?.message ? error.message : error;
             if (!error?.code === 'ERR_CANCELED') toast.error(message);

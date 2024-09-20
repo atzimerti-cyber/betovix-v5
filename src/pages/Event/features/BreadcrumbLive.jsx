@@ -55,7 +55,7 @@ const BreadcrumbLive = (props) => {
 
         Object.keys(liveState).forEach((key) => {
             const info = liveState[key].Info;
-            if (selectedSport.Id !== info.SportId) return; // Keep only the categories and tournaments for the current sport
+            if (selectedSport.Id !== info?.SportId) return; // Keep only the categories and tournaments for the current sport
 
             if (!categoriesMap.has(info.CategoryId)) {
                 categoriesMap.set(info.CategoryId, info.CategoryName);
@@ -236,7 +236,7 @@ const BreadcrumbLive = (props) => {
                                                     ? [classes.DropdownItem, classes.Active].join(' ')
                                                     : classes.DropdownItem
                                             }
-                                            to={`/event/${event.SportName.International.toLowerCase().replace(/ /g, '-')}/${event.SportId}/${event.MatchId}`}
+                                            to={`/event/${event.SportName.International.toLowerCase().replace(/ /g, '-')}/${event?.SportId}/${event?.MatchId}`}
                                             onClick={() => setShowEvents(false)}
                                         >
                                             <div className={classes.TeamsContainer}>

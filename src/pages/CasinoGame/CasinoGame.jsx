@@ -133,14 +133,14 @@ const CasinoGame = () => {
                             <div className={classes.GameOverlay}>
                                 {!user && (
                                     <>
-                                        <div className={classes.OverlayTitle}>{translate(`You're playing a demo, login to play for real.`)}</div>
+                                        <div className={classes.OverlayTitle}>{translate(`Login to play.`)}</div>
                                         <div className={classes.OverlayButtons}>
                                             <MainButton color='primary' onClick={() => addParamsToUrl('auth', 'login')}>
                                                 {translate('Login')}
                                             </MainButton>
-                                            <MainButton color='transparent' onClick={() => dispatch(casinoActions.setShowCasinoGame(true))}>
+                                            {/* <MainButton color='transparent' onClick={() => dispatch(casinoActions.setShowCasinoGame(true))}>
                                                 {translate('Play Demo')}
-                                            </MainButton>
+                                            </MainButton> */}
                                         </div>
                                     </>
                                 )}
@@ -151,7 +151,7 @@ const CasinoGame = () => {
                         <div className={classes.GameNameWrapper}>
                             <h3 className={classes.GameName}>{name}</h3>
                         </div>
-                        <div className={classes.DemoControl}>
+                        {/* <div className={classes.DemoControl}>
                             <Switch
                                 id='demo-switch'
                                 active={isDemo}
@@ -161,7 +161,7 @@ const CasinoGame = () => {
                                     else toast.warning(translate('Login to access this feature'));
                                 }}
                             />
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
