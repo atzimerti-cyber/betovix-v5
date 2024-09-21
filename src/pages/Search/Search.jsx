@@ -19,6 +19,8 @@ import { AnimatePresence } from 'framer-motion';
 import BarLoading from '../../features/UI/BarLoading/BarLoading';
 import { useNavigate, useLocation } from 'react-router-dom';
 
+import { translate } from '../../utils/translations';
+
 const Search = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();

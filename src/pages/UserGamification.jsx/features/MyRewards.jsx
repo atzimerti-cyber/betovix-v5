@@ -11,6 +11,8 @@ import NewIcon from '../../../assets/casinoIcons/new.svg?react';
 import ClaimedIcon from '../../../assets/svgs/done.svg?react';
 
 import { getRewards } from '../gamificationAsyncActions';
+ 
+
 
 const MyRewards = React.memo(() => {
     const dispatch = useDispatch();

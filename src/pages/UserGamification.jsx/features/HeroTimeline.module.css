@@ -1,236 +1,254 @@
 /* Timeline Container */
 .TimelineContainer {
-    padding: 0 1rem 1rem 1rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    position: relative;
-    overflow: hidden;
+  padding: 0 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.TimelineContainer span {
+  /* font-size: 1rem; */
+  color: white;
 }
 
 /* Title Styling */
 .TimelineTitle {
-    text-align: center;
-    font-family: Byker, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    font-weight: 700;
-    font-size: 1.5rem;
-    position: fixed;
-    width: 100%;
-    background-color: #0d2a3e;
-    z-index: 1000;
-    padding-bottom: 1rem;
-    height: 60px;
-    overflow: hidden;
+  text-align: center;
+  font-family: Byker, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-weight: 700;
+  font-size: 1.5rem;
+  width: 100%;
+  background-color: #0d2a3e;
+  z-index: 1000;
+  padding-bottom: 1rem;
+  height: 60px;
+  overflow: hidden;
 }
 
 .TimelineTitle:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0px;
-    width: 100%;
-    height: 5px;
-    background: rgb(0 0 0 / 27%);
-    filter: blur(13px);
-    z-index: -8;
-}
-
-.TimelineContainer span {
-    /* font-size: 1rem; */
-    color: white;
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0px;
+  width: 100%;
+  height: 5px;
+  background: rgb(0 0 0 / 27%);
+  filter: blur(13px);
+  z-index: -8;
 }
 
 /* Timeline Structure */
 .TimelineTree {
-    margin-top: 60px;
-    width: 100%;
-    position: relative;
-    transition: transform 0.5s ease;
-    transform-style: preserve-3d;
-    perspective: 1000px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 100%;
+  position: relative;
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  overflow-y: auto; /* Enable vertical scrolling */
+  height: calc(100vh - 60px); /* Adjust to fit within viewport, excluding title */
+
 }
 
 .Entity {
-    width: 100%;
+  width: 100%;
 }
 
 /* Timeline Items */
 .TimelineItem {
-    height: max-content;
-    display: grid;
-    grid-template-columns: 1fr max-content 1fr;
-    width: 100%;
-    position: relative;
-    font-weight: 500;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.5s ease;
+  height: max-content;
+  display: grid;
+  grid-template-columns: 1fr max-content 1fr;
+  width: 100%;
+  position: relative;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.5s ease;
 }
 
 .SubTimelineItem {
-    height: max-content;
-    visibility: hidden;
-    display: grid;
-    max-height: 0;
-    grid-template-columns: 1fr max-content 1fr;
-    width: 100%;
-    position: relative;
-    font-weight: 500;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    transition: transform 0.5s ease, visibility 0s 1s, max-height 1s;
+  height: max-content;
+  visibility: hidden;
+  display: grid;
+  max-height: 0;
+  grid-template-columns: 1fr max-content 1fr;
+  width: 100%;
+  position: relative;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: transform 0.5s ease, visibility 0s 1s, max-height 1s;
 }
 
 .SubTimelineItemVisible {
-    visibility: visible;
-    transition-delay: 0s, 0s, 0s;
-    max-height: 60px;
+  visibility: visible;
+  transition-delay: 0s, 0s, 0s;
+  max-height: 60px;
 }
 
 .TimelineItem:hover,
 .SubTimelineItem:hover {
-    transform: scale(1.03);
+  transform: scale(1.03);
 }
 
 /* Separators and Connectors */
 .MainSeparator {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    padding: 0 1rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 0 1rem 0 1rem;
 }
 
 .Connector {
-    width: 1px;
-    height: 30px;
-    background-color: #f6f9f7;
-    z-index: 1000;
+  width: 1px;
+  height: 30px;
+  background-color: #f6f9f7;
+  z-index: 1000;
 }
 
 .SubConnector {
-    width: 1px;
-    height: 20px;
-    background-color: #f6f9f7;
-    z-index: 1000;
+  width: 1px;
+  height: 25px;
+  background-color: #f6f9f7;
+  z-index: 1000;
 }
 
 /* Dots and SVGs */
 .Dot {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    background: #f6f9f7;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 10000;
-    cursor: pointer;
-    transition: transform 0.5s ease;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #f6f9f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 10000;
+  cursor: pointer;
+  transition: transform 0.5s ease;
 }
 
 .Dot.DotAnimation::before {
-    content: '';
-    position: absolute;
-    top: 49.7%;
-    left: 49.5%;
-    width: 40px;
-    height: 40px;
-    background: #f6f9f7;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-    animation: throbbingShadow 2s infinite ease-in-out;
+  content: "";
+  position: absolute;
+  top: 49.7%;
+  left: 49.5%;
+  width: 40px;
+  height: 40px;
+  background: #f6f9f7;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  animation: throbbingShadow 2s infinite ease-in-out;
 }
 
 .Dot:hover,
 .SubDot:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 @keyframes throbbingShadow {
-    0% {
-        transform: translate(-50%, -50%) scale(1);
-        background: radial-gradient(circle, #f6f9f7 0%, #23b60928 50%, transparent 85%);
-    }
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    background: radial-gradient(
+      circle,
+      #f6f9f7 0%,
+      #23b60928 50%,
+      transparent 85%
+    );
+  }
 
-    50% {
-        transform: translate(-50%, -50%) scale(1.25);
-        background: radial-gradient(circle, #f6f9f7 0%, #2eee0c2e 50%, transparent 85%);
-    }
+  50% {
+    transform: translate(-50%, -50%) scale(1.25);
+    background: radial-gradient(
+      circle,
+      #f6f9f7 0%,
+      #2eee0c2e 50%,
+      transparent 85%
+    );
+  }
 
-    100% {
-        transform: translate(-50%, -50%) scale(1);
-        background: radial-gradient(circle, #f6f9f7 0%, #23b60928 50%, transparent 85%);
-    }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+    background: radial-gradient(
+      circle,
+      #f6f9f7 0%,
+      #23b60928 50%,
+      transparent 85%
+    );
+  }
 }
 
 .SubDot {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background: whitesmoke;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.5s ease;
-    z-index: 100000;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s ease;
+  z-index: 100000;
 }
-
 
 /* Content Styling */
 .TimelineContent {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .TimelineContent span {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: white;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
 }
 
 .TimelineContent p {
-    font-family: Byker, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--db-brand-green);
+  font-family: Byker, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--db-brand-green);
 }
 
 .SubTimelineContent {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
 
 .SubTimelineContent p {
-    font-size: 0.8rem;
-    font-weight: 400;
-    color: #6d9aadc0;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #6d9aadc0;
 }
 
 /* Opposite Content */
 .OppositeContent {
-    flex: 1;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .SubOppositeContent {
-    flex: 1;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
+  flex: 1;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 
 /* @keyframes sparkle {
@@ -253,98 +271,97 @@
 
 /* Responsive Styling */
 @media (min-width: 455px) {
-
-    .TimelineContent {
-        align-items: flex-end;
-    }
+  .TimelineContent {
+    align-items: flex-end;
+  }
 }
 
 @media (min-width: 640px) {
-    .TimelineContainer span {
-        font-size: 1.1rem;
-    }
+  .TimelineContainer span {
+    font-size: 1.1rem;
+  }
 
-    .TimelineTitle {
-        width: 100%;
-        background-color: #0d2a3e;
-    }
+  .TimelineTitle {
+    width: 100%;
+    background-color: #0d2a3e;
+  }
 
-    .TimelineContent {
-        align-items: flex-end;
-    }
+  .TimelineContent {
+    align-items: flex-end;
+  }
 
-    .TimelineContent p {
-        font-size: 0.65rem;
-    }
+  .TimelineContent p {
+    font-size: 0.65rem;
+  }
 
-    .SubTimelineContent p {
-        font-size: 0.7rem;
-    }
+  .SubTimelineContent p {
+    font-size: 0.7rem;
+  }
 }
 
 @media (min-width: 769px) {
-    .TimelineContainer span {
-        font-size: 1.1rem;
-    }
+  .TimelineContainer span {
+    font-size: 1.1rem;
+  }
 
-    .TimelineTitle {
-        width: 65%;
-        background-color: #051825;
-    }
+  .TimelineTitle {
+    width: 65%;
+    background-color: #051825;
+  }
 
-    .TimelineContent {
-        align-items: flex-end;
-    }
+  .TimelineContent {
+    align-items: flex-end;
+  }
 
-    .TimelineContent p {
-        font-size: 0.8rem;
-    }
+  .TimelineContent p {
+    font-size: 0.8rem;
+  }
 
-    .SubTimelineContent p {
-        font-size: 0.7rem;
-    }
+  .SubTimelineContent p {
+    font-size: 0.7rem;
+  }
 }
 
 @media (min-width: 1024px) {
-    .TimelineContainer span {
-        font-size: 1.1rem;
-    }
+  .TimelineContainer span {
+    font-size: 1.1rem;
+  }
 
-    .TimelineTitle {
-        width: 65%;
-    }
+  .TimelineTitle {
+    width: 65%;
+  }
 
-    .TimelineContent {
-        align-items: flex-end;
-    }
+  .TimelineContent {
+    align-items: flex-end;
+  }
 
-    .TimelineContent p {
-        font-size: 0.8rem;
-    }
+  .TimelineContent p {
+    font-size: 0.8rem;
+  }
 
-    .SubTimelineContent p {
-        font-size: 0.7rem;
-    }
+  .SubTimelineContent p {
+    font-size: 0.7rem;
+  }
 }
 
 @media (min-width: 1500px) {
-    .TimelineContainer span {
-        font-size: 1.1rem;
-    }
+  .TimelineContainer span {
+    font-size: 1.1rem;
+  }
 
-    .TimelineTitle {
-        width: 75%;
-    }
+  .TimelineTitle {
+    width: 75%;
+  }
 
-    .TimelineContent {
-        align-items: flex-end;
-    }
+  .TimelineContent {
+    align-items: flex-end;
+  }
 
-    .TimelineContent p {
-        font-size: 0.8rem;
-    }
+  .TimelineContent p {
+    font-size: 0.8rem;
+  }
 
-    .SubTimelineContent p {
-        font-size: 0.7rem;
-    }
+  .SubTimelineContent p {
+    font-size: 0.7rem;
+  }
 }

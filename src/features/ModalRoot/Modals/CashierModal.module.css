@@ -59,7 +59,8 @@
 
 @media (min-width: 640px) {
     .CashierModal {
-        height: 782px;
+        /* max-height: 680px; */
+        max-height: 90vh;
         width: 552px;
         background-color: var(--db-gray-6);
     }
