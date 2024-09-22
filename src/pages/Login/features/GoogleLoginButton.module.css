@@ -1,0 +1,18 @@
+ 
+const customButtonStyle = {
+  display: 'flex',
+  alignItems: 'center',
+  backgroundColor: '#4285F4', // Google Blue Color
+  color: '#fff',
+  border: 'none',
+  padding: '10px 20px',
+  fontSize: '16px',
+  cursor: 'pointer',
+  borderRadius: '4px',
+};
+
+const iconStyle = {
+  width: '24px', // Customize the size of the icon
+  height: '24px',
+  marginRight: '10px',
+};

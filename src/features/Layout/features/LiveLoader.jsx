@@ -3,11 +3,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HubConnectionBuilder } from '@microsoft/signalr';
 import lzString from 'lz-string';
 import _ from 'lodash';
-
+import { toast } from 'react-toastify';
 import { liveActions } from '../../InitApp/liveSlice';
 import { getUpdatedMarkets, getUpdatedHeaders, getEventsToAdd, getEventToAddFromHeader, getEventToAddFromMarkets } from '../../../utils/liveUpdates';
 import { betslipActions } from '../../Betslip/betslipSlice';
-
+import axiosApi from '../../../axios-api';
+import config from '../../../config';
 const LiveLoader = () => {
     const dispatch = useDispatch();
 
@@ -21,7 +22,10 @@ const LiveLoader = () => {
 
     // Connection. Reruns on change permissions for sports
     useEffect(() => {
-        if (permissions.AllowToSports) connectToWs();
+        if (permissions.AllowToSports){
+            const address =  getAddress();
+           
+        }
 
         return () => {
             if (liveConnectionStored) {
@@ -42,9 +46,32 @@ const LiveLoader = () => {
         incompleteDataRef.current = incompleteDataEvents;
     }, [incompleteDataEvents]);
 
+    const  getAddress = async() =>{
+      try{
+            const resp = await axiosApi.get(`LiveCluster/getAnAddress`, {
+                baseURLOverride: config.VITE_SPORTS_API_BASE,
+            })
+
+            if (resp.status !== 200 || resp.data=='') throw Error();
+
+            if (resp?.data == '') return;
+
+            connectToWs(resp?.data);
+
+           
+        } catch (error) {
+            toast.error(error?.message);
+             
+        }
+        
+    }
     // Web socket
-    const connectToWs = () => {
-        const liveConnection = new HubConnectionBuilder().withUrl('https://livenode.pick500.net:60010/liveOddsHub').withAutomaticReconnect().build();
+    const connectToWs = (address) => {
+
+       
+        
+
+        const liveConnection = new HubConnectionBuilder().withUrl(address + 'liveOddsHub').withAutomaticReconnect().build();
 
         liveConnection.on('onOddsUpdates', (message) => {
             const decompressedString = lzString.decompressFromUTF16(message);

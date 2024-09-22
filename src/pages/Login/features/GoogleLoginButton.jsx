@@ -55,6 +55,7 @@ const GoogleLoginButton = () => {
       buttonText="" 
       theme="dark"
       icon={true} 
+      uxMode="redirect"
     />
   );
 };
