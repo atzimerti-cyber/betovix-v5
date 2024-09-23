@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import classes from './OutrightsPage.module.css';
 import SportsBookMenu from '../SportsBook/features/SportsBookMenu';
-import Breadcrumb from '../Event/features/Breadcrumb';
+import BreadcrumbOutrights from '../Event/features/BreadcrumbOutrights';
 import { outrightsActions } from './outrightsSlice';
 import { getEvent } from './outrightsAsyncActions';
 import MarketsMenu from './features/MarketsMenu';
@@ -39,7 +39,7 @@ const OutrightsPage = () => {
             controller.abort();
             dispatch(outrightsActions.reset());
         };
-    }, []);
+    }, [eventid]);
 
     useEffect(() => {
         if (!event) return;
@@ -51,7 +51,7 @@ const OutrightsPage = () => {
 
         sm.sort((a, b) => a.Id - b.Id); // a.name.localeCompare(b.name));
         setSortedMarkets(sm);
-    }, [event]);
+    }, [event?.MatchId]);
 
     const getBackgroundImage = () => {
         if (!selectedSport) return null;
@@ -89,7 +89,7 @@ const OutrightsPage = () => {
                     <div className={classes.TopArea}>
                         {sports && selectedSport && (
                             <>
-                                <Breadcrumb page='outrights' slice='outrights' />
+                                <BreadcrumbOutrights event={event} page='outrights' slice='outrights' />
                                 <div className={classes.Box} style={{ backgroundImage: `url(${getBackgroundImage()})` }}>
                                     <div className={classes.OutrightsTitle}>{getCategoryName()}</div>
                                 </div>

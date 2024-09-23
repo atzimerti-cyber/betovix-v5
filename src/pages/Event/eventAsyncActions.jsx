@@ -119,3 +119,96 @@ export const getLiveEvent = (sportId, eventId, signal) => {
         }
     };
 };
+
+export const getBreadcrumbData = (selectedSportId, categoryId, tournamentId, isOutright, signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const response = await axiosApi.get(`Pregame/getPregameData?providerId=1&h24=false&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
+                signal: signal,
+                baseURLOverride: config.VITE_SPORTS_API_BASE,
+            });
+            if (response.status !== 200) throw Error();
+
+            const sport = response.data.Sports.find((s) => s.Id === selectedSportId);
+            const sportCategories = sport ? sport.Categories : [];
+
+            dispatch(eventActions.setSportPregameCategories(sportCategories));
+
+            if (isOutright) {
+                dispatch(getOutrightEvents(selectedSportId, categoryId, sportCategories, signal));
+            } else {
+                dispatch(getTournamentEvents(selectedSportId, categoryId, tournamentId, isOutright, signal));
+            }
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
+export const getTournamentEvents = (sportId, categoryId, tournamentId, isOutright, signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const ids = `${sportId},${categoryId},${tournamentId}`;
+
+            const response = await axiosApi.post(
+                `Pregame/PostData?action=events_per_league&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+                { data: `{"ProviderId":1,"Value":"${ids}","H24":false,"IsOutright":${isOutright}}` },
+                {
+                    signal: signal,
+                    baseURLOverride: config.VITE_SPORTS_API_BASE,
+                }
+            );
+            if (response.status !== 200) throw Error();
+
+            dispatch(eventActions.setTournamentevents(response.data.Contents));
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};
+
+export const getOutrightEvents = (sportId, categoryId, sportCategories, signal) => {
+    return async (dispatch) => {
+        try {
+            const lang = getLang();
+
+            const category = sportCategories.find((c) => c.Id === categoryId);
+            if (!category) return;
+
+            const outrightTournaments = category.Tournaments.filter(
+                (t) => t.Name.International.includes('Outright') || t.Name.International.includes('Specials')
+            );
+
+            let events = [];
+
+            for (let i = 0; i < outrightTournaments.length; i++) {
+                const outrightTournament = outrightTournaments[i];
+
+                const ids = `${sportId},${categoryId},${outrightTournament.Id}`;
+
+                const response = await axiosApi.post(
+                    `Pregame/PostData?action=events_per_league&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+                    { data: `{"ProviderId":1,"Value":"${ids}","H24":false,"IsOutright":true}` },
+                    {
+                        signal: signal,
+                        baseURLOverride: config.VITE_SPORTS_API_BASE,
+                    }
+                );
+
+                if (response.status !== 200) continue;
+                events = [...events, ...response.data.Contents];
+
+                dispatch(eventActions.setTournamentevents(events));
+            }
+        } catch (error) {
+            const message = error?.message ? error.message : error;
+            if (!error?.code === 'ERR_CANCELED') toast.error(message);
+        }
+    };
+};

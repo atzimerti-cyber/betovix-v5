@@ -216,6 +216,9 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+.TeamName.Outright {
+    max-width: unset;
+}
 .TeamName.First {
     margin-left: 5px;
 }

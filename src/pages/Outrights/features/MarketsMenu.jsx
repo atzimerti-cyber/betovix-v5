@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import HorizontalMenu from '../../../features/UI/HorizontalMenu/HorizontalMenu';
@@ -10,15 +10,32 @@ const MarketsMenu = (props) => {
 
     const selectedMarketCategory = useSelector((state) => state.outrights.selectedMarketCategory);
 
+    const [menu, setMenu] = useState(null);
+
     useEffect(() => {
         dispatch(outrightsActions.setSelectedMarketCategory(props.marketGroups[0]));
-    }, []);
+    }, [props.marketGroups]);
+
+    useEffect(() => {
+        setMenu(
+            <HorizontalMenu
+                items={props.marketGroups}
+                selected={selectedMarketCategory?.Id}
+                onSelect={(item, index) => {
+                    dispatch(outrightsActions.setSelectedMarketCategory(item));
+                    dispatch(outrightsActions.setSelectedMarketCategoryIndex(index));
+                }}
+                lightColor
+            />
+        );
+    }, [selectedMarketCategory?.Id]);
 
     return (
         <div className={classes.MarketsMenu}>
             <div className={classes.MarketSelection}>
                 <div className={classes.MenuContent}>
-                    <HorizontalMenu
+                    {menu}
+                    {/* <HorizontalMenu
                         items={props.marketGroups}
                         selected={selectedMarketCategory?.Id}
                         onSelect={(item, index) => {
@@ -26,7 +43,7 @@ const MarketsMenu = (props) => {
                             dispatch(outrightsActions.setSelectedMarketCategoryIndex(index));
                         }}
                         lightColor
-                    />
+                    /> */}
                 </div>
             </div>
         </div>

@@ -298,7 +298,7 @@ const Event = () => {
                                                 showTab !== 'tab1' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
                                             }
                                         >
-                                            <Breadcrumb page={isLive ? 'live' : 'home'} slice='event' />
+                                            <Breadcrumb event={event} page='home' slice='event' />
                                         </div>
                                     </>
                                 ))}

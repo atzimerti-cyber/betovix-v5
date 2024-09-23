@@ -9,7 +9,7 @@ import Arrow2LeftIcon from '../../../assets/svgs/arrow2-left.svg?react';
 import Dropdown2 from '../../../features/UI/Dropdown/Dropdown2';
 import { translateNameWithLang, translate } from '../../../utils/translations';
 import TeamLogo from '../../../features/TeamLogo/TeamLogo';
-import { getBreadcrumbData, getTournamentEvents } from '../eventAsyncActions';
+import { getBreadcrumbData } from '../eventAsyncActions';
 import { eventActions } from '../eventSlice';
 
 const Breadcrumb = (props) => {
@@ -22,15 +22,11 @@ const Breadcrumb = (props) => {
     const tournamentEvents = useSelector((state) => state.event.tournamentEvents);
 
     const [showCategories, setShowCategories] = useState(false);
-    const [showTournaments, setShowTournaments] = useState(false);
     const [showEvents, setShowEvents] = useState(false);
 
     const [allCategories, setAllCategories] = useState([]);
-    const [allTournaments, setAllTournaments] = useState([]);
 
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [selectedTournament, setSelectedTournament] = useState(null);
-    const [filteredTournaments, setFilteredTournaments] = useState([]);
     const [selectedEvent, setSelectedEvent] = useState(null);
 
     const [firstLoad, setFirstLoad] = useState(true);
@@ -41,12 +37,6 @@ const Breadcrumb = (props) => {
 
         setFirstLoad(true);
         setSelectedCategory({ CategoryId: props.event.Info.CategoryId, CategoryName: props.event.Info.CategoryName });
-        setSelectedTournament({
-            TournamentId: props.event.Info.TournamentId,
-            TournamentName: props.event.Info.TournamentName,
-            CategoryId: props.event.Info.CategoryId,
-            CategoryName: props.event.Info.CategoryName,
-        });
         setSelectedEvent(props.event.Info);
 
         const controller = new AbortController();
@@ -66,45 +56,21 @@ const Breadcrumb = (props) => {
         if (!sportPregameCategories) return;
 
         let categories = [];
-        let tournaments = [];
 
         sportPregameCategories.forEach((category) => {
             if (category.Tournaments.length === 0) return;
 
-            let hasTournaments = false;
-
-            category.Tournaments.forEach((tournament) => {
-                if (props.slice !== 'outrights' && (tournament.Name.International.includes('Outright') || tournament.Name.International.includes('Specials')))
-                    return; // Don' add outright here
-                else if (
-                    props.slice === 'outrights' &&
-                    !tournament.Name.International.includes('Outright') &&
-                    !tournament.Name.International.includes('Specials')
-                )
-                    return;
-
-                tournaments.push({
-                    CategoryId: category.Id,
-                    CategoryName: category.Name,
-                    TournamentId: tournament.Id,
-                    TournamentName: tournament.Name,
-                });
-
-                hasTournaments = true;
-            });
-
-            if (hasTournaments) categories.push({ CategoryId: category.Id, CategoryName: category.Name });
+            const outrightsTournaments = category.Tournaments.filter(
+                (t) => t.Name.International.includes('Outright') || t.Name.International.includes('Specials')
+            );
+            if (outrightsTournaments.length) {
+                categories.push({ CategoryId: category.Id, CategoryName: category.Name });
+            }
         });
 
         categories.sort((a, b) => a.CategoryName.International.localeCompare(b.CategoryName.International));
-        tournaments.sort((a, b) => a.TournamentName.International.localeCompare(b.TournamentName.International));
-
-        const ft = tournaments.filter((t) => t.CategoryId === props.event.Info.CategoryId);
 
         setAllCategories(categories);
-        setAllTournaments(tournaments);
-        setFilteredTournaments(ft);
-
         setFirstLoad(false);
     }, [sportPregameCategories]);
 
@@ -114,28 +80,14 @@ const Breadcrumb = (props) => {
             setFirstLoad(false);
             return;
         }
-
-        const ft = allTournaments.filter((t) => t.CategoryId === selectedCategory.CategoryId);
-        setFilteredTournaments(ft);
-        setSelectedTournament(null);
         setSelectedEvent(null);
-        dispatch(eventActions.setTournamentevents(null));
-        setShowCategories(false);
-    }, [selectedCategory?.CategoryId]);
-
-    useEffect(() => {
-        if (!selectedCategory) return;
-        if (!selectedTournament) return;
-        if (firstLoad) return;
-
         const controller = new AbortController();
         const signal = controller.signal;
-        const isOutright = props.slice === 'outrights' ? true : false;
-        dispatch(getTournamentEvents(selectedSport.Id, selectedCategory.CategoryId, selectedTournament.TournamentId, isOutright, signal));
 
-        setSelectedEvent(null);
-        setShowTournaments(false);
-    }, [selectedTournament?.TournamentId]);
+        dispatch(getBreadcrumbData(selectedSport.Id, selectedCategory.CategoryId, null, true, signal));
+
+        setShowCategories(false);
+    }, [selectedCategory?.CategoryId]);
 
     return (
         <div className={classes.Breadcrumb}>
@@ -177,60 +129,16 @@ const Breadcrumb = (props) => {
                 </AnimatePresence>
             </div>
 
-            <div className={showTournaments ? [classes.NoPaddingCrumb, classes.DropdownOpen].join(' ') : classes.NoPaddingCrumb}>
-                <div className={classes.Crumb} onClick={() => setShowTournaments(!showTournaments)}>
-                    {selectedTournament && <div className={classes.SportIcon}>{selectedSport?.icon}</div>}
-                    <div className={classes.SportName}>
-                        {selectedTournament ? translateNameWithLang(selectedTournament?.TournamentName) : translate('Tournament')}
-                    </div>
-                    <AngleDownIcon className={classes.ArrowIcon} />
-                </div>
-
-                <AnimatePresence>
-                    {showTournaments && (
-                        <Dropdown2 onClickOutside={() => setShowTournaments(false)}>
-                            <div className={classes.DropdownMenu}>
-                                {filteredTournaments?.map((tournament) => {
-                                    return (
-                                        <div
-                                            key={tournament.TournamentId}
-                                            className={
-                                                selectedTournament?.TournamentId === tournament.TournamentId
-                                                    ? [classes.DropdownItem, classes.Active].join(' ')
-                                                    : classes.DropdownItem
-                                            }
-                                            onClick={() => setSelectedTournament(tournament)}
-                                        >
-                                            <div className={classes.SportItemIcon}>{selectedSport?.icon}</div>
-                                            <div className={classes.SportItemName}>{translateNameWithLang(tournament.TournamentName)}</div>
-                                        </div>
-                                    );
-                                })}
-                            </div>
-                        </Dropdown2>
-                    )}
-                </AnimatePresence>
-            </div>
-
             <div className={showEvents ? [classes.NoPaddingCrumb, classes.DropdownOpen].join(' ') : classes.NoPaddingCrumb}>
                 <div className={classes.Crumb} onClick={() => setShowEvents(!showEvents)}>
                     {selectedEvent ? (
                         <div className={classes.TeamsContainer}>
                             <div className={classes.TeamsContainer}>
                                 <TeamLogo teamId={selectedEvent?.HomeTeamId} isHome={true} sportName={selectedEvent?.SportName.International} />
-                                <div className={[classes.TeamName, classes.First].join(' ')}>{translateNameWithLang(selectedEvent?.HomeTeamName)}</div>
+                                <div className={[classes.TeamName, classes.First, classes.Second, classes.Outright].join(' ')}>
+                                    {translateNameWithLang(selectedEvent?.HomeTeamName)}
+                                </div>
                             </div>
-
-                            {selectedEvent?.AwayTeamName?.International && (
-                                <>
-                                    <div className={classes.TeamVersusWord}> vs </div>
-
-                                    <div className={classes.TeamsContainer}>
-                                        <div className={[classes.TeamName, classes.Second].join(' ')}>{translateNameWithLang(selectedEvent?.AwayTeamName)}</div>
-                                        <TeamLogo teamId={selectedEvent?.AwayTeamId} isHome={false} sportName={selectedEvent?.SportName.International} />
-                                    </div>
-                                </>
-                            )}
                         </div>
                     ) : (
                         <div className={classes.SportName}>{translate('Match')}</div>
@@ -252,9 +160,9 @@ const Breadcrumb = (props) => {
                                                     ? [classes.DropdownItem, classes.Active].join(' ')
                                                     : classes.DropdownItem
                                             }
-                                            to={`/event/${event.Info.SportName.International.toLowerCase().replace(/ /g, '-')}/${event.Info.SportId}/${
-                                                event.MatchId
-                                            }`}
+                                            to={`/sportsbook/outrights/${event.Info.SportName.International.toLowerCase().replace(/ /g, '-')}/${
+                                                event.Info.SportId
+                                            }/${event.Info.CategoryId}/${event.Info.TournamentId}/${event.MatchId}`}
                                             onClick={() => {
                                                 setSelectedEvent(event.Info);
                                                 setShowEvents(false);
@@ -263,27 +171,10 @@ const Breadcrumb = (props) => {
                                             <div className={classes.TeamsContainer}>
                                                 <div className={classes.TeamsContainer}>
                                                     <TeamLogo teamId={event.Info.HomeTeamId} isHome={true} sportName={event.Info.SportName.International} />
-                                                    <div className={[classes.TeamName, classes.First].join(' ')}>
+                                                    <div className={[classes.TeamName, classes.First, classes.Second, classes.Outright].join(' ')}>
                                                         {translateNameWithLang(event.Info.HomeTeamName)}
                                                     </div>
                                                 </div>
-
-                                                {event.Info.AwayTeamName?.International && (
-                                                    <>
-                                                        <div className={classes.TeamVersusWord}> vs </div>
-
-                                                        <div className={classes.TeamsContainer}>
-                                                            <div className={[classes.TeamName, classes.Second].join(' ')}>
-                                                                {translateNameWithLang(event.Info.AwayTeamName)}
-                                                            </div>
-                                                            <TeamLogo
-                                                                teamId={event.Info.AwayTeamId}
-                                                                isHome={false}
-                                                                sportName={event.Info.SportName.International}
-                                                            />
-                                                        </div>
-                                                    </>
-                                                )}
                                             </div>
                                         </Link>
                                     );

@@ -22,9 +22,8 @@ const LiveLoader = () => {
 
     // Connection. Reruns on change permissions for sports
     useEffect(() => {
-        if (permissions.AllowToSports){
-            const address =  getAddress();
-           
+        if (permissions.AllowToSports) {
+            const address = getAddress();
         }
 
         return () => {
@@ -46,32 +45,28 @@ const LiveLoader = () => {
         incompleteDataRef.current = incompleteDataEvents;
     }, [incompleteDataEvents]);
 
-    const  getAddress = async() =>{
-      try{
+    const getAddress = async () => {
+        try {
             const resp = await axiosApi.get(`LiveCluster/getAnAddress`, {
                 baseURLOverride: config.VITE_SPORTS_API_BASE,
-            })
+            });
 
-            if (resp.status !== 200 || resp.data=='') throw Error();
+            if (resp.status !== 200 || resp.data == '') throw Error();
 
             if (resp?.data == '') return;
 
             connectToWs(resp?.data);
-
-           
         } catch (error) {
             toast.error(error?.message);
-             
         }
-        
-    }
+    };
     // Web socket
     const connectToWs = (address) => {
-
-       
-        
-
-        const liveConnection = new HubConnectionBuilder().withUrl(address + 'liveOddsHub').withAutomaticReconnect().build();
+        const liveConnection = new HubConnectionBuilder()
+            .withUrl(address + 'liveOddsHub')
+            // .withUrl('https://livenode.pick500.net:60010/liveOddsHub')
+            .withAutomaticReconnect()
+            .build();
 
         liveConnection.on('onOddsUpdates', (message) => {
             const decompressedString = lzString.decompressFromUTF16(message);

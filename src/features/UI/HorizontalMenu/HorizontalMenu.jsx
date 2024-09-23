@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { ScrollMenu } from 'react-horizontal-scrolling-menu';
 import 'react-horizontal-scrolling-menu/dist/styles.css';
@@ -60,7 +60,11 @@ function HorizontalMenu(props) {
                             className={props.selected === item.Id ? [classes.Item, classes.Selected].join(' ') : classes.Item}
                             onClick={handleItemClick(item, index)}
                         >
-                            {item.icon && <div className={props.selected === item.Id ? [classes.SportIcon, classes.Selected].join(' ') : classes.SportIcon}>{item.icon}</div>}
+                            {item.icon && (
+                                <div className={props.selected === item.Id ? [classes.SportIcon, classes.Selected].join(' ') : classes.SportIcon}>
+                                    {item.icon}
+                                </div>
+                            )}
                             {/* {item.icon && <div className={classes.SportIcon}>{item.icon}</div>} */}
                             <div className={classes.SportName}>{getName(item)}</div>
                             {props.withCount && item.Count && <div className={classes.SportCount}>{item.Count}</div>}
