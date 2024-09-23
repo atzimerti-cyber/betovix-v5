@@ -141,7 +141,7 @@ const Breadcrumb = (props) => {
                             </div>
                         </div>
                     ) : (
-                        <div className={classes.SportName}>{translate('Match')}</div>
+                        <div className={classes.SportName}>{translate('Tournament')}</div>
                     )}
 
                     <AngleDownIcon className={classes.ArrowIcon} />
