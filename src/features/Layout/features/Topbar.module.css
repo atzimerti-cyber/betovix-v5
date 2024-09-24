@@ -110,7 +110,9 @@
     align-items: center;
     gap: 0.25rem;
 }
-
+.HeaderBalanceWrap .InPlay {
+    white-space: nowrap;
+}
 .HeaderBalance {
     font-size: 0.625rem;
     line-height: 0.8rem;

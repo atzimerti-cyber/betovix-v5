@@ -12,7 +12,7 @@ const CryptoCard = (props) => {
                 <img src={props.item.Logo} loading='lazy' alt='Ethereum' />
             </div>
             {props.item.Rate &&
-                <span className={classes.Price}>{props.item.Rate > 0.01 ? addThousandsSeparator(props.item.Rate) : parseFloat((props.item.Rate).toFixed(6))}$</span>}
+                <span className={classes.Price}>$ {props.item.Rate > 0.01 ? addThousandsSeparator(props.item.Rate) : parseFloat((props.item.Rate).toFixed(6))}</span>}
 
         </>
     );
