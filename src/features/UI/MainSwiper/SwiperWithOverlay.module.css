@@ -182,8 +182,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    white-space: nowrap;
-    padding: 4px 10px;
+    line-height: normal;
+        padding: 4px 10px;
 }
 
 .isBonus button svg {
@@ -191,10 +191,9 @@
     width: 16px;
 }
 
-@media(max-width: 470px) {
+@media(max-width: 500px) {
     .isBonus button svg {
-        height: 14px;
-    width: 14px;
+        display: none;
     }
 }
 
