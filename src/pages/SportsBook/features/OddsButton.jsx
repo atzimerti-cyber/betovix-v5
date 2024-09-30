@@ -71,10 +71,10 @@ const OddsButton = (props) => {
             const allowed = allowedToAdd(newSlip);
             if (!allowed) return;
 
-            // if (slips.length === 0 && !isMobile) {
-            dispatch(layoutActions.setShowRight('betslip'));
-            dispatch(layoutActions.setShowRightContainer(true));
-            // }
+            if (!isMobile) {
+                dispatch(layoutActions.setShowRight('betslip'));
+                dispatch(layoutActions.setShowRightContainer(true));
+            }
 
             dispatch(betslipActions.addToSlips(newSlip));
         }
@@ -220,8 +220,8 @@ const OddsButton = (props) => {
                         showIndicator === 'up'
                             ? [classes.Odds, classes.Up].join(' ')
                             : showIndicator === 'down'
-                            ? [classes.Odds, classes.Down].join(' ')
-                            : classes.Odds
+                                ? [classes.Odds, classes.Down].join(' ')
+                                : classes.Odds
                     }
                 >
                     {convertOdds(props.odds)}

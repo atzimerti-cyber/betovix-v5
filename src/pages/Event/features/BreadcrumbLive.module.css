@@ -3,18 +3,26 @@
     box-sizing: border-box;
     display: flex;
     -webkit-box-align: center;
-    align-items: center;
+    align-items: flex-start;
     padding: 8px 4px;
     width: 100%;
-    height: 56px;
+    height: auto;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-content: flex-start;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 }
 
-.Breadcrumb > :first-child {
+.Breadcrumb> :first-child {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
 
-.Breadcrumb > :last-child {
+.Breadcrumb> :last-child {
     border-bottom-left-radius: 8px;
     max-width: 100%;
     border-bottom-right-radius: 8px;
@@ -31,6 +39,7 @@
     overflow: hidden;
     padding: 0px;
 }
+
 .Crumb {
     border-radius: 8px;
     color: rgb(255, 255, 255);
@@ -66,11 +75,13 @@
 .SportIcon {
     margin-inline-end: 0.75em;
 }
+
 .SportIcon svg {
     width: 1.1rem;
     height: 1.1rem;
     flex: 0 0 1.1rem;
 }
+
 .SportName {
     margin-inline-end: 0.5em;
 }
@@ -88,17 +99,20 @@
     position: relative;
     z-index: 90;
 }
+
 .DropdownWrapper button svg:first-child {
     width: 18px;
     height: 18px;
     margin-inline: -2px 8px;
 }
+
 .DropdownWrapper button svg:last-child {
     width: 18px;
     height: 18px;
     margin-inline: 4px 0px;
     transition: transform 0.2s ease 0s;
 }
+
 .DropdownWrapper.Show button svg:last-child {
     transform: scaleY(-1);
 }
@@ -144,26 +158,31 @@
     overflow: hidden;
     transition: background-color 0.3s ease 0s;
 }
+
 .DropdownItem:first-child {
     border-radius: 3px 3px 0px 0px;
 }
+
 .DropdownItem:last-child {
     border-radius: 0px 0px 3px 3px;
     border-bottom: 0px !important;
 }
+
 .DropdownItem:hover {
     background-color: rgb(51, 65, 76);
 }
+
 .DropdownItem.Active {
     background-color: rgb(51, 65, 76);
 }
 
-.NoPaddingCrumb > div:nth-child(2) {
+.NoPaddingCrumb>div:nth-child(2) {
     top: calc(100% - 1px);
     margin: 0;
     margin-left: 4px;
 }
-.NoPaddingCrumb > div::before {
+
+.NoPaddingCrumb>div::before {
     display: none;
 }
 
@@ -172,16 +191,18 @@
     height: 100%;
     width: 16px;
 }
-.SportItemIcon > svg {
+
+.SportItemIcon>svg {
     width: 1.5rem;
     height: 1.5rem;
     flex: 0 0 1.5rem;
 }
-.SportItemIcon > svg path {
+
+.SportItemIcon>svg path {
     fill: #fff;
 }
 
-.NoPaddingCrumb.DropdownOpen > button {
+.NoPaddingCrumb.DropdownOpen>button {
     border-radius: 8px 8px 0px 0px;
 }
 
@@ -216,12 +237,30 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
 .TeamName.Outright {
     max-width: unset;
 }
+
 .TeamName.First {
     margin-left: 5px;
 }
+
 .TeamName.Second {
     margin-right: 5px;
+}
+
+@media (min-width: 769px) {
+    .Breadcrumb {
+        display: flex;
+        flex-direction: row;
+        -webkit-box-align: center;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        border-top-right-radius: 0px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
 }

@@ -9,6 +9,7 @@
     border-radius: 0.375rem;
     padding: 0.3rem;
     max-width: 170px;
+    max-height: max-content;
 }
 
 .SlideContainer:not(.Loading):hover {

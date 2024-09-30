@@ -12,33 +12,49 @@ import LoaderPlaceholder from '../../UI/Skeletons/LoaderPlaceholder';
 import SearchModal from '../../ModalRoot/Modals/SearchModal';
 import useSlidesResponsive from '../../../hooks/useSlidesResponsive';
 
+
+import { DragDealer } from '../HorizontalMenu/DragDealer';
+import { LeftArrow, RightArrow } from '../HorizontalMenu/Arrows';
+import { ScrollMenu } from 'react-horizontal-scrolling-menu';
+
 const VendorSwiper = (props) => {
     const navigate = useNavigate();
-    const goToSearchModal = useMediaQuery({ query: '(max-width: 768px)' });
 
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("vendors");
 
     const imageRefs = useRef([]);
-    const [loadedImages, setLoadedImages] = useState([]);
 
-    const updateLoadedImages = (index) => {
-        setLoadedImages((prevState) => [...prevState, index]);
-    };
+    const dragState = useRef(new DragDealer());
+    const handleDrag = ({ scrollContainer }) =>
+        (ev) => dragState.current.dragMove(ev, (posDiff) => {
+            if (scrollContainer.current) {
+                scrollContainer.current.scrollLeft += posDiff;
+            }
+        });
 
     const handleVendorClick = (vendor) => {
+        if (dragState.current.dragging) {
+            return false;
+        }
         navigate(`/search?provider=${vendor}`)
     }
 
     return (
-        <div className={classes.VendorsSwiper}>
-            <MainSwiper
-                slidesPerView={props.slidesPerView ? props.slidesPerView : slidesPerView}
-                slidesPerGroup={slidesPerGroup}
-                viewText={props.text}
-                onTask={props.task}
-                hideArrows
-                noHeader
-                spaceBetween={5}
+        <div className={classes.VendorsSwiper} onMouseLeave={dragState.current.dragStop}>
+            {/* <MainSwiper */}
+            <ScrollMenu
+                // slidesPerView={props.slidesPerView ? props.slidesPerView : slidesPerView}
+                // slidesPerGroup={slidesPerGroup}
+                // viewText={props.text}
+                // onTask={props.task}
+                // hideArrows
+                // noHeader
+                // spaceBetween={5}
+                LeftArrow={LeftArrow}
+                RightArrow={RightArrow}
+                onMouseDown={() => dragState.current.dragStart}
+                onMouseUp={() => dragState.current.dragStop}
+                onMouseMove={handleDrag}
             >
                 {props.items ? (
                     props.items.length === 0 ? (
@@ -48,22 +64,20 @@ const VendorSwiper = (props) => {
                             if (props.max && index > props.max + 1) return null;
 
                             return (
-                                <SwiperSlide key={item.Data.Id}>
-                                    {/* <Link to={goToSearchModal ?(null):(`/search?provider=${item.Data.Name}`)}> */}
+                                // <SwiperSlide key={item.Data.Id}>
+                                <div key={item.Data.Id} className={classes.ScrollItem} onClick={() => handleVendorClick(item.Data.Name)} >
                                     <div
                                         className={classes.SlideContainer}
-                                        onClick={() => handleVendorClick(item.Data.Name)}
+                                    // onClick={() => handleVendorClick(item.Data.Name)}
                                     >
                                         <article className={classes.Card}>
                                             <div className={classes.ImageContainer} ref={el => imageRefs.current[index] = el} style={{ backgroundImage: `url('${item.Data.Logo}')` }}>
-                                                {/* {loadedImages.includes(index) === false && <LoaderPlaceholder />} */}
-                                                {/* <img src={item.Data.Logo} crossOrigin="anonymous" loading='lazy' onLoad={() => updateLoadedImages(index)} /> */}
                                             </div>
                                             {props.isNew && <div className={classes.NewLabel}>NEW</div>}
                                         </article>
                                     </div>
-                                    {/* </Link> */}
-                                </SwiperSlide>
+                                </div>
+                                // </SwiperSlide>
                             );
                         })
                     )
@@ -82,7 +96,8 @@ const VendorSwiper = (props) => {
                         </SwiperSlide>
                     ))
                 )}
-            </MainSwiper>
+            </ScrollMenu>
+            {/* </MainSwiper> */}
         </div>
     );
 };

@@ -1,5 +1,21 @@
-.VendorsSwiper{
+:global(.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar) {
+    display: none;
+}
+
+:global(.react-horizontal-scrolling-menu--scroll-container) {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.VendorsSwiper {
     min-height: 20px;
+    position: relative;
+}
+
+.ScrollItem {
+    min-width: 160px;
 }
 
 .SlideContainer {
@@ -38,8 +54,8 @@
     height: 100%;
     /* aspect-ratio: 6/4; */
     position: relative;
-    background-size: contain;
-    background-position:center center;
+    background-size: 85%;
+    background-position: center center;
     background-repeat: no-repeat;
 }
 

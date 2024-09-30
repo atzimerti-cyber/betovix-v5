@@ -25,7 +25,8 @@
     top: 0px;
     z-index: 900;
 }
-.MenuWrapper > div {
+
+.MenuWrapper>div {
     margin-left: unset;
     margin-right: unset;
     width: 100%;
@@ -42,25 +43,31 @@
     margin-block: 0px 16px;
 }
 
-.TopArea > :first-child {
+.TopArea> :first-child {
     border-top-left-radius: 8px;
     border-top-right-radius: 8px;
 }
-.TopArea > :last-child {
+
+.TopArea> :last-child {
     border-bottom-left-radius: 8px;
     border-bottom-right-radius: 8px;
 }
 
 .SelectTabArea {
+    display: flex;
+}
+
+.Tabs {
     background: var(--db-gray-1);
     box-sizing: border-box;
     display: none;
     -webkit-box-align: center;
     align-items: center;
     padding: 8px;
-    width: 100%;
+    min-width: 40%;
     height: 56px;
-    border-radius: 0 !important;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
 }
 
 .EventPage {
@@ -95,6 +102,7 @@
     overflow: hidden;
     position: relative;
 }
+
 .EventTracker iframe {
     width: 100%;
     height: 100%;
@@ -103,6 +111,31 @@
 .Main {
     flex: 1 1 0%;
     min-width: 0px;
+}
+
+.BackButton {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    border-radius: 8px;
+    color: rgb(255, 255, 255);
+    fill: rgb(255, 255, 255);
+    cursor: pointer;
+    background: var(--db-gray-4);
+    width: 80px;
+    overflow: hidden;
+    padding: 0px;
+    height: 40px;
+    padding: 0px 20px 0px 20px;
+    margin-bottom: 5px;
+}
+
+.BackButton svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    flex: 0 0 1.5rem;
 }
 
 .Box {
@@ -120,11 +153,13 @@
     /* background-size: 100%; */
     background-size: cover;
     background-repeat: no-repeat;
+    margin-top: 5px;
 }
 
-.SelectTabArea .Tab:first-child {
+.Tabs .Tab:first-child {
     margin-left: auto;
 }
+
 .Tab {
     background: var(--db-gray-4);
     width: 80px;
@@ -144,6 +179,7 @@
     padding: 0px 8px 0px 14px;
     position: relative;
 }
+
 .Tab.Active {
     background: var(--db-brand-green);
 }
@@ -172,26 +208,45 @@
         flex-flow: column;
         gap: 16px;
     }
+
     .Side {
         position: static;
     }
+
     .EventTracker {
         min-width: unset;
         width: 100%;
     }
+
     .Side.Pregame .EventTracker {
         aspect-ratio: 7 / 4;
         height: 2155px;
     }
+
     /* .TopArea {
         display: none;
     } */
-    .SelectTabArea {
+    .Tabs {
         display: flex;
     }
-    .BreadcrumbLiveWrapper {
-        display: none;
+
+    .BackButton {
+        margin-bottom: 0px;
     }
+
+    .SelectTabArea {
+        display: flex;
+        align-items: center;
+        justify-content: space-between
+    }
+
+    /* .BreadcrumbLiveWrapper {
+        display: none;
+    } */
+    .BreadcrumbLiveWrapper {
+        display: flex;
+    }
+
     .Hide {
         display: none;
     }
@@ -202,6 +257,7 @@
         margin-inline: -16px;
         padding-inline: 16px;
     }
+
     .Content {
         margin-top: 0;
         gap: 0;

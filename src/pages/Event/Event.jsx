@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import _ from 'lodash';
@@ -22,8 +23,11 @@ import { translate, translateNameWithLang } from '../../utils/translations';
 import { betslipActions } from '../../features/Betslip/betslipSlice';
 import { layoutActions } from '../../features/Layout/layoutSlice';
 
+import Arrow2LeftIcon from '../../assets/svgs/arrow2-left.svg?react';
+
 const Event = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const eventRef = useRef(null);
     const { sportname, sportid, eventid } = useParams();
 
@@ -247,24 +251,31 @@ const Event = () => {
                                 (isLive ? (
                                     <>
                                         <div className={classes.SelectTabArea}>
-                                            <div
-                                                className={showTab === 'tab1' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
-                                                onClick={() => setShowTab('tab1')}
-                                            >
-                                                {translate('Tracker')}
+                                            <div className={classes.BackButton} onClick={() => navigate(`/sportsbook/live/${selectedSport.slug}`)}>
+                                                <Arrow2LeftIcon className={classes.BackIcon} />
+                                                {translate('Back')}
                                             </div>
-                                            <div
-                                                className={showTab === 'tab2' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
-                                                onClick={() => setShowTab('tab2')}
-                                            >
-                                                {translate('Score')}
+                                            <div className={classes.Tabs}>
+                                                <div
+                                                    className={showTab === 'tab1' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                    onClick={() => setShowTab('tab1')}
+                                                >
+                                                    {translate('Tracker')}
+                                                </div>
+                                                <div
+                                                    className={showTab === 'tab2' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                    onClick={() => setShowTab('tab2')}
+                                                >
+                                                    {translate('Score')}
+                                                </div>
                                             </div>
                                         </div>
 
                                         <div
-                                            className={
-                                                showTab !== 'tab2' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
-                                            }
+                                            // className={
+                                            //     showTab !== 'tab2' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
+                                            // }
+                                            className={classes.BreadcrumbLiveWrapper}
                                         >
                                             <BreadcrumbLive event={event} page={isLive ? 'live' : 'home'} slice='event' />
                                         </div>
@@ -279,24 +290,32 @@ const Event = () => {
                                 ) : (
                                     <>
                                         <div className={classes.SelectTabArea}>
-                                            <div
-                                                className={showTab === 'tab1' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
-                                                onClick={() => setShowTab('tab1')}
-                                            >
-                                                {translate('Markets')}
+                                            <div className={classes.BackButton} onClick={() => navigate(`/sportsbook/home/${selectedSport.slug}`)}>
+                                                <Arrow2LeftIcon className={classes.BackIcon} />
+                                                {translate('Back')}
                                             </div>
-                                            <div
-                                                className={showTab === 'tab2' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
-                                                onClick={() => setShowTab('tab2')}
-                                            >
-                                                {translate('Statistics')}
+                                            <div className={classes.Tabs}>
+                                                <div
+                                                    className={showTab === 'tab1' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                    onClick={() => setShowTab('tab1')}
+                                                >
+                                                    {translate('Markets')}
+                                                </div>
+                                                <div
+                                                    className={showTab === 'tab2' ? [classes.Tab, classes.Active].join(' ') : classes.Tab}
+                                                    onClick={() => setShowTab('tab2')}
+                                                >
+                                                    {translate('Statistics')}
+                                                </div>
                                             </div>
+
                                         </div>
 
                                         <div
-                                            className={
-                                                showTab !== 'tab1' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
-                                            }
+                                            // className={
+                                            //     showTab !== 'tab1' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
+                                            // }
+                                            className={classes.BreadcrumbLiveWrapper}
                                         >
                                             <Breadcrumb event={event} page='home' slice='event' />
                                         </div>

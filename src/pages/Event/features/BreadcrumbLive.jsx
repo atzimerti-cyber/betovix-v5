@@ -122,10 +122,10 @@ const BreadcrumbLive = (props) => {
 
     return (
         <div className={classes.Breadcrumb}>
-            <div className={[classes.Crumb, classes.BackButton].join(' ')} onClick={() => navigate(`/sportsbook/${props.page}/${selectedSport.slug}`)}>
+            {/* <div className={[classes.Crumb, classes.BackButton].join(' ')} onClick={() => navigate(`/sportsbook/${props.page}/${selectedSport.slug}`)}>
                 <Arrow2LeftIcon className={classes.BackIcon} />
                 {translate('Back')}
-            </div>
+            </div> */}
 
             <div className={showCategories ? [classes.NoPaddingCrumb, classes.DropdownOpen].join(' ') : classes.NoPaddingCrumb}>
                 <div className={classes.Crumb} onClick={() => setShowCategories(!showCategories)}>
