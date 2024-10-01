@@ -4,7 +4,6 @@ import { SwiperSlide } from 'swiper/react';
 
 import classes from './Banners.module.css';
 import BigSwiper from '../UI/MainSwiper/BigSwiper';
-import GameCard from '../Game/GameCard';
 import LoaderPlaceholder from '../UI/Skeletons/LoaderPlaceholder';
 import { getBanners } from './BannersAsync';
 import { useDispatch, useSelector } from 'react-redux';

@@ -23,7 +23,7 @@ const useSlidesResponsive = (categ) => {
             slidesPerView = 6;
             slidesPerGroup = 5;
         } else {
-            slidesPerView = 7;
+            slidesPerView = 5;
             slidesPerGroup = 6;
         }
     } else if (categ == "match") {

@@ -109,7 +109,7 @@ const SwiperWithOverlay = (props) => {
                         const gameType = item.Data.Tags.toLowerCase().includes('live') ? 'live' : 'slots';
 
                         return (
-                            <SwiperSlide key={item.Data.Id} style={{ maxWidth: '175px' }}>
+                            <SwiperSlide key={item.Data.Id} style={{ maxWidth: '190px' }}>
                                 <div className={classes.SlideContainer} style={bonusBalance > 0 ? { minHeight: '213px' } : { minHeight: '178px' }}>
                                     <>
                                         <Link to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`} >
