@@ -14,7 +14,7 @@ const useSlidesResponsive = (categ) => {
             slidesPerView = 2;
             slidesPerGroup = 2;
         } else if (isTablet) {
-            slidesPerView = 4.5;
+            slidesPerView = 4;
             slidesPerGroup = 3;
         } else if (isDesktop) {
             slidesPerView = 5;
@@ -23,7 +23,7 @@ const useSlidesResponsive = (categ) => {
             slidesPerView = 6;
             slidesPerGroup = 5;
         } else {
-            slidesPerView = 5;
+            slidesPerView = 4.5;
             slidesPerGroup = 6;
         }
     } else if (categ == "match") {

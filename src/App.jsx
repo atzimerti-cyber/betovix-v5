@@ -24,12 +24,13 @@ const Leaderboard = React.lazy(() => import('./pages/Leaderboard/Leaderboard'));
 const ProgressMap = React.lazy(() => import('./pages/UserGamification.jsx/features/ProgressMap'));
 const Gamification = React.lazy(() => import('./pages/UserGamification.jsx/Gamification'));
 const TermsOfService = React.lazy(() => import('./pages/Footer Pages/TermsOfService'))
+const ErrorPage = React.lazy(() => import('./pages/Error Page/ErrorPage'))
 
 function App() {
     const router = createBrowserRouter([
         {
             element: <InitApp />,
-            // errorElement: <ErrorPage />,
+            //errorElement: <ErrorPage />,
             children: [
                 {
                     element: <Layout />,

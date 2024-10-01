@@ -1,0 +1,24 @@
+.PageContent {
+  padding: 0px 2rem 40px;
+  margin: 2rem 0;
+  border-radius: 10px;
+  max-width: 1310px;
+  width: 100%;
+  container-type: inline-size;
+  color: antiquewhite;
+}
+
+h1 {
+  font-size: 5rem;
+  font-weight: bold;
+}
+
+p {
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+svg {
+    max-height: 55vh;
+    height: 100%;
+}

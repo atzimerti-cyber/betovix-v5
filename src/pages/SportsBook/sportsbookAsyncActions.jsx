@@ -57,7 +57,6 @@ export const initSportsbook = (signal) => {
 
       dispatch(sportsbookActions.setTopLeagues(responses[0].data));
       dispatch(sportsbookActions.setSportBanners(sportsBanners));
-      console.log(sportsBanners);
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(message);
