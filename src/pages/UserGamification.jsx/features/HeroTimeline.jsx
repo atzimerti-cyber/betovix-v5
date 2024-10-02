@@ -8,10 +8,6 @@ const HeroTimeline = (props) => {
 
   const [visibleMilestoneIndex, setVisibleMilestoneIndex] = useState(0);
 
-  // const toggleMilestone = (index) => {
-  //     setVisibleMilestoneIndex(prevIndex => (prevIndex === index ? null : index));
-  // };
-
   // Refs to store each SubTimelineItem element
   const milestoneRefs = useRef([]);
 
@@ -92,14 +88,15 @@ const HeroTimeline = (props) => {
                         className={classes.SubOppositeContent}
                         style={{ overflow: "hidden" }}
                       >
-                        <p
+                        <div
                           style={{
                             display: "-webkit-box",
-                            webkitLineClamp: "2",
-                            webkitBoxOrient: "vertical",
+                            WebkitLineClamp: "2",
+                            WebkitBoxOrient: "vertical",
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             lineHeight: "1.5em",
+
                           }}
                         >
                           {milestone.reward[0].description &&
@@ -126,7 +123,7 @@ const HeroTimeline = (props) => {
                                   )}
                                 </React.Fragment>
                               ))}
-                        </p>
+                        </div>
                       </div>
                       <div className={classes.MainSeparator}>
                         <div className={classes.SubConnector}></div>

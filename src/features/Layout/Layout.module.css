@@ -1,294 +1,311 @@
 .Layout {
-    height: 100dvh;
+  height: 100dvh;
 }
 
 .Content {
-    position: relative;
-    display: flex;
-    height: 100%;
-    width: 100%;
-    overflow: hidden;
-    /* padding-top: 72px; */
-    padding-top: calc(var(--db-minibar-height-mobile) + var(--db-topbar-height-mobile));
-    /* padding-top: var(--db-header-height-mobile); */
-    box-sizing: border-box;
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  /* padding-top: 72px; */
+  padding-top: calc(
+    var(--db-minibar-height-mobile) + var(--db-topbar-height-mobile)
+  );
+  /* padding-top: var(--db-header-height-mobile); */
+  box-sizing: border-box;
 }
 
 .OverlayButtons {
-    position: fixed;
-    bottom: calc(var(--db-bottom-nav-height) + 20px);
-    right: 1.25rem;
-    z-index: 700;
-    transition-property: var(--db-transition);
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 0.15s;
+  position: fixed;
+  bottom: calc(var(--db-bottom-nav-height) + 20px);
+  right: 1.25rem;
+  z-index: 700;
+  transition-property: var(--db-transition);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
 }
 
 .IconButton {
-    position: relative;
-    display: flex;
-    height: 51px;
-    width: 51px;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border-radius: 9999px;
-    background-color: var(--db-duelbits-gray);
-    /* background-color: var(--db-gray-1); */
-    transition-property: var(--db-transition);
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 0.15s;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
+  position: relative;
+  display: flex;
+  height: 51px;
+  width: 51px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: var(--db-duelbits-gray);
+  /* background-color: var(--db-gray-1); */
+  transition-property: var(--db-transition);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
 }
 
 .OverlayButtons .IconButton:not(:last-child) {
-    margin-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .OuterContainerLeft {
-    position: relative;
-    z-index: 990;
-    height: 100%;
-    width: var(--db-left-menu-width);
-    flex-shrink: 0;
-    background-color: var(--db-gray-6);
-    padding-bottom: 1.5rem;
-    box-sizing: border-box;
+  position: relative;
+  z-index: 990;
+  height: 100%;
+  width: var(--db-left-menu-width);
+  flex-shrink: 0;
+  background-color: var(--db-gray-6);
+  padding-bottom: 1.5rem;
+  box-sizing: border-box;
 }
 
 .InnerContainer {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .CenterContainer {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    height: 100% !important;
-    width: 100%;
-    flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  height: 100% !important;
+  width: 100%;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  justify-content: space-between;
 }
 
 .OuterContainerRight {
-    z-index: 1200;
-    height: 100%;
-    width: 0;
-    flex-shrink: 0;
-    overflow: hidden;
-    background-color: var(--db-gray-6);
-    transition-property: width;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 0.15s;
+  z-index: 1200;
+  height: 100%;
+  width: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  background-color: var(--db-gray-6);
+  transition-property: width;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
 }
 
 .OuterContainerRight.Show {
-    width: var(--db-chat-width);
+  width: var(--db-chat-width);
 }
 
 .FullPage {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    -webkit-box-align: center;
-    align-items: center;
-    min-height: calc(-4em + 100vh);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  /* min-height: calc(-4em + 100vh); */
 }
 
 .NotAuthorized.FullPage {
-    min-height: unset;
+  min-height: unset;
 }
 
 :global(.IsMobile.IsMenuOpen) :local(.OuterContainerLeft) {
-    --tw-translate-y: 0px;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    position: relative;
+  --tw-translate-y: 0px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  position: relative;
 }
 
 :global(.IsMobile) :local(.OuterContainerLeft) {
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    position: fixed;
-    width: 100% !important;
-    padding-bottom: 0;
-    --tw-translate-y: 100%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  position: fixed;
+  width: 100% !important;
+  padding-bottom: 0;
+  --tw-translate-y: 100%;
 }
 
-.ChatOuter>div,
-.BetslipOuter>div {
-    position: fixed;
-    top: 0;
-    z-index: 2000;
-    height: 100%;
-    width: 100%;
+.ChatOuter > div,
+.BetslipOuter > div {
+  position: fixed;
+  top: 0;
+  z-index: 2000;
+  height: 100%;
+  width: 100%;
 }
 
 /* Toast */
 .MyToast {
-    z-index: 1000000 !important;
+  z-index: 1000000 !important;
 }
 
-.MyToast>div {
-    color: rgb(82, 116, 128);
-    font-family: 'Proxima Nova', sans-serif;
-    font-size: 14px;
-    font-weight: 400;
-    overflow: hidden;
-    box-shadow: rgba(24, 36, 40, 0.6) 0px 5px 8px;
-    display: flex;
-    align-items: center;
-    background: linear-gradient(90deg, var(--db-gray-3) var(--progress-with), var(--db-gray-4) var(--progress-with));
-    --progress-with: 5px;
-    margin-bottom: 0.5rem;
-    border-radius: 0.375rem !important;
-    background-color: var(--db-gray-4) !important;
-    padding: 0.875rem 2.75rem 0.875rem 20px;
+.MyToast > div {
+  color: rgb(82, 116, 128);
+  font-family: "Proxima Nova", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  overflow: hidden;
+  box-shadow: rgba(24, 36, 40, 0.6) 0px 5px 8px;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(
+    90deg,
+    var(--db-gray-3) var(--progress-with),
+    var(--db-gray-4) var(--progress-with)
+  );
+  --progress-with: 5px;
+  margin-bottom: 0.5rem;
+  border-radius: 0.375rem !important;
+  background-color: var(--db-gray-4) !important;
+  padding: 0.875rem 2.75rem 0.875rem 20px;
 
-    position: relative;
-    min-height: 64px;
-    cursor: pointer;
-    box-sizing: border-box;
+  position: relative;
+  min-height: 64px;
+  cursor: pointer;
+  box-sizing: border-box;
 }
 
 :local(.MyToast) :global(.Toastify__toast-body) {
-    margin: 0;
-    background-color: initial !important;
-    padding-left: 0 !important;
-    font-size: 0.875rem;
-    line-height: 1.25;
-    --tw-text-opacity: 1;
-    color: rgb(255, 255, 255, var(--tw-text-opacity));
-    flex: 1;
+  margin: 0;
+  background-color: initial !important;
+  padding-left: 0 !important;
+  font-size: 0.875rem;
+  line-height: 1.25;
+  --tw-text-opacity: 1;
+  color: rgb(255, 255, 255, var(--tw-text-opacity));
+  flex: 1;
 }
 
 :local(.MyToast) :global(.Toastify__progress-bar--wrp) {
-    width: var(--progress-with) !important;
-    height: 100% !important;
+  width: var(--progress-with) !important;
+  height: 100% !important;
 }
 
 :local(.MyToast) :global(.Toastify__progress-bar--animated) {
-    animation: Toastify__trackProgressHeight linear 1 forwards;
-    transform-origin: bottom;
+  animation: Toastify__trackProgressHeight linear 1 forwards;
+  transform-origin: bottom;
 }
 
 :local(.MyToast) :global(.Toastify__toast-icon) {
-    width: 24px !important;
-    margin-inline-end: 15px;
+  width: 24px !important;
+  margin-inline-end: 15px;
 }
 
-:local(.MyToast) :global(.Toastify__toast--warning .Toastify__toast-icon > svg) {
-    filter: brightness(0) saturate(100%) invert(72%) sepia(81%) saturate(349%) hue-rotate(348deg) brightness(101%) contrast(105%);
+:local(.MyToast)
+  :global(.Toastify__toast--warning .Toastify__toast-icon > svg) {
+  filter: brightness(0) saturate(100%) invert(72%) sepia(81%) saturate(349%)
+    hue-rotate(348deg) brightness(101%) contrast(105%);
 }
 
-:local(.MyToast) :global(.Toastify__toast--success .Toastify__toast-icon > svg) {
-    filter: brightness(0) saturate(100%) invert(69%) sepia(34%) saturate(853%) hue-rotate(91deg) brightness(86%) contrast(86%);
+:local(.MyToast)
+  :global(.Toastify__toast--success .Toastify__toast-icon > svg) {
+  filter: brightness(0) saturate(100%) invert(69%) sepia(34%) saturate(853%)
+    hue-rotate(91deg) brightness(86%) contrast(86%);
 }
 
 :local(.MyToast) :global(.Toastify__progress-bar--success) {
-    background: rgba(51, 193, 108, 0.25) !important;
+  background: rgba(51, 193, 108, 0.25) !important;
 }
 
-:local(.MyToast) :global(.Toastify__progress-bar--animated.Toastify__progress-bar--success) {
-    background-color: var(--db-brand-green) !important;
+:local(.MyToast)
+  :global(.Toastify__progress-bar--animated.Toastify__progress-bar--success) {
+  background-color: var(--db-brand-green) !important;
 }
 
 .MyToast .ToastCloseButton {
-    position: absolute;
-    right: 0.25rem;
-    top: 0.25rem;
+  position: absolute;
+  right: 0.25rem;
+  top: 0.25rem;
 
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.375rem;
-    background-color: initial;
-    outline: 2px solid transparent;
-    transform-origin: center;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  background-color: initial;
+  outline: 2px solid transparent;
+  transform-origin: center;
 }
 
 .MyToast .ToastCloseButton svg {
-    padding: 0.375rem;
-    height: 1.5rem;
-    width: 1.5rem;
+  padding: 0.375rem;
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .MyToast .ToastCloseButton svg path {
-    fill: #fff;
+  fill: #fff;
 }
 
 .FullOverlay {
-    top: 0;
-    z-index: 1900 !important;
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    --tw-bg-opacity: 1;
-    background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-    opacity: 0;
-    transition: opacity 0.2s;
-    pointer-events: none;
+  top: 0;
+  z-index: 1900 !important;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: none;
 }
 
 .FullOverlay.Show {
-    opacity: 0.8;
-    pointer-events: all;
+  opacity: 0.8;
+  pointer-events: all;
 }
 
 .HeroProgress {
-    display: none;
+  display: none;
 }
 
 @keyframes Toastify__trackProgressHeight {
-    0% {
-        transform: scaleY(1);
-    }
+  0% {
+    transform: scaleY(1);
+  }
 
-    100% {
-        transform: scaleY(0);
-    }
+  100% {
+    transform: scaleY(0);
+  }
 }
 
 @keyframes slide-up {
-    0% {
-        opacity: 0;
-        transform: translateY(20px);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
 
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (min-width: 769px) {
-    .Content {
-        padding-top: var(--db-header-height);
-    }
+  .Content {
+    padding-top: var(--db-header-height);
+  }
 
-    .OverlayButtons {
-        bottom: 1.25rem;
-        right: 1.25rem;
-    }
+  .OverlayButtons {
+    bottom: 1.25rem;
+    right: 1.25rem;
+  }
 }
 
 @media (max-width: 1240px) {
-    .OuterContainerRightWrapper {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        height: 100vh;
-        z-index: 10;
-        padding-top: var(--db-header-height);
-    }
+  .OuterContainerRightWrapper {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 100vh;
+    z-index: 10;
+    padding-top: var(--db-header-height);
+  }
 }
 
 @media (max-width: 575px) {
-    .HeroProgress {
-        display: flex;
-        min-width: 100%;
-        align-items: center;
-        justify-content: center;
-    }
+  .HeroProgress {
+    display: flex;
+    min-width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
 }

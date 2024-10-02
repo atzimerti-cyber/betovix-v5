@@ -49,7 +49,6 @@ const SportsBanners = (props) => {
           let link = null;
           return (
             <SwiperSlide key={banner.Id}>
-              {/* <Link to={link} className={classes.ImageContainer}> */}
               <div className={classes.BannerBackground}>
                 {loadedImages.includes(index) === false && (
                   <LoaderPlaceholder />
@@ -60,111 +59,105 @@ const SportsBanners = (props) => {
                   onLoad={() => updateLoadedImages(index)}
                 />
               </div>
-              <div className={classes.EventInfoWrapper}>
-                <div className={classes.EventInfo}>
-                  <div className={classes.EventHeader}>
-                    <p>
-                      {banner.event.Info.SportName?.International}
-                      {" / "}
-                      {banner.event?.Info.CategoryName?.International}
-                      {" / "}
-                      {banner.event?.Info.TournamentName?.International}
-                    </p>
-                  </div>
-                  <div className={classes.EventDate}>
-                    <p>{dateFormatter(banner.event.Info.DateOfMatch)}</p>
-                  </div>
-                  <Link
-                    to={`/event/${banner.event.Info.SportName?.International.toLowerCase().replace(
-                      / /g,
-                      "-"
-                    )}/${banner.event.Info.SportId}/${
-                      banner.event.Header.MatchId
-                    }`}
-                  >
-                    <div className={classes.EventTeams}>
-                      <div className={classes.HomeTeam}>
-                        <div
-                          className={classes.Img}
-                          style={{
-                            backgroundImage: `url(https://cdnsports.storetube.gr/assets/teams/b/${banner.event.Info?.HomeTeamId}.png)`,
-                          }}
-                        ></div>
-                        <p>{banner.event.Info?.HomeTeamName?.International}</p>
-                      </div>
-                      <span>VS</span>
-                      <div className={classes.AwayTeam}>
-                        <div
-                          className={classes.Img}
-                          style={{
-                            backgroundImage: `url(https://cdnsports.storetube.gr/assets/teams/b/${banner.event.Info?.AwayTeamId}.png)`,
-                          }}
-                        ></div>
-                        <p>{banner.event.Info?.AwayTeamName?.International}</p>
-                      </div>
+              {banner.event && (
+                <div className={classes.EventInfoWrapper}>
+                  <div className={classes.EventInfo}>
+                    <div className={classes.EventHeader}>
+                      <p>
+                        {banner.event?.Info.SportName?.International}
+                        {" / "}
+                        {banner.event?.Info.CategoryName?.International}
+                        {" / "}
+                        {banner.event?.Info.TournamentName?.International}
+                      </p>
                     </div>
-                  </Link>
-                  <div className={classes.EventMarkets}>
-                    {/* {banner.event.Markets.map((market) =>
-                      market.MarketFields.map((marketField) => (
-                        <OddsButton className={classes.Market}>
-                          <p className={classes.FieldTypeId}>
-                            {marketField.FieldTypeId}
+                    <div className={classes.EventDate}>
+                      <p>{dateFormatter(banner.event?.Info.DateOfMatch)}</p>
+                    </div>
+                    <Link
+                      to={`/event/${banner.event?.Info.SportName?.International.toLowerCase().replace(
+                        / /g,
+                        "-"
+                      )}/${banner.event?.Info.SportId}/${
+                        banner.event?.Header.MatchId
+                      }`}
+                    >
+                      <div className={classes.EventTeams}>
+                        <div className={classes.HomeTeam}>
+                          <div
+                            className={classes.Img}
+                            style={{
+                              backgroundImage: `url(https://cdnsports.storetube.gr/assets/teams/b/${banner.event?.Info?.HomeTeamId}.png)`,
+                            }}
+                          ></div>
+                          <p>
+                            {banner.event?.Info?.HomeTeamName?.International}
                           </p>
-                          <p className={classes.Value}>
-                            {marketField.Extra.NormalValue}
+                        </div>
+                        <span>VS</span>
+                        <div className={classes.AwayTeam}>
+                          <div
+                            className={classes.Img}
+                            style={{
+                              backgroundImage: `url(https://cdnsports.storetube.gr/assets/teams/b/${banner.event?.Info?.AwayTeamId}.png)`,
+                            }}
+                          ></div>
+                          <p>
+                            {banner.event?.Info?.AwayTeamName?.International}
                           </p>
-                        </OddsButton>
-  ))
-                    )} */}
-                    {banner.event.Markets && banner.event.Markets.length > 0 ? (
-                      banner.event.Markets.find(
-                        (market) => market.MarketTypeId === 14
-                      )?.MarketFields.map((marketField) => (
-                        <OddsButton
-                          key={marketField.FieldId}
-                          label={getOddsLabel(
-                            marketField.FieldName?.International
-                          )}
-                          event={banner.event}
-                          market={banner.event.Markets.find(
-                            (market) => market.MarketTypeId === 14
-                          )}
-                          marketField={marketField}
-                          odds={marketField.Value}
-                          disabled={!marketField.Active}
-                          style="card"
-                          className={classes.Market}
-                        />
-                      ))
-                    ) : (
-                      <>
-                        <OddsButton
-                          key={0}
-                          label=""
-                          event={banner.event}
-                          market={null}
-                          marketField={null}
-                          odds="-"
-                          disabled={true}
-                          style="card"
-                        />
-                        <OddsButton
-                          key={1}
-                          label=""
-                          event={banner.event}
-                          market={null}
-                          marketField={null}
-                          odds="-"
-                          disabled={true}
-                          style="card"
-                        />
-                      </>
-                    )}
+                        </div>
+                      </div>
+                    </Link>
+                    <div className={classes.EventMarkets}>
+                      {banner.event.Markets &&
+                      banner.event.Markets.length > 0 ? (
+                        banner.event.Markets.find(
+                          (market) => market.MarketTypeId === 14
+                        )?.MarketFields.map((marketField) => (
+                          <OddsButton
+                            key={marketField.FieldId}
+                            label={getOddsLabel(
+                              marketField.FieldName?.International
+                            )}
+                            event={banner.event}
+                            market={banner.event?.Markets.find(
+                              (market) => market.MarketTypeId === 14
+                            )}
+                            marketField={marketField}
+                            odds={marketField.Value}
+                            disabled={!marketField.Active}
+                            style="card"
+                            className={classes.Market}
+                          />
+                        ))
+                      ) : (
+                        <>
+                          <OddsButton
+                            key={0}
+                            label=""
+                            event={banner.event}
+                            market={null}
+                            marketField={null}
+                            odds="-"
+                            disabled={true}
+                            style="card"
+                          />
+                          <OddsButton
+                            key={1}
+                            label=""
+                            event={banner.event}
+                            market={null}
+                            marketField={null}
+                            odds="-"
+                            disabled={true}
+                            style="card"
+                          />
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
-              {/* </Link> */}
+              )}
             </SwiperSlide>
           );
         })

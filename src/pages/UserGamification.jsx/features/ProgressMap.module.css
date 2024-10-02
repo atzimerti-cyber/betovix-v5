@@ -1,104 +1,109 @@
 .PageContent {
-    display: flex;
-    container-type: normal;
-    padding: 0px 10px 40px;
-    max-width: 1220px;
-    width: 100%;
-    container: page / inline-size;
-    min-height: 750px;
-    --tw-bg-opacity: 1;
-    background-color: var(--db-gray-banner);
-    flex-direction: column;
-    align-content: center;
-    align-items: center;
+  display: flex;
+  container-type: normal;
+  padding: 0px 10px 40px;
+  max-width: 1220px;
+  width: 100%;
+  container: page / inline-size;
+  min-height: 750px;
+  --tw-bg-opacity: 1;
+  background-color: var(--db-gray-banner);
+  flex-direction: column;
+  align-content: center;
+  align-items: center;
 }
 
 .Banner {
-    position: relative;
-    display: block;
-    justify-content: center;
-    padding: 1rem 2.5rem;
-    font-family: Byker, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    line-height: 1;
-    background-color: var(--db-gray-banner);
-    align-self: center;
+  position: relative;
+  display: block;
+  justify-content: center;
+  padding: 1rem 2.5rem;
+  font-family: Byker, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  line-height: 1;
+  background-color: var(--db-gray-banner);
+  align-self: center;
 }
 
 .Banner::before,
 .Banner::after {
-    position: absolute;
-    top: 0;
-    height: 100%;
-    background-color: inherit;
-    width: 50vw;
-    content: '';
+  position: absolute;
+  top: 0;
+  height: 100%;
+  background-color: inherit;
+  width: 50vw;
+  content: "";
 }
 
 .Banner::before {
-    left: 100%;
+  left: 100%;
 }
 
 .Banner::after {
-    right: 100%;
+  right: 100%;
 }
 
 .BannerTitle {
-    font-size: 20px;
-    font-weight: 300;
-    --tw-text-opacity: 1;
-    color: var(--db-brand-color);
+  font-size: 20px;
+  font-weight: 300;
+  --tw-text-opacity: 1;
+  color: var(--db-brand-color);
 }
 
 .BannerTitle span {
-    display: block;
-    font-weight: 800;
-    color: var(--db-brand-green);
+  display: block;
+  font-weight: 800;
+  color: var(--db-brand-green);
 }
 
 .BannerBoost {
-    white-space: nowrap;
-    text-align: end;
-    font-size: 0.75rem;
-    line-height: 1rem;
-    font-weight: 800;
-    color: var(--db-purple-text);
+  white-space: nowrap;
+  text-align: end;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: 800;
+  color: var(--db-purple-text);
 }
 
-.BannerBoost>span {
-    display: block;
+.BannerBoost > span {
+  display: block;
 }
 
 .Container {
-    position: static;
-    background-color: transparent;
-    /* height: 750px; */
-    height: 75vh;
-    width: 100vw;
-    overflow: hidden;
+  position: static;
+  background-color: transparent;
+  /* height: 750px; */
+  max-height: 75vh;
+  min-height: 20vh;
+  width: 100vw;
+  overflow: hidden;
 }
 
 .Timeline {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
 .ButtonContainer {
-    background-color: rgba(0, 0, 0, 0.188);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
+  /* background-color: rgba(0, 0, 0, 0.188); */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
 }
 
 @media (min-width: 769px) {
-    .Container {
-        width: 65vw;
-        position: static;
-        background-color: #051825;
-        height: 750px;
-        overflow: hidden;
-    }
+  .Container {
+    width: 65vw;
+    position: static;
+    background-color: #051825;
+    max-height: 750px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }

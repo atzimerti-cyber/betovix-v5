@@ -265,7 +265,7 @@
 }
 
 .Closed.SideMenuScroll .SideMenuButtonContainer>button {
-    margin: 0.25rem;
+    /* margin: 0.25rem; */
     max-height: 30px;
     min-height: 30px;
     min-width: 30px;

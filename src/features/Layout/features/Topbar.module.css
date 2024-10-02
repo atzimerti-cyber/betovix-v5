@@ -71,7 +71,7 @@
 .HeaderHamburger button svg {
     max-height: 1.4rem;
     max-width: 1.4rem;
-    transition: transform 0.3s ease;
+    transition: transform 0.6s ease;
 }
 
 .HeaderHamburger button svg.rotate {

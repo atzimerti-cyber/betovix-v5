@@ -71,7 +71,7 @@ const ModalRoot = () => {
     else if (modal === 'ticket-receipt') modalPage = <TicketReceiptModal />;
     else if (modal === 'load-ticket') modalPage = <LoadTicketModal />;
     else if (modal === 'statistics') modalPage = <StatisticsModal />;
-    else if (modal === 'vip') modalPage = <VipModal />;
+    // else if (modal === 'vip') modalPage = <VipModal />;
     else if (modal === 'bonus') {
         if (user) modalPage = <BonusModal />;
         else modalPage = <Navigate replace to={getUrlWithParams('auth', 'login')} />;
