@@ -33,7 +33,7 @@ job_production1:
     only:  
         - production_betovix
     script:
-        - cmd.exe /c 'C:\gitlab-runner-tasks\deploy_website_betovix.bat' 
+        - cmd.exe /c 'C:\gitlab-runner-TanitWeb\deploy_website_betovix.bat' 
     tags:
         - AppServer1SportsWeb
 job_production2:
