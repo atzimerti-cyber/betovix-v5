@@ -1,0 +1,62 @@
+.NotificationContainer {
+  display: flex;
+  width: 100%;
+  justify-content: flex-start;
+  border-top: 1px solid #255873;
+  padding: 7px 5px 5px 5px;
+  height: fit-content;
+}
+.NotificationContainer.Unviewed {
+  background-color: rgba(146, 200, 230, 0.108); /* lighter color */
+}
+
+.Icon {
+  width: 10%;
+}
+.Main {
+  width: 90%;
+}
+.Header {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+}
+.RightPart {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  flex-direction: row;
+}
+
+.Title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: azure;
+}
+.Date {
+  font-size: 0.7rem;
+  color: #88b7cbf6;
+  margin: 0 0.2rem;
+}
+.Message {
+  font-size: 0.8rem;
+  color: azure;
+}
+.NewNotif {
+  margin-top: 3px;
+  content: "";
+  height: 0.65rem;
+  width: 0.65rem;
+  left: 0px;
+  bottom: 0px;
+  background-color: var(--db-body-text);
+  transition: 0.4s;
+  border-radius: 50%;
+  margin: 0 0.2rem;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.9), 0 0 4px rgba(255, 255, 255, 0.6);
+}

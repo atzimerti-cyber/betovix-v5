@@ -12,6 +12,7 @@ const initialState = {
     showRight: 'betslip',
     fullLeftContainer: true,
     userDropdownVisible: false,
+    notificationDropdownVisible: false,
     pageNotAuthorized: false,
     scrollToTop: 1,
     showLiveListContainer: false,
@@ -45,6 +46,9 @@ export const layoutSlice = createSlice({
         },
         setUserDropdownVisible: (state, action) => {
             state.userDropdownVisible = action.payload;
+        },
+        setNotificationDropdownVisible: (state, action) => {
+            state.notificationDropdownVisible = action.payload;
         },
         setPageNotAuthorized: (state, action) => {
             state.pageNotAuthorized = action.payload;

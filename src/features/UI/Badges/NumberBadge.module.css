@@ -11,12 +11,14 @@
     background-color: var(--db-brand-green);
     padding-left: 0.375rem;
     padding-right: 0.375rem;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     line-height: 1.25rem;
     line-height: 1;
     letter-spacing: 0.025em;
     --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+    /* color: rgb(255 255 255 / var(--tw-text-opacity)); */
+    color: rgb(22, 105, 5);
+    font-weight: 700;
 }
 
 .Floating.NumberBadge {

@@ -13,8 +13,8 @@
     outline: 0;
     background-color: var(--db-gray-banner);
     /* background-color: var(--db-duelbits-gray2); */
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
 }
@@ -46,7 +46,7 @@
     --tw-scale-x: 1;
     --tw-scale-y: 1;
 
-    --tw-translate-x: -4rem;
+    --tw-translate-x: -4.8rem;
 
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
     transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color,
