@@ -27,15 +27,23 @@ job_storepreprod:
         - TanitWeb
  
  #=======================================
-#Meda.bet
-job_production7:
+#Betovix.com
+job_production1:
     stage: deployproduction
     only:  
         - production_betovix
     script:
-        - cmd.exe /c 'C:\gitlab-runner-tasks\deploy_website_betovix.bat' 
+        - cmd.exe /c 'C:\gitlab-runner-TanitWeb\deploy_website_betovix.bat' 
     tags:
-        - Betovix.com_vm1.2_runner  
+        - AppServer1SportsWeb
+job_production2:
+    stage: deployproduction
+    only:
+        - production_betovix
+    script:
+        - cmd.exe /c 'C:\gitlab-runner-TanitWeb\deploy_website_betovix.bat' 
+    tags:
+        - AppServer2_SportsWeb 
 
      
  
