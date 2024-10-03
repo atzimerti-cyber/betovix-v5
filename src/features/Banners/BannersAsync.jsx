@@ -23,5 +23,7 @@ export const getBanners = (signal) => {
             if (!error?.code === 'ERR_CANCELED') toast.error(error?.message);
         }
     };
+    //test
+    //test
 };
 
