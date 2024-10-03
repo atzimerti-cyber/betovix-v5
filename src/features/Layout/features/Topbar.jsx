@@ -25,6 +25,8 @@ import { layoutActions } from "../layoutSlice";
 import MenuItems from "./MenuItems";
 import { addThousandsSeparator } from "../../../utils/custom";
 
+import NoUserImg from "../../../assets/images/nouserimg.png";
+
 const Topbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -216,7 +218,15 @@ const Topbar = () => {
                   }
                 >
                   <MainButton color="transparent">
-                    <UserIcon />
+                    <div
+                      className={classes.UserImage}
+                      style={{
+                        backgroundImage: `url(${
+                          user.Image ? user.Image : NoUserImg
+                        })`,
+                      }}
+                    ></div>
+                    {/* <UserIcon /> */}
                     <span>{user?.Username}</span>
                   </MainButton>
                   {newRewards > 0 && (
@@ -247,49 +257,47 @@ const Topbar = () => {
               {isDesktop && (
                 <>
                   {/* <div className={classes.Container}> */}
-                    <div className={classes.DropDownWrapper}>
-                      <div
-                        className={classes.DropDownLabel}
-                        onClick={() =>
-                          dispatch(
-                            layoutActions.setNotificationDropdownVisible(
-                              !notificationDropdownVisible
-                            )
+                  <div className={classes.DropDownWrapper}>
+                    <div
+                      className={classes.DropDownLabel}
+                      onClick={() =>
+                        dispatch(
+                          layoutActions.setNotificationDropdownVisible(
+                            !notificationDropdownVisible
                           )
-                        }
-                      >
-                        <div className={classes.NotificationButtonContainer}>
-                          <button
-                            className={classes.NotificationButton}
-                            color="transparent"
-                          >
-                            <BellIcon />
-                          </button>
-                          {newNotifications > 0 && (
-                            <NumberBadge
-                              number={newNotifications}
-                              floating
-                              justifyRight
-                            />
-                          )}
-                        </div>
+                        )
+                      }
+                    >
+                      <div className={classes.NotificationButtonContainer}>
+                        <button
+                          className={classes.NotificationButton}
+                          color="transparent"
+                        >
+                          <BellIcon />
+                        </button>
+                        {newNotifications > 0 && (
+                          <NumberBadge
+                            number={newNotifications}
+                            floating
+                            justifyRight
+                          />
+                        )}
                       </div>
-
-                      {isDesktop && (
-                        <NotificationDropdown
-                          show={notificationDropdownVisible}
-                          onClickOutside={() =>
-                            dispatch(
-                              layoutActions.setNotificationDropdownVisible(
-                                false
-                              )
-                            )
-                          }
-                        />
-                      )}
                     </div>
 
-                    <DropdownLang topbar />
+                    {isDesktop && (
+                      <NotificationDropdown
+                        show={notificationDropdownVisible}
+                        onClickOutside={() =>
+                          dispatch(
+                            layoutActions.setNotificationDropdownVisible(false)
+                          )
+                        }
+                      />
+                    )}
+                  </div>
+
+                  <DropdownLang topbar />
                   {/* </div> */}
                 </>
               )}

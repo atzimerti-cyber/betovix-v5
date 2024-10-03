@@ -1,132 +1,137 @@
 .Card {
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    color: white;
-    /* background-color: rgb(17, 25, 32); */
-    background-color: #0e2233;
-    border-radius: 5px;
-    padding: 8px;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  color: white;
+  /* background-color: rgb(17, 25, 32); */
+  /* background-color: #0e2233; */
+  background-color: #0e24339e;
+  border-radius: 5px;
+  padding: 8px;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .SportDecoration {
-    position: absolute;
-    top: -25px;
-    right: -25px;
-    opacity: 0.4;
+  position: absolute;
+  top: -25px;
+  right: -25px;
+  opacity: 0.4;
 }
 .SportDecoration svg {
-    width: 112px;
-    height: 122px;
-    fill: rgba(230, 7, 78, 0.4);
-    /* fill: rgba(33, 50, 65, 0.4); */
+  width: 112px;
+  height: 122px;
+  fill: rgba(230, 7, 78, 0.4);
+  /* fill: rgba(33, 50, 65, 0.4); */
 }
 .SportDecoration svg * {
-    z-index: -1;
-    fill: rgba(96, 127, 151, 0.685);
-    /* fill: rgba(33, 50, 65, 0.4); */
+  z-index: -1;
+  fill: rgba(96, 127, 151, 0.685);
+  /* fill: rgba(33, 50, 65, 0.4); */
 }
 
 .LeftComponent {
-    font-size: 12px;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  font-size: 12px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .LiveBadge {
-    background-color: rgb(200, 49, 231);
-    border-radius: 2px;
-    padding: 0.5px 4px;
+  background-color: rgb(200, 49, 231);
+  border-radius: 2px;
+  padding: 0.5px 4px;
 }
 
 .Date {
-    color: rgb(161, 195, 224);
+  color: rgb(161, 195, 224);
 }
 
 .Time {
-    margin-left: 6px;
+  margin-left: 6px;
 }
 
 .TeamContainer {
-    display: flex;
-    height: 70px;
+  display: flex;
+  height: 70px;
 }
 
 .TeamHome,
 .TeamAway {
-    display: flex;
-    flex-direction: column;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-flex: 1;
-    flex-grow: 1;
-    flex-basis: 33%;
-    gap: 0.3rem;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  flex-basis: 33%;
+  gap: 0.3rem;
 }
 .MiddleText {
-    font-size: 16px;
-    text-align: center;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    padding: 0px 1ch;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 65px;
+  font-size: 16px;
+  text-align: center;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 0px 1ch;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 65px;
 }
 
 .TeamLogoWrapper {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    font-size: 15px;
-    width: 28px;
-    height: 28px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-size: 15px;
+  width: 28px;
+  height: 28px;
 }
 .TeamLogo {
-    object-fit: fill;
-    width: 20px;
-    height: 20px;
+  object-fit: fill;
+  width: 20px;
+  height: 20px;
 }
 .TeamName {
-    font-size: 14px;
-    text-align: center;
-    word-break: break-word;
-    line-height: 1;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    width: 80px;
+  font-size: 14px;
+  text-align: center;
+  word-break: break-word;
+  line-height: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 80px;
 }
 
 .OddsContainer {
-    font-size: 14px;
-    display: flex;
-    gap: 8px;
-    width: 100%;
-    font-feature-settings: 'tnum';
-    font-variant-numeric: tabular-nums;
+  font-size: 14px;
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
 }
+
+.OddsContainer > button {
+    border-radius: 7px;
+  }
 .OddsContainer > button:first-child {
-    border-radius: 0px 0px 0px 5px;
+  border-radius: 7px;
 }
 .OddsContainer > button:last-child {
-    border-radius: 0px 0px 5px;
+  border-radius: 7px;
 }

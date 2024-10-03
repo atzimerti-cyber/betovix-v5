@@ -293,24 +293,23 @@
   display: inline-block;
 }
 
+.DropDownLabel {
+  display: flex;
+}
+
 .DropDownWrapper .DropDownLabel > button {
   height: 2rem;
   min-height: 2rem;
-  padding-left: 0.25rem;
-  padding-right: 0.25rem;
   border: solid 1px transparent;
   font-size: 0.875rem;
   line-height: 1.25rem;
   flex-wrap: nowrap !important;
   gap: 0.5rem;
   --tw-text-opacity: 1 !important;
-  color: rgb(255 255 255/ 1) !important;
-
+  color: rgb(255 255 255 / 1) !important;
   padding: 0;
-  max-width: 20px;
+  /* max-width: 20px; */
   flex-wrap: nowrap !important;
-  padding-left: 0.25rem !important;
-  padding-right: 0.25rem !important;
 }
 
 .DropDownWrapper .DropDownLabel > button svg {
@@ -649,4 +648,13 @@
     .HeaderRight {
         gap: 0;
     } */
+}
+
+.UserImage {
+  height: 1.7rem;
+  width: 1.7rem;
+  border-radius: 50%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }

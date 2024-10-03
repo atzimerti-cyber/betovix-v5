@@ -1,45 +1,45 @@
 .OddsButton {
-    background: var(--db-gray-7);
-    border-radius: 8px;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-    display: flex;
-    flex: 0.5 1 20%;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    overflow: hidden;
-    padding: 6px;
-    position: relative;
-    transition: background-color 0.3s ease 0s, opacity 0.3s ease 0s;
-    min-height: 2.5rem;
-    border: 3px solid transparent;
+  background: var(--db-gray-7);
+  border-radius: 8px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  display: flex;
+  flex: 0.5 1 20%;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 6px;
+  position: relative;
+  transition: background-color 0.3s ease 0s, opacity 0.3s ease 0s;
+  min-height: 2.5rem;
+  border: 3px solid transparent;
 }
 .OddsButton:hover {
-    background: var(--db-gray-5);
+  background: var(--db-gray-5);
 }
 
 .OddsLabel {
-    flex: 0 1 100%;
-    max-width: 100%;
-    text-align: initial;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-transform: capitalize;
-    white-space: nowrap;
+  flex: 0 1 100%;
+  max-width: 100%;
+  text-align: initial;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: capitalize;
+  white-space: nowrap;
 }
 
 .OddsDelta {
-    display: flex;
-    align-items: flex-end;
-    flex-wrap: nowrap;
-    gap: 6px;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  gap: 6px;
 }
 
 .Indicator {
-    opacity: 1;
-    /* animation: 0.3s ease 7s 1 normal forwards running epImaF; */
+  opacity: 1;
+  /* animation: 0.3s ease 7s 1 normal forwards running epImaF; */
 }
 /* @keyframes epImaF {
     100% {
@@ -49,101 +49,100 @@
 
 .IndicatorUp path:last-child,
 .IndicatorDown path:first-child {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .Odds {
-    /* color: rgb(248, 214, 72); */
-    color: var(--db-white-primary);
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum';
-    font-weight: 600;
+  /* color: rgb(248, 214, 72); */
+  color: var(--db-white-primary);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-weight: 600;
 }
 .Odds.Up {
-    color: var(--db-brand-green);
+  color: var(--db-brand-green);
 }
 .Odds.Down {
-    color: rgb(236, 100, 75);
+  color: rgb(236, 100, 75);
 }
 
 .OddsButton:disabled {
-    /* background-color: var(--db-gray-6);
+  /* background-color: var(--db-gray-6);
     cursor: default;
     pointer-events: none; */
 
-    background: rgb(24, 35, 41);
-    cursor: not-allowed;
-    opacity: 0.3;
-    pointer-events: none;
+  background: rgb(24, 35, 41);
+  cursor: not-allowed;
+  opacity: 0.3;
+  pointer-events: none;
 }
 .OddsButton:disabled .OddsLabel {
-    color: var(--db-gray-5);
+  color: var(--db-gray-5);
 }
 
 .OddsButton.Selected {
-    background: var(--db-gray-12);
-    border-color: var(--db-gray-13);
+  background: var(--db-gray-12);
+  border-color: var(--db-gray-13);
 }
 
 .OddsButton.Selected:disabled {
-    background: rgb(24, 35, 41);
-    border-color: var(--db-gray-13) !important;
+  background: rgb(24, 35, 41);
+  border-color: var(--db-gray-13) !important;
 }
 
 /* CardButton */
 .CardButton {
-    background-color: rgb(44, 61, 75);
-    /* background-color: rgb(63, 93, 120); */
-    padding: 10px 5px;
-    flex: 1;
-    text-align: center;
+  background-color: rgb(3 19 30 / 52%);
+  padding: 10px 5px;
+  flex: 1;
+  text-align: center;
 }
 
 .CardButton .OddsLabel {
-    color: rgb(165, 195, 222);
-    margin-right: 6px;
+  color: rgb(165, 195, 222);
+  margin-right: 6px;
 
-    overflow: hidden;
-    text-wrap: nowrap;
-    text-overflow: ellipsis;
-    max-width: 50%;
-    /* display: inline-block; */
-    /* vertical-align: middle; */
+  overflow: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+  max-width: 50%;
+  /* display: inline-block; */
+  /* vertical-align: middle; */
 }
 .CardButton.Selected {
-    background: var(--db-gray-12);
-    border-color: var(--db-gray-13);
+  background: var(--db-gray-12);
+  border-color: var(--db-gray-13);
 }
 
 .CardButton:hover {
-    background-color: rgb(41, 63, 82);
+  background-color: rgb(41, 63, 82);
 }
 
 .CardButton:disabled {
-    background-color: rgb(66 81 95 / 19%);
-    cursor: default;
+  background-color: rgb(66 81 95 / 19%);
+  cursor: default;
 }
 
 .TempDisabled.OddsButton,
 .TempDisabled.CardButton {
-    opacity: 0.6 !important;
-    pointer-events: none !important;
+  opacity: 0.6 !important;
+  pointer-events: none !important;
 }
 
 /* Media */
 @media (max-width: 900px) {
-    .OddsButton {
-        font-size: 12px;
-        flex-direction: column;
-        gap: 2px;
-        align-items: flex-start;
-        -webkit-box-pack: justify;
-        justify-content: space-between;
-        min-height: 58px;
-    }
-    .OddsDelta {
-        font-size: 12px;
-        flex: 0 0 20px;
-        flex-direction: row-reverse;
-    }
+  .OddsButton {
+    font-size: 12px;
+    flex-direction: column;
+    gap: 2px;
+    align-items: flex-start;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-height: 58px;
+  }
+  .OddsDelta {
+    font-size: 12px;
+    flex: 0 0 20px;
+    flex-direction: row-reverse;
+  }
 }
