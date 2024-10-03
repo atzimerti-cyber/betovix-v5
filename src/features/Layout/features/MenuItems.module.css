@@ -25,3 +25,7 @@
   height: 1rem;
   width: 1rem;
 }
+
+a {
+  border-radius: 10px;
+}

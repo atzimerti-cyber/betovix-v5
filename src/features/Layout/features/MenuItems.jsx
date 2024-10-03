@@ -98,6 +98,7 @@ const MenuItems = (props) => {
             dispatch(loginActions.logout());
             props.onClick();
           }}
+          style={{ background: "var(--db-duelbits-gray)" }}
         >
           <LogoutIcon />
           <span>{translate("Log Out")}</span>

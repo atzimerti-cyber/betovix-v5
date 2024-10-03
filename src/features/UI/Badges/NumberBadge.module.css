@@ -23,7 +23,7 @@
 
 .Floating.NumberBadge {
     position: absolute;
-    right: -0.5rem;
+    right: -0.3rem;
     top: -0.125rem;
     height: 1rem;
     width: fit-content;

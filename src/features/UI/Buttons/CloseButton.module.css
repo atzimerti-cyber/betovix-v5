@@ -20,9 +20,9 @@
     box-sizing: border-box;
 }
 
-.CloseButton:hover {
+/* .CloseButton:hover {
     background-color: var(--db-gray-4);
-}
+} */
 
 .TimeIcon {
     height: 1.5rem;

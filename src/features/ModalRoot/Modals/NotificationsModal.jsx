@@ -75,11 +75,17 @@ const NotificationsModal = () => {
           <div className={classes.MainContent}>
             {notifications && notifications.length > 0 ? (
               unreadOnly ? (
-                notifications
-                  .filter((notif) => !notif.viewed)
-                  .map((notif, index) => (
-                    <Notification key={index} notification={notif} />
-                  ))
+                notifications.filter((notif) => !notif.viewed).length > 0 ? (
+                  notifications
+                    .filter((notif) => !notif.viewed)
+                    .map((notif, index) => (
+                      <Notification key={index} notification={notif} />
+                    ))
+                ) : (
+                  <div className={classes.Empty}>
+                    <span>No Unread Notifications.</span>
+                  </div>
+                )
               ) : (
                 notifications.map((notif, index) => (
                   <Notification key={index} notification={notif} />
