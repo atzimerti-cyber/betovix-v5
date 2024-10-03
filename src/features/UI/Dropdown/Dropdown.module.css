@@ -1,4 +1,5 @@
 .Dropdown {
+    margin-top: 5px;
     right: 0;
     visibility: hidden;
     position: absolute;
@@ -35,11 +36,13 @@
     width: 1.5rem;
 }
 
-.Dropdown > ul {
+.DropdownItems{
+    padding: 0rem;
+}
+
+.DropdownItems > ul {
     width: 9rem;
-    border-radius: 0.25rem;
-    background-color: #1c2b38;
-    /* background-color: var(--db-gray-6); */
+    border-radius: 7px;
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 600;
@@ -47,4 +50,8 @@
     --tw-shadow: var(--db-dropdown-shadow);
     --tw-shadow-colored: var(--db-dropdown-shadow);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent), var(--tw-ring-shadow, 0 0 transparent), var(--tw-shadow);
+}
+
+.DropdownItems > ul > li > a > svg{
+    fill: #89aac7;
 }

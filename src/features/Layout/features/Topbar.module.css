@@ -398,11 +398,15 @@
 
 /* Dropdown */
 .DropdownMenu {
+  padding: 0.2rem 0.5rem 0.5rem 0.5rem;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   width: 12rem !important;
-  background-color: #1c2b38;
+  /* background-color: #1c2b38; */
+  /* background-color: #1b354f; */
+  background-color: #23486d;
+  border-radius: 20px;
 }
 
 .DropdownMenu > li {

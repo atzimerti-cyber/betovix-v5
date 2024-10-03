@@ -18,7 +18,8 @@
   transition-timing-function: cubic-bezier(0.72, 0.04, 0.34, 0.95);
   width: 30vw;
   height: 40vh;
-  background-color: #133f5c;
+  background-color: #23486d;
+  /* background-color: #133f5c; */
   border-radius: 10px;
   padding: 9px;
 }
@@ -31,7 +32,6 @@
     scaleX(1) scaleY(1);
 }
 
-/* Updated ArrowIcon */
 .ArrowIcon {
   position: absolute;
   top: 0px;
