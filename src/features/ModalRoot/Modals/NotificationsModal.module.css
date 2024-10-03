@@ -1,52 +1,37 @@
-.Dropdown {
-  right: -12px;
-  top: 50px;
-  visibility: hidden;
-  position: absolute;
-  z-index: 50;
-  opacity: 0;
-  transform-origin: right top;
-  /* --tw-scale-x: 0.5;
-  --tw-scale-y: 0.5; */
-  --tw-scale-x: 0;
-  --tw-scale-y: 0;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
-    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  transition-property: opacity, transform, visibility;
-  transition-duration: 0.3s, 0.5s, 0.6s;
-  transition-timing-function: cubic-bezier(0.72, 0.04, 0.34, 0.95);
-  width: 30vw;
-  height: 40vh;
-  background-color: #133f5c;
-  border-radius: 10px;
-  padding: 9px;
+.NotificationModal {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--db-duelbits-gray);
+
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
-.Dropdown.Visible {
-  visibility: visible;
-  opacity: 1;
-  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
-    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-    scaleX(1) scaleY(1);
+.CloseWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    grid-column: 3;
+}
+.CloseWrapper button {
+    position: absolute;
 }
 
-/* Updated ArrowIcon */
-.ArrowIcon {
-  position: absolute;
-  top: 0px;
-  right: 16px;
-  margin-top: -0.5rem;
-  height: 1.5rem;
-  width: 1.5rem;
-  transition: top 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+.ModalContent {
+  max-height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-top: 0.625rem;
 }
 
-.Dropdown.Visible .ArrowIcon {
-  top: -10px;
-}
+.ModalHeader {
+  /* display: grid;
+  height: var(--db-modal-header-height);
+  padding: 0.25rem 0.5rem 1.25rem;
+  grid-template-columns: auto 1fr auto; */
 
-.DropdownHeader {
+  min-height: var(--db-modal-header-height);
   max-height: 15%;
   width: 100%;
   display: flex;
@@ -54,11 +39,14 @@
   justify-content: space-between;
   align-content: center;
   flex-wrap: wrap;
+  margin-bottom: 0.625rem;
+  padding: 0 1rem;
 }
-.DropdownHeader h1 {
+.ModalHeader h1 {
   color: white;
   font-size: 1.07rem;
   font-weight: 700;
+  max-width: 30%;
 }
 
 .ToggleButton {
@@ -71,6 +59,7 @@
 .ToggleButton p {
   font-size: 0.8rem;
   color: #88b7cbf6;
+  text-wrap: wrap ;
 }
 
 .Switch {
@@ -84,7 +73,7 @@
 .Switch input {
   opacity: 0;
   width: 0;
-  height: 0;
+  height: 20px;
 }
 
 .SliderRound {
@@ -146,4 +135,16 @@ input:checked + .SliderRound:before {
 .Empty span {
   font-size: 1rem;
   color: #88b7cbf6;
+}
+
+
+@media (max-width: 359px) {
+    .ModalHeader h1{
+        font-size: 0.975rem;
+    }
+    .ToggleButton p {
+        font-size: 0.7rem;
+        color: #88b7cbf6;
+        text-wrap: wrap ;
+      }
 }

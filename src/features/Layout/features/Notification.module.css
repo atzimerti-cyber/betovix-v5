@@ -7,14 +7,23 @@
   height: fit-content;
 }
 .NotificationContainer.Unviewed {
-  background-color: rgba(146, 200, 230, 0.108); /* lighter color */
+  /* background-color: rgba(146, 200, 230, 0.108); */
+  background-color: #00d3ff21;
+  cursor: pointer;
+}
+.NotificationContainer:hover {
+  background-color: #00d3ff21;
+}
+.NotificationContainer.Unviewed:hover {
+  background-color: var(--db-white-hover);
 }
 
 .Icon {
-  width: 10%;
+  width: max-content;
+  margin: 0 1rem 0 0.5rem;
 }
 .Main {
-  width: 90%;
+  width: inherit;
 }
 .Header {
   display: flex;

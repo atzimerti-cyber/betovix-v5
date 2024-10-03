@@ -50,7 +50,7 @@ const Topbar = () => {
   );
   const showingLiveEvent = useSelector((state) => state.event.showingLiveEvent);
   const availableBonus = useSelector((state) => state.layout.availableBonus);
-  const newNotifications = 5;
+  const newNotifications = 5; ///////////////////////////////////////////////////////////////
   const newRewards = useSelector(
     (state) => state.gamification.availableRewards
   );

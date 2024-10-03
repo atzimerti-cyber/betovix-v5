@@ -111,3 +111,10 @@
   align-items: center;
   justify-content: space-around;
 }
+.EventMarkets > button {
+  margin: 5px;
+  color: aliceblue;
+  font-weight: 600;
+  border-radius: 5px;
+  background-color: rgba(24, 24, 25, 0.863);
+}
