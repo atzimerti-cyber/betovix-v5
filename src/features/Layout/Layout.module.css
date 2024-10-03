@@ -99,6 +99,7 @@
   -webkit-box-align: center;
   align-items: center;
   /* min-height: calc(-4em + 100vh); */
+  min-height: max-content;
 }
 
 .NotAuthorized.FullPage {

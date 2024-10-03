@@ -4,6 +4,7 @@
     flex: 1 1 0%;
     flex-direction: column;
     user-select: none;
+    padding-top: 0.5rem;
 }
 
 .TabsWrapper {
