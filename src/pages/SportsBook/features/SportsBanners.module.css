@@ -1,17 +1,9 @@
-.ImageContainer {
-  position: relative;
-  display: block;
-  width: 100%;
-  cursor: default;
-}
-
 .BannerBackground {
   position: relative;
-  aspect-ratio: 1168/217;
-  /* aspect-ratio: 1200 / 311; */
   width: 100%;
   overflow: hidden;
-  min-height: 300px;
+  height: 250px;
+  min-height: 250px;
 }
 
 .BannerBackground img {
@@ -19,6 +11,7 @@
   height: 100%;
   width: 100%;
   border-radius: 10px;
+  
 }
 
 .EventInfoWrapper {
@@ -34,7 +27,7 @@
 
 .EventInfo {
   width: 350px;
-  max-width: 100%;
+  max-width: 90%;
   height: 230px;
   max-height: 100%;
   opacity: 0.9;
@@ -86,7 +79,6 @@
   line-height: 180%;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
 }
 .HomeTeam,
 .AwayTeam {

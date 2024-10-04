@@ -12,6 +12,7 @@ import {
 import { myBetsActions } from "../myBetsSlice";
 import MyBet from "./MyBet";
 import { layoutActions } from "../../../features/Layout/layoutSlice";
+import logoAnimation from "../../../assets/images/small-logo-animation.gif";
 
 const MyBets = (props) => {
   const dispatch = useDispatch();
@@ -55,7 +56,7 @@ const MyBets = (props) => {
     const page = 1;
     let cashoutType = 3;
     if (props.isActive) cashoutType = 1;
-
+    dispatch(myBetsActions.setTicketsLoading(true));
     dispatch(getTicketCashouts(cashoutType, page, signal, props.isActive));
 
     return () => {
@@ -99,7 +100,9 @@ const MyBets = (props) => {
   }, [page]);
 
   return user ? (
-    ticketsLoading ? null : (
+    ticketsLoading ? (
+      <img src={logoAnimation} className={classes.MoreLoadingAnimation}></img>
+    ) : (
       <>
         {ticketsTable?.Total === 0 ? (
           <div className={classes.NoBetsError}>

@@ -1,47 +1,47 @@
 .ImageContainer {
-    position: relative;
-    display: block;
-    width: 100%;
-    cursor:default;
+  position: relative;
+  display: block;
+  width: 100%;
+  cursor: default;
 }
 
 .BannerBackground {
-    position: relative;
-    aspect-ratio: 1168/217;
-    /* aspect-ratio: 1200 / 311; */
-    width: 100%;
-    overflow: hidden;
-    min-height: 300px;
+  position: relative;
+  /* aspect-ratio: 1168/217; */
+  /* aspect-ratio: 1200 / 311; */
+  width: 100%;
+  overflow: hidden;
+  /* min-height: 300px; */
 }
 
 .BannerBackground img {
-    object-fit: cover;
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
-
+  object-fit: contain;
+  /* object-fit: cover; */
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
 }
 
 .EventInfoWrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .EventInfo {
-    width: 400px;
-    max-width: 100%;
-    height: 200px;
-    max-height: 100%;
-    opacity: 0.9;
+  width: 400px;
+  max-width: 100%;
+  height: 200px;
+  max-height: 100%;
+  opacity: 0.9;
 }
 
-.EventInfo>a {
-    opacity: 0.9;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+.EventInfo > a {
+  opacity: 0.9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }

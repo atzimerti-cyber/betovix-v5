@@ -40,6 +40,6 @@
         width: 100%;
         object-fit: cover !important;
         object-position: 78%;
-        min-height: 242px;
+        /* min-height: 242px; */
     }
 }

@@ -52,7 +52,7 @@ const Topbar = () => {
   );
   const showingLiveEvent = useSelector((state) => state.event.showingLiveEvent);
   const availableBonus = useSelector((state) => state.layout.availableBonus);
-  const newNotifications = 5; ///////////////////////////////////////////////////////////////
+  const newNotifications = 0; ///////////////////////////////////////////////////////////////
   const newRewards = useSelector(
     (state) => state.gamification.availableRewards
   );
@@ -222,7 +222,7 @@ const Topbar = () => {
                       className={classes.UserImage}
                       style={{
                         backgroundImage: `url(${
-                          user.Image ? user.Image : NoUserImg
+                          user.Avatar ? user.Avatar : NoUserImg
                         })`,
                       }}
                     ></div>
