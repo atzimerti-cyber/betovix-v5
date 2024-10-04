@@ -68,7 +68,7 @@ const Board = (props) => {
             </div>
 
             <div className={classes.StatsColumn}>
-                <div className={classes.StatSectionFade}></div>
+                {/* <div className={classes.StatSectionFade}></div> */}
                 {sportsStatusParams &&
                     sportsStatusParams[props.event?.Info.SportName.International] &&
                     sportsStatusParams[props.event?.Info.SportName.International].board === 'football' && <BoardStatsFootball event={props.event} />}

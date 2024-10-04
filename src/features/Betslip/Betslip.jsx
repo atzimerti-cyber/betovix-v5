@@ -26,12 +26,15 @@ import BetReceipt from "./features/BetReceipt";
 import CoinsIcon from "../../assets/svgs/coins.svg?react";
 import SaveIcon from "../../assets/svgs/save.svg?react";
 import Spinner from "../UI/Spinner/Spinner";
+import { useMediaQuery } from "react-responsive";
 
 const Betslip = memo(function (props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const timerIdRef = useRef(null);
+
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const slips = useSelector((state) => state.betslip.slips);
@@ -55,6 +58,10 @@ const Betslip = memo(function (props) {
   const triggerPlaceBet = useSelector((state) => state.betslip.triggerPlaceBet);
   const multiLocked = useSelector((state) => state.betslip.multiLocked);
   const systemLocked = useSelector((state) => state.betslip.systemLocked);
+  const showRightContainer = useSelector(
+    (state) => state.layout.showRightContainer
+  );
+  const showRight = useSelector((state) => state.layout.showRight);
 
   const [isBonus, setIsBonus] = useState(false);
 
@@ -146,6 +153,16 @@ const Betslip = memo(function (props) {
     else if (betType === "System" && slips.length < 2)
       dispatch(betslipActions.setAmounts({}));
   }, [slips?.length, slipUpdated]);
+
+  useEffect(() => {
+    if (!isMobile && slips.length == 0) {
+      dispatch(layoutActions.setShowRight("betslip"));
+      dispatch(layoutActions.setShowRightContainer(false));
+    } else if (isMobile && slips.length == 0) {
+      dispatch(layoutActions.setShowRight("betslip"));
+      dispatch(layoutActions.setShowRightContainer(false));
+    }
+  }, [slips.length, ticketUpdated]);
 
   const betButton = useMemo(() => {
     if (!user)

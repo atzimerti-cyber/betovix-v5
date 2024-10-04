@@ -1,4 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 import { motion } from "framer-motion";
 
 import classes from "./UserDrawer.module.css";
@@ -6,12 +7,14 @@ import CloseButton from "../../UI/Buttons/CloseButton";
 import MenuItems from "./MenuItems";
 import { layoutActions } from "../layoutSlice";
 import NoUserImg from "../../../assets/images/nouserimg.png";
+import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 import DropdownLang from "../../UI/Dropdown/DropdownLang";
 
 const UserDrawer = () => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.login.user);
+  const inCasinoGame = location.pathname.includes("/casino/game/");
 
   return (
     <motion.div
@@ -30,7 +33,10 @@ const UserDrawer = () => {
         ></div>
         <div className={classes.UserInfo}>
           <h2>{user?.Username}</h2>
-          <p>{user?.Email}</p>
+          <p style={{display:'flex', alignItems: 'center', gap: '0.2rem'}}>
+            <CoinsIcon />
+            {inCasinoGame ? 'In Play' : user?.Wallet?.Balance}
+          </p>
         </div>
 
         <CloseButton

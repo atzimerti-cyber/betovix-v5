@@ -39,15 +39,6 @@ const Slip = (props) => {
     }, []);
 
     useEffect(() => {
-        if (checkAmounts) {
-            if (Object.keys(amounts).length === 0) {
-                dispatch(layoutActions.setShowRight('betslip'));
-                dispatch(layoutActions.setShowRightContainer(false));
-            }
-        }
-    }, [checkAmounts]);
-
-    useEffect(() => {
         let timer;
 
         if (!props.slip?.Odd) return;

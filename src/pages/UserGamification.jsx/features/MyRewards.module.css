@@ -7,6 +7,8 @@
   background-color: initial;
   padding-top: 1.25rem;
   position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .OverviewTitle {

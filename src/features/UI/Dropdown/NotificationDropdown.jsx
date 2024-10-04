@@ -7,27 +7,7 @@ import Notification from "../../Layout/features/Notification";
 
 const NotificationDropdown = (props) => {
   const dropdownRef = useRef();
-  const notifications = [
-    {
-      title: "Notification",
-      message:
-        "eidopoihshheidopoihshhh hheidopoih shhhhhei dopoihshhhhheidopoihsh hhhheidopoihshhhhhhhh",
-      date: "Yesterday",
-      viewed: false,
-    },
-    {
-      title: "Notiion",
-      message: "eidopoihshhhhh",
-      date: "Yesterday",
-      viewed: true,
-    },
-    {
-      title: "Ncation",
-      message: "eidopoihshhhhh",
-      date: "Yesterday",
-      viewed: true,
-    },
-  ];
+  const notifications = [];
 
   const [unreadOnly, setUnreadOnly] = useState(false);
 

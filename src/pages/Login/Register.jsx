@@ -19,6 +19,9 @@ import AlternativeMethods from "./features/AlternativeMethods";
 import { translate } from "../../utils/translations";
 import { affiliateCampaigns } from "./loginAsyncActions";
 
+import Select from "react-select";
+import { getNames } from "country-list";
+
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,12 +41,18 @@ const Register = () => {
     }
   }, []);
 
+  const countryOptions = getNames().map((country) => ({
+    label: country,
+    value: country,
+  }));
+
   const [registerInfo, setRegisterInfo] = useState({
     displayName: null,
     email: null,
     password: null,
     verifyPassword: null,
     code: null,
+    country: null,
     // bonus: true,
   });
   const debDisplayName = useDebounce(registerInfo.displayName);
@@ -143,6 +152,7 @@ const Register = () => {
       registerInfo.email &&
       registerInfo.password &&
       registerInfo.verifyPassword &&
+      registerInfo.country &&
       validChecks.displayName &&
       validChecks.email &&
       validChecks.password.valid &&
@@ -151,6 +161,7 @@ const Register = () => {
       setIsRegisterDisabled(false);
     else setIsRegisterDisabled(true);
   }, [
+    registerInfo.country,
     validChecks.displayName,
     validChecks.email,
     validChecks.password.valid,
@@ -373,6 +384,20 @@ const Register = () => {
             {translate("Passwords do not match")}
           </Autoheight>
         </div>
+      </div>
+
+      {/* Country dropdown */}
+      <label htmlFor="country">
+        {translate("Country")}
+        <span className={classes.Required}>∗</span>
+      </label>
+      <div className={classes.InputOuter}>
+        <Select
+        className={classes.Select}
+          options={countryOptions}
+          onChange={(option) => updateRegisterInfo("country", option.value)} // Handle country selection
+          placeholder={translate("Select your country")}
+        />
       </div>
 
       <label htmlFor="code">
