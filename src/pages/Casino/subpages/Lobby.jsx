@@ -34,7 +34,7 @@ const Lobby = () => {
     isDesktop,
     isBigDesktop,
   } = useSlidesResponsive("casino");
-  //let specials = ['recent', 'favs', 'new']
+  let specials = ["recent", "favs"];
 
   useEffect(() => {
     const controller = new AbortController();
@@ -93,14 +93,41 @@ const Lobby = () => {
   }, [tags]);
 
   // Function to load more items
+  // const loadMoreItems = () => {
+  //   if (tags) {
+  //     if (!user){
+
+  //     }
+  //     let slidesCount = parseInt(window.innerHeight / 215);
+  //     if (slidesCount < 1) {
+  //       slidesCount = 1;
+  //     }
+  //     setFilteredTags((filteredTags) => {
+  //       let nextTags = tags.slice(
+  //         filteredTags.length,
+  //         filteredTags.length + slidesCount
+  //       );
+  //       let newTags = [...filteredTags, ...nextTags];
+  //       return newTags;
+  //     });
+  //   }
+  // };
   const loadMoreItems = () => {
     if (tags) {
+      let availableTags = tags;
+
+      // If there's no user, filter out the special tags
+      if (!user) {
+        availableTags = tags.filter((tag) => !specials.includes(tag.Tags));
+      }
+
       let slidesCount = parseInt(window.innerHeight / 215);
       if (slidesCount < 1) {
         slidesCount = 1;
       }
+
       setFilteredTags((filteredTags) => {
-        let nextTags = tags.slice(
+        let nextTags = availableTags.slice(
           filteredTags.length,
           filteredTags.length + slidesCount
         );

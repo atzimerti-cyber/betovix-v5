@@ -11,6 +11,7 @@ import Providers from "./subpages/Providers";
 import FavoriteGames from "./subpages/FavoriteGames";
 import GamesByTag from "./subpages/GamesByTag";
 import { casinoActions } from "./casinoSlice";
+import { useSelector } from "react-redux";
 
 const Casino = () => {
   const dispatch = useDispatch();
