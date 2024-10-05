@@ -28,7 +28,7 @@ const UserDrawer = () => {
         <div
           className={classes.UserImage}
           style={{
-            backgroundImage: `url(${user.Image ? user.Image : NoUserImg})`,
+            backgroundImage: `url(${NoUserImg})`,
           }}
         ></div>
         <div className={classes.UserInfo}>

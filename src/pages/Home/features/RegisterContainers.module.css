@@ -92,11 +92,21 @@
     .LoginWithWrapper {
         width: 330px;
     }
+    .SignupTextContainer {
+        top: 10%;
+        font-size: 0.9rem;
+        line-height: 1.3rem;
+    }
 }
 
 @container (max-width: 578px) {
     .StepContainer {
         padding-top: 76px;
+    }
+    .SignupTextContainer {
+        top: 10%;
+        font-size: 0.9rem;
+        line-height: 1.3rem;
     }
 }
 
@@ -109,10 +119,6 @@
         top: 10%;
         font-size: 1rem;
         line-height: 1.5rem;
-    }
-
-    .SignUpTextV2 {
-        font-size: 30px;
     }
 
     .RegisterButton {
