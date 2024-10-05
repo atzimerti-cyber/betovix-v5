@@ -4,6 +4,7 @@ import classes from "./HeroTimeline.module.css";
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 
 const HeroTimeline = (props) => {
+  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const currentLevel = useSelector((state) => state.gamification.currentLevel);
 
   const [visibleMilestoneIndex, setVisibleMilestoneIndex] = useState(0);
@@ -96,7 +97,6 @@ const HeroTimeline = (props) => {
                             overflow: "hidden",
                             textOverflow: "ellipsis",
                             lineHeight: "1.5em",
-
                           }}
                         >
                           {milestone.reward[0].description &&

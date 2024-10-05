@@ -17,6 +17,8 @@ const SportsBook = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const params = useParams();
+    
+    const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
     const sportBanners = useSelector((state) => state.sportsbook.sportBanners);
 

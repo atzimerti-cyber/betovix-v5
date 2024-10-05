@@ -13,6 +13,7 @@ import useSlidesResponsive from '../../../hooks/useSlidesResponsive';
 
 const LiveEvents = () => {
     const liveState = useSelector((state) => state.live.liveState);
+    const lang = useSelector((state) => state.app.lang);
 
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive("match");
 
