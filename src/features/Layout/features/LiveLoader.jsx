@@ -9,6 +9,7 @@ import { getUpdatedMarkets, getUpdatedHeaders, getEventsToAdd, getEventToAddFrom
 import { betslipActions } from '../../Betslip/betslipSlice';
 import axiosApi from '../../../axios-api';
 import config from '../../../config';
+
 const LiveLoader = () => {
     const dispatch = useDispatch();
 

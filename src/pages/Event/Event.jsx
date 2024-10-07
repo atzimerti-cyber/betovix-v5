@@ -125,6 +125,7 @@ const Event = () => {
     useEffect(() => {
         if (!isLive) return;
         if (!liveConnection) return;
+        if (liveConnection._connectionState !== 'Connected') return;
         if (!eventid) return;
 
         //Subscribe
@@ -159,7 +160,7 @@ const Event = () => {
             liveConnection.off('onOddsUpdate');
             liveConnection.off('onHeadersList');
         };
-    }, [isLive, liveConnection, eventid]);
+    }, [isLive, liveConnection?._connectionState, eventid]);
 
     // Create the market groups, based on event markets
     useEffect(() => {
@@ -308,7 +309,6 @@ const Event = () => {
                                                     {translate('Statistics')}
                                                 </div>
                                             </div>
-
                                         </div>
 
                                         <div
