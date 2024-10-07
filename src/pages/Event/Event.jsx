@@ -146,7 +146,7 @@ const Event = () => {
         liveConnection.on('onHeadersList', (message) => {
             const decompressedString = lzString.decompressFromUTF16(message);
             const updateObj = JSON.parse(decompressedString);
-            const found = updateObj.find((e) => e.MatchId == eventid);
+            const found = updateObj.find((e) => e.MatchId == eventRef.current.MatchId);
             if (found) {
                 dispatch(eventActions.updateLiveEventHeader(found));
             }
@@ -156,10 +156,10 @@ const Event = () => {
         //     const updateObj = JSON.parse(decompressedString);
         // });
 
-        return () => {
-            liveConnection.off('onOddsUpdate');
-            liveConnection.off('onHeadersList');
-        };
+        // return () => {
+        //     liveConnection.off('onOddsUpdate');
+        //     liveConnection.off('onHeadersList');
+        // };
     }, [isLive, liveConnection?._connectionState, eventid]);
 
     // Create the market groups, based on event markets
