@@ -188,7 +188,7 @@ const BoardStatsTennis = (props) => {
                 </div>
             )}
 
-            {props.event.Header.Status > -1 && (
+            {/* {props.event.Header.Status > -1 && (
                 <div className={classes.StatSection}>
                     <div className={classes.Header}>{translate('Current Game')}</div>
                     <div className={classes.Content}>
@@ -200,7 +200,7 @@ const BoardStatsTennis = (props) => {
                         </div>
                     </div>
                 </div>
-            )}
+            )} */}
         </>
     );
 };

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
+import { useDispatch, useSelector } from 'react-redux';
 import classes from './SportsMyBets.module.css';
 import SportsBookMenu from '../SportsBook/features/SportsBookMenu';
 import DbTabs from '../../features/UI/Tabs/DbTabs';

@@ -154,16 +154,6 @@ const Betslip = memo(function (props) {
       dispatch(betslipActions.setAmounts({}));
   }, [slips?.length, slipUpdated]);
 
-  useEffect(() => {
-    if (!isMobile && slips.length == 0) {
-      dispatch(layoutActions.setShowRight("betslip"));
-      dispatch(layoutActions.setShowRightContainer(false));
-    } else if (isMobile && slips.length == 0) {
-      dispatch(layoutActions.setShowRight("betslip"));
-      dispatch(layoutActions.setShowRightContainer(false));
-    }
-  }, [slips.length, ticketUpdated]);
-
   const betButton = useMemo(() => {
     if (!user)
       return (

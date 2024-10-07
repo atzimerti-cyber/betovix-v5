@@ -4,6 +4,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
 import { translate } from "../../../utils/translations";
 
+
 import classes from "./MyRewards.module.css";
 
 import RewardsSwiper from "../../../features/UI/MainSwiper/RewardsSwiper";
