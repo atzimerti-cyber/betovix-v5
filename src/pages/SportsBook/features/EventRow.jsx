@@ -17,6 +17,8 @@ const EventRow = (props) => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
     const getMarket = () => {
+        if (!props.event.Markets) return null;
+
         const filteredMarkets = props.event.Markets.filter((m) => m.MarketName?.International);
         const sortedMarkets = filteredMarkets.sort((a, b) => a.MarketTypeId - b.MarketTypeId);
         return sortedMarkets[0];

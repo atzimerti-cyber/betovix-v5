@@ -125,6 +125,7 @@ const Event = () => {
     useEffect(() => {
         if (!isLive) return;
         if (!liveConnection) return;
+        if (liveConnection._connectionState !== 'Connected') return;
         if (!eventid) return;
 
         //Subscribe
@@ -145,7 +146,7 @@ const Event = () => {
         liveConnection.on('onHeadersList', (message) => {
             const decompressedString = lzString.decompressFromUTF16(message);
             const updateObj = JSON.parse(decompressedString);
-            const found = updateObj.find((e) => e.MatchId == eventid);
+            const found = updateObj.find((e) => e.MatchId == eventRef.current.MatchId);
             if (found) {
                 dispatch(eventActions.updateLiveEventHeader(found));
             }
@@ -155,11 +156,11 @@ const Event = () => {
         //     const updateObj = JSON.parse(decompressedString);
         // });
 
-        return () => {
-            liveConnection.off('onOddsUpdate');
-            liveConnection.off('onHeadersList');
-        };
-    }, [isLive, liveConnection, eventid]);
+        // return () => {
+        //     liveConnection.off('onOddsUpdate');
+        //     liveConnection.off('onHeadersList');
+        // };
+    }, [isLive, liveConnection?._connectionState, eventid]);
 
     // Create the market groups, based on event markets
     useEffect(() => {
@@ -308,7 +309,6 @@ const Event = () => {
                                                     {translate('Statistics')}
                                                 </div>
                                             </div>
-
                                         </div>
 
                                         <div

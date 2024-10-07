@@ -9,6 +9,7 @@ import { getUpdatedMarkets, getUpdatedHeaders, getEventsToAdd, getEventToAddFrom
 import { betslipActions } from '../../Betslip/betslipSlice';
 import axiosApi from '../../../axios-api';
 import config from '../../../config';
+
 const LiveLoader = () => {
     const dispatch = useDispatch();
 
@@ -56,6 +57,7 @@ const LiveLoader = () => {
             if (resp?.data == '') return;
 
             connectToWs(resp?.data);
+            //connectToWs('https://livenode.pick500.net:60010/');
         } catch (error) {
             toast.error(error?.message);
         }
@@ -75,8 +77,8 @@ const LiveLoader = () => {
             if (updateObj.length) {
                 updateObj.forEach((updateItem) => {
                     const foundEvent = liveStateRef.current[updateItem.Id];
-                    const updatedMarkets = getUpdatedMarkets(updateItem, foundEvent.Markets);
                     if (foundEvent) {
+                        const updatedMarkets = getUpdatedMarkets(updateItem, foundEvent.Markets);
                         dispatch(liveActions.updateEventMarkets({ matchId: updateItem.Id, markets: updatedMarkets }));
                         dispatch(betslipActions.updateLiveSlipOdds({ matchId: updateItem.Id, markets: updatedMarkets }));
                     } else {

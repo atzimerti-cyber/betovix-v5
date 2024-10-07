@@ -7,7 +7,6 @@ import { sportsbookActions } from '../sportsbookSlice';
 import EventRow from './EventRow';
 import EventRowLive from './EventRowLive';
 import EventRowLiveList from './EventRowLiveList';
-import { appActions } from '../../../features/InitApp/appSlice';
 
 const Tournament = (props) => {
     const dispatch = useDispatch();
@@ -22,7 +21,6 @@ const Tournament = (props) => {
     const [sortedEvents, setSortedEvents] = useState([]);
     const [events, setEvents] = useState([]);
     const [liveEventsIds, setLiveEventsIds] = useState(null);
-
 
     useEffect(() => {
         let getEventsInterval;
