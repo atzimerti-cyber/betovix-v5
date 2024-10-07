@@ -10,7 +10,7 @@ export const casinoFavoritesSlice = createSlice({
     initialState,
     reducers: {
         reset: (state) => {
-            state.casinoFavs = null;
+            // state.casinoFavs = null;
         },
 
         setCasinoFavs: (state, action) => {

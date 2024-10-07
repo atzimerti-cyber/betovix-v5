@@ -29,11 +29,19 @@
   align-items: center;
   flex-direction: row;
   background-color: var(--db-gray-4);
+  width: 100%;
+}
+
+.CenterRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: var(--db-gray-4);
   padding: 0.3rem 0.9rem;
   height: 45%;
   width: 100%;
 }
-
 .Stats {
   color: rgb(29, 44, 50);
   display: flex;
@@ -56,31 +64,31 @@
 }
 
 .EventTime {
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum';
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    font-size: 12px;
-    height: auto;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  font-size: 12px;
+  height: auto;
 }
 
 .LiveBadge {
-    animation: 6s ease 0s infinite normal none running jQMcyq;
-    background: var(--db-purple-text);
-    border-radius: 2px;
-    color: rgb(255, 255, 255);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    margin-inline-end: 0.5rem;
-    padding: 0px 0.33rem;
-    text-shadow: rgba(41, 39, 33, 0.19) 0px 1px 2px;
-    white-space: nowrap;
+  animation: 6s ease 0s infinite normal none running jQMcyq;
+  background: var(--db-purple-text);
+  border-radius: 2px;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin-inline-end: 0.5rem;
+  padding: 0px 0.33rem;
+  text-shadow: rgba(41, 39, 33, 0.19) 0px 1px 2px;
+  white-space: nowrap;
 }
 
 .Time {
-    color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
 }
 
 .ContentRow {
@@ -93,7 +101,7 @@
   padding-inline-start: 0px;
 }
 .ContentRow:last-child {
-    border-bottom: none;
+  border-bottom: none;
 }
 
 .TeamText {
@@ -109,47 +117,51 @@
   padding: 5px;
 }
 
-.LogoWrapper {
-    margin-inline-end: 8px;
-}
 .LogoWrapper img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .Name {
-  display: -webkit-box; 
-  -webkit-box-orient: vertical; 
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
   line-clamp: 2;
-  overflow: hidden; 
+  overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.5em; 
+  line-height: 1.5em;
   max-height: 3em;
   text-align: center;
 }
 
 .ScoreGroup {
-    color: rgb(51, 193, 108);
-    display: flex;
+  color: rgb(51, 193, 108);
+  display: flex;
 }
 
 .StatSectionFade {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    bottom: 0px;
-    width: 16px;
-    z-index: 20;
-    /* flex: 0 1 0%; */
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  width: 16px;
+  z-index: 20;
 }
 
 .ServerBox {
-  /* position: absolute; */
-  left: 8px;
-  top: 0px;
+  height: 8px;
+  width: 95%;
+  position: relative;
+}
+
+.ServerIndicator {
+  background: var(--db-brand-green);
+  border-radius: 0%;
+  transition: transform 0.4s cubic-bezier(0.5, -0.5, 0.5, 1.5);
+  width: 35%;
+  height: 1px;
 }
 
 .HomeScore,
@@ -159,17 +171,6 @@
   font-weight: 600;
   font-size: 1rem;
 }
-
-.ServerIndicator {
-    background: rgb(62, 235, 131);
-    border-radius: 50%;
-    margin: 21px 0px;
-    transition: transform 0.4s cubic-bezier(0.5, -0.5, 0.5, 1.5) 0s;
-    width: 6px;
-    height: 6px;
-    transform: translateY(48px);
-}
-
 @keyframes jQMcyq {
   0%,
   100% {

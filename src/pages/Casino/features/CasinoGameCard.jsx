@@ -66,7 +66,7 @@ const CasinoGameCard = (props) => {
             <div className={classes.BackgroundContainer}>
                 <div>
                     <p className={classes.BgGameName}>{props.game.Data.Name}</p>
-                    <p className={classes.BgVendor}>{props.game.Data.BrandName}</p>
+                    {/* <p className={classes.BgVendor}>{props.game.Data.BrandName}</p> */}
                     <p className={classes.BgVendor}>{props.game.Data.VendorName}</p>
                 </div>
                 <HeartIcon

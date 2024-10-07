@@ -88,6 +88,7 @@ const BoardStatsTennis = (props) => {
                     >
                         <FlashingScore score={scores.current.home.q1} previousScore={scores.previous.home.q1} withEmptyDash />
                     </div>
+                    <p>-</p>
                     <div
                         className={
                             scores.current.away.q1 > scores.current.home.q1 && scores.current.home.q2 !== null
@@ -112,6 +113,7 @@ const BoardStatsTennis = (props) => {
                     >
                         <FlashingScore score={scores.current.home.q2} previousScore={scores.previous.home.q2} withEmptyDash />
                     </div>
+                    <p>-</p>
                     <div
                         className={
                             scores.current.away.q2 > scores.current.home.q2 && scores.current.home.q3 !== null
@@ -136,6 +138,7 @@ const BoardStatsTennis = (props) => {
                     >
                         <FlashingScore score={scores.current.home.q3} previousScore={scores.previous.home.q3} withEmptyDash />
                     </div>
+                    <p>-</p>
                     <div
                         className={
                             scores.current.away.q3 > scores.current.home.q3 && scores.current.home.q4 !== null

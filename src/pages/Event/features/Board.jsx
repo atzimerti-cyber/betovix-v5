@@ -83,134 +83,155 @@ const Board = (props) => {
         </div>
       </div>
 
-      <div className={classes.Teams}>
+      <div className={classes.CenterRow}>
+        <div className={classes.Teams}>
+          {/* <div className={classes.ContentRow}> */}
+          <div className={classes.TeamText}>
+            <div className={classes.LogoWrapper}>
+              <TeamLogo
+                teamId={props.event?.Info.HomeTeamId}
+                isHome={true}
+                sportName={props.event?.Info.SportName.International}
+              />
+            </div>
+            <div className={classes.Name}>
+              {translateNameWithLang(props.event?.Info.HomeTeamName)}
+            </div>
+            <div className={classes.ScoreGroup}></div>
+          </div>
+          {sportsStatusParams &&
+            sportsStatusParams[props.event?.Info.SportName.International] &&
+            sportsStatusParams[props.event?.Info.SportName.International]
+              .board === "football" && (
+              <div className={classes.ContentRow} style={{ padding: "3px" }}>
+                <div className={classes.HomeScore}>
+                  <FlashingScore
+                    score={getScore(props.event?.Header, "home")}
+                    previousScore={getScore(
+                      props.event?.PreviousHeader,
+                      "home"
+                    )}
+                  />
+                </div>
+                <p className={classes.Dash}>-</p>
+                <div className={classes.AwayScore}>
+                  <FlashingScore
+                    score={getScore(props.event?.Header, "away")}
+                    previousScore={getScore(
+                      props.event?.PreviousHeader,
+                      "away"
+                    )}
+                  />
+                </div>
+              </div>
+            )}
+          {sportsStatusParams &&
+            sportsStatusParams[props.event?.Info.SportName.International] &&
+            sportsStatusParams[props.event?.Info.SportName.International]
+              .board === "basketball" && (
+              <div className={classes.ContentRow}>
+                <div className={classes.HomeScore}>
+                  <FlashingScore
+                    score={getScore(props.event?.Header, "home")}
+                    previousScore={getScore(
+                      props.event?.PreviousHeader,
+                      "home"
+                    )}
+                  />
+                </div>
+                <p className={classes.Dash}>-</p>
+                <div className={classes.AwayScore}>
+                  <FlashingScore
+                    score={getScore(props.event?.Header, "away")}
+                    previousScore={getScore(
+                      props.event?.PreviousHeader,
+                      "away"
+                    )}
+                  />
+                </div>
+              </div>
+            )}
+          {sportsStatusParams &&
+            sportsStatusParams[props.event?.Info.SportName.International] &&
+            sportsStatusParams[props.event?.Info.SportName.International]
+              .board === "tennis" && (
+              <div className={classes.ContentRow}>
+                <div className={classes.HomeScore}>
+                  <FlashingScore
+                    score={getScore(props.event?.Header, "home")}
+                    previousScore={getScore(
+                      props.event?.PreviousHeader,
+                      "home"
+                    )}
+                  />
+                </div>
+                <p className={classes.Dash}>-</p>
+                <div className={classes.AwayScore}>
+                  <FlashingScore
+                    score={getScore(props.event?.Header, "away")}
+                    previousScore={getScore(
+                      props.event?.PreviousHeader,
+                      "away"
+                    )}
+                  />
+                </div>
+              </div>
+            )}
+          {(sportsStatusParams[props.event?.Info.SportName.International] ===
+            undefined ||
+            sportsStatusParams[props.event?.Info.SportName.International]
+              .board === undefined) && (
+            <div className={classes.ContentRow}>
+              <div className={classes.HomeScore}>
+                <FlashingScore
+                  score={calculateScores(props.event?.Header, "homeTotal")}
+                  previousScore={calculateScores(
+                    props.event?.PreviousHeader,
+                    "home"
+                  )}
+                  withEmptyDash
+                />
+              </div>
+              <p className={classes.Dash}>-</p>
+              <div className={classes.AwayScore}>
+                <FlashingScore
+                  score={calculateScores(props.event?.Header, "awayTotal")}
+                  previousScore={calculateScores(
+                    props.event?.PreviousHeader,
+                    "away"
+                  )}
+                  withEmptyDash
+                />
+              </div>
+            </div>
+          )}
+
+          {props.event?.Info?.AwayTeamName && (
+            <div className={classes.TeamText}>
+              <div className={classes.LogoWrapper}>
+                <TeamLogo
+                  teamId={props.event?.Info.AwayTeamId}
+                  sportName={props.event?.Info.SportName.International}
+                />
+              </div>
+              <div className={classes.Name}>
+                {translateNameWithLang(props.event?.Info.AwayTeamName)}
+              </div>
+              <div className={classes.ScoreGroup}></div>
+            </div>
+          )}
+        </div>
         {props.event?.Header?.Server && (
           <div className={classes.ServerBox}>
             <div
               className={classes.ServerIndicator}
               style={
-                props.event?.Header.Server === 1 ? { transform: "none" } : null
+                props.event?.Header?.Server === 1
+                  ? { transform: "translateX(10%)" }
+                  : { transform: "translateX(180%)" }
               }
             ></div>
           </div>
-        )}
-        {/* <div className={classes.ContentRow}> */}
-        <div className={classes.TeamText}>
-          <div className={classes.LogoWrapper}>
-            <TeamLogo
-              teamId={props.event?.Info.HomeTeamId}
-              isHome={true}
-              sportName={props.event?.Info.SportName.International}
-            />
-          </div>
-          <div className={classes.Name}>
-            {translateNameWithLang(props.event?.Info.HomeTeamName)}
-          </div>
-          <div className={classes.ScoreGroup}></div>
-        </div>
-        {sportsStatusParams &&
-          sportsStatusParams[props.event?.Info.SportName.International] &&
-          sportsStatusParams[props.event?.Info.SportName.International]
-            .board === "football" && (
-            <div className={classes.ContentRow} style={{ padding: "3px" }}>
-              <div className={classes.HomeScore}>
-                <FlashingScore
-                  score={getScore(props.event?.Header, "home")}
-                  previousScore={getScore(props.event?.PreviousHeader, "home")}
-                />
-              </div>
-              <p className={classes.Dash}>-</p>
-              <div className={classes.AwayScore}>
-                <FlashingScore
-                  score={getScore(props.event?.Header, "away")}
-                  previousScore={getScore(props.event?.PreviousHeader, "away")}
-                />
-              </div>
-            </div>
-          )}
-        {sportsStatusParams &&
-          sportsStatusParams[props.event?.Info.SportName.International] &&
-          sportsStatusParams[props.event?.Info.SportName.International]
-            .board === "basketball" && (
-            <div className={classes.ContentRow}>
-              <div className={classes.HomeScore}>
-                <FlashingScore
-                  score={getScore(props.event?.Header, "home")}
-                  previousScore={getScore(props.event?.PreviousHeader, "home")}
-                />
-              </div>
-              <p className={classes.Dash}>-</p>
-              <div className={classes.AwayScore}>
-                <FlashingScore
-                  score={getScore(props.event?.Header, "away")}
-                  previousScore={getScore(props.event?.PreviousHeader, "away")}
-                />
-              </div>
-            </div>
-          )}
-        {sportsStatusParams &&
-          sportsStatusParams[props.event?.Info.SportName.International] &&
-          sportsStatusParams[props.event?.Info.SportName.International]
-            .board === "tennis" && (
-            <div className={classes.ContentRow}>
-              <div className={classes.HomeScore}>
-                <FlashingScore
-                  score={getScore(props.event?.Header, "home")}
-                  previousScore={getScore(props.event?.PreviousHeader, "home")}
-                />
-              </div>
-              <p className={classes.Dash}>-</p>
-              <div className={classes.AwayScore}>
-                <FlashingScore
-                  score={getScore(props.event?.Header, "away")}
-                  previousScore={getScore(props.event?.PreviousHeader, "away")}
-                />
-              </div>
-            </div>
-          )}
-        {(sportsStatusParams[props.event?.Info.SportName.International] ===
-          undefined ||
-          sportsStatusParams[props.event?.Info.SportName.International]
-            .board === undefined) && (
-          <div className={classes.ContentRow}>
-            <div className={classes.HomeScore}>
-              <FlashingScore
-                score={calculateScores(props.event?.Header, "homeTotal")}
-                previousScore={calculateScores(
-                  props.event?.PreviousHeader,
-                  "home"
-                )}
-                withEmptyDash
-              />
-            </div>
-            <p className={classes.Dash}>-</p>
-            <div className={classes.AwayScore}>
-              <FlashingScore
-                score={calculateScores(props.event?.Header, "awayTotal")}
-                previousScore={calculateScores(
-                  props.event?.PreviousHeader,
-                  "away"
-                )}
-                withEmptyDash
-              />
-            </div>
-          </div>
-        )}
-
-        {props.event?.Info?.AwayTeamName && (
-          <div className={classes.TeamText}>
-            <div className={classes.LogoWrapper}>
-              <TeamLogo
-                teamId={props.event?.Info.AwayTeamId}
-                sportName={props.event?.Info.SportName.International}
-              />
-            </div>
-            <div className={classes.Name}>
-              {translateNameWithLang(props.event?.Info.AwayTeamName)}
-            </div>
-            <div className={classes.ScoreGroup}></div>
-          </div>
-          //   </div>
         )}
       </div>
 

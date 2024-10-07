@@ -30,13 +30,22 @@ const BoardStatsDefault = (props) => {
 
     if (!header) return thisScores;
 
-    // This game
+    // Total game score
     let totalScore = header.Score;
-    totalScore = totalScore.split("(")[0]; // Found this in rugby union...
+    totalScore = totalScore.split("(")[0]; // In case of rugby union...
     if (totalScore) {
       const totalScoreArr = totalScore.split(":");
       thisScores.home.total = totalScoreArr[0];
       thisScores.away.total = totalScoreArr[1];
+    }
+
+    // Set scores (assuming header.SetScores is an array like ["1:1", "0:0"])
+    if (header.SetScores) {
+      header.SetScores.forEach((setScore, index) => {
+        const setScoreArr = setScore.split(":");
+        thisScores.home[`set${index + 1}`] = setScoreArr[0];
+        thisScores.away[`set${index + 1}`] = setScoreArr[1];
+      });
     }
 
     return thisScores;
@@ -45,21 +54,22 @@ const BoardStatsDefault = (props) => {
   return (
     <>
       {scores &&
-        scores.current.home &&
         Object.keys(scores.current.home).map((key, index) => {
           if (key === "total") return null;
 
-          const quarterHome = scores.current.home[key];
-          const quarterAway = scores.current.away[key];
-          const quarterText = getOrdinal(index + 1);
+          const setHome = scores.current.home[key];
+          const setAway = scores.current.away[key];
+          const setText = getOrdinal(index + 1);
 
           return (
             <div key={key} className={classes.StatSection}>
-              <div className={classes.Header}>{translate(quarterText)}</div>
+              <div className={classes.Header}>
+                {translate(`${setText}`)}
+              </div>
               <div className={classes.Content}>
                 <div className={classes.ContentRow}>
                   <FlashingScore
-                    score={quarterHome}
+                    score={setHome}
                     previousScore={scores.previous.home[key]}
                     withEmptyDash
                   />
@@ -67,7 +77,7 @@ const BoardStatsDefault = (props) => {
                 <p>-</p>
                 <div className={classes.ContentRow}>
                   <FlashingScore
-                    score={quarterAway}
+                    score={setAway}
                     previousScore={scores.previous.away[key]}
                     withEmptyDash
                   />

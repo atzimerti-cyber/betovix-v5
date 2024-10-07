@@ -145,10 +145,8 @@ const SwiperWithOverlay = (props) => {
                       <Link
                         to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
                       >
-                        {/* <Link to={`/casino/game/${gameType}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}`}> */}
                         <article className={classes.Card}>
                           <div className={classes.ImageContainer}>
-                            {/* {loadedImages.includes(index) === false && <LoaderPlaceholder />} */}
                             <div
                               style={{
                                 backgroundImage: `url(${item.Data.ImageUrl})`,
@@ -162,26 +160,6 @@ const SwiperWithOverlay = (props) => {
                           {item.isNew && (
                             <div className={classes.NewLabel}>NEW</div>
                           )}
-                          {/* <div className={classes.InfoOverlay}>
-                                                    <div className={classes.InfoContent}>
-                                                        <div>
-                                                            <p className={classes.InfoCategory}>{item.Data.BrandName}</p>
-                                                            <p className={classes.RtpLabel}>{item.Data.Name}</p>
-                                                        </div>
-                                                        <HeartIcon
-                                                            className={item.isFav ? classes.FavoriteIcon : null}
-                                                            onClick={(e) => {
-                                                                e.stopPropagation();
-                                                                e.preventDefault();
-                                                                if (user) {
-                                                                    onToggleFavorite(item);
-                                                                } else {
-                                                                    toast.warning('Login to access this feature');
-                                                                }
-                                                            }}
-                                                        />
-                                                    </div>
-                                                </div> */}
                         </article>
                       </Link>
                       {bonusBalance > 0 && (
