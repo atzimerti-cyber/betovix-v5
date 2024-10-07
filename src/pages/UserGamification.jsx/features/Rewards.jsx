@@ -6,6 +6,8 @@ import Bits from '../../../features/ModalRoot/features/Bits';
 import ManualRewards from './ManualRewards';
 
 const Rewards = (props) => {
+    
+    const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const displayedHeroLevels = useSelector((state) => state.gamification.displayedHero.levels);
     //console.log("rewards", props.activeLevel);
 

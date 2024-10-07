@@ -4,14 +4,14 @@
   width: 100%;
   cursor: default;
 }
+.BannerBackground.NoUser {
+  min-height: 200px;
+}
 
 .BannerBackground {
   position: relative;
-  /* aspect-ratio: 1168/217; */
-  /* aspect-ratio: 1200 / 311; */
   width: 100%;
   overflow: hidden;
-  /* min-height: 300px; */
 }
 
 .BannerBackground img {

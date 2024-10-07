@@ -18,7 +18,6 @@ import CategoryGroup from '../../UI/CategoryGroup/CategoryGroup';
 import useBasePath from '../../../hooks/useBasePath';
 import { searchActions } from '../../../pages/Search/searchSlice';
 import { translate } from '../../../utils/translations';
-import SearchSports from '../../../pages/Search/SearchSports';
 import StatsIcon from '../../../assets/svgs/bars.svg?react';
 import TicketIcon from '../../../assets/svgs/ticketReceipt.svg?react';
 import LoadIcon from '../../../assets/svgs/loadIcon.svg?react';

@@ -32,6 +32,8 @@ function ObjectHasValue(obj) {
 const Home = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    
+    const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
     const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive();
 

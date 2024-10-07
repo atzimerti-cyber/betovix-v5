@@ -11,6 +11,8 @@ const SportsMyBets = () => {
     const dispatch = useDispatch();
     const [showTab, setShowTab] = useState('activeBets');
 
+    const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+
     useEffect(() => {
         return () => dispatch(myBetsActions.reset());
     }, []);

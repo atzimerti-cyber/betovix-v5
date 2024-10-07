@@ -15,6 +15,7 @@ const ProgressMap = () => {
   const navigate = useNavigate();
   const params = useParams();
 
+  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const user = useSelector((state) => state.login.user);
   const selectedHero = useSelector((state) => state.gamification.selectedHero);
   const selectedHeroLevels = useSelector(

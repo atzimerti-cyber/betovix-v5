@@ -34,10 +34,6 @@ const RegisterContainers = () => {
                 <button className={classes.RegisterButton} onClick={() => addParamsToUrl('auth', 'register')}>
                     {translate('Register')}
                 </button>
-                {/* <div className={classes.LoginWithWrapper}>
-                    <div className={classes.LoginWith}>{translate('or login with')}</div>
-                    <AlternativeMethods />
-                </div> */}
             </div>
         </>
     );

@@ -25,6 +25,8 @@ const Search = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+
   const loading = useSelector((state) => state.search.loading);
   const casinoResults = useSelector((state) => state.search.casinoResults);
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });

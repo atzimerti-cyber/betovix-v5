@@ -44,7 +44,7 @@ const CashierModal = (props) => {
 
     return (
         <div className={classes.CashierModal}>
-            <ModalHeader icon={<WalletIcon />} title={translate('My Wallet')} />
+            <ModalHeader icon={<WalletIcon />} title={translate('Wallet')} />
 
             <div className={classes.TabContainer}>
                 <Tabs
