@@ -106,6 +106,8 @@ const EventRowLive = (props) => {
     };
 
     const getMarket = () => {
+        if (!event.Markets) return null;
+
         const filteredMarkets = event.Markets.filter((m) => m.MarketName?.International);
         const sortedMarkets = filteredMarkets.sort((a, b) => a.MarketTypeId - b.MarketTypeId);
         return sortedMarkets[0];
