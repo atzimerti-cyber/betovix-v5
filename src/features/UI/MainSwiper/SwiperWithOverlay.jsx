@@ -202,7 +202,7 @@ const SwiperWithOverlay = (props) => {
                       <div>
                         <p className={classes.BgGameName}>{item.Data.Name}</p>
                         <p className={classes.BgVendor}>
-                          {item.Data.BrandName}
+                          {item.Data.VendorName}
                         </p>
                       </div>
                       <HeartIcon

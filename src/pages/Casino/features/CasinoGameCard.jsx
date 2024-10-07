@@ -67,6 +67,7 @@ const CasinoGameCard = (props) => {
                 <div>
                     <p className={classes.BgGameName}>{props.game.Data.Name}</p>
                     <p className={classes.BgVendor}>{props.game.Data.BrandName}</p>
+                    <p className={classes.BgVendor}>{props.game.Data.VendorName}</p>
                 </div>
                 <HeartIcon
                     className={isFavorite ? classes.FavoriteIcon : null}
