@@ -56,8 +56,8 @@ const LiveLoader = () => {
 
             if (resp?.data == '') return;
 
-            connectToWs(resp?.data);
-            //connectToWs('https://livenode.pick500.net:60010/');
+            //connectToWs(resp?.data);
+            connectToWs('https://livenode.pick500.net:60010/');
         } catch (error) {
             toast.error(error?.message);
         }
