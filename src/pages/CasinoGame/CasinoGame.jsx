@@ -1,8 +1,8 @@
-import { useEffect, useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import { AnimatePresence } from 'framer-motion';
+import { useEffect, useState, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { AnimatePresence } from "framer-motion";
 
 import classes from "./CasinoGame.module.css";
 
@@ -51,7 +51,6 @@ const CasinoGame = (props) => {
     if (user) {
       dispatch(getCasinoFavs())
         .then(() => {
-          // Check if game is in favorites after fetching
           const isFav =
             Array.isArray(casinoFavs) &&
             casinoFavs.some((fav) => fav.Data.Id == id);
@@ -70,62 +69,84 @@ const CasinoGame = (props) => {
     }
 
     return () => {
-      null;
+      
     };
-  }, []);
+  }, [user, dispatch, casinoFavs, id]);
 
-    useEffect(() => {
-        if (user) dispatch(casinoActions.setShowCasinoGame(true));
-        else dispatch(casinoActions.setShowCasinoGame(false));
+  useEffect(() => {
+    if (user) dispatch(casinoActions.setShowCasinoGame(true));
+    else dispatch(casinoActions.setShowCasinoGame(false));
 
-        const searchParams = new URLSearchParams(location.search);
-        const isBonus = searchParams.get('isBonus');
+    const searchParams = new URLSearchParams(location.search);
+    const isBonus = searchParams.get("isBonus");
 
-        const controller = new AbortController();
-        const signal = controller.signal;
+    const controller = new AbortController();
+    const signal = controller.signal;
 
-        if (type === 'live') dispatch(getLiveVendorGame(providername, id, brandgameid, name, isDemo, signal, isBonus));
-        else dispatch(getVendorGame(providername, id, brandgameid, name, isDemo, signal, isBonus));
+    if (type === "live")
+      dispatch(
+        getLiveVendorGame(
+          providername,
+          id,
+          brandgameid,
+          name,
+          isDemo,
+          signal,
+          isBonus
+        )
+      );
+    else
+      dispatch(
+        getVendorGame(
+          providername,
+          id,
+          brandgameid,
+          name,
+          isDemo,
+          signal,
+          isBonus
+        )
+      );
 
-        return () => {
-            controller.abort();
-            dispatch(casinoActions.setCasinoGame(null));
-            dispatch(casinoActions.setShowCasinoGame(false));
-            dispatch(appActions.setBarLoading(false));
-        };
-    }, [isDemo, user?.AccountId]);
+    return () => {
+      controller.abort();
+      dispatch(casinoActions.setCasinoGame(null));
+      dispatch(casinoActions.setShowCasinoGame(false));
+      dispatch(appActions.setBarLoading(false));
+    };
+  }, [isDemo, user?.AccountId]);
 
-    const addParamsToUrl = (modal, tab) => {
-        const searchParams = new URLSearchParams(location.search);
-        searchParams.set('modal', modal);
-        searchParams.set('tab', tab);
+  const addParamsToUrl = (modal, tab) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", modal);
+    searchParams.set("tab", tab);
 
-        navigate(`${location.pathname}?${searchParams.toString()}`, {
-            replace: true,
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+  };
+
+  const toggleFullScreen = () => {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+      if (gameContentRef.current.requestFullscreen) {
+        gameContentRef.current.requestFullscreen().catch((err) => {
+          setIsFullScreen(false);
         });
-    };
-
-    const toggleFullScreen = () => {
-        if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-            if (gameContentRef.current.requestFullscreen) {
-                gameContentRef.current.requestFullscreen().catch((err) => {
-                    setIsFullScreen(false);
-                });
-            } else if (gameContentRef.current.webkitRequestFullscreen) {
-                gameContentRef.current.webkitRequestFullscreen().catch((err) => {
-                    setIsFullScreen(false);
-                });
-            }
-            setIsFullScreen(true);
-        } else {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) {
-                document.webkitExitFullscreen();
-            }
-            setIsFullScreen(false);
-        }
-    };
+      } else if (gameContentRef.current.webkitRequestFullscreen) {
+        gameContentRef.current.webkitRequestFullscreen().catch((err) => {
+          setIsFullScreen(false);
+        });
+      }
+      setIsFullScreen(true);
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+      setIsFullScreen(false);
+    }
+  };
 
   const onToggleFavorite = (id) => {
     if (user) {
@@ -143,13 +164,13 @@ const CasinoGame = (props) => {
     }
   };
 
-    let elClasses = [classes.CasinoGameWrapper];
-    if (isExpanded) elClasses.push(classes.Expanded);
-    if (isFullScreen) elClasses.push(classes.FullScreen);
+  let elClasses = [classes.CasinoGameWrapper];
+  if (isExpanded) elClasses.push(classes.Expanded);
+  if (isFullScreen) elClasses.push(classes.FullScreen);
 
-    return (
-        <>
-            <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
+  return (
+    <>
+      <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
 
       <div className={elClasses.join(" ")}>
         <div className={classes.CasinoGame}>
@@ -175,54 +196,66 @@ const CasinoGame = (props) => {
                 <span>{isFav ? translate("Liked") : translate("Like")}</span>
               </MainButton>
 
-                            <MainButton color='transparent' onClick={() => setIsExpanded((prev) => !prev)}>
-                                <ExpandOutlineIcon />
-                                <span>{translate('Expand')}</span>
-                            </MainButton>
+              <MainButton
+                color="transparent"
+                onClick={() => setIsExpanded((prev) => !prev)}
+              >
+                <ExpandOutlineIcon />
+                <span>{translate("Expand")}</span>
+              </MainButton>
 
-                            <MainButton color='transparent' onClick={() => toggleFullScreen()}>
-                                <FullscreenOutlineIcon />
-                                <span>{translate('Full Screen')}</span>
-                            </MainButton>
-                        </div>
-                    </div>
-                    <div className={classes.Placeholder} ref={gameContentRef}>
-                        <div className={classes.GameContent}>
-                            {casinoGame && (
-                                <iframe
-                                    className={classes.GameIframe}
-                                    src={casinoGame.url}
-                                    allow='autoplay; clipboard-write;'
-                                    // allow='autoplay; clipboard-write; geolocation;camera;microphone'
-                                    width='100%'
-                                    height='100%'
-                                ></iframe>
-                            )}
-                        </div>
-                        {!showCasinoGame && (
-                            <div className={classes.GameOverlay}>
-                                {!user && (
-                                    <>
-                                        <div className={classes.OverlayTitle}>{translate(`Login to play.`)}</div>
-                                        <div className={classes.OverlayButtons}>
-                                            <MainButton color='primary' onClick={() => addParamsToUrl('auth', 'login')}>
-                                                {translate('Login')}
-                                            </MainButton>
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        )}
-                    </div>
-                    <div className={classes.GameControls}>
-                        <div className={classes.GameNameWrapper}>
-                            <h3 className={classes.GameName}>{name}</h3>
-                        </div>
-                    </div>
-                </div>
+              <MainButton
+                color="transparent"
+                onClick={() => toggleFullScreen()}
+              >
+                <FullscreenOutlineIcon />
+                <span>{translate("Full Screen")}</span>
+              </MainButton>
             </div>
-        </>
-    );
+          </div>
+          <div className={classes.Placeholder} ref={gameContentRef}>
+            <div className={classes.GameContent}>
+              {casinoGame && (
+                <iframe
+                  className={classes.GameIframe}
+                  src={casinoGame.url}
+                  allow="autoplay; clipboard-write; fullscreen"
+                  allowFullScreen
+                  // allow='autoplay; clipboard-write; geolocation;camera;microphone'
+                  width="100%"
+                  height="100%"
+                ></iframe>
+              )}
+            </div>
+            {!showCasinoGame && (
+              <div className={classes.GameOverlay}>
+                {!user && (
+                  <>
+                    <div className={classes.OverlayTitle}>
+                      {translate(`Login to play.`)}
+                    </div>
+                    <div className={classes.OverlayButtons}>
+                      <MainButton
+                        color="primary"
+                        onClick={() => addParamsToUrl("auth", "login")}
+                      >
+                        {translate("Login")}
+                      </MainButton>
+                    </div>
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+          <div className={classes.GameControls}>
+            <div className={classes.GameNameWrapper}>
+              <h3 className={classes.GameName}>{name}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export default CasinoGame;
