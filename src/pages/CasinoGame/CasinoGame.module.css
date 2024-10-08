@@ -42,7 +42,7 @@
   height: 0px;
   content: "";
   display: block;
-  padding-bottom: calc(100% / (var(--aspect-ratio)));
+  /* padding-bottom: calc(100% / (var(--aspect-ratio))); */
 }
 
 .GameControls {
@@ -220,17 +220,8 @@
   .RightSection button span {
     display: inline-block;
   }
-  .Placeholder {
-    /* --aspect-ratio: (9/16); */
-    /* --aspect-ratio: (45/31); */
-  }
 }
 
-@media (min-width: 874px) {
-  .Placeholder {
-    /* --aspect-ratio: (45/31); */
-  }
-}
 
 @media screen and (max-width: 768px) {
   .OverlayTitle {

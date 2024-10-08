@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AnimatePresence } from "framer-motion";
+import { useMediaQuery } from "react-responsive";
 
 import classes from "./CasinoGame.module.css";
 
@@ -35,9 +36,13 @@ const CasinoGame = (props) => {
 
   const gameContentRef = useRef(null);
 
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
+
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
-  const [isFav, setIsFav] = useState(false);
+  const [isFav, setIsFav] = useState(null);
   const [isDemo, setIsDemo] = useState(false);
 
   const casinoFavs = useSelector((state) => state.casinoFavorites.casinoFavs);
@@ -48,7 +53,22 @@ const CasinoGame = (props) => {
   const barLoading = useSelector((state) => state.app.barLoading);
 
   useEffect(() => {
-    if (user) {
+    const handleResize = () => {
+      setViewportHeight(window.innerHeight);
+      setViewportWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (user && isFav === null) {
       dispatch(getCasinoFavs())
         .then(() => {
           const isFav =
@@ -64,14 +84,12 @@ const CasinoGame = (props) => {
         .catch((error) => {
           null;
         });
-    } else {
-      toast.warning("Login to access this feature");
     }
 
     return () => {
-      
+      //ispatch(casinoFavoritesActions.reset());
     };
-  }, [user, dispatch, casinoFavs, id]);
+  }, [casinoFavs]);
 
   useEffect(() => {
     if (user) dispatch(casinoActions.setShowCasinoGame(true));
@@ -213,7 +231,13 @@ const CasinoGame = (props) => {
               </MainButton>
             </div>
           </div>
-          <div className={classes.Placeholder} ref={gameContentRef}>
+          <div
+            className={classes.Placeholder}
+            // style={
+            //   isMobile ? { height: `${viewportHeight}` } : { height: "65vh" }
+            // }
+            ref={gameContentRef}
+          >
             <div className={classes.GameContent}>
               {casinoGame && (
                 <iframe
