@@ -10,6 +10,20 @@ import config from '../../config';
 
 export const getEvent = (sportId, eventId, signal) => {
     return async (dispatch, getState) => {
+        const liveState = getState().live.liveState;
+        const eventIdInt = parseInt(eventId);
+        const isLive = liveState[eventIdInt] ? true : false;
+
+        if (isLive) {
+            dispatch(getLiveEvent(sportId, eventId, signal));
+        } else {
+            dispatch(getPregameEvent(sportId, eventId, signal));
+        }
+    };
+};
+
+export const getPregameEvent = (sportId, eventId, signal) => {
+    return async (dispatch, getState) => {
         try {
             dispatch(appActions.setBarLoading(true));
             const lang = getLang();
@@ -111,6 +125,7 @@ export const getLiveEvent = (sportId, eventId, signal) => {
 
             dispatch(eventActions.setSelectedMarketCategoryIndex(0));
             dispatch(eventActions.setLiveEvent(responses[1].data.Contents));
+            dispatch(eventActions.setShowingLiveEvent(true));
             dispatch(appActions.setBarLoading(false));
         } catch (error) {
             const message = error?.message ? error.message : error;

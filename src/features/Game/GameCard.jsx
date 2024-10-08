@@ -96,7 +96,7 @@ const GameCard = (props) => {
             <div className={classes.OddsContainer}>
                 {props.game.Markets && props.game.Markets.length > 0 ? (
                     (() => {
-                        const targetMarket = props.game.Markets.find(market => market.MarketTypeId === 14);
+                        const targetMarket = props.game.Markets.find((market) => market.MarketTypeId === 14);
 
                         const selectedMarket = targetMarket || props.game.Markets[0];
 

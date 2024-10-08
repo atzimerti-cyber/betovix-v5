@@ -14,11 +14,12 @@
 }
 
 .CasinoGameWrapper.Expanded {
-    max-width: unset;
+    /* max-width: unset; */
+    max-width: none;
+    width: 100%;
 }
 .CasinoGameWrapper.Expanded .Placeholder {
     height: calc(-185px + 100vh);
-    /* height: calc(-185px + 100vh); */
 }
 
 .Header {
