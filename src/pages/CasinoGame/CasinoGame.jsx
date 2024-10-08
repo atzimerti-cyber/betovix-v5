@@ -5,40 +5,74 @@ import { toast } from "react-toastify";
 import { AnimatePresence } from "framer-motion";
 
 import classes from "./CasinoGame.module.css";
+
 import { getVendorGame, getLiveVendorGame } from "../Casino/casinoAsyncActions";
 import { appActions } from "../../features/InitApp/appSlice";
-import { casinoActions } from "../Casino/casinoSlice";
-import MainButton from "../../features/UI/Buttons/MainButton";
-import LogoSmall from "../../assets/svgs/logo-small.svg?react";
-import HeartOutlineIcon from "../../assets/svgs/heart-outline.svg?react";
-import ExpandOutlineIcon from "../../assets/svgs/expand-outline.svg?react";
-import FullscreenOutlineIcon from "../../assets/svgs/fullscreen-outline.svg?react";
-import Switch from "../../features/UI/Switch/Switch";
-import BarLoading from "../../features/UI/BarLoading/BarLoading";
-import { translate } from "../../utils/translations";
 import {
   addCasinoFav,
   removeCasinoFav,
 } from "../../features/CasinoFavorites/CasinoFavoritesAsync";
+import { getCasinoFavs } from "../../features/CasinoFavorites/CasinoFavoritesAsync";
+import { casinoActions } from "../Casino/casinoSlice";
+
+import MainButton from "../../features/UI/Buttons/MainButton";
+import BarLoading from "../../features/UI/BarLoading/BarLoading";
+
+import { translate } from "../../utils/translations";
+
+import LogoSmall from "../../assets/svgs/logo-small.svg?react";
+import HeartIcon from "../../assets/svgs/heart.svg?react";
+import ExpandOutlineIcon from "../../assets/svgs/expand-outline.svg?react";
+import FullscreenOutlineIcon from "../../assets/svgs/fullscreen-outline.svg?react";
 
 const CasinoGame = (props) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const gameContentRef = useRef(null);
+
+  const lang = useSelector((state) => state.app.lang);
   const { type, providername, id, brandgameid, name } = useParams();
+
+  const gameContentRef = useRef(null);
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
+  const [isFav, setIsFav] = useState(false);
+  const [isDemo, setIsDemo] = useState(false);
 
   const casinoFavs = useSelector((state) => state.casinoFavorites.casinoFavs);
-  const lang = useSelector((state) => state.app.lang);
+
   const casinoGame = useSelector((state) => state.casino.casinoGame);
   const showCasinoGame = useSelector((state) => state.casino.showCasinoGame);
   const user = useSelector((state) => state.login.user);
   const barLoading = useSelector((state) => state.app.barLoading);
 
-  const [isDemo, setIsDemo] = useState(user ? false : true);
+  useEffect(() => {
+    if (user) {
+      dispatch(getCasinoFavs())
+        .then(() => {
+          // Check if game is in favorites after fetching
+          const isFav =
+            Array.isArray(casinoFavs) &&
+            casinoFavs.some((fav) => fav.Data.Id == id);
+
+          if (isFav) {
+            setIsFav(true);
+          } else {
+            setIsFav(false);
+          }
+        })
+        .catch((error) => {
+          null;
+        });
+    } else {
+      toast.warning("Login to access this feature");
+    }
+
+    return () => {
+      null;
+    };
+  }, []);
 
   useEffect(() => {
     if (user) dispatch(casinoActions.setShowCasinoGame(true));
@@ -93,39 +127,77 @@ const CasinoGame = (props) => {
     });
   };
 
+  // const toggleFullScreen = () => {
+  //   if (!document.fullscreenElement) {
+  //     gameContentRef.current.requestFullscreen().catch((err) => {
+  //       setIsFullScreen(false);
+  //     });
+  //     setIsFullScreen(true);
+  //   } else {
+  //     if (document.exitFullscreen) {
+  //       document.exitFullscreen();
+  //     }
+  //     setIsFullScreen(false);
+  //   }
+  // };
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullScreen(
+        !!document.fullscreenElement || !!document.webkitFullscreenElement
+      );
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
+    };
+  }, []);
+
   const toggleFullScreen = () => {
-    if (!document.fullscreenElement) {
-      gameContentRef.current.requestFullscreen().catch((err) => {
+    const gameContent = gameContentRef.current;
+    if (gameContent) {
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        if (gameContent.requestFullscreen) {
+          gameContent.requestFullscreen();
+        } else if (gameContent.webkitRequestFullscreen) {
+          // Safari for iOS
+          gameContent.webkitRequestFullscreen();
+        }
+        setIsFullScreen(true);
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          // Safari for iOS
+          document.webkitExitFullscreen();
+        }
         setIsFullScreen(false);
-      });
-      setIsFullScreen(true);
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
       }
-      setIsFullScreen(false);
     }
   };
 
-//   const onToggleFavorite = (id) => {
-//     casinoFavs.map((favs) => {
-//       console.log(casinoFavs);
-//       console.log(id);
-//       if (favs.Data.Id == id) {
-//         dispatch(removeCasinoFav(id)).then(() => {
-//           dispatch(
-//             casinoActions.updateCasinoGame({ ...casinoGame, isFav: false })
-//           );
-//         });
-//       } else {
-//         dispatch(addCasinoFav(id)).then(() => {
-//           dispatch(
-//             casinoActions.updateCasinoGame({ ...casinoGame, isFav: true })
-//           );
-//         });
-//       }
-//     });
-//   };
+  const onToggleFavorite = (id) => {
+    if (user) {
+      if (isFav) {
+        dispatch(removeCasinoFav(id)).then(() => {
+          setIsFav(false);
+          toast.success("Removed from favorites.");
+        });
+      } else {
+        dispatch(addCasinoFav(id)).then(() => {
+          setIsFav(true);
+          toast.success("Added to favorites.");
+        });
+      }
+    }
+  };
 
   let elClasses = [classes.CasinoGameWrapper];
   if (isExpanded) elClasses.push(classes.Expanded);
@@ -142,16 +214,21 @@ const CasinoGame = (props) => {
             <div className={classes.RightSection}>
               <MainButton
                 color="transparent"
-                // onClick={() => {
-                //   if (user) {
-                //     onToggleFavorite(id);
-                //   } else {
-                //     toast.warning("Login to access this feature");
-                //   }
-                // }}
+                onClick={() => {
+                  if (user) {
+                    onToggleFavorite(id);
+                  } else {
+                    toast.warning("Login to access this feature");
+                  }
+                }}
               >
-                <HeartOutlineIcon />
-                <span>{translate("Like")}</span>
+                <HeartIcon
+                  className={
+                    isFav ? classes.FavoriteIcon : classes.NotFavoriteIcon
+                  }
+                />
+
+                <span>{isFav ? translate("Liked") : translate("Like")}</span>
               </MainButton>
 
               <MainButton
@@ -166,8 +243,17 @@ const CasinoGame = (props) => {
                 color="transparent"
                 onClick={() => toggleFullScreen()}
               >
-                <FullscreenOutlineIcon />
-                <span>{translate("Full Screen")}</span>
+                {isFullScreen ? (
+                  <HeartIcon />
+                ) : (
+                  <FullscreenOutlineIcon />
+                )}
+
+                <span>
+                  {isFullScreen
+                    ? translate("Exit Full Screen")
+                    : translate("Full Screen")}
+                </span>
               </MainButton>
             </div>
           </div>
@@ -177,7 +263,8 @@ const CasinoGame = (props) => {
                 <iframe
                   className={classes.GameIframe}
                   src={casinoGame.url}
-                  allow="autoplay; clipboard-write;"
+                  allow="autoplay; clipboard-write; fullscreen"
+                  allowFullScreen
                   // allow='autoplay; clipboard-write; geolocation;camera;microphone'
                   width="100%"
                   height="100%"

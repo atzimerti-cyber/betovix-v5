@@ -25,25 +25,7 @@ export const getCasinoFavs = (signal) => {
         }
     };
 };
-// export const addCasinoFav = (gameId) => {
-//     return async (dispatch) => {
-//         try {
-//             const lang = getLang();
-//             const response = await axiosApi.post(
-//                 `MyCasino/PostData?action=saveFavorite&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
-//                 { data: `{"GameId":${gameId}}` },
-//                 {
-//                     baseURLOverride: config.VITE_CASINO_BASE,
-//                 }
-//             );
-//             if (response.data.Status.StatusCode !== 200) throw Error();
 
-//             dispatch(casinoFavoritesActions.addCasinoFavorite(gameId));
-//         } catch (error) {
-//             toast.error(error?.message);
-//         }
-//     };
-// };
 export const addCasinoFav = (gameId) => {
     return async (dispatch) => {
         try {
