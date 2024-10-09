@@ -9,6 +9,7 @@ import { getUpdatedMarkets, getUpdatedHeaders, getEventsToAdd, getEventToAddFrom
 import { betslipActions } from '../../Betslip/betslipSlice';
 import axiosApi from '../../../axios-api';
 import config from '../../../config';
+import { eventActions } from '../../../pages/Event/eventSlice';
 
 const LiveLoader = () => {
     const dispatch = useDispatch();
@@ -56,8 +57,8 @@ const LiveLoader = () => {
 
             if (resp?.data == '') return;
 
-            //connectToWs(resp?.data);
-            connectToWs('https://livenode.pick500.net:60010/');
+            connectToWs(resp?.data);
+            //connectToWs('https://livenode.pick500.net:60010/');
         } catch (error) {
             toast.error(error?.message);
         }
@@ -66,8 +67,8 @@ const LiveLoader = () => {
     const connectToWs = (address) => {
         const liveConnection = new HubConnectionBuilder()
             .withUrl(address + 'liveOddsHub')
-            // .withUrl('https://livenode.pick500.net:60010/liveOddsHub')
-            .withAutomaticReconnect()
+            .withUrl('https://livenode.pick500.net:60010/liveOddsHub')
+            //.withAutomaticReconnect()
             .build();
 
         liveConnection.on('onOddsUpdates', (message) => {
@@ -106,7 +107,10 @@ const LiveLoader = () => {
             const updateObj = JSON.parse(decompressedString);
             if (!updateObj) return;
 
-            if (updateObj.R) dispatch(liveActions.removeEvents(updateObj.R));
+            if (updateObj.R) {
+                dispatch(liveActions.removeEvents(updateObj.R));
+                dispatch(eventActions.removeEvents(updateObj.R));
+            }
             if (updateObj.A && updateObj.A.length) {
                 const eventsToAdd = getEventsToAdd(updateObj.A, liveStateRef.current, incompleteDataRef.current);
 
@@ -165,8 +169,12 @@ const LiveLoader = () => {
         //     if (!updateObj) return;
         // });
 
-        liveConnection.start();
-        dispatch(liveActions.setLiveConnection(liveConnection));
+        liveConnection
+            .start()
+            .then(() => {
+                dispatch(liveActions.setLiveConnection(liveConnection));
+            })
+            .catch((err) => console.error('Connection failed: ', err));
     };
 
     return <div></div>;

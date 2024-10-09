@@ -3,7 +3,6 @@ import _ from 'lodash';
 
 const initialState = {
     event: null,
-    liveEvent: null,
     sportMarketTree: null,
     sports: null,
     selectedMarketCategory: null,
@@ -23,7 +22,6 @@ export const eventSlice = createSlice({
     reducers: {
         reset: (state) => {
             state.event = null;
-            state.liveEvent = null;
             state.sportMarketTree = null;
             state.sports = null;
             state.selectedMarketCategory = null;
@@ -51,23 +49,19 @@ export const eventSlice = createSlice({
         setSelectedMarketCategoryIndex: (state, action) => {
             state.selectedMarketCategoryIndex = action.payload;
         },
-        setLiveEvent: (state, action) => {
-            state.liveEvent = action.payload;
-            state.changedMarkets += 1;
-        },
         updateLiveEventHeader: (state, action) => {
-            const currentLive = current(state.liveEvent);
+            const currentLive = current(state.event);
             const previousHeader = { ...currentLive.Header };
-            state.liveEvent.PreviousHeader = previousHeader;
-            state.liveEvent.Header = action.payload;
+            state.event.PreviousHeader = previousHeader;
+            state.event.Header = action.payload;
         },
         updateLiveMarkets: (state, action) => {
-            const currentLive = current(state.liveEvent);
+            const currentLive = current(state.event);
 
             if (!_.isEqual(currentLive.Markets, action.payload)) {
                 const previousMarkets = [...currentLive.Markets];
-                state.liveEvent.PreviousMarkets = previousMarkets;
-                state.liveEvent.Markets = action.payload;
+                state.event.PreviousMarkets = previousMarkets;
+                state.event.Markets = action.payload;
 
                 state.changedMarkets += 1;
             }
@@ -86,6 +80,17 @@ export const eventSlice = createSlice({
         },
         setTournamentevents: (state, action) => {
             state.tournamentEvents = action.payload;
+        },
+        removeEvents: (state, action) => {
+            const currentLive = current(state.event);
+
+            for (let i = 0; i < action.payload.length; i++) {
+                const eventId = action.payload[i];
+                if (currentLive.MatchId === eventId) {
+                    state.event = null;
+                    state.changedMarkets += 1;
+                }
+            }
         },
     },
 });

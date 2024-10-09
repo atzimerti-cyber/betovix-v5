@@ -22,7 +22,6 @@ const SportsUpcoming = () => {
     const params = useParams();
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-    const topLeagues = useSelector((state) => state.sportsbook.topLeagues);
     const tournamentSearchString = useSelector((state) => state.sportsbook.tournamentSearchString);
     const tournamentTimeFilter = useSelector((state) => state.sportsbook.tournamentTimeFilter);
     const sportMarketTree = useSelector((state) => state.sportsbook.sportMarketTree);
@@ -78,7 +77,6 @@ const SportsUpcoming = () => {
 
     useEffect(() => {
         if (!selectedSport) return;
-        if (!topLeagues) return;
         if (!axiosController) return;
 
         if (!sportMarketTree[selectedSport.Id]) dispatch(getSportMarketTree(selectedSport.Id, axiosController.signal));
@@ -123,7 +121,7 @@ const SportsUpcoming = () => {
         setCategoriesArr(sorted);
 
         setLoadingCategories(false);
-    }, [selectedSport?.Id, topLeagues, axiosController]);
+    }, [selectedSport?.Id, axiosController]);
 
     useEffect(() => {
         if (!selectedSport) return;

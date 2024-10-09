@@ -22,7 +22,6 @@ const SportsOutrights = () => {
     const params = useParams();
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-    const topLeagues = useSelector((state) => state.sportsbook.topLeagues);
     const tournamentSearchString = useSelector((state) => state.sportsbook.tournamentSearchString);
     const categories = useSelector((state) => state.sportsOutrights.categories);
     const sports = useSelector((state) => state.sportsbook.sports);
@@ -73,7 +72,6 @@ const SportsOutrights = () => {
 
     useEffect(() => {
         if (!selectedSport) return;
-        if (!topLeagues) return;
         if (!axiosController) return;
 
         if (!sportMarketTree[selectedSport.Id]) dispatch(getSportMarketTree(selectedSport.Id, axiosController.signal));
@@ -111,7 +109,7 @@ const SportsOutrights = () => {
         setCategoriesArr(sorted);
 
         setLoadingCategories(false);
-    }, [selectedSport?.Id, topLeagues, axiosController]);
+    }, [selectedSport?.Id, axiosController]);
 
     useEffect(() => {
         if (!selectedSport) return;

@@ -1,4 +1,4 @@
-import { useEffect, useRef,useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import { useMediaQuery } from 'react-responsive';
@@ -21,21 +21,20 @@ const InitApp = () => {
 
     const timerIdRef = useRef(null);
 
-
-    const [isLoaded, setIsLoaded] = useState (false);
+    const [isLoaded, setIsLoaded] = useState(false);
     const basePath = window.location.origin;
     useEffect(() => {
         const img = new Image();
-        img.src = `${basePath}/loading.gif`
+        img.src = `${basePath}/loading.gif`;
         img.onload = () => {
-            setIsLoaded(true);  // Set the state to indicate the image is fully loaded
+            setIsLoaded(true); // Set the state to indicate the image is fully loaded
         };
     }, []);
 
     // Loads once on start
     useEffect(() => {
-         dispatch(loadInitData(isMobile));
-    }, [!userAccountId]);
+        dispatch(loadInitData(isMobile));
+    }, []);
 
     // For loading initial data. Loads on change log in
     useEffect(() => {
@@ -59,8 +58,8 @@ const InitApp = () => {
     }, [userAccountId]);
 
     //return initDataLoaded ? <Outlet /> : <Preloader />;
-    if( isLoaded && initDataLoaded ) return  <Outlet />;
-    if( isLoaded) return  <Preloader />;
+    if (isLoaded && initDataLoaded) return <Outlet />;
+    if (isLoaded) return <Preloader />;
     return null;
 };
 

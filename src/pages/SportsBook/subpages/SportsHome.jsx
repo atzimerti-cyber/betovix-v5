@@ -24,7 +24,6 @@ const SportsHome = () => {
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const liveState = useSelector((state) => state.live.liveState);
     const addedRemovedEvent = useSelector((state) => state.live.addedRemovedEvent);
-    const topLeagues = useSelector((state) => state.sportsbook.topLeagues);
     const tournamentSearchString = useSelector((state) => state.sportsbook.tournamentSearchString);
     const tournamentTimeFilter = useSelector((state) => state.sportsbook.tournamentTimeFilter);
     const tournamentSort = useSelector((state) => state.sportsbook.tournamentSort);
@@ -94,14 +93,14 @@ const SportsHome = () => {
     // Get the categories and Tournaments
     useEffect(() => {
         if (!selectedSport) return;
-        if (!topLeagues) return;
         if (!axiosController) return;
 
         if (!sportMarketTree[selectedSport.Id]) dispatch(getSportMarketTree(selectedSport.Id, axiosController.signal));
 
         // Check timeframe and get the first timeframe which has events
         let closestTimeframe = 'All';
-        if (tournamentTimeFilter !== 'All' && tournamentTimeFilter !== '24H') {  /////////ADDED && tournamentTimeFilter !== '24H' for Daily Events
+        if (tournamentTimeFilter !== 'All' && tournamentTimeFilter !== '24H') {
+            /////////ADDED && tournamentTimeFilter !== '24H' for Daily Events
             closestTimeframe = findClosestTimeframe();
             dispatch(sportsbookActions.setTournamentTimeFilter(closestTimeframe));
         }
@@ -111,7 +110,7 @@ const SportsHome = () => {
         setCategoriesAndTournaments(closestTimeframe);
 
         setLoadingCategories(false);
-    }, [selectedSport?.Id, topLeagues, axiosController]);
+    }, [selectedSport?.Id, axiosController]);
 
     // If a live event was added or removed re-evaluate the categories and tournaments (run after the initial categories where loaded)
     useEffect(() => {
@@ -161,9 +160,8 @@ const SportsHome = () => {
         let newCategories = [];
 
         Object.values(liveState).forEach((event) => {
-            
-            const { CategoryId, TournamentId, TournamentName, CategoryName, SportId } = (event?.Info || {});
-            
+            const { CategoryId, TournamentId, TournamentName, CategoryName, SportId } = event?.Info || {};
+
             if (SportId !== selectedSport.Id) return;
 
             const newTournament = {

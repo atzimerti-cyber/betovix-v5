@@ -14,7 +14,6 @@ import cricket from '../../assets/images/liveFields/cricket.avif';
 import snooker from '../../assets/images/liveFields/snooker.jpeg';
 
 const initialState = {
-    topLeagues: null,
     tournamentSearchString: null,
     tournamentSort: 'Default Sort',
     tournamentTimeFilter: 'All',
@@ -57,7 +56,6 @@ export const sportsbookSlice = createSlice({
     initialState,
     reducers: {
         reset: (state) => {
-            state.topLeagues = null;
             state.tournamentSearchString = null;
             state.tournamentSort = 'Default Sort';
             state.tournamentTimeFilter = 'All';
@@ -81,9 +79,6 @@ export const sportsbookSlice = createSlice({
             state.liveStreams = null;
         },
 
-        setTopLeagues: (state, action) => {
-            state.topLeagues = action.payload;
-        },
         setTournamentSearchString: (state, action) => {
             state.tournamentSearchString = action.payload;
         },

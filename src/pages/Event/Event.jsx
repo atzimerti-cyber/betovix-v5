@@ -31,16 +31,12 @@ const Event = () => {
     const { sportname, sportid, eventid } = useParams();
 
     const liveConnection = useSelector((state) => state.live.liveConnection);
-    const liveEvent = useSelector((state) => state.event.liveEvent);
     const selectedMarketCategory = useSelector((state) => state.event.selectedMarketCategory);
     const selectedMarketCategoryIndex = useSelector((state) => state.event.selectedMarketCategoryIndex);
     const changedMarkets = useSelector((state) => state.event.changedMarkets);
 
-    const pregameEvent = useSelector((state) => state.event.event);
+    const event = useSelector((state) => state.event.event);
     const barLoading = useSelector((state) => state.app.barLoading);
-
-    const event = liveEvent ? liveEvent : pregameEvent;
-    const eventRef = useRef(event);
 
     const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
     const sports = useSelector((state) => state.event.sports);
@@ -54,34 +50,26 @@ const Event = () => {
     const [marketGroupsChanged, setMarketGroupsChanged] = useState(1);
     const [height, setHeight] = useState();
     const [showTab, setShowTab] = useState('tab1');
+    const [previousMatchId, setPreviousMatchId] = useState(0);
 
     const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
 
     useEffect(() => {
-        eventRef.current = event;
-    }, [event?.MatchId]);
-
-    useEffect(() => {
-        let handleResizeMessage = null;
-
-        if (liveEvent) {
-            // For the field
-            handleResizeMessage = (ev) => {
-                if (ev.origin === 'https://widget.feedmaker.live') {
-                    const message = ev.data ? JSON.parse(ev.data) : null;
-                    let h = message ? message['body-height'] : null;
-                    h = h ? h : 330;
-                    setHeight(h);
-                }
-            };
-            window.addEventListener('message', handleResizeMessage);
-        }
-
         return () => {
-            if (handleResizeMessage) window.removeEventListener('message', handleResizeMessage);
             dispatch(eventActions.reset());
             dispatch(appActions.setBarLoading(false));
             dispatch(layoutActions.setShowLiveListContainer(false));
+
+            if (liveConnection && liveConnection.state === 'Connected') {
+                liveConnection
+                    .invoke('SubscribeToEvent', eventid, 0)
+                    .then(() => {
+                        console.log(`Unsubscribed from ${eventid}`);
+                    })
+                    .catch((err) => {
+                        console.error(`Unsubscribe from ${eventid} failed :`, err);
+                    });
+            }
         };
     }, []);
 
@@ -96,64 +84,98 @@ const Event = () => {
 
         return () => {
             controller.abort();
-
-            if (liveConnection) {
-                console.log(`Unsubscribed from ${eventid}`);
-                liveConnection.invoke('SubscribeToEvent', eventid, 0);
-                liveConnection.invoke('UnSubscribeToEvent', eventid);
-            }
         };
     }, [eventid]);
 
     useEffect(() => {
-        if (!isMobile && liveEvent) {
-            dispatch(layoutActions.setShowLiveListContainer(true));
-            dispatch(layoutActions.setFullLeftContainer(true));
+        if (!event) return;
+
+        let handleResizeMessage = null;
+
+        if (event.type === 'live') {
+            // For the field
+            handleResizeMessage = (ev) => {
+                if (ev.origin === 'https://widget.feedmaker.live') {
+                    const message = ev.data ? JSON.parse(ev.data) : null;
+                    let h = message ? message['body-height'] : null;
+                    h = h ? h : 330;
+                    setHeight(h);
+                }
+            };
+            window.addEventListener('message', handleResizeMessage);
+
+            if (!isMobile) {
+                dispatch(layoutActions.setShowLiveListContainer(true));
+                dispatch(layoutActions.setFullLeftContainer(true));
+            }
         }
-    }, [isMobile, liveEvent?.MatchId]);
+
+        return () => {
+            if (handleResizeMessage) window.removeEventListener('message', handleResizeMessage);
+        };
+    }, [isMobile, event?.MatchId]);
+
+    const handleOnOddsUpdate = (message) => {
+        if (!event) return;
+        if (event.type !== 'live') return;
+
+        const decompressedString = lzString.decompressFromUTF16(message);
+        const updateObj = JSON.parse(decompressedString);
+
+        if (!updateObj) return;
+
+        if (updateObj.Id === event.MatchId) {
+            const updatedMarkets = getUpdatedMarkets(updateObj, event.Markets);
+            dispatch(eventActions.updateLiveMarkets(updatedMarkets));
+            dispatch(betslipActions.updateLiveSlipOdds({ matchId: updateObj.Id, markets: updatedMarkets }));
+        }
+    };
+
+    const handleOnHeadersUpdate = (message) => {
+        if (!event) return;
+
+        const decompressedString = lzString.decompressFromUTF16(message);
+        const updateObj = JSON.parse(decompressedString);
+
+        if (!updateObj) return;
+
+        const found = updateObj.find((e) => e.MatchId == event.MatchId);
+        if (found) {
+            dispatch(eventActions.updateLiveEventHeader(found));
+        }
+    };
 
     // If Live, subscribe to live event
     useEffect(() => {
-        if (!liveEvent) return;
+        if (!event) return;
+        if (event.type !== 'live') return;
         if (!liveConnection) return;
-        if (liveConnection._connectionState !== 'Connected') return;
-        if (!eventid) return;
+        if (liveConnection.state !== 'Connected') return;
+
+        const prevMatchId = previousMatchId === 0 ? event.MatchId : previousMatchId;
 
         //Subscribe
         liveConnection
-            .invoke('SubscribeToEvent', eventid, eventid)
+            .invoke('SubscribeToEvent', prevMatchId, event.MatchId)
             .then(() => {
-                console.log(`Subscribed to ${eventid}`);
+                console.log(`Unsubscribed from ${previousMatchId}`);
+                console.log(`Subscribed to ${event.MatchId}`);
+                setPreviousMatchId(event.MatchId);
             })
             .catch((err) => {
-                console.error(`Subscription to ${eventid} failed :`, err);
+                console.error(`Subscription to ${event.MatchId} failed :`, err);
             });
 
-        liveConnection.on('onOddsUpdate', (message) => {
-            const decompressedString = lzString.decompressFromUTF16(message);
-            const updateObj = JSON.parse(decompressedString);
-            if (updateObj.Id === eventRef.current.MatchId) {
-                handleOddsUpdate(updateObj);
-            }
-        });
-        liveConnection.on('onHeadersList', (message) => {
-            const decompressedString = lzString.decompressFromUTF16(message);
-            const updateObj = JSON.parse(decompressedString);
-            const found = updateObj.find((e) => e.MatchId == eventRef.current.MatchId);
-            if (found) {
-                dispatch(eventActions.updateLiveEventHeader(found));
-            }
-        });
-        // liveConnection.on('onOddsChangeFull', (message) => {
-        //     const decompressedString = lzString.decompressFromUTF16(message);
-        //     const updateObj = JSON.parse(decompressedString);
-        // });
+        liveConnection.on('onOddsUpdate', handleOnOddsUpdate);
+        liveConnection.on('onHeadersList', handleOnHeadersUpdate);
 
-        // return () => {
-        //     liveConnection.off('onOddsUpdate');
-        //     liveConnection.off('onHeadersList');
-        // };
-    }, [liveEvent?.MatchId, liveConnection?._connectionState, eventid]);
+        return () => {
+            if (liveConnection) {
+                liveConnection.off('onOddsUpdate', handleOnOddsUpdate);
+                liveConnection.off('onHeadersList', handleOnHeadersUpdate);
+            }
+        };
+    }, [event?.MatchId, liveConnection?.state]);
 
     // Create the market groups, based on event markets
     useEffect(() => {
@@ -218,16 +240,6 @@ const Event = () => {
         if (sportParams && sportParams.fieldImage) return sportParams.fieldImage;
     };
 
-    const handleOddsUpdate = (updateObj) => {
-        if (!liveEvent) return;
-        if (!updateObj) return;
-        if (!eventRef?.current) return;
-
-        const updatedMarkets = getUpdatedMarkets(updateObj, eventRef.current.Markets);
-        dispatch(eventActions.updateLiveMarkets(updatedMarkets));
-        dispatch(betslipActions.updateLiveSlipOdds({ matchId: updateObj.Id, markets: updatedMarkets }));
-    };
-
     return (
         <>
             <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
@@ -242,7 +254,8 @@ const Event = () => {
                         <div className={classes.TopArea}>
                             {sports &&
                                 selectedSport &&
-                                (liveEvent ? (
+                                event &&
+                                (event.type === 'live' ? (
                                     <>
                                         <div className={classes.SelectTabArea}>
                                             <div className={classes.BackButton} onClick={() => navigate(`/sportsbook/live/${selectedSport.slug}`)}>
@@ -271,7 +284,7 @@ const Event = () => {
                                             // }
                                             className={classes.BreadcrumbLiveWrapper}
                                         >
-                                            <BreadcrumbLive event={event} page={liveEvent ? 'live' : 'home'} slice='event' />
+                                            <BreadcrumbLive event={event} page={event.type === 'live' ? 'live' : 'home'} slice='event' />
                                         </div>
 
                                         <div
@@ -304,12 +317,7 @@ const Event = () => {
                                             </div>
                                         </div>
 
-                                        <div
-                                            // className={
-                                            //     showTab !== 'tab1' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
-                                            // }
-                                            className={classes.BreadcrumbLiveWrapper}
-                                        >
+                                        <div className={classes.BreadcrumbLiveWrapper}>
                                             <Breadcrumb event={event} page='home' slice='event' />
                                         </div>
                                     </>
@@ -321,30 +329,30 @@ const Event = () => {
                         ) : (
                             <div className={classes.EventPage}>
                                 <h1 className={classes.EventTitle}>
-                                    {event?.Info.AwayTeamName
-                                        ? `${translateNameWithLang(event?.Info.HomeTeamName)} vs ${translateNameWithLang(event?.Info.AwayTeamName)}`
-                                        : translateNameWithLang(event?.Info.HomeTeamName)}
+                                    {event?.Info?.AwayTeamName
+                                        ? `${translateNameWithLang(event?.Info?.HomeTeamName)} vs ${translateNameWithLang(event?.Info?.AwayTeamName)}`
+                                        : translateNameWithLang(event?.Info?.HomeTeamName)}
                                 </h1>
 
-                                <aside className={liveEvent ? classes.Side : [classes.Side, classes.Pregame].join(' ')}>
+                                <aside className={event?.type === 'live' ? classes.Side : [classes.Side, classes.Pregame].join(' ')}>
                                     <div
                                         className={
-                                            (liveEvent && showTab !== 'tab1') || (!liveEvent && showTab !== 'tab2')
+                                            (event?.type === 'live' && showTab !== 'tab1') || (event?.type !== 'live' && showTab !== 'tab2')
                                                 ? [classes.EventTracker, classes.Hide].join(' ')
                                                 : classes.EventTracker
                                         }
                                         style={height ? { height: height + 'px' } : null}
                                     >
-                                        {event && liveEvent && (
+                                        {event && event?.type === 'live' && (
                                             <iframe
                                                 id='FMTracker'
                                                 run='iLive.initTracker'
                                                 src={`https://widget.feedmaker.live/?event=${event.MatchId}&amp;lang=${lang.id}`}
                                             />
                                         )}
-                                        {event && !liveEvent && (
+                                        {event && event?.type !== 'live' && (
                                             <iframe
-                                                src={`/stats/Stats.html?styles=#${lang.id}/external/page/h2h/${event.Info.HomeTeamId}/${event.Info.AwayTeamId}`}
+                                                src={`/stats/Stats.html?styles=#${lang.id}/external/page/h2h/${event.Info?.HomeTeamId}/${event.Info?.AwayTeamId}`}
                                                 style={{ width: '100%', height: '100%', border: 'none' }}
                                                 title='Stats'
                                             />
@@ -352,7 +360,7 @@ const Event = () => {
                                     </div>
                                 </aside>
 
-                                {marketGroups && (liveEvent || showTab === 'tab1') && (
+                                {marketGroups && (event?.type === 'live' || showTab === 'tab1') && (
                                     <div className={classes.Main}>
                                         {marketGroups.length > 0 && <MarketsMenu marketGroups={marketGroups} />}
 
