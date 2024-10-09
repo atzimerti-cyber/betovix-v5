@@ -25,6 +25,7 @@ import LogoSmall from "../../assets/svgs/logo-small.svg?react";
 import HeartIcon from "../../assets/svgs/heart.svg?react";
 import ExpandOutlineIcon from "../../assets/svgs/expand-outline.svg?react";
 import FullscreenOutlineIcon from "../../assets/svgs/fullscreen-outline.svg?react";
+import Arrow2LeftIcon from "../../assets/svgs/arrow2-left.svg?react";
 
 const CasinoGame = (props) => {
   const dispatch = useDispatch();
@@ -185,6 +186,7 @@ const CasinoGame = (props) => {
   let elClasses = [classes.CasinoGameWrapper];
   if (isExpanded) elClasses.push(classes.Expanded);
   if (isFullScreen) elClasses.push(classes.FullScreen);
+  // if (isMobile) elClasses.push(classes.IsMobile);
 
   return (
     <>
@@ -193,6 +195,12 @@ const CasinoGame = (props) => {
       <div className={elClasses.join(" ")}>
         <div className={classes.CasinoGame}>
           <div className={classes.Header}>
+            <div className={classes.LeftSection}>
+              <MainButton color="transparent" onClick={() => navigate(-1)}>
+                <Arrow2LeftIcon />
+                <span>{translate("Back")}</span>
+              </MainButton>
+            </div>
             <LogoSmall />
             <div className={classes.RightSection}>
               <MainButton
@@ -233,9 +241,14 @@ const CasinoGame = (props) => {
           </div>
           <div
             className={classes.Placeholder}
-            // style={
-            //   isMobile ? { height: `${viewportHeight}` } : { height: "65vh" }
-            // }
+            style={
+              isMobile
+                ? {
+                    height: `calc(${viewportHeight} - 10%)`,
+                    width: `calc(${viewportWidth} - 10%)`,
+                  }
+                : { height: "65vh" }
+            }
             ref={gameContentRef}
           >
             <div className={classes.GameContent}>
