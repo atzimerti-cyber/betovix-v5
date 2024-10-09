@@ -160,7 +160,8 @@ const CasinoGame = (props) => {
   const toggleFullScreen = () => {
     if (isIOS) {
       toast.success("mphke sthn toggleFullSreen IOS");
-      if (isMobile) elClasses.push(classes.IsIOSMobile);
+      elClasses.push(classes.IsIOSMobile);
+      toast.success("egine to classes.IsIOSMobile");
       setIsFullScreen((prev) => !prev);
     } else {
       toast.error("mphke sthn toggleFullSreen OXI IOS");
