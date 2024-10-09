@@ -57,7 +57,11 @@ const CasinoGame = (props) => {
   useEffect(() => {
     const userAgent = window.navigator.userAgent;
     const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-
+    if (isIOSDevice) {
+      toast.success("EINAI IOS");
+    } else {
+      toast.error("den einai ios (einai?)");
+    }
     setIsIOS(isIOSDevice);
   }, []);
 
@@ -155,9 +159,11 @@ const CasinoGame = (props) => {
 
   const toggleFullScreen = () => {
     if (isIOS) {
+      toast.success("mphke sthn toggleFullSreen IOS");
       if (isMobile) elClasses.push(classes.IsIOSMobile);
       setIsFullScreen((prev) => !prev);
     } else {
+      toast.error("mphke sthn toggleFullSreen OXI IOS");
       if (!document.fullscreenElement && !document.webkitFullscreenElement) {
         if (gameContentRef.current.requestFullscreen) {
           gameContentRef.current.requestFullscreen().catch((err) => {
