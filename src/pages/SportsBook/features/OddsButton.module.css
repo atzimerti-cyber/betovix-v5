@@ -16,9 +16,9 @@
   min-height: 2.5rem;
   border: 3px solid transparent;
 }
-.OddsButton:hover {
+/* .OddsButton:hover {
   background: var(--db-gray-5);
-}
+} */
 
 .OddsLabel {
   flex: 0 1 100%;
@@ -114,9 +114,9 @@
   border-color: var(--db-gray-13);
 }
 
-.CardButton:hover {
+/* .CardButton:hover {
   background-color: rgb(41, 63, 82);
-}
+} */
 
 .CardButton:disabled {
   background-color: rgb(66 81 95 / 19%);

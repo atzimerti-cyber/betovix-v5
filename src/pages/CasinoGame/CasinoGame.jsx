@@ -61,14 +61,14 @@ const CasinoGame = (props) => {
     if (isExpanded) newClasses.push(classes.Expanded);
     if (isFullScreen) {
       if (isIOS && isMobile) {
-        toast.success(`IOS MOBILE (isIOSMobile classes)`);
+        // toast.success(`IOS MOBILE (isIOSMobile classes)`);
         newClasses.push(classes.IsIOSMobile);
       }
-      toast.error(`lathos`);
+      // toast.error(`lathos`);
       newClasses.push(classes.FullScreen);
     }
     if (isIOS) newClasses.push(classes.IsIOSMobile); // Add iOS specific class if applicable
-    toast.warn(`${newClasses}`);
+    // toast.warn(`${newClasses}`);
     setElClasses(newClasses);
   }, [isExpanded, isFullScreen, isIOS]); // Dependencies to track state changes
 
@@ -76,9 +76,9 @@ const CasinoGame = (props) => {
     const userAgent = window.navigator.userAgent;
     const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
     if (isIOSDevice) {
-      toast.success("EINAI IOS");
+      // toast.success("EINAI IOS");
     } else {
-      toast.error("den einai ios (einai?)");
+      // toast.error("den einai ios (einai?)");
     }
     setIsIOS(isIOSDevice);
   }, []);
@@ -196,10 +196,10 @@ const CasinoGame = (props) => {
 
   const toggleFullScreen = () => {
     if (isIOS) {
-      toast.success("in toggleFullSreen IOS");
+      // toast.success("in toggleFullSreen IOS");
       setIsFullScreen((prev) => !prev);
     } else {
-      toast.error("in toggleFullSreen OXI IOS");
+      // toast.error("in toggleFullSreen OXI IOS");
       if (!document.fullscreenElement && !document.webkitFullscreenElement) {
         if (gameContentRef.current.requestFullscreen) {
           gameContentRef.current.requestFullscreen().catch((err) => {
