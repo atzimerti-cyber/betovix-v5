@@ -59,8 +59,8 @@ const CasinoGame = (props) => {
     // Update elClasses based on the current state
     const newClasses = [classes.CasinoGameWrapper];
     if (isExpanded) newClasses.push(classes.Expanded);
-    if (isFullScreen) {
-      if (isIOS && isMobile) {
+    if ( isFullScreen) {
+      if ( isIOS && isMobile) {
         // toast.success(`IOS MOBILE (isIOSMobile classes)`);
         newClasses.push(classes.IsIOSMobile);
       }

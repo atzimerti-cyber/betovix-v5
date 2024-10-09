@@ -22,16 +22,36 @@
   border-radius: 0.5rem;
   border-color: var(--db-gray-2);
 }
-
-.InputOuter > div > div {
-  background-color: var(--db-gray-2);
-  border: none !important;
+.Form .InputOuterCountrySelect {
+  margin-bottom: 0.5rem;
   border-radius: 0.5rem;
+  border-color: var(--db-gray-2);
+  background-color: var(--db-gray-2);
 }
-.InputOuter > div > div > div > div {
+.InputOuterCountrySelect > div:hover,
+.InputOuterCountrySelect > div:focus-within {
+  border-color: var(--db-brand-green) !important;
+  border: 1px solid;
+  border-radius: 0.5rem;
+  background-color: var(--db-gray-2);
+  box-shadow: none!important;
+}
+.InputOuterCountrySelect > div:nth-child(2):hover {
+  border: none;
+  box-shadow: none!important;
+}
+.InputOuterCountrySelect > div  {
+  background-color: var(--db-gray-2);
+  border: none;
+  /* border-radius: 0.5rem; */
+}
+.InputOuterCountrySelect > div > div > div {
   font-size: 0.75rem;
   color: rgba(148, 158, 192, 0.774);
 }
+/* .InputOuterCountrySelect > div > div > div:hover {
+  background-color: #33c16c;
+} */
 
 .LoginWith {
   margin-bottom: 0.5rem;

@@ -391,9 +391,9 @@ const Register = () => {
         {translate("Country")}
         <span className={classes.Required}>∗</span>
       </label>
-      <div className={classes.InputOuter}>
+      <div className={classes.InputOuterCountry}>
         <Select
-        className={classes.Select}
+          className={classes.InputOuterCountrySelect}
           options={countryOptions}
           onChange={(option) => updateRegisterInfo("country", option.value)} // Handle country selection
           placeholder={translate("Select your country")}

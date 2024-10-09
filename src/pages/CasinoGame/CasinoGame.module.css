@@ -28,13 +28,15 @@
 
 /* Mobile view - when isMobile is true */
 .CasinoGameWrapper.IsIOSMobile .CasinoGame {
-  position: fixed ;
-  top: 0;
+  position: fixed;
+  top: var(--db-topbar-height-mobile);
   left: 0;
   right: 0;
   bottom: 0;
   width: 100vw;
-  height: 100vh;
+  height: calc(
+    100vh - var(--db-topbar-height-mobile) - var(--db-bottom-nav-height)
+  );
   z-index: 1000000000;
   overflow: hidden;
 }
