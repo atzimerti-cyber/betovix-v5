@@ -46,6 +46,7 @@ const CasinoGame = (props) => {
   const [isFav, setIsFav] = useState(null);
   const [isDemo, setIsDemo] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
+  const [elClasses, setElClasses] = useState([classes.CasinoGameWrapper]);
 
   const casinoFavs = useSelector((state) => state.casinoFavorites.casinoFavs);
 
@@ -53,6 +54,23 @@ const CasinoGame = (props) => {
   const showCasinoGame = useSelector((state) => state.casino.showCasinoGame);
   const user = useSelector((state) => state.login.user);
   const barLoading = useSelector((state) => state.app.barLoading);
+
+  useEffect(() => {
+    // Update elClasses based on the current state
+    const newClasses = [classes.CasinoGameWrapper];
+    if (isExpanded) newClasses.push(classes.Expanded);
+    if (isFullScreen) {
+      if (isIOS && isMobile) {
+        toast.success(`IOS MOBILE (isIOSMobile classes)`);
+        newClasses.push(classes.IsIOSMobile);
+      }
+      toast.error(`lathos`);
+      newClasses.push(classes.FullScreen);
+    }
+    if (isIOS) newClasses.push(classes.IsIOSMobile); // Add iOS specific class if applicable
+    toast.warn(`${newClasses}`);
+    setElClasses(newClasses);
+  }, [isExpanded, isFullScreen, isIOS]); // Dependencies to track state changes
 
   useEffect(() => {
     const userAgent = window.navigator.userAgent;
@@ -65,20 +83,20 @@ const CasinoGame = (props) => {
     setIsIOS(isIOSDevice);
   }, []);
 
-  useEffect(() => {
-    const handleResize = () => {
-      setViewportHeight(window.innerHeight);
-      setViewportWidth(window.innerWidth);
-    };
+  // useEffect(() => {
+  //   const handleResize = () => {
+  //     setViewportHeight(window.innerHeight);
+  //     setViewportWidth(window.innerWidth);
+  //   };
 
-    window.addEventListener("resize", handleResize);
+  //   window.addEventListener("resize", handleResize);
 
-    handleResize();
+  //   handleResize();
 
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
+  //   return () => {
+  //     window.removeEventListener("resize", handleResize);
+  //   };
+  // }, []);
 
   useEffect(() => {
     if (user && isFav === null) {
@@ -99,9 +117,7 @@ const CasinoGame = (props) => {
         });
     }
 
-    return () => {
-      //ispatch(casinoFavoritesActions.reset());
-    };
+    return () => {};
   }, [casinoFavs]);
 
   useEffect(() => {
@@ -157,14 +173,33 @@ const CasinoGame = (props) => {
     });
   };
 
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      const isFullscreen =
+        document.fullscreenElement || document.webkitFullscreenElement;
+      setIsFullScreen(!!isFullscreen);
+    };
+
+    // Attach the listener to document
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+
+    // Cleanup the listener on unmount
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
+    };
+  }, []);
+
   const toggleFullScreen = () => {
     if (isIOS) {
-      toast.success("mphke sthn toggleFullSreen IOS");
-      elClasses.push(classes.IsIOSMobile);
-      toast.success("egine to classes.IsIOSMobile");
+      toast.success("in toggleFullSreen IOS");
       setIsFullScreen((prev) => !prev);
     } else {
-      toast.error("mphke sthn toggleFullSreen OXI IOS");
+      toast.error("in toggleFullSreen OXI IOS");
       if (!document.fullscreenElement && !document.webkitFullscreenElement) {
         if (gameContentRef.current.requestFullscreen) {
           gameContentRef.current.requestFullscreen().catch((err) => {
@@ -175,14 +210,14 @@ const CasinoGame = (props) => {
             setIsFullScreen(false);
           });
         }
-        setIsFullScreen(true);
+        // setIsFullScreen(true);
       } else {
         if (document.exitFullscreen) {
           document.exitFullscreen();
         } else if (document.webkitExitFullscreen) {
           document.webkitExitFullscreen();
         }
-        setIsFullScreen(false);
+        // setIsFullScreen(false);
       }
     }
   };
@@ -203,9 +238,9 @@ const CasinoGame = (props) => {
     }
   };
 
-  let elClasses = [classes.CasinoGameWrapper];
-  if (isExpanded) elClasses.push(classes.Expanded);
-  if (isFullScreen) elClasses.push(classes.FullScreen);
+  // let elClasses = [classes.CasinoGameWrapper];
+  // if (isExpanded) elClasses.push(classes.Expanded);
+  // if (isFullScreen) elClasses.push(classes.FullScreen);
 
   return (
     <>
