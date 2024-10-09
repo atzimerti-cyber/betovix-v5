@@ -288,7 +288,7 @@
 }
 
 .DropDownWrapper {
-  z-index: 100000;
+  z-index: 100;
   position: relative;
   display: inline-block;
 }

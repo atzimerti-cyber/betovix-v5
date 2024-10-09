@@ -5,12 +5,12 @@
   padding: 22px 20px 40px;
 }
 
-.CasinoGame {
+/* .CasinoGame {
   position: relative;
   margin-top: 1rem;
   background-color: rgb(27, 40, 46);
   overflow: hidden;
-}
+} */
 
 /* General styles */
 .CasinoGameWrapper {
@@ -22,41 +22,42 @@
 
 .CasinoGame {
   position: relative;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   background-color: rgb(27, 40, 46);
 }
 
 /* Mobile view - when isMobile is true */
-/* .CasinoGameWrapper.IsMobile .CasinoGame {
-  position: absolute;
+.CasinoGameWrapper.IsIOSMobile .CasinoGame {
+  position: fixed ;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 100000;
+  z-index: 1000000000;
   overflow: hidden;
 }
 
-.CasinoGameWrapper.IsMobile .Placeholder {
-  height: 100%;
-  width: 100%;
+.CasinoGameWrapper.IsIOSMobile .Placeholder {
+  width: 100vw;
+  height: 100vh;
+  z-index: 100000000;
 }
 
-.CasinoGameWrapper.IsMobile .GameContent {
+.CasinoGameWrapper.IsIOSMobile .GameContent {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
 }
 
-.CasinoGameWrapper.IsMobile .GameContent iframe {
+.CasinoGameWrapper.IsIOSMobile .GameContent iframe {
   width: 100%;
   height: 100%;
   z-index: 10000000;
-} */
+}
 
 .CasinoGameWrapper.Expanded {
   /* max-width: unset; */

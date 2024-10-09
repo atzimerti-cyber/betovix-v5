@@ -45,6 +45,7 @@ const CasinoGame = (props) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isFav, setIsFav] = useState(null);
   const [isDemo, setIsDemo] = useState(false);
+  const [isIOS, setIsIOS] = useState(false);
 
   const casinoFavs = useSelector((state) => state.casinoFavorites.casinoFavs);
 
@@ -52,6 +53,13 @@ const CasinoGame = (props) => {
   const showCasinoGame = useSelector((state) => state.casino.showCasinoGame);
   const user = useSelector((state) => state.login.user);
   const barLoading = useSelector((state) => state.app.barLoading);
+
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent;
+    const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+
+    setIsIOS(isIOSDevice);
+  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -146,24 +154,29 @@ const CasinoGame = (props) => {
   };
 
   const toggleFullScreen = () => {
-    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-      if (gameContentRef.current.requestFullscreen) {
-        gameContentRef.current.requestFullscreen().catch((err) => {
-          setIsFullScreen(false);
-        });
-      } else if (gameContentRef.current.webkitRequestFullscreen) {
-        gameContentRef.current.webkitRequestFullscreen().catch((err) => {
-          setIsFullScreen(false);
-        });
-      }
-      setIsFullScreen(true);
+    if (isIOS) {
+      if (isMobile) elClasses.push(classes.IsIOSMobile);
+      setIsFullScreen((prev) => !prev);
     } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
+      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+        if (gameContentRef.current.requestFullscreen) {
+          gameContentRef.current.requestFullscreen().catch((err) => {
+            setIsFullScreen(false);
+          });
+        } else if (gameContentRef.current.webkitRequestFullscreen) {
+          gameContentRef.current.webkitRequestFullscreen().catch((err) => {
+            setIsFullScreen(false);
+          });
+        }
+        setIsFullScreen(true);
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen();
+        }
+        setIsFullScreen(false);
       }
-      setIsFullScreen(false);
     }
   };
 
@@ -186,7 +199,6 @@ const CasinoGame = (props) => {
   let elClasses = [classes.CasinoGameWrapper];
   if (isExpanded) elClasses.push(classes.Expanded);
   if (isFullScreen) elClasses.push(classes.FullScreen);
-  // if (isMobile) elClasses.push(classes.IsMobile);
 
   return (
     <>
@@ -239,18 +251,7 @@ const CasinoGame = (props) => {
               </MainButton>
             </div>
           </div>
-          <div
-            className={classes.Placeholder}
-            style={
-              isMobile
-                ? {
-                    height: `calc(${viewportHeight} - 10%)`,
-                    width: `calc(${viewportWidth} - 10%)`,
-                  }
-                : { height: "65vh" }
-            }
-            ref={gameContentRef}
-          >
+          <div className={classes.Placeholder} ref={gameContentRef}>
             <div className={classes.GameContent}>
               {casinoGame && (
                 <iframe
