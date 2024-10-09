@@ -26,7 +26,6 @@ const SportsLive = () => {
     const allSports = useSelector((state) => state.app.allSports);
     const sportSettings = useSelector((state) => state.app.sportSettings);
 
-    const topLeagues = useSelector((state) => state.sportsbook.topLeagues);
     const tournamentSearchString = useSelector((state) => state.sportsbook.tournamentSearchString);
     const tournamentSort = useSelector((state) => state.sportsbook.tournamentSort);
     const sportMarketTree = useSelector((state) => state.sportsbook.sportMarketTree);
@@ -147,7 +146,6 @@ const SportsLive = () => {
     // Get the categories and Tournaments.
     useEffect(() => {
         if (!selectedSport) return;
-        if (!topLeagues) return;
         if (!axiosController) return;
 
         if (!sportMarketTree[selectedSport.Id]) dispatch(getSportMarketTree(selectedSport.Id, axiosController.signal));
@@ -157,7 +155,7 @@ const SportsLive = () => {
         setCategoriesAndTournaments();
 
         setLoadingCategories(false);
-    }, [selectedSport?.Id, topLeagues, axiosController]);
+    }, [selectedSport?.Id, axiosController]);
 
     // When the sports change (because an event was added or removed) re-evaluate
     useEffect(() => {
