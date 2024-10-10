@@ -108,13 +108,22 @@ const CasinoGame = (props) => {
   useEffect(() => {
     const userAgent = window.navigator.userAgent;
     const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+
     if (isIOSDevice) {
       document.getElementById("loadGame").style.display = "block";
       document.getElementById("btnBack").style.display = "block";
       document.getElementById("game").style.display = "block";
       document.getElementById("game").src = casinoGame?.url;
     }
+
     setIsIOS(isIOSDevice);
+
+    // Cleanup function to hide the elements on unmount
+    return () => {
+      document.getElementById("game").style.display = "none";
+      document.getElementById("btnBack").style.display = "none";
+      document.getElementById("loadGame").style.display = "none";
+    };
   }, [casinoGame]);
 
   //CHECK IF GAME IS FAV
