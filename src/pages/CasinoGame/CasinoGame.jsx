@@ -43,7 +43,7 @@ const CasinoGame = (props) => {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [isFav, setIsFav] = useState(null);
   const [isDemo, setIsDemo] = useState(false);
-  const [isIOS, setIsIOS] = useState(false);
+  const [isIOS, setIsIOS] = useState(null);
   const [elClasses, setElClasses] = useState([classes.CasinoGameWrapper]);
 
   const casinoFavs = useSelector((state) => state.casinoFavorites.casinoFavs);
@@ -102,52 +102,66 @@ const CasinoGame = (props) => {
     const newClasses = [classes.CasinoGameWrapper];
     if (isExpanded) newClasses.push(classes.Expanded);
     setElClasses(newClasses);
-  }, [isExpanded, isIOS]);
+  }, [isExpanded]);
 
   //CHECK IF DEVICE IS IOS AND MOBILE TO OPEN IFRAME
   useEffect(() => {
     const userAgent = window.navigator.userAgent;
     const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
 
+    // if (isIOSDevice) {
+    //   document.getElementById("loadGame").style.display = "block";
+    //   console.error("mauro");
+    //   if (casinoGame) {
+    //     console.error("paixnidi");
+    //     document.getElementById("btnBack").style.display = "block";
+    //     document.getElementById("game").style.display = "block";
+    //     document.getElementById("game").src = casinoGame?.url;
+    //   }
+    // }
     if (isIOSDevice) {
+      console.info("mauro");
       document.getElementById("loadGame").style.display = "block";
-      document.getElementById("btnBack").style.display = "block";
-      document.getElementById("game").style.display = "block";
-      document.getElementById("game").src = casinoGame?.url;
     }
 
     setIsIOS(isIOSDevice);
 
     // Cleanup function to hide the elements on unmount
     return () => {
+      document.getElementById("loadGame").style.display = "none";
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isIOS) {
+      console.info("paixnidi");
+      document.getElementById("btnBack").style.display = "block";
+      document.getElementById("game").style.display = "block";
+      document.getElementById("game").src = casinoGame?.url;
+    }
+
+    // Cleanup function to hide the elements on unmount
+    return () => {
       document.getElementById("game").style.display = "none";
       document.getElementById("btnBack").style.display = "none";
-      document.getElementById("loadGame").style.display = "none";
     };
   }, [casinoGame]);
 
   //CHECK IF GAME IS FAV
   useEffect(() => {
     if (user && isFav === null) {
-      dispatch(getCasinoFavs())
-        .then(() => {
-          const isFav =
-            Array.isArray(casinoFavs) &&
-            casinoFavs.some((fav) => fav.Data.Id == id);
+      if (!casinoFavs) {
+        dispatch(getCasinoFavs());
+      } else {
+        const isFavorite =
+          Array.isArray(casinoFavs) &&
+          casinoFavs.some((fav) => fav.Data.Id == id);
 
-          if (isFav) {
-            setIsFav(true);
-          } else {
-            setIsFav(false);
-          }
-        })
-        .catch((error) => {
-          null;
-        });
+        // Update the isFav state
+        setIsFav(isFavorite);
+      }
     }
-
-    return () => {};
-  }, [casinoFavs]);
+  }, [user?.AccountId, casinoFavs]);
 
   //FULLSCREEN EVENTS
   useEffect(() => {
