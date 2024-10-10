@@ -95,7 +95,7 @@ const CasinoGame = (props) => {
       dispatch(casinoActions.setShowCasinoGame(false));
       dispatch(appActions.setBarLoading(false));
     };
-  }, [user]);
+  }, [user?.AccountId]);
 
   // CasinoGameWrapper CLASSES
   useEffect(() => {
