@@ -33,14 +33,18 @@
 
     <script>
         function hideGame() {
-            window.location.href = "/casino/lobby";
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = "/casino/lobby";
+            }
             document.getElementById('game').style.display = 'none';
             document.getElementById('btnBack').style.display = 'none';
             document.getElementById('loadGame').style.display = 'none';
         }
     </script>
-  <script type="module" crossorigin src="/assets/index-CBZwbQvN.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-Br9JfMmp.css">
+  <script type="module" crossorigin src="/assets/index-kSG24fpc.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BCAH3a4e.css">
 </head>
 
 <body>
