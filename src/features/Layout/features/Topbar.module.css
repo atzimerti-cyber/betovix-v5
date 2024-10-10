@@ -1,7 +1,7 @@
 .Topbar {
   position: fixed;
   /* top: 0; */
-  top: var(--db-minibar-height-mobile);
+  top: calc(var(--db-minibar-height-mobile) + env(safe-area-inset-top));
   z-index: 1000;
   display: flex;
   /* height: var(--db-topbar-height-mobile); */
