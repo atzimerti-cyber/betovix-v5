@@ -38,8 +38,6 @@ const CasinoGame = (props) => {
   const gameContentRef = useRef(null);
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
-  const [viewportHeight, setViewportHeight] = useState(window.innerHeight);
-  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -55,71 +53,7 @@ const CasinoGame = (props) => {
   const user = useSelector((state) => state.login.user);
   const barLoading = useSelector((state) => state.app.barLoading);
 
-  useEffect(() => {
-    // Update elClasses based on the current state
-    const newClasses = [classes.CasinoGameWrapper];
-    if (isExpanded) newClasses.push(classes.Expanded);
-    if ( isFullScreen) {
-      if ( isIOS && isMobile) {
-        // toast.success(`IOS MOBILE (isIOSMobile classes)`);
-        newClasses.push(classes.IsIOSMobile);
-      }
-      // toast.error(`lathos`);
-      newClasses.push(classes.FullScreen);
-    }
-    if (isIOS) newClasses.push(classes.IsIOSMobile); // Add iOS specific class if applicable
-    // toast.warn(`${newClasses}`);
-    setElClasses(newClasses);
-  }, [isExpanded, isFullScreen, isIOS]); // Dependencies to track state changes
-
-  useEffect(() => {
-    const userAgent = window.navigator.userAgent;
-    const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
-    if (isIOSDevice) {
-      // toast.success("EINAI IOS");
-    } else {
-      // toast.error("den einai ios (einai?)");
-    }
-    setIsIOS(isIOSDevice);
-  }, []);
-
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setViewportHeight(window.innerHeight);
-  //     setViewportWidth(window.innerWidth);
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-
-  //   handleResize();
-
-  //   return () => {
-  //     window.removeEventListener("resize", handleResize);
-  //   };
-  // }, []);
-
-  useEffect(() => {
-    if (user && isFav === null) {
-      dispatch(getCasinoFavs())
-        .then(() => {
-          const isFav =
-            Array.isArray(casinoFavs) &&
-            casinoFavs.some((fav) => fav.Data.Id == id);
-
-          if (isFav) {
-            setIsFav(true);
-          } else {
-            setIsFav(false);
-          }
-        })
-        .catch((error) => {
-          null;
-        });
-    }
-
-    return () => {};
-  }, [casinoFavs]);
-
+  //OPEN GAME
   useEffect(() => {
     if (user) dispatch(casinoActions.setShowCasinoGame(true));
     else dispatch(casinoActions.setShowCasinoGame(false));
@@ -161,7 +95,70 @@ const CasinoGame = (props) => {
       dispatch(casinoActions.setShowCasinoGame(false));
       dispatch(appActions.setBarLoading(false));
     };
-  }, [isDemo, user?.AccountId]);
+  }, [user]);
+
+  // CasinoGameWrapper CLASSES
+  useEffect(() => {
+    const newClasses = [classes.CasinoGameWrapper];
+    if (isExpanded) newClasses.push(classes.Expanded);
+    setElClasses(newClasses);
+  }, [isExpanded, isIOS]);
+
+  //CHECK IF DEVICE IS IOS AND MOBILE TO OPEN IFRAME
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent;
+    const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+    if (isIOSDevice) {
+      document.getElementById("loadGame").style.display = "block";
+      document.getElementById("btnBack").style.display = "block";
+      document.getElementById("game").style.display = "block";
+      document.getElementById("game").src = casinoGame?.url;
+    }
+    setIsIOS(isIOSDevice);
+  }, [casinoGame]);
+
+  //CHECK IF GAME IS FAV
+  useEffect(() => {
+    if (user && isFav === null) {
+      dispatch(getCasinoFavs())
+        .then(() => {
+          const isFav =
+            Array.isArray(casinoFavs) &&
+            casinoFavs.some((fav) => fav.Data.Id == id);
+
+          if (isFav) {
+            setIsFav(true);
+          } else {
+            setIsFav(false);
+          }
+        })
+        .catch((error) => {
+          null;
+        });
+    }
+
+    return () => {};
+  }, [casinoFavs]);
+
+  //FULLSCREEN EVENTS
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      const isFullscreen =
+        document.fullscreenElement || document.webkitFullscreenElement;
+      setIsFullScreen(!!isFullscreen);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", handleFullscreenChange);
+      document.removeEventListener(
+        "webkitfullscreenchange",
+        handleFullscreenChange
+      );
+    };
+  }, []);
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);
@@ -173,55 +170,33 @@ const CasinoGame = (props) => {
     });
   };
 
-  useEffect(() => {
-    const handleFullscreenChange = () => {
-      const isFullscreen =
-        document.fullscreenElement || document.webkitFullscreenElement;
-      setIsFullScreen(!!isFullscreen);
-    };
-
-    // Attach the listener to document
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-    document.addEventListener("webkitfullscreenchange", handleFullscreenChange);
-
-    // Cleanup the listener on unmount
-    return () => {
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
-      document.removeEventListener(
-        "webkitfullscreenchange",
-        handleFullscreenChange
-      );
-    };
-  }, []);
-
+  //TOGGLE FULLSCREEN BUTTON
   const toggleFullScreen = () => {
-    if (isIOS) {
-      // toast.success("in toggleFullSreen IOS");
-      setIsFullScreen((prev) => !prev);
+    // if (isIOS) {
+    //   setIsFullScreen((prev) => !prev);
+    // } else {
+    if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+      if (gameContentRef.current.requestFullscreen) {
+        gameContentRef.current.requestFullscreen().catch((err) => {
+          setIsFullScreen(false);
+        });
+      } else if (gameContentRef.current.webkitRequestFullscreen) {
+        gameContentRef.current.webkitRequestFullscreen().catch((err) => {
+          setIsFullScreen(false);
+        });
+      }
+      setIsFullScreen(true);
     } else {
-      // toast.error("in toggleFullSreen OXI IOS");
-      if (!document.fullscreenElement && !document.webkitFullscreenElement) {
-        if (gameContentRef.current.requestFullscreen) {
-          gameContentRef.current.requestFullscreen().catch((err) => {
-            setIsFullScreen(false);
-          });
-        } else if (gameContentRef.current.webkitRequestFullscreen) {
-          gameContentRef.current.webkitRequestFullscreen().catch((err) => {
-            setIsFullScreen(false);
-          });
-        }
-        // setIsFullScreen(true);
-      } else {
-        if (document.exitFullscreen) {
-          document.exitFullscreen();
-        } else if (document.webkitExitFullscreen) {
-          document.webkitExitFullscreen();
-        }
-        // setIsFullScreen(false);
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
       }
     }
+    // }
   };
 
+  //TOGGLE FAVORITE BUTTON
   const onToggleFavorite = (id) => {
     if (user) {
       if (isFav) {
@@ -238,102 +213,98 @@ const CasinoGame = (props) => {
     }
   };
 
-  // let elClasses = [classes.CasinoGameWrapper];
-  // if (isExpanded) elClasses.push(classes.Expanded);
-  // if (isFullScreen) elClasses.push(classes.FullScreen);
-
   return (
     <>
       <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
+      {!isIOS && (
+        <div className={elClasses.join(" ")}>
+          <div className={classes.CasinoGame}>
+            <div className={classes.Header}>
+              <div className={classes.LeftSection}>
+                <MainButton color="transparent" onClick={() => navigate(-1)}>
+                  <Arrow2LeftIcon />
+                  <span>{translate("Back")}</span>
+                </MainButton>
+              </div>
+              <LogoSmall />
+              <div className={classes.RightSection}>
+                <MainButton
+                  color="transparent"
+                  onClick={() => {
+                    if (user) {
+                      onToggleFavorite(id);
+                    } else {
+                      toast.warning("Login to access this feature");
+                    }
+                  }}
+                >
+                  <HeartIcon
+                    className={
+                      isFav ? classes.FavoriteIcon : classes.NotFavoriteIcon
+                    }
+                  />
 
-      <div className={elClasses.join(" ")}>
-        <div className={classes.CasinoGame}>
-          <div className={classes.Header}>
-            <div className={classes.LeftSection}>
-              <MainButton color="transparent" onClick={() => navigate(-1)}>
-                <Arrow2LeftIcon />
-                <span>{translate("Back")}</span>
-              </MainButton>
+                  <span>{isFav ? translate("Liked") : translate("Like")}</span>
+                </MainButton>
+
+                <MainButton
+                  color="transparent"
+                  onClick={() => setIsExpanded((prev) => !prev)}
+                >
+                  <ExpandOutlineIcon />
+                  <span>{translate("Expand")}</span>
+                </MainButton>
+
+                <MainButton
+                  color="transparent"
+                  onClick={() => toggleFullScreen()}
+                >
+                  <FullscreenOutlineIcon />
+                  <span>{translate("Full Screen")}</span>
+                </MainButton>
+              </div>
             </div>
-            <LogoSmall />
-            <div className={classes.RightSection}>
-              <MainButton
-                color="transparent"
-                onClick={() => {
-                  if (user) {
-                    onToggleFavorite(id);
-                  } else {
-                    toast.warning("Login to access this feature");
-                  }
-                }}
-              >
-                <HeartIcon
-                  className={
-                    isFav ? classes.FavoriteIcon : classes.NotFavoriteIcon
-                  }
-                />
-
-                <span>{isFav ? translate("Liked") : translate("Like")}</span>
-              </MainButton>
-
-              <MainButton
-                color="transparent"
-                onClick={() => setIsExpanded((prev) => !prev)}
-              >
-                <ExpandOutlineIcon />
-                <span>{translate("Expand")}</span>
-              </MainButton>
-
-              <MainButton
-                color="transparent"
-                onClick={() => toggleFullScreen()}
-              >
-                <FullscreenOutlineIcon />
-                <span>{translate("Full Screen")}</span>
-              </MainButton>
-            </div>
-          </div>
-          <div className={classes.Placeholder} ref={gameContentRef}>
-            <div className={classes.GameContent}>
-              {casinoGame && (
-                <iframe
-                  className={classes.GameIframe}
-                  src={casinoGame.url}
-                  allow="autoplay; clipboard-write; fullscreen"
-                  allowFullScreen
-                  // allow='autoplay; clipboard-write; geolocation;camera;microphone'
-                  width="100%"
-                  height="100%"
-                ></iframe>
-              )}
-            </div>
-            {!showCasinoGame && (
-              <div className={classes.GameOverlay}>
-                {!user && (
-                  <>
-                    <div className={classes.OverlayTitle}>
-                      {translate(`Login to play.`)}
-                    </div>
-                    <div className={classes.OverlayButtons}>
-                      <MainButton
-                        color="primary"
-                        onClick={() => addParamsToUrl("auth", "login")}
-                      >
-                        {translate("Login")}
-                      </MainButton>
-                    </div>
-                  </>
+            <div className={classes.Placeholder} ref={gameContentRef}>
+              <div className={classes.GameContent}>
+                {casinoGame && (
+                  <iframe
+                    className={classes.GameIframe}
+                    src={casinoGame.url}
+                    allow="autoplay; clipboard-write; fullscreen"
+                    allowFullScreen
+                    width="100%"
+                    height="100%"
+                  ></iframe>
                 )}
               </div>
-            )}
-          </div>
-          <div className={classes.GameControls}>
-            <div className={classes.GameNameWrapper}>
-              <h3 className={classes.GameName}>{name}</h3>
+              {!showCasinoGame && (
+                <div className={classes.GameOverlay}>
+                  {!user && (
+                    <>
+                      <div className={classes.OverlayTitle}>
+                        {translate(`Login to play.`)}
+                      </div>
+                      <div className={classes.OverlayButtons}>
+                        <MainButton
+                          color="primary"
+                          onClick={() => addParamsToUrl("auth", "login")}
+                        >
+                          {translate("Login")}
+                        </MainButton>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+            <div className={classes.GameControls}>
+              <div className={classes.GameNameWrapper}>
+                <h3 className={classes.GameName}>{name}</h3>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

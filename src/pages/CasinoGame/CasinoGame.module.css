@@ -26,49 +26,11 @@
   background-color: rgb(27, 40, 46);
 }
 
-/* Mobile view - when isMobile is true */
-.CasinoGameWrapper.IsIOSMobile .CasinoGame {
-  position: fixed;
-  top: var(--db-topbar-height-mobile);
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100vw;
-  height: calc(
-    100vh - var(--db-topbar-height-mobile) - var(--db-bottom-nav-height)
-  );
-  z-index: 1000000000;
-  overflow: hidden;
-}
-
-.CasinoGameWrapper.IsIOSMobile .Placeholder {
-  width: 100vw;
-  height: 100vh;
-  z-index: 100000000;
-}
-
-.CasinoGameWrapper.IsIOSMobile .GameContent {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-}
-
-.CasinoGameWrapper.IsIOSMobile .GameContent iframe {
-  width: 100%;
-  height: 100%;
-  z-index: 10000000;
-}
-
 .CasinoGameWrapper.Expanded {
   /* max-width: unset; */
   max-width: none;
   width: 100%;
 }
-/* .CasinoGameWrapper.Expanded .Placeholder {
-    height: calc(-185px + 100vh);
-} */
 
 .Header {
   height: 40px;
