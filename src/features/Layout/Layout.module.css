@@ -7,7 +7,7 @@
   display: flex;
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
   /* padding-top: 72px; */
   padding-top: calc(
     var(--db-minibar-height-mobile) + var(--db-topbar-height-mobile)
