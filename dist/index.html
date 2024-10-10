@@ -1,37 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
 
-        <title>betovix.com</title>
-        <meta name="description" content="Industry wide best odds on: Premier League, La Liga, Bundesliga, NBA, NFL, MLB, UFC + more." />
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
 
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
+    <title>betovix.com</title>
+    <meta name="description"
+        content="Industry wide best odds on: Premier League, La Liga, Bundesliga, NBA, NFL, MLB, UFC + more." />
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css">
 
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">  -->
 
-        <meta name="msapplication-TileColor" content="#213241" />
-        <meta name="theme-color" content="#0e1b26" />
+    <meta name="msapplication-TileColor" content="#213241" />
+    <meta name="theme-color" content="#0e1b26" />
 
-        <link rel="preload" href="https://use.typekit.net/emg0udh.css" as="style" onload="this.rel='stylesheet'" />
+    <link rel="preload" href="https://use.typekit.net/emg0udh.css" as="style" onload="this.rel='stylesheet'" />
 
-        <script type="text/javascript" src="/settings.js"></script>
-        <script type="text/javascript" src="https://e4a2fe78-d6a5-4db4-8b68-4943b8cde3f0.snippet.anjouangaming.org/anj-seal.js"></script>
-        
-        <!-- <iframe src="your-game-url" allow="fullscreen" allowfullscreen></iframe> -->
-      <script type="module" crossorigin src="/assets/index-Bco06GYE.js"></script>
-      <link rel="stylesheet" crossorigin href="/assets/index-BJiRwklp.css">
-    </head>
-    <body>
-        <div id="root"></div>
-        
-        
-        
-    </body>
+    <script type="text/javascript" src="/settings.js"></script>
+    <script type="text/javascript"
+        src="https://e4a2fe78-d6a5-4db4-8b68-4943b8cde3f0.snippet.anjouangaming.org/anj-seal.js"></script>
+
+    <script>
+        function hideGame() {
+            window.location.href = "/casino/lobby";
+            document.getElementById('game').style.display = 'none';
+            document.getElementById('btnBack').style.display = 'none';
+            document.getElementById('loadGame').style.display = 'none';
+        }
+    </script>
+  <script type="module" crossorigin src="/assets/index-CDMU3LRO.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BJiRwklp.css">
+</head>
+
+<body>
+    <div id="loadGame" style="position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        width:100vw;
+        height: 100vh;
+        display: none;
+        background:black;
+        z-index:999999999999999999999;">
+    </div>
+    <iframe id="game" style="position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        width:100vw;
+        height: 100vh;
+        display: none;
+        z-index:9999999999999999999999999;
+        " src="#" allow="fullscreen" allowfullscreen></iframe>
+    <button id="btnBack" onclick="hideGame()"
+        style="display:none;position:fixed;top:0;left:0;width: 100px;height: 30px;z-index:99999999999999999999999999;background: blue;">BACK</button>
+
+
+    <div id="root"></div>
+
+
+
+</body>
+
 </html>
