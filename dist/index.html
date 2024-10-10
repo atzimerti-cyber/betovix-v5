@@ -33,18 +33,18 @@
 
     <script>
         function hideGame() {
-            if (window.history.length > 1) {
-                for (let i = 0; i < window.history.length; i++) {
-                    window.history.go(-i);
+            // if (window.history.length > 1) {
+            //     for (let i = 0; i < window.history.length; i++) {
+            //         window.history.go(-i);
 
-                    if (window.location.pathname.includes('/casino/')) {
-                        document.getElementById('game').style.display = 'none';
-                        document.getElementById('btnBack').style.display = 'none';
-                        document.getElementById('loadGame').style.display = 'none';
-                        return;
-                    }
-                }
-            }
+            //         if (window.location.pathname.includes('/casino/')) {
+            //             document.getElementById('game').style.display = 'none';
+            //             document.getElementById('btnBack').style.display = 'none';
+            //             document.getElementById('loadGame').style.display = 'none';
+            //             return;
+            //         }
+            //     }
+            // }
             window.location.href = "/casino/lobby";
             document.getElementById('game').style.display = 'none';
             document.getElementById('btnBack').style.display = 'none';
