@@ -1,5 +1,5 @@
 .Topbar {
-  position: absolute;
+  position: fixed;
   top: env(safe-area-inset-top); /* Use the safe area inset for the top */
   z-index: 1000;
   display: flex;
