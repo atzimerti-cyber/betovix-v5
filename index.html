@@ -33,7 +33,11 @@
 
     <script>
         function hideGame() {
-            window.location.href = "/casino/lobby";
+            if (window.history.length > 1) {
+                window.history.back();
+            } else {
+                window.location.href = "/casino/lobby";
+            }
             document.getElementById('game').style.display = 'none';
             document.getElementById('btnBack').style.display = 'none';
             document.getElementById('loadGame').style.display = 'none';

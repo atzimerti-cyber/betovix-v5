@@ -1,3 +1,4 @@
+
 import { useRef, useCallback, useState, useEffect } from "react";
 
 import classes from "./NotificationsModal.module.css";
@@ -14,27 +15,27 @@ const NotificationsModal = () => {
   const location = useLocation();
   const isMobile = useMediaQuery({ query: "(max-width: 1023px)" });
 
-  const notifications = [
-    {
-      title: "Notification",
-      message:
-        "eidopoihshheidopoihshhh hheidopoih shhhhhei dopoihshhhhheidopoihsh hhhheidopoihshhhhhhhh",
-      date: "Yesterday",
-      viewed: false,
-    },
-    {
-      title: "Notiion",
-      message: "eidopoihshhhhh",
-      date: "Yesterday",
-      viewed: true,
-    },
-    {
-      title: "Ncation",
-      message: "eidopoihshhhhh",
-      date: "Yesterday",
-      viewed: true,
-    },
-  ];
+  // const notifications = [
+  //   {
+  //     title: "Notification",
+  //     message:
+  //       "eidopoihshheidopoihshhh hheidopoih shhhhhei dopoihshhhhheidopoihsh hhhheidopoihshhhhhhhh",
+  //     date: "Yesterday",
+  //     viewed: false,
+  //   },
+  //   {
+  //     title: "Notiion",
+  //     message: "eidopoihshhhhh",
+  //     date: "Yesterday",
+  //     viewed: true,
+  //   },
+  //   {
+  //     title: "Ncation",
+  //     message: "eidopoihshhhhh",
+  //     date: "Yesterday",
+  //     viewed: true,
+  //   },
+  // ];
 
   const [unreadOnly, setUnreadOnly] = useState(false);
 

@@ -23,7 +23,7 @@ const MenuItems = (props) => {
   const newRewards = useSelector(
     (state) => state.gamification.availableRewards
   );
-  const newNotifications = 5; ///////////////////////////////////////////////////////////////
+  const newNotifications = 0; ///////////////////////////////////////////////////////////////
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);

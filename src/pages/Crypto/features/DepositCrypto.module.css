@@ -12,7 +12,7 @@
 .BalanceContainer {
     margin-top: 0.5rem;
     display: flex;
-    height: 2.25rem;
+    height: 2.6rem;
     width: 100%;
     align-items: center;
     justify-content: space-between;
@@ -20,6 +20,8 @@
     background-color: var(--db-dark-1);
     padding-left: 1rem;
     padding-right: 0.75rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .BalanceContainer > div {
@@ -59,7 +61,7 @@
 }
 
 .ReturnButtonWrapper button {
-    height: 2.5rem;
+    height: max-content;
     /* width: 100%; */
     width: fit-content;
     flex-wrap: nowrap;
@@ -68,6 +70,8 @@
     border-radius: 0.5rem;
     padding-left: 0.25rem;
     padding-right: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 }
 
 .ReturnButtonWrapper button span {
