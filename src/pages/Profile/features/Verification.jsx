@@ -173,6 +173,37 @@ const Verification = () => {
                   "Take an interactive selfie and ID picture with liveness check."
                 )}
               </p>
+              <form onSubmit={handleSubmit} className={classes.FileInputForm}>
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className={classes.FileInput}
+                />
+                {selectedFile && (
+                  <div className={classes.FileInfo}>
+                    <span>{selectedFile.name}</span>
+                    <button
+                      type="button"
+                      onClick={handleRemoveFile}
+                      className={classes.RemoveFileButton}
+                    >
+                      <Trash />
+                    </button>
+                  </div>
+                )}
+                <button
+                  type="submit"
+                  className={
+                    selectedFile
+                      ? classes.FileSubmitButton
+                      : [classes.FileSubmitButton, classes.Disabled].join(" ")
+                  }
+                >
+                  Upload
+                </button>
+              </form>
             </div>
           )}
         </div>
@@ -196,6 +227,37 @@ const Verification = () => {
                 {translate("Proof of Address")}
               </p>
               <p>{translate("Submit proof of your current address.")}</p>
+              <form onSubmit={handleSubmit} className={classes.FileInputForm}>
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className={classes.FileInput}
+                />
+                {selectedFile && (
+                  <div className={classes.FileInfo}>
+                    <span>{selectedFile.name}</span>
+                    <button
+                      type="button"
+                      onClick={handleRemoveFile}
+                      className={classes.RemoveFileButton}
+                    >
+                      <Trash />
+                    </button>
+                  </div>
+                )}
+                <button
+                  type="submit"
+                  className={
+                    selectedFile
+                      ? classes.FileSubmitButton
+                      : [classes.FileSubmitButton, classes.Disabled].join(" ")
+                  }
+                >
+                  Upload
+                </button>
+              </form>
             </div>
           )}
         </div>
@@ -219,6 +281,37 @@ const Verification = () => {
                 {translate("Source of funds")}
               </p>
               <p>{translate("Submit proof of source of funds.")}</p>
+              <form onSubmit={handleSubmit} className={classes.FileInputForm}>
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                  className={classes.FileInput}
+                />
+                {selectedFile && (
+                  <div className={classes.FileInfo}>
+                    <span>{selectedFile.name}</span>
+                    <button
+                      type="button"
+                      onClick={handleRemoveFile}
+                      className={classes.RemoveFileButton}
+                    >
+                      <Trash />
+                    </button>
+                  </div>
+                )}
+                <button
+                  type="submit"
+                  className={
+                    selectedFile
+                      ? classes.FileSubmitButton
+                      : [classes.FileSubmitButton, classes.Disabled].join(" ")
+                  }
+                >
+                  Upload
+                </button>
+              </form>
             </div>
           )}
         </div>

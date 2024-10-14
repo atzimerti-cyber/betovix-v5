@@ -4,6 +4,7 @@ const MainInput2 = (props) => {
     let elClasses = [classes.InputContainer];
 
     if (props.textPosition === 'right') elClasses.push(classes.TextRight);
+    if (props.readonly) elClasses.push(classes.ReadOnly);
 
     return (
         <div className={elClasses.join(' ')}>
