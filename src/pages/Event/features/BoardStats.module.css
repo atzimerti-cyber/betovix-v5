@@ -31,7 +31,7 @@
   color: rgb(255, 255, 255);
   position: relative;
   display: flex;
-  font-size: 0.8rem;
+  font-size: 0.865rem;
 }
 
 .StatSection:last-child .Header {

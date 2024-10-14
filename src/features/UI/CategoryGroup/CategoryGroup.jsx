@@ -19,7 +19,6 @@ const CategoryGroup = (props) => {
             <div className={classes.Title}>
                 <div className={classes.Label}>
                     <span>{translate(props.category.label)}</span>
-                    {/* {props.category.isNew && <div className={classes.BadgeNew}>{translate('NEW')}</div>} */}
                     {props.category.isNew && <div className={classes.LiveBadge}>{translate('NEW')}</div>}
                 </div>
 

@@ -11,7 +11,8 @@
 }
 
 .Header {
-  background-color: var(--db-gray-3);
+  background-color: #001937e3;
+  /* background-color: var(--db-gray-3); */
   color: #83bccb;
   display: flex;
   flex-direction: column;
@@ -28,7 +29,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  background-color: var(--db-gray-4);
+  /* background-color: var(--db-gray-4); */
   width: 100%;
 }
 
@@ -37,7 +38,9 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: var(--db-gray-4);
+  /* background-color: var(--db-gray-4); */
+  background-color: #010d22eb;
+  /* background-color: #000c22d1; */
   padding: 0.3rem 0.9rem;
   height: 45%;
   width: 100%;
@@ -48,7 +51,8 @@
   transition: color 0.3s ease 0s;
   width: 100%;
   max-height: 30%;
-  background-color: var(--db-gray-4);
+  /* background-color: var(--db-gray-4); */
+  background-color: #010d22eb;
   justify-content: space-evenly;
   align-items: center;
   overflow-y: hidden;
@@ -165,11 +169,56 @@
 }
 
 .HomeScore,
-.AwayScore,
-.Dash {
+.AwayScore {
+  position: relative;
+  border-radius: 10px;
   color: aliceblue;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 700;
+  font-size: 1.3rem;
+  background-color: #0cabd73d;
+  height: 2.2rem;
+  width: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.1rem;
+}
+
+.HomeScore.Server::before {
+  content: "";
+  width: 5px;
+  height: 60%;
+  background-color: var(--db-brand-green);
+  position: absolute;
+  /* left: -2px; */
+  right: 98%;
+  top: 50%;
+  transform: translateY(-50%);
+  /* border-radius: 3px; */
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.AwayScore.Server::after {
+  content: "";
+  width: 5px;
+  height: 60%;
+  background-color: var(--db-brand-green);
+  position: absolute;
+  left: 98%;
+  top: 50%;
+  transform: translateY(-50%);
+  /* border-radius: 3px; */
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.Dash {
+  margin: 0 0.4rem;
+  border-radius: 5px;
+  color: aliceblue;
+  font-weight: 700;
+  font-size: 1.3rem;
 }
 @keyframes jQMcyq {
   0%,

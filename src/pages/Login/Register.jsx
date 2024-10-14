@@ -53,7 +53,6 @@ const Register = () => {
     verifyPassword: null,
     code: null,
     country: null,
-    // bonus: true,
   });
   const debDisplayName = useDebounce(registerInfo.displayName);
   const debEmail = useDebounce(registerInfo.email);
@@ -395,7 +394,7 @@ const Register = () => {
         <Select
           className={classes.InputOuterCountrySelect}
           options={countryOptions}
-          onChange={(option) => updateRegisterInfo("country", option.value)} // Handle country selection
+          onChange={(option) => updateRegisterInfo("country", option.value)}
           placeholder={translate("Select your country")}
         />
       </div>

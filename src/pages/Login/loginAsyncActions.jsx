@@ -125,6 +125,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
             Code: registerInfo.code,
             Email: registerInfo.email,
             Password: registerInfo.password,
+            Country: registerInfo.country,
             SiteId: config.VITE_SITE_ID,
             Username: registerInfo.displayName,
           },

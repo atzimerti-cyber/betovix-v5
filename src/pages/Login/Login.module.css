@@ -47,11 +47,11 @@
 }
 .InputOuterCountrySelect > div > div > div {
   font-size: 0.75rem;
-  color: rgba(148, 158, 192, 0.774);
+  color: rgba(255, 255, 255, 0.774);
 }
-/* .InputOuterCountrySelect > div > div > div:hover {
-  background-color: #33c16c;
-} */
+.InputOuterCountrySelect > div > div > div:hover {
+  background-color: #3f6e8916;
+}
 
 .LoginWith {
   margin-bottom: 0.5rem;

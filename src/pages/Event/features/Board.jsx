@@ -104,7 +104,15 @@ const Board = (props) => {
             sportsStatusParams[props.event?.Info.SportName.International]
               .board === "football" && (
               <div className={classes.ContentRow} style={{ padding: "3px" }}>
-                <div className={classes.HomeScore}>
+                <div
+                  className={[classes.HomeScore, classes.Server].join(" ")}
+                  // className={
+                  //   props.event?.Header?.Server &&
+                  //   props.event?.Header?.Server === 1
+                  //     ? [classes.HomeScore, classes.Server].join(" ")
+                  //     : classes.HomeScore
+                  // }
+                >
                   <FlashingScore
                     score={getScore(props.event?.Header, "home")}
                     previousScore={getScore(
@@ -114,7 +122,15 @@ const Board = (props) => {
                   />
                 </div>
                 <p className={classes.Dash}>-</p>
-                <div className={classes.AwayScore}>
+                <div
+                  className={[classes.AwayScore, classes.Server].join(" ")}
+                  // className={
+                  //   props.event?.Header?.Server &&
+                  //   props.event?.Header?.Server === 2
+                  //     ? [classes.AwayScore, classes.Server].join(" ")
+                  //     : classes.AwayScore
+                  // }
+                >
                   <FlashingScore
                     score={getScore(props.event?.Header, "away")}
                     previousScore={getScore(
@@ -130,7 +146,15 @@ const Board = (props) => {
             sportsStatusParams[props.event?.Info.SportName.International]
               .board === "basketball" && (
               <div className={classes.ContentRow}>
-                <div className={classes.HomeScore}>
+                <div
+                  className={[classes.HomeScore, classes.Server].join(" ")}
+                  // className={
+                  //   props.event?.Header?.Server &&
+                  //   props.event?.Header?.Server === 1
+                  //     ? [classes.HomeScore, classes.Server].join(" ")
+                  //     : classes.HomeScore
+                  // }
+                >
                   <FlashingScore
                     score={getScore(props.event?.Header, "home")}
                     previousScore={getScore(
@@ -140,7 +164,15 @@ const Board = (props) => {
                   />
                 </div>
                 <p className={classes.Dash}>-</p>
-                <div className={classes.AwayScore}>
+                <div
+                  className={[classes.AwayScore, classes.Server].join(" ")}
+                  // className={
+                  //   props.event?.Header?.Server &&
+                  //   props.event?.Header?.Server === 2
+                  //     ? [classes.AwayScore, classes.Server].join(" ")
+                  //     : classes.AwayScore
+                  // }
+                >
                   <FlashingScore
                     score={getScore(props.event?.Header, "away")}
                     previousScore={getScore(
@@ -156,7 +188,15 @@ const Board = (props) => {
             sportsStatusParams[props.event?.Info.SportName.International]
               .board === "tennis" && (
               <div className={classes.ContentRow}>
-                <div className={classes.HomeScore}>
+                <div
+                  // className={classes.HomeScore}
+                  className={
+                    props.event?.Header?.Server &&
+                    props.event?.Header?.Server === 1
+                      ? [classes.HomeScore, classes.Server].join(" ")
+                      : classes.HomeScore
+                  }
+                >
                   <FlashingScore
                     score={getScore(props.event?.Header, "home")}
                     previousScore={getScore(
@@ -166,7 +206,15 @@ const Board = (props) => {
                   />
                 </div>
                 <p className={classes.Dash}>-</p>
-                <div className={classes.AwayScore}>
+                <div
+                  // className={classes.AwayScore}
+                  className={
+                    props.event?.Header?.Server &&
+                    props.event?.Header?.Server === 2
+                      ? [classes.AwayScore, classes.Server].join(" ")
+                      : classes.AwayScore
+                  }
+                >
                   <FlashingScore
                     score={getScore(props.event?.Header, "away")}
                     previousScore={getScore(
@@ -182,7 +230,15 @@ const Board = (props) => {
             sportsStatusParams[props.event?.Info.SportName.International]
               .board === undefined) && (
             <div className={classes.ContentRow}>
-              <div className={classes.HomeScore}>
+              <div
+                // className={classes.HomeScore}
+                className={
+                  props.event?.Header?.Server &&
+                  props.event?.Header?.Server === 1
+                    ? [classes.HomeScore, classes.Server].join(" ")
+                    : classes.HomeScore
+                }
+              >
                 <FlashingScore
                   score={calculateScores(props.event?.Header, "homeTotal")}
                   previousScore={calculateScores(
@@ -193,7 +249,15 @@ const Board = (props) => {
                 />
               </div>
               <p className={classes.Dash}>-</p>
-              <div className={classes.AwayScore}>
+              <div
+                // className={classes.AwayScore}
+                className={
+                  props.event?.Header?.Server &&
+                  props.event?.Header?.Server === 2
+                    ? [classes.AwayScore, classes.Server].join(" ")
+                    : classes.AwayScore
+                }
+              >
                 <FlashingScore
                   score={calculateScores(props.event?.Header, "awayTotal")}
                   previousScore={calculateScores(
@@ -221,7 +285,7 @@ const Board = (props) => {
             </div>
           )}
         </div>
-        {props.event?.Header?.Server && (
+        {/* {props.event?.Header?.Server && (
           <div className={classes.ServerBox}>
             <div
               className={classes.ServerIndicator}
@@ -232,7 +296,7 @@ const Board = (props) => {
               }
             ></div>
           </div>
-        )}
+        )} */}
       </div>
 
       <div className={classes.Stats}>
