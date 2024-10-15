@@ -112,6 +112,14 @@ const EventRowLiveList = (props) => {
         const sortedMarkets = filteredMarkets.sort((a, b) => a.MarketTypeId - b.MarketTypeId);
         return sortedMarkets[0];
     };
+    
+    const getAllMarkets = () => {
+        if (!event.Markets) return null;
+
+        const filteredMarkets = event.Markets.filter((m) => m.MarketName?.International);
+        const sortedMarkets = filteredMarkets.sort((a, b) => a.MarketTypeId - b.MarketTypeId);
+        return sortedMarkets;
+    };
 
     return event ? (
         <>
@@ -151,7 +159,7 @@ const EventRowLiveList = (props) => {
                 </div>
 
                 <div className={classes.LiveEvent}>
-                    <Market event={event} market={getMarket()} typeList />
+                    <Market event={event} market={getMarket()} typeList allMarkets={getAllMarkets()} />
                 </div>
             </Link>
         </>

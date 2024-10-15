@@ -21,7 +21,17 @@ const EventRow = (props) => {
 
         const filteredMarkets = props.event.Markets.filter((m) => m.MarketName?.International);
         const sortedMarkets = filteredMarkets.sort((a, b) => a.MarketTypeId - b.MarketTypeId);
+        
         return sortedMarkets[0];
+    };
+
+    const getAllMarkets = () => {
+        if (!props.event.Markets) return null;
+
+        const filteredMarkets = props.event.Markets.filter((m) => m.MarketName?.International);
+        const sortedMarkets = filteredMarkets.sort((a, b) => a.MarketTypeId - b.MarketTypeId);
+        
+        return sortedMarkets;
     };
 
     return (
@@ -86,7 +96,7 @@ const EventRow = (props) => {
 
             <section className={classes.Outcome}>
                 <div className={classes.OutcomeHeaders}></div>
-                <Market event={props.event} market={getMarket()} />
+                <Market event={props.event} market={getMarket()} allMarkets={getAllMarkets()} />
             </section>
         </div>
     );

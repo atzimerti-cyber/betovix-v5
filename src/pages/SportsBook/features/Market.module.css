@@ -1,43 +1,68 @@
 .Market {
-    display: flex;
-    flex: 1 1 0%;
-    flex-direction: column;
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum';
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    padding: 8px 0px;
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  padding: 8px 0px;
 }
 .Market.MarketRow {
-    margin: 8px;
-    padding: 0;
+  margin: 8px;
+  padding: 0;
 }
 
 .MarketName {
-    color: rgb(255, 255, 255);
-    font-size: 13px;
-    text-align: center;
-    line-height: 1;
+  color: rgb(255, 255, 255);
+  font-size: 13px;
+  text-align: center;
+  line-height: 1;
 }
 
 .MarketContainer {
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .MarketGroup {
-    width: 100%;
-    display: grid;
-    gap: 8px;
-    grid-template-columns: 1fr 1fr;
+  width: 100%;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr 1fr;
 }
 .ThreeParts.MarketGroup {
-    grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 @container (max-width: 860px) {
-    .MarketName {
-        margin-block: 0px 4px;
-    }
+  .MarketName {
+    margin-block: 0px 4px;
+  }
+}
+
+.MarketDropdown {
+  background-color: transparent;
+  height: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.MarketSelect {
+  background-color: transparent;
+  /* background-color: #154667; */
+  height: 1.5rem;
+  border-radius: 5px;
+  border: 1px solid #92b7ca45;
+  width: fit-content;
+  text-align: center;
+}
+
+.MarketOption:hover {
+  background-color: #4e748d;
+}
+.MarketOption {
+  background-color: #154667;
 }
