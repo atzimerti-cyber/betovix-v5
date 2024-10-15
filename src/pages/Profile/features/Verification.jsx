@@ -46,8 +46,18 @@ const Verification = () => {
       transition={{ duration: 0.2 }}
     >
       <div className={classes.Form}>
+        <h1
+          style={{
+            textAlign: "center",
+            fontSize: "1.1rem",
+            fontWeight: "700",
+            color: "white",
+          }}
+        >
+          Verify Your Account
+        </h1>
         <div className={classes.MailFormGroup}>
-          <p className={classes.Title}>{translate("Verification")}</p>
+          <p className={classes.Title}>{translate("Email Verification")}</p>
           <p className={classes.Text}>
             {translate(
               "A verified email address is required to access some parts of the website."
@@ -72,7 +82,7 @@ const Verification = () => {
             onClick={() => setLevel1Visible(!isLevel1Visible)}
           >
             <div className={classes.AccTitle}>
-              <p>{translate("Level 1")}</p>
+              <p>{translate("Personal Information")}</p>
               <AngleUpIcon />
             </div>
           </div>
@@ -82,13 +92,13 @@ const Verification = () => {
                 <p>Personal Info Verified</p>
               </div>
             ) : (
-              <div className={classes.AccordionContent}>
-                <p className={classes.AccContentHeader}>
-                  {translate("Personal Information")}
-                </p>
+              <div className={classes.AccordionContent} style={{display:"flex", width:"100%", justifyContent:"center"}}>
+                {/* <p className={classes.AccContentHeader}>
+                  {translate("Verify Your Personal Information")}
+                </p> */}
                 <div
                   className={classes.PersonalInfo}
-                  style={{ maxWidth: "80%" }}
+                  style={{ width: "100%" }}
                 >
                   <PersonalInfoVerification />
                 </div>
@@ -105,47 +115,87 @@ const Verification = () => {
             onClick={() => setLevel2Visible(!isLevel2Visible)}
           >
             <div className={classes.AccTitle}>
-              <p>{translate("Level 2")}</p>
+              <p>{translate("ID")}</p>
               <AngleUpIcon />
             </div>
           </div>
           {isLevel2Visible && (
             <div className={classes.AccordionContent}>
               <p className={classes.AccContentHeader}>
-                {translate("Upload identification")}
+                {translate("Upload Identification")}
               </p>
 
-              <form onSubmit={handleSubmit} className={classes.FileInputForm}>
-                <input
-                  id="fileInput"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className={classes.FileInput}
-                />
-                {selectedFile && (
-                  <div className={classes.FileInfo}>
-                    <span>{selectedFile.name}</span>
-                    <button
-                      type="button"
-                      onClick={handleRemoveFile}
-                      className={classes.RemoveFileButton}
-                    >
-                      <Trash />
-                    </button>
-                  </div>
-                )}
-                <button
-                  type="submit"
-                  className={
-                    selectedFile
-                      ? classes.FileSubmitButton
-                      : [classes.FileSubmitButton, classes.Disabled].join(" ")
-                  }
-                >
-                  Upload
-                </button>
-              </form>
+              <div className={classes.FileForms}>
+                <form onSubmit={handleSubmit} className={classes.FileInputForm}>
+                  <h2>
+                    <i>(SIDE 1)</i>
+                  </h2>
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className={classes.FileInput}
+                  />
+                  {selectedFile && (
+                    <div className={classes.FileInfo}>
+                      <span>{selectedFile.name}</span>
+                      <button
+                        type="button"
+                        onClick={handleRemoveFile}
+                        className={classes.RemoveFileButton}
+                      >
+                        <Trash />
+                      </button>
+                    </div>
+                  )}
+                  <button
+                    type="submit"
+                    className={
+                      selectedFile
+                        ? classes.FileSubmitButton
+                        : [classes.FileSubmitButton, classes.Disabled].join(" ")
+                    }
+                  >
+                    Upload
+                  </button>
+                </form>
+
+                <form onSubmit={handleSubmit} className={classes.FileInputForm}>
+                  <h2>
+                    <i>(SIDE 2)</i>
+                  </h2>
+                  <input
+                    id="fileInput"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleFileChange}
+                    className={classes.FileInput}
+                  />
+                  {selectedFile && (
+                    <div className={classes.FileInfo}>
+                      <span>{selectedFile.name}</span>
+                      <button
+                        type="button"
+                        onClick={handleRemoveFile}
+                        className={classes.RemoveFileButton}
+                      >
+                        <Trash />
+                      </button>
+                    </div>
+                  )}
+                  <button
+                    type="submit"
+                    className={
+                      selectedFile
+                        ? classes.FileSubmitButton
+                        : [classes.FileSubmitButton, classes.Disabled].join(" ")
+                    }
+                  >
+                    Upload
+                  </button>
+                </form>
+              </div>
             </div>
           )}
         </div>
@@ -159,15 +209,15 @@ const Verification = () => {
             onClick={() => setLevel3Visible(!isLevel3Visible)}
           >
             <div className={classes.AccTitle}>
-              <p>{translate("Level 3")}</p>
+              <p>{translate("Live photo check")}</p>
               <AngleUpIcon />
             </div>
           </div>
           {isLevel3Visible && (
             <div className={classes.AccordionContent}>
-              <p className={classes.AccContentHeader}>
+              {/* <p className={classes.AccContentHeader}>
                 {translate("Live photo check")}
-              </p>
+              </p> */}
               <p>
                 {translate(
                   "Take an interactive selfie and ID picture with liveness check."
@@ -217,15 +267,15 @@ const Verification = () => {
             onClick={() => setLevel4Visible(!isLevel4Visible)}
           >
             <div className={classes.AccTitle}>
-              <p>{translate("Level 4")}</p>
+              <p>{translate("Proof of Address")}</p>
               <AngleUpIcon />
             </div>
           </div>
           {isLevel4Visible && (
             <div className={classes.AccordionContent}>
-              <p className={classes.AccContentHeader}>
-                {translate("Proof of Address")}
-              </p>
+              {/* <p className={classes.AccContentHeader}>
+                {translate("Submit proof of your current address.")}
+              </p> */}
               <p>{translate("Submit proof of your current address.")}</p>
               <form onSubmit={handleSubmit} className={classes.FileInputForm}>
                 <input
@@ -271,15 +321,15 @@ const Verification = () => {
             onClick={() => setLevel5Visible(!isLevel5Visible)}
           >
             <div className={classes.AccTitle}>
-              <p>{translate("Level 5")}</p>
+              <p>{translate("Source of funds")}</p>
               <AngleUpIcon />
             </div>
           </div>
           {isLevel5Visible && (
             <div className={classes.AccordionContent}>
-              <p className={classes.AccContentHeader}>
+              {/* <p className={classes.AccContentHeader}>
                 {translate("Source of funds")}
-              </p>
+              </p> */}
               <p>{translate("Submit proof of source of funds.")}</p>
               <form onSubmit={handleSubmit} className={classes.FileInputForm}>
                 <input

@@ -47,7 +47,8 @@ const CopyToClipboardCont = (props) => {
             <Tooltip
                 id='copy-tooltip'
                 isOpen={shouldShowTooltip}
-                style={{ padding: '8px 6px', backgroundColor: copied ? '#33c16c' : '#314b61', color: '#fff', fontFamily: 'Proxima Nova', fontSize: '14px' }}
+                style={{ padding: '8px 6px', backgroundColor: copied ? '#33c16c' : '#314b61', color: '#fff', fontFamily: 'inherit', fontSize: '14px', fontWeight:"600" }}
+                // style={{ padding: '8px 6px', backgroundColor: copied ? '#33c16c' : '#314b61', color: '#fff', fontFamily: 'Proxima Nova', fontSize: '14px' }}
             />
 
             <div

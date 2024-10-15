@@ -12,6 +12,7 @@ import EyeIcon from "../../../assets/svgs/eye.svg?react"; // Import the eye icon
 import CheckIcon from "../../../assets/svgs/check.svg?react";
 import EditIcon from "../../../assets/svgs/edit.svg?react";
 import ReturnIcon from "../../../assets/svgs/return.svg?react";
+import ArrowDown from "../../../assets/svgs/arrowdown.svg?react";
 import Times2Icon from "../../../assets/svgs/times2.svg?react";
 import Autoheight from "../../../features/UI/Autoheight/Autoheight"; // Import Autoheight
 import { changePassword, changeUsername } from "../profileAsyncActions";
@@ -32,6 +33,7 @@ const Settings = () => {
   const [loadingUsername, setloadingUsername] = useState(false);
   const [error, setError] = useState(null);
 
+  const [changePasswordForm, setChangePasswordForm] = useState(false);
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [verifyPassword, setVerifyPassword] = useState("");
@@ -157,7 +159,6 @@ const Settings = () => {
     setIsDisabled(isDis);
   }, [currentPassword, newPassword, verifyPassword, verify, validPassword]);
   const savePasswordChanges = () => {
-    console.log("SAVE");
     const payload = {
       OldPass: currentPassword,
       Password: newPassword,
@@ -195,14 +196,24 @@ const Settings = () => {
     >
       <div className={classes.Form}>
         <div>
-          <p className={classes.Title}>{translate("Settings")}</p>
+          <p className={classes.Header}>{translate("Settings")}</p>
           <div className={classes.FormGroup}>
+            <div
+              className={classes.GroupTitle}
+              style={{
+                fontWeight: "600",
+                fontSize: "1rem",
+                marginTop: "0.5rem",
+              }}
+            >
+              User Information
+            </div>
             <div className={classes.UsernameForm}>
-              <p className={classes.Title}>{translate("Display Name")}</p>
+              <p className={classes.Title}>{translate("Username")}</p>
               {editUsername && (
                 <p className={classes.Text}>
                   {translate(
-                    "Your display name must be between 1 and 24 characters."
+                    "Your username must be between 1 and 24 characters."
                   )}
                 </p>
               )}
@@ -231,7 +242,7 @@ const Settings = () => {
                 <>
                   <p className={classes.Text}>
                     {translate(
-                      "You must enter your password to change username."
+                      "You must enter your password to change your username."
                     )}
                   </p>
                   <div className={classes.ChangeUsernameSection}>
@@ -299,162 +310,219 @@ const Settings = () => {
                 />
               </>
             )}
+          </div>
 
-            <p className={classes.Title}>{translate("Change Your Password")}</p>
-
-            <div className={classes.InputOuter}>
-              <label htmlFor="currentPassword">
-                <p className={classes.Text}>{translate("Current Password")}</p>
-              </label>
-              <MainInput
-                inSettings
-                role="textbox"
-                type={showCurrentPassword ? "text" : "password"}
-                id="currentPassword"
-                name="password"
-                placeholder={translate("Type your current password")}
-                value={currentPassword}
-                onChange={handleCurrentPassword}
-                noAutoComplete
-                rightIcon={
-                  <EyeIcon
-                    className={
-                      showCurrentPassword
-                        ? [classes.ShowPasswordIcon, classes.ShowLine].join(" ")
-                        : classes.ShowPasswordIcon
+          <div className={classes.FormGroup}>
+            <button
+              className={classes.AccBtn}
+              onClick={() => {
+                setChangePasswordForm((prevState) => !prevState);
+                setCurrentPassword("");
+                setNewPassword("");
+                setVerifyPassword("");
+              }}
+            >
+              {translate("Security & privacy")} <ArrowDown />
+            </button>
+            {changePasswordForm && (
+              <div className={classes.ChangePasswordForm}>
+                <p
+                  className={classes.Title}
+                  style={{ fontSize: "0.9rem", color: "white" }}
+                >
+                  {translate("Change Password")}
+                </p>
+                <div className={classes.InputOuter}>
+                  <label htmlFor="currentPassword">
+                    <p className={classes.Text}>
+                      {translate("Current Password")}
+                    </p>
+                  </label>
+                  <MainInput
+                    inSettings
+                    role="textbox"
+                    type={showCurrentPassword ? "text" : "password"}
+                    id="currentPassword"
+                    name="password"
+                    placeholder={translate("Type your current password")}
+                    value={currentPassword}
+                    onChange={handleCurrentPassword}
+                    noAutoComplete
+                    rightIcon={
+                      <EyeIcon
+                        className={
+                          showCurrentPassword
+                            ? [classes.ShowPasswordIcon, classes.ShowLine].join(
+                                " "
+                              )
+                            : classes.ShowPasswordIcon
+                        }
+                        onClick={toggleShowCurrentPassword}
+                      />
                     }
-                    onClick={toggleShowCurrentPassword}
                   />
-                }
-              />
-              <label htmlFor="password">
-                <p className={classes.Text}>{translate("New Password")}</p>
-              </label>
-              <MainInput
-                inSettings
-                role="textbox"
-                type={showNewPassword ? "text" : "password"}
-                id="password"
-                name="password"
-                placeholder={translate("Type your password")}
-                value={newPassword}
-                onChange={handlePasswordChange}
-                noAutoComplete
-                isInvalid={
-                  newPassword &&
-                  (!validPassword.minSize ||
-                    !validPassword.special ||
-                    !validPassword.cases ||
-                    !validPassword.numbers)
-                }
-                rightIcon={
-                  <EyeIcon
-                    className={
-                      showNewPassword
-                        ? [classes.ShowPasswordIcon, classes.ShowLine].join(" ")
-                        : classes.ShowPasswordIcon
+                  <label htmlFor="password">
+                    <p className={classes.Text}>{translate("New Password")}</p>
+                  </label>
+                  <MainInput
+                    inSettings
+                    role="textbox"
+                    type={showNewPassword ? "text" : "password"}
+                    id="password"
+                    name="password"
+                    placeholder={translate("Type your password")}
+                    value={newPassword}
+                    onChange={handlePasswordChange}
+                    noAutoComplete
+                    isInvalid={
+                      newPassword &&
+                      (!validPassword.minSize ||
+                        !validPassword.special ||
+                        !validPassword.cases ||
+                        !validPassword.numbers)
                     }
-                    onClick={toggleShowNewPassword}
-                  />
-                }
-              />
-
-              <label htmlFor="verifyPassword">
-                <p className={classes.Text}>{translate("Verify Password")}</p>
-              </label>
-              <MainInput
-                inSettings
-                role="textbox"
-                type={showVerifyPassword ? "text" : "password"}
-                id="verifyPassword"
-                name="password"
-                placeholder={translate("Type your password")}
-                value={verifyPassword}
-                onChange={handleVerify}
-                noAutoComplete
-                isInvalid={verifyPassword && !verify}
-                rightIcon={
-                  <EyeIcon
-                    className={
-                      showVerifyPassword
-                        ? [classes.ShowPasswordIcon, classes.ShowLine].join(" ")
-                        : classes.ShowPasswordIcon
+                    rightIcon={
+                      <EyeIcon
+                        className={
+                          showNewPassword
+                            ? [classes.ShowPasswordIcon, classes.ShowLine].join(
+                                " "
+                              )
+                            : classes.ShowPasswordIcon
+                        }
+                        onClick={toggleShowNewPassword}
+                      />
                     }
-                    onClick={toggleShowVerifyPassword}
                   />
-                }
-              />
 
-              <p className={classes.Text}>
-                {translate("Your password must meet the following criteria:")}
-              </p>
+                  <label htmlFor="verifyPassword">
+                    <p className={classes.Text}>
+                      {translate("Verify Password")}
+                    </p>
+                  </label>
+                  <MainInput
+                    inSettings
+                    role="textbox"
+                    type={showVerifyPassword ? "text" : "password"}
+                    id="verifyPassword"
+                    name="password"
+                    placeholder={translate("Type your password")}
+                    value={verifyPassword}
+                    onChange={handleVerify}
+                    noAutoComplete
+                    isInvalid={verifyPassword && !verify}
+                    rightIcon={
+                      <EyeIcon
+                        className={
+                          showVerifyPassword
+                            ? [classes.ShowPasswordIcon, classes.ShowLine].join(
+                                " "
+                              )
+                            : classes.ShowPasswordIcon
+                        }
+                        onClick={toggleShowVerifyPassword}
+                      />
+                    }
+                  />
 
-              <div className={classes.FormValidationMessage}>
-                <Autoheight show={true}>
-                  <div className={classes.PasswordCheckContainer}>
-                    <div
-                      className={
-                        validPassword.minSize
-                          ? [classes.PasswordMessage, classes.IsValid].join(" ")
-                          : classes.PasswordMessage
-                      }
-                    >
-                      {validPassword.minSize ? <CheckIcon /> : <Times2Icon />}
-                      <div className={classes.PasswordText}>
-                        {translate("Min. 8 characters")}
+                  <p className={classes.Text}>
+                    {translate(
+                      "Your password must meet the following criteria:"
+                    )}
+                  </p>
+
+                  <div className={classes.FormValidationMessage}>
+                    <Autoheight show={true}>
+                      <div className={classes.PasswordCheckContainer}>
+                        <div
+                          className={
+                            validPassword.minSize
+                              ? [classes.PasswordMessage, classes.IsValid].join(
+                                  " "
+                                )
+                              : classes.PasswordMessage
+                          }
+                        >
+                          {validPassword.minSize ? (
+                            <CheckIcon />
+                          ) : (
+                            <Times2Icon />
+                          )}
+                          <div className={classes.PasswordText}>
+                            {translate("Min. 8 characters")}
+                          </div>
+                        </div>
+                        <div
+                          className={
+                            validPassword.special
+                              ? [classes.PasswordMessage, classes.IsValid].join(
+                                  " "
+                                )
+                              : classes.PasswordMessage
+                          }
+                        >
+                          {validPassword.special ? (
+                            <CheckIcon />
+                          ) : (
+                            <Times2Icon />
+                          )}
+                          <div className={classes.PasswordText}>
+                            {translate("1 Special Character")}
+                          </div>
+                        </div>
+                        <div
+                          className={
+                            validPassword.cases
+                              ? [classes.PasswordMessage, classes.IsValid].join(
+                                  " "
+                                )
+                              : classes.PasswordMessage
+                          }
+                        >
+                          {validPassword.cases ? <CheckIcon /> : <Times2Icon />}
+                          <div className={classes.PasswordText}>
+                            {translate("Upper and Lowercase")}
+                          </div>
+                        </div>
+                        <div
+                          className={
+                            validPassword.numbers
+                              ? [classes.PasswordMessage, classes.IsValid].join(
+                                  " "
+                                )
+                              : classes.PasswordMessage
+                          }
+                        >
+                          {validPassword.numbers ? (
+                            <CheckIcon />
+                          ) : (
+                            <Times2Icon />
+                          )}
+                          <div className={classes.PasswordText}>
+                            {translate("1 Number")}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div
-                      className={
-                        validPassword.special
-                          ? [classes.PasswordMessage, classes.IsValid].join(" ")
-                          : classes.PasswordMessage
-                      }
-                    >
-                      {validPassword.special ? <CheckIcon /> : <Times2Icon />}
-                      <div className={classes.PasswordText}>
-                        {translate("1 Special Character")}
-                      </div>
-                    </div>
-                    <div
-                      className={
-                        validPassword.cases
-                          ? [classes.PasswordMessage, classes.IsValid].join(" ")
-                          : classes.PasswordMessage
-                      }
-                    >
-                      {validPassword.cases ? <CheckIcon /> : <Times2Icon />}
-                      <div className={classes.PasswordText}>
-                        {translate("Upper and Lowercase")}
-                      </div>
-                    </div>
-                    <div
-                      className={
-                        validPassword.numbers
-                          ? [classes.PasswordMessage, classes.IsValid].join(" ")
-                          : classes.PasswordMessage
-                      }
-                    >
-                      {validPassword.numbers ? <CheckIcon /> : <Times2Icon />}
-                      <div className={classes.PasswordText}>
-                        {translate("1 Number")}
-                      </div>
-                    </div>
+                    </Autoheight>
                   </div>
-                </Autoheight>
+                </div>
+                <MainButton2
+                  disabled={isDisabled}
+                  onClick={savePasswordChanges}
+                >
+                  <span>{translate("Change Password")}</span>
+                </MainButton2>
               </div>
-            </div>
-
-            <MainButton2 disabled={isDisabled} onClick={savePasswordChanges}>
-              <span>{translate("Save Changes")}</span>
-            </MainButton2>
+            )}
           </div>
         </div>
 
         <div>
-          <p className={classes.Title}>{translate("User Information")}</p>
+          <p className={classes.Header}>{translate("Account Information")}</p>
           <div className={classes.FormGroup}>
-            <p className={classes.Title}>{translate("User ID")}</p>
+            <p className={classes.GroupTitle} style={{ marginTop: "0.4rem" }}>
+              {translate("User ID")}
+            </p>
             <p className={classes.Text}>
               {translate(
                 "This is your unique ID. Please include this ID when contacting support."
@@ -464,7 +532,7 @@ const Settings = () => {
             <CopyToClipboardCont text={user?.AccountId} />
           </div>
           <div className={classes.FormGroup}>
-            <p className={classes.Title}>{translate("Account Type")}</p>
+            <p className={classes.GroupTitle}>{translate("Account Type")}</p>
             <p className={classes.Text}>
               {user?.Role && getAccountType(user.Role)}
             </p>

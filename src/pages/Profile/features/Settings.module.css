@@ -15,10 +15,17 @@
   gap: 1.5rem;
   grid-template-columns: minmax(0, 400px);
 }
-
+.Header {
+  margin-bottom: 0.4rem;
+  font-size: 1.13rem;
+  line-height: 1.05rem;
+  --tw-text-opacity: 1;
+  color: rgb(128 146 159);
+}
 .UsernameForm {
   display: flex;
   flex-direction: column;
+  margin-bottom: 0.5rem;
 }
 .UsernameInput {
   display: flex;
@@ -30,9 +37,9 @@
 }
 .EditBtn {
   background-color: var(--db-gray-4);
-  height: max-content;
-  max-width: max-content;
-  padding: 0.45rem;
+  height: 1.95rem;
+  width: 1.95rem;
+  padding: 0.3rem 0.37rem 0.5rem 0.37rem;
   border-radius: 0.375rem;
 }
 .EditBtn:hover {
@@ -46,7 +53,7 @@
   align-items: center;
   column-gap: 1rem;
 }
-.ChangeUsernameSection>div {
+.ChangeUsernameSection > div {
   flex-grow: 1;
 }
 .SaveUsernameBtn {
@@ -66,34 +73,44 @@
   font-weight: 400;
 }
 
-.Title {
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
+.GroupTitle {
+  margin-bottom: 0.2rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.05rem;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.Title {
+  margin-bottom: 0.3rem;
+  margin-top: 0.9rem;
+  font-size: 0.85rem;
+  color: #78849b;
 }
 
 .FormGroup {
   border-radius: 0.5rem;
   background-color: var(--db-gray-2);
-  padding: 0.75rem;
+  padding: 0.35rem;
+  margin-bottom: 1rem;
+  padding-left: 0.4rem;
 }
 
-.FormGroup:not(:last-child) {
+/* .FormGroup:not(:last-child) {
   margin-bottom: 1rem;
-}
+} */
 
 .Text {
-  font-size: 0.6rem;
+  font-size: 0.74rem;
   line-height: 1rem;
   color: var(--db-body-text);
   margin-top: 0.1rem;
 }
 
-.FormGroup > :not(:last-child) {
+/* .FormGroup > :not(:last-child) {
   margin-bottom: 0.75rem;
-}
+} */
 
 .ToggleContainer {
   display: flex;
@@ -179,6 +196,31 @@
   border-color: var(--db-gray-6);
 }
 
+.AccBtn {
+  display: flex;
+  flex-direction: row;
+  height: 1.5rem;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 0.2rem 0;
+  color: white;
+  column-gap: 0.7rem;
+  font-weight: 600;
+  font-size: 1rem;
+  padding-left: 0.2rem;
+}
+.AccBtn svg {
+  margin-top: 0.2rem;
+}
+
+.ChangePasswordForm {
+  background-color: #0f1a2f82;
+  padding: 0.3rem;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+}
+
 @media (min-width: 900px) {
   .TabContent {
     background-color: var(--db-duelbits-gray);
@@ -191,12 +233,17 @@
   }
 
   .Title {
-    font-size: 1rem;
-    line-height: 1.5rem;
+    font-size: 0.8rem;
+    margin-bottom: 0.1rem;
+    margin-top: 0.2rem;
+  }
+
+  .GroupTitle {
+    font-size: 0.95rem;
   }
 
   .Text {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     line-height: 1.25rem;
   }
 }
@@ -211,12 +258,12 @@
 }
 
 .Spinner {
-  border: 3px solid rgba(255, 255, 255, 0.3);  
-  border-top: 3px solid #fff;  
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid #fff;
   border-radius: 50%;
   width: 16px;
   height: 16px;
-  animation: spin 1s linear infinite; 
+  animation: spin 1s linear infinite;
   display: inline-block;
   vertical-align: middle;
 }
