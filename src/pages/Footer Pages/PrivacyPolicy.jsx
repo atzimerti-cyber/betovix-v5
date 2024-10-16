@@ -110,8 +110,7 @@ will use your data for the following purposes:
 `)}
               <br />
               <br />
-              {translate(`c) Rendering customer support, such as assistance with setting up and managing your account; 
-d) Identifying and performing the necessary verification checks;
+              {translate(`c) Rendering customer support, such as assistance with setting up and managing your account;
 `)}
               <br />
               <br />
