@@ -31,6 +31,8 @@ const Register = () => {
   const settings = useSelector((state) => state.app.settings);
   const loginLoading = useSelector((state) => state.login.loginLoading);
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const [isOver18, setIsOver18] = useState(false);
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -155,7 +157,9 @@ const Register = () => {
       validChecks.displayName &&
       validChecks.email &&
       validChecks.password.valid &&
-      validChecks.verifyPassword
+      validChecks.verifyPassword &&
+      isOver18 && // Check if the user is over 18
+      isTermsAccepted // Check if terms are accepted
     )
       setIsRegisterDisabled(false);
     else setIsRegisterDisabled(true);
@@ -165,6 +169,8 @@ const Register = () => {
     validChecks.email,
     validChecks.password.valid,
     validChecks.verifyPassword,
+    isOver18,
+    isTermsAccepted,
   ]);
 
   const onTogglePassword = () => {
@@ -426,6 +432,33 @@ const Register = () => {
                 />
             </div> */}
 
+      <div className={classes.CheckboxContainer}>
+        <input
+          checked={isOver18}
+          onChange={(e) => setIsOver18(e.target.checked)}
+          type="checkbox"
+          id="over18"
+          name="over18"
+          className={classes.CheckboxInput}
+        />
+        <label htmlFor="over18" className={classes.CheckboxLabel}>
+          {translate("Yes, I'm over 18 *")}
+        </label>
+      </div>
+      <div className={classes.CheckboxContainer}>
+        <input
+          checked={isTermsAccepted}
+          onChange={(e) => setIsTermsAccepted(e.target.checked)}
+          type="checkbox"
+          id="terms"
+          name="terms"
+          className={classes.CheckboxInput}
+        />
+        <label htmlFor="terms" className={classes.CheckboxLabel}>
+          {translate("I've read and agree to the Terms and Conditions *")}
+        </label>
+      </div>
+
       <MainButton
         loading={loginLoading}
         color="primary"
@@ -440,9 +473,6 @@ const Register = () => {
       {/* <p className={classes.LoginWith}>{translate('or login with')}</p> */}
       {/* <AlternativeMethods /> */}
 
-      {/* <div className={classes.CaptchaText}>
-                {translate('This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.')}
-            </div> */}
       {/* {isMobile && (
                 <div className={classes.Acknowledgement}>
                     {translate('By accessing this site I attest that I am at least 18 years old and have read and agree with the')}{' '}

@@ -33,29 +33,14 @@ const LoginModal = (props) => {
         <div className={classes.LoginModal}>
             <div className={classes.ModalContent}>
                 
-                {!isMobile && (
+                {/* {!isMobile && (
                     <div className={classes.PromoSection}>
                         <div className={classes.ImageContainer}>
                             <img src={logo} loading='lazy' />
-                        </div>
-                        {/* <div className={classes.PromoText}>
-                            <div className={classes.RakebackText}>
-                                <span>{translate('Sign up')}</span> {translate('and')} <span>{translate('get')}</span> <span>{translate('50% rake back')}</span>
-                            </div>
-                            <AfaIcon />
-                            <div className={classes.SponsorText}>
-                                <span>{translate('Regional')}</span> {translate('Sponsor')}
-                            </div>
-                        </div>
-                        <div className={classes.Acknowledgement}>
-                            {translate('By accessing this site I attest that I am at least 18 years old and have read and agree with the')}{' '}
-                            <Link href='/terms' target='_blank' rel='noreferrer'>
-                                <b>{translate('Terms of Service')}</b>.
-                            </Link>
-                        </div> */}
+                        </div> 
                     </div>
                     
-                )}
+                )} */}
 
 
                 <div className={classes.FormSection}>

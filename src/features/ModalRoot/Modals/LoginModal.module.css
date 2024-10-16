@@ -65,8 +65,7 @@
 .ImageContainer {
     position: relative;
     width: 100%;
-    height: 100%;
-    aspect-ratio: 272 / 296;
+    height: 100%; 
     z-index: -1;
 }
 
@@ -78,68 +77,6 @@
     -webkit-transform: translateZ(0);
     z-index: -1;
 }
-
-/* .PromoText {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    font-weight: 300;
-    text-transform: uppercase;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.RakebackText {
-    font-size: 1rem;
-    line-height: 1;
-}
-.RakebackText span:first-child,
-.RakebackText span:nth-child(2) {
-    font-weight: 800;
-}
-.RakebackText span:last-child {
-    display: block;
-    font-size: 1.875rem;
-    line-height: 2.25rem;
-    font-weight: 800;
-    color: var(--db-green-2);
-}
-
-.PromoText svg {
-    margin-top: 0.25rem;
-    margin-bottom: 0.75rem;
-    height: 2.5rem;
-}
-
-.SponsorText {
-    font-family: Byker, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    font-size: 11px;
-    line-height: 1;
-}
-.SponsorText > span {
-    display: block;
-    font-weight: 800;
-}
-
-.Acknowledgement {
-    margin-top: 0.5rem;
-    padding-left: 2.5rem;
-    padding-right: 2.5rem;
-    text-align: center;
-    font-size: 11px;
-    line-height: 1.25;
-    color: var(--db-gray-5);
-}
-.Acknowledgement b {
-    color: var(--db-brand-green);
-}
-
-:global(.IsMobile) :local(.Acknowledgement) {
-    margin-top: unset;
-    padding-left: unset;
-    padding-right: unset;
-} */
 
 /* Right part */
 .FormSection {
@@ -169,7 +106,7 @@
 }
 
 .TabContent {
-    margin-top: 1rem;
+    margin-top: 0.2rem;
     height: 100%;
     width: 100%;
     overflow: hidden;

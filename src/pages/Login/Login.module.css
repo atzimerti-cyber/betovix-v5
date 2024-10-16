@@ -34,13 +34,13 @@
   border: 1px solid;
   border-radius: 0.5rem;
   background-color: var(--db-gray-2);
-  box-shadow: none!important;
+  box-shadow: none !important;
 }
 .InputOuterCountrySelect > div:nth-child(2):hover {
   border: none;
-  box-shadow: none!important;
+  box-shadow: none !important;
 }
-.InputOuterCountrySelect > div  {
+.InputOuterCountrySelect > div {
   background-color: var(--db-gray-2);
   border: none;
   /* border-radius: 0.5rem; */
@@ -73,18 +73,27 @@
   color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
 }
 
-/* .CaptchaText {
-    margin-top: 0.5rem;
-    width: 100%;
-    border-top-color: var(--db-gray-2);
-    padding-top: 0.25rem;
-    text-align: center;
-    font-size: 10px;
-    font-weight: 500;
-    line-height: 1.25;
-    color: var(--db-gray-5);
-    border-top-width: 1px;
-} */
+.CheckboxContainer {
+  margin-top: 0.3rem;
+  margin-bottom: 0.5rem;
+  width: 100%;
+  padding-top: 0.25rem;
+  text-align: start;
+  font-size: 0.75rem;
+  line-height: 1.25;
+  color: lightblue;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: row;
+}
+.CheckboxInput {
+  height: 0.9rem;
+  width: 0.9rem;
+}
+.CheckboxLabel {
+  margin-left: 0.6rem;
+}
 
 .Required {
   color: var(--db-gray-5);

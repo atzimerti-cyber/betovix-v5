@@ -9,17 +9,17 @@
   overflow: hidden;
 }
 
-h1 {
+.PageContent h1 {
   font-size: 2.5rem;
   font-weight: bold;
 }
 
-p {
+.PageContent p {
   font-size: 1.5rem;
   font-weight: bold;
 }
 
-svg {
+.ErrorSvg {
   max-height: 25vh;
   height: 100%;
   width: fit-content;
