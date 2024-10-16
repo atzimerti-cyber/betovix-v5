@@ -36,17 +36,14 @@ const Footer = () => {
       <div className={classes.LinksContainer}>
         <div className={classes.LinksLayout}>
           <h2>{translate("About")}</h2>
-          <a href="#">{translate("Support")}</a>
+          {/* <a href="#">{translate("Support")}</a> */}
           <a
             onClick={() => navigate("/terms-and-conditions")}
             style={{ cursor: "pointer" }}
           >
             {translate("Terms and Conditions")}
           </a>
-          <a
-            onClick={() => navigate("/aml")}
-            style={{ cursor: "pointer" }}
-          >
+          <a onClick={() => navigate("/aml")} style={{ cursor: "pointer" }}>
             {translate("AML and KYC")}
           </a>
           <a
@@ -55,23 +52,15 @@ const Footer = () => {
           >
             {translate("Privacy Policy")}
           </a>
-          <a
-            onClick={() => navigate("/rpg")}
-            style={{ cursor: "pointer" }}
-          >
+          <a onClick={() => navigate("/rpg")} style={{ cursor: "pointer" }}>
             {translate("Responsible Gaming Policy")}
           </a>
         </div>
-        <div className={classes.LinksLayout}>
+        {/* <div className={classes.LinksLayout}>
           <h2>{translate("Platform")}</h2>
           <a href="#">{translate("Fairness")}</a>
           <a href="#">{translate("P2P policy")}</a>
-        </div>
-        {/* <div className={[classes.Social, classes.LinksLayout].join(' ')}>
-                    <h2>{translate('Social')}</h2>
-                    <a href='#'>{translate('Twitter')}</a>
-                    <a href='#'>{translate('Instagram')}</a>
-                </div> */}
+        </div> */}
 
         <div className={classes.LinksLayout}>
           <h2>{translate("License")}</h2>
@@ -82,14 +71,11 @@ const Footer = () => {
               data-anj-image-size="60"
               data-anj-image-type="basic-small"
             ></div>
-            {/* <a href="https://verification.anjouangaming.org/validate?domain=betovix.com&seal_id=ae4a0c3c434a5246f379adebac8c2e4cd70fb46fd08dd2926ef07e67c8263d651dfa40e5a6127a1a1e040d6da94b02b9&stamp=74be9bb5906c8c911c77bd18a25b30d0">
-                            <img src={License} alt="License" />
-                        </a> */}
           </div>
         </div>
-        {/* <div className={classes.LinksLayout}>
-                    <Plus18Icon className={classes.PlusEighteen} />
-                </div> */}
+        <div className={classes.LinksLayout}>
+          <Plus18Icon className={classes.PlusEighteen} />
+        </div>
       </div>
 
       <SocialMedia />
@@ -1312,13 +1298,6 @@ const Footer = () => {
 
       <div className={classes.InfoContainer}>
         <LogoBig />
-        {/* <span>
-                    © duelbits.com is a brand name of Liquid Entertainment N.V. Reg No 153298, having its registered address at Zuikertuintjeweg z/n (Zuikertuin
-                    Tower), Willemstad, Curaçao, licensed to conduct online gaming operations by the Government of Curacao. Herpestidae Services Limited Reg No.
-                    HE 410029, having its registered address at 1, Avlonos, Maria House, Nicosia, 1075 Cyprus, is a wholly owned subsidiary of Liquid
-                    Entertainment N.V. which provides management, payment and support services related to the operation of the website. 18+ to play, gamble
-                    responsibly.
-                </span> */}
       </div>
     </div>
   );
