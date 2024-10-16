@@ -36,6 +36,13 @@ const Gamification = React.lazy(() =>
 const TermsOfService = React.lazy(() =>
   import("./pages/Footer Pages/TermsOfService")
 );
+const Aml = React.lazy(() => import("./pages/Footer Pages/AML"));
+const ResponsibleGaming = React.lazy(() =>
+  import("./pages/Footer Pages/ResponsibleGaming")
+);
+const PrivacyPolicy = React.lazy(() =>
+  import("./pages/Footer Pages/PrivacyPolicy")
+);
 const ErrorPage = React.lazy(() => import("./pages/Error Page/ErrorPage"));
 
 function App() {
@@ -198,10 +205,34 @@ function App() {
               ),
             },
             {
-              path: "/termsofservice",
+              path: "/terms-and-conditions",
               element: (
                 <Suspense fallback={<PageFallback />}>
                   <TermsOfService />
+                </Suspense>
+              ),
+            },
+            {
+              path: "/aml",
+              element: (
+                <Suspense fallback={<PageFallback />}>
+                  <Aml />
+                </Suspense>
+              ),
+            },
+            {
+              path: "/privacy-policy",
+              element: (
+                <Suspense fallback={<PageFallback />}>
+                  <PrivacyPolicy />
+                </Suspense>
+              ),
+            },
+            {
+              path: "/rpg",
+              element: (
+                <Suspense fallback={<PageFallback />}>
+                  <ResponsibleGaming />
                 </Suspense>
               ),
             },

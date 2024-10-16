@@ -1,0 +1,1 @@
+const t="_PageContent_17phv_1",a="_ToS_17phv_21",e="_Title_17phv_35",_="_Context_17phv_59",o="_Text_17phv_67",n="_ParagraphTitle_17phv_75",T="_ParagraphText_17phv_89",p={PageContent:t,ToS:a,Title:e,Context:_,Text:o,ParagraphTitle:n,ParagraphText:T};export{p as c};
