@@ -42,7 +42,7 @@ const BetCalculation = memo(function () {
                 <div className={classes.Label}>{translate('Total Payout')}</div>
                 <div className={classes.Value}>
                     <CoinsIcon />
-                    <div>{betslip.totalPayout}</div>
+                    <div>{betslip.totalPayout || '0.00'}</div>
                 </div>
             </div>
         </div>
