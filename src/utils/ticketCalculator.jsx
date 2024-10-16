@@ -14,7 +14,7 @@ export function calculate(ticketSettings, ticket, amounts) {
         setSystems(newTicket, ticketSettings);
 
         //04.set betType
-        //setTicketType(newTicket);
+        setTicketType(newTicket, amounts);
 
         //05.stakes
         setStakes(newTicket, amounts);
@@ -145,12 +145,28 @@ export function calculate(ticketSettings, ticket, amounts) {
     }
 }
 
+function setTicketType(ticket, amounts) {
+    if (!ticket.points || !ticket.points.length) {
+        ticket.type = null;
+    } else if (ticket.type === 'Single') {
+    } else if (ticket.systemsMax) {
+        // If system and only bet on the last system and combinations is 1, then betType should be set to multiple
+        const isGreaterThanZeroAndOthersAreZero =
+            amounts[ticket.systemsMax] > 0 &&
+            Object.entries(amounts).every(([key, value]) => {
+                return Number(key) === ticket.systemsMax || value === 0;
+            });
+
+        if (isGreaterThanZeroAndOthersAreZero && ticket.systems[ticket.systemsMax] === 1) ticket.type = 'Multiple';
+    }
+}
+
 function totalStakedColumns(ticket) {
     var total = 0;
 
     for (var sys in ticket.stakes.systems) {
         var stake = ticket.stakes.systems[sys];
-        if (_isNumber(stake)) {
+        if (_isNumber(stake) && stake > 0) {
             var cols = ticket.systems[sys];
             total += cols;
         }
