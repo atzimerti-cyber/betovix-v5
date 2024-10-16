@@ -12,6 +12,7 @@ import aussieRulesField from '../../assets/images/liveFields/aussie-rules.avif';
 import esports from '../../assets/images/liveFields/esports.jpg';
 import cricket from '../../assets/images/liveFields/cricket.avif';
 import snooker from '../../assets/images/liveFields/snooker.jpeg';
+import futsal from '../../assets/images/liveFields/futsal.avif';
 
 const initialState = {
     tournamentSearchString: null,
@@ -38,7 +39,8 @@ const initialState = {
         'Counter-Strike: GO (CS:GO)': { scoreType: 'games', fieldImage: esports },
         'Table Tennis': { scoreType: 'games', board: 'tennis', fieldImage: tableTennisField },
         'Ice Hockey': { scoreType: 'score', fieldImage: iceHockeyField },
-        'Rugby Union': { scoreType: 'score', fieldImage: footballField },
+        'Futsal': { scoreType: 'score', fieldImage: futsal },
+        'Rugby Union': { scoreType: 'score', fieldImage: rugbyField },
         'Dota 2': { scoreType: 'score', fieldImage: esports },
         'E-Basketball': { scoreType: 'score', fieldImage: esports },
         'E-Football': { scoreType: 'score', fieldImage: esports },

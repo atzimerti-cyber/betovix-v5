@@ -50,7 +50,7 @@ const BreadcrumbLive = (props) => {
       CategoryId: props.event.Info.CategoryId,
       CategoryName: props.event.Info.CategoryName,
     });
-    setSelectedEvent(props.event.Info);
+    setSelectedEvent(props.event.Info); 
 
     // Get categories, tournaments and events for the current category and tournament
     const categoriesMap = new Map();
@@ -98,7 +98,7 @@ const BreadcrumbLive = (props) => {
     setAllTournaments(tournaments);
     setFilteredTournaments(ft);
     setAllEvents(events);
-    setFilteredEvents(fe);
+    setFilteredEvents(fe); 
 
     setTimeout(() => {
       setFirstLoad(false);
@@ -253,8 +253,8 @@ const BreadcrumbLive = (props) => {
           {selectedEvent ? (
             <div className={classes.TeamsContainer}>
               <div className={classes.TeamsContainer}>
-                {selectedEvent?.HomeTeamId &&
-                  selectedEvent?.SportName?.International && (
+                {selectedEvent.HomeTeamId &&
+                  selectedEvent.SportName?.International && (
                     <TeamLogo
                       teamId={selectedEvent.HomeTeamId}
                       isHome={true}
@@ -276,8 +276,8 @@ const BreadcrumbLive = (props) => {
                     >
                       {translateNameWithLang(selectedEvent?.AwayTeamName)}
                     </div>
-                    {selectedEvent?.AwayTeamId &&
-                      selectedEvent?.SportName?.International && (
+                    {selectedEvent.AwayTeamId &&
+                      selectedEvent.SportName?.International && (
                         <TeamLogo
                           teamId={selectedEvent.AwayTeamId}
                           isHome={false}
