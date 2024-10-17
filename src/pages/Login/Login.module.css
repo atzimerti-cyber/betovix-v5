@@ -186,3 +186,40 @@
     margin-top: auto;
   }
 }
+
+.PhoneInput > div {
+  color: #fff;
+  font-size: 0.78rem !important;
+  font-weight: 400 !important;
+  border: 1px solid transparent !important;
+  border-radius: 0.5rem;
+}
+.PhoneInput > div:hover {
+  border: 1px solid var(--db-brand-green) !important;
+}
+
+.PhoneInput > div > input {
+  background: var(--db-gray-2) !important;
+  border: 1px solid transparent !important;
+  width: 100% !important;
+  border-radius: 0.5rem !important;
+  font-size: 0.75rem !important;
+  font-weight: 400 !important;
+}
+.PhoneInput > div > div {
+  background: var(--db-gray-2) !important;
+  border: 1px solid transparent !important;
+  border-radius: 0.5rem !important;
+}
+.PhoneInput > div > div > ul {
+  background: var(--db-gray-2) !important;
+}
+.PhoneInput > div > div > ul > li:hover {
+  background: #0f4767 !important;
+}
+.PhoneInput > div > div > ul > li > span {
+  color: #fff !important;
+}
+.PhoneInput > div > div > ul > li:target {
+  background-color: #6a0808 !important;
+}

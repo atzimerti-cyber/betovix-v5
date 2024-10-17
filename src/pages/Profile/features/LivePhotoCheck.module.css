@@ -1,0 +1,47 @@
+.Container {
+  display: flex;
+  column-gap: 3rem;
+  align-items: center;
+  margin: 1rem;
+}
+.WebcamContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 1rem;
+
+  position: relative;
+}
+.Button {
+  column-gap: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3rem;
+  border-radius: 5px;
+}
+.CapturedContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  column-gap: 1rem;
+}
+.ResultOptions {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+}
+
+.Rectangle {
+  position: absolute;
+  transform: translate(-50%, -65%);
+  top: 50%; /* Position at 50% from the top */
+  left: 50%; /* Position at 50% from the left */
+  width: 45%; /* Adjust width */
+  height: 70%; /* Adjust height */
+  border: 2px solid rgb(255, 31, 31);
+  z-index: 10; /* Ensure the rectangle is above the webcam */
+  pointer-events: none; /* Allow clicks to pass through the rectangle */
+}

@@ -139,14 +139,14 @@ const Lobby = () => {
 
   return (
     <>
+      <BigSwiper2 items={casinoBanners} autoplay />
+
       <VendorSwiper
         title={translate("Our Vendors")}
         icon={<ProvidersIcon />}
         link="/search"
         items={allProviders}
       />
-
-      <BigSwiper2 items={casinoBanners} autoplay />
 
       {filteredTags.map((tag, index) => {
         return (

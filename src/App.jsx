@@ -49,7 +49,7 @@ function App() {
   const router = createBrowserRouter([
     {
       element: <InitApp />,
-      errorElement: <ErrorPage />,
+      //errorElement: <ErrorPage />,
       children: [
         {
           element: <Layout />,

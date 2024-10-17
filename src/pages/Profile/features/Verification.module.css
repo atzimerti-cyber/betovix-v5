@@ -14,8 +14,6 @@
 .Form {
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
-  /* padding-top: 0.5rem; */
   row-gap: 0.5rem;
   max-width: 90%;
   width: 100%;
@@ -65,6 +63,7 @@
   border-radius: 0.375rem;
   border-style: none;
   padding: 0 0.375rem;
+  width: 98%;
 }
 
 .Container input {
@@ -82,9 +81,6 @@
   .TabContent {
     background-color: var(--db-duelbits-gray);
     padding: 1rem 1.5rem;
-  }
-  .Form {
-    padding-top: 0;
   }
   .Title {
     font-size: 1rem;
@@ -171,10 +167,11 @@
   padding: 0.3rem 0.5rem;
   border-radius: 5px;
   color: rgb(255, 255, 255);
-  max-width: 7rem;
+  /* max-width: 7rem; */
+  width: fit-content;
 }
 .FileSubmitButton.Disabled {
-  background-color: #9696964c;
+  background-color: #86868624;
   pointer-events: none;
 }
 .RemoveFileButton {
@@ -195,12 +192,17 @@
   width: max-content;
   border-radius: 8px;
 }
-
-.FileForms {
+.IDForms {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  flex-direction: column;
+}
+.FileForms {
+  display: flex;
+  align-items: center;
   flex-direction: row;
+  justify-content: flex-start;
 }
 
 @media (max-width: 900px) {

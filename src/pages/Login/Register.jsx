@@ -158,13 +158,17 @@ const Register = () => {
       validChecks.email &&
       validChecks.password.valid &&
       validChecks.verifyPassword &&
-      isOver18 && // Check if the user is over 18
-      isTermsAccepted // Check if terms are accepted
+      isOver18 &&
+      isTermsAccepted 
     )
       setIsRegisterDisabled(false);
     else setIsRegisterDisabled(true);
   }, [
+    registerInfo.displayName,
+    registerInfo.email,
     registerInfo.country,
+    registerInfo.password,
+    registerInfo.verifyPassword,
     validChecks.displayName,
     validChecks.email,
     validChecks.password.valid,

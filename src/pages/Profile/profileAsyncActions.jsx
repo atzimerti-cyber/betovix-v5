@@ -143,3 +143,68 @@ export const changeUsername = (signal, payload) => {
     }
   };
 };
+
+export const getLevelsVerified = (signal) => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+
+      // const response = await axiosApi.get(
+      //   `/MyAffiliate/ /&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+      //   {
+      //     signal: signal,
+      //     baseURLOverride: config.VITE_WALLET_STORETUBE,
+      //   }
+      // );
+
+      // if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
+      //   throw Error(response.data.Contents);
+      // }
+
+      dispatch(
+        profileActions.setVerificationLevels({
+          level1: 0,
+          level2: 0,
+          level3: 0,
+          level4: 0,
+          level5: 0,
+          level6: 0,
+        })
+      );
+    } catch (error) {
+      const message =
+        error?.response?.data?.Status?.Message ||
+        error?.message ||
+        "Error occurred";
+      return { success: false, error: message };
+    }
+  };
+};
+
+export const uploadKYCFile = (files) => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+
+      const response = await axiosApi.post(
+        `/AccountVerification/VerifyPersonalInformation`,
+        { files },
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_STORETUBE,
+        }
+      );
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
+        throw Error(response.data.Contents);
+      }
+      toast.success("Upload Successful");
+    } catch (error) {
+      const message =
+        error?.response?.data?.Status?.Message ||
+        error?.message ||
+        "Error occurred";
+      return { success: false, error: message };
+    }
+  };
+};

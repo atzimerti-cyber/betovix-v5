@@ -131,10 +131,10 @@
 .InfoContainer span {
     max-width: 80rem;
     text-align: center;
-    font-size: 0.875rem;
+    font-size: 0.78rem;
     line-height: 1.25rem;
     font-weight: 600;
-    color: var(--db-gray-5);
+    color: #587a8d;
 }
 
 .InfoContainer > svg {

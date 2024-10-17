@@ -1,16 +1,14 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
-
+import { useNavigate, useLocation } from "react-router-dom";
+import { getNames, getCode } from "country-list"; // getCode to map country name to ISO code
+import PhoneInput from "react-phone-input-2"; // New import for phone input
+import "react-phone-input-2/lib/style.css"; // Default styling
+import Select from "react-select";
 import classes from "../../Login/Login.module.css";
 import MainInput from "../../../features/UI/Inputs/MainInput";
 import MainButton from "../../../features/UI/Buttons/MainButton";
-import React from "react";
 import { translate } from "../../../utils/translations";
-
-import Select from "react-select";
-import { getNames } from "country-list";
 
 const PersonalInfoVerification = (props) => {
   const dispatch = useDispatch();
@@ -25,10 +23,11 @@ const PersonalInfoVerification = (props) => {
     firstName: "",
     lastName: "",
     dateOfBirth: "",
+    mobile: "",
     country: null,
     address: "",
     city: "",
-    postCode: null,
+    postCode: "",
   });
   const [isVerifyDisabled, setIsVerifyDisabled] = useState(true);
 
@@ -40,7 +39,8 @@ const PersonalInfoVerification = (props) => {
       personalInfo.country &&
       personalInfo.address &&
       personalInfo.city &&
-      personalInfo.postCode
+      personalInfo.postCode &&
+      personalInfo.mobile
     )
       setIsVerifyDisabled(false);
     else setIsVerifyDisabled(true);
@@ -52,6 +52,7 @@ const PersonalInfoVerification = (props) => {
     personalInfo.address,
     personalInfo.city,
     personalInfo.postCode,
+    personalInfo.mobile,
   ]);
 
   const updatePersonalInfo = (property, value) => {
@@ -114,11 +115,8 @@ const PersonalInfoVerification = (props) => {
                 type="date"
                 id="dateOfBirth"
                 name="dateOfBirth"
-                // placeholder={translate("mm/dd/yyyy")}
                 value={personalInfo.dateOfBirth}
-                onChange={(value) =>
-                  updatePersonalInfo("dateOfBirth", value)
-                }
+                onChange={(value) => updatePersonalInfo("dateOfBirth", value)}
               />
             </div>
 
@@ -134,6 +132,24 @@ const PersonalInfoVerification = (props) => {
                   updatePersonalInfo("country", option.value)
                 }
                 placeholder={translate("Select your country")}
+              />
+            </div>
+
+            <label htmlFor="mobile">
+              {translate("Mobile")}
+              <span className={classes.Required}>∗</span>
+            </label>
+            <div className={classes.PhoneInput} id="mobile">
+              <PhoneInput
+                country={
+                  personalInfo.country
+                    ? getCode(personalInfo.country).toLowerCase()
+                    : "us"
+                }
+                value={personalInfo.mobile}
+                onChange={(value) => updatePersonalInfo("mobile", value)}
+                placeholder={translate("Mobile Phone")}
+                inputClass={classes.InputOuterPhone}
               />
             </div>
 
@@ -190,7 +206,7 @@ const PersonalInfoVerification = (props) => {
               color="primary"
               disabled={isVerifyDisabled}
               onClick={() => {
-                // dispatch(login(loginInfo, navigate, location.pathname));
+                // Handle form submission
               }}
             >
               {translate("Verify")}

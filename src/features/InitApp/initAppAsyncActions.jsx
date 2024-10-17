@@ -382,7 +382,7 @@ export const loadInitData = (isMobile) => {
 
       // Rest of menu items
       allMenuItems.push({
-        category: { id: 5, label: "Gamification", visible: true, isNew: true },
+        category: { id: 5, label: "Arena", visible: true, isNew: true },
         items: [
           {
             id: 1,
