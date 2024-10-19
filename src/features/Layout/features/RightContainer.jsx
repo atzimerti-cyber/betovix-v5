@@ -12,6 +12,7 @@ import { translate } from '../../../utils/translations';
 
 const RightContainer = () => {
     const dispatch = useDispatch();
+    const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
     const showRight = useSelector((state) => state.layout.showRight);
 

@@ -569,14 +569,30 @@ export const getSiteSettings = (signal) => {
         }
       );
 
-      if (response.status !== 200) throw Error();
+      if (response.status !== 200)
+        throw new Error("Failed to fetch site settings");
+
+      let languages = [];
+      const str = response.data.Contents.Site.AllowedLangs;
+      const ids = str.split(",");
+      ids.map((id) => {
+        languages.push({
+          id: id,
+        });
+      }); 
+
+      const englishLanguage = languages.find(language => language.id === 'en');
 
       dispatch(appActions.setSiteSettings(response.data.Contents["Site"]));
+      dispatch(appActions.setAvailableLangs(languages));
+      dispatch(appActions.setLang(englishLanguage));
       dispatch(
         appActions.setSocialMedia(response.data.Contents["Social Media"])
       );
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(
+        error?.message || "An error occurred while fetching site settings"
+      );
     }
   };
 };

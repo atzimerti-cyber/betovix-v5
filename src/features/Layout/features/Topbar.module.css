@@ -501,9 +501,9 @@
   position: relative;
 }
 .NotificationButton {
-  padding: 8px 5px 5px 5px;
+  margin: 10px 3px 3px 8px;
   border-radius: 5px;
-}
+} 
 .NotificationButton:hover {
   background-color: hsl(var(--bc) / var(--tw-bg-opacity));
   --tw-bg-opacity: 0.1;

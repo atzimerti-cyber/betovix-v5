@@ -18,6 +18,8 @@ const MenuItems = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const lang = useSelector((state) => state.app.lang);
+
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
 
   const newRewards = useSelector(

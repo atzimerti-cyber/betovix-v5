@@ -144,10 +144,11 @@
     flex-direction: column;
     flex-wrap: wrap;
     margin-bottom: 0.5rem;
-    background-color: var(--db-gray-4) !important;
+    /* background-color: var(--db-gray-4) !important; */
     width: 9rem;
     border-radius: 0.25rem;
-    background-color: var(--db-gray-6);
+    /* background-color: var(--db-gray-6); */
+    background-color: #23486d;
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 600;
@@ -178,18 +179,18 @@
 }
 
 .LangItem {
-    border-radius: 2px;
+    border-radius: 50%;
     display: grid;
     place-items: center;
     font-size: 20px;
-    width: 1em;
-    height: 0.75em;
+    width: 1.15em;
+    height: 1.05em;
     overflow: hidden;
     position: relative;
 }
 
 .LangItem:before {
-    background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+    /* background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0)); */
     content: '';
     position: absolute;
     inset: 0px;
