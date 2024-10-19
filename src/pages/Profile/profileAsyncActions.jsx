@@ -149,26 +149,29 @@ export const getLevelsVerified = (signal) => {
     try {
       const lang = getLang();
 
-      // const response = await axiosApi.get(
-      //   `/MyAffiliate/ /&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-      //   {
-      //     signal: signal,
-      //     baseURLOverride: config.VITE_WALLET_STORETUBE,
-      //   }
-      // );
+      const response = await axiosApi.get(
+        `/AccountVerification/GetVerificationStatus`,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_STORETUBE,
+        }
+      );
 
-      // if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
-      //   throw Error(response.data.Contents);
-      // }
+      // Check for a successful response
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
+        throw Error(response.data.Contents);
+      }
+
+      const contents = response.data.Contents;
 
       dispatch(
         profileActions.setVerificationLevels({
-          level1: 0,
-          level2: 0,
-          level3: 0,
-          level4: 0,
-          level5: 0,
-          level6: 0,
+          level1: contents[1] || 0,
+          level2: contents[2] || 0,
+          level3: contents[3] || 0,
+          level4: contents[4] || 0,
+          level5: contents[5] || 0,
+          level6: contents[6] || 0,
         })
       );
     } catch (error) {
@@ -181,14 +184,14 @@ export const getLevelsVerified = (signal) => {
   };
 };
 
-export const uploadKYCFile = (files) => {
+export const submitPersonalInfo = (personalInfo, signal) => {
   return async (dispatch) => {
     try {
       const lang = getLang();
 
       const response = await axiosApi.post(
         `/AccountVerification/VerifyPersonalInformation`,
-        { files },
+        personalInfo,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_STORETUBE,
@@ -196,9 +199,46 @@ export const uploadKYCFile = (files) => {
       );
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
-        throw Error(response.data.Contents);
+        throw new Error(response.data.Contents);
       }
+
+      dispatch(getLevelsVerified(signal));
+      toast.success("Verification Request Successful");
+      return { success: true }; // Return success if needed
+    } catch (error) {
+      const message =
+        error?.response?.data?.Status?.Message ||
+        error?.message ||
+        "Error occurred";
+      return { success: false, error: message };
+    }
+  };
+};
+
+export const uploadKYCFile = (file, level, signal) => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await axiosApi.post(
+        `/Upload/PostKYCFile?verificationLevel=${level}`,
+        formData,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_STORETUBE,
+        }
+      );
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
+        throw new Error(response.data.Contents);
+      }
+
+      dispatch(getLevelsVerified(signal));
       toast.success("Upload Successful");
+      return { success: true }; // Return success if needed
     } catch (error) {
       const message =
         error?.response?.data?.Status?.Message ||

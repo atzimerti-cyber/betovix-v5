@@ -10,6 +10,8 @@ import MainInput from "../../../features/UI/Inputs/MainInput";
 import MainButton from "../../../features/UI/Buttons/MainButton";
 import { translate } from "../../../utils/translations";
 
+import { submitPersonalInfo } from "../profileAsyncActions";
+
 const PersonalInfoVerification = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -18,13 +20,14 @@ const PersonalInfoVerification = (props) => {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
   const [loading, setLoading] = useState(false);
+  const [validInputs, setValidInputs] = useState(false);
 
   const [personalInfo, setPersonalInfo] = useState({
     firstName: "",
     lastName: "",
     dateOfBirth: "",
-    mobile: "",
     country: null,
+    mobile: "",
     address: "",
     city: "",
     postCode: "",
@@ -37,22 +40,25 @@ const PersonalInfoVerification = (props) => {
       personalInfo.lastName &&
       personalInfo.dateOfBirth &&
       personalInfo.country &&
+      personalInfo.mobile &&
       personalInfo.address &&
       personalInfo.city &&
-      personalInfo.postCode &&
-      personalInfo.mobile
-    )
+      personalInfo.postCode
+    ) {
+      setValidInputs(true);
       setIsVerifyDisabled(false);
-    else setIsVerifyDisabled(true);
+    } else {
+      setIsVerifyDisabled(true);
+    }
   }, [
     personalInfo.firstName,
     personalInfo.lastName,
     personalInfo.dateOfBirth,
     personalInfo.country,
+    personalInfo.mobile,
     personalInfo.address,
     personalInfo.city,
     personalInfo.postCode,
-    personalInfo.mobile,
   ]);
 
   const updatePersonalInfo = (property, value) => {
@@ -63,6 +69,26 @@ const PersonalInfoVerification = (props) => {
     label: country,
     value: country,
   }));
+
+  const handleSumbit = () => {
+    if (validInputs) {
+      const controller = new AbortController();
+      const signal = controller.signal;
+
+      const info = {
+        FirstName: personalInfo.firstName,
+        LastName: personalInfo.lastName,
+        DateOfBirth: personalInfo.dateOfBirth,
+        Country: personalInfo.country,
+        Address: personalInfo.address,
+        City: personalInfo.city,
+        PostCode: personalInfo.postCode,
+        Mobile: personalInfo.mobile,
+      };
+
+      dispatch(submitPersonalInfo(info, signal));
+    }
+  };
 
   return (
     <>
@@ -206,7 +232,7 @@ const PersonalInfoVerification = (props) => {
               color="primary"
               disabled={isVerifyDisabled}
               onClick={() => {
-                // Handle form submission
+                handleSumbit();
               }}
             >
               {translate("Verify")}

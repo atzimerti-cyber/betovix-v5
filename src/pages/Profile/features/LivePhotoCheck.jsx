@@ -7,8 +7,15 @@ import classes from "./LivePhotoCheck.module.css";
 
 import RetakeIcon from "../../../assets/svgs/refresh.svg?react";
 
+import { uploadKYCFile } from "../profileAsyncActions";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+
 const LivePhotoCheck = () => {
+  const dispatch = useDispatch();
+
   const webcamRef = useRef(null);
+
   const [image, setImage] = useState(null);
   const [isLivenessChecked, setIsLivenessChecked] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -62,6 +69,24 @@ const LivePhotoCheck = () => {
     }
   };
 
+  const submitLivePhoto = async (imageSrc) => {
+    if (imageSrc) {
+      const controller = new AbortController();
+      const signal = controller.signal;
+
+      // Convert base64 image to a File object
+      const file = await fetch(imageSrc)
+        .then((res) => res.blob())
+        .then(
+          (blob) => new File([blob], "live_photo.jpg", { type: "image/jpeg" })
+        );
+
+      dispatch(uploadKYCFile(file, 4, signal));
+    } else {
+      toast.error("Submission Failed");
+    }
+  };
+
   useEffect(() => {
     loadModels();
   }, []);
@@ -76,7 +101,7 @@ const LivePhotoCheck = () => {
             screenshotFormat="image/jpeg"
             width={300}
           />
-          <div className={classes.Rectangle}></div> 
+          <div className={classes.Rectangle}></div>
           <button
             onClick={() => {
               captureAndCheckLiveness();
@@ -117,17 +142,29 @@ const LivePhotoCheck = () => {
                     Retake
                   </button>
                 </div>
-                <div className={classes.RetakePhoto}>
-                  <button
-                    style={{ backgroundColor: "#749f0f" }}
-                    onClick={() => {
-                      null;
-                    }}
-                    className={classes.Button}
-                  >
-                    Submit
-                  </button>
-                </div>
+                {isLivenessChecked ? (
+                  <div className={classes.RetakePhoto}>
+                    <button
+                      style={{ backgroundColor: "#749f0f" }}
+                      onClick={() => {
+                        submitLivePhoto(image);
+                      }}
+                      className={classes.Button}
+                    >
+                      Submit
+                    </button>
+                  </div>
+                ) : (
+                  <div className={classes.RetakePhoto}>
+                    <button
+                      style={{ backgroundColor: "#80808029", pointerEvents:'none' }} 
+                      className={classes.Button}
+                      disabled
+                    >
+                      Submit
+                    </button>
+                  </div>
+                )}
               </div>
             </>
           )}

@@ -23,6 +23,11 @@ const fetchClient = () => {
             config.headers.Authorization = token;
         }
 
+        // Remove 'application/json' Content-Type if sending FormData
+        if (config.data instanceof FormData) {
+            delete config.headers['Content-Type']; // Let the browser set this automatically
+        }
+
         if (config.baseURLOverride) {
             config.baseURL = config.baseURLOverride;
             delete config.baseURLOverride;

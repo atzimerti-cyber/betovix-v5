@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 import classes from "./Verification.module.css";
 
-import { getLevelsVerified } from "../profileAsyncActions";
+import { getLevelsVerified, uploadKYCFile } from "../profileAsyncActions";
 
 import PersonalInfoVerification from "./PersonalInfoVerification";
 import LivePhotoCheck from "./LivePhotoCheck";
@@ -44,10 +44,12 @@ const Verification = () => {
 
   let elClasses = [classes.AccordionBase];
 
-  const [email, setEmail] = useState(user?.Email || "");
-  const [selectedFile, setSelectedFile] = useState(null);
   const [pendingDots, setPendingDots] = useState("...");
+
+  const [email, setEmail] = useState(user?.Email || "");
   const [idFiles, setIdFiles] = useState({ frontSide: null, backSide: null });
+  const [proofOfAddress, setProofOfAddress] = useState(null);
+  const [fundsSource, setFundsSource] = useState(null);
 
   const [isLevel1Visible, setLevel1Visible] = useState(false);
   const [isLevel2Visible, setLevel2Visible] = useState(false);
@@ -71,6 +73,15 @@ const Verification = () => {
     return () => clearInterval(interval);
   }, []);
 
+  //Handle Email Input Change
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value); // Update email as the user types
+  };
+  //Handle Email Sumbission
+  const handleEmailSubmit = (event) => {
+    console.log("Email to be submitted: ", email);
+  };
+
   // Handle file selection for the front side
   const handleFrontSideChange = (event) => {
     setIdFiles((prevFiles) => ({
@@ -91,25 +102,82 @@ const Verification = () => {
       ...prevFiles,
       [side]: null,
     }));
-    // Optionally clear the input value
     document.getElementById(`${side}Input`).value = null;
   };
-  // Handle file submission
+  // Handle file submission for both front and back sides
   const handleIDSubmit = (event) => {
     event.preventDefault();
-    if (idFiles.frontSide && idFiles.backSide) {
-      dispatch(uploadKYCFile(idFiles));
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    // Front side
+    if (idFiles.frontSide) {
+      const frontSideFormData = idFiles.frontSide;
+
+      dispatch(uploadKYCFile(frontSideFormData, 3, signal));
     } else {
-      console.log("Both sides of the ID are required.");
+      console.log("Front side of the ID is required.");
+    }
+
+    // Back side
+    if (idFiles.backSide) {
+      const backSideFormData = idFiles.backSide;
+
+      dispatch(uploadKYCFile(backSideFormData, 3, signal));
+    } else {
+      console.log("Back side of the ID is required.");
     }
   };
 
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value); // Update email as the user types
+  // Handle POA Change
+  const handlePOAChange = (event) => {
+    setProofOfAddress(event.target.files[0]);
+  };
+  // Handle Remove POA File
+  const handleRemovePOAFile = (event) => {
+    setProofOfAddress(null);
+    document.getElementById(`POAInput`).value = null;
+  };
+  // Handle file submission for both front and back sides
+  const handlePOASubmit = (event) => {
+    event.preventDefault();
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    if (proofOfAddress) {
+      const file = proofOfAddress;
+
+      dispatch(uploadKYCFile(file, 5, signal));
+    } else {
+      console.log("Proof of Address is required.");
+    }
   };
 
-  const handleEmailSubmit = (event) => {
-    console.log("Email to be submitted: ", email);
+  // Handle POA Change
+  const handleSOFChange = (event) => {
+    setFundsSource(event.target.files[0]);
+  };
+  // Handle Remove POA File
+  const handleRemoveSOFFile = (event) => {
+    setFundsSource(null);
+    document.getElementById(`SOFInput`).value = null;
+  };
+  // Handle file submission for both front and back sides
+  const handleSOFSubmit = (event) => {
+    event.preventDefault();
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    if (fundsSource) {
+      const file = fundsSource;
+
+      dispatch(uploadKYCFile(file, 6, signal));
+    } else {
+      console.log("Source of Funds is required.");
+    }
   };
 
   return (
@@ -235,7 +303,11 @@ const Verification = () => {
               )}
               {level2Status === 1 && (
                 <div className={classes.AccordionContent}>
-                  <p>{translate(`Verification Pending${pendingDots}`)}</p>
+                  <p style={{ color: "#cbb507" }}>
+                    {translate(
+                      `Verification Pending. This might take a while${pendingDots} `
+                    )}
+                  </p>
                 </div>
               )}
               {level2Status === 2 && (
@@ -324,75 +396,196 @@ const Verification = () => {
               <p className={classes.AccContentHeader}>
                 {translate("Upload Identification")}
               </p>
-
-              <div className={classes.IDForms}>
-                <form onSubmit={handleIDSubmit} style={{width:'100%'}}>
-                  <div className={classes.FileForms}>
-                    <div className={classes.FileInputForm}>
-                      <h2>
-                        <i>(SIDE 1)</i>
-                      </h2>
-                      <input
-                        id="frontSideInput"
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFrontSideChange}
-                        className={classes.FileInput}
-                      />
-                      {idFiles.frontSide && (
-                        <div className={classes.FileInfo}>
-                          <span>{idFiles.frontSide.name}</span>
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveFile("frontSide")}
-                            className={classes.RemoveFileButton}
-                          >
-                            <Trash />
-                          </button>
-                        </div>
-                      )}
+              {level3Status === 0 && (
+                <div className={classes.IDForms}>
+                  <form onSubmit={handleIDSubmit} style={{ width: "100%" }}>
+                    <div className={classes.FileForms}>
+                      <div className={classes.FileInputForm}>
+                        <h2>
+                          <i>(SIDE 1)</i>
+                        </h2>
+                        <input
+                          id="frontSideInput"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFrontSideChange}
+                          className={classes.FileInput}
+                        />
+                        {idFiles.frontSide && (
+                          <div className={classes.FileInfo}>
+                            <span>{idFiles.frontSide.name}</span>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveFile("frontSide")}
+                              className={classes.RemoveFileButton}
+                            >
+                              <Trash />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                      <div className={classes.FileInputForm}>
+                        <h2>
+                          <i>(SIDE 2)</i>
+                        </h2>
+                        <input
+                          id="backSideInput"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleBackSideChange}
+                          className={classes.FileInput}
+                        />
+                        {idFiles.backSide && (
+                          <div className={classes.FileInfo}>
+                            <span>{idFiles.backSide.name}</span>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveFile("backSide")}
+                              className={classes.RemoveFileButton}
+                            >
+                              <Trash />
+                            </button>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                    <div className={classes.FileInputForm}>
-                      <h2>
-                        <i>(SIDE 2)</i>
-                      </h2>
-                      <input
-                        id="backSideInput"
-                        type="file"
-                        accept="image/*"
-                        onChange={handleBackSideChange}
-                        className={classes.FileInput}
-                      />
-                      {idFiles.backSide && (
-                        <div className={classes.FileInfo}>
-                          <span>{idFiles.backSide.name}</span>
-                          <button
-                            type="button"
-                            onClick={() => handleRemoveFile("backSide")}
-                            className={classes.RemoveFileButton}
-                          >
-                            <Trash />
-                          </button>
-                        </div>
-                      )}
+                    <div className={classes.FileForms}>
+                      <button
+                        type="submit"
+                        className={
+                          idFiles.frontSide && idFiles.backSide
+                            ? classes.FileSubmitButton
+                            : [classes.FileSubmitButton, classes.Disabled].join(
+                                " "
+                              )
+                        }
+                      >
+                        Upload Both Sides
+                      </button>
                     </div>
-                  </div>
-                  <div className={classes.FileForms}>
-                    <button
-                      type="submit"
-                      className={
-                        idFiles.frontSide && idFiles.backSide
-                          ? classes.FileSubmitButton
-                          : [classes.FileSubmitButton, classes.Disabled].join(
-                              " "
-                            )
-                      }
+                  </form>
+                </div>
+              )}
+              {level3Status === 1 && (
+                <p style={{ color: "#cbb507" }}>
+                  {translate(
+                    `Verification Pending. This might take a while${pendingDots} `
+                  )}
+                </p>
+              )}
+              {level3Status === 2 && (
+                <div className={classes.IDForms}>
+                  <div
+                    style={{
+                      backgroundColor: "#0c2233",
+                      display: "flex",
+                      flexDirection: "row",
+                      columnGap: "0.5rem",
+                      width: "100%",
+                      padding: "0.4rem 0.9rem 0rem 0.9rem",
+                    }}
+                  >
+                    <WarningIcon height="20px" width="20px" />
+                    <p
+                      style={{
+                        color: "#ec5750d6",
+                        textAlign: "start",
+                      }}
                     >
-                      Upload Both Sides
-                    </button>
+                      Your request was rejected. You can resend your ID for
+                      reevaluation.
+                    </p>
                   </div>
-                </form>
-              </div>
+                  <form onSubmit={handleIDSubmit} style={{ width: "100%" }}>
+                    <div className={classes.FileForms}>
+                      <div className={classes.FileInputForm}>
+                        <h2>
+                          <i>(SIDE 1)</i>
+                        </h2>
+                        <input
+                          id="frontSideInput"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleFrontSideChange}
+                          className={classes.FileInput}
+                        />
+                        {idFiles.frontSide && (
+                          <div className={classes.FileInfo}>
+                            <span>{idFiles.frontSide.name}</span>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveFile("frontSide")}
+                              className={classes.RemoveFileButton}
+                            >
+                              <Trash />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                      <div className={classes.FileInputForm}>
+                        <h2>
+                          <i>(SIDE 2)</i>
+                        </h2>
+                        <input
+                          id="backSideInput"
+                          type="file"
+                          accept="image/*"
+                          onChange={handleBackSideChange}
+                          className={classes.FileInput}
+                        />
+                        {idFiles.backSide && (
+                          <div className={classes.FileInfo}>
+                            <span>{idFiles.backSide.name}</span>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveFile("backSide")}
+                              className={classes.RemoveFileButton}
+                            >
+                              <Trash />
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                    <div className={classes.FileForms}>
+                      <button
+                        type="submit"
+                        className={
+                          idFiles.frontSide && idFiles.backSide
+                            ? classes.FileSubmitButton
+                            : [classes.FileSubmitButton, classes.Disabled].join(
+                                " "
+                              )
+                        }
+                      >
+                        Upload Both Sides
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              )}
+              {level3Status === 3 && (
+                <div
+                  style={{
+                    backgroundColor: "#0c2233",
+                    display: "flex",
+                    flexDirection: "row",
+                    columnGap: "0.5rem",
+                    width: "100%",
+                    padding: "0.4rem 0.9rem 0.4rem 0.9rem",
+                  }}
+                >
+                  <SuccessIcon height="20px" width="20px" />
+                  <p
+                    style={{
+                      color: "#2ea360",
+                      textAlign: "start",
+                    }}
+                  >
+                    Your ID has been successfully verified.
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -412,46 +605,67 @@ const Verification = () => {
           </div>
           {isLevel4Visible && (
             <div className={classes.AccordionContent}>
-              {/* <p className={classes.AccContentHeader}>
-                {translate("Live photo check")}
-              </p> */}
               <p>
                 {translate(
                   "Take an interactive selfie and ID picture with liveness check."
                 )}
               </p>
-              <LivePhotoCheck />
-              {/* <form onSubmit={handleSubmit} className={classes.FileInputForm}>
-                <input
-                  id="fileInput"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className={classes.FileInput}
-                />
-                {selectedFile && (
-                  <div className={classes.FileInfo}>
-                    <span>{selectedFile.name}</span>
-                    <button
-                      type="button"
-                      onClick={handleRemoveFile}
-                      className={classes.RemoveFileButton}
+              {level4Status === 0 && <LivePhotoCheck />}
+              {level4Status === 1 && (
+                <p style={{ color: "#cbb507" }}>
+                  {translate(
+                    `Verification Pending. This might take a while${pendingDots} `
+                  )}
+                </p>
+              )}
+              {level4Status === 2 && (
+                <>
+                  <div
+                    style={{
+                      backgroundColor: "#0c2233",
+                      display: "flex",
+                      flexDirection: "row",
+                      columnGap: "0.5rem",
+                      width: "100%",
+                      padding: "0.4rem 0.9rem 0rem 0.9rem",
+                    }}
+                  >
+                    <WarningIcon height="20px" width="20px" />
+                    <p
+                      style={{
+                        color: "#ec5750d6",
+                        textAlign: "start",
+                      }}
                     >
-                      <Trash />
-                    </button>
+                      Your request was rejected. Retake a photo for
+                      reevaluation.
+                    </p>
                   </div>
-                )}
-                <button
-                  type="submit"
-                  className={
-                    selectedFile
-                      ? classes.FileSubmitButton
-                      : [classes.FileSubmitButton, classes.Disabled].join(" ")
-                  }
+                  <LivePhotoCheck />
+                </>
+              )}
+              {level4Status === 3 && (
+                <div
+                  style={{
+                    backgroundColor: "#0c2233",
+                    display: "flex",
+                    flexDirection: "row",
+                    columnGap: "0.5rem",
+                    width: "100%",
+                    padding: "0.4rem 0.9rem 0.4rem 0.9rem",
+                  }}
                 >
-                  Upload
-                </button>
-              </form> */}
+                  <SuccessIcon height="20px" width="20px" />
+                  <p
+                    style={{
+                      color: "#2ea360",
+                      textAlign: "start",
+                    }}
+                  >
+                    Your live photo check has been successfully verified.
+                  </p>
+                </div>
+              )}
             </div>
           )}
         </div>
@@ -470,43 +684,144 @@ const Verification = () => {
             </div>
           </div>
           {isLevel5Visible && (
-            <div className={classes.AccordionContent}>
-              {/* <p className={classes.AccContentHeader}>
-                {translate("Submit proof of your current address.")}
-              </p> */}
-              <p>{translate("Submit proof of your current address.")}</p>
-              <form onSubmit={handleSubmit} className={classes.FileInputForm}>
-                <input
-                  id="fileInput"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className={classes.FileInput}
-                />
-                {selectedFile && (
-                  <div className={classes.FileInfo}>
-                    <span>{selectedFile.name}</span>
+            <>
+              {level5Status === 0 && (
+                <div className={classes.AccordionContent}>
+                  <p>{translate("Submit proof of your current address.")}</p>
+                  <form
+                    onSubmit={handlePOASubmit}
+                    className={classes.FileInputForm}
+                  >
+                    <input
+                      id="POAInput"
+                      type="file"
+                      accept="image/*"
+                      onChange={handlePOAChange}
+                      className={classes.FileInput}
+                    />
+                    {proofOfAddress && (
+                      <div className={classes.FileInfo}>
+                        <span>{proofOfAddress.name}</span>
+                        <button
+                          type="button"
+                          onClick={handleRemovePOAFile}
+                          className={classes.RemoveFileButton}
+                        >
+                          <Trash />
+                        </button>
+                      </div>
+                    )}
                     <button
-                      type="button"
-                      onClick={handleRemoveFile}
-                      className={classes.RemoveFileButton}
+                      type="submit"
+                      className={
+                        proofOfAddress
+                          ? classes.FileSubmitButton
+                          : [classes.FileSubmitButton, classes.Disabled].join(
+                              " "
+                            )
+                      }
                     >
-                      <Trash />
+                      Upload
                     </button>
+                  </form>
+                </div>
+              )}
+              {level5Status === 1 && (
+                <div className={classes.AccordionContent}>
+                  <p style={{ color: "#cbb507" }}>
+                    {translate(
+                      `Verification Pending. This might take a while${pendingDots} `
+                    )}
+                  </p>
+                </div>
+              )}
+              {level5Status === 2 && (
+                <>
+                  <div
+                    style={{
+                      backgroundColor: "#0c2233",
+                      display: "flex",
+                      flexDirection: "row",
+                      columnGap: "0.5rem",
+                      width: "100%",
+                      padding: "0.4rem 0.9rem 0rem 0.9rem",
+                    }}
+                  >
+                    <WarningIcon height="20px" width="20px" />
+                    <p
+                      style={{
+                        color: "#ec5750d6",
+                        textAlign: "start",
+                      }}
+                    >
+                      Your request was rejected. Sumbit proof of address for
+                      reevaluation.
+                    </p>
                   </div>
-                )}
-                <button
-                  type="submit"
-                  className={
-                    selectedFile
-                      ? classes.FileSubmitButton
-                      : [classes.FileSubmitButton, classes.Disabled].join(" ")
-                  }
+                  <div className={classes.AccordionContent}>
+                    <p>{translate("Submit proof of your current address.")}</p>
+                    <form
+                      onSubmit={handlePOASubmit}
+                      className={classes.FileInputForm}
+                    >
+                      <input
+                        id="POAInput"
+                        type="file"
+                        accept="image/*"
+                        onChange={handlePOAChange}
+                        className={classes.FileInput}
+                      />
+                      {proofOfAddress && (
+                        <div className={classes.FileInfo}>
+                          <span>{proofOfAddress.name}</span>
+                          <button
+                            type="button"
+                            onClick={handleRemovePOAFile}
+                            className={classes.RemoveFileButton}
+                          >
+                            <Trash />
+                          </button>
+                        </div>
+                      )}
+                      <button
+                        type="submit"
+                        className={
+                          proofOfAddress
+                            ? classes.FileSubmitButton
+                            : [classes.FileSubmitButton, classes.Disabled].join(
+                                " "
+                              )
+                        }
+                      >
+                        Upload
+                      </button>
+                    </form>
+                  </div>
+                </>
+              )}
+              {level5Status === 3 && (
+                <div
+                  style={{
+                    backgroundColor: "#0c2233",
+                    display: "flex",
+                    flexDirection: "row",
+                    columnGap: "0.5rem",
+                    width: "100%",
+                    padding: "0.6rem 0.9rem 0.4rem 0.9rem",
+                  }}
                 >
-                  Upload
-                </button>
-              </form>
-            </div>
+                  <SuccessIcon height="20px" width="20px" />
+                  <p
+                    style={{
+                      color: "#2ea360",
+                      textAlign: "start",
+                    }}
+                  >
+                    Your proof of address has been successfully verified.
+                  </p>
+                </div>
+              )}
+            </>
           )}
         </div>
 
@@ -524,43 +839,141 @@ const Verification = () => {
             </div>
           </div>
           {isLevel6Visible && (
-            <div className={classes.AccordionContent}>
-              {/* <p className={classes.AccContentHeader}>
-                {translate("Source of funds")}
-              </p> */}
-              <p>{translate("Submit proof of source of funds.")}</p>
-              <form onSubmit={handleSubmit} className={classes.FileInputForm}>
-                <input
-                  id="fileInput"
-                  type="file"
-                  accept="image/*"
-                  onChange={handleFileChange}
-                  className={classes.FileInput}
-                />
-                {selectedFile && (
-                  <div className={classes.FileInfo}>
-                    <span>{selectedFile.name}</span>
+            <>
+              {level6Status === 0 && (
+                <div className={classes.AccordionContent}>
+                  <p>{translate("Submit proof of source of funds.")}</p>
+                  <form
+                    onSubmit={handleSOFSubmit}
+                    className={classes.FileInputForm}
+                  >
+                    <input
+                      id="SOFInput"
+                      type="file"
+                      accept="image/*"
+                      onChange={handleSOFChange}
+                      className={classes.FileInput}
+                    />
+                    {fundsSource && (
+                      <div className={classes.FileInfo}>
+                        <span>{fundsSource.name}</span>
+                        <button
+                          type="button"
+                          onClick={handleRemoveSOFFile}
+                          className={classes.RemoveFileButton}
+                        >
+                          <Trash />
+                        </button>
+                      </div>
+                    )}
                     <button
-                      type="button"
-                      onClick={handleRemoveFile}
-                      className={classes.RemoveFileButton}
+                      type="submit"
+                      className={
+                        fundsSource
+                          ? classes.FileSubmitButton
+                          : [classes.FileSubmitButton, classes.Disabled].join(
+                              " "
+                            )
+                      }
                     >
-                      <Trash />
+                      Upload
                     </button>
+                  </form>
+                </div>
+              )}
+              {level6Status === 1 && (
+                <div className={classes.AccordionContent}>
+                  <p style={{ color: "#cbb507" }}>
+                    {translate(
+                      `Verification Pending. This might take a while${pendingDots} `
+                    )}
+                  </p>
+                </div>
+              )}
+              {level6Status === 2 && (
+                <>
+                  <div
+                    style={{
+                      backgroundColor: "#0c2233",
+                      display: "flex",
+                      flexDirection: "row",
+                      columnGap: "0.5rem",
+                      width: "100%",
+                      padding: "0.4rem 0.9rem 0rem 0.9rem",
+                    }}
+                  >
+                    <WarningIcon height="20px" width="20px" />
+                    <p
+                      style={{
+                        color: "#ec5750d6",
+                        textAlign: "start",
+                      }}
+                    >
+                      Your request was rejected. Sumbit source of funds for
+                      reevaluation.
+                    </p>
                   </div>
-                )}
-                <button
-                  type="submit"
-                  className={
-                    selectedFile
-                      ? classes.FileSubmitButton
-                      : [classes.FileSubmitButton, classes.Disabled].join(" ")
-                  }
+                  <div className={classes.AccordionContent}>
+                    <form
+                      onSubmit={handleSOFSubmit}
+                      className={classes.FileInputForm}
+                    >
+                      <input
+                        id="SOFInput"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleSOFChange}
+                        className={classes.FileInput}
+                      />
+                      {fundsSource && (
+                        <div className={classes.FileInfo}>
+                          <span>{fundsSource.name}</span>
+                          <button
+                            type="button"
+                            onClick={handleRemoveSOFFile}
+                            className={classes.RemoveFileButton}
+                          >
+                            <Trash />
+                          </button>
+                        </div>
+                      )}
+                      <button
+                        type="submit"
+                        className={
+                          fundsSource
+                            ? classes.FileSubmitButton
+                            : [classes.FileSubmitButton, classes.Disabled].join(
+                                " "
+                              )
+                        }
+                      >
+                        Upload
+                      </button>
+                    </form>
+                  </div>
+                </>
+              )}
+              {level6Status === 3 && <div
+                  style={{
+                    backgroundColor: "#0c2233",
+                    display: "flex",
+                    flexDirection: "row",
+                    columnGap: "0.5rem",
+                    width: "100%",
+                    padding: "0.6rem 0.9rem 0.4rem 0.9rem",
+                  }}
                 >
-                  Upload
-                </button>
-              </form>
-            </div>
+                  <SuccessIcon height="20px" width="20px" />
+                  <p
+                    style={{
+                      color: "#2ea360",
+                      textAlign: "start",
+                    }}
+                  >
+                    Your source of funds has been successfully verified.
+                  </p>
+                </div>}
+            </>
           )}
         </div>
       </div>
