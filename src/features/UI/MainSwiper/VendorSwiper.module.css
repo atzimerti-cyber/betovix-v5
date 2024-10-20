@@ -13,6 +13,9 @@
     min-height: 20px;
     position: relative;
 }
+.VendorsSwiper>div>div>div {
+    column-gap: 0.3rem;
+}
 
 .ScrollItem {
     min-width: 160px;
@@ -24,7 +27,8 @@
     /* max-width: 135px; */
     transition: transform 0.2s linear;
     /* background-color: #0b1f2e; */
-    background: linear-gradient(197deg, rgba(28, 57, 82, 0.5) 40%, transparent 60%);
+    /* background: linear-gradient(197deg, rgba(28, 57, 82, 0.5) 40%, transparent 60%); */
+    background: #1a384c;
     border-radius: 0.375rem;
 }
 
@@ -54,7 +58,7 @@
     height: 100%;
     /* aspect-ratio: 6/4; */
     position: relative;
-    background-size: 85%;
+    background-size: 100%;
     background-position: center center;
     background-repeat: no-repeat;
 }
