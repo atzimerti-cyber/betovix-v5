@@ -40,7 +40,8 @@ const ProgressMap = () => {
     <div className={classes.PageContent}>
       <div className={classes.Banner}>
         <h1 className={classes.BannerTitle}>
-          <span>{translate(`HERO'S HAVEN`)}</span>
+          <span>{translate(`${selectedHero.name}`)}{' '}{translate(`${selectedHero.subName}`)}</span>
+          {/* <span>{translate(`HERO'S HAVEN`)}</span> */}
         </h1>
       </div>
 

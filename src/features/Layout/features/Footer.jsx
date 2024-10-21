@@ -35,8 +35,52 @@ const Footer = () => {
     <div className={classes.Footer}>
       <div className={classes.LinksContainer}>
         <div className={classes.LinksLayout}>
+          <h2>{translate("Sportsbook")}</h2>
+          <a
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/sportsbook/home/")}
+          >
+            {translate("Sports")}
+          </a>
+          <a
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/sportsbook/live/football")}
+          >
+            {translate("Live Events")}
+          </a>
+          <a style={{ cursor: "pointer" }} onClick={() => navigate()}>
+            {translate("Betting Rules")}
+          </a>
+        </div>
+        <div className={classes.LinksLayout}>
+          <h2>{translate("Casino")}</h2>
+          <a
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/casino/menu?tag=slot")}
+          >
+            {translate("Slots")}
+          </a>
+          <a
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/terms-and-conditions")}
+          >
+            {translate("Live Casino")}
+          </a>
+          <a
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/search?provider=pragmatic")}
+          >
+            {translate("Pragmatic")}
+          </a>
+          <a
+            style={{ cursor: "pointer" }}
+            onClick={() => navigate("/search?provider=evolution-live")}
+          >
+            {translate("Evolution")}
+          </a>
+        </div>
+        <div className={classes.LinksLayout}>
           <h2>{translate("About")}</h2>
-          {/* <a href="#">{translate("Support")}</a> */}
           <a
             onClick={() => navigate("/terms-and-conditions")}
             style={{ cursor: "pointer" }}
@@ -55,12 +99,13 @@ const Footer = () => {
           <a onClick={() => navigate("/rpg")} style={{ cursor: "pointer" }}>
             {translate("Responsible Gaming Policy")}
           </a>
+          <a
+            // onClick={() => navigate("/privacy-policy")}
+            style={{ cursor: "pointer" }}
+          >
+            {translate("Sportsbook Rules")}
+          </a>
         </div>
-        {/* <div className={classes.LinksLayout}>
-          <h2>{translate("Platform")}</h2>
-          <a href="#">{translate("Fairness")}</a>
-          <a href="#">{translate("P2P policy")}</a>
-        </div> */}
 
         <div className={classes.LinksLayout}>
           <h2>{translate("License")}</h2>
@@ -72,9 +117,10 @@ const Footer = () => {
               data-anj-image-type="basic-small"
             ></div>
           </div>
+          <Plus18Icon className={classes.PlusEighteen} />
         </div>
         <div className={classes.LinksLayout}>
-          <Plus18Icon className={classes.PlusEighteen} />
+          {/* <Plus18Icon className={classes.PlusEighteen} /> */}
         </div>
       </div>
 

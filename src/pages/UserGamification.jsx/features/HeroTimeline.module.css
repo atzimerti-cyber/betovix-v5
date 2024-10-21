@@ -5,8 +5,11 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  position: relative;
+  /* position: relative; */
   overflow: hidden;
+  width: 100vw;
+  /* width: 65vw; */
+  height: 75vh;
 }
 
 .TimelineContainer span {
@@ -53,8 +56,9 @@
   align-items: center;
   overflow-x: hidden;
   overflow-y: auto; /* Enable vertical scrolling */
-  height: calc(100vh - 60px); /* Adjust to fit within viewport, excluding title */
-
+  height: calc(
+    100vh - 60px
+  ); /* Adjust to fit within viewport, excluding title */
 }
 
 .Entity {
@@ -301,7 +305,7 @@
 
 @media (min-width: 769px) {
   .TimelineContainer span {
-    font-size: 1.1rem;
+    font-size: 1.1rem; 
   }
 
   .TimelineTitle {
@@ -320,7 +324,7 @@
   .SubTimelineContent p {
     font-size: 0.7rem;
   }
-}
+} 
 
 @media (min-width: 1024px) {
   .TimelineContainer span {

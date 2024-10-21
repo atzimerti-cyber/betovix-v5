@@ -17,28 +17,28 @@ const HeroTimeline = (props) => {
     setVisibleMilestoneIndex((prevIndex) => {
       const newIndex = prevIndex === index ? null : index;
 
-      timer = setTimeout(() => {
-        // Scroll into view when the SubTimelineItems are shown
-        if (newIndex !== null && milestoneRefs.current[index]) {
-          milestoneRefs.current[index].scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-        }
-      }, 800);
+      // timer = setTimeout(() => {
+      //   // Scroll into view when the SubTimelineItems are shown
+      //   if (newIndex !== null && milestoneRefs.current[index]) {
+      //     milestoneRefs.current[index].scrollIntoView({
+      //       behavior: "smooth",
+      //       block: "center",
+      //     });
+      //   }
+      // }, 800);
 
       return newIndex;
     });
-    return clearTimeout(timer);
+    // return clearTimeout(timer);
   };
 
   return (
     <div className={classes.TimelineContainer}>
-      <div className={classes.TimelineTitle}>
+      {/* <div className={classes.TimelineTitle}>
         <span>
           {props.hero.name} {props.hero.subName}
         </span>
-      </div>
+      </div> */}
 
       <div className={classes.TimelineTree}>
         {props.levels && Object.keys(props.levels).length > 0
