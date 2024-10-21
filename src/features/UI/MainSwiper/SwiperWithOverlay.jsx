@@ -32,7 +32,6 @@ const SwiperWithOverlay = (props) => {
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
   const casinoByTags = useSelector((state) => state.casino.casinoByTags);
-
   const [items, setItems] = useState(props.items); // Add state for items
   const {
     slidesPerView,
@@ -132,7 +131,10 @@ const SwiperWithOverlay = (props) => {
                 : "slots";
 
               return (
-                <SwiperSlide key={item.Data.Id} style={{ maxWidth: "190px" }}>
+                <SwiperSlide
+                  key={item.Data.Id}
+                  // style={{ maxWidth: "none", minWidth: "none" }}
+                >
                   <div
                     className={classes.SlideContainer}
                     style={

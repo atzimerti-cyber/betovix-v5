@@ -4,8 +4,8 @@
   padding: 0px 10px 40px;
   max-width: 1220px;
   width: 100%;
-  /* container: page / inline-size; */
-  min-height: 750px;
+  /* min-height: 750px; */
+  max-height: fit-content;
   --tw-bg-opacity: 1;
   background-color: var(--db-gray-banner);
   flex-direction: column;
@@ -97,8 +97,7 @@
 
 @media (min-width: 769px) {
   .Container {
-    width: 65vw;
-    background-color: #051825;
+    width: 60vw;
     /* background-color: #051825; */
     height: 75vh;
     overflow: hidden;

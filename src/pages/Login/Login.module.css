@@ -211,6 +211,13 @@
   border: 1px solid transparent !important;
   border-radius: 0.5rem !important;
 }
+.PhoneInput > div > div > div:hover,
+.PhoneInput > div > div > div:focus {
+  background-color: var(--db-gray-6) !important;
+  background: var(--db-gray-6) !important;
+  border: 0px solid transparent !important;
+  border-radius: 0.4rem !important;
+}
 .PhoneInput > div > div > ul {
   background: var(--db-gray-2) !important;
 }
@@ -219,7 +226,7 @@
 }
 .PhoneInput > div > div > ul > li > span {
   color: #fff !important;
-}
-.PhoneInput > div > div > ul > li:target {
-  background-color: #6a0808 !important;
+} 
+.PhoneInput .react-tel-input .flag-dropdown .open .selected-flag {
+  background: #f80707 !important;
 }

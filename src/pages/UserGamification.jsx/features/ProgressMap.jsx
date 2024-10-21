@@ -5,6 +5,7 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import classes from "./ProgressMap.module.css";
 
 import HeroTimeline from "./HeroTimeline";
+import HeroDetails from "./HeroDetails";
 import MainButton from "../../../features/UI/Buttons/MainButton";
 import { translate } from "../../../utils/translations";
 
@@ -40,7 +41,10 @@ const ProgressMap = () => {
     <div className={classes.PageContent}>
       <div className={classes.Banner}>
         <h1 className={classes.BannerTitle}>
-          <span>{translate(`${selectedHero.name}`)}{' '}{translate(`${selectedHero.subName}`)}</span>
+          <span>
+            {translate(`${selectedHero.name}`)}{" "}
+            {translate(`${selectedHero.subName}`)}
+          </span>
           {/* <span>{translate(`HERO'S HAVEN`)}</span> */}
         </h1>
       </div>
@@ -49,6 +53,7 @@ const ProgressMap = () => {
         {user ? (
           selectedHero && Object.keys(selectedHero).length > 0 ? (
             <div className={classes.Timeline}>
+              {/* <HeroDetails hero={selectedHero} levels={selectedHeroLevels} /> */}
               <HeroTimeline hero={selectedHero} levels={selectedHeroLevels} />
             </div>
           ) : (

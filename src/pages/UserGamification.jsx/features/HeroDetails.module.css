@@ -1,0 +1,160 @@
+/* Timeline Container */
+.TimelineContainer {
+  padding: 0 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  overflow: hidden;
+  width: 100vw;
+  height: 75vh;
+}
+.Menu {
+  background-color: transparent;
+  height: 15%;
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+  column-gap: 0.3rem;
+}
+.Viewport {
+  background-color: burlywood;
+  height: 85%;
+  width: 100%;
+}
+.LevelContainer {
+  border-radius: 20px;
+  height: 100%;
+  min-width: 230px;
+  background-color: darkkhaki;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.LevelContainer span {
+  color: white;
+  font-size: 1rem;
+}
+.LevelContainer img {
+  height: 2rem;
+  width: 2rem;
+}
+.LevelContainer p {
+  font-family: Byker, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--db-brand-green);
+}
+/* Customizing the scrollbar for the entire page */
+::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+  height: 10px; /* Height for horizontal scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--db-gray-1); /* Track background */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #83bccb; /* Thumb (scrollbar handle) color */
+  border-radius: 10px; /* Round edges */
+  border: 2px solid var(--db-gray-1); /* Adds some padding around the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #5ca1b3; /* Darken the thumb when hovering */
+}
+
+::-webkit-scrollbar-thumb:active {
+  background-color: #407c89; /* Thumb color when active (clicked) */
+}
+
+.SubTimelineItem {
+  height: max-content;
+  visibility: hidden;
+  display: grid;
+  max-height: 0;
+  grid-template-columns: 1fr max-content 1fr;
+  width: 100%;
+  position: relative;
+  font-weight: 500;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  transition: transform 0.5s ease, visibility 0s 1s, max-height 1s;
+}
+
+.SubTimelineItemVisible {
+  visibility: visible;
+  transition-delay: 0s, 0s, 0s;
+  max-height: 60px;
+}
+
+.TimelineItem:hover,
+.SubTimelineItem:hover {
+  transform: scale(1.03);
+}
+
+/* Separators and Connectors */
+.MainSeparator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  padding: 0 1rem 0 1rem;
+}
+
+.Connector {
+  width: 1px;
+  height: 30px;
+  background-color: #f6f9f7;
+  z-index: 1000;
+}
+
+.SubConnector {
+  width: 1px;
+  height: 25px;
+  background-color: #f6f9f7;
+  z-index: 1000;
+}
+
+/* Dots and SVGs */
+.Dot {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  /* background: #f6f9f7; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 10000;
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.Dot.DotAnimation::before {
+  content: "";
+  position: absolute;
+  top: 49.7%;
+  left: 49.5%;
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--color-green-medium);
+  /* background: var(--color-green-medium); */
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  animation: throbbingShadow 2s infinite ease-in-out;
+  /* Shine effect */
+  box-shadow: 0 0 10px var(--color-green-medium),
+    0 0 10px var(--color-green-medium), 0 0 20px var(--color-green-medium);
+}
+
+.Dot:hover,
+.SubDot:hover {
+  transform: scale(1.1);
+}
