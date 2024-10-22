@@ -33,7 +33,7 @@
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(0, 0, 0, 0.4) 40%,
+    #0000001a 50%,
     rgba(0, 0, 0, 0.56) 70%,
     hsla(0, 0%, 0%, 0.76) 90%
   );
