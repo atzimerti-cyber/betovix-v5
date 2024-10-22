@@ -2,7 +2,8 @@ import { useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Autoplay, Pagination } from "swiper/modules";
+import "swiper/css/grid";
+import { Autoplay, Grid, Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
 
 import classes from "./MainSwiper.module.css";
@@ -21,6 +22,7 @@ const MainSwiper = (props) => {
   let modules = [];
   if (props.autoplay) modules.push(Autoplay);
   if (props.pagination) modules.push(Pagination);
+  if (props.grid) modules.push(Grid);
 
   const alterState = (swiper) => {
     setIsBeginning(swiper.isBeginning);
@@ -96,6 +98,10 @@ const MainSwiper = (props) => {
 
       <Swiper
         onSwiper={(swiper) => (swiperRef.current = swiper)}
+        grid={{
+          rows: props.gridRows || null,
+          fill: props.gridFill || null,
+        }}
         onSlideChange={handleSwiperUpdate}
         slidesPerView={props.slidesPerView}
         slidesPerGroup={props.slidesPerGroup}

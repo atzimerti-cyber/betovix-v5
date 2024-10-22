@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import MainSwiper from "./MainSwiper";
 import HeartIcon from "../../../assets/svgs/heart.svg?react";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
-import classes from "./BigGameSwiper.module.css";
+import classes from "./Cat2Swiper.module.css";
 import LoaderPlaceholder from "../../UI/Skeletons/LoaderPlaceholder";
 import {
   addFavoriteCasino,
@@ -22,7 +22,7 @@ import { translate } from "../../../utils/translations";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 import _ from "lodash";
 
-const BigGameSwiper = (props) => {
+const Cat2Swiper = (props) => {
   const dispatch = useDispatch();
 
   const lang = useSelector((state) => state.app.lang);
@@ -32,7 +32,7 @@ const BigGameSwiper = (props) => {
   const casinoByTags = useSelector((state) => state.casino.casinoByTags);
   const [items, setItems] = useState(props.items); // Add state for items
   const { slidesPerView, slidesPerGroup } =
-    useSlidesResponsive("bigGameSwiper");
+    useSlidesResponsive("Cat2Swiper");
 
   useEffect(() => {
     if (!props.items) return;
@@ -220,4 +220,4 @@ const BigGameSwiper = (props) => {
   );
 };
 
-export default BigGameSwiper;
+export default Cat2Swiper;

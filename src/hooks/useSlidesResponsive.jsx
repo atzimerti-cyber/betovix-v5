@@ -196,7 +196,7 @@ const useSlidesResponsive = (categ) => {
       slidesPerView = 8;
       slidesPerGroup = 6;
     }
-  } else if (!categ || categ == "bigGameSwiper") {
+  } else if (!categ || categ == "Cat2Swiper") {
     if (isSmallMobile) {
       slidesPerView = 1;
       slidesPerGroup = 1;
@@ -251,23 +251,23 @@ const useSlidesResponsive = (categ) => {
           slidesPerGroup = 2;
         }
       } else {
-        slidesPerView = 3;
+        slidesPerView = 3.5;
         slidesPerGroup = 2;
       }
     } else {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        slidesPerView = 3;
+        slidesPerView = 3.5;
         slidesPerGroup = 2;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
         if (isRightContainerOpen) {
-          slidesPerView = 3;
+          slidesPerView = 3.5;
           slidesPerGroup = 2;
         } else {
-          slidesPerView = 3;
+          slidesPerView = 3.5;
           slidesPerGroup = 2;
         }
       } else {
-        slidesPerView = 3;
+        slidesPerView = 3.5;
         slidesPerGroup = 2;
       }
     }

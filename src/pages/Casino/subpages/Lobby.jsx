@@ -8,7 +8,8 @@ import classes from "./Lobby.module.css";
 import { casinoActions } from "../casinoSlice";
 import { getCasino, getCasinoTags } from "../casinoAsyncActions";
 import SwiperWithOverlay from "../../../features/UI/MainSwiper/SwiperWithOverlay";
-import BigGameSwiper from "../../../features/UI/MainSwiper/BigGameSwiper";
+import Cat2Swiper from "../../../features/UI/MainSwiper/Cat2Swiper";
+import Cat3Swiper from "../../../features/UI/MainSwiper/Cat3Swiper";
 
 import VendorSwiper from "../../../features/UI/MainSwiper/VendorSwiper";
 
@@ -145,14 +146,35 @@ const Lobby = () => {
               />
             )}
             {tag && tag.Category === "2" && (
-              <BigGameSwiper
+              <Cat2Swiper
                 title={`${translate(tag.Name)}`}
                 icon={""}
                 thIcon={tag.Icon}
                 tag={tag.Tags}
                 max={20}
-                // slidesPerView={slidesPerView}
               />
+            )}
+            {tag && tag.Category === "3" && (
+              <>
+                <div
+                  className={classes.SwiperImage}
+                  style={{ backgroundImage: `url(${tag.BgImage})` }}
+                >
+                  <div
+                    className={classes.SmallImageContainer}
+                    style={{ backgroundImage: `url(${tag.Image})` }}
+                  ></div>
+                  <div className={classes.SwiperContainer}>
+                    <Cat3Swiper
+                      title={`${translate(tag.Name)}`}
+                      icon={""}
+                      thIcon={tag.Icon}
+                      tag={tag.Tags}
+                      max={20}
+                    />
+                  </div>
+                </div>
+              </>
             )}
           </React.Fragment>
         );
