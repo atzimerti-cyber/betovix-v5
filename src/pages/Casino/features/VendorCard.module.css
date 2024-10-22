@@ -43,12 +43,13 @@
     display: flex;
     height: 100%;
     width: 100%;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-end;
-    text-align: center;
+    text-align: center; 
     opacity: 0;
     /* background: linear-gradient(1turn, rgba(41, 63, 82, 0.8666666666666667) 60%, transparent 80%); */
     background: rgba(0, 0, 0, 0.7);
+    align-items: center;
 }
 
 .Card:hover .InfoOverlay {
@@ -79,17 +80,16 @@
     fill: #fff;
 }
 .InfoCategory {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
+    font-size: 0.88rem;
+    line-height: 1.3rem;
     font-weight: 700;
     text-transform: capitalize;
 }
 .Rtp {
     font-size: 1rem;
-    line-height: 1.5rem;
+    line-height: 1.3rem;
     font-weight: 700;
-    color: var(--db-brand-green);
-    line-height: 0.8;
+    color: var(--db-brand-green); 
 }
 .RtpLabel {
     display: block;
@@ -127,8 +127,8 @@
         width: 1.5rem;
     }
     .Rtp {
-        font-size: 1.125rem;
-        line-height: 1.75rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
     }
     .RtpLabel {
         font-size: 1rem;
@@ -143,11 +143,11 @@
 
 @media (min-width: 768px) {
     .Rtp {
-        font-size: 1.5rem;
-        line-height: 2rem;
+        font-size: 1rem;
+        line-height: 1.4rem;
     }
     .RtpLabel {
-        font-size: 1.125rem;
-        line-height: 1.75rem;
+        font-size: 1rem;
+        line-height: 1.5rem;
     }
 }

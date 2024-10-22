@@ -20,7 +20,7 @@ import { translate } from "../../utils/translations";
 import { affiliateCampaigns } from "./loginAsyncActions";
 
 import Select from "react-select";
-import { getNames } from "country-list";
+import { getNames, getCode } from "country-list";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -43,9 +43,9 @@ const Register = () => {
     }
   }, []);
 
-  const countryOptions = getNames().map((country) => ({
-    label: country,
-    value: country,
+  const countryOptions = getNames().map((name) => ({
+    label: name,
+    value: getCode(name),
   }));
 
   const [registerInfo, setRegisterInfo] = useState({
@@ -159,7 +159,7 @@ const Register = () => {
       validChecks.password.valid &&
       validChecks.verifyPassword &&
       isOver18 &&
-      isTermsAccepted 
+      isTermsAccepted
     )
       setIsRegisterDisabled(false);
     else setIsRegisterDisabled(true);

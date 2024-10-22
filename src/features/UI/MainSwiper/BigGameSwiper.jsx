@@ -2,13 +2,12 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
-import { useMediaQuery } from "react-responsive";
 import { toast } from "react-toastify";
 
 import MainSwiper from "./MainSwiper";
 import HeartIcon from "../../../assets/svgs/heart.svg?react";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
-import classes from "./SwiperWithOverlay.module.css";
+import classes from "./BigGameSwiper.module.css";
 import LoaderPlaceholder from "../../UI/Skeletons/LoaderPlaceholder";
 import {
   addFavoriteCasino,
@@ -23,21 +22,17 @@ import { translate } from "../../../utils/translations";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 import _ from "lodash";
 
-const SwiperWithOverlay = (props) => {
+const BigGameSwiper = (props) => {
   const dispatch = useDispatch();
 
   const lang = useSelector((state) => state.app.lang);
 
-  const [loadedImages, setLoadedImages] = useState([]);
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
   const casinoByTags = useSelector((state) => state.casino.casinoByTags);
   const [items, setItems] = useState(props.items); // Add state for items
-  const { slidesPerView, slidesPerGroup } = useSlidesResponsive("casino");
-
-  const updateLoadedImages = (index) => {
-    setLoadedImages((prevData) => [...prevData, index]);
-  };
+  const { slidesPerView, slidesPerGroup } =
+    useSlidesResponsive("bigGameSwiper");
 
   useEffect(() => {
     if (!props.items) return;
@@ -124,10 +119,7 @@ const SwiperWithOverlay = (props) => {
                 : "slots";
 
               return (
-                <SwiperSlide
-                  key={item.Data.Id}
-                  // style={{ maxWidth: "none", minWidth: "none" }}
-                >
+                <SwiperSlide key={item.Data.Id}>
                   <div
                     className={classes.SlideContainer}
                     style={
@@ -136,60 +128,70 @@ const SwiperWithOverlay = (props) => {
                         : { minHeight: "178px" }
                     }
                   >
-                    <>
-                      <Link
-                        to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
-                      >
-                        <article className={classes.Card}>
-                          <div className={classes.ImageContainer}>
-                            <div
-                              style={{
-                                backgroundImage: `url(${item.Data.ImageUrl})`,
-                                backgroundSize: "cover",
-                                backgroundPosition: "center",
-                                height: "100%",
-                              }}
-                              onLoad={() => updateLoadedImages(index)}
-                            ></div>
-                          </div>
-                          {item.isNew && (
-                            <div className={classes.NewLabel}>NEW</div>
-                          )}
-                        </article>
-                      </Link>
-                      {bonusBalance > 0 && (
+                    <div className={classes.BackgroundContainer}>
+                      <article className={classes.Card}>
+                        <div className={classes.ImageContainer}>
+                          <div
+                            style={{
+                              backgroundImage:
+                                item.Data.BackImageUrl !== "-"
+                                  ? `url(${item.Data.BackImageUrl})`
+                                  : `url(${item.Data.ImageUrl})`,
+                              backgroundSize: "cover",
+                              backgroundPosition: "center",
+                              height: "100%",
+                            }}
+                            onLoad={() => updateLoadedImages(index)}
+                          ></div>
+                        </div>
+                      </article>
+                    </div>
+                    <div className={classes.OverlayContainer}>
+                      <div className={classes.InfoContainer}>
+                        <div>
+                          <p className={classes.BgGameName}>{item.Data.Name}</p>
+                          <p className={classes.BgVendor}>
+                            {item.Data.VendorName}
+                          </p>
+                        </div>
+                      </div>
+                      <div className={classes.ButtonsContainer}>
+                        <div className={classes.FavContainer}>
+                          <HeartIcon
+                            className={item.isFav ? classes.FavoriteIcon : null}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              if (user) {
+                                onToggleFavorite(item);
+                              } else {
+                                toast.warning("Login to access this feature");
+                              }
+                            }}
+                          />
+                        </div>
                         <Link
-                          to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                          to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
                         >
-                          <div className={classes.isBonus}>
-                            <button className={classes.bonusContainer}>
-                              <GiftIcon />
-                              {translate("Play With Bonus")}
+                          <div className={classes.PlayBtnContainer}>
+                            <button className={classes.PlayBtn}>
+                              {translate("Play Game")}
                             </button>
                           </div>
                         </Link>
-                      )}
-                    </>
-
-                    <div className={classes.BackgroundContainer}>
-                      <div>
-                        <p className={classes.BgGameName}>{item.Data.Name}</p>
-                        <p className={classes.BgVendor}>
-                          {item.Data.VendorName}
-                        </p>
+                        {bonusBalance > 0 && (
+                          <Link
+                            to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                          >
+                            <div className={classes.isBonus}>
+                              <button className={classes.bonusContainer}>
+                                <GiftIcon />
+                                {translate("Play With Bonus")}
+                              </button>
+                            </div>
+                          </Link>
+                        )}
                       </div>
-                      <HeartIcon
-                        className={item.isFav ? classes.FavoriteIcon : null}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          if (user) {
-                            onToggleFavorite(item);
-                          } else {
-                            toast.warning("Login to access this feature");
-                          }
-                        }}
-                      />
                     </div>
                   </div>
                 </SwiperSlide>
@@ -218,4 +220,4 @@ const SwiperWithOverlay = (props) => {
   );
 };
 
-export default SwiperWithOverlay;
+export default BigGameSwiper;

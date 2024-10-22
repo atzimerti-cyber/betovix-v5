@@ -36,7 +36,7 @@
 .GameGrid {
     display: grid;
     gap: 0.5rem;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    /* grid-template-columns: repeat(3, minmax(0, 1fr)); */
 }
 
 .LoadMore {
@@ -80,32 +80,32 @@
 }
 
 @media (max-width: 400px) {
-    .GameGrid {
+    /* .GameGrid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    } */
 }
 
 @media (min-width: 400px) {
-    .GameGrid {
+    /* .GameGrid {
         grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    } */
 }
 
 @media (min-width: 550px) {
-    .GameGrid {
+    /* .GameGrid {
         gap: 1rem;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
+    } */
     .Header {
         margin-bottom: 1rem;
     }
 }
 
 @media (min-width: 815px) {
-    .GameGrid {
+    /* .GameGrid {
         gap: 1rem;
         grid-template-columns: repeat(5, minmax(0, 1fr));
-    }
+    } */
     .Header {
         margin-bottom: 1rem;
     }
@@ -115,17 +115,17 @@
 }
 
 @media (min-width: 1000px) {
-    .GameGrid {
+    /* .GameGrid {
         grid-template-columns: repeat(6, minmax(0, 1fr));
-    }
+    } */
     .Title {
         font-size: 0.95rem;
     }
 }
 @media (min-width: 1200px) {
-    .GameGrid {
+    /* .GameGrid {
         grid-template-columns: repeat(7, minmax(0, 1fr));
-    }
+    } */
     .Title {
         font-size: 0.95rem;
     }

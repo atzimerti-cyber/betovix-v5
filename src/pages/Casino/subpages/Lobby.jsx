@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
@@ -7,6 +8,7 @@ import classes from "./Lobby.module.css";
 import { casinoActions } from "../casinoSlice";
 import { getCasino, getCasinoTags } from "../casinoAsyncActions";
 import SwiperWithOverlay from "../../../features/UI/MainSwiper/SwiperWithOverlay";
+import BigGameSwiper from "../../../features/UI/MainSwiper/BigGameSwiper";
 
 import VendorSwiper from "../../../features/UI/MainSwiper/VendorSwiper";
 
@@ -93,25 +95,6 @@ const Lobby = () => {
   }, [tags]);
 
   // Function to load more items
-  // const loadMoreItems = () => {
-  //   if (tags) {
-  //     if (!user){
-
-  //     }
-  //     let slidesCount = parseInt(window.innerHeight / 215);
-  //     if (slidesCount < 1) {
-  //       slidesCount = 1;
-  //     }
-  //     setFilteredTags((filteredTags) => {
-  //       let nextTags = tags.slice(
-  //         filteredTags.length,
-  //         filteredTags.length + slidesCount
-  //       );
-  //       let newTags = [...filteredTags, ...nextTags];
-  //       return newTags;
-  //     });
-  //   }
-  // };
   const loadMoreItems = () => {
     if (tags) {
       let availableTags = tags;
@@ -150,22 +133,31 @@ const Lobby = () => {
 
       {filteredTags.map((tag, index) => {
         return (
-          // !specials.includes(tag) &&
-          <SwiperWithOverlay
-            key={tag.Tags}
-            title={`${translate(tag.Name)}`}
-            icon={""}
-            thIcon={tag.Icon}
-            tag={tag.Tags}
-            max={20}
-            slidesPerView={slidesPerView}
-          />
+          <React.Fragment key={tag.Tags}>
+            {tag && tag.Category === "1" && (
+              <SwiperWithOverlay
+                title={`${translate(tag.Name)}`}
+                icon={""}
+                thIcon={tag.Icon}
+                tag={tag.Tags}
+                max={20}
+                slidesPerView={slidesPerView}
+              />
+            )}
+            {tag && tag.Category === "2" && (
+              <BigGameSwiper
+                title={`${translate(tag.Name)}`}
+                icon={""}
+                thIcon={tag.Icon}
+                tag={tag.Tags}
+                max={20}
+                // slidesPerView={slidesPerView}
+              />
+            )}
+          </React.Fragment>
         );
       })}
 
-      {/* <div ref={loadMoreRef} style={{ height: '200px', backgroundColor: 'lightgray', margin: '20px 0', visibility: 'hidden' }}>
-                Loading more items...
-            </div> */}
       <div
         ref={loadMoreRef}
         style={{
