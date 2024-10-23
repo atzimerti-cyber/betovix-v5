@@ -184,8 +184,8 @@ const Lobby = () => {
                   )}
                   <div
                     className={classes.SmallImageContainer}
-                    // style={{ backgroundImage: `url(${tag.Image})` }}
-                    style={{ backgroundImage: `url(${TESTIMAGE})` }}
+                    style={{ backgroundImage: `url(${tag.Image})` }}
+                    // style={{ backgroundImage: `url(${TESTIMAGE})` }}
                   ></div>
                   {/* <div
                     className={classes.SwiperContainer}
