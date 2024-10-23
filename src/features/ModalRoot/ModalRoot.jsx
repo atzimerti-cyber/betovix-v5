@@ -23,6 +23,7 @@ import LoadBookedModal from "./Modals/LoadBookedModal";
 import LoadTicketModal from "./Modals/LoadTicketModal";
 import TicketReceiptModal from "./Modals/TicketReceiptModal";
 import NotificationsModal from "./Modals/NotificationsModal";
+import CasinoGameOptionsModal from "./Modals/CasinoGameOptionsModal";
 
 const ModalRoot = () => {
   const navigate = useNavigate();
@@ -93,6 +94,10 @@ const ModalRoot = () => {
   else if (modal === "buy-level-confirm") modalPage = <BuyLevelConfirmation />;
   else if (modal === "your-progress") {
     if (user) modalPage = <YourProgress />;
+    else
+      modalPage = <Navigate replace to={getUrlWithParams("auth", "login")} />;
+  } else if (modal === "game-options") {
+    if (user) modalPage = <CasinoGameOptionsModal onClose={returnToPrevious} />;
     else
       modalPage = <Navigate replace to={getUrlWithParams("auth", "login")} />;
   }

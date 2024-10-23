@@ -31,8 +31,7 @@ const Cat2Swiper = (props) => {
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
   const casinoByTags = useSelector((state) => state.casino.casinoByTags);
   const [items, setItems] = useState(props.items); // Add state for items
-  const { slidesPerView, slidesPerGroup } =
-    useSlidesResponsive("Cat2Swiper");
+  const { slidesPerView, slidesPerGroup } = useSlidesResponsive("Cat2Swiper");
 
   useEffect(() => {
     if (!props.items) return;
@@ -140,6 +139,7 @@ const Cat2Swiper = (props) => {
                               backgroundSize: "cover",
                               backgroundPosition: "center",
                               height: "100%",
+                              aspectRatio: "7/4",
                             }}
                             onLoad={() => updateLoadedImages(index)}
                           ></div>

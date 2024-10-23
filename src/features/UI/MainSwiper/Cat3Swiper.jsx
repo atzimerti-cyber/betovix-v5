@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css"; // Import Swiper styles
 import "swiper/css/grid"; // Ensure grid CSS is included
+
+import { casinoActions } from "../../../pages/Casino/casinoSlice";
 
 import MainSwiper from "./MainSwiper";
 import HeartIcon from "../../../assets/svgs/heart.svg?react";
@@ -27,6 +29,8 @@ import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 
 const Cat3Swiper = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const lang = useSelector((state) => state.app.lang);
 
@@ -63,6 +67,16 @@ const Cat3Swiper = (props) => {
     }
   }, [casinoByTags]);
 
+  const addParamsToUrl = (modal, tab) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", modal);
+    if (tab) searchParams.set("tab", tab);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+  };
+
   // const onToggleFavorite = (item) => {
   //   if (item.isFav) {
   //     dispatch(removeCasinoFav(item.Data.Id)).then(() => {
@@ -89,8 +103,9 @@ const Cat3Swiper = (props) => {
   //   }
   // };
 
-  const openGameModal = () => {
-    // toast.success("DOULEPSEEE");
+  const openGameModal = (game) => {
+    dispatch(casinoActions.setGameOptionsModal(game));
+    addParamsToUrl("game-options");
   };
 
   return (
@@ -131,9 +146,9 @@ const Cat3Swiper = (props) => {
                   <SwiperSlide key={item.Data.Id}>
                     <div
                       className={classes.SlideContainer}
-                      onTouchStart={() => {
+                      onClick={() => {
                         if (isTouchScreen) {
-                          openGameModal();
+                          openGameModal(item);
                         }
                       }}
                     >
@@ -147,24 +162,24 @@ const Cat3Swiper = (props) => {
                                 backgroundPosition: "center",
                                 height: "100%",
                               }}
-                              onLoad={() => updateLoadedImages(index)}
                             ></div>
                           </div>
                         </article>
                       </div>
-                      <div className={classes.OverlayContainer}>
-                        <div className={classes.InfoContainer}>
-                          <div>
-                            <p className={classes.BgGameName}>
-                              {item.Data.Name}
-                            </p>
-                            {/* <p className={classes.BgVendor}>
+                      {!isTouchScreen && (
+                        <div className={classes.OverlayContainer}>
+                          <div className={classes.InfoContainer}>
+                            <div>
+                              <p className={classes.BgGameName}>
+                                {item.Data.Name}
+                              </p>
+                              {/* <p className={classes.BgVendor}>
                               {item.Data.VendorName}
                             </p> */}
+                            </div>
                           </div>
-                        </div>
-                        <div className={classes.ButtonsContainer}>
-                          {/* <div className={classes.FavContainer}>
+                          <div className={classes.ButtonsContainer}>
+                            {/* <div className={classes.FavContainer}>
                             <HeartIcon
                               className={
                                 item.isFav ? classes.FavoriteIcon : null
@@ -180,29 +195,30 @@ const Cat3Swiper = (props) => {
                               }}
                             />
                           </div> */}
-                          <Link
-                            to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
-                          >
-                            <div className={classes.PlayBtnContainer}>
-                              <button className={classes.PlayBtn}>
-                                <PlayButton />
-                              </button>
-                            </div>
-                          </Link>
-                          {bonusBalance > 0 && (
                             <Link
-                              to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                              to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
                             >
-                              <div className={classes.isBonus}>
-                                <button className={classes.bonusContainer}>
-                                  <GiftIcon />
-                                  {/* <span>{translate("With Bonus")}</span> */}
+                              <div className={classes.PlayBtnContainer}>
+                                <button className={classes.PlayBtn}>
+                                  <PlayButton />
                                 </button>
                               </div>
                             </Link>
-                          )}
+                            {bonusBalance > 0 && (
+                              <Link
+                                to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                              >
+                                <div className={classes.isBonus}>
+                                  <button className={classes.bonusContainer}>
+                                    <GiftIcon />
+                                    {/* <span>{translate("With Bonus")}</span> */}
+                                  </button>
+                                </div>
+                              </Link>
+                            )}
+                          </div>
                         </div>
-                      </div>
+                      )}
                     </div>
                   </SwiperSlide>
                 );
