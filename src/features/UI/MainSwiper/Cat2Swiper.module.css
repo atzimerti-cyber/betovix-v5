@@ -150,7 +150,7 @@
 .PlayBtn {
   background: #26516ff0;
   border: 1px solid #184b6d;
-  color: var(--db-body-text);
+  color: rgb(206, 223, 251);
   width: max-content;
   font-weight: 400;
   font-size: 12px;
@@ -214,7 +214,7 @@
   width: 20px;
 }
 .isBonus > button:hover {
-  background-color: #6fabbc7d;
+  background-color: #6bc6e091;
   color: #ffffff;
 }
 

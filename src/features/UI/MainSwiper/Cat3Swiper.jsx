@@ -10,6 +10,7 @@ import "swiper/css/grid"; // Ensure grid CSS is included
 import MainSwiper from "./MainSwiper";
 import HeartIcon from "../../../assets/svgs/heart.svg?react";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
+import PlayButton from "../../../assets/svgs/playbutton.svg?react";
 import classes from "./Cat3Swiper.module.css";
 import LoaderPlaceholder from "../../UI/Skeletons/LoaderPlaceholder";
 import { getCasinoByTags } from "../../../pages/Casino/casinoAsyncActions";
@@ -18,8 +19,11 @@ import {
   removeCasinoFav,
 } from "../../../features/CasinoFavorites/CasinoFavoritesAsync";
 import { translate } from "../../../utils/translations";
-import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 import _ from "lodash";
+
+import { useMediaQuery } from "react-responsive";
+import useTouchScreen from "../../../hooks/useTouchScreen";
+import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 
 const Cat3Swiper = (props) => {
   const dispatch = useDispatch();
@@ -30,11 +34,14 @@ const Cat3Swiper = (props) => {
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
   const casinoByTags = useSelector((state) => state.casino.casinoByTags);
   const [items, setItems] = useState(props.items); // Add state for items
-  const { slidesPerView, slidesPerGroup } = useSlidesResponsive("Cat2Swiper");
+  const { slidesPerView, slidesPerGroup } = useSlidesResponsive("Cat3Swiper");
+
+  const gridSwiper = useMediaQuery({ query: "(min-width: 700px)" });
+  const isTouchScreen = useTouchScreen(); // Detect if the device has a touchscreen
 
   useEffect(() => {
     if (!props.items) return;
-    setItems(props.items); // Update local state when props.items changes
+    setItems(props.items);
   }, [props.items]);
 
   useEffect(() => {
@@ -52,45 +59,49 @@ const Cat3Swiper = (props) => {
   useEffect(() => {
     if (!props.tag) return;
     if (casinoByTags[props.tag]) {
-      setItems(casinoByTags[props.tag]); // Update local state when props.items changes
+      setItems(casinoByTags[props.tag]);
     }
   }, [casinoByTags]);
 
-  const onToggleFavorite = (item) => {
-    if (item.isFav) {
-      dispatch(removeCasinoFav(item.Data.Id)).then(() => {
-        let newItems = _.cloneDeep(items);
-        for (let i = 0; i < newItems.length; i++) {
-          if (newItems[i].Data.Id === item.Data.Id) {
-            newItems[i].isFav = false;
-            break;
-          }
-        }
-        setItems(newItems);
-      });
-    } else {
-      dispatch(addCasinoFav(item.Data.Id)).then(() => {
-        let newItems = _.cloneDeep(items);
-        for (let i = 0; i < newItems.length; i++) {
-          if (newItems[i].Data.Id === item.Data.Id) {
-            newItems[i].isFav = true;
-            break;
-          }
-        }
-        setItems(newItems);
-      });
-    }
+  // const onToggleFavorite = (item) => {
+  //   if (item.isFav) {
+  //     dispatch(removeCasinoFav(item.Data.Id)).then(() => {
+  //       let newItems = _.cloneDeep(items);
+  //       for (let i = 0; i < newItems.length; i++) {
+  //         if (newItems[i].Data.Id === item.Data.Id) {
+  //           newItems[i].isFav = false;
+  //           break;
+  //         }
+  //       }
+  //       setItems(newItems);
+  //     });
+  //   } else {
+  //     dispatch(addCasinoFav(item.Data.Id)).then(() => {
+  //       let newItems = _.cloneDeep(items);
+  //       for (let i = 0; i < newItems.length; i++) {
+  //         if (newItems[i].Data.Id === item.Data.Id) {
+  //           newItems[i].isFav = true;
+  //           break;
+  //         }
+  //       }
+  //       setItems(newItems);
+  //     });
+  //   }
+  // };
+
+  const openGameModal = () => {
+    // toast.success("DOULEPSEEE");
   };
 
   return (
     <>
       {items && items.length > 0 && (
         <MainSwiper
-          grid={true}
-          slidesPerView={slidesPerView + 2.5}
-          slidesPerGroup={slidesPerGroup + 2}
-          gridRows={2}
-          gridFill={"row"}
+          grid={gridSwiper && true}
+          slidesPerView={slidesPerView}
+          slidesPerGroup={slidesPerGroup}
+          gridRows={gridSwiper && 2}
+          gridFill={gridSwiper && "row"}
           spaceBetween={7}
           title={
             props.link ? (
@@ -118,7 +129,14 @@ const Cat3Swiper = (props) => {
 
                 return (
                   <SwiperSlide key={item.Data.Id}>
-                    <div className={classes.SlideContainer}>
+                    <div
+                      className={classes.SlideContainer}
+                      onTouchStart={() => {
+                        if (isTouchScreen) {
+                          openGameModal();
+                        }
+                      }}
+                    >
                       <div className={classes.BackgroundContainer}>
                         <article className={classes.Card}>
                           <div className={classes.ImageContainer}>
@@ -134,55 +152,57 @@ const Cat3Swiper = (props) => {
                           </div>
                         </article>
                       </div>
-                      {/* <div className={classes.OverlayContainer}>
+                      <div className={classes.OverlayContainer}>
                         <div className={classes.InfoContainer}>
                           <div>
                             <p className={classes.BgGameName}>
                               {item.Data.Name}
                             </p>
-                            <p className={classes.BgVendor}>
+                            {/* <p className={classes.BgVendor}>
                               {item.Data.VendorName}
-                            </p>
+                            </p> */}
                           </div>
                         </div>
                         <div className={classes.ButtonsContainer}>
-                        <div className={classes.FavContainer}>
-                          <HeartIcon
-                            className={item.isFav ? classes.FavoriteIcon : null}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              e.preventDefault();
-                              if (user) {
-                                onToggleFavorite(item);
-                              } else {
-                                toast.warning("Login to access this feature");
+                          {/* <div className={classes.FavContainer}>
+                            <HeartIcon
+                              className={
+                                item.isFav ? classes.FavoriteIcon : null
                               }
-                            }}
-                          />
-                        </div>
-                        <Link
-                          to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
-                        >
-                          <div className={classes.PlayBtnContainer}>
-                            <button className={classes.PlayBtn}>
-                              {translate("Play Game")}
-                            </button>
-                          </div>
-                        </Link>
-                        {bonusBalance > 0 && (
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                if (user) {
+                                  onToggleFavorite(item);
+                                } else {
+                                  toast.warning("Login to access this feature");
+                                }
+                              }}
+                            />
+                          </div> */}
                           <Link
-                            to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                            to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
                           >
-                            <div className={classes.isBonus}>
-                              <button className={classes.bonusContainer}>
-                                <GiftIcon />
-                                {translate("Play With Bonus")}
+                            <div className={classes.PlayBtnContainer}>
+                              <button className={classes.PlayBtn}>
+                                <PlayButton />
                               </button>
                             </div>
                           </Link>
-                        )}
+                          {bonusBalance > 0 && (
+                            <Link
+                              to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                            >
+                              <div className={classes.isBonus}>
+                                <button className={classes.bonusContainer}>
+                                  <GiftIcon />
+                                  {/* <span>{translate("With Bonus")}</span> */}
+                                </button>
+                              </div>
+                            </Link>
+                          )}
+                        </div>
                       </div>
-                      </div> */}
                     </div>
                   </SwiperSlide>
                 );

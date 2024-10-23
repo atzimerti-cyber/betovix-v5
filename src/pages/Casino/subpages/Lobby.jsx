@@ -17,9 +17,13 @@ import BigSwiper2 from "../../../features/UI/MainSwiper/BigSwiper2";
 import ProvidersIcon from "../../../assets/casinoIcons/providers.svg?react";
 import { translate } from "../../../utils/translations";
 
+import TESTIMAGE from "../../../assets/images/pragmatic-logo3d.png";
+
 const Lobby = () => {
   const dispatch = useDispatch();
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+
+  const notGridSwiper = useMediaQuery({ query: "(max-width: 700px)" });
 
   const casinoBanners = useSelector((state) => state.casino.casinoBanners);
   const casinoVendors = useSelector((state) => state.casino.casinoVendors);
@@ -155,16 +159,40 @@ const Lobby = () => {
               />
             )}
             {tag && tag.Category === "3" && (
-              <>
+              <div
+                className={classes.Cat3Container}
+                style={{
+                  ...(notGridSwiper ? { flexDirection: "column" } : {}),
+                  backgroundImage: `url(${tag.BgImage})`,
+                }}
+              >
                 <div
                   className={classes.SwiperImage}
-                  style={{ backgroundImage: `url(${tag.BgImage})` }}
+                  // style={{
+                  //   ...(notGridSwiper
+                  //     ? { height: "30vh", flexDirection: "column" }
+                  //     : {}),
+                  // }}
+                  style={{
+                    ...(notGridSwiper ? { flexDirection: "column" } : {}),
+                  }}
                 >
+                  {notGridSwiper && (
+                    <div className={classes.SwiperTitle}>
+                      <span>{translate(tag.Name)}</span>
+                    </div>
+                  )}
                   <div
                     className={classes.SmallImageContainer}
-                    style={{ backgroundImage: `url(${tag.Image})` }}
+                    // style={{ backgroundImage: `url(${tag.Image})` }}
+                    style={{ backgroundImage: `url(${TESTIMAGE})` }}
                   ></div>
-                  <div className={classes.SwiperContainer}>
+                  {/* <div
+                    className={classes.SwiperContainer}
+                    style={{
+                      ...(notGridSwiper ? { width: "100%" } : {}),
+                    }}
+                  >
                     <Cat3Swiper
                       title={`${translate(tag.Name)}`}
                       icon={""}
@@ -172,9 +200,23 @@ const Lobby = () => {
                       tag={tag.Tags}
                       max={20}
                     />
-                  </div>
+                  </div> */}
                 </div>
-              </>
+                <div
+                  className={classes.SwiperContainer}
+                  style={{
+                    ...(notGridSwiper ? { width: "100%" } : {}),
+                  }}
+                >
+                  <Cat3Swiper
+                    title={!notGridSwiper && `${translate(tag.Name)}`}
+                    icon={""}
+                    thIcon={!notGridSwiper && tag.Icon}
+                    tag={tag.Tags}
+                    max={20}
+                  />
+                </div>
+              </div>
             )}
           </React.Fragment>
         );

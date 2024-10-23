@@ -17,7 +17,7 @@
   justify-content: space-between;
   position: relative;
   aspect-ratio: 1;
-  overflow: hidden; 
+  overflow: hidden;
 }
 .BackgroundContainer {
   width: 100%;
@@ -61,39 +61,37 @@
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
 }
+.SlideContainer:hover .OverlayContainer {
+  opacity: 1;
+}
 .OverlayContainer {
   width: 100%;
   position: absolute;
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    #0000001a 50%,
-    rgba(0, 0, 0, 0.56) 70%,
-    hsla(0, 0%, 0%, 0.76) 90%
-  );
+  background: rgba(0, 0, 0, 0.75);
   right: 0;
   height: 100%;
   border-top-right-radius: 1.5rem;
   border-bottom-right-radius: 1.5rem;
   display: flex;
+  opacity: 0;
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
+  transition: opacity 0.5s ease;
 }
 
 .InfoContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
-  padding: 0rem 0.9rem 0.1rem 0.9rem;
-  width: 60%;
+  justify-content: center;
+  padding: 0.3rem 0.9rem 0.1rem 0.9rem;
+  width: 100%;
   flex-wrap: wrap;
 }
 .InfoContainer > div {
   display: flex;
   flex-direction: column;
-  max-width: 80%;
 }
 
 .InfoContainer svg {
@@ -102,7 +100,7 @@
 }
 .BgGameName {
   color: white;
-  font-size: 1.3rem;
+  font-size: 1rem;
   font-weight: 600;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -110,7 +108,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   line-height: 1.5em;
-  text-align: end;
+  text-align: center;
 }
 
 .BgVendor {
@@ -121,23 +119,22 @@
 
 .ButtonsContainer {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-end;
-  justify-content: space-between;
-  padding: 0.9rem 0.9rem 0.1rem 0.9rem;
-  width: 50%;
+  justify-content: space-around;
+  padding: 0.3rem 0.3rem 0.3rem 0.3rem;
+  width: 100%;
 }
 .FavContainer {
   display: flex;
   flex-direction: row;
   align-items: center;
-  width: 100%;
   padding: 0rem 0rem 0.5rem 0rem;
   justify-content: flex-end;
 }
 .FavContainer svg {
-  height: 1.3rem;
-  width: 1.3rem;
+  height: 2rem;
+  width: 2rem;
 }
 .FavoriteIcon path {
   fill: #db2777 !important;
@@ -147,21 +144,20 @@
   display: flex;
 }
 .PlayBtn {
-  background: #26516ff0;
-  border: 1px solid #184b6d;
+  background: #7d7d7db6;
   color: var(--db-body-text);
-  width: max-content;
   font-weight: 400;
   font-size: 12px;
-  height: 1.75rem;
+  height: 3.5rem;
+  width: 3.5rem;
   display: flex;
   justify-content: center;
-  border-radius: 5px;
+  border-radius: 50%;
   align-items: center;
   padding: 0 0.5rem;
 }
 .PlayBtn:hover {
-  background: #266792e9;
+  background: #5383a1b1;
   color: aliceblue;
 }
 
@@ -190,30 +186,40 @@
 }
 
 .isBonus button {
-  color: #ebfbff;
   border: 1px solid var(--db-gray-4);
   animation: 6s ease 0s infinite normal none running jQMcyq;
-  width: max-content;
-  font-weight: 400;
-  font-size: 11px;
+  height: 3.5rem;
+  width: 3.5rem;
   margin-top: 5px;
-  border-radius: 5px;
-  padding: 3px;
+  border-radius: 50%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   line-height: normal;
-  padding: 4px 10px;
   background-color: #8dbcc96b;
   column-gap: 0.5rem;
+  text-align: center;
+  text-wrap: wrap;
 }
 
 .isBonus button svg {
   height: 20px;
   width: 20px;
 }
+.isBonus button span {
+  color: #ebfbff;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5em;
+  text-align: center;
+  font-weight: 400;
+  font-size: 0.8rem;
+}
 .isBonus > button:hover {
-  background-color: #6fabbc7d;
+  background-color: #5ca9bea1;
   color: #ffffff;
 }
 
@@ -222,3 +228,4 @@
     display: none;
   }
 }
+

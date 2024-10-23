@@ -271,6 +271,81 @@ const useSlidesResponsive = (categ) => {
         slidesPerGroup = 2;
       }
     }
+  } else if (!categ || categ == "Cat3Swiper") {
+    if (isSmallMobile) {
+      slidesPerView = 2.5;
+      slidesPerGroup = 2;
+    } else if (isMobile) {
+      slidesPerView = 3.5;
+      slidesPerGroup = 2;
+    } else if (isTablet) {
+      slidesPerView = 5;
+      slidesPerGroup = 1;
+    } else if (isDesktop) {
+      if (isRightContainerOpen && isLeftContainerOpen) {
+        slidesPerView = 4;
+        slidesPerGroup = 2;
+      } else if (isRightContainerOpen || isLeftContainerOpen) {
+        if (isRightContainerOpen) {
+          slidesPerView = 5;
+          slidesPerGroup = 2;
+        } else {
+          slidesPerView = 4;
+          slidesPerGroup = 2;
+        }
+      } else {
+        slidesPerView = 5;
+        slidesPerGroup = 2;
+      }
+    } else if (isBigDesktop) {
+      if (isRightContainerOpen && isLeftContainerOpen) {
+        slidesPerView = 5;
+        slidesPerGroup = 3;
+      } else if (isRightContainerOpen || isLeftContainerOpen) {
+        if (isRightContainerOpen) {
+          slidesPerView = 5.5;
+          slidesPerGroup = 3;
+        } else {
+          slidesPerView = 5;
+          slidesPerGroup = 3;
+        }
+      } else {
+        slidesPerView = 5.5;
+        slidesPerGroup = 3;
+      }
+    } else if (isVeryBigDesktop) {
+      if (isRightContainerOpen && isLeftContainerOpen) {
+        slidesPerView = 4;
+        slidesPerGroup = 2;
+      } else if (isRightContainerOpen || isLeftContainerOpen) {
+        if (isRightContainerOpen) {
+          slidesPerView = 5;
+          slidesPerGroup = 3;
+        } else {
+          slidesPerView = 5;
+          slidesPerGroup = 3;
+        }
+      } else {
+        slidesPerView = 6;
+        slidesPerGroup = 3;
+      }
+    } else {
+      if (isRightContainerOpen && isLeftContainerOpen) {
+        slidesPerView = 7;
+        slidesPerGroup = 3;
+      } else if (isRightContainerOpen || isLeftContainerOpen) {
+        if (isRightContainerOpen) {
+          slidesPerView = 7;
+          slidesPerGroup = 3;
+        } else {
+          slidesPerView = 7;
+          slidesPerGroup = 3;
+        }
+      } else {
+        slidesPerView = 7;
+        slidesPerGroup = 3;
+      }
+    }
   }
 
   return {
