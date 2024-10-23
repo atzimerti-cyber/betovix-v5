@@ -188,7 +188,19 @@ export const getVendorGame = (
         responses.forEach((response) => {
           if (response.data.Status.StatusCode !== 200) throw Error();
         });
-        //game = responses[0].data.Contents;
+        gameUrl = responses[0].data.Contents;
+      } else if (providername === "Hub88") {
+        requests = [
+          axiosApi.get(
+            `CasinoHub/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL}/casino&siteid=${config.VITE_SITE_ID}`,
+            { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
+          ),
+        ];
+
+        const responses = await Promise.all(requests);
+        responses.forEach((response) => {
+          if (response.data.Status.StatusCode !== 200) throw Error();
+        });
         gameUrl = responses[0].data.Contents;
       }
 
