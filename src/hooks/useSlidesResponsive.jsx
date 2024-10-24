@@ -170,13 +170,13 @@ const useSlidesResponsive = (categ) => {
       slidesPerView = 1.5;
       slidesPerGroup = 1;
     } else if (isDesktop) {
-      slidesPerView = 2.2;
+      slidesPerView = 2;
       slidesPerGroup = 2;
     } else if (isBigDesktop) {
-      slidesPerView = 2.2;
+      slidesPerView = 3;
       slidesPerGroup = 2;
     } else {
-      slidesPerView = 2.2;
+      slidesPerView = 3;
       slidesPerGroup = 2;
     }
   } else if (categ == "vendors") {

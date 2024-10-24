@@ -34,7 +34,7 @@
   --db-pink-box: #8e30bc;
   --db-pink-text: #c434e3;
   --db-white-primary: #fbfbfb;
-  --db-white-hover: hsla(0, 0%, 100%, 0.10196078431372549);
+  --db-white-hover: hsla(0, 0%, 100%, 0.05);
   --db-white-hover-light: hsla(0, 0%, 100%, 0.17);
   --db-gold-primary: #ffcf52;
   --db-red-primary: #bb3c4b;
@@ -210,6 +210,11 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: #53748e;
   border-radius: 100px;
+}
+
+::selection {
+  background: #4b90b6; /* Background color when text is selected */
+  color: #ffffff; /* Text color when selected */
 }
 
 menu,

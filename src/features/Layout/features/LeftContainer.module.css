@@ -1,339 +1,342 @@
 .SideMenuScroll {
-    /* height: calc(100% - var(--db-sticky-language-height) - 1rem); */
-    height: 100%; 
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
-    overflow-x: hidden;
+  /* height: calc(100% - var(--db-sticky-language-height) - 1rem); */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 0.3rem;
 }
-
+.SideMenuScroll.Closed {
+  padding: 0;
+}
 .SideMenuAllButtonsContainer {
-    margin: 0.5rem 1rem 0.1rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    min-height: 3rem;
+  margin: 0.5rem 1rem 0.1rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  min-height: 3rem;
 }
 
-.SideMenuAllButtonsContainer>button {
-    height: 1.75rem;
-    min-height: 1.5rem;
-    width: 2rem;
-    padding-left: 0;
-    padding-right: 0;
+.SideMenuAllButtonsContainer > button {
+  height: 1.75rem;
+  min-height: 1.5rem;
+  width: 2rem;
+  padding-left: 0;
+  padding-right: 0;
 }
 .SideMenuScroll.Closed .SideMenuAllButtonsContainer {
-    margin: 0.5rem 0.5rem;
-    min-height: 3.7rem;
+  margin: 0.5rem 0.5rem;
+  min-height: 3.7rem;
+  padding: 0;
 }
-.SideMenuAllButtonsContainer>button>svg {
-    max-height: 1.25rem;
-    max-width: 1.25rem;
+.SideMenuAllButtonsContainer > button > svg {
+  max-height: 1.25rem;
+  max-width: 1.25rem;
 }
-
 
 .SideMenuContainer {
-    /* margin: 1rem 0.5rem 0.75rem; */
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 0.5rem;
+  /* margin: 1rem 0.5rem 0.75rem; */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.SideMenuContainer>button {
-    height: 1.75rem;
-    min-height: 1.5rem;
-    width: 2rem;
-    padding-left: 0;
-    padding-right: 0;
+.SideMenuContainer > button {
+  height: 1.75rem;
+  min-height: 1.5rem;
+  width: 2rem;
+  padding-left: 0;
+  padding-right: 0;
 }
 
-.SideMenuContainer>button>svg {
-    max-height: 1.25rem;
-    max-width: 1.25rem;
+.SideMenuContainer > button > svg {
+  max-height: 1.25rem;
+  max-width: 1.25rem;
 }
 
 .SideMenuSubButtonContainer {
-    /* flex-direction: row; */
-    gap: 0.125rem;
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    justify-content: flex-start;
-    padding: 0 0.5rem 0.5rem 0.5rem;
+  /* flex-direction: row; */
+  gap: 0.125rem;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 0 0.5rem 0.5rem 0.5rem;
 }
 
 .SideMenuSubButtonContainer button {
-    height: 3.5rem;
-    /* width: 100%; */
-    border-radius: 500px;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    min-height: 2rem;
-    font-size: 0.755rem;
-    gap: 0.5rem;
-    border-color: transparent;
-    background-color: initial;
-    display: flex;
-    opacity: 1;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    flex: 1;
+  height: 3.5rem;
+  /* width: 100%; */
+  border-radius: 500px;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  min-height: 2rem;
+  font-size: 0.755rem;
+  gap: 0.5rem;
+  border-color: transparent;
+  background-color: initial;
+  display: flex;
+  opacity: 1;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  flex: 1;
 }
 
 .SideMenuSubButtonContainer button svg {
-    height: 1.1rem;
-    width: 1.1rem;
+  height: 1.1rem;
+  width: 1.1rem;
 }
 
 .SideMenuSubButtonContainer button svg path {
-    fill: var(--db-brand-green);
+  fill: var(--db-brand-green);
 }
 
 .SideMenuSubButtonContainer button .ActiveSvg path {
-    fill: var(--db-brand-green) !important;
+  fill: var(--db-brand-green) !important;
 }
 
 .SideMenuSubButtonContainer button span {
-    display: flex;
-    max-height: 45%;
-    max-width: 100%;
-    overflow: hidden;
-    opacity: 1;
-    transition: var(--db-transition);
-    transition-duration: 0ms, 0.6s;
-    transition-delay: 0ms, 0.25s;
-    transition-property: opacity, max-width;
+  display: flex;
+  max-height: 45%;
+  max-width: 100%;
+  overflow: hidden;
+  opacity: 1;
+  transition: var(--db-transition);
+  transition-duration: 0ms, 0.6s;
+  transition-delay: 0ms, 0.25s;
+  transition-property: opacity, max-width;
 }
 
 .SideMenuSubButtonContainer button:hover {
-    border-color: transparent;
+  border-color: transparent;
 }
 
-
 .SideMenuButtonContainer {
-    flex-direction: row;
-    gap: 0.125rem;
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    justify-content: center;
+  flex-direction: row;
+  gap: 0.125rem;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
 }
 
 .SideMenuButtonContainer button {
-    height: 2.4rem;
-    width: 50%;
-    border-radius: 9999px;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    min-height: 2rem;
-    font-size: 0.875rem;
-    gap: 0.5rem;
-    border-color: transparent;
-    background-color: initial;
-    opacity: 1;
+  height: 2.4rem;
+  width: 50%;
+  border-radius: 9999px;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  min-height: 2rem;
+  font-size: 0.875rem;
+  gap: 0.5rem;
+  border-color: transparent;
+  background-color: initial;
+  opacity: 1;
 }
 
 .SideMenuButtonContainer button svg {
-    height: 1.1rem;
-    width: 1.1rem;
+  height: 1.1rem;
+  width: 1.1rem;
 }
 
 .SideMenuButtonContainer button svg path {
-    fill: var(--db-brand-green);
+  fill: var(--db-brand-green);
 }
 
 .SideMenuButtonContainer button .ActiveSvg path {
-    fill: var(--db-brand-green) !important;
+  fill: var(--db-brand-green) !important;
 }
 
 .SideMenuButtonContainer button span {
-    display: flex;
-    max-height: 45%;
-    max-width: 100%;
-    overflow: hidden;
-    opacity: 1;
-    transition: var(--db-transition);
-    transition-duration: 0ms, 0.6s;
-    transition-delay: 0ms, 0.25s;
-    transition-property: opacity, max-width;
+  display: flex;
+  max-height: 45%;
+  max-width: 100%;
+  overflow: hidden;
+  opacity: 1;
+  transition: var(--db-transition);
+  transition-duration: 0ms, 0.6s;
+  transition-delay: 0ms, 0.25s;
+  transition-property: opacity, max-width;
 }
 
 .SideMenuButtonContainer button:hover {
-    border-color: transparent;
+  border-color: transparent;
 }
 
 /* Divider */
 .SideMenuDivider {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    align-self: stretch;
-    margin-bottom: 0.5rem;
-    height: 1rem;
-    white-space: nowrap;
-    margin-left: 1rem;
-    margin-right: 1rem;
-    margin-top: 0rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: stretch;
+  margin-bottom: 0.5rem;
+  height: 1rem;
+  white-space: nowrap;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  margin-top: 0rem;
 }
 
 .SideMenuDivider::before,
 .SideMenuDivider::after {
-    content: '';
-    flex-grow: 1;
-    height: 0.125rem;
-    width: 100%;
-    background-color: hsl(var(--bc) / var(--tw-bg-opacity));
-    --tw-bg-opacity: 0.1;
+  content: "";
+  flex-grow: 1;
+  height: 0.125rem;
+  width: 100%;
+  background-color: hsl(var(--bc) / var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.1;
 }
 
 .SideMenuScroll .SideMenuDivider,
 .SideMenuScroll .SideMenuDivider {
-    height: 0.125rem;
+  height: 0.125rem;
 }
 
 /* Bottom buttons */
 .SideMenuBottomButtons {
-    position: -webkit-sticky;
-    position: sticky;
-    bottom: 1.5rem;
-    margin-left: 0;
-    margin-right: 0;
-    margin-top: 0.75rem;
-    display: flex;
-    flex-direction: row-reverse;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 2rem;
-    z-index: 50;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 1.5rem;
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 0.75rem;
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+  z-index: 50;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
-.SideMenuBottomButtons>button {
-    height: 2.5rem !important;
-    width: 50%;
-    justify-content: flex-start !important;
-    gap: 0.5rem;
-    border-radius: 0;
-    border-style: none;
-    padding: 0 0 0 1rem !important;
-    --tw-text-opacity: 1 !important;
-    color: rgb(255 255 255 / 1) !important;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    min-height: 2rem;
+.SideMenuBottomButtons > button {
+  height: 2.5rem !important;
+  width: 50%;
+  justify-content: flex-start !important;
+  gap: 0.5rem;
+  border-radius: 0;
+  border-style: none;
+  padding: 0 0 0 1rem !important;
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / 1) !important;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  min-height: 2rem;
 }
 
-.SideMenuBottomButtons>div>div {
-    max-height: 50vh;
-    overflow-y: scroll;
+.SideMenuBottomButtons > div > div {
+  max-height: 50vh;
+  overflow-y: scroll;
 }
 
 /* MenuItems */
 .List {
-    background-color: var(--db-gray-6);
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+  background-color: transparent;
+  /* background-color: var(--db-gray-6); */
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
 }
 
 .List li:first-child,
 .List li:first-child a {
-    border-top-left-radius: inherit;
-    /* border-top-right-radius: inherit; */
-    /* border-bottom-right-radius: unset; */
-    border-bottom-left-radius: unset;
+  border-top-left-radius: inherit;
+  /* border-top-right-radius: inherit; */
+  /* border-bottom-right-radius: unset; */
+  border-bottom-left-radius: unset;
 }
 
 .List li:last-child,
 .List li:last-child a {
-    border-top-left-radius: unset;
-    /* border-top-right-radius: unset;
+  border-top-left-radius: unset;
+  /* border-top-right-radius: unset;
     border-bottom-right-radius: inherit; */
-    border-bottom-left-radius: inherit;
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: 10px;
 }
 
 /* Closed */
 .Closed.SideMenuScroll .SideMenuButtonContainer {
-    flex-direction: column;
+  flex-direction: column;
 }
 
 .Closed.SideMenuScroll .SideMenuSubButtonContainer {
-    flex-direction: column;
+  flex-direction: column;
 }
 
-.Closed.SideMenuScroll .SideMenuButtonContainer>button {
-    /* margin: 0.25rem; */
-    max-height: 30px;
-    min-height: 30px;
-    min-width: 30px;
-    max-width: 30px;
-    border-radius: 50%;
-    padding: 0.25rem;
+.Closed.SideMenuScroll .SideMenuButtonContainer > button {
+  /* margin: 0.25rem; */
+  max-height: 30px;
+  min-height: 30px;
+  min-width: 30px;
+  max-width: 30px;
+  border-radius: 50%;
+  padding: 0.25rem;
 }
 
-.Closed.SideMenuScroll .SideMenuSubButtonContainer>button {
-    margin: 0.25rem;
-    max-height: 30px;
-    min-height: 30px;
-    min-width: 30px;
-    max-width: 30px;
-    border-radius: 50%;
-    padding: 0.25rem;
+.Closed.SideMenuScroll .SideMenuSubButtonContainer > button {
+  margin: 0.25rem;
+  max-height: 30px;
+  min-height: 30px;
+  min-width: 30px;
+  max-width: 30px;
+  border-radius: 50%;
+  padding: 0.25rem;
 }
 
-.Closed.SideMenuScroll .SideMenuButtonContainer>button span {
-    display: contents;
-    max-width: 0;
-    opacity: 0;
+.Closed.SideMenuScroll .SideMenuButtonContainer > button span {
+  display: contents;
+  max-width: 0;
+  opacity: 0;
 }
 
-.Closed.SideMenuScroll .SideMenuSubButtonContainer>button span {
-    display: contents;
-    max-width: 0;
-    opacity: 0;
+.Closed.SideMenuScroll .SideMenuSubButtonContainer > button span {
+  display: contents;
+  max-width: 0;
+  opacity: 0;
 }
 
 .Closed.SideMenuScroll .SideMenuButtonContainer button svg path {
-    fill: var(--db-gray-5);
+  fill: var(--db-gray-5);
 }
 
-
-.Closed.SideMenuBottomButtons>div {
-    width: 100%;
+.Closed.SideMenuBottomButtons > div {
+  width: 100%;
 }
 
-.Closed.SideMenuBottomButtons>button {
-    justify-content: center !important;
-    padding: 0.5rem;
-    padding-left: 0 !important;
+.Closed.SideMenuBottomButtons > button {
+  justify-content: center !important;
+  padding: 0.5rem;
+  padding-left: 0 !important;
 }
 
 .Grouped {
-    margin-bottom: 0.25rem;
+  margin-bottom: 0.25rem;
 }
 
 /* Media */
 @media (min-width: 768px) {
-    .SideMenuAllButtonsContainer {
-        margin: 0rem 0.5rem;
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-        min-height: 3.5rem;
-    }
-    .SideMenuBottomButtons {
-        bottom: 0;
-        margin-top: 0;
-        flex-direction: column;
-        gap: 0;
-        padding-left: 0;
-        padding-right: 0;
-    }
+  .SideMenuAllButtonsContainer {
+    margin: 0rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 3.5rem;
+  }
+  .SideMenuBottomButtons {
+    bottom: 0;
+    margin-top: 0;
+    flex-direction: column;
+    gap: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
 
-    .SideMenuBottomButtons>button {
-        width: 100%;
-    }
+  .SideMenuBottomButtons > button {
+    width: 100%;
+  }
 }

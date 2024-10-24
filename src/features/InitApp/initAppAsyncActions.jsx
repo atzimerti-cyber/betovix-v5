@@ -396,12 +396,12 @@ export const loadInitData = (isMobile) => {
             icon: <RewardsIcon color="#FF0000" />,
             page: "rewards",
           },
-          {
-            id: 3,
-            label: `Hero’s Haven`,
-            icon: <RewardsIcon color="#FF0000" />,
-            page: "hero",
-          },
+          // {
+          //   id: 3,
+          //   label: `Hero’s Haven`,
+          //   icon: <RewardsIcon color="#FF0000" />,
+          //   page: "hero",
+          // },
         ],
       });
       allMenuItems.push({

@@ -55,7 +55,8 @@
   height: 100%;
   width: var(--db-left-menu-width);
   flex-shrink: 0;
-  background-color: var(--db-gray-6);
+  background-color: #042035;
+  /* background-color: var(--db-gray-6); */
   padding-bottom: 1.5rem;
   box-sizing: border-box;
 }

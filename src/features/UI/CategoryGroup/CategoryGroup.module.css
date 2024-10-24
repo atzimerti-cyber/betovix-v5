@@ -1,105 +1,133 @@
 .CategoryGroup {
-    background-color: var(--db-duelbits-gray);
-    margin-bottom: 0.25rem;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
+  background-color: #0e2f45;
+  /* background-color: var(--db-duelbits-gray); */
+  margin-bottom: 0.25rem;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 10px;
 }
-
+.CategoryGroup.Closed {
+  border: 1px solid #00000043;
+  background-color: transparent;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 33%);
+  margin-bottom: 0.5rem;
+  background-color: #06263f;
+}
+.CategoryGroup.Closed:hover {
+  background-color: #1c3d55;
+  /* background-color: var(--db-duelbits-gray); */
+}
+.CategoryGroup > ul {
+  background-color: #102b41;
+}
+.CategoryGroup > ul:last-child {
+  border-bottom: 1px solid rgba(170, 234, 255, 0.129);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+.CategoryGroup.Closed > ul:last-child {
+  border-bottom: none;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
 .Title {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    cursor: pointer;
-    position: relative;
-    display: flex;
-    height: 2.75rem;
-    align-items: center;
-    justify-content: space-between;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    line-height: 1rem;
-    font-size: 0.75rem;
-    font-weight: 600;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+  font-size: 0.9rem;
+  line-height: 1.25rem;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  height: 2.75rem;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  line-height: 1rem;
+  font-weight: 600;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .Title svg {
-    height: 0.75rem;
-    width: 0.75rem;
-    transition-property: transform;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 0.15s;
-    --tw-rotate: 0deg;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  height: 0.75rem;
+  width: 0.75rem;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+  --tw-rotate: 0deg;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .Title svg path {
-    fill: #fff;
+  fill: #fff;
 }
 
 .Closed .Title svg {
-    --tw-rotate: 180deg;
+  --tw-rotate: 180deg;
 }
 
 .Closed ul {
-    grid-row-start: 2;
-    overflow: hidden;
-    max-height: 0;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    cursor: unset;
-    transition: padding 0.4s ease-in-out, background-color 0.2s ease-in-out;
+  grid-row-start: 2;
+  overflow: hidden;
+  max-height: 0;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  cursor: unset;
+  transition: padding 0.4s ease-in-out, background-color 0.2s ease-in-out;
 }
 
-.Label{
-    display: flex;
-    align-items: center;
-    flex-direction: row;
+.Label {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 }
 
 .LiveBadge {
-    animation: 6s ease 0s infinite normal none running _jQMcyq_dgbon_1;
-    background: var(--db-brand-green);
-    /* background: var(--db-purple-text); */
-    border-radius: 3px;
-    color: rgb(255, 255, 255);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    padding: 0px 0.33rem;
-    text-shadow: rgba(41, 39, 33, 1) 0px 1px 2px;
-    white-space: nowrap;
-    height: 18px;
-    /* width: 30px; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 0.5rem;
+  animation: 6s ease 0s infinite normal none running _jQMcyq_dgbon_1;
+  background: var(--db-brand-green);
+  /* background: var(--db-purple-text); */
+  border-radius: 3px;
+  color: rgb(255, 255, 255);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0px 0.33rem;
+  text-shadow: rgba(41, 39, 33, 1) 0px 1px 2px;
+  white-space: nowrap;
+  height: 18px;
+  /* width: 30px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
 }
 
 @keyframes _jQMcyq_dgbon_1 {
+  0%,
+  100% {
+    opacity: 1;
+  }
 
-    0%,
-    100% {
-        opacity: 1;
-    }
+  10%,
+  90% {
+    opacity: 1;
+  }
 
-    10%,
-    90% {
-        opacity: 1;
-    }
-
-    40%,
-    60% {
-        box-shadow: rgba(150, 208, 35, 0.1) 0px 0.25em 1em, rgba(150, 208, 35, 1) 0px 0px 0.5em;
-        /* box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em, rgba(200, 49, 231, 0.8) 0px 0px 0.5em; */
-    }
+  40%,
+  60% {
+    box-shadow: rgba(150, 208, 35, 0.1) 0px 0.25em 1em,
+      rgba(150, 208, 35, 1) 0px 0px 0.5em;
+    /* box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em, rgba(200, 49, 231, 0.8) 0px 0px 0.5em; */
+  }
 }
 
 @media (min-width: 768px) {
-    .Title {
-        height: 2.5rem;
-        font-size: 0.875rem;
-        line-height: 1.25rem;
-    }
+  .Title {
+    height: 2.5rem;
+    font-size: 0.95rem;
+    line-height: 1.25rem;
+  }
 }

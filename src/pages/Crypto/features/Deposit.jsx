@@ -5,11 +5,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import classes from "./Deposit.module.css";
 import { cryptoActions } from "../cryptoSlice";
 import DepositCrypto from "./DepositCrypto";
-import DepositFiat from "./DepositFiat";
+import DepositMethods from "./DepositMethods";
 import MainButton from "../../../features/UI/Buttons/MainButton";
 import { addThousandsSeparator } from "../../../utils/custom";
 import allCrypto from "../../../assets/cryptoIcons/all-crypto.svg";
-// import allCards from '../../../assets/cryptoIcons/all-cards.png';
+import allCards from "../../../assets/cryptoIcons/all-cards.png";
+import SEPA from "../../../assets/svgs/sepaicon.svg?react";
+import Cards from "../../../assets/svgs/creditcards.svg?react";
 import { translate } from "../../../utils/translations";
 
 const Deposit = () => {
@@ -18,6 +20,7 @@ const Deposit = () => {
   const navigate = useNavigate();
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const paymentTypes = useSelector((state) => state.crypto.paymentTypes);
   const crypto = useSelector((state) => state.crypto.crypto);
   const query = new URLSearchParams(location.search);
   const method = query.get("method");
@@ -26,7 +29,7 @@ const Deposit = () => {
 
   let elClasses = [classes.PaymentVerticalWrapper];
   if (method === "crypto") elClasses.push(classes.Crypto);
-  else if (method === "fiat") elClasses.push(classes.Fiat);
+  else if (method === "fiat") elClasses.push(classes.Methods);
 
   useEffect(() => {
     return () => dispatch(cryptoActions.setSelectedCurrency(null));
@@ -38,6 +41,10 @@ const Deposit = () => {
     dispatch(
       cryptoActions.setSelectedNetwork({ id: option.Id, label: network })
     );
+  };
+
+  const selectPaymentType = (type) => {
+    dispatch(cryptoActions.setSelectedPaymentType(type));
   };
 
   const navigateToModal = (modal, tab, method) => {
@@ -122,8 +129,63 @@ const Deposit = () => {
     <div className={elClasses.join(" ")}>
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
-          {crypto && uniqueCrypto && (
+          {/* {crypto && uniqueCrypto && (
             <>
+              <div
+                className={classes.PaymentButtonContainer}
+                style={{
+                  background:
+                    "linear-gradient(60deg, var(--db-gray-banner) 10%, #ffac0030 30%, #0b4a8e69 80%)",
+                }}
+              >
+                <MainButton
+                  color="transparent"
+                  onClick={() => {
+                    dispatch(cryptoActions.setSelectedCurrency(null));
+                    navigateToModal("cashier", "deposit", "fiat");
+                  }}
+                >
+                  <SEPA />
+                  <h2>{translate("SEPA")}</h2>
+                </MainButton>
+              </div>
+              <div
+                className={classes.PaymentButtonContainer}
+                style={{
+                  background:
+                    "linear-gradient(60deg, #eb001b40 0%, #ffac0075 50%, #1434cb57 95%)",
+                }}
+              >
+                <MainButton
+                  color="transparent"
+                  onClick={() => {
+                    dispatch(cryptoActions.setSelectedCurrency(null));
+                    navigateToModal("cashier", "deposit", "fiat");
+                  }}
+                >
+                  <Cards />
+                  <h2>{translate("Cards")}</h2>
+                </MainButton>
+              </div>
+              <div
+                className={classes.PaymentButtonContainer}
+                style={{
+                  background:
+                    "linear-gradient(60deg, transparent 0%, rgb(71 71 71 / 46%) 50%, rgb(191 191 191 / 25%) 95%)",
+                }}
+              >
+                <MainButton
+                  color="transparent"
+                  onClick={() => {
+                    dispatch(cryptoActions.setSelectedCurrency(null));
+                    navigateToModal("cashier", "deposit", "fiat");
+                  }}
+                >
+                  <APGP />
+                  <h2>{translate("ApplePay/ GooglePay")}</h2>
+                </MainButton>
+              </div>
+
               {uniqueCrypto.map((item, index) => {
                 if (item.id === "BEP-20") return null;
 
@@ -186,21 +248,36 @@ const Deposit = () => {
                   <h2>{translate("All crypto coins/tokens")}</h2>
                 </MainButton>
               </div>
-
-              {/* <div className={classes.PaymentButtonContainer}>
-                                <MainButton
-                                    color='transparent'
-                                    onClick={() => {
-                                        dispatch(cryptoActions.setSelectedCurrency(null));
-                                        navigateToModal('cashier', 'deposit', 'fiat');
-                                    }}
-                                >
-                                    <img className={classes.AllCrypto} src={allCards} loading='lazy' alt='All crypto' />
-                                    <h2>{translate('Fiat for the giftcards')}</h2>
-                                </MainButton>
-                            </div> */}
             </>
-          )}
+          )} */}
+          {paymentTypes &&
+            paymentTypes.map((paymentType, index) => (
+              <div
+                key={paymentType.SubCateg.Id}
+                // ref={(el) => (containerRefs.current[index] = el)}
+                className={[
+                  classes.PaymentButtonContainer,
+                  classes.CryptoCoin,
+                ].join(" ")}
+              >
+                <MainButton
+                  color="transparent"
+                  onClick={() => {
+                    // selectCurrency(item);
+                    selectPaymentType(paymentType);
+                    navigateToModal("cashier", "deposit", "fiat");
+                  }}
+                >
+                  <img
+                    src={paymentType.SubCateg?.Icon}
+                    crossOrigin="anonymous"
+                    loading="lazy"
+                    alt={paymentType.SubCateg.Name}
+                  />
+                  <h2>{paymentType.SubCateg.Name}</h2>
+                </MainButton>
+              </div>
+            ))}
         </div>
       </div>
 
@@ -208,8 +285,8 @@ const Deposit = () => {
         <DepositCrypto />
       </div>
 
-      <div className={classes.DepositFiatWrapper}>
-        <DepositFiat />
+      <div className={classes.DepositMethodsWrapper}>
+        <DepositMethods />
       </div>
     </div>
   );
