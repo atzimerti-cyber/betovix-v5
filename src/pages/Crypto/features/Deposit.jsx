@@ -45,8 +45,8 @@ const Deposit = () => {
     dispatch(cryptoActions.setSelectedPaymentType(type));
   };
   const selectPaymentMethod = (type) => {
-    dispatch(cryptoActions.setSelectedPaymentType(type));
-    dispatch(cryptoActions.setSelectedPaymentMethod(type));
+    // dispatch(cryptoActions.setSelectedPaymentType(type));
+    dispatch(cryptoActions.setSelectedPaymentMethod(type.Items[0]));
   };
 
   const navigateToModal = (modal, tab, stage) => {
@@ -268,7 +268,7 @@ const Deposit = () => {
                     // selectCurrency(item);
                     if (paymentType.Items.length <= 2) {
                       selectPaymentType(paymentType);
-                      selectPaymentMethod(paymentType.Items[0]);
+                      selectPaymentMethod(paymentType);
                       navigateToModal("cashier", "deposit", "deposit");
                     } else {
                       selectPaymentType(paymentType);

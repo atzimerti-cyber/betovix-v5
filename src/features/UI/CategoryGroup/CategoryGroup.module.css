@@ -54,9 +54,9 @@
   height: 0.75rem;
   width: 0.75rem;
   transition-property: transform;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0.4, 0.5, 0.5, 1);
   transition-duration: 0.15s;
-  --tw-rotate: 0deg;
+  --tw-rotate: 180deg;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -66,7 +66,7 @@
 }
 
 .Closed .Title svg {
-  --tw-rotate: 180deg;
+  --tw-rotate: 90deg;
 }
 
 .Closed ul {

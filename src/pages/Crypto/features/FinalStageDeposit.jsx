@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import DsButton from "../../../features/UI/Buttons/DsButton";
 import classes from "./FinalStageDeposit.module.css";
+import PaymentForm from "./PaymentForm";
 import AngleLeft2Icon from "../../../assets/svgs/angle-left2.svg?react";
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 import { cryptoActions } from "../cryptoSlice";
@@ -15,6 +16,9 @@ const FinalStageDeposit = () => {
   const location = useLocation();
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const paymentType = useSelector((state) => state.crypto.selectedPaymentType);
+  const paymentMethod = useSelector(
+    (state) => state.crypto.selectedPaymentMethod
+  );
 
   const navigateToDeposit = () => {
     const searchParams = new URLSearchParams(location.search);
@@ -43,7 +47,11 @@ const FinalStageDeposit = () => {
           <span>1.00</span>
         </div>
       </div>
-      <div style={{ height: "300px", width: "300px", background: "red" }}></div>
+      {paymentType && paymentMethod && (
+        <div className={classes.PaymentFormContainer}>
+          <PaymentForm jsonString={paymentMethod.Value} />
+        </div>
+      )}
     </>
   );
 };

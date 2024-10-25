@@ -1,17 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import bnb from "../../assets/cryptoIcons/bnb.svg";
-import btc from "../../assets/cryptoIcons/btc.svg";
-import xrp from "../../assets/cryptoIcons/xrp.svg";
-import trx from "../../assets/cryptoIcons/trx.svg";
-import sol from "../../assets/cryptoIcons/sol.svg";
-import eth from "../../assets/cryptoIcons/eth.svg";
-import ltc from "../../assets/cryptoIcons/ltc.svg";
-import ape from "../../assets/cryptoIcons/ape.svg";
-import doge from "../../assets/cryptoIcons/doge.svg";
-import shib from "../../assets/cryptoIcons/shib.png";
-import usdt from "../../assets/cryptoIcons/usdt.svg";
-
 const initialState = {
   crypto: null,
   cryptoSwiper: null,

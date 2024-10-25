@@ -34,7 +34,7 @@ const DepositMethods = () => {
     ) {
       navigateToDeposit();
     }
-  }, []);
+  }, [paymentType]);
 
   const navigateToModal = (modal, tab, stage) => {
     const searchParams = new URLSearchParams(location.search);
@@ -70,7 +70,7 @@ const DepositMethods = () => {
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
           {paymentType &&
-            paymentType.Items.map(
+            paymentType?.Items.map(
               (method, index) =>
                 method.Name !== "Active" && (
                   <div
