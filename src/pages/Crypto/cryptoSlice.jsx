@@ -21,6 +21,7 @@ const initialState = {
   qrCodeImage: "",
   paymentTypes: null,
   selectedPaymentType: null,
+  selectedPaymentMethod: null,
 };
 
 export const cryptoSlice = createSlice({
@@ -63,6 +64,9 @@ export const cryptoSlice = createSlice({
     },
     setSelectedPaymentType: (state, action) => {
       state.selectedPaymentType = action.payload;
+    },
+    setSelectedPaymentMethod: (state, action) => {
+      state.selectedPaymentMethod = action.payload;
     },
   },
 });

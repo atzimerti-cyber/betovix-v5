@@ -6,12 +6,9 @@ import classes from "./Deposit.module.css";
 import { cryptoActions } from "../cryptoSlice";
 import DepositCrypto from "./DepositCrypto";
 import DepositMethods from "./DepositMethods";
+import FinalStageDeposit from "./FinalStageDeposit";
 import MainButton from "../../../features/UI/Buttons/MainButton";
 import { addThousandsSeparator } from "../../../utils/custom";
-import allCrypto from "../../../assets/cryptoIcons/all-crypto.svg";
-import allCards from "../../../assets/cryptoIcons/all-cards.png";
-import SEPA from "../../../assets/svgs/sepaicon.svg?react";
-import Cards from "../../../assets/svgs/creditcards.svg?react";
 import { translate } from "../../../utils/translations";
 
 const Deposit = () => {
@@ -23,13 +20,14 @@ const Deposit = () => {
   const paymentTypes = useSelector((state) => state.crypto.paymentTypes);
   const crypto = useSelector((state) => state.crypto.crypto);
   const query = new URLSearchParams(location.search);
-  const method = query.get("method");
+  const stage = query.get("stage");
 
   const containerRefs = useRef([]);
 
   let elClasses = [classes.PaymentVerticalWrapper];
-  if (method === "crypto") elClasses.push(classes.Crypto);
-  else if (method === "fiat") elClasses.push(classes.Methods);
+  if (stage === "crypto") elClasses.push(classes.Crypto);
+  else if (stage === "methods") elClasses.push(classes.Methods);
+  else if (stage === "deposit") elClasses.push(classes.Deposit);
 
   useEffect(() => {
     return () => dispatch(cryptoActions.setSelectedCurrency(null));
@@ -46,13 +44,17 @@ const Deposit = () => {
   const selectPaymentType = (type) => {
     dispatch(cryptoActions.setSelectedPaymentType(type));
   };
+  const selectPaymentMethod = (type) => {
+    dispatch(cryptoActions.setSelectedPaymentType(type));
+    dispatch(cryptoActions.setSelectedPaymentMethod(type));
+  };
 
-  const navigateToModal = (modal, tab, method) => {
+  const navigateToModal = (modal, tab, stage) => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("modal", modal);
     searchParams.set("tab", tab);
 
-    if (method) searchParams.set("method", method);
+    if (stage) searchParams.set("stage", stage);
 
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
@@ -264,8 +266,14 @@ const Deposit = () => {
                   color="transparent"
                   onClick={() => {
                     // selectCurrency(item);
-                    selectPaymentType(paymentType);
-                    navigateToModal("cashier", "deposit", "fiat");
+                    if (paymentType.Items.length <= 2) {
+                      selectPaymentType(paymentType);
+                      selectPaymentMethod(paymentType.Items[0]);
+                      navigateToModal("cashier", "deposit", "deposit");
+                    } else {
+                      selectPaymentType(paymentType);
+                      navigateToModal("cashier", "deposit", "methods");
+                    }
                   }}
                 >
                   <img
@@ -281,12 +289,16 @@ const Deposit = () => {
         </div>
       </div>
 
-      <div className={classes.DepositCryptoWrapper}>
+      {/* <div className={classes.DepositCryptoWrapper}>
         <DepositCrypto />
-      </div>
+      </div> */}
 
       <div className={classes.DepositMethodsWrapper}>
         <DepositMethods />
+      </div>
+
+      <div className={classes.DepositFinalStageWrapper}>
+        <FinalStageDeposit />
       </div>
     </div>
   );

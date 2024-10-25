@@ -21,7 +21,7 @@ export const getCasinoFavs = (signal) => {
             dispatch(casinoFavoritesActions.setCasinoFavs(response.data.Contents));
         } catch (error) {
             if (!error?.code === 'ERR_CANCELED') toast.error(error?.message);
-            dispatch(recommendedGamesActions.setCasinoFavs([]));
+            dispatch(casinoFavoritesActions.setCasinoFavs([]));
         }
     };
 };

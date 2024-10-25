@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -18,11 +19,37 @@ const DepositMethods = () => {
 
   const navigateToDeposit = () => {
     const searchParams = new URLSearchParams(location.search);
-    searchParams.delete("method");
+    searchParams.delete("stage");
     dispatch(cryptoActions.resetCurrency());
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
     });
+  };
+
+  useEffect(() => {
+    if (
+      !paymentType ||
+      paymentType.length === 0 ||
+      Object.keys(paymentType).length === 0
+    ) {
+      navigateToDeposit();
+    }
+  }, []);
+
+  const navigateToModal = (modal, tab, stage) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", modal);
+    searchParams.set("tab", tab);
+
+    if (stage) searchParams.set("stage", stage);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+  };
+
+  const selectPaymentMethod = (method) => {
+    dispatch(cryptoActions.setSelectedPaymentMethod(method));
   };
 
   return (
@@ -55,10 +82,10 @@ const DepositMethods = () => {
                   >
                     <MainButton
                       color="transparent"
-                      //   onClick={() => {
-                      //     selectPaymentMethod(paymentMethod);
-                      //     navigateToModal("cashier", "deposit", "fiat");
-                      //   }}
+                      onClick={() => {
+                        selectPaymentMethod(method);
+                        navigateToModal("cashier", "deposit", "deposit");
+                      }}
                     >
                       {/* <img
                     src={paymentType.SubCateg?.Icon}

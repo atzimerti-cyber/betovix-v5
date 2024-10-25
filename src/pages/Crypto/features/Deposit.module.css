@@ -9,11 +9,15 @@
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-.PaymentVerticalWrapper.Crypto {
+/* .PaymentVerticalWrapper.Crypto {
+    --tw-translate-y: -100%;
+} */
+
+.PaymentVerticalWrapper.Methods {
     --tw-translate-y: -100%;
 }
 
-.PaymentVerticalWrapper.Methods {
+.PaymentVerticalWrapper.Deposit {
     --tw-translate-y: -200%;
 }
 
@@ -32,7 +36,17 @@
     padding: 0.5rem;
 }
 
-.DepositCryptoWrapper {
+/* .DepositCryptoWrapper {
+    height: 100%;
+    flex-shrink: 0;
+    overflow: auto;
+    padding: 0.5rem;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+} */
+
+.DepositMethodsWrapper {
     height: 100%;
     flex-shrink: 0;
     overflow: auto;
@@ -42,7 +56,7 @@
     width: 100%;
 }
 
-.DepositMethodsWrapper {
+.DepositFinalStageWrapper {
     height: 100%;
     flex-shrink: 0;
     overflow: auto;

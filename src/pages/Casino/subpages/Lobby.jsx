@@ -185,22 +185,7 @@ const Lobby = () => {
                   <div
                     className={classes.SmallImageContainer}
                     style={{ backgroundImage: `url(${tag.Image})` }}
-                    // style={{ backgroundImage: `url(${TESTIMAGE})` }}
                   ></div>
-                  {/* <div
-                    className={classes.SwiperContainer}
-                    style={{
-                      ...(notGridSwiper ? { width: "100%" } : {}),
-                    }}
-                  >
-                    <Cat3Swiper
-                      title={`${translate(tag.Name)}`}
-                      icon={""}
-                      thIcon={tag.Icon}
-                      tag={tag.Tags}
-                      max={20}
-                    />
-                  </div> */}
                 </div>
                 <div
                   className={classes.SwiperContainer}
