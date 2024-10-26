@@ -21,6 +21,7 @@ const PaymentForm = (props) => {
   const location = useLocation();
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const siteCurrencies = useSelector((state) => state.app.siteCurrencies);
   const paymentType = useSelector((state) => state.crypto.selectedPaymentType);
   const paymentMethod = useSelector(
     (state) => state.crypto.selectedPaymentMethod
@@ -62,10 +63,11 @@ const PaymentForm = (props) => {
           onChange={handleChange}
           className={classes.Select}
         >
-          <option value="">Currency</option>
-          <option value="USD">USD</option>
-          <option value="EUR">EUR</option>
-          <option value="GBP">GBP</option>
+          {siteCurrencies.map((currency, index) => (
+            <option key={index} value={currency}>
+              {currency.toUpperCase()}
+            </option>
+          ))}
         </select>
       );
     } else if (key === "payment_method") {
@@ -101,8 +103,10 @@ const PaymentForm = (props) => {
         <input
           className={classes.Input}
           type="number"
+          min="0"
           name={key}
           onChange={handleChange}
+          onKeyDown={(e) => e.key === "-" && e.preventDefault()}
           placeholder={`Enter ${key.replace(/_/g, " ")}`}
         />
       );

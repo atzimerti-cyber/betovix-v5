@@ -143,7 +143,7 @@ const initialState = {
     {
       id: "ar",
       label: "عربي",
-      flag: "https://www.svgrepo.com/show/401605/flag-for-france.svg", 
+      flag: "https://www.svgrepo.com/show/401605/flag-for-france.svg",
     },
   ],
   lang: {
@@ -296,6 +296,7 @@ const initialState = {
   sportSettings: null,
   siteSettings: null,
   socialMedia: null,
+  siteCurrencies: null,
 };
 
 export const appSlice = createSlice({
@@ -316,13 +317,13 @@ export const appSlice = createSlice({
     },
     setMenuItems: (state, action) => {
       state.menuItems = action.payload;
-    }, 
+    },
     setCasinoMenuItems: (state, action) => {
       state.casinoMenuItems = action.payload;
     },
     setSportsMenuItems: (state, action) => {
       state.sportsMenuItems = action.payload;
-    }, 
+    },
     setSettings: (state, action) => {
       state.settings = action.payload;
     },
@@ -356,6 +357,9 @@ export const appSlice = createSlice({
     },
     setSocialMedia: (state, action) => {
       state.socialMedia = action.payload;
+    },
+    setSiteCurrencies: (state, action) => {
+      state.siteCurrencies = action.payload;
     },
   },
 });

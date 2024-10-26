@@ -125,6 +125,8 @@
 .SideMenuButtonContainer button {
   height: 2.4rem;
   width: 50%;
+  min-width: max-content;
+  /* width: 50%; */
   border-radius: 9999px;
   padding-left: 0.75rem;
   padding-right: 0.75rem;

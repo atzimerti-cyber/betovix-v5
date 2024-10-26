@@ -322,7 +322,7 @@ export const getSlotsVendors = (signal) => {
       if (response.data.Status.StatusCode !== 200) throw Error();
 
       const filteredVendors = response.data.Contents.filter(
-        (v) => !v.Data.Name.includes("live")
+        (v) => !v.Data.Tags.includes("live")
       );
 
       dispatch(casinoActions.setCasinoVendors(filteredVendors));
@@ -349,7 +349,7 @@ export const getLiveVendors = (signal) => {
       if (response.data.Status.StatusCode !== 200) throw Error();
 
       const filteredVendors = response.data.Contents.filter((v) =>
-        v.Data.Name.includes("live")
+        v.Data.Tags.includes("live")
       );
 
       dispatch(casinoActions.setCasinoVendors(filteredVendors));
@@ -472,71 +472,71 @@ export const addToGamesWithFilter = (property, signal) => {
   };
 };
 
-export const getFavoriteGamesToFiltered = (signal) => {
-  return async (dispatch, getState) => {
-    try {
-      const lang = getLang();
-      const response = await axiosApi.get(
-        `MyCasino/LoadFavoriteGame?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
-        {
-          signal: signal,
-          baseURLOverride: config.VITE_CASINO_BASE,
-        }
-      );
-      if (response.data.Status.StatusCode !== 200) throw Error();
+// export const getFavoriteGamesToFiltered = (signal) => {
+//   return async (dispatch, getState) => {
+//     try {
+//       const lang = getLang();
+//       const response = await axiosApi.get(
+//         `MyCasino/LoadFavoriteGame?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+//         {
+//           signal: signal,
+//           baseURLOverride: config.VITE_CASINO_BASE,
+//         }
+//       );
+//       if (response.data.Status.StatusCode !== 200) throw Error();
 
-      const currentState = getState().casino;
-      let updatedFilteredGames = { ...currentState.filteredGames };
+//       const currentState = getState().casino;
+//       let updatedFilteredGames = { ...currentState.filteredGames };
 
-      const slotsFavorites = response.data.Contents.filter(
-        (f) => !f.Data.VendorName.includes("live")
-      );
+//       const slotsFavorites = response.data.Contents.filter(
+//         (f) => !f.Data.VendorName.includes("live")
+//       );
 
-      updatedFilteredGames["favoriteGames"] = {
-        Data: slotsFavorites,
-        Total: slotsFavorites.length,
-      };
+//       updatedFilteredGames["favoriteGames"] = {
+//         Data: slotsFavorites,
+//         Total: slotsFavorites.length,
+//       };
 
-      dispatch(casinoActions.setFilteredGames(updatedFilteredGames));
-    } catch (error) {
-      const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
-    }
-  };
-};
+//       dispatch(casinoActions.setFilteredGames(updatedFilteredGames));
+//     } catch (error) {
+//       const message = error?.message ? error.message : error;
+//       if (!error?.code === "ERR_CANCELED") toast.error(message);
+//     }
+//   };
+// };
 
-export const getFavoriteGamesLiveToFiltered = (signal) => {
-  return async (dispatch, getState) => {
-    try {
-      const lang = getLang();
-      const response = await axiosApi.get(
-        `MyCasino/LoadFavoriteGame?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
-        {
-          signal: signal,
-          baseURLOverride: config.VITE_CASINO_BASE,
-        }
-      );
-      if (response.data.Status.StatusCode !== 200) throw Error();
+// export const getFavoriteGamesLiveToFiltered = (signal) => {
+//   return async (dispatch, getState) => {
+//     try {
+//       const lang = getLang();
+//       const response = await axiosApi.get(
+//         `MyCasino/LoadFavoriteGame?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+//         {
+//           signal: signal,
+//           baseURLOverride: config.VITE_CASINO_BASE,
+//         }
+//       );
+//       if (response.data.Status.StatusCode !== 200) throw Error();
 
-      const currentState = getState().casino;
-      let updatedFilteredGames = { ...currentState.filteredGames };
+//       const currentState = getState().casino;
+//       let updatedFilteredGames = { ...currentState.filteredGames };
 
-      const liveFavorites = response.data.Contents.filter((f) =>
-        f.Data.VendorName.includes("live")
-      );
+//       const liveFavorites = response.data.Contents.filter((f) =>
+//         f.Data.VendorName.includes("live")
+//       );
 
-      updatedFilteredGames["favoriteGames"] = {
-        Data: liveFavorites,
-        Total: liveFavorites.length,
-      };
+//       updatedFilteredGames["favoriteGames"] = {
+//         Data: liveFavorites,
+//         Total: liveFavorites.length,
+//       };
 
-      dispatch(casinoActions.setFilteredGames(updatedFilteredGames));
-    } catch (error) {
-      const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
-    }
-  };
-};
+//       dispatch(casinoActions.setFilteredGames(updatedFilteredGames));
+//     } catch (error) {
+//       const message = error?.message ? error.message : error;
+//       if (!error?.code === "ERR_CANCELED") toast.error(message);
+//     }
+//   };
+// };
 
 //============================         TAGS        =================================//
 

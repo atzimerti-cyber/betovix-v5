@@ -34,6 +34,8 @@ const Cat3Swiper = (props) => {
 
   const lang = useSelector((state) => state.app.lang);
 
+  const notGridSwiper = useMediaQuery({ query: "(max-width: 700px)" });
+
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
   const casinoByTags = useSelector((state) => state.casino.casinoByTags);
@@ -111,75 +113,106 @@ const Cat3Swiper = (props) => {
   return (
     <>
       {items && items.length > 0 && (
-        <MainSwiper
-          grid={gridSwiper && true}
-          slidesPerView={slidesPerView}
-          slidesPerGroup={slidesPerGroup}
-          gridRows={gridSwiper && 2}
-          gridFill={gridSwiper && "row"}
-          spaceBetween={7}
-          title={
-            props.link ? (
-              <Link to={props.link}>{props.title}</Link>
-            ) : props.task ? (
-              <a onClick={props.task}>{props.title}</a>
-            ) : (
-              props.title
-            )
-          }
-          viewText={props.text}
-          onTask={props.task}
-          icon={props.icon}
-          thIcon={props.thIcon}
+        <div
+          className={classes.Cat3Container}
+          style={{
+            ...(notGridSwiper ? { flexDirection: "column" } : {}),
+            backgroundImage: `url(${props.backgroundImage})`,
+          }}
         >
-          {items ? (
-            items.length === 0 ? (
-              <p className={classes.NoResults}>No {props.title}</p>
-            ) : (
-              items.map((item, index) => {
-                if (props.max && index > props.max + 1) return null;
-                const gameType = item.Data.Tags.toLowerCase().includes("live")
-                  ? "live"
-                  : "slots";
+          <div
+            className={classes.SwiperImage}
+            style={{
+              ...(notGridSwiper ? { flexDirection: "column" } : {}),
+            }}
+          >
+            {notGridSwiper && (
+              <div className={classes.SwiperTitle}>
+                <span>{translate(props.title)}</span>
+              </div>
+            )}
+            <div
+              className={classes.SmallImageContainer}
+              style={{ backgroundImage: `url(${props.frontImage})` }}
+            ></div>
+          </div>
+          <div
+            className={classes.SwiperContainer}
+            style={{
+              ...(notGridSwiper ? { width: "100%" } : {}),
+            }}
+          >
+            <MainSwiper
+              grid={gridSwiper && true}
+              slidesPerView={slidesPerView}
+              slidesPerGroup={slidesPerGroup}
+              gridRows={gridSwiper && 2}
+              gridFill={gridSwiper && "row"}
+              spaceBetween={7}
+              title={
+                props.link ? (
+                  <Link to={props.link}>{props.title}</Link>
+                ) : props.task ? (
+                  <a onClick={props.task}>{props.title}</a>
+                ) : (
+                  props.title
+                )
+              }
+              viewText={props.text}
+              onTask={props.task}
+              icon={props.icon}
+              thIcon={props.thIcon}
+            >
+              {items ? (
+                items.length === 0 ? (
+                  <p className={classes.NoResults}>No {props.title}</p>
+                ) : (
+                  items.map((item, index) => {
+                    if (props.max && index > props.max + 1) return null;
+                    const gameType = item.Data.Tags.toLowerCase().includes(
+                      "live"
+                    )
+                      ? "live"
+                      : "slots";
 
-                return (
-                  <SwiperSlide key={item.Data.Id}>
-                    <div
-                      className={classes.SlideContainer}
-                      onClick={() => {
-                        if (isTouchScreen) {
-                          openGameModal(item);
-                        }
-                      }}
-                    >
-                      <div className={classes.BackgroundContainer}>
-                        <article className={classes.Card}>
-                          <div className={classes.ImageContainer}>
-                            <div
-                              style={{
-                                backgroundImage: `url(${item.Data.ImageUrl})`,
-                                backgroundSize: "cover",
-                                backgroundPosition: "center",
-                                height: "100%",
-                              }}
-                            ></div>
+                    return (
+                      <SwiperSlide key={item.Data.Id}>
+                        <div
+                          className={classes.SlideContainer}
+                          onClick={() => {
+                            if (isTouchScreen) {
+                              openGameModal(item);
+                            }
+                          }}
+                        >
+                          <div className={classes.BackgroundContainer}>
+                            <article className={classes.Card}>
+                              <div className={classes.ImageContainer}>
+                                <div
+                                  style={{
+                                    backgroundImage: `url(${item.Data.ImageUrl})`,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                    height: "100%",
+                                  }}
+                                ></div>
+                              </div>
+                            </article>
                           </div>
-                        </article>
-                      </div>
-                      {!isTouchScreen && (
-                        <div className={classes.OverlayContainer}>
-                          <div className={classes.InfoContainer}>
-                            <div>
-                              <p className={classes.BgGameName}>
-                                {item.Data.Name}
-                              </p>
-                              {/* <p className={classes.BgVendor}>
+                          {!isTouchScreen && (
+                            <div className={classes.OverlayContainer}>
+                              <div className={classes.InfoContainer}>
+                                <div>
+                                  <p className={classes.BgGameName}>
+                                    {item.Data.Name}
+                                  </p>
+                                  {/* <p className={classes.BgVendor}>
                               {item.Data.VendorName}
                             </p> */}
-                            </div>
-                          </div>
-                          <div className={classes.ButtonsContainer}>
-                            {/* <div className={classes.FavContainer}>
+                                </div>
+                              </div>
+                              <div className={classes.ButtonsContainer}>
+                                {/* <div className={classes.FavContainer}>
                             <HeartIcon
                               className={
                                 item.isFav ? classes.FavoriteIcon : null
@@ -195,55 +228,59 @@ const Cat3Swiper = (props) => {
                               }}
                             />
                           </div> */}
-                            <Link
-                              to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
-                            >
-                              <div className={classes.PlayBtnContainer}>
-                                <button className={classes.PlayBtn}>
-                                  <PlayButton />
-                                </button>
+                                <Link
+                                  to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
+                                >
+                                  <div className={classes.PlayBtnContainer}>
+                                    <button className={classes.PlayBtn}>
+                                      <PlayButton />
+                                    </button>
+                                  </div>
+                                </Link>
+                                {bonusBalance > 0 && (
+                                  <Link
+                                    to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                                  >
+                                    <div className={classes.isBonus}>
+                                      <button
+                                        className={classes.bonusContainer}
+                                      >
+                                        <GiftIcon />
+                                        {/* <span>{translate("With Bonus")}</span> */}
+                                      </button>
+                                    </div>
+                                  </Link>
+                                )}
                               </div>
-                            </Link>
-                            {bonusBalance > 0 && (
-                              <Link
-                                to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
-                              >
-                                <div className={classes.isBonus}>
-                                  <button className={classes.bonusContainer}>
-                                    <GiftIcon />
-                                    {/* <span>{translate("With Bonus")}</span> */}
-                                  </button>
-                                </div>
-                              </Link>
-                            )}
-                          </div>
+                            </div>
+                          )}
                         </div>
+                      </SwiperSlide>
+                    );
+                  })
+                )
+              ) : (
+                Array.from({ length: 15 }, (_, index) => (
+                  <SwiperSlide key={index}>
+                    <div
+                      className={[classes.SlideContainer, classes.Loading].join(
+                        " "
                       )}
+                    >
+                      <Link to={null}>
+                        <article className={classes.Card}>
+                          <div className={classes.ImageContainer}>
+                            <LoaderPlaceholder />
+                          </div>
+                        </article>
+                      </Link>
                     </div>
                   </SwiperSlide>
-                );
-              })
-            )
-          ) : (
-            Array.from({ length: 15 }, (_, index) => (
-              <SwiperSlide key={index}>
-                <div
-                  className={[classes.SlideContainer, classes.Loading].join(
-                    " "
-                  )}
-                >
-                  <Link to={null}>
-                    <article className={classes.Card}>
-                      <div className={classes.ImageContainer}>
-                        <LoaderPlaceholder />
-                      </div>
-                    </article>
-                  </Link>
-                </div>
-              </SwiperSlide>
-            ))
-          )}
-        </MainSwiper>
+                ))
+              )}
+            </MainSwiper>
+          </div>
+        </div>
       )}
     </>
   );

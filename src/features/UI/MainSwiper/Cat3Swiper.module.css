@@ -229,3 +229,85 @@
   }
 }
 
+.Cat3Container {
+  position: relative;
+  display: flex;
+  height: max-content;
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+  align-items: center;
+  flex-direction: row;
+  background-attachment: fixed;
+  padding: 0.5rem;
+  border-radius: 1rem;
+}
+.SwiperImage {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 2rem;
+  display: flex;
+  justify-content: space-between;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  overflow: hidden;
+  align-items: center;
+  flex-direction: row;
+  background-attachment: fixed;
+}
+
+.Cat3Container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(1px);
+  z-index: 1;
+}
+.SwiperTitle {
+  position: absolute;
+  top: 2%;
+  left: 3%;
+  z-index: 20;
+}
+.SwiperTitle span {
+  color: aliceblue;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+.SwiperImage img {
+  z-index: 2; /* Ensure the image or content inside is above the overlay */
+}
+
+@keyframes rotateY {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.SmallImageContainer {
+  height: 190px;
+  width: -webkit-fill-available;
+  z-index: 5;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  animation: rotateY 8s infinite ease-in-out;
+  transform-style: preserve-3d;
+}
+
+.SwiperContainer {
+  height: 100%;
+  width: 80%;
+  z-index: 5;
+}

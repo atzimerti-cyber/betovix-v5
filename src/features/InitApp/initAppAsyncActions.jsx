@@ -579,13 +579,18 @@ export const getSiteSettings = (signal) => {
         languages.push({
           id: id,
         });
-      }); 
+      });
 
-      const englishLanguage = languages.find(language => language.id === 'en');
+      let siteCurrencies = [];
+      const currStr = response.data.Contents.Site.AllowedCurrencies;
+      const currencies = currStr.split(",");
+      currencies.map((curr) => {
+        siteCurrencies.push(curr);
+      });
 
       dispatch(appActions.setSiteSettings(response.data.Contents["Site"]));
       dispatch(appActions.setAvailableLangs(languages));
-      dispatch(appActions.setLang(englishLanguage));
+      dispatch(appActions.setSiteCurrencies(siteCurrencies));
       dispatch(
         appActions.setSocialMedia(response.data.Contents["Social Media"])
       );

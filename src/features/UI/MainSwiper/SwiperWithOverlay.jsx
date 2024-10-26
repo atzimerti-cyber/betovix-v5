@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
 import { useMediaQuery } from "react-responsive";
 import { toast } from "react-toastify";
@@ -25,6 +25,7 @@ import _ from "lodash";
 
 const SwiperWithOverlay = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const lang = useSelector((state) => state.app.lang);
 
@@ -41,7 +42,7 @@ const SwiperWithOverlay = (props) => {
 
   useEffect(() => {
     if (!props.items) return;
-    setItems(props.items); // Update local state when props.items changes
+    setItems(props.items);
   }, [props.items]);
 
   useEffect(() => {
@@ -87,6 +88,16 @@ const SwiperWithOverlay = (props) => {
         setItems(newItems);
       });
     }
+  };
+
+  const addParamsToUrl = (modal, tab) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", modal);
+    if (tab) searchParams.set("tab", tab);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
   };
 
   return (
@@ -138,7 +149,14 @@ const SwiperWithOverlay = (props) => {
                   >
                     <>
                       <Link
+                        // to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
                         to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
+                        onClick={(e) => {
+                          if (!user) {
+                            e.preventDefault();
+                            addParamsToUrl("auth", "login");
+                          }
+                        }}
                       >
                         <article className={classes.Card}>
                           <div className={classes.ImageContainer}>

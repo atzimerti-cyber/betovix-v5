@@ -38,7 +38,7 @@ const FinalStageDeposit = () => {
         <div className={classes.ReturnButtonWrapper}>
           <DsButton color="transparent" onClick={navigateToDeposit}>
             <AngleLeft2Icon />
-            <span>{translate("Back")}</span>
+            <span>{translate("Return to Deposit Methods")}</span>
           </DsButton>
         </div>
         <div className={classes.ReturnEquivalent}>
