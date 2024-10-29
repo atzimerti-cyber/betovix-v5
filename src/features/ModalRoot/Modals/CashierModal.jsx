@@ -10,10 +10,7 @@ import Deposit from "../../../pages/Crypto/features/Deposit";
 import Withdraw from "../../../pages/Crypto/features/Withdraw";
 //import BuyCrypto from '../../../pages/Crypto/features/BuyCrypto';
 import { translate } from "../../../utils/translations";
-import {
-  // getWallet,
-  GetPaymentMethods,
-} from "../../../pages/Crypto/cryptoAsyncActions";
+import { GetPaymentMethods } from "../../../pages/Crypto/cryptoAsyncActions";
 
 const CashierModal = (props) => {
   const navigate = useNavigate();
@@ -42,14 +39,20 @@ const CashierModal = (props) => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    dispatch(GetPaymentMethods(signal));
-    // dispatch(getWallet(signal));
+    const searchParams = new URLSearchParams(location.search);
+    const type = searchParams.get("tab");
+
+    if (type === "deposit") {
+      dispatch(GetPaymentMethods(signal, 1));
+    } else if (type === "withdraw") {
+      dispatch(GetPaymentMethods(signal, 2));
+    }
 
     return () => {
       controller.abort();
       // dispatch(cryptoActions.reset());
     };
-  }, []);
+  }, [location.search, dispatch]);
 
   return (
     <div className={classes.CashierModal}>

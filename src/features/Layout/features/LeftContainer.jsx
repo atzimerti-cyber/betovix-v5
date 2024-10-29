@@ -366,15 +366,6 @@ const LeftContainer = memo(function () {
       </div>
 
       {!isMobile && <div className={classes.SideMenuDivider}></div>}
-
-      <div className={elClasses2.join(" ")}>
-        {/* <MainButton color='transparent'>
-                    <LiveSupportIcon />
-                    {fullLeftContainer ? translate('Live support') : ''}
-                </MainButton> */}
-
-        {/* <DropdownLang openTo='top' /> */}
-      </div>
     </>
   );
 });

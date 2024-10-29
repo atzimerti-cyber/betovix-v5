@@ -8,6 +8,7 @@ const initialState = {
     notRenderedLiveResults: null,
     searchString: '',
     searchSelectedProviders: [],
+    lobbySearchString: '',
 };
 
 export const searchSlice = createSlice({
@@ -49,6 +50,9 @@ export const searchSlice = createSlice({
         },
         setSearchSelectedProviders: (state, action) => {
             state.searchSelectedProviders = action.payload;
+        },
+        setLobbySearchString: (state, action) => {
+            state.lobbySearchString = action.payload;
         },
     },
 });

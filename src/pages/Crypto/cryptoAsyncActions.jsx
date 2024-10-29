@@ -31,12 +31,12 @@ export const getWallet = (signal) => {
   };
 };
 
-export const GetPaymentMethods = (signal) => {
+export const GetPaymentMethods = (signal, type) => {
   return async (dispatch) => {
     try {
       const lang = getLang();
 
-      const response = await axiosApi.get(`Payments/GetPaymentMethods`, {
+      const response = await axiosApi.get(`Payments/GetPaymentMethods?type=${type}`, {
         signal: signal,
         baseURLOverride: config.VITE_WALLET_STORETUBE,
       });

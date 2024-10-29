@@ -85,10 +85,7 @@
 
 .ImageContainer {
   width: 100%;
-  /* aspect-ratio: 6 / 4; */
   aspect-ratio: 1;
-  /* height: 160px;
-  width: 160px; */
   position: relative;
 }
 

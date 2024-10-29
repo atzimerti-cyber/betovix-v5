@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
@@ -145,7 +146,9 @@ const Search = () => {
               ) : (
                 <p> {translate("No Results")}</p>
               )
-            ) : null}
+            ) : (
+              <p> {translate("No Results")}</p>
+            )}
           </div>
         </div>
       </div>

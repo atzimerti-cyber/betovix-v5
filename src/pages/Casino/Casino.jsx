@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import classes from "./Casino.module.css";
 import CasinoMenu from "./features/CasinoMenu";
+import CasinoLobbySearch from "../../features/Search/CasinoLobbySearch";
 import Lobby from "./subpages/Lobby";
 import LiveGames from "./subpages/LiveGames";
 import SlotGames from "./subpages/SlotGames";
@@ -11,7 +12,6 @@ import Providers from "./subpages/Providers";
 import FavoriteGames from "./subpages/FavoriteGames";
 import GamesByTag from "./subpages/GamesByTag";
 import { casinoActions } from "./casinoSlice";
-import { useSelector } from "react-redux";
 
 const Casino = () => {
   const dispatch = useDispatch();
@@ -36,7 +36,10 @@ const Casino = () => {
   return (
     <div className={classes.PageContent}>
       <div className={classes.Casino}>
-        <CasinoMenu />
+        <div className={classes.CasinoHeader}>
+          <CasinoMenu />
+          {params["*"] === "lobby" && <CasinoLobbySearch />}
+        </div>
         <div className={classes.Content}>{page}</div>
       </div>
     </div>
