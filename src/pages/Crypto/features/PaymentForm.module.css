@@ -4,10 +4,11 @@
 }
 
 .Labels {
-  display: block;
+  display: flex;
   font-weight: 400;
   color: rgb(132, 158, 167);
   font-size: 0.85rem;
+  column-gap: 0.3rem;
 }
 
 .InputsForm {
@@ -30,7 +31,7 @@
 
 .SmallInput {
   background: #223b51;
-  width: 20%;
+  width: 40%;
   padding: 0.2rem;
   border-radius: 6px;
   border: 1px solid #cccccc42;
@@ -44,4 +45,25 @@
   border-radius: 6px;
   border: 1px solid #cccccc42;
   color: rgb(255, 255, 255);
+}
+.Input:focus-within {
+  border: 1px solid var(--db-brand-green);
+}
+.Input.ReadOnly {
+  pointer-events: none;
+  opacity: 0.5;
+}
+.SubmitButton {
+  padding: 0.3rem 0.7rem;
+  background-color: var(--db-brand-green);
+  color: white;
+  font-weight: 500;
+  border-radius: 6px;
+}
+.SubmitButton.Disabled {
+  pointer-events: none;
+  color: white;
+  height: 2rem;
+  background-color: rgba(91, 91, 91, 0.645);
+  opacity: 0.5;
 }

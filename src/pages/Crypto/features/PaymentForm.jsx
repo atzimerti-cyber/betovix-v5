@@ -1,184 +1,181 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import useDebounce from "../../../hooks/useDebounce";
 
 import DsButton from "../../../features/UI/Buttons/DsButton";
 import classes from "./PaymentForm.module.css";
-import AngleLeft2Icon from "../../../assets/svgs/angle-left2.svg?react";
-import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 import { cryptoActions } from "../cryptoSlice";
 import { translate } from "../../../utils/translations";
-import MainButton from "../../../features/UI/Buttons/MainButton";
 
-import VisaIcon from "../../../assets/svgs/visa.svg?react";
-import MastercardIcon from "../../../assets/svgs/mastercard.svg?react";
-import OtherCardIcon from "../../../assets/svgs/othercards.svg?react";
-import BankTransferIcon from "../../../assets/svgs/banktransfer.svg?react";
+import config from "../../../config";
+import { submitPaymentForm } from "../cryptoAsyncActions";
 
 const PaymentForm = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
-  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const lang = useSelector((state) => state.app.lang);
   const siteCurrencies = useSelector((state) => state.app.siteCurrencies);
-  const paymentType = useSelector((state) => state.crypto.selectedPaymentType);
-  const paymentMethod = useSelector(
-    (state) => state.crypto.selectedPaymentMethod
-  );
+
+  const [formData, setFormData] = useState({});
+  const [disabledButton, setDisabledButton] = useState(true);
+
+  // Use debounce for formData
+  const debouncedFormData = useDebounce(formData, 300); // Adjust delay as needed
 
   useEffect(() => {
-    const initialFormData =
-      typeof props.jsonString === "string"
-        ? JSON.parse(props.jsonString)
-        : props.jsonString || {};
+    const allFieldsFilled = Object.values(debouncedFormData).every(
+      (value) => value !== "" && value !== undefined
+    );
 
-    setFormData(initialFormData);
-  }, [props.jsonString]);
+    const validAmount = debouncedFormData.Amount
+      ? debouncedFormData.Amount >= 0.1
+      : true;
 
-  const [formData, setFormData] = useState(null);
+    if (allFieldsFilled === true && validAmount === true) {
+      setDisabledButton(false);
+    } else {
+      setDisabledButton(true);
+    }
+  }, [debouncedFormData]);
+
+  useEffect(() => {
+    if (props.method && props.method.Fields) {
+      const initialData = props.method.Fields.reduce((f, field) => {
+        f[field.Name] =
+          (field.DefaultValue !== "-" && field.DefaultValue) || "";
+        return f;
+      }, {});
+      setFormData(initialData);
+    }
+  }, [props.method]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    // Update state with the new value
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value === "" ? undefined : value, // Set to undefined if value is an empty string
+      [name]:
+        name === "Amount"
+          ? parseFloat(value) || undefined
+          : value === ""
+          ? undefined
+          : value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Form Data Submitted:", formData);
-    // Process form data or send to backend
+    const depositDTO = {
+      Currency: debouncedFormData.Currency || debouncedFormData.CurrencyId,
+      Network: debouncedFormData.Network,
+      Amount: debouncedFormData.Amount,
+      PaymentType: debouncedFormData.PaymentType,
+      PaymentMethod: debouncedFormData.PaymentMethod,
+      PaymentProvider: props.provider,
+      SiteId: `${config.VITE_SITE_ID}`,
+      CustomerFirstName: debouncedFormData.FirstName,
+      CustomerLastName: debouncedFormData.LastName,
+      CustomerPhone: debouncedFormData.Phone,
+      CustomerEmail: debouncedFormData.Email,
+      CustomerCountry: debouncedFormData.Country,
+      CustomerCity: debouncedFormData.City,
+      CustomerAddress: debouncedFormData.Address,
+      CustomerPostCode: debouncedFormData.PostCode,
+    };
+    console.log(debouncedFormData);
+    console.log(depositDTO);
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    dispatch(submitPaymentForm(signal, depositDTO));
   };
 
-  const renderInputField = (key, value) => {
-    if (key === "currency") {
-      return (
-        <select
-          name={key}
-          value={value}
-          onChange={handleChange}
-          className={classes.Select}
-        >
-          {siteCurrencies.map((currency, index) => (
-            <option key={index} value={currency}>
-              {currency.toUpperCase()}
-            </option>
-          ))}
-        </select>
-      );
-    } else if (key === "payment_method") {
-      return (
-        <>
-          {paymentMethod.Name === "Visa" && <VisaIcon height="60px" />}
-          {paymentMethod.Name === "Mastercard" && (
-            <MastercardIcon height="90px" />
-          )}
-          {paymentMethod.Name === "OtherCard" && (
-            <OtherCardIcon height="100px" />
-          )}
-          {paymentMethod.Name === "BankTransferEU" && (
-            <BankTransferIcon height="100px" />
-          )}
-          {paymentMethod.Name === "ApplePay" && (
-            <input
-              className={classes.SmallInput}
-              readOnly
-              type="text"
-              name={key}
-              value={paymentMethod.Name}
-              onChange={handleChange}
-              placeholder={`Enter ${key.replace(/_/g, " ")}`}
-            />
-          )}
-        </>
-      );
-    } else if (key === "payment_type") {
-      return null;
-    } else if (key === "amount") {
+  const renderInputField = (field) => {
+    const { Name, Type, ListValues } = field;
+
+    if (Type === "decimal") {
       return (
         <input
-          className={classes.Input}
+          className={classes.SmallInput}
           type="number"
-          min="0"
-          name={key}
+          step="0.1"
+          min="0.1"
+          name={Name}
+          value={formData[Name] || ""}
           onChange={handleChange}
           onKeyDown={(e) => e.key === "-" && e.preventDefault()}
-          placeholder={`Enter ${key.replace(/_/g, " ")}`}
+          placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
         />
       );
-    } else {
-      return (
-        <input
-          className={classes.Input}
-          type="text"
-          name={key}
-          value={value}
-          onChange={handleChange}
-          placeholder={`Enter ${key.replace(/_/g, " ")}`}
-        />
-      );
+    } else if (Type === "string") {
+      if (ListValues.length === 0) {
+        return (
+          <input
+            className={
+              Name === "PaymentType" || Name === "PaymentMethod"
+                ? [classes.Input, classes.ReadOnly].join(" ")
+                : classes.Input
+            }
+            type="text"
+            name={Name}
+            value={formData[Name] || ""}
+            onChange={handleChange}
+            placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+            readOnly={
+              (Name === "PaymentType" || Name === "PaymentMethod") && true
+            }
+          />
+        );
+      } else {
+        return (
+          <select
+            name={Name}
+            id={Name}
+            className={classes.Select}
+            onChange={handleChange}
+          >
+            {ListValues.map((value, index) => (
+              <option key={index} value={value}>
+                {value}
+              </option>
+            ))}
+          </select>
+        );
+      }
     }
   };
 
-  const customOrder = [
-    "payment_method",
-    "payment_type",
-    "currency",
-    "amount",
-    "customer_first_name",
-    "customer_last_name",
-    "customer_phone",
-    "customer_email",
-    "customer_country",
-    "customer_city",
-    "customer_address",
-    "customer_post_code",
-  ];
-
   return (
     <div className={classes.PaymentForm}>
-      {formData && (
+      {props.method && props.method.Fields && (
         <form onSubmit={handleSubmit} className={classes.InputsForm}>
-          {Object.keys(formData)
-            .sort((a, b) => {
-              const indexA = customOrder.indexOf(a);
-              const indexB = customOrder.indexOf(b);
-              if (indexA === -1 && indexB === -1) return 0;
-              if (indexA === -1) return 1;
-              if (indexB === -1) return -1;
-              return indexA - indexB;
-            })
-            .map((key) => (
-              <div key={key} style={{ marginBottom: "10px", width: "50%" }}>
-                {key !== "payment_type" && (
+          {props.method.Fields.map(
+            (field, index) =>
+              field.Visible && (
+                <div key={index} style={{ marginBottom: "10px", width: "50%" }}>
                   <label className={classes.Labels}>
-                    {translate(
-                      `${key
-                        .replace(/customer/g, "")
-                        .replace(/_/g, " ")
-                        .replace(/\b\w/g, (c) => c.toUpperCase())
-                        .trim()}`
-                    )}
-                    {key !== "payment_method" && " *"}
+                    {translate(field.Name.replace(/([a-z])([A-Z])/g, "$1 $2"))}
+                    {field.Name !== "PaymentType" &&
+                      field.Name !== "PaymentMethod" && (
+                        <p style={{ color: "var(--db-brand-green)" }}>*</p>
+                      )}
                   </label>
-                )}
-
-                {renderInputField(key, formData[key])}
-              </div>
-            ))}
+                  {renderInputField(field)}
+                </div>
+              )
+          )}
           <button
             type="submit"
-            style={{
-              padding: "10px 20px",
-              borderRadius: "4px",
-              background: "#007bff",
-              color: "#fff",
-              border: "none",
-            }}
+            className={
+              disabledButton
+                ? [classes.SubmitButton, classes.Disabled].join(" ")
+                : classes.SubmitButton
+            }
+            disabled={disabledButton}
           >
             Submit
           </button>

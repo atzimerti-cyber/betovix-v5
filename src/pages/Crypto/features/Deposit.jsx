@@ -17,7 +17,7 @@ const Deposit = () => {
   const navigate = useNavigate();
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-  const paymentTypes = useSelector((state) => state.crypto.paymentTypes);
+  const paymentTypes = useSelector((state) => state.crypto.DepositPaymentTypes);
   const crypto = useSelector((state) => state.crypto.crypto);
   const query = new URLSearchParams(location.search);
   const stage = query.get("stage");
@@ -42,11 +42,10 @@ const Deposit = () => {
   };
 
   const selectPaymentType = (type) => {
-    dispatch(cryptoActions.setSelectedPaymentType(type));
+    dispatch(cryptoActions.setSelectedPaymentTypeDeposit(type));
   };
   const selectPaymentMethod = (type) => {
-    // dispatch(cryptoActions.setSelectedPaymentType(type));
-    dispatch(cryptoActions.setSelectedPaymentMethod(type.Items[0]));
+    dispatch(cryptoActions.setSelectedPaymentMethodDeposit(type.Methods[0]));
   };
 
   const navigateToModal = (modal, tab, stage) => {
@@ -255,7 +254,7 @@ const Deposit = () => {
           {paymentTypes &&
             paymentTypes.map((paymentType, index) => (
               <div
-                key={paymentType.SubCateg.Id}
+                key={index}
                 // ref={(el) => (containerRefs.current[index] = el)}
                 className={[
                   classes.PaymentButtonContainer,
@@ -265,8 +264,7 @@ const Deposit = () => {
                 <MainButton
                   color="transparent"
                   onClick={() => {
-                    // selectCurrency(item);
-                    if (paymentType.Items.length <= 2) {
+                    if (paymentType.Methods.length <= 1) {
                       selectPaymentType(paymentType);
                       selectPaymentMethod(paymentType);
                       navigateToModal("cashier", "deposit", "deposit");
@@ -277,12 +275,12 @@ const Deposit = () => {
                   }}
                 >
                   <img
-                    src={paymentType.SubCateg?.Icon}
+                    src={paymentType?.Icon}
                     crossOrigin="anonymous"
                     loading="lazy"
-                    alt={paymentType.SubCateg.Name}
+                    alt={paymentType.Name}
                   />
-                  <h2>{paymentType.SubCateg.Name}</h2>
+                  <h2>{paymentType.Name}</h2>
                 </MainButton>
               </div>
             ))}

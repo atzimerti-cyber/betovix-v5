@@ -36,16 +36,23 @@ export const GetPaymentMethods = (signal, type) => {
     try {
       const lang = getLang();
 
-      const response = await axiosApi.get(`Payments/GetPaymentMethods?type=${type}`, {
-        signal: signal,
-        baseURLOverride: config.VITE_WALLET_STORETUBE,
-      });
+      const response = await axiosApi.get(
+        `Payments/GetPaymentMethods?type=${type}`,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_STORETUBE,
+        }
+      );
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
         throw Error("Failed to fetch crypto");
 
       const types = response.data.Contents;
-      dispatch(cryptoActions.setPaymentTypes(types));
+      if (type === 1) {
+        dispatch(cryptoActions.setDepositPaymentTypes(types));
+      } else if (type === 2) {
+        dispatch(cryptoActions.setWithrawPaymentTypes(types));
+      }
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(message);
@@ -102,6 +109,29 @@ export const getDepositAddress = (signal) => {
       //console.log(depositAddress, qrImage);
       dispatch(cryptoActions.setDepositAddress(depositAddress));
       dispatch(cryptoActions.setQRCodeImage(qrImage));
+    } catch (error) {
+      const message = error?.message ? error.message : error;
+      if (!error?.code === "ERR_CANCELED") toast.error(message);
+    }
+  };
+};
+
+export const submitPaymentForm = (signal, depositDTO) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await axiosApi.post(
+        `/Payments/DepositRequest`,
+        {
+          depositDTO,
+        },
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_STORETUBE,
+        }
+      );
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
+        throw Error("Failed  ");
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(message);

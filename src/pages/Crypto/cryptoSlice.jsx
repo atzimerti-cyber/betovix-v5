@@ -7,9 +7,14 @@ const initialState = {
   selectedNetwork: null,
   depositAddress: "",
   qrCodeImage: "",
-  paymentTypes: null,
-  selectedPaymentType: null,
-  selectedPaymentMethod: null,
+  //////////DEPOSIT//////////////
+  DepositPaymentTypes: null,
+  selectedPaymentTypeDeposit: null,
+  selectedPaymentMethodDeposit: null,
+  /////////WITHDRAW////////////////
+  WithdrawPaymentTypes: null,
+  selectedPaymentTypeWithdraw: null,
+  selectedPaymentMethodWithdraw: null,
 };
 
 export const cryptoSlice = createSlice({
@@ -47,14 +52,25 @@ export const cryptoSlice = createSlice({
     setQRCodeImage: (state, action) => {
       state.qrCodeImage = action.payload;
     },
-    setPaymentTypes: (state, action) => {
-      state.paymentTypes = action.payload;
+    //////////DEPOSIT//////////////
+    setDepositPaymentTypes: (state, action) => {
+      state.DepositPaymentTypes = action.payload;
     },
-    setSelectedPaymentType: (state, action) => {
-      state.selectedPaymentType = action.payload;
+    setSelectedPaymentTypeDeposit: (state, action) => {
+      state.selectedPaymentTypeDeposit = action.payload;
     },
-    setSelectedPaymentMethod: (state, action) => {
-      state.selectedPaymentMethod = action.payload;
+    setSelectedPaymentMethodDeposit: (state, action) => {
+      state.selectedPaymentMethodDeposit = action.payload;
+    },
+    /////////WITHDRAW////////////////
+    setWithrawPaymentTypes: (state, action) => {
+      state.WithdrawPaymentTypes = action.payload;
+    },
+    setSelectedPaymentTypeWithdraw: (state, action) => {
+      state.selectedPaymentTypeWithdraw = action.payload;
+    },
+    setSelectedPaymentMethodWithdraw: (state, action) => {
+      state.selectedPaymentMethodWithdraw = action.payload;
     },
   },
 });

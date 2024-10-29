@@ -15,7 +15,9 @@ const DepositMethods = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-  const paymentType = useSelector((state) => state.crypto.selectedPaymentType);
+  const paymentType = useSelector(
+    (state) => state.crypto.selectedPaymentTypeDeposit
+  );
 
   const navigateToDeposit = () => {
     const searchParams = new URLSearchParams(location.search);
@@ -49,7 +51,7 @@ const DepositMethods = () => {
   };
 
   const selectPaymentMethod = (method) => {
-    dispatch(cryptoActions.setSelectedPaymentMethod(method));
+    dispatch(cryptoActions.setSelectedPaymentMethodDeposit(method));
   };
 
   return (
@@ -70,11 +72,11 @@ const DepositMethods = () => {
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
           {paymentType &&
-            paymentType?.Items.map(
+            paymentType?.Methods.map(
               (method, index) =>
                 method.Name !== "Active" && (
                   <div
-                    key={method.Id}
+                    key={method.Name}
                     className={[
                       classes.PaymentButtonContainer,
                       classes.CryptoCoin,
@@ -87,12 +89,12 @@ const DepositMethods = () => {
                         navigateToModal("cashier", "deposit", "deposit");
                       }}
                     >
-                      {/* <img
-                    src={paymentType.SubCateg?.Icon}
-                    crossOrigin="anonymous"
-                    loading="lazy"
-                    alt={paymentType.SubCateg.Name}
-                  /> */}
+                      <img
+                        src={paymentType?.Icon}
+                        crossOrigin="anonymous"
+                        loading="lazy"
+                        alt={paymentType.Name}
+                      />
                       <h2>{method.Name}</h2>
                     </MainButton>
                   </div>

@@ -15,14 +15,14 @@ const FinalStageDeposit = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-  const paymentType = useSelector((state) => state.crypto.selectedPaymentType);
+  const paymentType = useSelector((state) => state.crypto.selectedPaymentTypeDeposit);
   const paymentMethod = useSelector(
-    (state) => state.crypto.selectedPaymentMethod
+    (state) => state.crypto.selectedPaymentMethodDeposit
   );
 
   const navigateToDeposit = () => {
     const searchParams = new URLSearchParams(location.search);
-    if (paymentType.Items.length <= 2) {
+    if (paymentType.Methods.length <= 1) {
       searchParams.delete("stage");
     } else {
       searchParams.set("stage", "methods");
@@ -49,7 +49,7 @@ const FinalStageDeposit = () => {
       </div>
       {paymentType && paymentMethod && (
         <div className={classes.PaymentFormContainer}>
-          <PaymentForm jsonString={paymentMethod.Value} />
+          <PaymentForm method={paymentMethod} provider={paymentType.Provider} />
         </div>
       )}
     </>

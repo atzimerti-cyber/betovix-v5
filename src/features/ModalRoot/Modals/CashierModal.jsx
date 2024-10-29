@@ -52,7 +52,7 @@ const CashierModal = (props) => {
       controller.abort();
       // dispatch(cryptoActions.reset());
     };
-  }, [location.search, dispatch]);
+  }, [location.search]);
 
   return (
     <div className={classes.CashierModal}>
