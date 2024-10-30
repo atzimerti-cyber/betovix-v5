@@ -7,8 +7,11 @@ import { cryptoActions } from "../cryptoSlice";
 import WithdrawCrypto from "./WithdrawCrypto";
 import MainButton from "../../../features/UI/Buttons/MainButton";
 import { addThousandsSeparator } from "../../../utils/custom";
-import allCrypto from "../../../assets/cryptoIcons/all-crypto.svg";
+import allCrypto from "../../../assets/svgs/withdrawreq.svg";
 import { translate } from "../../../utils/translations";
+import WithdrawMethods from "./WithdrawMethods";
+import FinalStageWithdraw from "./FinalStageWithdraw";
+import WithdrawRequests from "./WithdrawRequests";
 
 const Withdraw = () => {
   const dispatch = useDispatch();
@@ -16,10 +19,20 @@ const Withdraw = () => {
   const navigate = useNavigate();
 
   const crypto = useSelector((state) => state.crypto.crypto);
-  const method = new URLSearchParams(location.search).get("method");
-  const paymentTypes = useSelector((state) => state.crypto.WithdrawPaymentTypes);
+  const paymentTypes = useSelector(
+    (state) => state.crypto.WithdrawPaymentTypes
+  );
+
+  const query = new URLSearchParams(location.search);
+  const stage = query.get("stage");
 
   const containerRefs = useRef([]);
+
+  let elClasses = [classes.PaymentVerticalWrapper];
+  if (stage === "crypto") elClasses.push(classes.Crypto);
+  else if (stage === "methods") elClasses.push(classes.Methods);
+  else if (stage === "withdraw") elClasses.push(classes.Withdraw);
+  else if (stage === "requests") elClasses.push(classes.Requests);
 
   //================  DOMINANT COLOR FOR BACKGROUND ======================//
   useEffect(() => {
@@ -72,77 +85,53 @@ const Withdraw = () => {
     return `linear-gradient(60deg, var(--db-gray-banner), rgba(${r},${g},${b},0.7))`;
   }
 
-  const selectCurrency = (option) => {
-    dispatch(cryptoActions.setSelectedCurrency(option));
-    const network = option.Code || option.label;
-    dispatch(
-      cryptoActions.setSelectedNetwork({ id: option.Id, label: network })
-    );
-  };
-
-  const navigateToModal = (modal, tab, method) => {
+  const navigateToModal = (modal, tab, stage) => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("modal", modal);
     searchParams.set("tab", tab);
-    if (method) searchParams.set("method", method);
+
+    if (stage) searchParams.set("stage", stage);
+
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
     });
   };
 
-  const uniqueCrypto = [];
-  const names = new Set();
-
-  {
-    crypto &&
-      crypto.forEach((item, index) => {
-        if (!names.has(item.Name) && item.AllowWithdraw) {
-          names.add(item.Name);
-          uniqueCrypto.push(item);
-        }
-      });
-  }
-
-  let elClasses = [classes.PaymentVerticalWrapper];
-  if (method === "crypto") elClasses.push(classes.Crypto);
+  const selectPaymentType = (type) => {
+    dispatch(cryptoActions.setSelectedPaymentTypeWithdraw(type));
+  };
+  const selectPaymentMethod = (type) => {
+    dispatch(cryptoActions.setSelectedPaymentMethodWithdraw(type.Methods[0]));
+  };
 
   return (
     <div className={elClasses.join(" ")}>
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
-          {/* {uniqueCrypto.map((item, index) => {
-                        if (item.Code === 'BEP-20') return null;
-
-                        return (
-                            <div
-                                key={item.Id}
-                                ref={(el) => (containerRefs.current[index] = el)}
-                                className={[classes.PaymentButtonContainer, classes.CryptoCoin].join(' ')}
-                            >
-                                {item.available === false && (
-                                    <div className={classes.PaymentDisabledOverlay}>
-                                        <span>{translate('Temporarily unavailable')}</span>
-                                    </div>
-                                )}
-                                <MainButton
-                                    color="transparent"
-                                    onClick={() => {
-                                        selectCurrency(item);
-                                        navigateToModal('cashier', 'withdraw', 'crypto');
-                                    }}
-                                    disabled={item.available === false}
-                                >
-                                    <img src={item.Logo} crossOrigin="anonymous" loading="lazy" alt={item.Code} />
-                                    <h2>{item.Name}</h2>
-                                    {item.Rate && (
-                                        <h3>
-                                            €{item.Rate > 0.01 ? addThousandsSeparator(item.Rate) : parseFloat(item.Rate.toFixed(6))}
-                                        </h3>
-                                    )}
-                                </MainButton>
-                            </div>
-                        );
-                    })} */}
+          <div
+            className={classes.PaymentButtonContainer}
+            style={{
+              border: "1px solid #a2bbd1a1",
+              backgroundColor: "#b1d6eecc",
+            }}
+          >
+            <MainButton
+              color="transparent"
+              onClick={() => {
+                navigateToModal("cashier", "withdraw", "requests");
+              }}
+            >
+              <img
+                className={classes.AllCrypto}
+                src={allCrypto}
+                loading="lazy"
+                alt="All crypto"
+              />
+              <h2 style={{ color: "#0c2233" }}>
+                {translate("Withdraw Requests")}
+              </h2>
+            </MainButton>
+          </div>
           {paymentTypes &&
             paymentTypes.map((paymentType, index) => (
               <div
@@ -152,18 +141,18 @@ const Withdraw = () => {
                   classes.PaymentButtonContainer,
                   classes.CryptoCoin,
                 ].join(" ")}
+                style={{ backgroundColor: "#113750" }}
               >
                 <MainButton
                   color="transparent"
                   onClick={() => {
-                    // selectCurrency(item);
                     if (paymentType.Methods.length <= 2) {
                       selectPaymentType(paymentType);
                       selectPaymentMethod(paymentType);
-                      navigateToModal("cashier", "deposit", "deposit");
+                      navigateToModal("cashier", "withraw", "withdraw");
                     } else {
                       selectPaymentType(paymentType);
-                      navigateToModal("cashier", "deposit", "methods");
+                      navigateToModal("cashier", "withdraw", "methods");
                     }
                   }}
                 >
@@ -177,29 +166,19 @@ const Withdraw = () => {
                 </MainButton>
               </div>
             ))}
-
-          <div className={classes.PaymentButtonContainer}>
-            <MainButton
-              color="transparent"
-              onClick={() => {
-                dispatch(cryptoActions.setSelectedCurrency(null));
-                navigateToModal("cashier", "withdraw", "crypto");
-              }}
-            >
-              <img
-                className={classes.AllCrypto}
-                src={allCrypto}
-                loading="lazy"
-                alt="All crypto"
-              />
-              <h2>{translate("All crypto coins/tokens")}</h2>
-            </MainButton>
-          </div>
         </div>
       </div>
 
-      <div className={classes.DepositCryptoWrapper}>
-        <WithdrawCrypto />
+      <div className={classes.WithdrawMethodsWrapper}>
+        <WithdrawMethods />
+      </div>
+
+      <div className={classes.WithdrawFinalStageWrapper}>
+        <FinalStageWithdraw />
+      </div>
+
+      <div className={classes.WithdrawRequests}>
+        <WithdrawRequests />
       </div>
     </div>
   );

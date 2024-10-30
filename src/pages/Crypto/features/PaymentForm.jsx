@@ -3,13 +3,13 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useDebounce from "../../../hooks/useDebounce";
 
-import DsButton from "../../../features/UI/Buttons/DsButton";
 import classes from "./PaymentForm.module.css";
-import { cryptoActions } from "../cryptoSlice";
-import { translate } from "../../../utils/translations";
 
+import { translate } from "../../../utils/translations";
 import config from "../../../config";
+
 import { submitPaymentForm } from "../cryptoAsyncActions";
+import Dropdown4 from "../../../features/UI/Dropdown/Dropdown4";
 
 const PaymentForm = (props) => {
   const dispatch = useDispatch();
@@ -17,22 +17,19 @@ const PaymentForm = (props) => {
   const location = useLocation();
 
   const lang = useSelector((state) => state.app.lang);
-  const siteCurrencies = useSelector((state) => state.app.siteCurrencies);
 
   const [formData, setFormData] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
 
-  // Use debounce for formData
-  const debouncedFormData = useDebounce(formData, 300); // Adjust delay as needed
+  const debouncedFormData = useDebounce(formData, 300);
 
   useEffect(() => {
     const allFieldsFilled = Object.values(debouncedFormData).every(
       (value) => value !== "" && value !== undefined
     );
 
-    const validAmount = debouncedFormData.Amount
-      ? debouncedFormData.Amount >= 0.1
-      : true;
+    const validAmount =
+      debouncedFormData.Amount == null || debouncedFormData.Amount > 0;
 
     if (allFieldsFilled === true && validAmount === true) {
       setDisabledButton(false);
@@ -44,8 +41,12 @@ const PaymentForm = (props) => {
   useEffect(() => {
     if (props.method && props.method.Fields) {
       const initialData = props.method.Fields.reduce((f, field) => {
-        f[field.Name] =
-          (field.DefaultValue !== "-" && field.DefaultValue) || "";
+        const value = (field.DefaultValue !== "-" && field.DefaultValue) || "";
+        try {
+          f[field.Name] = JSON.parse(value);
+        } catch (e) {
+          f[field.Name] = value;
+        }
         return f;
       }, {});
       setFormData(initialData);
@@ -69,8 +70,13 @@ const PaymentForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const depositDTO = {
-      Currency: debouncedFormData.Currency || debouncedFormData.CurrencyId,
-      Network: debouncedFormData.Network,
+      Currency:
+        debouncedFormData.Currency ||
+        (debouncedFormData.Network &&
+          Object.values(debouncedFormData.Network).join(", ")),
+      Network:
+        debouncedFormData.Network &&
+        Object.keys(debouncedFormData.Network).join(", "),
       Amount: debouncedFormData.Amount,
       PaymentType: debouncedFormData.PaymentType,
       PaymentMethod: debouncedFormData.PaymentMethod,
@@ -111,41 +117,46 @@ const PaymentForm = (props) => {
           placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
         />
       );
-    } else if (Type === "string") {
-      if (ListValues.length === 0) {
-        return (
-          <input
-            className={
-              Name === "PaymentType" || Name === "PaymentMethod"
-                ? [classes.Input, classes.ReadOnly].join(" ")
-                : classes.Input
-            }
-            type="text"
-            name={Name}
-            value={formData[Name] || ""}
-            onChange={handleChange}
-            placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
-            readOnly={
-              (Name === "PaymentType" || Name === "PaymentMethod") && true
-            }
-          />
-        );
-      } else {
-        return (
-          <select
-            name={Name}
-            id={Name}
-            className={classes.Select}
-            onChange={handleChange}
-          >
-            {ListValues.map((value, index) => (
-              <option key={index} value={value}>
-                {value}
+    } else if (Type === "string" && ListValues.length === 0) {
+      return (
+        <input
+          className={
+            Name === "PaymentType" || Name === "PaymentMethod"
+              ? [classes.Input, classes.ReadOnly].join(" ")
+              : classes.Input
+          }
+          type="text"
+          name={Name}
+          value={formData[Name] || ""}
+          onChange={handleChange}
+          placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+          readOnly={
+            (Name === "PaymentType" || Name === "PaymentMethod") && true
+          }
+        />
+      );
+    } else if (
+      (Type === "string" || Type === "list") &&
+      ListValues.length > 0
+    ) {
+      return (
+        <select
+          name={Name}
+          id={Name}
+          className={classes.Select}
+          onChange={handleChange}
+          value={formData[Name]}
+        >
+          {ListValues.map((item, index) => {
+            const key = Object.keys(item)[0];
+            return (
+              <option className={classes.SelectOptions} key={index} value={key}>
+                {key}
               </option>
-            ))}
-          </select>
-        );
-      }
+            );
+          })}
+        </select>
+      );
     }
   };
 

@@ -123,17 +123,6 @@ const Dropdown4 = (props) => {
                     </div>
                   </li>
                 ))}
-              {/* {filteredOptions &&
-                                filteredOptions.map((option) => {
-                                    return (
-                                        <li key={option.id} onClick={() => onSelect(option)}>
-                                            <div className={props.selected?.id === option.id ? [classes.Option, classes.Active].join(' ') : classes.Option}>
-                                                {option.icon && <img src={option.icon} loading='lazy' alt={option.label} />}
-                                                <span>{option.label}</span>
-                                            </div>
-                                        </li>
-                                    );
-                                })} */}
             </ul>
           </motion.div>
         )}

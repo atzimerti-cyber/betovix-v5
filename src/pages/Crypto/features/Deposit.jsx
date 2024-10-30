@@ -260,6 +260,7 @@ const Deposit = () => {
                   classes.PaymentButtonContainer,
                   classes.CryptoCoin,
                 ].join(" ")}
+                style={{ backgroundColor: "#113750" }}
               >
                 <MainButton
                   color="transparent"
@@ -286,10 +287,6 @@ const Deposit = () => {
             ))}
         </div>
       </div>
-
-      {/* <div className={classes.DepositCryptoWrapper}>
-        <DepositCrypto />
-      </div> */}
 
       <div className={classes.DepositMethodsWrapper}>
         <DepositMethods />
