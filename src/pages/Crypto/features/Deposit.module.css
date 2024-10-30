@@ -118,7 +118,6 @@
 
 .PaymentButtonContainer.CryptoCoin > button h2 {
   width: 100%;
-  overflow: hidden;
   text-overflow: ellipsis;
   /* white-space: nowrap; */
   white-space: normal;
@@ -242,6 +241,14 @@
   font-size: 0.75rem;
   line-height: 1rem;
   font-weight: 600;
+}
+
+.Image {
+  height: 50%;
+  width: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .ImageContainer {

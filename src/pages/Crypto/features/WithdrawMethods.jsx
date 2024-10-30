@@ -89,12 +89,18 @@ const WithdrawMethods = () => {
                         navigateToModal("cashier", "withdraw", "withdraw");
                       }}
                     >
-                      <img
+                      {/* <img
                         src={paymentType?.Icon}
                         crossOrigin="anonymous"
                         loading="lazy"
                         alt={paymentType.Name}
-                      />
+                      /> */}
+                       <div
+                        className={classes.Image}
+                        style={{
+                          backgroundImage: `url("${method.Icon}")`,
+                        }}
+                      ></div>
                       <h2>{method.Name}</h2>
                     </MainButton>
                   </div>

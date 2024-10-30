@@ -158,6 +158,14 @@
   white-space: normal;
 }
 
+.Image {
+  height: 50%;
+  width: 80%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
 /* Media */
 @media (min-width: 640px) {
   .ReturnContainer {

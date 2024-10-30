@@ -275,12 +275,18 @@ const Deposit = () => {
                     }
                   }}
                 >
-                  <img
+                  {/* <img
                     src={paymentType?.Icon}
                     crossOrigin="anonymous"
                     loading="lazy"
                     alt={paymentType.Name}
-                  />
+                  /> */}
+                  <div
+                    className={classes.Image}
+                    style={{
+                      backgroundImage: `url("${paymentType.Icon}")`,
+                    }}
+                  ></div>
                   <h2>{paymentType.Name}</h2>
                 </MainButton>
               </div>
