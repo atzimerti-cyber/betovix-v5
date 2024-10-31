@@ -11,6 +11,7 @@ import Withdraw from "../../../pages/Crypto/features/Withdraw";
 //import BuyCrypto from '../../../pages/Crypto/features/BuyCrypto';
 import { translate } from "../../../utils/translations";
 import { GetPaymentMethods } from "../../../pages/Crypto/cryptoAsyncActions";
+import { cryptoActions } from "../../../pages/Crypto/cryptoSlice";
 
 const CashierModal = (props) => {
   const navigate = useNavigate();
@@ -50,7 +51,7 @@ const CashierModal = (props) => {
 
     return () => {
       controller.abort();
-      // dispatch(cryptoActions.reset());
+      dispatch(cryptoActions.resetPayments());
     };
   }, [selectedTab]);
   // }, [location.search]);

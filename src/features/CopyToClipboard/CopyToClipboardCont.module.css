@@ -3,12 +3,11 @@
   display: flex;
   align-items: center;
   border-color: transparent;
-  background-color: var(--db-gray-4);
+  background-color: #123751;
   transition-duration: 0.2s;
   border-width: 1px;
   border-style: none;
   border-radius: 0.375rem;
-
   height: max-content;
   padding: 0.2rem 0;
 }

@@ -82,7 +82,7 @@ export const getCrypto = (signal) => {
   };
 };
 
-export const getDepositAddress = (signal) => {
+export const getDepositAddress = (signal, provider, network) => {
   return async (dispatch, getState) => {
     try {
       const state = getState();
@@ -121,14 +121,22 @@ export const submitPaymentForm = (signal, depositDTO) => {
     try {
       const response = await axiosApi.post(
         `/Payments/DepositRequest`,
-        {
-          depositDTO,
-        },
+
+        depositDTO,
+
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_STORETUBE,
         }
       );
+
+      if (depositDTO.PaymentProvider === "Interkassa") {
+        window.open(response.data.Contents);
+      } else if (depositDTO.PaymentProvider === "CoinPayments") {
+        dispatch(
+          cryptoActions.setDepositAddress(response.data.Contents.WalletAddress)
+        );
+      }
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
         throw Error("Failed  ");

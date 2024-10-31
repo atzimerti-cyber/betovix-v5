@@ -8,7 +8,7 @@ import classes from "./PaymentForm.module.css";
 import { translate } from "../../../utils/translations";
 import config from "../../../config";
 
-import { submitPaymentForm } from "../cryptoAsyncActions";
+import { getDepositAddress, submitPaymentForm } from "../cryptoAsyncActions";
 import Dropdown4 from "../../../features/UI/Dropdown/Dropdown4";
 
 const PaymentForm = (props) => {
@@ -188,7 +188,7 @@ const PaymentForm = (props) => {
             }
             disabled={disabledButton}
           >
-            Submit
+            {props.type === "Crypto" ? "Get Deposit Address" : "Submit"}
           </button>
         </form>
       )}

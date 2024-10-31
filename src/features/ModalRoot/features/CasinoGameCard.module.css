@@ -52,8 +52,60 @@
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.Producer {
+.Provider {
   color: var(--db-body-subheading);
+}
+
+.isBonus {
+  width: 100%;
+}
+
+@keyframes jQMcyq {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+
+  10%,
+  90% {
+    opacity: 1;
+  }
+
+  40%,
+  60% {
+    box-shadow: rgba(24, 95, 126, 0.3) 0px 0.25em 1em,
+      rgba(24, 95, 126, 0.8) 0px 0px 0.5em;
+  }
+}
+
+.isBonus button {
+  color: var(--db-body-text);
+  border: 1px solid var(--db-gray-4);
+  animation: 6s ease 0s infinite normal none running jQMcyq;
+  width: 100%;
+  font-weight: 500;
+  font-size: 11px;
+  margin-top: 5px;
+  border-radius: 5px;
+  padding: 3px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: normal;
+  padding: 4px 10px;
+}
+.isBonus button:hover {
+  background-color: #2b5d73;
+}
+.isBonus button svg {
+  height: 16px;
+  width: 16px;
+}
+
+@media (max-width: 500px) {
+  .isBonus button svg {
+    display: none;
+  }
 }
 
 @media (min-width: 360px) {

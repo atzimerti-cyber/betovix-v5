@@ -22,8 +22,7 @@
   max-width: 70px !important;
 }
 .License img {
-  filter: grayscale(60%) sepia(50%) hue-rotate(186deg) saturate(103%);
-  /* height: 70px !important; */
+  filter: grayscale(125%) sepia(90%) hue-rotate(171deg) saturate(126%);
   width: 70px !important;
 }
 .License img:hover {
@@ -189,7 +188,7 @@
   }
 }
 @media (max-width: 415px) {
-    .LinksContainer {
-      grid-template-columns: repeat(1, minmax(0, 1fr));
-    }
+  .LinksContainer {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
+}

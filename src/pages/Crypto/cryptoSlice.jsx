@@ -34,6 +34,14 @@ export const cryptoSlice = createSlice({
       state.selectedNetwork = null;
       state.depositAddress = "";
     },
+    resetPayments: (state) => {
+      state.DepositPaymentTypes = null;
+      state.selectedPaymentTypeDeposit = null;
+      state.selectedPaymentMethodDeposit = null;
+      state.WithdrawPaymentTypes = null;
+      state.selectedPaymentTypeWithdraw = null;
+      state.selectedPaymentMethodWithdraw = null;
+    },
     setCrypto: (state, action) => {
       state.crypto = action.payload;
     },
