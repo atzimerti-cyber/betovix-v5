@@ -116,7 +116,7 @@ export const getDepositAddress = (signal, provider, network) => {
   };
 };
 
-export const submitPaymentForm = (signal, depositDTO) => {
+export const submitDepositForm = (signal, depositDTO) => {
   return async (dispatch, getState) => {
     try {
       const response = await axiosApi.post(
@@ -137,6 +137,36 @@ export const submitPaymentForm = (signal, depositDTO) => {
           cryptoActions.setDepositAddress(response.data.Contents.WalletAddress)
         );
       }
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
+        throw Error("Failed  ");
+    } catch (error) {
+      const message = error?.message ? error.message : error;
+      if (!error?.code === "ERR_CANCELED") toast.error(message);
+    }
+  };
+};
+export const submitWithdrawForm = (signal, withrawDTO) => {
+  return async (dispatch, getState) => {
+    try {
+      const response = await axiosApi.post(
+        `/Payments/WithdrawRequest`,
+
+        withrawDTO,
+
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_STORETUBE,
+        }
+      );
+
+      // if (withrawDTO.PaymentProvider === "Interkassa") {
+      //   window.open(response.data.Contents);
+      // } else if (depositDTO.PaymentProvider === "CoinPayments") {
+      //   dispatch(
+      //     cryptoActions.setDepositAddress(response.data.Contents.WalletAddress)
+      //   );
+      // }
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
         throw Error("Failed  ");

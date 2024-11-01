@@ -1,0 +1,85 @@
+.PaymentForm {
+    padding: 0.5rem;
+    width: 100%;
+  }
+  
+  .Labels {
+    display: flex;
+    font-weight: 500;
+    color: rgb(149, 179, 189);
+    font-size: 0.85rem;
+    column-gap: 0.3rem;
+  }
+  
+  .InputsForm {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+  }
+  
+  .Select {
+    background: #123751;
+    width: 90%;
+    padding: 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    color: rgb(255, 255, 255);
+  }
+  .SelectOptions {
+    height: 4rem;
+  }
+  
+  .SmallInput {
+    background: #123751;
+    width: 45%;
+    padding: 0.45rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    color: rgb(255, 255, 255);
+  }
+  .SmallInput::placeholder {
+    color: rgba(173, 216, 230, 0.459);
+  }
+  .SmallInput:focus-within {
+    background: #0b1927;
+    border: 1px solid lightblue;
+  }
+  
+  .Input {
+    background: #123751;
+    width: 90%;
+    padding: 0.45rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    color: rgb(255, 255, 255);
+  }
+  .Input::placeholder {
+    color: rgba(173, 216, 230, 0.459);
+  }
+  .Input.ReadOnly {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  .Input:focus-within {
+    background: #0b1927;
+    border: 1px solid rgba(173, 216, 230, 0.485);
+  }
+  .SubmitButton {
+    margin-top: 0.7rem;
+    padding: 0.3rem 0.7rem;
+    background-color: var(--db-brand-green);
+    color: white;
+    font-weight: 500;
+    border-radius: 6px;
+  }
+  .SubmitButton.Disabled {
+    pointer-events: none;
+    color: white;
+    height: 2rem;
+    background-color: rgba(91, 91, 91, 0.645);
+    opacity: 0.5;
+  }
+  

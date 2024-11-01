@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 
 import DsButton from "../../../features/UI/Buttons/DsButton";
 import classes from "./FinalStageWithdraw.module.css";
-import PaymentForm from "./PaymentForm";
+import WithdrawPaymentForm from "./WithdrawPaymentForm";
 import AngleLeft2Icon from "../../../assets/svgs/angle-left2.svg?react";
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 import { translate } from "../../../utils/translations";
@@ -49,7 +49,10 @@ const FinalStageWithdraw = () => {
       </div>
       {paymentType && paymentMethod && (
         <div className={classes.PaymentFormContainer}>
-          <PaymentForm method={paymentMethod} provider={paymentType.Provider} />
+          <WithdrawPaymentForm
+            method={paymentMethod}
+            provider={paymentType.Provider}
+          />
         </div>
       )}
     </>

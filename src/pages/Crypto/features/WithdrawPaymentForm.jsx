@@ -3,15 +3,14 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useDebounce from "../../../hooks/useDebounce";
 
-import classes from "./PaymentForm.module.css";
+import classes from "./WithdrawPaymentForm.module.css";
 
 import { translate } from "../../../utils/translations";
 import config from "../../../config";
 
-import { submitDepositForm } from "../cryptoAsyncActions";
-import Dropdown4 from "../../../features/UI/Dropdown/Dropdown4";
+import { submitWithdrawForm } from "../cryptoAsyncActions";
 
-const PaymentForm = (props) => {
+const WithdrawPaymentForm = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -69,7 +68,7 @@ const PaymentForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const depositDTO = {
+    const withdrawDTO = {
       Currency:
         debouncedFormData.Currency ||
         (debouncedFormData.Network &&
@@ -92,17 +91,17 @@ const PaymentForm = (props) => {
       CustomerPostCode: debouncedFormData.PostCode,
     };
     console.log(debouncedFormData);
-    console.log(depositDTO);
+    console.log(withdrawDTO);
 
     const controller = new AbortController();
     const signal = controller.signal;
 
-    dispatch(submitDepositForm(signal, depositDTO));
+    dispatch(submitWithdrawForm(signal, withdrawDTO));
   };
 
   const renderInputField = (field) => {
-    const { Name, Type, ListValues, Deposit } = field;
-    if (Deposit === false) return;
+    const { Name, Type, ListValues, Withdraw } = field;
+    if (Withdraw === false) return;
 
     if (Type === "decimal") {
       return (
@@ -189,7 +188,7 @@ const PaymentForm = (props) => {
             }
             disabled={disabledButton}
           >
-            {props.type === "Crypto" ? "Get Deposit Address" : "Submit"}
+            Make Withraw Request
           </button>
         </form>
       )}
@@ -197,4 +196,4 @@ const PaymentForm = (props) => {
   );
 };
 
-export default PaymentForm;
+export default WithdrawPaymentForm;
