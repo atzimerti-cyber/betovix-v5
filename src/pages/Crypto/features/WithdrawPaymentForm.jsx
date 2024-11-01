@@ -22,6 +22,17 @@ const WithdrawPaymentForm = (props) => {
 
   const debouncedFormData = useDebounce(formData, 300);
 
+  //   useEffect(() => {
+  //     const allFieldsFilled = Object.values(debouncedFormData).every(
+  //       (value) => value !== "" && value !== undefined
+  //     );
+
+  //     const validAmount =
+  //       debouncedFormData.Amount == null || debouncedFormData.Amount > 0;
+
+  //     setDisabledButton(!(allFieldsFilled && validAmount));
+  //   }, [debouncedFormData]);
+
   useEffect(() => {
     const allFieldsFilled = Object.values(debouncedFormData).every(
       (value) => value !== "" && value !== undefined
@@ -30,21 +41,26 @@ const WithdrawPaymentForm = (props) => {
     const validAmount =
       debouncedFormData.Amount == null || debouncedFormData.Amount > 0;
 
-    if (allFieldsFilled === true && validAmount === true) {
-      setDisabledButton(false);
-    } else {
-      setDisabledButton(true);
-    }
-  }, [debouncedFormData]);
+    const allFieldsValid = props.method.Fields.every((field) => {
+      if (!field.Regex || !debouncedFormData[field.Name]) return true; // Skip if no regex or field is empty
+      const regex = eval(field.Regex);
+      return regex.test(debouncedFormData[field.Name]);
+    });
+
+    setDisabledButton(!(allFieldsFilled && validAmount && allFieldsValid));
+  }, [debouncedFormData, props.method.Fields]);
 
   useEffect(() => {
     if (props.method && props.method.Fields) {
       const initialData = props.method.Fields.reduce((f, field) => {
-        const value = (field.DefaultValue !== "-" && field.DefaultValue) || "";
-        try {
-          f[field.Name] = JSON.parse(value);
-        } catch (e) {
-          f[field.Name] = value;
+        if (field.Withdraw !== false) {
+          const value =
+            (field.DefaultValue !== "-" && field.DefaultValue) || "";
+          try {
+            f[field.Name] = JSON.parse(value);
+          } catch (e) {
+            f[field.Name] = value;
+          }
         }
         return f;
       }, {});
@@ -100,85 +116,80 @@ const WithdrawPaymentForm = (props) => {
   };
 
   const renderInputField = (field) => {
-    const { Name, Type, ListValues, Withdraw } = field;
-    if (Withdraw === false) return;
+    const { Name, Type, ListValues, Withdraw, Visible } = field;
+    if (!Withdraw || !Visible) return null;
 
-    if (Type === "decimal") {
-      return (
-        <input
-          className={classes.SmallInput}
-          type="number"
-          step="0.1"
-          min="0.1"
-          name={Name}
-          value={formData[Name] || ""}
-          onChange={handleChange}
-          onKeyDown={(e) => e.key === "-" && e.preventDefault()}
-          placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
-        />
-      );
-    } else if (Type === "string" && ListValues.length === 0) {
-      return (
-        <input
-          className={
-            Name === "PaymentType" || Name === "PaymentMethod"
-              ? [classes.Input, classes.ReadOnly].join(" ")
-              : classes.Input
-          }
-          type="text"
-          name={Name}
-          value={formData[Name] || ""}
-          onChange={handleChange}
-          placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
-          readOnly={
-            (Name === "PaymentType" || Name === "PaymentMethod") && true
-          }
-        />
-      );
-    } else if (
-      (Type === "string" || Type === "list") &&
-      ListValues.length > 0
-    ) {
-      return (
-        <select
-          name={Name}
-          id={Name}
-          className={classes.Select}
-          onChange={handleChange}
-          value={formData[Name]}
-        >
-          {ListValues.map((item, index) => {
-            const key = Object.keys(item)[0];
-            return (
-              <option className={classes.SelectOptions} key={index} value={key}>
-                {key}
-              </option>
-            );
-          })}
-        </select>
-      );
-    }
+    return (
+      <div key={Name} style={{ marginBottom: "10px", width: "50%" }}>
+        <label className={classes.Labels}>
+          {translate(Name.replace(/([a-z])([A-Z])/g, "$1 $2"))}
+          {Name !== "PaymentType" && Name !== "PaymentMethod" && (
+            <p style={{ color: "var(--db-brand-green)" }}>*</p>
+          )}
+        </label>
+
+        {Type === "decimal" ? (
+          <input
+            className={classes.SmallInput}
+            type="number"
+            step="0.1"
+            min="0.1"
+            name={Name}
+            value={formData[Name] || ""}
+            onChange={handleChange}
+            onKeyDown={(e) => e.key === "-" && e.preventDefault()}
+            placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+          />
+        ) : Type === "string" && ListValues.length === 0 ? (
+          <input
+            className={
+              Name === "PaymentType" || Name === "PaymentMethod"
+                ? [classes.Input, classes.ReadOnly].join(" ")
+                : classes.Input
+            }
+            type="text"
+            name={Name}
+            value={formData[Name] || ""}
+            onChange={handleChange}
+            placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+            readOnly={
+              (Name === "PaymentType" || Name === "PaymentMethod") && true
+            }
+          />
+        ) : (
+          (Type === "string" || Type === "list") &&
+          ListValues.length > 0 && (
+            <select
+              name={Name}
+              id={Name}
+              className={classes.Select}
+              onChange={handleChange}
+              value={formData[Name]}
+            >
+              {ListValues.map((item, index) => {
+                const key = Object.keys(item)[0];
+                return (
+                  <option
+                    className={classes.SelectOptions}
+                    key={index}
+                    value={key}
+                  >
+                    {key}
+                  </option>
+                );
+              })}
+            </select>
+          )
+        )}
+      </div>
+    );
   };
 
   return (
     <div className={classes.PaymentForm}>
       {props.method && props.method.Fields && (
         <form onSubmit={handleSubmit} className={classes.InputsForm}>
-          {props.method.Fields.map(
-            (field, index) =>
-              field.Visible && (
-                <div key={index} style={{ marginBottom: "10px", width: "50%" }}>
-                  <label className={classes.Labels}>
-                    {translate(field.Name.replace(/([a-z])([A-Z])/g, "$1 $2"))}
-                    {field.Name !== "PaymentType" &&
-                      field.Name !== "PaymentMethod" && (
-                        <p style={{ color: "var(--db-brand-green)" }}>*</p>
-                      )}
-                  </label>
-                  {renderInputField(field)}
-                </div>
-              )
-          )}
+          {props.method.Fields.map((field) => renderInputField(field))}
           <button
             type="submit"
             className={
@@ -188,8 +199,21 @@ const WithdrawPaymentForm = (props) => {
             }
             disabled={disabledButton}
           >
-            Make Withraw Request
+            Make Withdraw Request
           </button>
+          <div className={classes.Text}>
+            <span
+              style={{
+                display: "flex",
+                columnGap: " 0.3rem",
+                color: " white",
+                fontSize: "0.7rem",
+              }}
+            >
+              <p style={{ color: "var(--db-brand-green)" }}>*</p>
+              {translate("Required Fields")}
+            </span>
+          </div>
         </form>
       )}
     </div>

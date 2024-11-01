@@ -7,6 +7,7 @@ import WithdrawPaymentForm from "./WithdrawPaymentForm";
 import AngleLeft2Icon from "../../../assets/svgs/angle-left2.svg?react";
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 import { translate } from "../../../utils/translations";
+import { cryptoActions } from "../cryptoSlice";
 
 const FinalStageWithdraw = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,9 @@ const FinalStageWithdraw = () => {
   const paymentMethod = useSelector(
     (state) => state.crypto.selectedPaymentMethodWithdraw
   );
+  const withdrawRequestState = useSelector(
+    (state) => state.crypto.withdrawRequestMessage
+  );
 
   const navigateToWithdraw = () => {
     const searchParams = new URLSearchParams(location.search);
@@ -30,6 +34,8 @@ const FinalStageWithdraw = () => {
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
     });
+    dispatch(cryptoActions.setSelectedPaymentMethodWithdraw(null));
+    dispatch(cryptoActions.setWithdrawRequestMessage(null));
   };
 
   return (
@@ -47,14 +53,19 @@ const FinalStageWithdraw = () => {
           <span>1.00</span>
         </div>
       </div>
-      {paymentType && paymentMethod && (
-        <div className={classes.PaymentFormContainer}>
-          <WithdrawPaymentForm
-            method={paymentMethod}
-            provider={paymentType.Provider}
-          />
-        </div>
-      )}
+      {withdrawRequestState !== true && withdrawRequestState !== false
+        ? paymentType &&
+          paymentMethod && (
+            <div className={classes.PaymentFormContainer}>
+              <WithdrawPaymentForm
+                method={paymentMethod}
+                provider={paymentType.Provider}
+              />
+            </div>
+          )
+        : withdrawRequestState === true
+        ? "withdraw request was successfull"
+        : "withdraw request failed. Please try again."}
     </>
   );
 };

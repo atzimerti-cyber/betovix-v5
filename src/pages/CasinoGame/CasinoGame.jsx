@@ -236,6 +236,16 @@ const CasinoGame = (props) => {
     }
   };
 
+  const handleBack = () => {
+    const historyLength = window.history.length;
+
+    if (historyLength > 1) {
+      navigate(-1);
+    } else {
+      navigate("/casino/lobby");
+    }
+  };
+
   return (
     <>
       <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
@@ -244,7 +254,7 @@ const CasinoGame = (props) => {
           <div className={classes.CasinoGame}>
             <div className={classes.Header}>
               <div className={classes.LeftSection}>
-                <MainButton color="transparent" onClick={() => navigate(-1)}>
+                <MainButton color="transparent" onClick={() => handleBack()}>
                   <Arrow2LeftIcon />
                   <span>{translate("Back")}</span>
                 </MainButton>
@@ -305,7 +315,7 @@ const CasinoGame = (props) => {
                   {!user && (
                     <>
                       <div className={classes.OverlayTitle}>
-                        {translate(`Login to play.`)}
+                        {translate(`Please Login or Register to Play.`)}
                       </div>
                       <div className={classes.OverlayButtons}>
                         <MainButton

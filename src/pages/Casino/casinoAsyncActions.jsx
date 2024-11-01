@@ -37,8 +37,12 @@ export const getCasino = (signal) => {
           throw Error();
       });
 
+      const sortedVendors = responses[1].data.Contents.sort(
+        (a, b) => a.ViewOrder - b.ViewOrder
+      );
+
       dispatch(casinoActions.setCasinoBanners(responses[0].data.Contents));
-      dispatch(casinoActions.setCasinoVendors(responses[1].data.Contents));
+      dispatch(casinoActions.setCasinoVendors(sortedVendors));
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (error?.code === "ERR_CANCELED") {

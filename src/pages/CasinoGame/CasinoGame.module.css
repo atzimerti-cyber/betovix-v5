@@ -16,7 +16,8 @@
 .CasinoGameWrapper {
   width: 100%;
   position: relative;
-  max-width: 1050px;
+  /* max-width: 1050px; */
+  max-width: 95vw;
   padding: 22px 20px 40px;
 }
 
@@ -41,12 +42,15 @@
   margin-bottom: 2px;
   background: var(--db-gray-3);
   position: relative;
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
 }
 
 .Placeholder {
   position: relative;
   /* height: calc(-250px + 100vh); */
-  height: 65vh;
+  /* height: 65vh; */
+  height: 75vh;
   /* height: 100%; */
 }
 .Placeholder::before {
@@ -66,6 +70,8 @@
   justify-content: space-between;
   background-color: rgb(33, 50, 65);
   padding: 0px 20px;
+  border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 
 .GameOverlay {

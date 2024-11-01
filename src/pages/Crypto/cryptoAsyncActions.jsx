@@ -160,16 +160,11 @@ export const submitWithdrawForm = (signal, withrawDTO) => {
         }
       );
 
-      // if (withrawDTO.PaymentProvider === "Interkassa") {
-      //   window.open(response.data.Contents);
-      // } else if (depositDTO.PaymentProvider === "CoinPayments") {
-      //   dispatch(
-      //     cryptoActions.setDepositAddress(response.data.Contents.WalletAddress)
-      //   );
-      // }
-
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
-        throw Error("Failed  ");
+        throw Error("Failed");
+
+      dispatch(cryptoActions.setWithdrawRequestMessage(false));
+      // dispatch(cryptoActions.setWithdrawRequestMessage(response.data.Contents));
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(message);

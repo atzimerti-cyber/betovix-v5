@@ -495,6 +495,10 @@ the event if you breach the Restricted use policy stated in Clauses 3.3 and 4.
 `)}
               <br />
               <br />
+              {translate(`8.8. In line with our AML policy, every player is required to wager their deposit amount at least one (1) time before being able to withdraw.
+`)}
+              <br />
+              <br />
             </div>
 
             <div className={classes.ParagraphTitle}>

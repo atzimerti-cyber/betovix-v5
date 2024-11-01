@@ -12,11 +12,18 @@
 }
 
 .InputsForm {
-  display: flex;
+  /* display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
   justify-content: flex-start;
+  align-content: center; */
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-content: center;
 }
 

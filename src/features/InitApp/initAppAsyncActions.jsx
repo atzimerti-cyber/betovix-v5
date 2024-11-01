@@ -304,44 +304,57 @@ export const loadInitData = (isMobile) => {
 
         const currentState = getState().app;
         const casinoIcons = currentState.casinoIcons;
-        const casinoWalletMenu = responsesCasino[1].data.Contents.Categs.map(
-          (item) => {
-            if (item.Items.length > 0) {
-              return {
-                category: {
-                  id: item.Categ.Id,
-                  label: `${item.Categ.Name}`,
-                  visible: false,
-                },
-                items: item.Items.map((subItem) => {
-                  const icon = casinoIcons[subItem.Name] || <NoImageIcon />;
-                  const slug = subItem.Name?.toLowerCase().replace(/ /g, "-");
-                  return {
-                    id: subItem.Id,
-                    label: subItem.Name,
-                    icon: icon,
-                    // page: `casino/${slug}`,
-                    page: `casino/${subItem.BadgeType}`,
-                  };
-                }),
-              };
-            } else {
-              const icon = casinoIcons[item.Categ.Name] || <NoImageIcon />;
-              const slug = item.Categ.Icon?.toLowerCase().replace(/ /g, "-");
-              return {
-                items: [
-                  {
-                    id: item.Categ.Id,
-                    label: item.Categ.Name,
-                    icon: icon,
-                    page: `casino/menu?tag=${item.Categ.BadgeType}`,
-                    // page: `casino/${slug}`,
-                  },
-                ],
-              };
-            }
-          }
-        );
+        // const casinoWalletMenu = responsesCasino[1].data.Contents.Categs.map(
+        //   (item) => {
+        //     if (item.Items.length > 0) {
+        //       return {
+        //         category: {
+        //           id: item.Categ.Id,
+        //           label: `${item.Categ.Name}`,
+        //           visible: false,
+        //         },
+        //         items: item.Items.map((subItem) => {
+        //           const icon = casinoIcons[subItem.Name] || <NoImageIcon />;
+        //           const slug = subItem.Name?.toLowerCase().replace(/ /g, "-");
+        //           return {
+        //             id: subItem.Id,
+        //             label: subItem.Name,
+        //             icon: icon,
+        //             // page: `casino/${slug}`,
+        //             page: `casino/${subItem.BadgeType}`,
+        //           };
+        //         }),
+        //       };
+        //     } else {
+        //       const icon = casinoIcons[item.Categ.Name] || <NoImageIcon />;
+        //       const slug = item.Categ.Icon?.toLowerCase().replace(/ /g, "-");
+        //       return {
+        //         items: [
+        //           {
+        //             id: item.Categ.Id,
+        //             label: item.Categ.Name,
+        //             icon: icon,
+        //             page: `casino/menu?tag=${item.Categ.BadgeType}`,
+        //             // page: `casino/${slug}`,
+        //           },
+        //         ],
+        //       };
+        //     }
+        //   }
+        // );
+
+        let casinoWalletMenu = {
+          category: { id: 2, label: "Casino Categories", visible: true },
+          items: [],
+        };
+        responsesCasino[1].data.Contents.Categs.forEach((category) => {
+          casinoWalletMenu.items.push({
+            id: category.Categ.Id,
+            label: category.Categ.Name,
+            icon: casinoIcons[category.Categ.Name] || <NoImageIcon />,
+            page: `casino/menu?tag=${category.Categ.BadgeType}`,
+          });
+        });
 
         //console.log('casinoWalletMenu', casinoWalletMenu);
 
@@ -375,7 +388,8 @@ export const loadInitData = (isMobile) => {
           ],
         });
 
-        casinoMenuItems.push(...casinoWalletMenu);
+        casinoMenuItems.push(casinoWalletMenu);
+        // casinoMenuItems.push(...casinoWalletMenu);
 
         dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
       }
