@@ -283,14 +283,14 @@
   z-index: 2; /* Ensure the image or content inside is above the overlay */
 }
 
-@keyframes rotateY {
+/* @keyframes rotateY {
   from {
     transform: rotateY(0deg);
   }
   to {
     transform: rotateY(360deg);
   }
-}
+} */
 
 .SmallImageContainer {
   height: 190px;
@@ -302,7 +302,7 @@
   position: relative;
   overflow: hidden;
   display: flex;
-  animation: rotateY 8s infinite ease-in-out;
+  /* animation: rotateY 8s infinite ease-in-out; */
   transform-style: preserve-3d;
 }
 
