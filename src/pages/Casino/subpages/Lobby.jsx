@@ -58,13 +58,14 @@ const Lobby = () => {
   useEffect(() => {
     if (!casinoVendors) return;
 
-    const po = casinoVendors
-      .map((v) => {
-        return v;
-      })
-      .sort((a, b) => a.Data.Name.localeCompare(b.Data.Name));
+    // const po = casinoVendors
+    //   .map((v) => {
+    //     return v;
+    //   })
+    //   .sort((a, b) => a.Data.Name.localeCompare(b.Data.Name));
 
-    setAllProviders(po);
+    // setAllProviders(po);
+    setAllProviders(casinoVendors);
   }, [casinoVendors]);
 
   useEffect(() => {
