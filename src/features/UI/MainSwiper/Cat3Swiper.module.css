@@ -233,7 +233,7 @@
   position: relative;
   display: flex;
   height: max-content;
-  background-size: cover;
+  /* background-size: cover; */
   background-position: center;
   overflow: hidden;
   align-items: center;
