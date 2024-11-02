@@ -105,7 +105,9 @@ const PaymentForm = (props) => {
       CustomerEmail: debouncedFormData.Email,
       CustomerCountry: debouncedFormData.Country,
       CustomerCity: debouncedFormData.City,
-      CustomerAddress: debouncedFormData.Address,
+      CustomerAddress: debouncedFormData.WalletAddress
+        ? debouncedFormData.WalletAddress
+        : debouncedFormData.Address,
       CustomerPostCode: debouncedFormData.PostCode,
     };
     console.log(debouncedFormData);
@@ -133,9 +135,9 @@ const PaymentForm = (props) => {
     if (Type === "decimal") {
       return (
         <div key={Name} style={{ marginBottom: "10px", width: "50%" }}>
-          {label}
+          {label}{" "}
           <input
-            className={classes.SmallInput}
+            className={classes.Input}
             type="number"
             step="0.1"
             min="0.1"
@@ -205,17 +207,6 @@ const PaymentForm = (props) => {
       {props.method && props.method.Fields && (
         <form onSubmit={handleSubmit} className={classes.InputsForm}>
           {props.method.Fields.map((field) => renderInputField(field))}
-          <button
-            type="submit"
-            className={
-              disabledButton
-                ? [classes.SubmitButton, classes.Disabled].join(" ")
-                : classes.SubmitButton
-            }
-            disabled={disabledButton}
-          >
-            {props.type === "Crypto" ? "Get Deposit Address" : "Submit"}
-          </button>
           <div className={classes.Text}>
             <span
               style={{
@@ -229,6 +220,17 @@ const PaymentForm = (props) => {
               {translate("Required Fields")}
             </span>
           </div>
+          <button
+            type="submit"
+            className={
+              disabledButton
+                ? [classes.SubmitButton, classes.Disabled].join(" ")
+                : classes.SubmitButton
+            }
+            disabled={disabledButton}
+          >
+            {props.type === "Crypto" ? "Get Deposit Address" : "Submit"}
+          </button>
         </form>
       )}
     </div>

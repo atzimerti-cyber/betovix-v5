@@ -163,8 +163,7 @@ export const submitWithdrawForm = (signal, withrawDTO) => {
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
         throw Error("Failed");
 
-      dispatch(cryptoActions.setWithdrawRequestMessage(false));
-      // dispatch(cryptoActions.setWithdrawRequestMessage(response.data.Contents));
+      dispatch(cryptoActions.setWithdrawRequestMessage(response.data.Contents));
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(message);

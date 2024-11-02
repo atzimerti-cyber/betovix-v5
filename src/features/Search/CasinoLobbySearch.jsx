@@ -80,7 +80,7 @@ const CasinoLobbySearch = (props) => {
             className={classes.SearchInput}
             name="search"
             autoComplete="off"
-            placeholder={translate("Search in Casino")}
+            placeholder={translate("Search your game")}
             value={value}
             onChange={(e) => handleInputChange(e.target.value)}
           />

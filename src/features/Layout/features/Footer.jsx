@@ -40,16 +40,19 @@ const Footer = () => {
             style={{ cursor: "pointer" }}
             onClick={() => navigate("/sportsbook/home/")}
           >
-            {translate("Sports")}
+            {translate("Sportsbook")}
           </a>
           <a
             style={{ cursor: "pointer" }}
             onClick={() => navigate("/sportsbook/live/football")}
           >
-            {translate("Live Events")}
+            {translate("Live Sports")}
           </a>
           <a style={{ cursor: "pointer" }} onClick={() => navigate()}>
             {translate("Betting Rules")}
+          </a>
+          <a style={{ cursor: "pointer" }} onClick={() => navigate()}>
+            {translate("Bet Bonuses")}
           </a>
         </div>
         <div className={classes.LinksLayout}>
@@ -98,12 +101,6 @@ const Footer = () => {
           </a>
           <a onClick={() => navigate("/rpg")} style={{ cursor: "pointer" }}>
             {translate("Responsible Gaming Policy")}
-          </a>
-          <a
-            // onClick={() => navigate("/privacy-policy")}
-            style={{ cursor: "pointer" }}
-          >
-            {translate("Sportsbook Rules")}
           </a>
         </div>
 

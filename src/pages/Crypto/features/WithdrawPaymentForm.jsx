@@ -9,6 +9,7 @@ import { translate } from "../../../utils/translations";
 import config from "../../../config";
 
 import { submitWithdrawForm } from "../cryptoAsyncActions";
+import CreditCard from "../../../assets/svgs/credit-card.svg?react";
 
 const WithdrawPaymentForm = (props) => {
   const dispatch = useDispatch();
@@ -43,7 +44,7 @@ const WithdrawPaymentForm = (props) => {
 
     const allFieldsValid = props.method.Fields.every((field) => {
       if (!field.Regex || !debouncedFormData[field.Name]) return true; // Skip if no regex or field is empty
-      const regex = eval(field.Regex);
+      const regex = new RegExp(field.Regex);
       return regex.test(debouncedFormData[field.Name]);
     });
 
@@ -68,17 +69,37 @@ const WithdrawPaymentForm = (props) => {
     }
   }, [props.method]);
 
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target;
+
+  //   setFormData((prevData) => ({
+  //     ...prevData,
+  //     [name]:
+  //       name === "Amount"
+  //         ? parseFloat(value) || undefined
+  //         : value === ""
+  //         ? undefined
+  //         : value,
+  //   }));
+  // };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let updatedValue = value;
+
+    // Format CardNumber input
+    if (name === "CardNumber") {
+      updatedValue = formatCardNumber(value);
+    }
 
     setFormData((prevData) => ({
       ...prevData,
       [name]:
         name === "Amount"
-          ? parseFloat(value) || undefined
-          : value === ""
+          ? parseFloat(updatedValue) || undefined
+          : updatedValue === ""
           ? undefined
-          : value,
+          : updatedValue,
     }));
   };
 
@@ -103,7 +124,9 @@ const WithdrawPaymentForm = (props) => {
       CustomerEmail: debouncedFormData.Email,
       CustomerCountry: debouncedFormData.Country,
       CustomerCity: debouncedFormData.City,
-      CustomerAddress: debouncedFormData.Address,
+      CustomerAddress: debouncedFormData.WalletAddress
+        ? debouncedFormData.WalletAddress
+        : debouncedFormData.Address,
       CustomerPostCode: debouncedFormData.PostCode,
     };
     console.log(debouncedFormData);
@@ -137,18 +160,55 @@ const WithdrawPaymentForm = (props) => {
         />
       );
     } else if (Type === "string") {
-      const isReadOnly = Name === "PaymentType" || Name === "PaymentMethod";
-      inputElement = (
-        <input
-          className={`${classes.Input} ${isReadOnly ? classes.ReadOnly : ""}`}
-          type="text"
-          name={Name}
-          value={formData[Name] || ""}
-          onChange={handleChange}
-          placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
-          readOnly={isReadOnly}
-        />
-      );
+      const isReadOnly = false;
+      // const isReadOnly = Name === "PaymentType" || Name === "PaymentMethod";
+      const CardNumber = Name === "CardNumber";
+      if (Name === "CardNumber") {
+        inputElement = (
+          <div className={classes.InputWrapper}>
+            <CreditCard className={classes.SvgIcon} />
+            <input
+              className={classes.BigInput}
+              type="text"
+              name={Name}
+              value={formData[Name] || ""}
+              onChange={handleChange}
+              placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+              readOnly={isReadOnly}
+            />
+
+            {Name === "CardNumber" && (
+              <p
+                style={{
+                  marginTop: "3px",
+                  marginLeft: "1px",
+                  display: "flex",
+                  columnGap: " 0.3rem",
+                  color: "lightblue",
+                  fontSize: "0.75rem",
+                  alignSelf: "flex-start",
+                }}
+              >
+                {translate(
+                  `Please note: Your credit card information will NOT be stored or retained for future use.`
+                )}
+              </p>
+            )}
+          </div>
+        );
+      } else {
+        inputElement = (
+          <input
+            className={`${classes.Input}`}
+            type="text"
+            name={Name}
+            value={formData[Name] || ""}
+            onChange={handleChange}
+            placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+            readOnly={isReadOnly}
+          />
+        );
+      }
     } else if (Type === "list" && ListValues.length > 0) {
       inputElement = (
         <select
@@ -173,7 +233,13 @@ const WithdrawPaymentForm = (props) => {
     }
 
     return (
-      <div key={Name} style={{ marginBottom: "10px", width: "50%" }}>
+      <div
+        key={Name}
+        style={{
+          marginBottom: "10px",
+          width: Name === "CardNumber" || Name === "Amount" ? "100%" : "50%",
+        }}
+      >
         <label className={classes.Labels}>
           {translate(Name.replace(/([a-z])([A-Z])/g, "$1 $2"))}
           {Name !== "PaymentType" && Name !== "PaymentMethod" && (
@@ -185,22 +251,18 @@ const WithdrawPaymentForm = (props) => {
     );
   };
 
+  function formatCardNumber(value) {
+    return value
+      .replace(/\D/g, "") // Remove any non-digit characters
+      .replace(/(.{4})/g, "$1 ") // Add space every 4 digits
+      .trim(); // Remove any trailing spaces
+  }
+
   return (
     <div className={classes.PaymentForm}>
       {props.method && props.method.Fields && (
         <form onSubmit={handleSubmit} className={classes.InputsForm}>
           {props.method.Fields.map((field) => renderInputField(field))}
-          <button
-            type="submit"
-            className={
-              disabledButton
-                ? [classes.SubmitButton, classes.Disabled].join(" ")
-                : classes.SubmitButton
-            }
-            disabled={disabledButton}
-          >
-            Make Withdraw Request
-          </button>
           <div className={classes.Text}>
             <span
               style={{
@@ -214,6 +276,17 @@ const WithdrawPaymentForm = (props) => {
               {translate("Required Fields")}
             </span>
           </div>
+          <button
+            type="submit"
+            className={
+              disabledButton
+                ? [classes.SubmitButton, classes.Disabled].join(" ")
+                : classes.SubmitButton
+            }
+            disabled={disabledButton}
+          >
+            Make Withdraw Request
+          </button>
         </form>
       )}
     </div>

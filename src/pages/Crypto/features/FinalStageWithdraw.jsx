@@ -14,6 +14,7 @@ const FinalStageWithdraw = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const user = useSelector((state) => state.login.user);
   const paymentType = useSelector(
     (state) => state.crypto.selectedPaymentTypeWithdraw
   );
@@ -47,10 +48,37 @@ const FinalStageWithdraw = () => {
             <span>{translate("Return to Withdraw Methods")}</span>
           </DsButton>
         </div>
-        <div className={classes.ReturnEquivalent}>
-          <span>$1.00 =&nbsp;</span>
-          <CoinsIcon />
-          <span>1.00</span>
+
+        <div className={classes.BalanceContainer}>
+          <div style={{ color: "white", fontWeight: "600" }}>
+            <CoinsIcon />
+            {user ? user.Wallet.Balance : 0}
+          </div>
+          <h4>{translate("Your Balance")}</h4>
+        </div>
+        <div className={classes.BalanceInfo}>
+          <span style={{ textAlign: "start" }}>
+            {translate(`Reserved Balance = €${user.Wallet.ReservedBalance}`)}
+          </span>
+          <span style={{ textAlign: "start" }}>
+            {translate(
+              `Available to Withdraw = €${
+                user.Wallet.Balance - user.Wallet.ReservedBalance
+              }`
+            )}
+          </span>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "flex-end",
+              alignItems: "center",
+            }}
+          >
+            <CoinsIcon height="10px" />
+            <span>1.00 =&nbsp;</span>
+            <span>&#8364;1.00</span>
+          </div>
         </div>
       </div>
       {withdrawRequestState !== true && withdrawRequestState !== false
