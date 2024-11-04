@@ -63,11 +63,11 @@ const DepositMethods = () => {
             <span>{translate("Return to Deposit menu")}</span>
           </DsButton>
         </div>
-        <div className={classes.ReturnEquivalent}>
+        {/* <div className={classes.ReturnEquivalent}>
           <span>$1.00 =&nbsp;</span>
           <CoinsIcon />
           <span>1.00</span>
-        </div>
+        </div> */}
       </div>
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>

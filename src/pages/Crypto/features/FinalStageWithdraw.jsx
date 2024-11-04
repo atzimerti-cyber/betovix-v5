@@ -82,9 +82,19 @@ const FinalStageWithdraw = () => {
             </div>
           </div>
           <div className={classes.BalanceInfo}>
-            <span style={{ textAlign: "start" }}>
-              {translate(`Reserved Balance = ${user.Wallet.ReservedBalance}€`)}
-            </span>
+            <div
+              style={{
+                textAlign: "start",
+                display: "flex",
+                alignItems: "center",
+                columnGap: "0.1rem",
+              }}
+            >
+              <span>{translate(`Reserved Balance = `)}</span>
+              <CoinsIcon height="11px" />
+              <span>{user.Wallet.ReservedBalance}</span>
+            </div>
+
             {/* <span style={{ textAlign: "start" }}>
               {translate(
                 `Available to Withdraw = €${

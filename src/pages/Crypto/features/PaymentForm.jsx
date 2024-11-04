@@ -11,6 +11,8 @@ import config from "../../../config";
 import { submitDepositForm } from "../cryptoAsyncActions";
 import Dropdown4 from "../../../features/UI/Dropdown/Dropdown4";
 
+import CoinsIcon from "../../../assets/svgs/coins.svg?react";
+
 const PaymentForm = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -20,19 +22,9 @@ const PaymentForm = (props) => {
 
   const [formData, setFormData] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
+  const depositAddress = useSelector((state) => state.crypto.depositAddress);
 
   const debouncedFormData = useDebounce(formData, 300);
-
-  // useEffect(() => {
-  //   const allFieldsFilled = Object.values(debouncedFormData).every(
-  //     (value) => value !== "" && value !== undefined
-  //   );
-
-  //   const validAmount =
-  //     debouncedFormData.Amount == null || debouncedFormData.Amount > 0;
-
-  //   setDisabledButton(!(allFieldsFilled && validAmount));
-  // }, [debouncedFormData]);
 
   useEffect(() => {
     const allFieldsFilled = Object.values(debouncedFormData).every(
@@ -119,23 +111,102 @@ const PaymentForm = (props) => {
     dispatch(submitDepositForm(signal, depositDTO));
   };
 
+  // const renderInputField = (field) => {
+  //   const { Name, Type, ListValues, Deposit, Visible } = field;
+  //   if (Deposit === false || !Visible) return null;
+
+  //   const label = (
+  //     <label className={classes.Labels}>
+  //       {translate(Name.replace(/([a-z])([A-Z])/g, "$1 $2"))}
+  //       {Name !== "PaymentType" && Name !== "PaymentMethod" && (
+  //         <p style={{ color: "var(--db-brand-green)" }}>*</p>
+  //       )}
+  //     </label>
+  //   );
+
+  //   if (Type === "decimal") {
+  //     if (Name === "Amount") {
+  //       return (
+  //         <div key={Name} style={{ marginBottom: "10px", width: "50%" }}>
+  //           {label}{" "}
+  //           <input
+  //             className={classes.Input}
+  //             type="number"
+  //             step="0.1"
+  //             min="0.1"
+  //             name={Name}
+  //             value={formData[Name] || ""}
+  //             onChange={handleChange}
+  //             onKeyDown={(e) => e.key === "-" && e.preventDefault()}
+  //             placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+  //           />
+  //         </div>
+  //       );
+  //     }
+  //   } else if (Type === "string" && ListValues.length === 0) {
+  //     return (
+  //       <div key={Name} style={{ marginBottom: "10px", width: "50%" }}>
+  //         {label}
+  //         <input
+  //           className={
+  //             Name === "PaymentType" || Name === "PaymentMethod"
+  //               ? [classes.Input, classes.ReadOnly].join(" ")
+  //               : classes.Input
+  //           }
+  //           type="text"
+  //           name={Name}
+  //           value={formData[Name] || ""}
+  //           onChange={handleChange}
+  //           placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+  //           readOnly={
+  //             (Name === "PaymentType" || Name === "PaymentMethod") && true
+  //           }
+  //         />
+  //       </div>
+  //     );
+  //   } else if (
+  //     (Type === "string" || Type === "list") &&
+  //     ListValues.length > 0
+  //   ) {
+  //     return (
+  //       <div key={Name} style={{ marginBottom: "10px", width: "50%" }}>
+  //         {label}
+  //         <select
+  //           name={Name}
+  //           id={Name}
+  //           className={classes.Select}
+  //           onChange={handleChange}
+  //           value={formData[Name]}
+  //         >
+  //           {ListValues.map((item, index) => {
+  //             const key = Object.keys(item)[0];
+  //             return (
+  //               <option
+  //                 className={classes.SelectOptions}
+  //                 key={index}
+  //                 value={key}
+  //               >
+  //                 {key}
+  //               </option>
+  //             );
+  //           })}
+  //         </select>
+  //       </div>
+  //     );
+  //   }
+  // };
+
   const renderInputField = (field) => {
     const { Name, Type, ListValues, Deposit, Visible } = field;
     if (Deposit === false || !Visible) return null;
 
-    const label = (
-      <label className={classes.Labels}>
-        {translate(Name.replace(/([a-z])([A-Z])/g, "$1 $2"))}
-        {Name !== "PaymentType" && Name !== "PaymentMethod" && (
-          <p style={{ color: "var(--db-brand-green)" }}>*</p>
-        )}
-      </label>
-    );
+    let inputElement = null;
 
-    if (Type === "decimal") {
-      return (
-        <div key={Name} style={{ marginBottom: "10px", width: "50%" }}>
-          {label}{" "}
+    // Set up the input element based on the field's Type and properties
+    if (Type === "decimal" && Name === "Amount") {
+      inputElement = (
+        <div className={classes.InputWrapper}>
+          <CoinsIcon height="18px" width="17px" className={classes.SvgIcon} />
           <input
             className={classes.Input}
             type="number"
@@ -146,73 +217,83 @@ const PaymentForm = (props) => {
             onChange={handleChange}
             onKeyDown={(e) => e.key === "-" && e.preventDefault()}
             placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+            style={{ paddingLeft: "2rem" }}
           />
         </div>
       );
     } else if (Type === "string" && ListValues.length === 0) {
-      return (
-        <div key={Name} style={{ marginBottom: "10px", width: "50%" }}>
-          {label}
-          <input
-            className={
-              Name === "PaymentType" || Name === "PaymentMethod"
-                ? [classes.Input, classes.ReadOnly].join(" ")
-                : classes.Input
-            }
-            type="text"
-            name={Name}
-            value={formData[Name] || ""}
-            onChange={handleChange}
-            placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
-            readOnly={
-              (Name === "PaymentType" || Name === "PaymentMethod") && true
-            }
-          />
-        </div>
+      inputElement = (
+        <input
+          className={
+            Name === "PaymentType" || Name === "PaymentMethod"
+              ? [classes.Input, classes.ReadOnly].join(" ")
+              : classes.Input
+          }
+          type="text"
+          name={Name}
+          value={formData[Name] || ""}
+          onChange={handleChange}
+          placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+          readOnly={Name === "PaymentType" || Name === "PaymentMethod"}
+        />
       );
     } else if (
       (Type === "string" || Type === "list") &&
       ListValues.length > 0
     ) {
-      return (
-        <div key={Name} style={{ marginBottom: "10px", width: "50%" }}>
-          {label}
-          <select
-            name={Name}
-            id={Name}
-            className={classes.Select}
-            onChange={handleChange}
-            value={formData[Name]}
-          >
-            {ListValues.map((item, index) => {
-              const key = Object.keys(item)[0];
-              return (
-                <option
-                  className={classes.SelectOptions}
-                  key={index}
-                  value={key}
-                >
-                  {key}
-                </option>
-              );
-            })}
-          </select>
-        </div>
+      inputElement = (
+        <select
+          name={Name}
+          id={Name}
+          className={classes.Select}
+          onChange={handleChange}
+          value={formData[Name]}
+        >
+          {ListValues.map((item, index) => {
+            const key = Object.keys(item)[0];
+            return (
+              <option className={classes.SelectOptions} key={index} value={key}>
+                {key}
+              </option>
+            );
+          })}
+        </select>
       );
     }
+
+    // Return the final structure with the label and input element
+    return (
+      <div
+        key={Name}
+        style={{
+          marginBottom: "10px",
+          width: Name === "CardNumber" ? "100%" : "50%",
+        }}
+      >
+        <label className={classes.Labels}>
+          {translate(Name.replace(/([a-z])([A-Z])/g, "$1 $2"))}
+          {Name !== "PaymentType" && Name !== "PaymentMethod" && (
+            <p style={{ color: "var(--db-brand-green)" }}>*</p>
+          )}
+        </label>
+        {inputElement}
+      </div>
+    );
   };
 
   return (
     <div className={classes.PaymentForm}>
       {props.method && props.method.Fields && (
         <>
-          <div
-            className={classes.Image}
-            style={{
-              backgroundImage: `url("${props.icon}")`,
-              width: "50%",
-            }}
-          ></div>
+          {props.icon != null && props.icon !== "" && (
+            <div
+              className={classes.Image}
+              style={{
+                backgroundImage: `url("${props.icon}")`,
+                width: "50%",
+              }}
+            ></div>
+          )}
           <form onSubmit={handleSubmit} className={classes.InputsForm}>
             {props.method.Fields.map((field) => renderInputField(field))}
             <div className={classes.Text}>

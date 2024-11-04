@@ -12,13 +12,13 @@
 }
 
 .InputsForm {
+  margin-top: 0.8rem;
   display: flex;
   flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: center;
-  margin-top: 1rem;
 }
 
 .Select {
@@ -81,6 +81,7 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
+  justify-content: center;
 }
 .BigInput {
   /* background: #123751; */
@@ -91,7 +92,7 @@
   border-radius: 6px;
   border: 1px solid transparent;
   color: rgb(255, 255, 255);
-  padding-left: 2.7rem;
+  /* padding-left: 2.7rem; */
 }
 .BigInput::placeholder {
   color: rgba(173, 216, 230, 0.459);
@@ -108,9 +109,8 @@
   z-index: 10;
   position: absolute;
   left: 0.5rem;
-  transform: translateY(20%);
-  width: 2rem; /* Adjust width as needed */
-  height: 2rem; /* Adjust height as needed */
+  /* width: 1.1rem;
+  height: 1.1rem; */
   pointer-events: none;
 }
 
@@ -136,7 +136,7 @@
 }
 .Image {
   height: 50px;
-  width: 100%;
+  width: 50%;
   background-position: left;
   background-repeat: no-repeat;
   background-size: contain;

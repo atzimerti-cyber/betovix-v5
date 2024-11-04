@@ -10,6 +10,7 @@ import config from "../../../config";
 
 import { submitWithdrawForm } from "../cryptoAsyncActions";
 import CreditCard from "../../../assets/svgs/credit-card.svg?react";
+import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 
 const WithdrawPaymentForm = (props) => {
   const dispatch = useDispatch();
@@ -23,17 +24,6 @@ const WithdrawPaymentForm = (props) => {
 
   const debouncedFormData = useDebounce(formData, 300);
 
-  //   useEffect(() => {
-  //     const allFieldsFilled = Object.values(debouncedFormData).every(
-  //       (value) => value !== "" && value !== undefined
-  //     );
-
-  //     const validAmount =
-  //       debouncedFormData.Amount == null || debouncedFormData.Amount > 0;
-
-  //     setDisabledButton(!(allFieldsFilled && validAmount));
-  //   }, [debouncedFormData]);
-
   useEffect(() => {
     const allFieldsFilled = Object.values(debouncedFormData).every(
       (value) => value !== "" && value !== undefined
@@ -43,7 +33,7 @@ const WithdrawPaymentForm = (props) => {
       debouncedFormData.Amount == null || debouncedFormData.Amount > 0;
 
     const allFieldsValid = props.method.Fields.every((field) => {
-      if (!field.Regex || !debouncedFormData[field.Name]) return true; // Skip if no regex or field is empty
+      if (!field.Regex || !debouncedFormData[field.Name]) return true;
       const regex = new RegExp(field.Regex);
       return regex.test(debouncedFormData[field.Name]);
     });
@@ -68,20 +58,6 @@ const WithdrawPaymentForm = (props) => {
       setFormData(initialData);
     }
   }, [props.method]);
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-
-  //   setFormData((prevData) => ({
-  //     ...prevData,
-  //     [name]:
-  //       name === "Amount"
-  //         ? parseFloat(value) || undefined
-  //         : value === ""
-  //         ? undefined
-  //         : value,
-  //   }));
-  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -145,39 +121,51 @@ const WithdrawPaymentForm = (props) => {
 
     let inputElement;
 
-    if (Type === "decimal") {
+    if (Type === "decimal" && Name === "Amount") {
       inputElement = (
-        <input
-          className={classes.SmallInput}
-          type="number"
-          step="0.1"
-          min="0.1"
-          name={Name}
-          value={formData[Name] || ""}
-          onChange={handleChange}
-          onKeyDown={(e) => e.key === "-" && e.preventDefault()}
-          placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
-        />
+        <div className={classes.InputWrapper}>
+          <CoinsIcon height="18px" width="17px" className={classes.SvgIcon} />
+          <input
+            className={classes.SmallInput}
+            type="number"
+            step="0.1"
+            min="0.1"
+            name={Name}
+            value={formData[Name] || ""}
+            onChange={handleChange}
+            onKeyDown={(e) => e.key === "-" && e.preventDefault()}
+            placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+            style={{ paddingLeft: "2rem" }}
+          />
+        </div>
       );
     } else if (Type === "string") {
       const isReadOnly = false;
-      // const isReadOnly = Name === "PaymentType" || Name === "PaymentMethod";
       const CardNumber = Name === "CardNumber";
       if (Name === "CardNumber") {
         inputElement = (
-          <div className={classes.InputWrapper}>
-            <CreditCard className={classes.SvgIcon} />
-            <input
-              className={classes.BigInput}
-              type="text"
-              name={Name}
-              value={formData[Name] || ""}
-              onChange={handleChange}
-              placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
-              readOnly={isReadOnly}
-              autoComplete="false"
-            />
-
+          <>
+            <div className={classes.InputWrapper}>
+              <CreditCard
+                height="18px"
+                width="27px"
+                className={classes.SvgIcon}
+              />
+              <input
+                className={classes.BigInput}
+                type="text"
+                name={Name}
+                value={formData[Name] || ""}
+                onChange={handleChange}
+                placeholder={`Enter ${Name.replace(
+                  /([a-z])([A-Z])/g,
+                  "$1 $2"
+                )}`}
+                readOnly={isReadOnly}
+                autoComplete="false"
+                style={{ paddingLeft: "2.6rem" }}
+              />
+            </div>
             {Name === "CardNumber" && (
               <p
                 style={{
@@ -195,7 +183,7 @@ const WithdrawPaymentForm = (props) => {
                 )}
               </p>
             )}
-          </div>
+          </>
         );
       } else {
         inputElement = (
@@ -230,7 +218,7 @@ const WithdrawPaymentForm = (props) => {
         </select>
       );
     } else {
-      return null; // Return null if none of the conditions are met
+      return null;
     }
 
     return (
@@ -254,41 +242,52 @@ const WithdrawPaymentForm = (props) => {
 
   function formatCardNumber(value) {
     return value
-      .replace(/\D/g, "") // Remove any non-digit characters
-      .replace(/(.{4})/g, "$1 ") // Add space every 4 digits
-      .trim(); // Remove any trailing spaces
+      .replace(/\D/g, "")
+      .replace(/(.{4})/g, "$1 ")
+      .trim();
   }
 
   return (
     <div className={classes.PaymentForm}>
       {props.method && props.method.Fields && (
-        <form onSubmit={handleSubmit} className={classes.InputsForm}>
-          {props.method.Fields.map((field) => renderInputField(field))}
-          <div className={classes.Text}>
-            <span
+        <>
+          {props.icon != null && props.icon !== "" && (
+            <div
+              className={classes.Image}
               style={{
-                display: "flex",
-                columnGap: " 0.3rem",
-                color: " white",
-                fontSize: "0.7rem",
+                backgroundImage: `url("${props.icon}")`,
+                width: "50%",
               }}
+            ></div>
+          )}
+          <form onSubmit={handleSubmit} className={classes.InputsForm}>
+            {props.method.Fields.map((field) => renderInputField(field))}
+            <div className={classes.Text}>
+              <span
+                style={{
+                  display: "flex",
+                  columnGap: " 0.3rem",
+                  color: " white",
+                  fontSize: "0.7rem",
+                }}
+              >
+                <p style={{ color: "var(--db-brand-green)" }}>*</p>
+                {translate("Required Fields")}
+              </span>
+            </div>
+            <button
+              type="submit"
+              className={
+                disabledButton
+                  ? [classes.SubmitButton, classes.Disabled].join(" ")
+                  : classes.SubmitButton
+              }
+              disabled={disabledButton}
             >
-              <p style={{ color: "var(--db-brand-green)" }}>*</p>
-              {translate("Required Fields")}
-            </span>
-          </div>
-          <button
-            type="submit"
-            className={
-              disabledButton
-                ? [classes.SubmitButton, classes.Disabled].join(" ")
-                : classes.SubmitButton
-            }
-            disabled={disabledButton}
-          >
-            Make Withdraw Request
-          </button>
-        </form>
+              Make Withdraw Request
+            </button>
+          </form>
+        </>
       )}
     </div>
   );
