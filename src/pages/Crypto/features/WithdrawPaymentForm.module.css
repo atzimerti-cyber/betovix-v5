@@ -121,6 +121,7 @@
   font-weight: 400;
   border-radius: 6px;
   width: 100%;
+  height: 2.6rem;
 }
 .SubmitButton:hover {
   background-color: #7cb509;
@@ -128,7 +129,7 @@
 .SubmitButton.Disabled {
   pointer-events: none;
   color: white;
-  height: 2rem;
+  height: 2.6rem;
   background-color: rgba(91, 91, 91, 0.645);
   opacity: 0.5;
 }
