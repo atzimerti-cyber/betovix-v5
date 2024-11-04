@@ -96,6 +96,7 @@
   padding-bottom: 0.5rem;
   flex-wrap: wrap;
   row-gap: 0.5rem;
+  column-gap: 5rem;
 }
 
 .BalanceContainer > div {
