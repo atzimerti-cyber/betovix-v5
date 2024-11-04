@@ -49,35 +49,61 @@ const FinalStageWithdraw = () => {
           </DsButton>
         </div>
 
-        <div className={classes.BalanceContainer}>
-          <div style={{ color: "white", fontWeight: "600" }}>
-            <CoinsIcon />
-            {user ? user.Wallet.Balance : 0}
+        <div className={classes.Balance}>
+          <div className={classes.BalanceContainerLabel}>
+            <h4>{translate("Balance Details")}</h4>
           </div>
-          <h4>{translate("Your Balance")}</h4>
-        </div>
-        <div className={classes.BalanceInfo}>
-          <span style={{ textAlign: "start" }}>
-            {translate(`Reserved Balance = €${user.Wallet.ReservedBalance}`)}
-          </span>
-          <span style={{ textAlign: "start" }}>
-            {translate(
-              `Available to Withdraw = €${
-                user.Wallet.Balance - user.Wallet.ReservedBalance
-              }`
-            )}
-          </span>
-          <div
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "flex-end",
-              alignItems: "center",
-            }}
-          >
-            <CoinsIcon height="10px" />
-            <span>1.00 =&nbsp;</span>
-            <span>&#8364;1.00</span>
+          <div className={classes.BalanceContainer}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                color: "white",
+                fontWeight: "600",
+                columnGap: "0.5rem",
+              }}
+            >
+              <h4>{translate(`Total: `)} </h4>
+              <CoinsIcon />
+              {user ? user.Wallet.Balance : 0}
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                color: "white",
+                fontWeight: "600",
+                columnGap: "0.5rem",
+              }}
+            >
+              <h4>{translate(`Available to Withdraw: `)} </h4>
+              <CoinsIcon />
+              {user.Wallet.Balance - user.Wallet.ReservedBalance}
+            </div>
+          </div>
+          <div className={classes.BalanceInfo}>
+            <span style={{ textAlign: "start" }}>
+              {translate(`Reserved Balance = ${user.Wallet.ReservedBalance}€`)}
+            </span>
+            {/* <span style={{ textAlign: "start" }}>
+              {translate(
+                `Available to Withdraw = €${
+                  user.Wallet.Balance - user.Wallet.ReservedBalance
+                }`
+              )}
+            </span> */}
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-end",
+                alignItems: "center",
+              }}
+            >
+              <CoinsIcon height="10px" />
+              <span>1.00 =&nbsp;</span>
+              <span>1.00&#8364;</span>
+            </div>
           </div>
         </div>
       </div>

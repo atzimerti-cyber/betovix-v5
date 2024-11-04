@@ -10,6 +10,7 @@ import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 import { translate } from "../../../utils/translations";
 import CopyToClipboardCont from "../../../features/CopyToClipboard/CopyToClipboardCont";
 import SpinnerIcon from "../../../assets/svgs/spinner.svg?react";
+import WarningIcon from "../../../assets/svgs/warning.svg?react";
 import { cryptoActions } from "../cryptoSlice";
 
 const FinalStageDeposit = () => {
@@ -59,6 +60,7 @@ const FinalStageDeposit = () => {
             type={paymentType?.Name}
             method={paymentMethod}
             provider={paymentType.Provider}
+            icon={paymentMethod?.Icon}
           />
         </div>
       )}
@@ -76,10 +78,10 @@ const FinalStageDeposit = () => {
               <div className={classes.QrWrapper}>
                 {depositAddress ? (
                   <QRCode
-                    size={136}
+                    size={150}
                     style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                     value={depositAddress}
-                    viewBox={`0 0 136 136`}
+                    viewBox={`0 0 150 150`}
                   />
                 ) : (
                   <div className={classes.LoadingAddress}>
@@ -87,6 +89,14 @@ const FinalStageDeposit = () => {
                   </div>
                 )}
               </div>
+            </div>
+            <div className={classes.Message}>
+              <WarningIcon height="17px"/>
+              <span>
+                {translate(
+                  `Please be advised that your transaction may take a while to complete.`
+                )}
+              </span>
             </div>
           </div>
         )}

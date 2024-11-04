@@ -205,33 +205,42 @@ const PaymentForm = (props) => {
   return (
     <div className={classes.PaymentForm}>
       {props.method && props.method.Fields && (
-        <form onSubmit={handleSubmit} className={classes.InputsForm}>
-          {props.method.Fields.map((field) => renderInputField(field))}
-          <div className={classes.Text}>
-            <span
-              style={{
-                display: "flex",
-                columnGap: " 0.3rem",
-                color: " white",
-                fontSize: "0.7rem",
-              }}
+        <>
+          <div
+            className={classes.Image}
+            style={{
+              backgroundImage: `url("${props.icon}")`,
+              width: "50%",
+            }}
+          ></div>
+          <form onSubmit={handleSubmit} className={classes.InputsForm}>
+            {props.method.Fields.map((field) => renderInputField(field))}
+            <div className={classes.Text}>
+              <span
+                style={{
+                  display: "flex",
+                  columnGap: " 0.3rem",
+                  color: " white",
+                  fontSize: "0.7rem",
+                }}
+              >
+                <p style={{ color: "var(--db-brand-green)" }}>*</p>
+                {translate("Required Fields")}
+              </span>
+            </div>
+            <button
+              type="submit"
+              className={
+                disabledButton
+                  ? [classes.SubmitButton, classes.Disabled].join(" ")
+                  : classes.SubmitButton
+              }
+              disabled={disabledButton}
             >
-              <p style={{ color: "var(--db-brand-green)" }}>*</p>
-              {translate("Required Fields")}
-            </span>
-          </div>
-          <button
-            type="submit"
-            className={
-              disabledButton
-                ? [classes.SubmitButton, classes.Disabled].join(" ")
-                : classes.SubmitButton
-            }
-            disabled={disabledButton}
-          >
-            {props.type === "Crypto" ? "Get Deposit Address" : "Submit"}
-          </button>
-        </form>
+              {props.type === "Crypto" ? "Get Deposit Address" : "Submit"}
+            </button>
+          </form>
+        </>
       )}
     </div>
   );

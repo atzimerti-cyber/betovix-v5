@@ -131,7 +131,7 @@ export const submitDepositForm = (signal, depositDTO) => {
       );
 
       if (depositDTO.PaymentProvider === "Interkassa") {
-        window.open(response.data.Contents);
+        window.location.href = response.data.Contents;
       } else if (depositDTO.PaymentProvider === "CoinPayments") {
         dispatch(
           cryptoActions.setDepositAddress(response.data.Contents.WalletAddress)

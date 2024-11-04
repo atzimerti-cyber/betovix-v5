@@ -175,6 +175,7 @@ const WithdrawPaymentForm = (props) => {
               onChange={handleChange}
               placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
               readOnly={isReadOnly}
+              autoComplete="false"
             />
 
             {Name === "CardNumber" && (
