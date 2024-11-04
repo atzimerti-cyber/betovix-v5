@@ -12,6 +12,7 @@ import { casinoActions } from "../../../pages/Casino/casinoSlice";
 import MainSwiper from "./MainSwiper";
 import HeartIcon from "../../../assets/svgs/heart.svg?react";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
+import ArrowRight from "../../../assets/svgs/open-arrow-right.svg?react";
 import PlayButton from "../../../assets/svgs/playbutton.svg?react";
 import classes from "./Cat3Swiper.module.css";
 import LoaderPlaceholder from "../../UI/Skeletons/LoaderPlaceholder";
@@ -126,9 +127,15 @@ const Cat3Swiper = (props) => {
               ...(notGridSwiper ? { flexDirection: "column" } : {}),
             }}
           >
-            {notGridSwiper && (
-              <div className={classes.SwiperTitle}>
-                <span>{translate(props.title)}</span>
+            {notGridSwiper ? (
+              <div className={classes.SwiperTitleMob}>
+                <span>{translate(`${props.title}`)}</span>
+                <ArrowRight width="33px" height="33px" />
+              </div>
+            ) : (
+              <div className={classes.SwiperTitleDesk}>
+                <span>{translate(`${props.title}`)}</span>
+                <ArrowRight width="33px" height="33px" />
               </div>
             )}
             <div
@@ -149,19 +156,23 @@ const Cat3Swiper = (props) => {
               gridRows={gridSwiper && 2}
               gridFill={gridSwiper && "row"}
               spaceBetween={7}
-              title={
-                props.link ? (
-                  <Link to={props.link}>{props.title}</Link>
-                ) : props.task ? (
-                  <a onClick={props.task}>{props.title}</a>
-                ) : (
-                  props.title
-                )
-              }
+              // title={
+              //   !notGridSwiper &&
+              //   (props.link ? (
+              //     <Link to={props.link}>{props.title}</Link>
+              //   ) : props.task ? (
+              //     <a onClick={props.task}>{props.title}</a>
+              //   ) : (
+              //     props.title
+              //   ))
+              // }
+              title={false}
               viewText={props.text}
               onTask={props.task}
-              icon={props.icon}
-              thIcon={props.thIcon}
+              icon={false}
+              // icon={props.icon}
+              // thIcon={props.thIcon}
+              thIcon={false}
             >
               {items ? (
                 items.length === 0 ? (

@@ -130,6 +130,9 @@ export const submitDepositForm = (signal, depositDTO) => {
         }
       );
 
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
+        throw Error("Failed  ");
+
       if (depositDTO.PaymentProvider === "Interkassa") {
         window.location.href = response.data.Contents;
       } else if (depositDTO.PaymentProvider === "CoinPayments") {
@@ -137,9 +140,6 @@ export const submitDepositForm = (signal, depositDTO) => {
           cryptoActions.setDepositAddress(response.data.Contents.WalletAddress)
         );
       }
-
-      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
-        throw Error("Failed  ");
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(message);

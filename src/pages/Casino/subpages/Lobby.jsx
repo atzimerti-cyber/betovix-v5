@@ -190,7 +190,7 @@ const Lobby = () => {
               //     }}
               //   >
               <Cat3Swiper
-                title={!notGridSwiper && `${translate(tag.Name)}`}
+                title={`${translate(tag.Name)}`}
                 icon={""}
                 thIcon={!notGridSwiper && tag.Icon}
                 tag={tag.Tags}

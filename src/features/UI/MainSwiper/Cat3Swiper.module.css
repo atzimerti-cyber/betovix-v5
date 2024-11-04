@@ -244,17 +244,16 @@
 }
 .SwiperImage {
   width: 100%;
-  padding: 1rem;
+  padding-right: 0.6rem;
   border-radius: 2rem;
   display: flex;
-  justify-content: space-between;
   background-size: cover;
   background-position: center;
-  position: relative;
+  /* position: relative; */
   overflow: hidden;
   align-items: center;
+  /* background-attachment: fixed; */
   flex-direction: row;
-  background-attachment: fixed;
 }
 
 .Cat3Container::before {
@@ -268,29 +267,43 @@
   /* backdrop-filter: blur(1px); */
   z-index: 1;
 }
-.SwiperTitle {
+.SwiperTitleMob {
   position: absolute;
   top: 2%;
-  left: 3%;
+  left: 2%;
   z-index: 20;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: flex-end;
+  column-gap: 0.2rem;
 }
-.SwiperTitle span {
+.SwiperTitleMob span {
   color: aliceblue;
   font-size: 1.7rem;
   font-weight: 700;
 }
-.SwiperImage img {
-  z-index: 2; /* Ensure the image or content inside is above the overlay */
+.SwiperTitleDesk {
+  position: absolute;
+  bottom: 2%;
+  left: 1%;
+  z-index: 20;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  align-items: center;
+  column-gap: 0.2rem;
 }
-
-/* @keyframes rotateY {
-  from {
-    transform: rotateY(0deg);
-  }
-  to {
-    transform: rotateY(360deg);
-  }
-} */
+.SwiperTitleDesk span {
+  color: aliceblue;
+  font-size: 2rem;
+  font-weight: 700;
+}
+.SwiperImage img {
+  z-index: 2;
+}
 
 .SmallImageContainer {
   height: 190px;
@@ -302,12 +315,11 @@
   position: relative;
   overflow: hidden;
   display: flex;
-  /* animation: rotateY 8s infinite ease-in-out; */
   transform-style: preserve-3d;
 }
 
 .SwiperContainer {
   height: 100%;
-  width: 80%;
+  width: 73%;
   z-index: 5;
 }
