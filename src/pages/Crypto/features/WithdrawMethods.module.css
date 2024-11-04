@@ -50,7 +50,7 @@
   position: relative;
   height: 100%;
   flex-shrink: 0;
-  overflow: auto;
+  overflow: visible;
 }
 .PaymentOptionsWrapper .PaymentButtonContainer > button {
   position: relative;
@@ -177,7 +177,7 @@
     padding-right: 0.75rem;
   }
   .Grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
   /* .PaymentButtonContainer {
       grid-column: span 1 / span 1;
@@ -192,11 +192,7 @@
     height: 8rem;
     padding-left: 0.5rem;
     padding-right: 0.5rem;
-  }
-  .Grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    /* grid-template-columns: auto auto; */
-  }
+  } 
 
   .PaymentButtonContainer > button img {
     height: 1.5rem;
