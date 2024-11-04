@@ -104,6 +104,7 @@ const WithdrawPaymentForm = (props) => {
         ? debouncedFormData.WalletAddress
         : debouncedFormData.Address,
       CustomerPostCode: debouncedFormData.PostCode,
+      CardNumber: debouncedFormData.CardNumber.replace(/\s+/g, ""),
     };
     console.log(debouncedFormData);
     console.log(withdrawDTO);
