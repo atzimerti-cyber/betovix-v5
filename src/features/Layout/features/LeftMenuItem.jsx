@@ -19,7 +19,8 @@ const LeftMenuItem = (props) => {
   if (props.hide) elClasses.push(classes.Hide);
   if (props.showEmphasis) elClasses.push(classes.ShowEmphasis);
   if (props.isCateg == false) elClasses.push(classes.NotCateg);
-  if (props.isCateg == false && props.isActive) elClasses.push(classes.NotCategActive);
+  if (props.isCateg == false && props.isActive)
+    elClasses.push(classes.NotCategActive);
 
   const onClick = (e) => {
     e.preventDefault();
@@ -28,9 +29,7 @@ const LeftMenuItem = (props) => {
       navigate(props.item.page, {
         state: { label: props.item.label },
       });
-    }
-    // if (props.item.page) navigate(props.item.page);
-    else if (props.item.modal) {
+    } else if (props.item.modal) {
       const searchParams = new URLSearchParams(location.search);
       searchParams.set("modal", props.item.modal);
       navigate(`${location.pathname}?${searchParams.toString()}`, {

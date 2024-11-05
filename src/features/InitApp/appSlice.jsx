@@ -60,22 +60,29 @@ import TvIcon from "../../assets/sportIcons/tv.svg?react";
 import FormulaIcon from "../../assets/sportIcons/formula.svg?react";
 import HurlingIcon from "../../assets/sportIcons/hurling.svg?react";
 
+import Pragmatic from "../../assets/casinoIcons/pragmatic-logo.svg?react";
+import Slots from "../../assets/casinoIcons/slots.svg?react";
+import NoLimit from "../../assets/casinoIcons/nolimit.svg?react";
+import Peterandsons from "../../assets/casinoIcons/peterandsons.svg?react";
+import New from "../../assets/casinoIcons/newrelease.svg?react";
+import Blackjack from "../../assets/casinoIcons/bj.svg?react";
+
 import Amatic from "../../assets/casinoIcons/amatic.svg?react";
 import Aristocrat from "../../assets/casinoIcons/aristocrat-logo.svg?react";
 import Egt from "../../assets/casinoIcons/egt-logo.svg?react";
 import Egyptian from "../../assets/casinoIcons/egyptian.svg?react";
 import Evolution from "../../assets/casinoIcons/evolution-logo.svg?react";
 import Netent from "../../assets/casinoIcons/netent-logo.svg?react";
-import New from "../../assets/casinoIcons/new.svg?react";
+
 import Novomatic from "../../assets/casinoIcons/novomatic.svg?react";
 import PlayNGo from "../../assets/casinoIcons/playngo-logo.svg?react";
 import Playtech from "../../assets/casinoIcons/playtech-logo.svg?react";
-import Pragmatic from "../../assets/casinoIcons/pragmatic-logo.svg?react";
+
 import RedTiger from "../../assets/casinoIcons/redtiger-logo.svg?react";
 import Yggdrasil from "../../assets/casinoIcons/yggdrasil-logo.svg?react";
 import Providers from "../../assets/casinoIcons/providers.svg?react";
 import Popular from "../../assets/casinoIcons/popular.svg?react";
-import Slots from "../../assets/casinoIcons/slots.svg?react";
+
 import AllGames from "../../assets/casinoIcons/allgames.svg?react";
 import Crash from "../../assets/casinoIcons/crash.svg?react";
 import Amarix from "../../assets/casinoIcons/amarix.svg?react";
@@ -277,6 +284,7 @@ const initialState = {
     Providers: <Providers />,
     "New Games": <New />,
     New: <New />,
+    "New Releases": <New />,
     NewGames: <New />,
     "Crash Games": <Crash />,
     Amarix: <Amarix />,
@@ -292,6 +300,9 @@ const initialState = {
     Roulette: <Roulette />,
     "Card Games": <CardGames />,
     Premium: <Premium />,
+    "No Limit": <NoLimit />,
+    "Peter & Sons": <Peterandsons />,
+    Blackjack: <Blackjack />,
   },
   sportSettings: null,
   siteSettings: null,

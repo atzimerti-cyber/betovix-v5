@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
 import { toast } from "react-toastify";
 
@@ -24,6 +24,8 @@ import _ from "lodash";
 
 const Cat2Swiper = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const lang = useSelector((state) => state.app.lang);
 
@@ -83,6 +85,22 @@ const Cat2Swiper = (props) => {
     }
   };
 
+  const GoToCategory = (tag, name) => {
+    if (tag === "favs" || tag === "rec" || tag === "shows") {
+      if (tag === "favs") {
+        navigate(`/casino/favorites`);
+      } else if (tag === "rec") {
+        navigate(`/casino/slots`);
+      } else if (tag === "shows") {
+        navigate(`/casino/gameshows`);
+      }
+    } else {
+      navigate(`/casino/menu?tag=${tag}`, {
+        state: { label: name },
+      });
+    }
+  };
+
   return (
     items &&
     items.length > 0 && (
@@ -91,21 +109,13 @@ const Cat2Swiper = (props) => {
           props.slidesPerView ? props.slidesPerView : slidesPerView
         }
         slidesPerGroup={slidesPerGroup}
-        title={
-          props.link ? (
-            <Link to={props.link}>{props.title}</Link>
-          ) : props.task ? (
-            <a onClick={props.task}>{props.title}</a>
-          ) : (
-            props.title
-          )
-        }
-        viewAll={props.link}
+        title={props.title}
         viewText={props.text}
         onTask={props.task}
         icon={props.icon}
         thIcon={props.thIcon}
         spaceBetween={7}
+        clickOnTitle={() => GoToCategory(props.tag, props.title)}
       >
         {items ? (
           items.length === 0 ? (

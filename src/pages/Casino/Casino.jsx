@@ -9,6 +9,7 @@ import Lobby from "./subpages/Lobby";
 import LiveGames from "./subpages/LiveGames";
 import SlotGames from "./subpages/SlotGames";
 import Providers from "./subpages/Providers";
+import GameShows from "./subpages/GameShows";
 import FavoriteGames from "./subpages/FavoriteGames";
 import GamesByTag from "./subpages/GamesByTag";
 import { casinoActions } from "./casinoSlice";
@@ -31,6 +32,7 @@ const Casino = () => {
   else if (params["*"].includes("live")) page = <LiveGames />;
   else if (params["*"].includes("favorites")) page = <FavoriteGames />;
   else if (params["*"].includes("providers")) page = <Providers />;
+  else if (params["*"].includes("gameshows")) page = <GameShows />;
   else if (params["*"].includes("menu")) page = <GamesByTag />;
 
   return (

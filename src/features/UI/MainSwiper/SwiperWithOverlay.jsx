@@ -100,6 +100,22 @@ const SwiperWithOverlay = (props) => {
     });
   };
 
+  const GoToCategory = (tag, name) => {
+    if (tag === "favs" || tag === "rec" || tag === "shows") {
+      if (tag === "favs") {
+        navigate(`/casino/favorites`);
+      } else if (tag === "rec") {
+        navigate(`/casino/slots`);
+      } else if (tag === "shows") {
+        navigate(`/casino/gameshows`);
+      }
+    } else {
+      navigate(`/casino/menu?tag=${tag}`, {
+        state: { label: name },
+      });
+    }
+  };
+
   return (
     items &&
     items.length > 0 && (
@@ -123,6 +139,11 @@ const SwiperWithOverlay = (props) => {
         icon={props.icon}
         thIcon={props.thIcon}
         spaceBetween={7}
+        clickOnTitle={
+          props.clickOnTitle
+            ? () => GoToCategory(props.tag, props.title)
+            : false
+        }
       >
         {items ? (
           items.length === 0 ? (

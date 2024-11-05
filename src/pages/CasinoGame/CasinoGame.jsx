@@ -324,6 +324,12 @@ const CasinoGame = (props) => {
                         >
                           {translate("Login")}
                         </MainButton>
+                        <MainButton
+                          color="secondary"
+                          onClick={() => addParamsToUrl("auth", "register")}
+                        >
+                          {translate("Register")}
+                        </MainButton>
                       </div>
                     </>
                   )}

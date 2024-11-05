@@ -105,11 +105,16 @@ const GridGames = (props) => {
     <div className={classes.Games}>
       <div className={classes.Header}>
         {props.icon}
-        <p className={classes.Title}>{translate(props.title)}</p>
-        {props.collection?.Total > 0 && (
+        <p className={props.bigTitle ? classes.BigTitle : classes.Title}>
+          {translate(props.title)}
+        </p>
+        {props.collection?.Data.Total > 0 && (
           <p className={classes.Total}>
             {props.collection?.Total} {translate("Games")}
           </p>
+        )}
+        {!props.collection?.Data.Total && props.collection?.Data.length > 0 && (
+          <p className={classes.TotalBubble}>{props.collection?.Data.length}</p>
         )}
       </div>
 

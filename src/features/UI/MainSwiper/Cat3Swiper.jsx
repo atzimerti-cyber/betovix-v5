@@ -106,6 +106,22 @@ const Cat3Swiper = (props) => {
   //   }
   // };
 
+  const GoToCategory = (tag, name) => {
+    if (tag === "favs" || tag === "rec" || tag === "shows") {
+      if (tag === "favs") {
+        navigate(`/casino/favorites`);
+      } else if (tag === "rec") {
+        navigate(`/casino/slots`);
+      } else if (tag === "shows") {
+        navigate(`/casino/gameshows`);
+      }
+    } else {
+      navigate(`/casino/menu?tag=${tag}`, {
+        state: { label: name },
+      });
+    }
+  };
+
   const openGameModal = (game) => {
     dispatch(casinoActions.setGameOptionsModal(game));
     addParamsToUrl("game-options");
@@ -133,9 +149,12 @@ const Cat3Swiper = (props) => {
                 <ArrowRight width="33px" height="33px" />
               </div>
             ) : (
-              <div className={classes.SwiperTitleDesk}>
+              <div
+                className={classes.SwiperTitleDesk}
+                onClick={() => GoToCategory(props.tag, props.title)}
+              >
                 <span>{translate(`${props.title}`)}</span>
-                <ArrowRight width="33px" height="33px" />
+                <ArrowRight width="39px" height="38px" />
               </div>
             )}
             <div

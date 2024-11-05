@@ -32,6 +32,20 @@ const CasinoMenu = () => {
           </NavLink>
         </SwiperSlide>
 
+        <SwiperSlide>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? [classes.NavItem, classes.ActiveItem].join(" ")
+                : classes.NavItem
+            }
+            to="/casino/slots"
+          >
+            <SlotsIcon />
+            {translate("Slots")}
+          </NavLink>
+        </SwiperSlide>
+
         {user && (
           <SwiperSlide>
             <NavLink
@@ -55,12 +69,13 @@ const CasinoMenu = () => {
                 ? [classes.NavItem, classes.ActiveItem].join(" ")
                 : classes.NavItem
             }
-            to="/casino/slots"
+            to="/casino/live"
           >
-            <SlotsIcon />
-            {translate("Slots")}
+            <BlackjackIcon />
+            {translate("Live Casino")}
           </NavLink>
         </SwiperSlide>
+
         <SwiperSlide>
           <NavLink
             className={({ isActive }) =>
@@ -68,12 +83,13 @@ const CasinoMenu = () => {
                 ? [classes.NavItem, classes.ActiveItem].join(" ")
                 : classes.NavItem
             }
-            to="/casino/live"
+            to="/casino/gameshows"
           >
             <BlackjackIcon />
-            {translate("Live Casino")}
+            {translate("Game Shows")}
           </NavLink>
         </SwiperSlide>
+
         <SwiperSlide>
           <NavLink
             className={({ isActive }) =>

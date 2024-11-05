@@ -10,7 +10,7 @@ import classes from "./MainSwiper.module.css";
 import ArrowButton from "../Buttons/ArrowButton";
 import AngleLeftIcon from "../../../assets/svgs/angle-left.svg?react";
 import AngleRightIcon from "../../../assets/svgs/angle-right.svg?react";
-import AngleRight2Icon from "../../../assets/svgs/angle-right2.svg?react";
+import AngleRight2Icon from "../../../assets/svgs/arrowright2.svg?react";
 
 const MainSwiper = (props) => {
   const swiperRef = useRef(null);
@@ -50,10 +50,19 @@ const MainSwiper = (props) => {
     <div className={elClasses.join(" ")}>
       {props.noHeader ? null : (
         <div className={classes.SwiperHeader}>
-          <div className={classes.Title}>
+          <div
+            className={classes.Title}
+            style={{ cursor: props.clickOnTitle && "pointer" }}
+            onClick={props.clickOnTitle ? props.clickOnTitle : null}
+          >
             {props.icon && props.icon}
             {props.thIcon && <i className={`${props.thIcon}`}></i>}
             {props.title && props.title}
+            {props.clickOnTitle && (
+              <div className={classes.GoToSVG}>
+                <AngleRight2Icon />
+              </div>
+            )}
           </div>
           <div className={classes.NavButtons}>
             {props.viewAll && (

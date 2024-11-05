@@ -5,7 +5,7 @@ import _ from 'lodash';
 
 import { casinoActions } from '../casinoSlice';
 import classes from './Providers.module.css';
-import HeartIcon from '../../../assets/svgs/heart.svg?react';
+import Providers from '../../../assets/svgs/providers.svg?react';
 import { translate } from '../../../utils/translations';
 import GridVendors from '../features/GridVendors';
 import { getAllVendors } from '../casinoAsyncActions';
@@ -38,7 +38,7 @@ const FavoriteGames = () => {
                 {allCasinoVendors && allCasinoVendors.length > 1 && (
                     <GridVendors
                         title={translate('Our Providers')}
-                        icon={<HeartIcon />}
+                        icon={<Providers />}
                         collection={allCasinoVendors}
                     />
                 )}

@@ -148,6 +148,7 @@ const Lobby = () => {
                 tag={tag.Tags}
                 max={20}
                 slidesPerView={slidesPerView}
+                clickOnTitle={true}
               />
             )}
             {tag && tag.Category === "2" && (
@@ -160,35 +161,6 @@ const Lobby = () => {
               />
             )}
             {tag && tag.Category === "3" && (
-              // <div
-              //   className={classes.Cat3Container}
-              //   style={{
-              //     ...(notGridSwiper ? { flexDirection: "column" } : {}),
-              //     backgroundImage: `url(${tag.BgImage})`,
-              //   }}
-              // >
-              //   <div
-              //     className={classes.SwiperImage}
-              //     style={{
-              //       ...(notGridSwiper ? { flexDirection: "column" } : {}),
-              //     }}
-              //   >
-              //     {notGridSwiper && (
-              //       <div className={classes.SwiperTitle}>
-              //         <span>{translate(tag.Name)}</span>
-              //       </div>
-              //     )}
-              //     <div
-              //       className={classes.SmallImageContainer}
-              //       style={{ backgroundImage: `url(${tag.Image})` }}
-              //     ></div>
-              //   </div>
-              //   <div
-              //     className={classes.SwiperContainer}
-              //     style={{
-              //       ...(notGridSwiper ? { width: "100%" } : {}),
-              //     }}
-              //   >
               <Cat3Swiper
                 title={`${translate(tag.Name)}`}
                 icon={""}
@@ -198,8 +170,6 @@ const Lobby = () => {
                 backgroundImage={tag?.BgImage}
                 frontImage={tag?.Image}
               />
-              //    </div>
-              // </div>
             )}
           </React.Fragment>
         );

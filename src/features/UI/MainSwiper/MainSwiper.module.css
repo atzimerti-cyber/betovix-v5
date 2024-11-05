@@ -1,122 +1,137 @@
 .MainSwiperWrapper {
-    margin-top: 0.25rem;
-    height: 100%;
-    padding: 0;
-    margin-right: 0;
+  margin-top: 0.25rem;
+  height: 100%;
+  padding: 0;
+  margin-right: 0;
 }
 
 .SwiperHeader {
-    margin-bottom: 0.2rem;
-    display: flex;
-    align-items: center;
+  margin-bottom: 0.2rem;
+  display: flex;
+  align-items: center;
 }
 
 .Title {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: 700;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .Title i {
-    color:var(--db-gray-5);
-    margin-right: 5px;
+  color: var(--db-gray-5);
+  margin-right: 5px;
 }
 .Title svg {
-    margin-right: 0.5rem;
-    height: 1.25rem;
-    width: 1.25rem;
+  margin-right: 0.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-left: 0.25rem;
 }
 
 .Title svg path {
-    fill: var(--db-brand-green);
+  fill: var(--db-brand-green);
+}
+.GoToSVG {
+  cursor: pointer;
+}
+.GoToSVG svg {
+  margin-right: 0.5rem;
+  height: 0.8rem;
+  width: 0.8rem;
+  margin-left: 0.25rem;
+  padding-top: 0.19rem;
 }
 
+.GoToSVG svg path {
+  fill: white;
+}
 .Title a {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .NavButtons {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.NavButtons>a {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.625rem;
-    line-height: 0.8rem;
-    font-weight: 600;
-    line-height: 1;
-    color: var(--db-brand-green);
+.NavButtons > a {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.625rem;
+  line-height: 0.8rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--db-brand-green);
 }
 
-.NavButtons>a>svg {
-    height: 10px;
-    width: 5px;
+.NavButtons > a > svg {
+  height: 10px;
+  width: 5px;
 }
 
 .MainSwiperWrapper .MainSwiper {
-    padding-top: 0.45rem;
+  padding-top: 0.45rem;
 }
 
-.MainSwiperWrapper .MainSwiper>div>div {
-   width: 150px;
+.MainSwiperWrapper .MainSwiper > div > div {
+  width: 150px;
 }
 
 .WithPagination .MainSwiper {
-    padding-bottom: 2rem;
+  padding-bottom: 2rem;
 }
 
 :local(.WithPagination) :global(.swiper-pagination) {
-    bottom: 0;
-    margin: 0;
-    padding: 0;
-    left: 0;
-    width: 100%;
+  bottom: 0;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  width: 100%;
 }
 
 :local(.WithPagination) :global(.swiper-pagination-bullet) {
-    height: 0.25rem;
-    width: 0.875rem;
-    border-radius: 9999px;
-    background-color: var(--db-gray-4);
-    transition-property: all;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 0.15s;
+  height: 0.25rem;
+  width: 0.875rem;
+  border-radius: 9999px;
+  background-color: var(--db-gray-4);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
 }
 
 :local(.WithPagination) :global(.swiper-pagination-bullet-active) {
-    width: 1.75rem;
-    background-color: var(--db-brand-green);
-    --tw-shadow: 0 0 transparent;
-    --tw-shadow-colored: 0 0 transparent;
-    box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent), var(--tw-ring-shadow, 0 0 transparent), var(--tw-shadow);
+  width: 1.75rem;
+  background-color: var(--db-brand-green);
+  --tw-shadow: 0 0 transparent;
+  --tw-shadow-colored: 0 0 transparent;
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent),
+    var(--tw-ring-shadow, 0 0 transparent), var(--tw-shadow);
 }
 
 @media (min-width: 640px) {
-    .NavButtons>a {
-        margin-right: 0.5rem;
-    }
+  .NavButtons > a {
+    margin-right: 0.5rem;
+  }
 
-    .NavButtons>a>svg {
-        display: none;
-    }
+  .NavButtons > a > svg {
+    display: none;
+  }
 }
 
 @media (min-width: 768px) {
-    .SwiperHeader {
-        margin-bottom: 0.3rem;
-    }
+  .SwiperHeader {
+    margin-bottom: 0.3rem;
+  }
 
-    .NavButtons>a {
-        font-size: 0.75rem;
-        line-height: 1rem;
-    }
+  .NavButtons > a {
+    font-size: 0.75rem;
+    line-height: 1rem;
+  }
 }
