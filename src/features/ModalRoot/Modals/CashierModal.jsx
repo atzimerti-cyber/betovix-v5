@@ -8,15 +8,19 @@ import ModalHeader from "../features/ModalHeader";
 import Tabs from "../../UI/Tabs/Tabs";
 import Deposit from "../../../pages/Crypto/features/Deposit";
 import Withdraw from "../../../pages/Crypto/features/Withdraw";
-//import BuyCrypto from '../../../pages/Crypto/features/BuyCrypto';
 import { translate } from "../../../utils/translations";
-import { GetPaymentMethods } from "../../../pages/Crypto/cryptoAsyncActions";
+import {
+  GetPaymentMethods,
+  getWithrawalReqs,
+} from "../../../pages/Crypto/cryptoAsyncActions";
 import { cryptoActions } from "../../../pages/Crypto/cryptoSlice";
 
 const CashierModal = (props) => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+
+  const user = useSelector((state) => state.login.user); // Necessary for rerendering translations
 
   const [selectedTab, setSelectedTab] = useState(props.tab);
 
@@ -46,6 +50,8 @@ const CashierModal = (props) => {
     if (type === "deposit") {
       dispatch(GetPaymentMethods(signal, 1));
     } else if (type === "withdraw") {
+      const accountid = user?.AccountId;
+      dispatch(getWithrawalReqs(signal, accountid));
       dispatch(GetPaymentMethods(signal, 2));
     }
 
@@ -54,7 +60,6 @@ const CashierModal = (props) => {
       dispatch(cryptoActions.resetPayments());
     };
   }, [selectedTab]);
-  // }, [location.search]);
 
   return (
     <div className={classes.CashierModal}>

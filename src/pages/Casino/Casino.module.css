@@ -40,6 +40,6 @@
   align-content: center;
   flex-wrap: wrap;
   flex-direction: row;
-  row-gap: 1rem;
+  row-gap: 0.5rem;
   column-gap: 1rem;
 }

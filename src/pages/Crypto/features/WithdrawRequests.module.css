@@ -28,6 +28,8 @@
   align-items: center;
   height: 80%;
   width: 100%;
+  row-gap: 0.675rem;
+  padding: 0.5rem;
 }
 
 .NoReqs {
@@ -40,6 +42,36 @@
 .NoReqs span {
   color: white;
   font-size: 1rem;
+}
+
+.Req {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  height: 5rem;
+  border-radius: 8px;
+  padding: 0.6rem;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.Left {
+  display: flex;
+  flex-direction: column;
+}
+.Center {
+  display: flex;
+  flex-direction: column;
+}
+.Right {
+  display: flex;
+  flex-direction: column;
+}
+.Left,
+.Center,
+.Right p {
+  color: white;
 }
 
 @media (min-width: 640px) {

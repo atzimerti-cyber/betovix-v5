@@ -170,3 +170,42 @@ export const submitWithdrawForm = (signal, withrawDTO) => {
     }
   };
 };
+
+export const getWithrawalReqs = (signal, accountid) => {
+  return async (dispatch) => {
+    try {
+      const response = await axiosApi.post(
+        `/Payments/PostData?action=WithdrawRequestsTable&lang=en`,
+
+        {
+          data: `{"page":1,"count":10,"sort":"AccountId_asc","filter":{"AccountId":${accountid}}}`,
+        },
+
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_STORETUBE,
+        }
+      );
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
+        throw Error("Failed");
+
+      let reqs = response.data.Contents.Rows.map((req) => ({
+        reqId: req.Data.Id,
+        accountid: req.Data.AccountId,
+        amount: req.Data.Amount !== 0 ? req.Data.Amount : req.Data.AmountCr,
+        currency: req.Data.Currency,
+        dateAdded: req.Data.DateAdded,
+        dateCompleted: req.Data.DateCompleted,
+        dateUpdated: req.Data.DateUpdated,
+        note: req.Data.Note,
+        status: req.Data.Status,
+      }));
+
+      dispatch(cryptoActions.setWithdrawals(reqs));
+    } catch (error) {
+      const message = error?.message ? error.message : error;
+      if (!error?.code === "ERR_CANCELED") toast.error(message);
+    }
+  };
+};
