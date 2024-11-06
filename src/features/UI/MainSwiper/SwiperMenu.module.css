@@ -1,57 +1,33 @@
 .SwiperMenu > div > div {
-    margin-right: 4px;
-    width: auto;
+  /* margin-right: 4px; */
+  width: auto;
 }
 
-.SwiperMenu::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 100px;
-    background: transparent;
-    /* background: var(--db-dark-1); */
-    pointer-events: none;
-    z-index: 2;
-}
-
-/* .NavButtons {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.NavButtons > a {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.625rem;
-    line-height: 0.8rem;
-    font-weight: 600;
-    line-height: 1;
-    color: var(--db-brand-green);
-}
-
-.NavButtons > a > svg {
-    height: 10px;
-    width: 5px;
-}
-
-@media (min-width: 640px) {
-    .NavButtons > a {
-        margin-right: 0.5rem;
-    }
-    .NavButtons > a > svg {
-        display: none;
-    }
-}
-
-@media (min-width: 768px) {
-    .NavButtons > a {
-        font-size: 0.75rem;
-        line-height: 1rem;
-    }
+/* .SwiperMenu::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100px;
+  background: transparent; 
+  pointer-events: none;
+  z-index: -2;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+  width: 15%;
 } */
+
+.SwiperMenu {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  row-gap: 0.2rem;
+}
+.SwiperMenu > div:last-child {
+  position: relative !important;
+  margin-top: 5px;
+}
+.SwiperMenu > div:last-child > div {
+  background: #0a131c !important;
+}

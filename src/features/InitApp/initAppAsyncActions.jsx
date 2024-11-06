@@ -21,6 +21,10 @@ import PaperIcon from "../../assets/svgs/paper.svg?react";
 import PricesIcon from "../../assets/svgs/prices.svg?react";
 import LogoSmall1C from "../../assets/svgs/logo-small-oneColor.svg?react";
 import RewardsIcon from "../../assets/svgs/rewards.svg?react";
+import GameShows from "../../assets/svgs/gameshows.svg?react";
+import VirtualGames from "../../assets/svgs/virtualgames.svg?react";
+import TableGames from "../../assets/svgs/table-games.svg?react";
+import ProvidersMenu from "../../assets/svgs/providers-menu.svg?react";
 
 import { getAccessToken } from "../../utils/auth";
 import { loginActions } from "../../pages/Login/loginSlice";
@@ -381,15 +385,38 @@ export const loadInitData = (isMobile) => {
             },
             {
               id: 4,
+              label: "Virtual Games",
+              icon: <VirtualGames />,
+              page: "casino/virtualgames",
+            },
+            {
+              id: 5,
+              label: "Game Shows",
+              icon: <GameShows />,
+              page: "casino/gameshows",
+            },
+            {
+              id: 6,
+              label: "Table Games",
+              icon: <TableGames />,
+              page: "casino/tablegames",
+            },
+            {
+              id: 7,
+              label: "Providers",
+              icon: <ProvidersMenu />,
+              page: "casino/providers",
+            },
+            user && {
+              id: 8,
               label: "Favorites",
               icon: <HeartIcon />,
               page: "casino/favorites",
             },
-          ],
+          ].filter(Boolean), // This filters out any `false` or `undefined` items
         });
 
         casinoMenuItems.push(casinoWalletMenu);
-        // casinoMenuItems.push(...casinoWalletMenu);
 
         dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
       }

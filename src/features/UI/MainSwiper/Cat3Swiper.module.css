@@ -278,6 +278,7 @@
   align-content: center;
   align-items: flex-end;
   column-gap: 0.2rem;
+  cursor: pointer;
 }
 .SwiperTitleMob span {
   color: aliceblue;
@@ -285,6 +286,7 @@
   font-weight: 700;
 }
 .SwiperTitleDesk {
+  cursor: pointer;
   position: absolute;
   bottom: 2%;
   left: 1%;

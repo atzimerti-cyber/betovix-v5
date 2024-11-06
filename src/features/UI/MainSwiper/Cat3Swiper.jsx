@@ -144,7 +144,10 @@ const Cat3Swiper = (props) => {
             }}
           >
             {notGridSwiper ? (
-              <div className={classes.SwiperTitleMob}>
+              <div
+                className={classes.SwiperTitleMob}
+                onClick={() => GoToCategory(props.tag, props.title)}
+              >
                 <span>{translate(`${props.title}`)}</span>
                 <ArrowRight width="33px" height="33px" />
               </div>

@@ -8,7 +8,11 @@ import HomeIcon from "../../../assets/svgs/home.svg?react";
 import SlotsIcon from "../../../assets/svgs/slots.svg?react";
 import BlackjackIcon from "../../../assets/svgs/blackjack.svg?react";
 import HeartIcon from "../../../assets/svgs/heart.svg?react";
-import ProvidersIcon from "../../../assets/casinoIcons/providers.svg?react";
+
+import GameShows from "../../../assets/svgs/gameshows.svg?react";
+import VirtualGames from "../../../assets/svgs/virtualgames.svg?react";
+import TableGames from "../../../assets/svgs/table-games.svg?react";
+import ProvidersIcon from "../../../assets/svgs/providers-menu.svg?react";
 import { translate } from "../../../utils/translations";
 
 const CasinoMenu = () => {
@@ -16,7 +20,8 @@ const CasinoMenu = () => {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
   return (
-    <div className={classes.CasinoMenuSwiper} style={{ minWidth: "40%" }}>
+    // <div style={{ minWidth: "40%" }}>
+    <div className={classes.CasinoMenuSwiper} style={{ width: "100%" }}>
       <SwiperMenu>
         <SwiperSlide>
           <NavLink
@@ -83,10 +88,38 @@ const CasinoMenu = () => {
                 ? [classes.NavItem, classes.ActiveItem].join(" ")
                 : classes.NavItem
             }
+            to="/casino/virtualgames"
+          >
+            <VirtualGames />
+            {translate("Virtual Games")}
+          </NavLink>
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? [classes.NavItem, classes.ActiveItem].join(" ")
+                : classes.NavItem
+            }
             to="/casino/gameshows"
           >
-            <BlackjackIcon />
+            <GameShows />
             {translate("Game Shows")}
+          </NavLink>
+        </SwiperSlide>
+
+        <SwiperSlide>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? [classes.NavItem, classes.ActiveItem].join(" ")
+                : classes.NavItem
+            }
+            to="/casino/tablegames"
+          >
+            <TableGames />
+            {translate("Table Games")}
           </NavLink>
         </SwiperSlide>
 
@@ -105,6 +138,7 @@ const CasinoMenu = () => {
         </SwiperSlide>
       </SwiperMenu>
     </div>
+    // </div>
   );
 };
 

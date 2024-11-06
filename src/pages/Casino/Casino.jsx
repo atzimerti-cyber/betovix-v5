@@ -13,6 +13,8 @@ import GameShows from "./subpages/GameShows";
 import FavoriteGames from "./subpages/FavoriteGames";
 import GamesByTag from "./subpages/GamesByTag";
 import { casinoActions } from "./casinoSlice";
+import VirtualGames from "./subpages/VirtualGames";
+import TableGames from "./subpages/TableGames";
 
 const Casino = () => {
   const dispatch = useDispatch();
@@ -33,6 +35,8 @@ const Casino = () => {
   else if (params["*"].includes("favorites")) page = <FavoriteGames />;
   else if (params["*"].includes("providers")) page = <Providers />;
   else if (params["*"].includes("gameshows")) page = <GameShows />;
+  else if (params["*"].includes("virtualgames")) page = <VirtualGames />;
+  else if (params["*"].includes("tablegames")) page = <TableGames />;
   else if (params["*"].includes("menu")) page = <GamesByTag />;
 
   return (

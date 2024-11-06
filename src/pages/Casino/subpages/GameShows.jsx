@@ -13,6 +13,7 @@ import { appActions } from "../../../features/InitApp/appSlice";
 import { AnimatePresence } from "framer-motion";
 
 import BarLoading from "../../../features/UI/BarLoading/BarLoading";
+import GameShowsIcon from "../../../assets/svgs/gameshows.svg?react";
 
 import { translate } from "../../../utils/translations";
 
@@ -64,7 +65,7 @@ const GameShows = () => {
           {items?.Data ? (
             <GridGames
               collection={items}
-              icon={""}
+              icon={<GameShowsIcon/>}
               title={translate(`Game Shows`)}
               loading={false}
               bigTitle={true}

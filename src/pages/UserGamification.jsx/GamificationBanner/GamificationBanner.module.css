@@ -1,151 +1,152 @@
 .BannerContainer {
-    max-height: fit-content;
-    max-width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    flex-direction: column;
-    background: #0c1e2d;
-    padding: 0.75rem;
-    border-radius: 20px;
-    min-height: 300px;
+  max-height: fit-content;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+  flex-direction: column;
+  background: #0c1e2d;
+  padding: 0.75rem;
+  border-radius: 20px;
+  min-height: 300px;
 }
 
-
 .HeroContainer {
-    display: flex;
-    min-height: 50px;
-    flex-wrap: wrap;
-    justify-content: center;
-    /* background: #0c1e2d; */
+  display: flex;
+  min-height: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+  /* background: #0c1e2d; */
 }
 
 .HeroName {
-    flex: 0 0 50px;
-    overflow: hidden;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    display: none;
+  flex: 0 0 50px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  display: none;
 }
 
 .HeroName p {
-    transform: rotate(270deg);
-    transform-origin: center;
-    display: block;
-    font-size: 1.1rem;
-    font-weight: 700;
-    font-family: Byker, ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-    text-align: center;
-    text-wrap: nowrap;
+  transform: rotate(270deg);
+  transform-origin: center;
+  display: block;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-family: Byker, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  text-align: center;
+  text-wrap: nowrap;
 }
 
 .HeroImg {
-    flex: 1 0 214px;
-    overflow: hidden;
-    /* padding: 1rem; */
-    max-width: 240px;
+  flex: 1 0 214px;
+  overflow: hidden;
+  /* padding: 1rem; */
+  max-width: 240px;
 }
 
 .HeroLevelsContainer {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 0.1rem;
-    overflow: hidden;
-    min-width: 300px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.1rem;
+  overflow: hidden;
+  min-width: 300px;
 }
 
 .HeroLevels {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .HeroMilestones {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
 }
 
 .SwiperHeader {
-    margin-bottom: 0.5rem;
-    display: flex;
-    align-items: center;
-    width: 100%;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  width: 100%;
 }
 
 .Title {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: 700;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-    text-transform: uppercase;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  text-transform: uppercase;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .Title svg {
-    margin-right: 0.5rem;
-    height: 1.25rem;
-    width: 1.25rem;
+  margin-right: 0.5rem;
+  height: 1.25rem;
+  width: 1.25rem;
 }
 
 .Title svg path {
-    fill: var(--db-brand-green);
+  fill: var(--db-brand-green);
 }
 
 .Title a {
-    cursor: pointer;
-} 
+  cursor: pointer;
+}
 
 .NavButtons {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-.NavButtons>a {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.75rem;
-    line-height: 0.8rem;
-    font-weight: 600;
-    line-height: 1;
-    color: var(--db-brand-green);
+.NavButtons > a {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 0.8rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--db-brand-green);
 }
 
-.NavButtons>a>svg {
-    height: 10px;
-    width: 5px;
+.NavButtons > a > svg {
+  height: 10px;
+  width: 5px;
 }
 
 .ViewAllLink {
-    font-size: 1rem;
+  font-size: 1rem;
+  color: white;
+  cursor: pointer;
 }
-
-.ViewAllLink a {
-    font-size: 1rem;
-}
+.ViewAllLink p{
+    font-size: 0.85rem;
+    color: white;
+  }
 
 /* FOR SKELETON */
 .CardsContainer {
-    display: flex;
-    gap: 13px;
+  display: flex;
+  gap: 13px;
 }
 
-@media(max-width: 550px) {
-    .BannerContainer {
-        padding: 0.5rem;
-    }
+@media (max-width: 550px) {
+  .BannerContainer {
+    padding: 0.5rem;
+  }
 
-    .HeroLevelsContainer {
-        padding: 0.5rem;
-    }
+  .HeroLevelsContainer {
+    padding: 0.5rem;
+  }
 }
