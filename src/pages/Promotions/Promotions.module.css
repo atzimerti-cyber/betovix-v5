@@ -35,12 +35,16 @@
   align-items: center;
 }
 .PromoBanner {
-  height: 100%;
-  min-width: 30%;
+  display: flex;
+  justify-content: flex-start;
+  height: max-content;
+  align-items: center;
 }
 .PromoBanner img {
   height: 100%;
   min-width: 30%;
+  max-width: 80%;
+  max-height: 200px;
 }
 .Title {
   font-size: 2rem;
@@ -129,7 +133,7 @@
   background-color: #154867;
 }
 
-@media (min-width: 500px) {
+@media (min-width: 600px) {
   .PromotionsHeader {
     height: 200px;
     width: 100%;
@@ -140,6 +144,11 @@
     background: linear-gradient(208deg, #199bcf2e, transparent 80%);
     flex-direction: row;
   }
+  .PromoBanner {
+    justify-content: space-around;
+  }
+}
+@media (min-width: 500px) {
   .PromotionsBody {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
