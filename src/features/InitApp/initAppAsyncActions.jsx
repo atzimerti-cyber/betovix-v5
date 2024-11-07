@@ -231,7 +231,7 @@ export const loadInitData = (isMobile) => {
           category: { id: 2, label: "Top Leagues", visible: true },
           items: [],
         };
-        topTournaments.SubCategs[0].Items.forEach((topTournament) => {
+        topTournaments.SubCategs[0]?.Items.forEach((topTournament) => {
           const value = topTournament.Value.split(",");
           topTournamentsMenu.items.push({
             id: topTournament.Value,

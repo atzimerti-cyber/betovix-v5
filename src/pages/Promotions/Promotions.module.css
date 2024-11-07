@@ -73,6 +73,19 @@
   transition: transform 0.2s ease-in-out;
   max-height: 380px;
   height: max-content;
+
+  background-color: #ffffff14;
+  color: #fff;
+  flex: 0 0 100%;
+  border-radius: 0.4rem;
+  overflow: hidden;
+}
+
+.PromoBanner {
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+  height: 16.0714285714rem;
 }
 
 .Promo:hover {
@@ -88,10 +101,13 @@
 }
 
 .Content {
-  padding: 0.6rem 0.6rem 0rem 0.6rem;
+  padding: 0.6rem 0.8rem 0rem 0.8rem;
   width: 100%;
   height: -webkit-fill-available;
   min-height: 70px;
+  justify-content: space-between;
+  flex-grow: 1;
+  gap: 1.6rem;
 }
 .PromoTitle {
   font-size: 1rem;
@@ -112,7 +128,6 @@
   justify-content: flex-start;
   flex-direction: row;
   column-gap: 0.5rem;
-  max-height: 32px;
   overflow-y: auto; /* Changed from 'scroll' to 'auto' */
 }
 
@@ -148,14 +163,14 @@
     justify-content: space-around;
   }
 }
-@media (min-width: 500px) {
-  .PromotionsBody {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-@media (min-width: 1000px) {
+@media (min-width: 600px) {
   .PromotionsBody {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1240px) {
+  .PromotionsBody {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
   .PromotionsHeader {
     height: 200px;
@@ -167,4 +182,27 @@
     align-items: flex-end;
     background: linear-gradient(208deg, #199bcf2e, transparent 80%);
   }
+}
+
+/* Custom scrollbar for webkit browsers */
+.PromoText::-webkit-scrollbar {
+  width: 8px;
+  height: 5px;
+}
+
+/* Track */
+.PromoText::-webkit-scrollbar-track {
+  background: #0d3146; /* Dark background */
+  border-radius: 5px;
+}
+
+/* Handle */
+.PromoText::-webkit-scrollbar-thumb {
+  background: #154867; /* Slightly lighter than the track */
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+.PromoText::-webkit-scrollbar-thumb:hover {
+  background: #199bcf; /* Accent color for hover */
 }
