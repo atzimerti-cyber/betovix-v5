@@ -32,6 +32,35 @@
   padding: 0.5rem;
 }
 
+.FilterContainer {
+  width: 100%;
+  display: flex;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+  row-gap: 0.7rem;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.Filter {
+  width: 48%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: row;
+  column-gap: 0.5rem;
+  min-width: fit-content;
+}
+.Select {
+  background: #123751;
+  height: 2rem;
+  width: 60%;
+  padding: 0.4rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: rgb(255, 255, 255);
+  padding: 0.1rem;
+}
 .NoReqs {
   display: flex;
   flex-direction: column;
@@ -46,27 +75,38 @@
 
 .Req {
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  align-items: flex-start;
   width: 100%;
-  height: 5rem;
   border-radius: 8px;
   padding: 0.6rem;
   justify-content: space-between;
-  flex-wrap: wrap;
 }
 
 .Left {
   display: flex;
+  height: 100%;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
 }
 .Center {
   display: flex;
+  height: 100%;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-start;
 }
 .Right {
   display: flex;
+  height: 100%;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  text-align: end;
+  width: 100%;
+  padding: 0 0.5rem 0.2rem 0;
 }
 .Left,
 .Center,
@@ -83,5 +123,26 @@
     gap: 0.75rem;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
+  }
+}
+
+@media (min-width: 540px) {
+  .Req {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    border-radius: 8px;
+    padding: 0.6rem;
+    justify-content: space-between;
+  }
+  .Right {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    width: auto;
+    padding: 0;
   }
 }

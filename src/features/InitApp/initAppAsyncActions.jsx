@@ -25,6 +25,7 @@ import GameShows from "../../assets/svgs/gameshows.svg?react";
 import VirtualGames from "../../assets/svgs/virtualgames.svg?react";
 import TableGames from "../../assets/svgs/table-games.svg?react";
 import ProvidersMenu from "../../assets/svgs/providers-menu.svg?react";
+import PromotionsIcon from "../../assets/svgs/promotions.svg?react";
 
 import { getAccessToken } from "../../utils/auth";
 import { loginActions } from "../../pages/Login/loginSlice";
@@ -450,18 +451,24 @@ export const loadInitData = (isMobile) => {
         items: [
           {
             id: 1,
-            label: "Crypto Rates",
-            icon: <PricesIcon />,
-            page: "crypto",
-          },
-          {
-            id: 2,
             label: "My Bets",
             icon: <PaperIcon />,
             page: "sportsbook/mybets",
           },
           {
+            id: 2,
+            label: "Promotions",
+            icon: <PromotionsIcon />,
+            page: "promotions",
+          },
+          {
             id: 3,
+            label: "Crypto Rates",
+            icon: <PricesIcon />,
+            page: "crypto",
+          },
+          {
+            id: 4,
             label: "Leaderboard",
             icon: <LeaderIcon />,
             page: "leaderboard",

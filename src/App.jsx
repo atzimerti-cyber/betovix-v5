@@ -27,6 +27,7 @@ const Crypto = React.lazy(() => import("./pages/Crypto/Crypto"));
 const Search = React.lazy(() => import("./pages/Search/Search"));
 const SearchSports = React.lazy(() => import("./pages/Search/SearchSports"));
 const Leaderboard = React.lazy(() => import("./pages/Leaderboard/Leaderboard"));
+const Promotions = React.lazy(() => import("./pages/Promotions/Promotions"));
 const ProgressMap = React.lazy(() =>
   import("./pages/UserGamification.jsx/features/ProgressMap")
 );
@@ -193,6 +194,14 @@ function App() {
               element: (
                 <Suspense fallback={<PageFallback />}>
                   <Gamification />
+                </Suspense>
+              ),
+            },
+            {
+              path: "/promotions",
+              element: (
+                <Suspense fallback={<PageFallback />}>
+                  <Promotions />
                 </Suspense>
               ),
             },

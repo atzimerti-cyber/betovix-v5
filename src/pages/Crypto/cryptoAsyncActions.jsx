@@ -133,7 +133,10 @@ export const submitDepositForm = (signal, depositDTO) => {
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
         throw Error("Failed  ");
 
-      if (depositDTO.PaymentProvider === "Interkassa") {
+      if (
+        depositDTO.PaymentProvider === "Interkassa" ||
+        depositDTO.PaymentProvider === "Chapa"
+      ) {
         window.location.href = response.data.Contents;
       } else if (depositDTO.PaymentProvider === "CoinPayments") {
         dispatch(
