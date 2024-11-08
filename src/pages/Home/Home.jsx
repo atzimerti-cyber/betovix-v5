@@ -17,6 +17,7 @@ import Crypto from '../../features/CryptoPriceSwiper/Crypto';
 import ManualRewards from '../UserGamification.jsx/features/ManualRewards';
 import CasinoFavorites from '../../features/CasinoFavorites/CasinoFavorites';
 import CrashGames from '../../features/CrashGames/CrashGames';
+import CasinoTagSwiper from '../../features/CasinoTag/CasinoTagSwiper';
 import RecommendedGames from '../../features/RecommendedGames/RecommendedGames';
 import GamificationBanner from '../UserGamification.jsx/GamificationBanner/GamificationBanner';
 
@@ -80,6 +81,9 @@ const Home = () => {
     const [showRecommendedGames, setShowRecommendedGames] = useState(true);
     const handleRemoveRecommendedGamesComponent = () => { setShowRecommendedGames(false); };
 
+    const [showGameShows, setShowGameShows] = useState(true);
+    const handleRemoveGameShowsComponent = () => { setShowGameShows(false); };
+
     return (
         <div className={classes.PageContent} style={{ paddingTop: '16px', }} >
             <div className={classes.Home}>
@@ -139,7 +143,7 @@ const Home = () => {
                     </div >
                 )}
 
-                {/* RECOMMENDED GAMES */}
+                {/* RECOMMENDED GAMES (CHANGED TO SLOTS) */}
                 {showRecommendedGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
                     <div ref={recommendedGamesRef} style={{ minHeight: "180px" }} >
                         {isRecommendedGamesVisible && (
@@ -157,6 +161,15 @@ const Home = () => {
                             }
                         </div>
                     )
+                }
+
+                 {/* GAME SHOWS */}
+                 {showGameShows && (permissions.AllowToCasino || permissions.AllowToSlots) &&
+                    <div ref={crashGamesRef} style={{ minHeight: "180px" }}  >
+                        {isCrashGamesVisible && (
+                            <CasinoTagSwiper title="Game Shows" tag="show" onDataNotFound={handleRemoveGameShowsComponent} />
+                        )}
+                    </div>
                 }
 
                 {/* CRASH GAMES */}

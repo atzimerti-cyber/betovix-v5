@@ -14,6 +14,7 @@ const Footer = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const lang = useSelector((state) => state.app.lang);
+  const footer = useSelector((state) => state.layout.footer);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -34,7 +35,23 @@ const Footer = () => {
   return (
     <div className={classes.Footer}>
       <div className={classes.LinksContainer}>
-        <div className={classes.LinksLayout}>
+        {footer &&
+          footer.length > 0 &&
+          footer.map((categ, index) => (
+            <div className={classes.LinksLayout} key={index}>
+              <h2>{translate(`${categ.title}`)}</h2>
+              {categ?.subcategs.map((subcateg, index) => (
+                <a
+                  style={{ cursor: "pointer" }}
+                  onClick={() => navigate(`${subcateg.link}`)}
+                  key={index}
+                >
+                  {translate(`${subcateg.name}`)}
+                </a>
+              ))}
+            </div>
+          ))}
+        {/* <div className={classes.LinksLayout}>
           <h2>{translate("Sportsbook")}</h2>
           <a
             style={{ cursor: "pointer" }}
@@ -102,7 +119,7 @@ const Footer = () => {
           <a onClick={() => navigate("/rpg")} style={{ cursor: "pointer" }}>
             {translate("Responsible Gaming Policy")}
           </a>
-        </div>
+        </div> */}
 
         <div className={classes.LinksLayout}>
           <h2>{translate("License")}</h2>

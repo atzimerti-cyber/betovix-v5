@@ -6,8 +6,11 @@ import classes from "./FinalStageWithdraw.module.css";
 import WithdrawPaymentForm from "./WithdrawPaymentForm";
 import AngleLeft2Icon from "../../../assets/svgs/angle-left2.svg?react";
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
+import SuccessIcon from "../../../assets/svgs/successpayment.svg?react";
+import ErrorIcon from "../../../assets/svgs/errorpayment.svg?react";
 import { translate } from "../../../utils/translations";
 import { cryptoActions } from "../cryptoSlice";
+import { getWithrawalReqs } from "../cryptoAsyncActions";
 
 const FinalStageWithdraw = () => {
   const dispatch = useDispatch();
@@ -35,6 +38,20 @@ const FinalStageWithdraw = () => {
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
     });
+    dispatch(cryptoActions.setSelectedPaymentMethodWithdraw(null));
+    dispatch(cryptoActions.setWithdrawRequestMessage(null));
+    const controller = new AbortController();
+    const signal = controller.signal;
+    dispatch(getWithrawalReqs(signal, 1, 10, "DateAdded_asc", "0,1,2,3,4,5"));
+  };
+
+  const navigateToWithdrawalReqs = () => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("stage", "requests");
+    const controller = new AbortController();
+    const signal = controller.signal;
+    dispatch(getWithrawalReqs(signal, 1, 10, "DateAdded_asc", "0,1,2,3,4,5"));
+    navigate(`/?${searchParams.toString()}`);
     dispatch(cryptoActions.setSelectedPaymentMethodWithdraw(null));
     dispatch(cryptoActions.setWithdrawRequestMessage(null));
   };
@@ -117,19 +134,35 @@ const FinalStageWithdraw = () => {
           </div>
         </div>
       </div>
-      {withdrawRequestState !== true && withdrawRequestState !== false
-        ? paymentType &&
-          paymentMethod && (
-            <div className={classes.PaymentFormContainer}>
-              <WithdrawPaymentForm
-                method={paymentMethod}
-                provider={paymentType.Provider}
-              />
-            </div>
-          )
-        : withdrawRequestState === true
-        ? "withdraw request was successfull"
-        : "withdraw request failed. Please try again."}
+      {withdrawRequestState !== true && withdrawRequestState !== false ? (
+        paymentType &&
+        paymentMethod && (
+          <div className={classes.PaymentFormContainer}>
+            <WithdrawPaymentForm
+              method={paymentMethod}
+              provider={paymentType.Provider}
+            />
+          </div>
+        )
+      ) : withdrawRequestState === true ? (
+        <div className={classes.Message}>
+          <SuccessIcon />
+          <span>
+            Withdrawal request was successfull!
+            <p
+              onClick={() => navigateToWithdrawalReqs()}
+              className={classes.GoToReqs}
+            >
+              <i>Check your withdrawal requests here.</i>
+            </p>
+          </span>
+        </div>
+      ) : (
+        <div className={classes.Message}>
+          <ErrorIcon />
+          <span>Withdrawal request failed. Please try again.</span>
+        </div>
+      )}
     </>
   );
 };

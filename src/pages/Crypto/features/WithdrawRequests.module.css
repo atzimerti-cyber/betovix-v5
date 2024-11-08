@@ -33,6 +33,7 @@
   flex-wrap: nowrap;
   position: relative;
   padding-bottom: 2rem;
+  justify-content: flex-start;
 }
 .Requests {
   display: flex;
@@ -49,22 +50,43 @@
   display: flex;
   color: white;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   row-gap: 0.7rem;
   flex-direction: row;
   flex-wrap: wrap;
+  column-gap: 2rem;
 }
 .Filter {
-  width: 48%;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   flex-direction: row;
   column-gap: 0.5rem;
   min-width: fit-content;
+  height: 2rem;
+}
+.SortButton svg {
+  height: 0.8rem;
+  width: 0.8rem;
+}
+
+.FilterSort {
+  display: flex;
+  background: #102f47;
+  height: 2rem;
+  width: max-content;
+  padding: 0.4rem;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  color: rgb(255, 255, 255);
+  padding: 0.1rem;
+  justify-content: space-around;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0 0.5rem;
 }
 .Select {
-  background: #123751;
+  background: #102f47;
   height: 2rem;
   width: 60%;
   padding: 0.4rem;
@@ -83,6 +105,7 @@
 .NoReqs span {
   color: white;
   font-size: 1rem;
+  font-weight: 400;
 }
 
 .Req {

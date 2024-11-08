@@ -10,6 +10,8 @@ import { translate } from "../../../utils/translations";
 import { getWithrawalReqs } from "../cryptoAsyncActions";
 import AngleLeftIcon from "../../../assets/svgs/angle-left.svg?react";
 import AngleRightIcon from "../../../assets/svgs/angle-right.svg?react";
+import UpArrowIcon from "../../../assets/svgs/up.svg?react";
+import DownArrowIcon from "../../../assets/svgs/down.svg?react";
 
 const WithdrawRequests = () => {
   const dispatch = useDispatch();
@@ -21,7 +23,9 @@ const WithdrawRequests = () => {
   const withdrawReqs = useSelector((state) => state.crypto.withdrawals);
 
   const [selectedStatus, setSelectedStatus] = useState("0,1,2,3,4,5");
-  const [sortOrder, setSortOrder] = useState("AccountId_asc");
+  const [sortOrder, setSortOrder] = useState("DateAdded_desc");
+  const [amountSortOrder, setAmountSortOrder] = useState("Amount_asc");
+  const [dateSortOrder, setDateSortOrder] = useState("DateAdded_desc");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const count = 10;
@@ -29,11 +33,14 @@ const WithdrawRequests = () => {
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
-
+    console.log("IN USE EFFECT", sortOrder);
     dispatch(
       getWithrawalReqs(signal, currentPage, count, sortOrder, selectedStatus)
     );
-  }, [currentPage, sortOrder, selectedStatus]);
+    return () => {
+      controller.abort();
+    };
+  }, [currentPage, sortOrder, selectedStatus, dispatch]);
 
   useEffect(() => {
     if (withdrawReqs && withdrawReqs.requests.length > 0) {
@@ -60,14 +67,24 @@ const WithdrawRequests = () => {
     }
   };
 
-  const handleSortOrderChange = (event) => {
-    setSortOrder(event.target.value);
-  };
-
   const handlePageChange = (newPage) => {
     if (newPage > 0 && newPage <= totalPages) {
       setCurrentPage(newPage);
     }
+  };
+
+  const toggleAmountSortOrder = () => {
+    const newOrder =
+      amountSortOrder === "Amount_asc" ? "Amount_desc" : "Amount_asc";
+    setAmountSortOrder(newOrder);
+    setSortOrder(newOrder);
+  };
+
+  const toggleDateSortOrder = () => {
+    const newOrder =
+      dateSortOrder === "DateAdded_asc" ? "DateAdded_desc" : "DateAdded_asc";
+    setSortOrder(newOrder);
+    setDateSortOrder(newOrder);
   };
 
   const renderBgColor = (status) => {
@@ -159,53 +176,16 @@ const WithdrawRequests = () => {
         </div>
       </div>
 
-      <div className={classes.RequestsContainer}>
-        <div className={classes.FilterContainer}>
-          <div className={classes.Filter}>
-            <label htmlFor="statusFilter">{translate("Status:")}</label>
-            <select
-              id="statusFilter"
-              value={selectedStatus}
-              onChange={handleStatusChange}
-              className={classes.Select}
-            >
-              <option value="0,1,2,3,4,5">{translate("All")}</option>
-              {uniqueStatuses.map((status) => (
-                <option key={status} value={status}>
-                  {translate(renderReqStatus(status))}
-                </option>
-              ))}
-            </select>
-          </div>
-          <div className={classes.Filter}>
-            <label htmlFor="sortOrder" className={classes.SortLabel}>
-              {translate("Sort By:")}
-            </label>
-            <select
-              id="sortOrder"
-              value={sortOrder}
-              onChange={handleSortOrderChange}
-              className={classes.Select}
-            >
-              <option value="Amount_asc">
-                {translate("Ascending Amount")}
-              </option>
-              <option value="Amount_desc">
-                {translate("Descending Amount")}
-              </option>
-              <option value="DateAdded_asc">
-                {translate("Ascending Date")}
-              </option>
-              <option value="DateAdded_desc">
-                {translate("Descending Date")}
-              </option>
-            </select>
-          </div>
-        </div>
-        {/* {filteredRequests && filteredRequests.length > 0 ? ( */}
+      <div
+        className={classes.RequestsContainer}
+        style={{
+          justifyContent:
+            withdrawReqs && withdrawReqs.requests.length < 1 && "center",
+        }}
+      >
         {withdrawReqs && withdrawReqs.requests.length > 0 ? (
           <>
-            {/* <div className={classes.FilterContainer}>
+            <div className={classes.FilterContainer}>
               <div className={classes.Filter}>
                 <label htmlFor="statusFilter">{translate("Status:")}</label>
                 <select
@@ -223,32 +203,55 @@ const WithdrawRequests = () => {
                 </select>
               </div>
               <div className={classes.Filter}>
-                <label htmlFor="sortOrder" className={classes.SortLabel}>
-                  {translate("Sort By:")}
-                </label>
-                <select
-                  id="sortOrder"
-                  value={sortOrder}
-                  onChange={handleSortOrderChange}
-                  className={classes.Select}
-                >
-                  <option value="Amount_asc">
-                    {translate("Ascending Amount")}
-                  </option>
-                  <option value="Amount_desc">
-                    {translate("Descending Amount")}
-                  </option>
-                  <option value="Date_desc">
-                    {translate("Ascending Date")}
-                  </option>
-                  <option value="Date_desc">
-                    {translate("Descending Date")}
-                  </option>
-                </select>
+                <div className={classes.FilterSort}>
+                  <label htmlFor="amountSort" className={classes.SortLabel}>
+                    {translate("Amount")}
+                  </label>
+                  <button
+                    id="amountSort"
+                    onClick={toggleAmountSortOrder}
+                    className={classes.SortButton}
+                  >
+                    {amountSortOrder === "Amount_asc" ? (
+                      <>
+                        <UpArrowIcon fill="#ffffff" />
+                        <DownArrowIcon fill="#494949" />
+                      </>
+                    ) : (
+                      <>
+                        <UpArrowIcon fill="#494949" />
+                        <DownArrowIcon fill="#ffffff" />
+                      </>
+                    )}
+                  </button>
+                </div>
               </div>
-            </div> */}
+              <div className={classes.Filter}>
+                <div className={classes.FilterSort}>
+                  <label htmlFor="dateSort" className={classes.SortLabel}>
+                    {translate("Date")}
+                  </label>
+                  <button
+                    id="dateSort"
+                    onClick={toggleDateSortOrder}
+                    className={classes.SortButton}
+                  >
+                    {dateSortOrder === "DateAdded_asc" ? (
+                      <>
+                        <UpArrowIcon fill="#ffffff" />
+                        <DownArrowIcon fill="#494949" />
+                      </>
+                    ) : (
+                      <>
+                        <UpArrowIcon fill="#494949" />
+                        <DownArrowIcon fill="#ffffff" />
+                      </>
+                    )}
+                  </button>
+                </div>
+              </div>
+            </div>
             <div className={classes.Requests}>
-              {/* {filteredRequests.map((req, index) => ( */}
               {withdrawReqs.requests.map((req, index) => (
                 <div
                   className={classes.Req}

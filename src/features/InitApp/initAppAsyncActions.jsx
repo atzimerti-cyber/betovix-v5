@@ -41,6 +41,7 @@ import {
   heroProgress,
 } from "../../pages/UserGamification.jsx/gamificationAsyncActions";
 import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
+import Footer from "../Layout/features/Footer";
 
 export const loadInitData = (isMobile) => {
   return async (dispatch, getState) => {
@@ -84,22 +85,6 @@ export const loadInitData = (isMobile) => {
       // });
       // console.log(responseSettings);
 
-      /////////////////// Minibar Menu //////////////////////
-      const responseMinibar = await axiosApi.get(
-        `/Menu/MyMenu?type=sports&lang=en&siteid=${config.VITE_SITE_ID}`,
-        {
-          baseURLOverride: config.VITE_WALLET_API_BASE,
-        }
-      );
-      if (responseMinibar.data.Status.StatusCode !== 200) throw Error();
-
-      const minibarMenuItems = responseMinibar.data.Contents.Categs[0].Items;
-
-      //console.log(minibarMenuItems);
-
-      dispatch(layoutActions.setMinibarMenu(minibarMenuItems));
-
-      ///////////////////////////
       const token = getAccessToken();
       let user = null;
       if (token) {
@@ -283,7 +268,7 @@ export const loadInitData = (isMobile) => {
       if (permissions.AllowToCasino || permissions.AllowToSlots) {
         const requestsCasino = [
           axiosApi.get(
-            `MyCasino/GetVendors?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+            `MyCasino/GetVendors?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
             {
               baseURLOverride: config.VITE_CASINO_BASE,
               timeout: 10000,
@@ -309,44 +294,6 @@ export const loadInitData = (isMobile) => {
 
         const currentState = getState().app;
         const casinoIcons = currentState.casinoIcons;
-        // const casinoWalletMenu = responsesCasino[1].data.Contents.Categs.map(
-        //   (item) => {
-        //     if (item.Items.length > 0) {
-        //       return {
-        //         category: {
-        //           id: item.Categ.Id,
-        //           label: `${item.Categ.Name}`,
-        //           visible: false,
-        //         },
-        //         items: item.Items.map((subItem) => {
-        //           const icon = casinoIcons[subItem.Name] || <NoImageIcon />;
-        //           const slug = subItem.Name?.toLowerCase().replace(/ /g, "-");
-        //           return {
-        //             id: subItem.Id,
-        //             label: subItem.Name,
-        //             icon: icon,
-        //             // page: `casino/${slug}`,
-        //             page: `casino/${subItem.BadgeType}`,
-        //           };
-        //         }),
-        //       };
-        //     } else {
-        //       const icon = casinoIcons[item.Categ.Name] || <NoImageIcon />;
-        //       const slug = item.Categ.Icon?.toLowerCase().replace(/ /g, "-");
-        //       return {
-        //         items: [
-        //           {
-        //             id: item.Categ.Id,
-        //             label: item.Categ.Name,
-        //             icon: icon,
-        //             page: `casino/menu?tag=${item.Categ.BadgeType}`,
-        //             // page: `casino/${slug}`,
-        //           },
-        //         ],
-        //       };
-        //     }
-        //   }
-        // );
 
         let casinoWalletMenu = {
           category: { id: 2, label: "Casino Categories", visible: true },
@@ -360,8 +307,6 @@ export const loadInitData = (isMobile) => {
             page: `casino/menu?tag=${category.Categ.BadgeType}`,
           });
         });
-
-        //console.log('casinoWalletMenu', casinoWalletMenu);
 
         casinoMenuItems.push({
           category: { id: 1, label: "Casino", visible: true },
@@ -475,6 +420,29 @@ export const loadInitData = (isMobile) => {
           },
         ],
       });
+
+      /////////////////// Minibar Menu //////////////////////
+      const footerResponse = await axiosApi.get(
+        `/Menu/MyMenu?type=sports&lang=en&siteid=${config.VITE_SITE_ID}`,
+        {
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+      if (footerResponse.data.Status.StatusCode !== 200) throw Error();
+
+      const footer =
+        footerResponse.data.Contents.Categs[5]?.SubCategs?.map((categ) => ({
+          title: categ.SubCateg?.Name || "Untitled",
+          subcategs:
+            categ?.Items?.map((subcateg) => ({
+              name: subcateg?.Name || "Unnamed",
+              link: subcateg?.Link || "#",
+            })) || [],
+        })) || [];
+
+      dispatch(layoutActions.setFooter(footer));
+
+      ///////////////////////////
       //console.log(allMenuItems);
       dispatch(appActions.setMenuItems(allMenuItems));
       setTimeout(function () {
@@ -642,6 +610,27 @@ export const getSiteSettings = (signal) => {
       dispatch(
         appActions.setSocialMedia(response.data.Contents["Social Media"])
       );
+    } catch (error) {
+      toast.error(
+        error?.message || "An error occurred while fetching site settings"
+      );
+    }
+  };
+};
+
+export const tawktoChat = () => {
+  return async (dispatch, getState) => {
+    try {
+      const lang = getLang();
+      const response = await axiosApi.get(
+        `Setting/CustomerSupportSettings?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        {
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+
+      if (response.status !== 200)
+        throw new Error("Failed to fetch Tawk.to chat.");
     } catch (error) {
       toast.error(
         error?.message || "An error occurred while fetching site settings"

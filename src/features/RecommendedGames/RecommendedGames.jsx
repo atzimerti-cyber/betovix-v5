@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 
 import SwiperWithOverlay from '../UI/MainSwiper/SwiperWithOverlay';
-import RecIcon from '../../assets/svgs/recommended.svg?react';
+import RecIcon from '../../assets/svgs/slots.svg?react';
 import { getRecommendedGames } from './recommendedGamesAsyncActions';
 import { recommendedGamesActions } from './recommendedGamesSlice';
 import useSlidesResponsive from '../../hooks/useSlidesResponsive';
@@ -33,7 +33,7 @@ const RecommendedGames = ({ onDataNotFound }) => {
 
     return (
         <SwiperWithOverlay
-            title={translate('Recommended Games')}
+            title={translate('Slots')}
             icon={<RecIcon />}
             items={recommendedGames}
             slidesPerView={slidesPerView}
