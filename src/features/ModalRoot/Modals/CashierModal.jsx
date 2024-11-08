@@ -20,7 +20,8 @@ const CashierModal = (props) => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const user = useSelector((state) => state.login.user); // Necessary for rerendering translations
+  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const user = useSelector((state) => state.login.user);  
 
   const [selectedTab, setSelectedTab] = useState(props.tab);
 
@@ -50,8 +51,8 @@ const CashierModal = (props) => {
     if (type === "deposit") {
       dispatch(GetPaymentMethods(signal, 1));
     } else if (type === "withdraw") {
-      const accountid = user?.AccountId;
-      dispatch(getWithrawalReqs(signal, accountid));
+      // const accountid = user?.AccountId;
+      // dispatch(getWithrawalReqs(signal, accountid));
       dispatch(GetPaymentMethods(signal, 2));
     }
 

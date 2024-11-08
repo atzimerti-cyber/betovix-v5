@@ -89,12 +89,6 @@ const WithdrawMethods = () => {
                         navigateToModal("cashier", "withdraw", "withdraw");
                       }}
                     >
-                      {/* <img
-                        src={paymentType?.Icon}
-                        crossOrigin="anonymous"
-                        loading="lazy"
-                        alt={paymentType.Name}
-                      /> */}
                        <div
                         className={classes.Image}
                         style={{

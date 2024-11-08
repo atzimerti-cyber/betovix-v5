@@ -26,10 +26,22 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 80%;
+  height: 90%;
   width: 100%;
   row-gap: 0.675rem;
   padding: 0.5rem;
+  flex-wrap: nowrap;
+  position: relative;
+  padding-bottom: 2rem;
+}
+.Requests {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  row-gap: 0.675rem;
+  padding: 0.5rem;
+  overflow-y: scroll;
 }
 
 .FilterContainer {
@@ -112,6 +124,38 @@
 .Center,
 .Right p {
   color: white;
+}
+
+.Pagination {
+  position: absolute;
+  color: white;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  bottom: 0;
+}
+.Pagination span {
+  color: white;
+  font-weight: 400;
+  font-size: 0.895rem;
+}
+.Pagination button {
+  display: flex;
+  border-radius: 5px;
+  background: #123751;
+  height: 1.5rem;
+  width: 1.5rem;
+  align-items: center;
+  justify-content: center;
+}
+.Pagination button:hover {
+  background: #1f5e8a;
+}
+.Pagination button svg {
+  height: 0.5rem;
+  width: 0.5rem;
 }
 
 @media (min-width: 640px) {

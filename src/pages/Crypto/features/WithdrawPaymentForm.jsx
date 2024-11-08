@@ -86,15 +86,17 @@ const WithdrawPaymentForm = (props) => {
         debouncedFormData.Currency ||
         (debouncedFormData.Network &&
           Object.values(debouncedFormData.Network).join(", ")),
-      Network:
-        debouncedFormData.Network &&
-        Object.keys(debouncedFormData.Network).join(", "),
+      Network: debouncedFormData.Network
+        ? Object.keys(debouncedFormData.Network).join(", ")
+        : debouncedFormData.BankCode && debouncedFormData.BankCode,
       Amount: debouncedFormData.Amount,
       PaymentType: debouncedFormData.PaymentType,
       PaymentMethod: debouncedFormData.PaymentMethod,
       PaymentProvider: props.provider,
       SiteId: `${config.VITE_SITE_ID}`,
-      CustomerFirstName: debouncedFormData.FirstName,
+      CustomerFirstName: debouncedFormData.FirstName
+        ? debouncedFormData.FirstName
+        : debouncedFormData.AccountName && debouncedFormData.AccountName,
       CustomerLastName: debouncedFormData.LastName,
       CustomerPhone: debouncedFormData.Phone,
       CustomerEmail: debouncedFormData.Email,
@@ -104,7 +106,9 @@ const WithdrawPaymentForm = (props) => {
         ? debouncedFormData.WalletAddress
         : debouncedFormData.Address,
       CustomerPostCode: debouncedFormData.PostCode,
-      CardNumber: debouncedFormData.CardNumber.replace(/\s+/g, ""),
+      CardNumber: debouncedFormData.CardNumber
+        ? debouncedFormData.CardNumber.replace(/\s+/g, "")
+        : debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
     };
     console.log(debouncedFormData);
     console.log(withdrawDTO);

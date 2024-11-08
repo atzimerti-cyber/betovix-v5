@@ -1,106 +1,109 @@
-import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation, Link } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
-import GoogleIcon from '../../assets/svgs/google.svg?react';
-import SteamIcon from '../../assets/svgs/steam.svg?react';
-import MainInput from '../../features/UI/Inputs/MainInput';
-import MainButton from '../../features/UI/Buttons/MainButton';
-import classes from './Login.module.css';
-import { login } from './loginAsyncActions';
-import { verify } from './loginAsyncActions';
-import React from 'react';
-import { GoogleOAuthProvider } from '@react-oauth/google';
-import AlternativeMethods from './features/AlternativeMethods';
-import { translate } from '../../utils/translations';
-import config from '../../config';
-import { loginActions } from './loginSlice';
+import GoogleIcon from "../../assets/svgs/google.svg?react";
+import SteamIcon from "../../assets/svgs/steam.svg?react";
+import MainInput from "../../features/UI/Inputs/MainInput";
+import MainButton from "../../features/UI/Buttons/MainButton";
+import classes from "./Login.module.css";
+import { login } from "./loginAsyncActions";
+import { verify } from "./loginAsyncActions";
+import React from "react";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import AlternativeMethods from "./features/AlternativeMethods";
+import { translate } from "../../utils/translations";
+import config from "../../config";
+import { loginActions } from "./loginSlice";
 
 const Login = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const location = useLocation();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-    const loginLoading = useSelector((state) => state.login.loginLoading);
-    const isMobile = useMediaQuery({ query: '(max-width: 768px)' });
+  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const loginLoading = useSelector((state) => state.login.loginLoading);
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
-    const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        const searchParams = new URLSearchParams(location.search);
-        const code = searchParams.get('activationCode');
-        if (code) {
-            setLoading(true)
-            dispatch(verify(code, navigate)).then(() => setLoading(false));
-        }
-    }, [dispatch]);
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const code = searchParams.get("activationCode");
+    if (code) {
+      setLoading(true);
+      dispatch(verify(code, navigate)).then(() => setLoading(false));
+    }
+  }, [dispatch]);
 
-    const [loginInfo, setLoginInfo] = useState({
-        Provider: 1,
-        Username: '',
-        Password: '',
-        RememberMe: false,
-        Ip: 1,
-        '2fa': '',
+  const [loginInfo, setLoginInfo] = useState({
+    Provider: 1,
+    SiteId: config.VITE_SITE_ID,
+    Username: "",
+    Password: "",
+    RememberMe: false,
+    Ip: 1,
+    "2fa": "",
+  });
+  const [isLoginDisabled, setIsLoginDisabled] = useState(true);
+
+  useEffect(() => {
+    if (loginInfo.Username && loginInfo.Password) setIsLoginDisabled(false);
+    else setIsLoginDisabled(true);
+  }, [loginInfo.Username, loginInfo.Password]);
+
+  const updateLoginInfo = (property, value) => {
+    setLoginInfo({ ...loginInfo, [property]: value });
+  };
+
+  const changeTab = (tab) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", "auth");
+    searchParams.set("tab", tab);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
     });
-    const [isLoginDisabled, setIsLoginDisabled] = useState(true);
+  };
 
-    useEffect(() => {
-        if (loginInfo.Username && loginInfo.Password) setIsLoginDisabled(false);
-        else setIsLoginDisabled(true);
-    }, [loginInfo.Username, loginInfo.Password]);
-
-    const updateLoginInfo = (property, value) => {
-        setLoginInfo({ ...loginInfo, [property]: value });
-    };
-
-    const changeTab = (tab) => {
-        const searchParams = new URLSearchParams(location.search);
-        searchParams.set('modal', 'auth');
-        searchParams.set('tab', tab);
-
-        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-    };
-
-    return (
+  return (
+    <>
+      {loading ? (
+        <div className={classes.Loading}>
+          <div className={classes.Spinner}></div>
+        </div>
+      ) : (
         <>
-            {loading ? (
-                <div className={classes.Loading}>
-                    <div className={classes.Spinner}></div>
-                </div>
-            ) : (
-                <>
-                    <form className={classes.Form}>
-                        <label htmlFor='Username'>{translate('Username')}</label>
-                        <div className={classes.InputOuter}>
-                            <MainInput
-                                role='textbox'
-                                type='text'
-                                id='Username'
-                                name='Username'
-                                placeholder={translate('Type your Username')}
-                                value={loginInfo.Username}
-                                onChange={(value) => updateLoginInfo('Username', value)}
-                            />
-                        </div>
+          <form className={classes.Form}>
+            <label htmlFor="Username">{translate("Username")}</label>
+            <div className={classes.InputOuter}>
+              <MainInput
+                role="textbox"
+                type="text"
+                id="Username"
+                name="Username"
+                placeholder={translate("Type your Username")}
+                value={loginInfo.Username}
+                onChange={(value) => updateLoginInfo("Username", value)}
+              />
+            </div>
 
-                        <label htmlFor='Password'>{translate('Password')}</label>
-                        <div className={classes.InputOuter}>
-                            <MainInput
-                                role='textbox'
-                                type='password'
-                                id='Password'
-                                name='Password'
-                                placeholder={translate('Type your Password')}
-                                value={loginInfo.Password}
-                                onChange={(value) => updateLoginInfo('Password', value)}
-                                noAutoComplete={false}
-                            />
-                        </div>
+            <label htmlFor="Password">{translate("Password")}</label>
+            <div className={classes.InputOuter}>
+              <MainInput
+                role="textbox"
+                type="password"
+                id="Password"
+                name="Password"
+                placeholder={translate("Type your Password")}
+                value={loginInfo.Password}
+                onChange={(value) => updateLoginInfo("Password", value)}
+                noAutoComplete={false}
+              />
+            </div>
 
-                        {/* <label htmlFor='twoFactor'>{translate('2FA Code (If enabled)')}</label>
+            {/* <label htmlFor='twoFactor'>{translate('2FA Code (If enabled)')}</label>
                         <div className={classes.InputOuter}>
                             <MainInput
                                 role='textbox'
@@ -113,30 +116,32 @@ const Login = () => {
                             />
                         </div> */}
 
-                        <MainButton
-                            loading={loginLoading}
-                            color='primary'
-                            disabled={isLoginDisabled}
-                            onClick={() => {
-                                 dispatch(login(loginInfo, navigate, location.pathname));
-                                 
-                            }}
-                        >
-                            {translate('Login')}
-                        </MainButton>
+            <MainButton
+              loading={loginLoading}
+              color="primary"
+              disabled={isLoginDisabled}
+              onClick={() => {
+                dispatch(login(loginInfo, navigate, location.pathname));
+              }}
+            >
+              {translate("Login")}
+            </MainButton>
 
-                        <p className={classes.LoginWith}>{translate('or login with')}</p>
-                            <GoogleOAuthProvider clientId={config.VITE_GOOGLE_CLIENT_ID}>
-                                <AlternativeMethods />
-                            </GoogleOAuthProvider>
-                        <MainButton color='transparent' onClick={() => changeTab('forgot-password')}>
-                            {translate('Forgot your password?')}
-                        </MainButton>
+            <p className={classes.LoginWith}>{translate("or login with")}</p>
+            <GoogleOAuthProvider clientId={config.VITE_GOOGLE_CLIENT_ID}>
+              <AlternativeMethods />
+            </GoogleOAuthProvider>
+            <MainButton
+              color="transparent"
+              onClick={() => changeTab("forgot-password")}
+            >
+              {translate("Forgot your password?")}
+            </MainButton>
 
-                        {/* <div className={classes.CaptchaText}>
+            {/* <div className={classes.CaptchaText}>
                 {translate('This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.')}
             </div> */}
-                        {/* {isMobile && (
+            {/* {isMobile && (
                 <div className={classes.Acknowledgement}>
                     {translate('By accessing this site I attest that I am at least 18 years old and have read and agree with the')}{' '}
                     <Link to='/terms' target='_blank' rel='noreferrer'>
@@ -144,11 +149,11 @@ const Login = () => {
                     </Link>
                 </div>
             )} */}
-                    </form>
-                </>
-            )}
+          </form>
         </>
-    );
+      )}
+    </>
+  );
 };
 
 export default Login;

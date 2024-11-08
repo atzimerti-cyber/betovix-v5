@@ -174,14 +174,14 @@ export const submitWithdrawForm = (signal, withrawDTO) => {
   };
 };
 
-export const getWithrawalReqs = (signal, accountid) => {
+export const getWithrawalReqs = (signal, page, count, sort, status) => {
   return async (dispatch) => {
     try {
       const response = await axiosApi.post(
         `/Payments/PostData?action=WithdrawRequestsTable&lang=en`,
 
         {
-          data: `{"page":1,"count":10,"sort":"AccountId_asc","filter":{"AccountId":${accountid}}}`,
+          data: `{"page":${page},"count":${count},"sort":"${sort}","filter":{"Status":"${status}"}}`,
         },
 
         {
@@ -193,7 +193,7 @@ export const getWithrawalReqs = (signal, accountid) => {
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
         throw Error("Failed");
 
-      let reqs = response.data.Contents.Rows.map((req) => ({
+      let withdrawReqs = response.data.Contents.Rows.map((req) => ({
         reqId: req.Data.Id,
         accountid: req.Data.AccountId,
         amount: req.Data.Amount !== 0 ? req.Data.Amount : req.Data.AmountCr,
@@ -205,7 +205,12 @@ export const getWithrawalReqs = (signal, accountid) => {
         status: req.Data.Status,
       }));
 
-      dispatch(cryptoActions.setWithdrawals(reqs));
+      const total = response.data.Contents.Total;
+
+      // Combine requests and total in the desired structure
+      const result = { requests: withdrawReqs, total };
+
+      dispatch(cryptoActions.setWithdrawals(result));
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(message);
