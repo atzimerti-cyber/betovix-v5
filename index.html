@@ -32,19 +32,31 @@
         src="https://e4a2fe78-d6a5-4db4-8b68-4943b8cde3f0.snippet.anjouangaming.org/anj-seal.js"></script>
 
     <script>
-        function hideGame() {
-            // if (window.history.length > 1) {
-            //     for (let i = 0; i < window.history.length; i++) {
-            //         window.history.go(-i);
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log("DOM fully loaded. Setting up MutationObserver...");
 
-            //         if (window.location.pathname.includes('/casino/')) {
-            //             document.getElementById('game').style.display = 'none';
-            //             document.getElementById('btnBack').style.display = 'none';
-            //             document.getElementById('loadGame').style.display = 'none';
-            //             return;
-            //         }
-            //     }
-            // }
+            const observer = new MutationObserver(() => {
+                console.log("Mutation detected, querying for '.widget-visible' elements...");
+
+                const widgets = document.querySelectorAll('.widget-visible');
+
+                console.log('Widgets found:', widgets);
+
+                if (widgets.length > 0) {
+                    widgets.forEach(widget => {
+                        console.log('Setting z-index to 0 for widget:', widget); // Log each widget being modified
+                        widget.style.setProperty('z-index', '700', 'important'); // Apply z-index 0 with !important
+                    });
+                    observer.disconnect(); // Stop observing after the elements are found and modified
+                    console.log('MutationObserver disconnected.');
+                }
+            });
+
+            // Start observing the body for added elements
+            observer.observe(document.body, { childList: true, subtree: true });
+        });
+
+        function hideGame() {
             window.location.href = "/casino/lobby";
             document.getElementById('game').style.display = 'none';
             document.getElementById('btnBack').style.display = 'none';

@@ -1,3 +1,7 @@
+.TawkTo {
+  z-index: 6 !important;
+}
+
 .Layout {
   height: 100dvh;
 }
@@ -41,8 +45,6 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 0.15s;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
-
-  overflow: hidden;
 }
 
 .OverlayButtons .IconButton:not(:last-child) {
@@ -290,9 +292,13 @@
   }
 
   .OverlayButtons {
-    bottom: 1.25rem;
+    bottom: 3rem;
     right: 1.25rem;
   }
+}
+
+.OuterContainerRightWrapper {
+  z-index: 800;
 }
 
 @media (max-width: 1240px) {

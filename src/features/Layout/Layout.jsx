@@ -39,6 +39,7 @@ const Layout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const centerContainerRef = useRef(null);
+  const tawkToRef = useRef(null);
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
@@ -122,6 +123,9 @@ const Layout = () => {
 
   return (
     <div id="layout" className={layoutClasses.join(" ")}>
+      <div ref={tawkToRef} className={classes.TawkTo}>
+        <ScriptInjector scriptStrings={[tawktoScript]} targetRef={tawkToRef} />
+      </div>
       <ToastContainer
         className={classes.MyToast}
         closeButton={ToastCloseButton}
@@ -210,10 +214,10 @@ const Layout = () => {
                   className={[classes.OuterContainerRight, classes.Show].join(
                     " "
                   )}
-                  initial={{ y: 30, opacity: 0 }}
-                  animate={{ y: 0, opacity: 1 }}
-                  exit={{ opacity: 0, transition: { duration: 0.2, delay: 0 } }}
-                  transition={{ duration: isFirstRender ? 0 : 0.2, delay: 0.2 }}
+                  initial={{ x: 30, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  exit={{ opacity: 0, transition: { duration: 0.2, delay: 0.2 } }}
+                  transition={{ duration: isFirstRender ? 0 : 0.2, delay: 0 }}
                 >
                   <RightContainer />
                 </motion.div>
@@ -233,6 +237,7 @@ const Layout = () => {
             <div
               className={classes.IconButton}
               onClick={() => addParamsToUrl("your-progress")}
+              style={{ overflow: hidden }}
             >
               <div
                 className={classes.BtnFill}
@@ -272,11 +277,6 @@ const Layout = () => {
           >
             <ChatIcon />
           </div> */}
-          {tawktoScript !== "" && (
-            <div className={classes.IconButton}>
-              <ScriptInjector scriptStrings={[tawktoScript]} />
-            </div>
-          )}
         </div>
       )}
 
