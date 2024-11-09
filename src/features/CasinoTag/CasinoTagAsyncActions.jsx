@@ -22,12 +22,7 @@ export const getCasinoSwiperByTag = (signal, tag) => {
       )
         throw Error();
 
-      dispatch(
-        casinoTagActions.setCasinoByTag({
-          Contents: response.data.Contents,
-          Tag: tag,
-        })
-      );
+      dispatch(casinoTagActions.setCasinoByTag({ tag, data: response.data }));
     } catch (error) {
       if (!error?.code === "ERR_CANCELED") toast.error(error?.message);
       dispatch(casinoTagActions.setCasinoByTag([]));

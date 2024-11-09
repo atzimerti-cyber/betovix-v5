@@ -1,207 +1,305 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import classes from './Home.module.css';
+import classes from "./Home.module.css";
 
-import useIntersectionObserver from '../../hooks/IntersectionObserver';
-import useSlidesResponsive from '../../hooks/useSlidesResponsive';
+import useIntersectionObserver from "../../hooks/IntersectionObserver";
+import useSlidesResponsive from "../../hooks/useSlidesResponsive";
 
-import Banners from '../../features/Banners/Banners';
-import LiveEvents from './features/LiveEvents';
-import TopEvents from '../../features/TopEvents/TopEvents';
-import VipProgress from './features/VipProgress';
-import RegisterContainers from './features/RegisterContainers';
-import SelectHeroContainer from './features/SelectHeroContainer';
-import Crypto from '../../features/CryptoPriceSwiper/Crypto';
-import ManualRewards from '../UserGamification.jsx/features/ManualRewards';
-import CasinoFavorites from '../../features/CasinoFavorites/CasinoFavorites';
-import CrashGames from '../../features/CrashGames/CrashGames';
-import CasinoTagSwiper from '../../features/CasinoTag/CasinoTagSwiper';
-import RecommendedGames from '../../features/RecommendedGames/RecommendedGames';
-import GamificationBanner from '../UserGamification.jsx/GamificationBanner/GamificationBanner';
+import Banners from "../../features/Banners/Banners";
+import LiveEvents from "./features/LiveEvents";
+import TopEvents from "../../features/TopEvents/TopEvents";
+import VipProgress from "./features/VipProgress";
+import RegisterContainers from "./features/RegisterContainers";
+import SelectHeroContainer from "./features/SelectHeroContainer";
+import Crypto from "../../features/CryptoPriceSwiper/Crypto";
+import ManualRewards from "../UserGamification.jsx/features/ManualRewards";
+import CasinoFavorites from "../../features/CasinoFavorites/CasinoFavorites";
+import CrashGames from "../../features/CrashGames/CrashGames";
+import CasinoTagSwiper from "../../features/CasinoTag/CasinoTagSwiper";
+import RecommendedGames from "../../features/RecommendedGames/RecommendedGames";
+import GamificationBanner from "../UserGamification.jsx/GamificationBanner/GamificationBanner";
 
 function ObjectHasValue(obj) {
-    for (let key in obj) {
-        if (obj.hasOwnProperty(key)) {
-            return true
-        }
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      return true;
     }
-    return false
+  }
+  return false;
 }
 
 const Home = () => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    
-    const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const navigate = useNavigate();
+  const location = useLocation();
 
-    const { slidesPerView, slidesPerGroup, isMobile, isTablet, isDesktop, isBigDesktop } = useSlidesResponsive();
+  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
-    const user = useSelector((state) => state.login.user);
-    const permissions = useSelector((state) => state.login.permissions);
-    const hasHero = useSelector((state) => state.gamification.selectedHero);
-    const liveState = useSelector((state) => state.live.liveState);
+  const {
+    slidesPerView,
+    slidesPerGroup,
+    isMobile,
+    isTablet,
+    isDesktop,
+    isBigDesktop,
+  } = useSlidesResponsive();
 
-    const hasLiveEvents = ObjectHasValue(liveState);
+  const user = useSelector((state) => state.login.user);
+  const permissions = useSelector((state) => state.login.permissions);
+  const hasHero = useSelector((state) => state.gamification.selectedHero);
+  const liveState = useSelector((state) => state.live.liveState);
 
-    const { isVisible: isCryptoVisible, elementRef: cryptoRef } = useIntersectionObserver(0.3, user);
-    const { isVisible: isBannersVisible, elementRef: bannersRef } = useIntersectionObserver(0.3, user);
-    const { isVisible: isLiveEventsVisible, elementRef: liveEventsRef } = useIntersectionObserver(0.3, user);
-    const { isVisible: isTopEventsVisible, elementRef: topEventsRef } = useIntersectionObserver(0.3, user);
-    const { isVisible: isFavoritesVisible, elementRef: favoritesRef } = useIntersectionObserver(0.3, user);
-    const { isVisible: isRewardsVisible, elementRef: rewardsRef } = useIntersectionObserver(0.3, user);
-    const { isVisible: isCrashGamesVisible, elementRef: crashGamesRef } = useIntersectionObserver();
-    const { isVisible: isRecommendedGamesVisible, elementRef: recommendedGamesRef } = useIntersectionObserver();
-    const { isVisible: isHeroBannersVisible, elementRef: heroBannersRef } = useIntersectionObserver();
+  const hasLiveEvents = ObjectHasValue(liveState);
 
-    const addParamsToUrl = (modal, tab) => {
-        const searchParams = new URLSearchParams(location.search);
-        searchParams.set('modal', modal);
-        if (tab) searchParams.set('tab', tab);
+  const { isVisible: isCryptoVisible, elementRef: cryptoRef } =
+    useIntersectionObserver(0.3, user);
+  const { isVisible: isBannersVisible, elementRef: bannersRef } =
+    useIntersectionObserver(0.3, user);
+  const { isVisible: isLiveEventsVisible, elementRef: liveEventsRef } =
+    useIntersectionObserver(0.3, user);
+  const { isVisible: isTopEventsVisible, elementRef: topEventsRef } =
+    useIntersectionObserver(0.3, user);
+  const { isVisible: isFavoritesVisible, elementRef: favoritesRef } =
+    useIntersectionObserver(0.3, user);
+  const { isVisible: isRewardsVisible, elementRef: rewardsRef } =
+    useIntersectionObserver(0.3, user);
+  const { isVisible: isCrashGamesVisible, elementRef: crashGamesRef } =
+    useIntersectionObserver();
+  const { isVisible: isGameShowsVisible, elementRef: gameShowsRef } =
+    useIntersectionObserver();
+  const { isVisible: isPragmaticVisible, elementRef: pragmaticRef } =
+    useIntersectionObserver();
+  const { isVisible: isNoLimitVisible, elementRef: noLimitRef } =
+    useIntersectionObserver();
+  const {
+    isVisible: isRecommendedGamesVisible,
+    elementRef: recommendedGamesRef,
+  } = useIntersectionObserver();
+  const { isVisible: isHeroBannersVisible, elementRef: heroBannersRef } =
+    useIntersectionObserver();
 
-        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-    };
+  const addParamsToUrl = (modal, tab) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", modal);
+    if (tab) searchParams.set("tab", tab);
 
-    // REMOVE COMPONENTS IF NO DATA EXISTS
-    const [showCrypto, setShowCrypto] = useState(true);
-    const handleRemoveCryptoComponent = () => { setShowCrypto(false); };
-    const [showBanners, setShowBanners] = useState(true);
-    const handleRemoveBannersComponent = () => { setShowBanners(false); };
-    const [showFavorites, setShowFavorites] = useState(true);
-    const handleRemoveFavoritesComponent = () => { setShowFavorites(false); };
-    const [showTopEvents, setShowTopEvents] = useState(true);
-    const handleRemoveTopEventsComponent = () => { setShowTopEvents(false); };
-    const [showRewards, setShowRewards] = useState(true);
-    const handleRemoveRewardsComponent = () => { setShowRewards(false); };
-    const [showHeroBanner, setShowHeroBanner] = useState(true);
-    const handleRemoveHeroBannerComponent = () => { setShowHeroBanner(false); };
-    const [showCrashGames, setShowCrashGames] = useState(true);
-    const handleRemoveCrashGamesComponent = () => { setShowCrashGames(false); };
-    const [showRecommendedGames, setShowRecommendedGames] = useState(true);
-    const handleRemoveRecommendedGamesComponent = () => { setShowRecommendedGames(false); };
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+  };
 
-    const [showGameShows, setShowGameShows] = useState(true);
-    const handleRemoveGameShowsComponent = () => { setShowGameShows(false); };
+  // REMOVE COMPONENTS IF NO DATA EXISTS
+  const [showCrypto, setShowCrypto] = useState(true);
+  const handleRemoveCryptoComponent = () => {
+    setShowCrypto(false);
+  };
+  const [showBanners, setShowBanners] = useState(true);
+  const handleRemoveBannersComponent = () => {
+    setShowBanners(false);
+  };
+  const [showFavorites, setShowFavorites] = useState(true);
+  const handleRemoveFavoritesComponent = () => {
+    setShowFavorites(false);
+  };
+  const [showTopEvents, setShowTopEvents] = useState(true);
+  const handleRemoveTopEventsComponent = () => {
+    setShowTopEvents(false);
+  };
+  const [showRewards, setShowRewards] = useState(true);
+  const handleRemoveRewardsComponent = () => {
+    setShowRewards(false);
+  };
+  const [showHeroBanner, setShowHeroBanner] = useState(true);
+  const handleRemoveHeroBannerComponent = () => {
+    setShowHeroBanner(false);
+  };
+  const [showCrashGames, setShowCrashGames] = useState(true);
+  const handleRemoveCrashGamesComponent = () => {
+    setShowCrashGames(false);
+  };
+  const [showRecommendedGames, setShowRecommendedGames] = useState(true);
+  const handleRemoveRecommendedGamesComponent = () => {
+    setShowRecommendedGames(false);
+  };
 
-    return (
-        <div className={classes.PageContent} style={{ paddingTop: '16px', }} >
-            <div className={classes.Home}>
+  const [showGameShows, setShowGameShows] = useState(true);
+  const handleRemoveGameShowsComponent = () => {
+    setShowGameShows(false);
+  };
+  const [showPragmatic, setShowPragmatic] = useState(true);
+  const handleRemovePragmaticComponent = () => {
+    setShowPragmatic(false);
+  };
+  const [showNoLimit, setShowNoLimit] = useState(true);
+  const handleRemoveNoLimitComponent = () => {
+    setShowNoLimit(false);
+  };
 
-                {/*PROGRESS IN MOBILE */}
-                {isMobile && hasHero && Object.keys(hasHero).length > 0 &&
-                    <div className={classes.VipContainer}>
-                        <VipProgress />
-                    </div>
+  return (
+    <div className={classes.PageContent} style={{ paddingTop: "16px" }}>
+      <div className={classes.Home}>
+        {/*PROGRESS IN MOBILE */}
+        {isMobile && hasHero && Object.keys(hasHero).length > 0 && (
+          <div className={classes.VipContainer}>
+            <VipProgress />
+          </div>
+        )}
+
+        {/* BANNERS */}
+        {showBanners && (
+          <div ref={bannersRef} style={{ minHeight: "60px" }}>
+            {isBannersVisible && (
+              <div
+                className={
+                  isMobile || isTablet
+                    ? [classes.BannersContent, classes.AdjustMargins].join(" ")
+                    : classes.BannersContent
                 }
+              >
+                <Banners onDataNotFound={handleRemoveBannersComponent} />
 
-                {/* BANNERS */}
-                {showBanners && <div ref={bannersRef} style={{ minHeight: "60px", }} >
-                    {isBannersVisible &&
-                        <div className={isMobile || (isTablet) ? [classes.BannersContent, classes.AdjustMargins].join(' ') : classes.BannersContent}>
-
-                            <Banners onDataNotFound={handleRemoveBannersComponent} />
-
-                            {/*PROGRESS IN DESKTOP */}
-                            {!isMobile && user && hasHero && (
-                                <div className={classes.VipContainer}>
-                                    <VipProgress />
-                                </div>
-                            )}
-
-                            {!user && <RegisterContainers />}
-                            {!hasHero && user && <SelectHeroContainer />}
-
-                        </div>
-                    }
-                </div>}
-
-                {/* HEROES BANNER */}
-                {(!user || !hasHero) && showHeroBanner &&
-                    <div style={{ minHeight: "300px" }} ref={heroBannersRef}>
-                        {isHeroBannersVisible &&
-                            <GamificationBanner onDataNotFound={handleRemoveHeroBannerComponent} />
-                        }
-                    </div>
-                }
-
-                {/* CRYPTO */}
-                {showCrypto &&
-                    <div style={{ minHeight: "55px" }} ref={cryptoRef}>
-                        {isCryptoVisible &&
-                            <Crypto onDataNotFound={handleRemoveCryptoComponent} />
-                        }
-                    </div>
-                }
-
-                {/* LIVE EVENTS */}
-                {permissions.AllowToSports && (
-                    <div ref={liveEventsRef} style={{ minHeight: "160px" }} >
-                        {isLiveEventsVisible && hasLiveEvents &&
-                            <LiveEvents />
-                        }
-                    </div >
+                {/*PROGRESS IN DESKTOP */}
+                {!isMobile && user && hasHero && (
+                  <div className={classes.VipContainer}>
+                    <VipProgress />
+                  </div>
                 )}
 
-                {/* RECOMMENDED GAMES (CHANGED TO SLOTS) */}
-                {showRecommendedGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
-                    <div ref={recommendedGamesRef} style={{ minHeight: "180px" }} >
-                        {isRecommendedGamesVisible && (
-                            <RecommendedGames onDataNotFound={handleRemoveRecommendedGamesComponent} />
-                        )}
-                    </div>
-                }
+                {!user && <RegisterContainers />}
+                {!hasHero && user && <SelectHeroContainer />}
+              </div>
+            )}
+          </div>
+        )}
 
-                {/* TOP EVENTS */}
-                {showTopEvents && permissions.AllowToSports &&
-                    (
-                        <div ref={topEventsRef} style={{ minHeight: "160px" }}>
-                            {isTopEventsVisible &&
-                                <TopEvents onDataNotFound={handleRemoveTopEventsComponent} />
-                            }
-                        </div>
-                    )
-                }
+        {/* HEROES BANNER */}
+        {(!user || !hasHero) && showHeroBanner && (
+          <div style={{ minHeight: "300px" }} ref={heroBannersRef}>
+            {isHeroBannersVisible && (
+              <GamificationBanner
+                onDataNotFound={handleRemoveHeroBannerComponent}
+              />
+            )}
+          </div>
+        )}
 
-                 {/* GAME SHOWS */}
-                 {showGameShows && (permissions.AllowToCasino || permissions.AllowToSlots) &&
-                    <div ref={crashGamesRef} style={{ minHeight: "180px" }}  >
-                        {isCrashGamesVisible && (
-                            <CasinoTagSwiper title="Game Shows" tag="show" onDataNotFound={handleRemoveGameShowsComponent} />
-                        )}
-                    </div>
-                }
+        {/* CRYPTO */}
+        {showCrypto && (
+          <div style={{ minHeight: "55px" }} ref={cryptoRef}>
+            {isCryptoVisible && (
+              <Crypto onDataNotFound={handleRemoveCryptoComponent} />
+            )}
+          </div>
+        )}
 
-                {/* CRASH GAMES */}
-                {showCrashGames && (permissions.AllowToCasino || permissions.AllowToSlots) &&
-                    <div ref={crashGamesRef} style={{ minHeight: "180px" }}  >
-                        {isCrashGamesVisible && (
-                            <CrashGames onDataNotFound={handleRemoveCrashGamesComponent} />
-                        )}
-                    </div>
-                }
+        {/* LIVE EVENTS */}
+        {permissions.AllowToSports && (
+          <div ref={liveEventsRef} style={{ minHeight: "160px" }}>
+            {isLiveEventsVisible && hasLiveEvents && <LiveEvents />}
+          </div>
+        )}
 
-                {/* FAVORITES */}
-                {showFavorites && user && (permissions.AllowToCasino || permissions.AllowToSlots) &&
-                    <div ref={favoritesRef} style={{ minHeight: "180px" }}  >
-                        {isFavoritesVisible && (
-                            <CasinoFavorites onDataNotFound={handleRemoveFavoritesComponent} />
-                        )}
-                    </div>
-                }
-
-                {/* REWARDS */}
-                {showRewards && user && <div ref={rewardsRef} style={{ minHeight: "60px", marginTop: "5px" }}>
-                    {isRewardsVisible && (
-                        <div className={classes.ManualRewards} onClick={() => addParamsToUrl('your-progress')}>
-                            <ManualRewards onDataNotFound={handleRemoveRewardsComponent} />
-                        </div>
-                    )}
-                </div>}
-
+        {/* RECOMMENDED GAMES (CHANGED TO SLOTS) */}
+        {showRecommendedGames &&
+          (permissions.AllowToCasino || permissions.AllowToSlots) && (
+            <div ref={recommendedGamesRef} style={{ minHeight: "180px" }}>
+              {isRecommendedGamesVisible && (
+                <RecommendedGames
+                  onDataNotFound={handleRemoveRecommendedGamesComponent}
+                />
+              )}
             </div>
-        </div>
-    );
+          )}
+
+        {/* TOP EVENTS */}
+        {showTopEvents && permissions.AllowToSports && (
+          <div ref={topEventsRef} style={{ minHeight: "160px" }}>
+            {isTopEventsVisible && (
+              <TopEvents onDataNotFound={handleRemoveTopEventsComponent} />
+            )}
+          </div>
+        )}
+
+        {/* GAME SHOWS */}
+        {showGameShows &&
+          (permissions.AllowToCasino || permissions.AllowToSlots) && (
+            <div ref={gameShowsRef} style={{ minHeight: "180px" }}>
+              {isGameShowsVisible && (
+                <CasinoTagSwiper
+                  title="Game Shows"
+                  tag="show"
+                  onDataNotFound={handleRemoveGameShowsComponent}
+                />
+              )}
+            </div>
+          )}
+        {/* PRAGMATIC */}
+        {showPragmatic &&
+          (permissions.AllowToCasino || permissions.AllowToSlots) && (
+            <div ref={pragmaticRef} style={{ minHeight: "180px" }}>
+              {isPragmaticVisible && (
+                <CasinoTagSwiper
+                  title="Pragmatic"
+                  tag="pragmatic"
+                  onDataNotFound={handleRemovePragmaticComponent}
+                />
+              )}
+            </div>
+          )}
+        {/* NO LIMIT */}
+        {showNoLimit &&
+          (permissions.AllowToCasino || permissions.AllowToSlots) && (
+            <div ref={noLimitRef} style={{ minHeight: "180px" }}>
+              {isNoLimitVisible && (
+                <CasinoTagSwiper
+                  title="No Limit"
+                  tag="NoLimit"
+                  onDataNotFound={handleRemoveNoLimitComponent}
+                />
+              )}
+            </div>
+          )}
+
+        {/* CRASH GAMES */}
+        {showCrashGames &&
+          (permissions.AllowToCasino || permissions.AllowToSlots) && (
+            <div ref={crashGamesRef} style={{ minHeight: "180px" }}>
+              {isCrashGamesVisible && (
+                <CrashGames onDataNotFound={handleRemoveCrashGamesComponent} />
+              )}
+            </div>
+          )}
+
+        {/* FAVORITES */}
+        {showFavorites &&
+          user &&
+          (permissions.AllowToCasino || permissions.AllowToSlots) && (
+            <div ref={favoritesRef} style={{ minHeight: "180px" }}>
+              {isFavoritesVisible && (
+                <CasinoFavorites
+                  onDataNotFound={handleRemoveFavoritesComponent}
+                />
+              )}
+            </div>
+          )}
+
+        {/* REWARDS */}
+        {showRewards && user && (
+          <div ref={rewardsRef} style={{ minHeight: "60px", marginTop: "5px" }}>
+            {isRewardsVisible && (
+              <div
+                className={classes.ManualRewards}
+                onClick={() => addParamsToUrl("your-progress")}
+              >
+                <ManualRewards onDataNotFound={handleRemoveRewardsComponent} />
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 };
 
 export default Home;

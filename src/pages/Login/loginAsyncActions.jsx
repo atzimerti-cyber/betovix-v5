@@ -60,7 +60,7 @@ export const login = (loginInfo, navigate, locationPathname) => {
     dispatch(loginActions.setLoginLoading(true));
 
     try {
-      const response = await axiosApi.post("login/Authenticate2", loginInfo, {
+      const response = await axiosApi.post(`login/Authenticate2?siteId=${config.VITE_SITE_ID}`, loginInfo, {
         baseURLOverride: config.VITE_WALLET_API_BASE,
       });
       if (response.data.Status.StatusCode !== 200)

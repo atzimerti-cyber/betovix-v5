@@ -38,34 +38,40 @@ const Promotions = (props) => {
           </div>
         </div>
         <div className={classes.PromotionsBody}>
-          {promotions && promotions.length > 0
-            ? promotions.map((promo, index) => (
-                <div className={classes.Promo} key={index}>
-                  <div
-                    className={classes.BgImage}
-                    style={{ backgroundImage: `url(${promo.image})` }}
-                  ></div>
-                  <div className={classes.Content}>
-                    <div className={classes.PromoTitle}>
-                      <span>{promo.title}</span>
-                    </div>
-                    <div className={classes.PromoText}>
-                      <span>{promo.content}</span>
-                    </div>
+          {promotions && promotions.length > 0 ? (
+            promotions.map((promo, index) => (
+              <div className={classes.Promo} key={index}>
+                <div
+                  className={classes.BgImage}
+                  style={{ backgroundImage: `url(${promo.image})` }}
+                ></div>
+                <div className={classes.Content}>
+                  <div className={classes.PromoTitle}>
+                    <span>{promo.title}</span>
                   </div>
-                  <div className={classes.Buttons}>
-                    {promo.link !== "" && (
-                      <button
-                        className={classes.LinkButton}
-                        onClick={() => navigate(`/${promo.link}`)}
-                      >
-                        {translate(`Read More`)}
-                      </button>
-                    )}
+                  <div className={classes.PromoText}>
+                    <span>{promo.content}</span>
                   </div>
                 </div>
-              ))
-            : null}
+                <div className={classes.Buttons}>
+                  {promo.link !== "" && (
+                    <button
+                      className={classes.LinkButton}
+                      onClick={() => navigate(`/${promo.link}`)}
+                    >
+                      {translate(`Read More`)}
+                    </button>
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className={classes.NoRes}>
+              <span>
+                {translate(`No available promotions at this moment.`)}
+              </span>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -73,3 +79,4 @@ const Promotions = (props) => {
 };
 
 export default Promotions;
+ 

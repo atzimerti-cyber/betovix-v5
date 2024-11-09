@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import axiosApi from "../../axios-api";
-import { layoutActions } from "../Layout/layoutSlice";
+
 import { appActions } from "./appSlice";
 import {
   getLang,
@@ -33,6 +33,7 @@ import { liveActions } from "./liveSlice";
 import { setLang } from "../../utils/storage";
 import { ticketActions } from "../Ticket/ticketSlice";
 import { betslipActions } from "../Betslip/betslipSlice";
+import { layoutActions } from "../Layout/layoutSlice";
 import config from "../../config";
 
 import {
@@ -631,6 +632,8 @@ export const tawktoChat = () => {
 
       if (response.status !== 200)
         throw new Error("Failed to fetch Tawk.to chat.");
+
+      dispatch(layoutActions.setTawkToScript(response.data.Contents[0]));
     } catch (error) {
       toast.error(
         error?.message || "An error occurred while fetching site settings"

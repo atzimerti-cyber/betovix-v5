@@ -32,6 +32,8 @@ import OperatorView from "./features/OperatorView";
 import LiveLoader from "./features/LiveLoader";
 import VipProgress from "../../pages/Home/features/VipProgress";
 
+import ScriptInjector from "../../utils/scriptinjector";
+
 const Layout = () => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -44,6 +46,7 @@ const Layout = () => {
   const hasHero = useSelector((state) => state.gamification.selectedHero);
   const userCurrentLevel = useSelector((state) => state.progress.currentLevel);
   const levelProgress = useSelector((state) => state.gamification.progressBar);
+  const tawktoScript = useSelector((state) => state.layout.tawkToScript);
 
   const fullLeftContainer = useSelector(
     (state) => state.layout.fullLeftContainer
@@ -260,7 +263,7 @@ const Layout = () => {
             </div>
           )}
 
-          <div
+          {/* <div
             className={classes.IconButton}
             onClick={() => {
               dispatch(layoutActions.setShowRight("chat"));
@@ -268,7 +271,12 @@ const Layout = () => {
             }}
           >
             <ChatIcon />
-          </div>
+          </div> */}
+          {tawktoScript !== "" && (
+            <div className={classes.IconButton}>
+              <ScriptInjector scriptStrings={[tawktoScript]} />
+            </div>
+          )}
         </div>
       )}
 

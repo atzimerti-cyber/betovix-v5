@@ -9,8 +9,10 @@ import useSlidesResponsive from "../../hooks/useSlidesResponsive";
 import { translate } from "../../utils/translations";
 
 const CasinoTagSwiper = ({ onDataNotFound, tag, title }) => {
-  const games = useSelector((state) => state.casinoTag.casinobytag);
-
+  // const games = useSelector((state) => state.casinoTag.casinobytag);
+  const games = useSelector(
+    (state) => state.casinoTag.casinobytag[tag] || null
+  );
   const slidesPerView = useSlidesResponsive().slidesPerView;
   const dispatch = useDispatch();
 
@@ -27,7 +29,7 @@ const CasinoTagSwiper = ({ onDataNotFound, tag, title }) => {
 
   //Remove Component if no favs found
   useEffect(() => {
-    if (games !== null && games.length === 0) {
+    if (games !== null && games.Contents.length === 0) {
       onDataNotFound();
     }
   }, [games, onDataNotFound]);

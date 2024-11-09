@@ -41,9 +41,7 @@
   align-items: center;
 }
 .PromoBanner img {
-  height: 100%;
   min-width: 30%;
-  max-width: 80%;
   max-height: 200px;
 }
 .Title {
