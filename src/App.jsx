@@ -38,6 +38,7 @@ const TermsOfService = React.lazy(() =>
   import("./pages/Footer Pages/TermsOfService")
 );
 const Aml = React.lazy(() => import("./pages/Footer Pages/AML"));
+const Support = React.lazy(() => import("./pages/Footer Pages/Support"));
 const ResponsibleGaming = React.lazy(() =>
   import("./pages/Footer Pages/ResponsibleGaming")
 );
@@ -242,6 +243,14 @@ function App() {
               element: (
                 <Suspense fallback={<PageFallback />}>
                   <ResponsibleGaming />
+                </Suspense>
+              ),
+            },
+            {
+              path: "/support",
+              element: (
+                <Suspense fallback={<PageFallback />}>
+                  <Support />
                 </Suspense>
               ),
             },

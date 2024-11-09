@@ -216,7 +216,10 @@ const Layout = () => {
                   )}
                   initial={{ x: 30, opacity: 0 }}
                   animate={{ x: 0, opacity: 1 }}
-                  exit={{ opacity: 0, transition: { duration: 0.2, delay: 0.2 } }}
+                  exit={{
+                    opacity: 0,
+                    transition: { duration: 0.2, delay: 0.2 },
+                  }}
                   transition={{ duration: isFirstRender ? 0 : 0.2, delay: 0 }}
                 >
                   <RightContainer />
@@ -237,7 +240,7 @@ const Layout = () => {
             <div
               className={classes.IconButton}
               onClick={() => addParamsToUrl("your-progress")}
-              style={{ overflow: hidden }}
+              style={{ overflow: "hidden" }}
             >
               <div
                 className={classes.BtnFill}
