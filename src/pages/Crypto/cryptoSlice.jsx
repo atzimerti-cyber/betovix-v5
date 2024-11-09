@@ -17,6 +17,7 @@ const initialState = {
   selectedPaymentMethodWithdraw: null,
   withdrawRequestMessage: null,
   withdrawals: null,
+  withdrawLimitMessage: null,
 };
 
 export const cryptoSlice = createSlice({
@@ -89,6 +90,9 @@ export const cryptoSlice = createSlice({
     },
     setWithdrawals: (state, action) => {
       state.withdrawals = action.payload;
+    },
+    setWithdrawLimitMessage: (state, action) => {
+      state.withdrawLimitMessage = action.payload;
     },
   },
 });

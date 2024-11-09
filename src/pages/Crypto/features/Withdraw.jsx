@@ -128,7 +128,7 @@ const Withdraw = () => {
                 alt="All crypto"
               />
               <h2 style={{ color: "#0c2233" }}>
-                {translate("Withdraw Requests")}
+                {translate("Withdrawal Requests")}
               </h2>
             </MainButton>
           </div>

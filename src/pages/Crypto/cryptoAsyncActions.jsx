@@ -163,8 +163,11 @@ export const submitWithdrawForm = (signal, withrawDTO) => {
         }
       );
 
-      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
-        throw Error("Failed");
+      if (response.status !== 200) throw Error("Failed");
+      if (response.data.Status.StatusCode === 410) {
+        dispatch(cryptoActions.setWithdrawLimitMessage(response.data.Contents));
+        return;
+      }
 
       dispatch(cryptoActions.setWithdrawRequestMessage(response.data.Contents));
     } catch (error) {

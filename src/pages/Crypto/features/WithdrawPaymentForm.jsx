@@ -11,6 +11,7 @@ import config from "../../../config";
 import { submitWithdrawForm } from "../cryptoAsyncActions";
 import CreditCard from "../../../assets/svgs/credit-card.svg?react";
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
+import ErrorIcon from "../../../assets/svgs/errorpayment.svg?react";
 
 const WithdrawPaymentForm = (props) => {
   const dispatch = useDispatch();
@@ -18,6 +19,9 @@ const WithdrawPaymentForm = (props) => {
   const location = useLocation();
 
   const lang = useSelector((state) => state.app.lang);
+  const limitMessage = useSelector(
+    (state) => state.crypto.withdrawLimitMessage
+  );
 
   const [formData, setFormData] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
@@ -280,6 +284,12 @@ const WithdrawPaymentForm = (props) => {
                 {translate("Required Fields")}
               </span>
             </div>
+            {limitMessage && limitMessage !== "" && (
+              <div className={classes.Message}>
+                <ErrorIcon />
+                <span>{translate(`${limitMessage}`)}</span>
+              </div>
+            )}
             <button
               type="submit"
               className={

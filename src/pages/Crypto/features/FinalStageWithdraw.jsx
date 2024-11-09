@@ -40,9 +40,10 @@ const FinalStageWithdraw = () => {
     });
     dispatch(cryptoActions.setSelectedPaymentMethodWithdraw(null));
     dispatch(cryptoActions.setWithdrawRequestMessage(null));
+    dispatch(cryptoActions.setWithdrawLimitMessage(null));
     const controller = new AbortController();
     const signal = controller.signal;
-    dispatch(getWithrawalReqs(signal, 1, 10, "DateAdded_asc", "0,1,2,3,4,5"));
+    dispatch(getWithrawalReqs(signal, 1, 10, "DateAdded_desc", "0,1,2,3,4,5"));
   };
 
   const navigateToWithdrawalReqs = () => {
@@ -50,10 +51,11 @@ const FinalStageWithdraw = () => {
     searchParams.set("stage", "requests");
     const controller = new AbortController();
     const signal = controller.signal;
-    dispatch(getWithrawalReqs(signal, 1, 10, "DateAdded_asc", "0,1,2,3,4,5"));
+    dispatch(getWithrawalReqs(signal, 1, 10, "DateAdded_desc", "0,1,2,3,4,5"));
     navigate(`/?${searchParams.toString()}`);
     dispatch(cryptoActions.setSelectedPaymentMethodWithdraw(null));
     dispatch(cryptoActions.setWithdrawRequestMessage(null));
+    dispatch(cryptoActions.setWithdrawLimitMessage(null));
   };
 
   return (

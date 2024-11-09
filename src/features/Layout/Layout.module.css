@@ -33,8 +33,8 @@
 .IconButton {
   position: relative;
   display: flex;
-  height: 51px;
-  width: 51px;
+  height: 60px;
+  width: 60px;
   cursor: pointer;
   align-items: center;
   justify-content: center;
@@ -292,8 +292,8 @@
   }
 
   .OverlayButtons {
-    bottom: 3rem;
-    right: 1.25rem;
+    bottom: 5.5rem;
+    right: 1.5rem;
   }
 }
 

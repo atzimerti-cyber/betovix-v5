@@ -140,3 +140,25 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+.Message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  gap: 0.5rem; 
+}
+.Message span {
+  color: rgb(215, 90, 74);
+  font-size: 0.9rem;
+  font-weight: 400;
+  text-wrap: wrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+.Message svg {
+  height: 1.2rem;
+  width: 1.2rem;
+}
