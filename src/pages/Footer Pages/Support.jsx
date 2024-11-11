@@ -1,32 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./TermsOfService.module.css";
-
+import InfoIcon from "../../assets/svgs/info-circle.svg?react";
 import { translate } from "../../utils/translations";
 
 const Support = () => {
+  // Determine the iframe height based on window width
+  const iframeHeight = window.innerWidth <= 670 ? "550px" : "500px";
+
   return (
-    <div className={classes.PageContent}>
+    <div className={classes.PageContent} style={{ padding: "0px 1rem 40px" }}>
       <div className={classes.ToS}>
         <div className={classes.ParagraphTitle} style={{ color: "white" }}>
           {translate("Support")}
-        </div>
-        <div>
-          <p
-            style={{
-              fontSize: "1rem",
-              fontWeight: "400",
-              color: "white",
-              textAlign: "start",
-              margin: "0.3rem",
-            }}
-          >
-            Contact us at{" "}
-            <i>
-              <u>
-                <a href="mailto:support@betovix.com">support@betovix.com</a>
-              </u>
-            </i>
-          </p>
         </div>
       </div>
       <iframe
@@ -34,13 +19,42 @@ const Support = () => {
         title="Support Chat"
         style={{
           width: "100%",
-          height: "500px",
+          height: iframeHeight,
           border: "none",
           marginTop: "1rem",
           overflow: "hidden",
         }}
         scrolling="no"
       ></iframe>
+
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "row",
+          flexWrap: "wrap",
+          alignItems: "center",
+        }}
+      >
+        <InfoIcon />
+        <p
+          style={{
+            fontSize: "1rem",
+            fontWeight: "300",
+            color: "white",
+            textAlign: "start",
+            margin: "0.3rem",
+          }}
+        >
+          {translate(
+            "If our live chat is not working for you, please contact us at "
+          )}{" "}
+          <i>
+            <u>
+              <a href="mailto:support@betovix.com">support@betovix.com</a>
+            </u>
+          </i>
+        </p>
+      </div>
     </div>
   );
 };
