@@ -41,7 +41,7 @@ const VirtualGames = () => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    dispatch(getCasinoByTags(signal, "virtual"));
+    dispatch(getCasinoByTags(signal, "virtual", 100000));
 
     return () => {
       controller.abort();

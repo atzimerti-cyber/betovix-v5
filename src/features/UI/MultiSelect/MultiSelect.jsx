@@ -73,10 +73,10 @@ const MultiSelect = (props) => {
           {showDropdown && (
             // <Dropdown3 onClickOutside={onClose}>
             <Dropdown3>
-              <div className={classes.DropdownMenu}>
-                <div className={classes.TopElement}>
-                  <div className={classes.MenuTitle}>{props.menuTitle}</div>
-                  {/* <div
+              {/* <div className={classes.DropdownMenu}> */}
+              <div className={classes.TopElement}>
+                <div className={classes.MenuTitle}>{props.menuTitle}</div>
+                {/* <div
                     className={
                       selectedOptions.length > 0
                         ? classes.ClearLabel
@@ -93,42 +93,42 @@ const MultiSelect = (props) => {
                         : "(0)"}
                     </span>
                   </div> */}
-                </div>
+              </div>
 
-                <div className={classes.SumbitButtonContainer}>
-                  <div
-                    className={
-                      selectedOptions.length > 0
-                        ? classes.ClearLabel
-                        : [classes.ClearLabel, classes.Disabled].join(" ")
-                    }
-                    onClick={() => {
-                      setSelectedOptions([]);
-                    }}
-                  >
-                    {translate("Clear Selection")}
-                    <span className={classes.SelectedCount}>
-                      {selectedOptions.length > 0
-                        ? "(" + selectedOptions.length + ")"
-                        : "(0)"}
-                    </span>
-                  </div>
-                  <button className={classes.SumbitButton} onClick={onClose}>
-                    {translate(`Search`)}
-                  </button>
+              <div className={classes.SumbitButtonContainer}>
+                <div
+                  className={
+                    selectedOptions.length > 0
+                      ? classes.ClearLabel
+                      : [classes.ClearLabel, classes.Disabled].join(" ")
+                  }
+                  onClick={() => {
+                    setSelectedOptions([]);
+                  }}
+                >
+                  {translate("Clear Selection")}
+                  <span className={classes.SelectedCount}>
+                    {selectedOptions.length > 0
+                      ? "(" + selectedOptions.length + ")"
+                      : "(0)"}
+                  </span>
                 </div>
+                <button className={classes.SumbitButton} onClick={onClose}>
+                  {translate(`Search`)}
+                </button>
+              </div>
 
-                <div className={classes.SearchContainer}>
-                  <span className={classes.LeftIcon}>{<SearchIcon />}</span>
-                  <input
-                    id="search"
-                    type="textBox"
-                    value={searchString}
-                    placeholder="Search"
-                    onChange={(e) => setSearchString(e.target.value)}
-                  />
-                </div>
-
+              <div className={classes.SearchContainer}>
+                <span className={classes.LeftIcon}>{<SearchIcon />}</span>
+                <input
+                  id="search"
+                  type="textBox"
+                  value={searchString}
+                  placeholder="Search"
+                  onChange={(e) => setSearchString(e.target.value)}
+                />
+              </div>
+              <div className={classes.List}>
                 {filteredOptions.map((option, index) => (
                   <li
                     key={index}
@@ -155,6 +155,7 @@ const MultiSelect = (props) => {
                   </li>
                 ))}
               </div>
+              {/* </div> */}
             </Dropdown3>
           )}
         </AnimatePresence>

@@ -238,6 +238,10 @@
   color: var(--db-brand-green);
 }
 
+.List {
+  overflow-y: auto;
+}
+
 /* Media */
 @media (min-width: 640px) {
   .DropdownInner input {
