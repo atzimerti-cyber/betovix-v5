@@ -1,75 +1,75 @@
 .Dropdown {
-    position: absolute;
-    border-radius: 3px;
-    right: 0px;
-    top: 46px;
-    z-index: 50;
+  position: absolute;
+  border-radius: 3px;
+  right: 0px;
+  top: 46px;
+  z-index: 50;
 }
 
 .Dropdown .Arrow {
-    position: relative;
-    top: 0.5rem;
-    left: 75%;
-    margin-top: -0.5rem;
-    height: 1.5rem;
-    width: 1.5rem;
-    z-index: 1;
+  position: relative;
+  top: 0.5rem;
+  left: 75%;
+  margin-top: -0.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  z-index: 1;
 }
 
 .DropdownMenu {
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.26666666666666666);
-    max-height: 500px;
-    width: 10rem;
-    flex-wrap: nowrap;
-    overflow-y: auto;
-    overflow-x: hidden;
-    border-radius: 0;
-    display: flex;
-    flex-direction: column;
-    background-color: var(--db-gray-6);
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    font-weight: 600;
-    color: var(--db-white-primary);
-    --tw-shadow: var(--db-dropdown-shadow);
-    --tw-shadow-colored: var(--db-dropdown-shadow);
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.26666666666666666);
+  max-height: 500px;
+  /* width: 10rem; */
+  flex-wrap: nowrap;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: #092233;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 600;
+  color: var(--db-white-primary);
+  --tw-shadow: var(--db-dropdown-shadow);
+  --tw-shadow-colored: var(--db-dropdown-shadow);
 
-    z-index: 2;
-    position: relative;
+  z-index: 2;
+  position: relative;
 }
 
 .DropdownMenu > li {
-    padding: 0.625rem 0.75rem;
+  padding: 0.625rem 0.75rem;
 
-    outline: 2px solid transparent;
-    outline-offset: 2px;
-    gap: 0.75rem;
-    color: currentColor;
-    cursor: pointer;
-    user-select: none;
-    align-items: center;
-    display: flex;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  gap: 0.75rem;
+  color: currentColor;
+  cursor: pointer;
+  user-select: none;
+  align-items: center;
+  display: flex;
 
-    transition-property: color, background-color, border-color;
-    transition-duration: 0.2s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-property: color, background-color, border-color;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .DropdownMenu > :where(li:first-child),
 .DropdownMenu > :where(li:first-child) > :where(:not(ul)) {
-    border-top-left-radius: inherit;
-    border-top-right-radius: inherit;
-    border-bottom-right-radius: unset;
-    border-bottom-left-radius: unset;
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+  border-bottom-right-radius: unset;
+  border-bottom-left-radius: unset;
 }
 
 .DropdownMenu > li:hover {
-    background-color: hsl(var(--bc) / var(--tw-bg-opacity));
-    --tw-bg-opacity: 0.1;
+  background-color: hsl(var(--bc) / var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.1;
 }
 
 @media (min-width: 768px) {
-    .DropdownMenu {
-        width: 15rem;
-    }
+  .DropdownMenu {
+    width: 15rem;
+  }
 }

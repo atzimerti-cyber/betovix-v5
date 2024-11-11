@@ -30,6 +30,7 @@ import casinoTagSlice from "../features/CasinoTag/CasinoTagSlice";
 import recommendedGamesSlice from "../features/RecommendedGames/recommendedGamesSlice";
 import progressSlice from "../pages/Home/features/ProgressSlice";
 import promotionsSlice from "../pages/Promotions/promotionsSlice";
+import pagesSlice from "../pages/Footer Pages/pagesSlice";
 
 export const store = configureStore({
   reducer: {
@@ -63,6 +64,7 @@ export const store = configureStore({
     recommendedGames: recommendedGamesSlice.reducer,
     progress: progressSlice.reducer,
     promotions: promotionsSlice.reducer,
+    pages: pagesSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
