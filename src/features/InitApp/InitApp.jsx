@@ -6,7 +6,7 @@ import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
 
 import Preloader from "../UI/Loaders/Preloader";
-import { loadInitData, tawktoChat } from "./initAppAsyncActions";
+import { loadInitData } from "./initAppAsyncActions";
 import { getUser } from "../../pages/Login/loginAsyncActions";
 
 const InitApp = () => {
@@ -35,9 +35,10 @@ const InitApp = () => {
   useEffect(() => {
     dispatch(loadInitData(isMobile));
   }, []);
-  useEffect(() => {
-    dispatch(tawktoChat());
-  }, []);
+
+  // useEffect(() => {
+  //   dispatch(tawktoChat());
+  // }, []);
 
   // For loading initial data. Loads on change log in
   useEffect(() => {

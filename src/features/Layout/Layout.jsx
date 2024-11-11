@@ -32,14 +32,14 @@ import OperatorView from "./features/OperatorView";
 import LiveLoader from "./features/LiveLoader";
 import VipProgress from "../../pages/Home/features/VipProgress";
 
-import ScriptInjector from "../../utils/scriptinjector";
+//import ScriptInjector from "../../utils/scriptinjector";
 
 const Layout = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
   const centerContainerRef = useRef(null);
-  const tawkToRef = useRef(null);
+  // const tawkToRef = useRef(null);
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
@@ -47,7 +47,7 @@ const Layout = () => {
   const hasHero = useSelector((state) => state.gamification.selectedHero);
   const userCurrentLevel = useSelector((state) => state.progress.currentLevel);
   const levelProgress = useSelector((state) => state.gamification.progressBar);
-  const tawktoScript = useSelector((state) => state.layout.tawkToScript);
+  // const tawktoScript = useSelector((state) => state.layout.tawkToScript);
 
   const fullLeftContainer = useSelector(
     (state) => state.layout.fullLeftContainer
@@ -123,9 +123,9 @@ const Layout = () => {
 
   return (
     <div id="layout" className={layoutClasses.join(" ")}>
-      <div ref={tawkToRef} className={classes.TawkTo}>
+      {/* <div ref={tawkToRef} className={classes.TawkTo}>
         <ScriptInjector scriptStrings={[tawktoScript]} targetRef={tawkToRef} />
-      </div>
+      </div> */}
       <ToastContainer
         className={classes.MyToast}
         closeButton={ToastCloseButton}

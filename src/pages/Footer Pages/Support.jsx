@@ -29,7 +29,20 @@ const Support = () => {
           </p>
         </div>
       </div>
+      <iframe
+        src="https://tawk.to/betovix"
+        title="Support Chat"
+        style={{
+          width: "100%",
+          height: "500px",
+          border: "none",
+          marginTop: "1rem",
+          overflow: "hidden",
+        }}
+        scrolling="no"
+      ></iframe>
     </div>
   );
 };
+
 export default Support;

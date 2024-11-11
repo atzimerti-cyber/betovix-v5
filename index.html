@@ -55,25 +55,26 @@
         //     // Start observing the body for added elements
         //     observer.observe(document.body, { childList: true, subtree: true });
         // });
-        function talkTo() {
-            const widgets = document.querySelectorAll('.widget-visible');
 
-            console.log('Widgets found:', widgets);
 
-            if (widgets.length > 0) {
-                widgets.forEach(widget => {
-                    console.log('Setting z-index to 0 for widget:', widget); // Log each widget being modified
-                    widget.style.setProperty('z-index', '700', 'important'); // Apply z-index 0 with !important
-                });
-                //observer.disconnect(); // Stop observing after the elements are found and modified
-                //console.log('MutationObserver disconnected.');
-            }
-        }
-        setTimeout(talkTo, 1000)
-        setTimeout(talkTo, 3000)
-        setTimeout(talkTo, 4000)
-        setTimeout(talkTo, 5000)
-        setTimeout(talkTo, 7000)
+
+        // function talkTo() {
+        //     const widgets = document.querySelectorAll('.widget-visible');
+
+        //     console.log('Widgets found:', widgets);
+
+        //     if (widgets.length > 0) {
+        //         widgets.forEach(widget => {
+        //             console.log('Setting z-index to 0 for widget:', widget); 
+        //             widget.style.setProperty('z-index', '700', 'important');  
+        //         }); 
+        //     }
+        // }
+        // setTimeout(talkTo, 1000)
+        // setTimeout(talkTo, 3000)
+        // setTimeout(talkTo, 4000)
+        // setTimeout(talkTo, 5000)
+        // setTimeout(talkTo, 7000)
 
         function hideGame() {
             window.location.href = "/casino/lobby";

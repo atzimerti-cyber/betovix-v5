@@ -18,7 +18,7 @@ const initialState = {
   showLiveListContainer: false,
   availableBonus: 0,
   footer: {},
-  tawkToScript: null,
+  // tawkToScript: null,
 };
 
 export const layoutSlice = createSlice({
@@ -69,9 +69,9 @@ export const layoutSlice = createSlice({
     setFooter: (state, action) => {
       state.footer = action.payload;
     },
-    setTawkToScript: (state, action) => {
-      state.tawkToScript = action.payload;
-    },
+    // setTawkToScript: (state, action) => {
+    //   state.tawkToScript = action.payload;
+    // },
   },
 });
 
