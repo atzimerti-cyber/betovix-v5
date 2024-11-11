@@ -51,7 +51,7 @@ const GamesByTag = () => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    dispatch(getCasinoByTags(signal, menuTag));
+    dispatch(getCasinoByTags(signal, menuTag, 100000));
 
     return () => {
       controller.abort();
