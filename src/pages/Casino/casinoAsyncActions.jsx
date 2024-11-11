@@ -563,13 +563,13 @@ export const getCasinoTags = (signal) => {
     }
   };
 };
-export const getCasinoByTags = (signal, tag) => {
+export const getCasinoByTags = (signal, tag, count) => {
   return async (dispatch) => {
     try {
       const lang = getLang();
 
       const response = await axiosApi.get(
-        `MyCasino/GetHomeGames?tags=${tag}&siteid=${config.VITE_SITE_ID}`,
+        `MyCasino/GetHomeGames?tags=${tag}&count=${count}&siteid=${config.VITE_SITE_ID}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_CASINO_BASE,
