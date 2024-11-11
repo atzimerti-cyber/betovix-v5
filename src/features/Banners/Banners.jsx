@@ -24,8 +24,12 @@ const Banners = ({ onDataNotFound }) => {
 
   useEffect(() => {
     const controller = new AbortController();
-
-    dispatch(getBanners(controller.signal));
+    if (window.innerWidth <= 600) {
+      dispatch(getBanners(controller.signal, "mobile"));
+    } else {
+      dispatch(getBanners(controller.signal, "desktop"));
+    }
+    // dispatch(getBanners(controller.signal));
 
     return () => {
       controller.abort();

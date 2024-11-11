@@ -1245,7 +1245,7 @@ const Footer = () => {
             ></path>
           </svg>
         </div>
-        <div className={classes.CurrencyItem}>
+        {/* <div className={classes.CurrencyItem}>
           <svg
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1270,8 +1270,8 @@ const Footer = () => {
               fill="#AD2BA7"
             ></path>
           </svg>
-        </div>
-        <div className={classes.CurrencyItem}>
+        </div> */}
+        {/* <div className={classes.CurrencyItem}>
           <svg
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1292,8 +1292,8 @@ const Footer = () => {
               fill="#E2001A"
             ></path>
           </svg>
-        </div>
-        <div className={classes.CurrencyItem}>
+        </div> */}
+        {/* <div className={classes.CurrencyItem}>
           <svg
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -1322,7 +1322,7 @@ const Footer = () => {
               fill="#185F95"
             ></path>
           </svg>
-        </div>
+        </div> */}
         {/* <div className={classes.CurrencyItem}>
                     <svg fill='none' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>
                         <path
