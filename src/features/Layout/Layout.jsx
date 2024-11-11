@@ -13,6 +13,7 @@ import classes from "./Layout.module.css";
 import Footer from "./features/Footer";
 import BetslipIcon from "../../assets/svgs/betslip.svg?react";
 import ChatIcon from "../../assets/svgs/chat.svg?react";
+import SupportIcon from "../../assets/svgs/livesupportbtn.svg?react";
 import { layoutActions } from "./layoutSlice";
 import RightContainer from "./features/RightContainer";
 import LeftContainer from "./features/LeftContainer";
@@ -280,6 +281,12 @@ const Layout = () => {
           >
             <ChatIcon />
           </div> */}
+          <div
+            className={classes.IconButton}
+            onClick={() => navigate("/support")}
+          >
+            <SupportIcon />
+          </div>
         </div>
       )}
 

@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./TermsOfService.module.css";
 import InfoIcon from "../../assets/svgs/info-circle.svg?react";
+import SupportIcon from "../../assets/svgs/livesupportbtn.svg?react";
 import { translate } from "../../utils/translations";
 
 const Support = () => {
@@ -10,8 +11,20 @@ const Support = () => {
   return (
     <div className={classes.PageContent} style={{ padding: "0px 1rem 40px" }}>
       <div className={classes.ToS}>
-        <div className={classes.ParagraphTitle} style={{ color: "white" }}>
-          {translate("Support")}
+        <div
+          className={classes.Context}
+          style={{
+            color: "white",
+            fontSize: "1.5rem",
+            fontWeight: "700",
+            display: "flex",
+            flexDirection: "row",
+            gap: "0.5rem",
+            alignItems: "center",
+          }}
+        >
+          <SupportIcon />
+          {translate("Customer Support")}
         </div>
       </div>
       <iframe
