@@ -25,6 +25,7 @@ const Login = () => {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const loginLoading = useSelector((state) => state.login.loginLoading);
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+//kanw alages
 
   const [loading, setLoading] = useState(false);
 
