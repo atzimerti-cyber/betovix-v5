@@ -29,3 +29,12 @@
 a {
   border-radius: 10px;
 }
+.LogOutBtn {
+  background: #1c374d;
+}
+.LogOutBtn:hover {
+  background: #870404 !important;
+}
+.LogOutBtn:hover > svg {
+  fill: white !important;
+}

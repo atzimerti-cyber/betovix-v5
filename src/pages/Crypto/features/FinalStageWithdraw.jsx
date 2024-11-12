@@ -95,7 +95,9 @@ const FinalStageWithdraw = () => {
                 columnGap: "0.5rem",
               }}
             >
-              <h4>{translate(`Available to Withdraw: `)} </h4>
+              <h4>
+                {translate(`Available to Withdraw`)} {" : "}{" "}
+              </h4>
               <CoinsIcon />
               {user.Wallet.Balance - user.Wallet.ReservedBalance}
             </div>
@@ -109,7 +111,10 @@ const FinalStageWithdraw = () => {
                 columnGap: "0.1rem",
               }}
             >
-              <span>{translate(`Reserved Balance = `)}</span>
+              <span>
+                {translate(`Reserved Balance`)}
+                {" = "}
+              </span>
               <CoinsIcon height="11px" />
               <span>{user.Wallet.ReservedBalance}</span>
             </div>
@@ -155,14 +160,16 @@ const FinalStageWithdraw = () => {
               onClick={() => navigateToWithdrawalReqs()}
               className={classes.GoToReqs}
             >
-              <i>Check your withdrawal requests here.</i>
+              <i>{translate(`Check your withdrawal requests here`)}.</i>
             </p>
           </span>
         </div>
       ) : (
         <div className={classes.Message}>
           <ErrorIcon />
-          <span>Withdrawal request failed. Please try again.</span>
+          <span>
+            {translate(`Withdrawal request failed. Please try again`)}.
+          </span>
         </div>
       )}
     </>

@@ -201,10 +201,10 @@ const useSlidesResponsive = (categ) => {
       slidesPerView = 1;
       slidesPerGroup = 1;
     } else if (isMobile) {
-      slidesPerView = 2;
+      slidesPerView = 1;
       slidesPerGroup = 1;
     } else if (isTablet) {
-      slidesPerView = 2;
+      slidesPerView = 1.5;
       slidesPerGroup = 1;
     } else if (isDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {

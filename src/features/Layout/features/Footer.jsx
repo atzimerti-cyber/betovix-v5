@@ -1359,7 +1359,8 @@ const Footer = () => {
       <div className={classes.InfoContainer}>
         <LogoBig />
         <span>
-          © betovix.com is a brand name of Atlas Solutions LTD. Reg No 15723,
+          ©{" "}
+          {translate(`betovix.com is a brand name of Atlas Solutions LTD. Reg No 15723,
           having its registered address at Hamchako, Mutsamudu, Autonomous
           Island of Anjouan, Union of Comoros, Anjouan licensed to conduct
           online gaming operations by the Government of Anjouan. Atlas Solutions
@@ -1367,7 +1368,8 @@ const Footer = () => {
           Maria House, Nicosia, 1075 Cyprus, is a wholly owned subsidiary of
           Atlas Solutions LTD which provides management, payment and support
           services related to the operation of the website. 18+ to play, gamble
-          responsibly.
+          responsibly`)}
+          .
         </span>
       </div>
     </div>

@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import MainButton from "../../features/UI/Buttons/MainButton";
 import DbTabs from "../../features/UI/Tabs/DbTabs";
 import MyRewards from "./features/MyRewards";
+import { translate } from "../../utils/translations";
 
 const Gamification = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const Gamification = () => {
             tabs={[
               {
                 id: "my-rewards",
-                label: "My Rewards",
+                label: translate("My Rewards"),
                 active: showTab === "my-rewards",
               },
               //{ id: 'other', label: 'Other', active: showTab === 'other' },

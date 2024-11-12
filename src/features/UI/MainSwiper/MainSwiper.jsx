@@ -12,6 +12,8 @@ import AngleLeftIcon from "../../../assets/svgs/angle-left.svg?react";
 import AngleRightIcon from "../../../assets/svgs/angle-right.svg?react";
 import AngleRight2Icon from "../../../assets/svgs/arrowright2.svg?react";
 
+import { translate } from "../../../utils/translations";
+
 const MainSwiper = (props) => {
   const swiperRef = useRef(null);
   const timeoutRef = useRef(null);

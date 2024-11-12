@@ -196,7 +196,7 @@ const Verification = () => {
             color: "white",
           }}
         >
-          Verify Your Account
+          {translate(`Verify Your Account`)}
         </h1>
         <div className={classes.MailFormGroup}>
           <p className={classes.Title}>{translate("Email Verification")}</p>
@@ -243,25 +243,31 @@ const Verification = () => {
                     textAlign: "center",
                   }}
                 >
-                  Verification failed. Please try again.
+                  {translate(`Verification failed. Please try again.`)}
                 </p>
               </div>
             )}
 
-            <div style={{ width: "20%", padding: "0.6rem" }}>
+            <div style={{ padding: "0.6rem" }}>
               {(level1Status === 0 || level1Status === 2) && (
                 <MainButton2 onClick={handleEmailSubmit}>
-                  <span>{translate("Verify")}</span>
+                  <span style={{ padding: "0 0.5rem" }}>
+                    {translate("Verify")}
+                  </span>
                 </MainButton2>
               )}
               {level1Status === 1 && (
                 <MainButton2 disabled>
-                  <span>{translate(`Pending${pendingDots}`)}</span>
+                  <span style={{ padding: "0 0.5rem" }}>
+                    {translate(`Pending${pendingDots}`)}
+                  </span>
                 </MainButton2>
               )}
               {level1Status === 3 && (
                 <MainButton2 disabled>
-                  <span>{translate("Successfully Verified!")}</span>
+                  <span style={{ padding: "0 0.5rem" }}>
+                    {translate("Successfully Verified!")}
+                  </span>
                 </MainButton2>
               )}
             </div>
@@ -329,8 +335,8 @@ const Verification = () => {
                         textAlign: "center",
                       }}
                     >
-                      Your request was rejected. You can resend your information
-                      for reevaluation.
+                      {translate(` Your request was rejected. You can resend your information
+                      for reevaluation.`)}
                     </p>
                   </div>
 
@@ -370,7 +376,9 @@ const Verification = () => {
                       textAlign: "center",
                     }}
                   >
-                    Your personal information has been successfully verified.
+                    {translate(
+                      `Your personal information has been successfully verified.`
+                    )}
                   </p>
                 </div>
               )}
@@ -460,7 +468,7 @@ const Verification = () => {
                               )
                         }
                       >
-                        Upload Both Sides
+                        {translate("Upload Both Sides")}
                       </button>
                     </div>
                   </form>
@@ -492,8 +500,8 @@ const Verification = () => {
                         textAlign: "start",
                       }}
                     >
-                      Your request was rejected. You can resend your ID for
-                      reevaluation.
+                      {translate(`Your request was rejected. You can resend your ID for
+                      reevaluation.`)}
                     </p>
                   </div>
                   <form onSubmit={handleIDSubmit} style={{ width: "100%" }}>
@@ -558,7 +566,7 @@ const Verification = () => {
                               )
                         }
                       >
-                        Upload Both Sides
+                        {translate(`Upload Both Sides`)}
                       </button>
                     </div>
                   </form>
@@ -582,7 +590,7 @@ const Verification = () => {
                       textAlign: "start",
                     }}
                   >
-                    Your ID has been successfully verified.
+                    {translate(`Your ID has been successfully verified.`)}
                   </p>
                 </div>
               )}
@@ -637,8 +645,8 @@ const Verification = () => {
                         textAlign: "start",
                       }}
                     >
-                      Your request was rejected. Retake a photo for
-                      reevaluation.
+                      {translate(`Your request was rejected. Retake a photo for
+                      reevaluation.`)}
                     </p>
                   </div>
                   <LivePhotoCheck />
@@ -662,7 +670,9 @@ const Verification = () => {
                       textAlign: "start",
                     }}
                   >
-                    Your live photo check has been successfully verified.
+                    {translate(
+                      `Your live photo check has been successfully verified.`
+                    )}
                   </p>
                 </div>
               )}
@@ -721,7 +731,7 @@ const Verification = () => {
                             )
                       }
                     >
-                      Upload
+                      {translate(`Upload`)}
                     </button>
                   </form>
                 </div>
@@ -754,8 +764,8 @@ const Verification = () => {
                         textAlign: "start",
                       }}
                     >
-                      Your request was rejected. Sumbit proof of address for
-                      reevaluation.
+                      {translate(`Your request was rejected. Sumbit proof of address for
+                      reevaluation.`)}
                     </p>
                   </div>
                   <div className={classes.AccordionContent}>
@@ -793,7 +803,7 @@ const Verification = () => {
                               )
                         }
                       >
-                        Upload
+                        {translate(`Upload`)}
                       </button>
                     </form>
                   </div>
@@ -817,7 +827,9 @@ const Verification = () => {
                       textAlign: "start",
                     }}
                   >
-                    Your proof of address has been successfully verified.
+                    {translate(
+                      `Your proof of address has been successfully verified.`
+                    )}
                   </p>
                 </div>
               )}
@@ -876,7 +888,7 @@ const Verification = () => {
                             )
                       }
                     >
-                      Upload
+                      {translate(`Upload`)}
                     </button>
                   </form>
                 </div>
@@ -909,8 +921,8 @@ const Verification = () => {
                         textAlign: "start",
                       }}
                     >
-                      Your request was rejected. Sumbit source of funds for
-                      reevaluation.
+                      {translate(`Your request was rejected. Sumbit source of funds for
+                      reevaluation.`)}
                     </p>
                   </div>
                   <div className={classes.AccordionContent}>
@@ -947,13 +959,14 @@ const Verification = () => {
                               )
                         }
                       >
-                        Upload
+                        {translate(`Upload`)}
                       </button>
                     </form>
                   </div>
                 </>
               )}
-              {level6Status === 3 && <div
+              {level6Status === 3 && (
+                <div
                   style={{
                     backgroundColor: "#0c2233",
                     display: "flex",
@@ -970,9 +983,12 @@ const Verification = () => {
                       textAlign: "start",
                     }}
                   >
-                    Your source of funds has been successfully verified.
+                    {translate(
+                      `Your source of funds has been successfully verified.`
+                    )}
                   </p>
-                </div>}
+                </div>
+              )}
             </>
           )}
         </div>

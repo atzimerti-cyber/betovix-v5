@@ -91,6 +91,7 @@ const MenuItems = (props) => {
         <a
           onClick={() => {
             navigate(`/support`);
+            props.onClick();
           }}
         >
           <LiveSupportIcon />
@@ -104,7 +105,7 @@ const MenuItems = (props) => {
             dispatch(loginActions.logout());
             props.onClick();
           }}
-          style={{ background: "#1c374d" }}
+          className={classes.LogOutBtn}
         >
           <LogoutIcon />
           <span>{translate("Log Out")}</span>

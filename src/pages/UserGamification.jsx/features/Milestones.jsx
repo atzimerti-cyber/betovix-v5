@@ -192,7 +192,7 @@ const Milestones = (props) => {
                         (milestone, index) => (
                           <MilestoneCard
                             key={`${heroLevels[thisLevelIndex].id}_${milestone.id}`}
-                            label={`${milestone?.name}`}
+                            label={translate(`${milestone?.name}`)}
                             index={index}
                             reward={milestone.reward[0]}
                             level={heroLevels[thisLevelIndex]}

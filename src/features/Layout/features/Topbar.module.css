@@ -404,6 +404,7 @@
   /* background-color: #1b354f; */
   background-color: #23486d;
   border-radius: 20px;
+  gap: 0.3rem;
 }
 
 .DropdownMenu > li {
@@ -428,7 +429,7 @@
 }
 
 .DropdownMenu > li:last-child {
-  margin-top: 1.25rem;
+  margin-top: 0.5rem;
   border-top-left-radius: unset;
   border-top-right-radius: unset;
   border-bottom-right-radius: inherit;
@@ -442,7 +443,7 @@
   user-select: none;
   align-items: center;
   gap: 0.75rem;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 0rem 0.75rem 0.6rem;
   color: currentColor;
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -503,7 +504,7 @@
 .NotificationButton {
   margin: 10px 3px 3px 8px;
   border-radius: 5px;
-} 
+}
 .NotificationButton:hover {
   background-color: hsl(var(--bc) / var(--tw-bg-opacity));
   --tw-bg-opacity: 0.1;

@@ -33,7 +33,6 @@ const WithdrawRequests = () => {
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
-    console.log("IN USE EFFECT", sortOrder);
     dispatch(
       getWithrawalReqs(signal, currentPage, count, sortOrder, selectedStatus)
     );
@@ -129,17 +128,17 @@ const WithdrawRequests = () => {
   const renderReqStatus = (status) => {
     switch (status) {
       case 0:
-        return "Pending";
+        return translate("Pending");
       case 1:
-        return "Approved";
+        return translate("Approved");
       case 2:
-        return "Not Approved";
+        return translate("Not Approved");
       case 3:
-        return "Cancelled";
+        return translate("Cancelled");
       case 4:
-        return "Payed";
+        return translate("Payed");
       case 5:
-        return "Confirmed";
+        return translate("Confirmed");
       default:
         return " ";
     }
@@ -260,19 +259,24 @@ const WithdrawRequests = () => {
                 >
                   <div className={classes.Left}>
                     <p>
-                      <b>{translate(`Request Id: `)} </b>#{req.reqId}
+                      <b>
+                        {translate(`Request Id`)} {": "}
+                      </b>
+                      #{req.reqId}
                     </p>
                     <p>{formatDate(req.dateAdded)}</p>
                     <p style={{ fontSize: "0.8rem", color: "lightblue" }}>
                       <i>
-                        {translate(`Account Id: `)}
+                        {translate(`Account Id`)}
+                        {": "}
                         {req.accountid}
                       </i>
                     </p>
                   </div>
                   <div className={classes.Center}>
                     <p>
-                      {translate(`Amount: `)}
+                      {translate(`Amount`)}
+                      {": "}
                       <b> {req.amount} </b>
                       <b> {req.currency}</b>
                     </p>
@@ -307,7 +311,7 @@ const WithdrawRequests = () => {
         ) : (
           <div className={classes.NoReqs}>
             <NoReqs height="150px" width="150px" />
-            <span>{translate(`No withdrawal requests.`)}</span>
+            <span>{translate(`No withdrawal requests`)}.</span>
           </div>
         )}
       </div>

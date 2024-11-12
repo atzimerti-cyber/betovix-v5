@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { SwiperSlide } from "swiper/react";
-import { useMediaQuery } from "react-responsive";
 import { toast } from "react-toastify";
 
 import MainSwiper from "./MainSwiper";
@@ -10,11 +9,7 @@ import HeartIcon from "../../../assets/svgs/heart.svg?react";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
 import classes from "./SwiperWithOverlay.module.css";
 import LoaderPlaceholder from "../../UI/Skeletons/LoaderPlaceholder";
-import {
-  addFavoriteCasino,
-  getCasinoByTags,
-  removeFavoriteCasino,
-} from "../../../pages/Casino/casinoAsyncActions";
+import { getCasinoByTags } from "../../../pages/Casino/casinoAsyncActions";
 import {
   addCasinoFav,
   removeCasinoFav,
@@ -29,7 +24,6 @@ const SwiperWithOverlay = (props) => {
 
   const lang = useSelector((state) => state.app.lang);
 
-  const [loadedImages, setLoadedImages] = useState([]);
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
   const casinoByTags = useSelector((state) => state.casino.casinoByTags);
@@ -128,7 +122,7 @@ const SwiperWithOverlay = (props) => {
           props.link ? (
             <Link to={props.link}>{props.title}</Link>
           ) : props.task ? (
-            <a onClick={props.task}>{props.title}</a>
+            <a onClick={props.task}>props.title</a>
           ) : (
             props.title
           )

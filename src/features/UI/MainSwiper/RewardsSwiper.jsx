@@ -15,6 +15,7 @@ import MainButton from "../Buttons/MainButton";
 import { claimReward } from "../../../pages/UserGamification.jsx/gamificationAsyncActions";
 import { getRewards } from "../../../pages/UserGamification.jsx/gamificationAsyncActions";
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
+import { translate } from "../../../utils/translations";
 
 const RewardsSwiper = (props) => {
   const dispatch = useDispatch();
@@ -66,7 +67,9 @@ const RewardsSwiper = (props) => {
     >
       {props.items ? (
         props.items.length === 0 ? (
-          <p className={classes.NoResults}>No {props.title}</p>
+          <p className={classes.NoResults}>
+            {translate("No")} {props.title}
+          </p>
         ) : (
           props.items.map((item, index) => {
             if (props.max && index > props.max + 1) return null;
@@ -97,7 +100,7 @@ const RewardsSwiper = (props) => {
                     </div>
 
                     <div className={classes.Text}>
-                      <h1 style={{display:'flex'}}>
+                      <h1 style={{ display: "flex" }}>
                         {item.RewardName &&
                           item.RewardName.split("?").map((part, index) => (
                             <React.Fragment key={index}>
@@ -109,10 +112,10 @@ const RewardsSwiper = (props) => {
                                     display: "flex",
                                     flexDirection: "row",
                                     justifyContent: "center",
-                                    alignItems:'center'
+                                    alignItems: "center",
                                   }}
                                 >
-                                  <CoinsIcon style={{margin:"0 0.2rem"}}/>
+                                  <CoinsIcon style={{ margin: "0 0.2rem" }} />
                                   {part}
                                 </div>
                               )}
@@ -125,7 +128,9 @@ const RewardsSwiper = (props) => {
                     <div className={classes.ClaimButton}>
                       {item.RewardName.toLowerCase() !== "level up" ? (
                         props.claimed ? (
-                          <MainButton disabled>Claimed</MainButton>
+                          <MainButton disabled>
+                            {translate("Claimed")}
+                          </MainButton>
                         ) : (
                           <MainButton
                             color="bv-light-green"

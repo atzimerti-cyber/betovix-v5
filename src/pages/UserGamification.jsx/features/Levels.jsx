@@ -5,6 +5,7 @@ import classes from "./Levels.module.css";
 
 import SimpleSwiper from "../../../features/UI/MainSwiper/SimpleSwiper";
 import LoaderPlaceholder from "../../../features/UI/Skeletons/LoaderPlaceholder";
+import { translate } from "../../../utils/translations";
 
 const Levels = (props) => {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
@@ -60,7 +61,7 @@ const Levels = (props) => {
                           )}
                         </div>
                         <p className={classes.LevelName}>
-                          {level.name ? level.name : "Level"}
+                          {translate(level.name ? level.name : "Level")}
                         </p>
                       </div>
                     </div>
