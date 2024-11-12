@@ -452,6 +452,11 @@ not authorized to use your payment card to deposit on this site. It is your resp
 the laws concerning online gambling in your country of domicile.`)}
               <br />
               <br />
+              {translate(
+                `7.9. The minimum deposit amount per transaction is € 20 (or the equivalent in other currencies).`
+              )}
+              <br />
+              <br />
             </div>
 
             <div className={classes.ParagraphTitle}>
@@ -460,7 +465,7 @@ the laws concerning online gambling in your country of domicile.`)}
             <div className={classes.ParagraphText}>
               {translate(`8.1. You may withdraw any unutilized and cleared funds held in your player account by 
 submitting a withdrawal request in accordance with our withdrawal conditions. The minimum 
-withdrawal amount per transaction is € 10 (or equivalent in other currency) with the exception of 
+withdrawal amount per transaction is € 20 (or equivalent in other currency) with the exception of 
 an account closure in which case you may withdraw the full balance.`)}
               <br />
               <br />

@@ -111,91 +111,6 @@ const PaymentForm = (props) => {
     dispatch(submitDepositForm(signal, depositDTO));
   };
 
-  // const renderInputField = (field) => {
-  //   const { Name, Type, ListValues, Deposit, Visible } = field;
-  //   if (Deposit === false || !Visible) return null;
-
-  //   const label = (
-  //     <label className={classes.Labels}>
-  //       {translate(Name.replace(/([a-z])([A-Z])/g, "$1 $2"))}
-  //       {Name !== "PaymentType" && Name !== "PaymentMethod" && (
-  //         <p style={{ color: "var(--db-brand-green)" }}>*</p>
-  //       )}
-  //     </label>
-  //   );
-
-  //   if (Type === "decimal") {
-  //     if (Name === "Amount") {
-  //       return (
-  //         <div key={Name} style={{ marginBottom: "10px", width: "50%" }}>
-  //           {label}{" "}
-  //           <input
-  //             className={classes.Input}
-  //             type="number"
-  //             step="0.1"
-  //             min="0.1"
-  //             name={Name}
-  //             value={formData[Name] || ""}
-  //             onChange={handleChange}
-  //             onKeyDown={(e) => e.key === "-" && e.preventDefault()}
-  //             placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
-  //           />
-  //         </div>
-  //       );
-  //     }
-  //   } else if (Type === "string" && ListValues.length === 0) {
-  //     return (
-  //       <div key={Name} style={{ marginBottom: "10px", width: "50%" }}>
-  //         {label}
-  //         <input
-  //           className={
-  //             Name === "PaymentType" || Name === "PaymentMethod"
-  //               ? [classes.Input, classes.ReadOnly].join(" ")
-  //               : classes.Input
-  //           }
-  //           type="text"
-  //           name={Name}
-  //           value={formData[Name] || ""}
-  //           onChange={handleChange}
-  //           placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
-  //           readOnly={
-  //             (Name === "PaymentType" || Name === "PaymentMethod") && true
-  //           }
-  //         />
-  //       </div>
-  //     );
-  //   } else if (
-  //     (Type === "string" || Type === "list") &&
-  //     ListValues.length > 0
-  //   ) {
-  //     return (
-  //       <div key={Name} style={{ marginBottom: "10px", width: "50%" }}>
-  //         {label}
-  //         <select
-  //           name={Name}
-  //           id={Name}
-  //           className={classes.Select}
-  //           onChange={handleChange}
-  //           value={formData[Name]}
-  //         >
-  //           {ListValues.map((item, index) => {
-  //             const key = Object.keys(item)[0];
-  //             return (
-  //               <option
-  //                 className={classes.SelectOptions}
-  //                 key={index}
-  //                 value={key}
-  //               >
-  //                 {key}
-  //               </option>
-  //             );
-  //           })}
-  //         </select>
-  //       </div>
-  //     );
-  //   }
-  // };
-
   const renderInputField = (field) => {
     const { Name, Type, ListValues, Deposit, Visible } = field;
     if (Deposit === false || !Visible) return null;
@@ -274,6 +189,11 @@ const PaymentForm = (props) => {
           {translate(Name.replace(/([a-z])([A-Z])/g, "$1 $2"))}
           {Name !== "PaymentType" && Name !== "PaymentMethod" && (
             <p style={{ color: "var(--db-brand-green)" }}>*</p>
+          )}
+          {Name === "Amount" && (
+            <p style={{ color: "lightblue", fontWeight: "300" }}>
+              {translate(`(Minimum amount: €20)`)}
+            </p>
           )}
         </label>
         {inputElement}
