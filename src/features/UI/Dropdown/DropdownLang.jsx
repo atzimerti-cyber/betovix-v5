@@ -37,13 +37,19 @@ const DropdownLang = (props) => {
     switch (iso) {
       case "en":
         return "English";
+      case "tr":
+        return "Türkçe";
+      case "de":
+        return "Deutsch";
+      case "ar":
+        return "عربي";
       case "el":
         return "Ελληνικά";
       case "it":
         return "Italiano";
-      case "sa":
-        return "عربي";
-        case "am":
+      // case "sa":
+      //   return "عربي";
+      case "am":
         return "Amharic";
     }
   };
