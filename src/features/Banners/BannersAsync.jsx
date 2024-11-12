@@ -22,12 +22,21 @@ export const getBanners = (signal, device) => {
         (response.data.Status && response.data.Status.StatusCode !== 200)
       )
         throw Error();
+      let banners = [];
       if (device === "mobile") {
-        dispatch(bannersActions.setBanners(response.data.Contents.slice(-5)));
+        response.data.Contents.map((banner) => {
+          if (banner.Position > 5) {
+            banners.push(banner);
+          }
+        });
       } else if (device === "desktop") {
-        dispatch(bannersActions.setBanners(response.data.Contents.slice(0, 5)));
+        response.data.Contents.map((banner) => {
+          if (banner.Position < 6) {
+            banners.push(banner);
+          }
+        });
       }
-      // dispatch(bannersActions.setBanners(response.data.Contents));
+      dispatch(bannersActions.setBanners(banners));
     } catch (error) {
       if (!error?.code === "ERR_CANCELED") toast.error(error?.message);
     }
