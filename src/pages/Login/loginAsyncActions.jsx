@@ -343,7 +343,7 @@ export const updatePassword = (info, id, navigate, locationPathname) => {
         toast.error(response.data.Contents);
       } else {
         toast.success("Update Successful!");
-        dispatch(loginActions.setEmailSentCorrectly(false));
+        dispatch(loginActions.setUsernameSentCorrectly(false));
         dispatch(loginActions.setRecoverAccountId(null));
 
         navigate(`${locationPathname}?modal=auth&tab=login`, { replace: true });

@@ -45,6 +45,7 @@ const Cat3Swiper = (props) => {
 
   const gridSwiper = useMediaQuery({ query: "(min-width: 700px)" });
   const isTouchScreen = useTouchScreen(); // Detect if the device has a touchscreen
+  const [isIOS, setIsIOS] = useState(null);
 
   useEffect(() => {
     if (!props.items) return;
@@ -106,6 +107,14 @@ const Cat3Swiper = (props) => {
   //   }
   // };
 
+  //CHECK IF DEVICE IS IOS AND MOBILE TO OPEN IFRAME
+  useEffect(() => {
+    const userAgent = window.navigator.userAgent;
+    const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
+
+    setIsIOS(isIOSDevice);
+  }, []);
+
   const GoToCategory = (tag, name) => {
     if (tag === "favs" || tag === "rec" || tag === "shows") {
       if (tag === "favs") {
@@ -135,6 +144,7 @@ const Cat3Swiper = (props) => {
           style={{
             ...(notGridSwiper ? { flexDirection: "column" } : {}),
             backgroundImage: `url(${props.backgroundImage})`,
+            backgroundAttachment: isIOS ? "local" : "fixed",
           }}
         >
           <div

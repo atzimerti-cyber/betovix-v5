@@ -1,4 +1,3 @@
-
 import { useRef, useCallback, useState, useEffect } from "react";
 
 import classes from "./NotificationsModal.module.css";
@@ -14,7 +13,7 @@ const NotificationsModal = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isMobile = useMediaQuery({ query: "(max-width: 1023px)" });
-
+  const notifications = [];
   // const notifications = [
   //   {
   //     title: "Notification",

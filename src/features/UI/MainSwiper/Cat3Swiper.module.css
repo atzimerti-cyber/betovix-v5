@@ -238,7 +238,7 @@
   overflow: hidden;
   align-items: center;
   flex-direction: row;
-  background-attachment: fixed;
+  /* background-attachment: fixed; */
   padding: 0.5rem;
   border-radius: 1rem;
 }
@@ -249,10 +249,8 @@
   display: flex;
   background-size: cover;
   background-position: center;
-  /* position: relative; */
   overflow: hidden;
   align-items: center;
-  /* background-attachment: fixed; */
   flex-direction: row;
 }
 

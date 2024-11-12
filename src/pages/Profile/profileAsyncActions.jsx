@@ -228,7 +228,7 @@ export const uploadKYCFile = (file, level, signal) => {
         formData,
         {
           signal: signal,
-          baseURLOverride: config.VITE_WALLET_STORETUBE,
+          baseURLOverride: config.VITE_UPLOAD,
         }
       );
 
