@@ -173,15 +173,15 @@ const Settings = () => {
   const getAccountType = (role) => {
     switch (role) {
       case 40:
-        return "Player";
+        return translate("Player");
       case 30:
-        return "Shop";
+        return translate("Shop");
       case 20:
-        return "Agent";
+        return translate("Agent");
       case 10:
-        return "Owner";
+        return translate("Owner");
       case 1 || 0:
-        return "Admin";
+        return translate("Admin");
       default:
         return "-";
     }
