@@ -3,6 +3,7 @@ import axiosApi from "../../axios-api";
 import { loginActions } from "./loginSlice";
 import { layoutActions } from "../../../src/features/Layout/layoutSlice";
 import { gamificationActions } from "../UserGamification.jsx/userGamificationSlice";
+import { getLang } from "../../utils/storage";
 
 import { toast } from "react-toastify";
 import { setAccessToken } from "../../utils/auth";
@@ -60,9 +61,13 @@ export const login = (loginInfo, navigate, locationPathname) => {
     dispatch(loginActions.setLoginLoading(true));
 
     try {
-      const response = await axiosApi.post(`login/Authenticate2?siteId=${config.VITE_SITE_ID}`, loginInfo, {
-        baseURLOverride: config.VITE_WALLET_API_BASE,
-      });
+      const response = await axiosApi.post(
+        `login/Authenticate2?siteId=${config.VITE_SITE_ID}`,
+        loginInfo,
+        {
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
       if (response.data.Status.StatusCode !== 200)
         throw Error(response.data.Contents);
       setAccessToken(response.data.Contents.Token);
@@ -253,13 +258,13 @@ export const getUser = (navigate) => {
   };
 };
 
-export const sentRecoveryEmail = (email) => {
-  return async (dispatch) => {
+export const sentRecoveryUsername = (username) => {
+  return async (dispatch, getState) => {
     dispatch(loginActions.setUpdateLoading(true));
-
+    const lang = getLang();
     try {
       const response = await axiosApi.get(
-        `/MyAccount/RecoverPassword?email=${email}`,
+        `/MyAccount/RecoverPassword?username=${username}&lang=${lang.id}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -270,14 +275,14 @@ export const sentRecoveryEmail = (email) => {
 
       if (response.data.Status.StatusCode === 200) {
         toast.success(response.data.Contents);
-        dispatch(loginActions.setEmailSentCorrectly(true));
+        dispatch(loginActions.setUsernameSentCorrectly(true));
       } else {
-        toast.error("Please ensure your email address is correct");
-        dispatch(loginActions.setEmailSentCorrectly(false));
+        toast.error("Please ensure your username is correct");
+        dispatch(loginActions.setUsernameSentCorrectly(false));
       }
     } catch (error) {
       toast.error("An error has occurred!");
-      dispatch(loginActions.setEmailSentCorrectly(false));
+      dispatch(loginActions.setUsernameSentCorrectly(false));
       dispatch(loginActions.setUpdateLoading(false));
     }
   };

@@ -10,7 +10,7 @@ const initialState = {
     accountChildren: [],
     selectedAccount: null,
     recoverId: null,
-    emailSent: false,
+    usernameSent: false,
 
     permissions: {
         AllowToBomba: false,
@@ -65,8 +65,8 @@ export const loginSlice = createSlice({
         setRecoverAccountId(state, action) { 
             state.recoverId = action.payload;
         },
-        setEmailSentCorrectly(state, action) { 
-            state.emailSent = action.payload;
+        setUsernameSentCorrectly(state, action) { 
+            state.usernameSent = action.payload;
         },
     },
 });
