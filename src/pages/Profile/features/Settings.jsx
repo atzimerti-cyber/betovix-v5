@@ -427,8 +427,9 @@ const Settings = () => {
 
                   <p className={classes.Text}>
                     {translate(
-                      "Your password must meet the following criteria:"
+                      "Your password must meet the following criteria"
                     )}
+                    {": "}
                   </p>
 
                   <div className={classes.FormValidationMessage}>
