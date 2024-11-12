@@ -32,66 +32,13 @@
         src="https://e4a2fe78-d6a5-4db4-8b68-4943b8cde3f0.snippet.anjouangaming.org/anj-seal.js"></script>
 
     <script>
-        // document.addEventListener('DOMContentLoaded', () => {
-        //     console.log("DOM fully loaded. Setting up MutationObserver...");
-
-        //     const observer = new MutationObserver(() => {
-        //         console.log("Mutation detected, querying for '.widget-visible' elements...");
-
-        //         const widgets = document.querySelectorAll('.widget-visible');
-
-        //         console.log('Widgets found:', widgets);
-
-        //         if (widgets.length > 0) {
-        //             widgets.forEach(widget => {
-        //                 console.log('Setting z-index to 0 for widget:', widget); // Log each widget being modified
-        //                 widget.style.setProperty('z-index', '700', 'important'); // Apply z-index 0 with !important
-        //             });
-        //             observer.disconnect(); // Stop observing after the elements are found and modified
-        //             console.log('MutationObserver disconnected.');
-        //         }
-        //     });
-
-        //     // Start observing the body for added elements
-        //     observer.observe(document.body, { childList: true, subtree: true });
-        // });
-
-
-
-        // function talkTo() {
-        //     const widgets = document.querySelectorAll('.widget-visible');
-
-        //     console.log('Widgets found:', widgets);
-
-        //     if (widgets.length > 0) {
-        //         widgets.forEach(widget => {
-        //             console.log('Setting z-index to 0 for widget:', widget); 
-        //             widget.style.setProperty('z-index', '700', 'important');  
-        //         }); 
-        //     }
-        // }
-        // setTimeout(talkTo, 1000)
-        // setTimeout(talkTo, 3000)
-        // setTimeout(talkTo, 4000)
-        // setTimeout(talkTo, 5000)
-        // setTimeout(talkTo, 7000)
-
         function hideGame() {
             window.location.href = "/casino/lobby";
             document.getElementById('game').style.display = 'none';
             document.getElementById('btnBack').style.display = 'none';
             document.getElementById('loadGame').style.display = 'none';
         }
-    </script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VMJB2G33G"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-5VMJB2G33G');
-    </script>
+    </script> 
 </head>
 
 <body>
