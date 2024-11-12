@@ -88,7 +88,11 @@ const MenuItems = (props) => {
         </a>
       </li>
       <li>
-        <a>
+        <a
+          onClick={() => {
+            navigate(`/support`);
+          }}
+        >
           <LiveSupportIcon />
           <span>{translate("Live Support")}</span>
         </a>
