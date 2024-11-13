@@ -308,6 +308,8 @@ const initialState = {
   siteSettings: null,
   socialMedia: null,
   siteCurrencies: null,
+  registerPromoImg: null,
+  registerPromoImgMobile: null,
 };
 
 export const appSlice = createSlice({
@@ -371,6 +373,12 @@ export const appSlice = createSlice({
     },
     setSiteCurrencies: (state, action) => {
       state.siteCurrencies = action.payload;
+    },
+    setRegisterPromoImg: (state, action) => {
+      state.registerPromoImg = action.payload;
+    },
+    setRegisterPromoImgMobile: (state, action) => {
+      state.registerPromoImgMobile = action.payload;
     },
   },
 });

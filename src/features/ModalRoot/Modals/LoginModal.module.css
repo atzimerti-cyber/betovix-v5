@@ -12,7 +12,7 @@
   background-color: var(--db-gray-6);
   opacity: 0;
   animation: slide 0.2s ease-out forwards;
-  padding: 0.1rem 1rem 1rem 1rem;
+  /* padding: 0.1rem 1rem 1rem 1rem; */
   display: flex;
   min-height: min(100%, var(--db-modal-auth-height));
   flex-direction: column;
@@ -21,43 +21,24 @@
 }
 
 .ModalContent {
-  /* display: grid; */
   height: 100%;
-  width: 70vw;
+  width: 90vw;
   min-width: 280px;
-  /* width: 275px; */
   flex-grow: 1;
   grid-template-columns: repeat(1, minmax(0, 1fr));
   padding: 0;
   max-height: 100dvh;
-  /* overflow-y: auto; */
-  overflow-y: hidden;
   overflow-x: hidden;
   padding: 0;
   border-radius: 10px;
+  max-width: 570px;
 }
 
-/* Left part */
 .PromoSection {
-  /* position: relative;
-    background-color: var(--db-duelbits-gray); */
   position: absolute;
   width: 100%;
   height: 100%;
   z-index: 0;
-}
-
-.FormSection {
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  background-color: var(--db-gray-6);
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-bottom: 1rem;
-  align-items: center;
-  width: 100%;
-  height: 100%;
 }
 
 .FormSection > div:first-child > div button svg {
@@ -82,15 +63,16 @@
   z-index: -1;
 }
 
-/* Right part */
 .FormSection {
-  width: 100%;
+  z-index: 1;
+  background-color: var(--db-gray-6);
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  padding-bottom: 0.5rem;
+  align-items: center;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: var(--db-gray-6);
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-bottom: 1rem;
 }
 
 .Tabs {
@@ -128,7 +110,6 @@
   .ModalContent {
     width: 600px;
     max-width: none;
-    /* grid-template-columns: repeat(2, minmax(0, 1fr)); */
   }
 
   .TabContent {

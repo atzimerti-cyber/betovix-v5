@@ -170,7 +170,30 @@ export const verify = (code, navigate) => {
       );
       if (response.data.Status.StatusCode === 200) {
         toast.success(response.data.Contents);
-        navigate(`?modal=auth&tab=login`, { replace: true });
+        setAccessToken(response.data.Contents.Token);
+
+        const response2 = await axiosApi.get(
+          `login/State/?lang=en&siteid=${config.VITE_SITE_ID}`,
+          {
+            baseURLOverride: config.VITE_WALLET_API_BASE,
+          }
+        );
+        if (response2.data.Status.StatusCode !== 200)
+          throw Error(response2.data.Contents);
+
+        // TODO: The rest should come from the backend
+        const user = {
+          ...response2.data.Contents,
+
+          // profileHidden: false,
+          // marketingEmails: true,
+          // level: 0,
+          // wagered: 500,
+          // registered: 1712505696754,
+        };
+
+        dispatch(loginActions.setUser(user));
+        navigate(`/`, { replace: true });
       } else {
         toast.error(response.data.Contents);
         navigate(``, { replace: true });

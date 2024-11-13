@@ -16,6 +16,7 @@ import AlternativeMethods from "./features/AlternativeMethods";
 import { translate } from "../../utils/translations";
 import config from "../../config";
 import { loginActions } from "./loginSlice";
+import { wrap } from "lodash";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,11 @@ const Login = () => {
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const loginLoading = useSelector((state) => state.login.loginLoading);
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const mobileImg = useMediaQuery({ query: "(max-width: 768px)" });
+  const registerPromoImg = useSelector((state) => state.app.registerPromoImg);
+  const registerPromoImgMobile = useSelector(
+    (state) => state.app.registerPromoImgMobile
+  );
 
   const [loading, setLoading] = useState(false);
 
@@ -74,8 +79,34 @@ const Login = () => {
           <div className={classes.Spinner}></div>
         </div>
       ) : (
-        <>
+        <div className={classes.RegisterContainer}>
+          <div className={classes.PromoContainer}>
+            <div
+              className={classes.ImageContainer}
+              style={{
+                backgroundImage: mobileImg
+                  ? `url(${registerPromoImg})`
+                  : `url(${registerPromoImgMobile})`,
+              }}
+            ></div>
+          </div>
           <form className={classes.Form}>
+            <div
+              className={classes.Title}
+              style={{ marginBottom: "1rem", textWrap: "wrap", width: "60%" }}
+            >
+              {translate(`Log in to your account.`)}
+              {/* <p
+                style={{
+                  fontSize: "0.75rem",
+                  fontWeight: "200",
+                  cursor: "pointer",
+                }}
+                onClick={() => changeTab("register")}
+              >
+                <i>{translate(`or create an account here`)}</i>
+              </p> */}
+            </div>
             <label htmlFor="Username">{translate("Username")}</label>
             <div className={classes.InputOuter}>
               <MainInput
@@ -137,20 +168,34 @@ const Login = () => {
             >
               {translate("Forgot your password?")}
             </MainButton>
-
-            {/* <div className={classes.CaptchaText}>
-                {translate('This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply.')}
-            </div> */}
-            {/* {isMobile && (
-                <div className={classes.Acknowledgement}>
-                    {translate('By accessing this site I attest that I am at least 18 years old and have read and agree with the')}{' '}
-                    <Link to='/terms' target='_blank' rel='noreferrer'>
-                        <b>{translate('Terms of Service')}</b>.
-                    </Link>
-                </div>
-            )} */}
+            <label
+              htmlFor="terms"
+              className={classes.CheckboxLabel}
+              style={{ fontWeight: "300", marginLeft: "0rem" }}
+            >
+              {translate(
+                "By accessing this site I attest that I have read and agree with the"
+              )}{" "}
+              <Link to="/terms-and-conditions" target="_blank" rel="noreferrer">
+                <b>{translate("Terms and Conditions")}</b>.
+              </Link>
+              *
+            </label>
+            <p
+              style={{
+                fontSize: "0.75rem",
+                fontWeight: "400",
+                cursor: "pointer",
+                textAlign: "center",
+                textDecoration: "underline",
+                color: "white",
+              }}
+              onClick={() => changeTab("register")}
+            >
+              <i>{translate("No account? Register here")}</i>
+            </p>
           </form>
-        </>
+        </div>
       )}
     </>
   );
