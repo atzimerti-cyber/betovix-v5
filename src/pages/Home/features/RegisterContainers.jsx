@@ -36,7 +36,7 @@ const RegisterContainers = () => {
           <span style={{ fontWeight: "400", textTransform: "lowercase" }}>
             {translate("1st")}
           </span>{" "}
-          {translate("deposit")}
+          <span style={{ fontWeight: "400" }}>{translate("deposit")}</span>
         </span>
         <span className={classes.SignUpTextV1}>{translate("up to 200€")}</span>
         <button
