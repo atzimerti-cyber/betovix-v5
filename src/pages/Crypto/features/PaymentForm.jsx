@@ -12,6 +12,7 @@ import { submitDepositForm } from "../cryptoAsyncActions";
 import Dropdown4 from "../../../features/UI/Dropdown/Dropdown4";
 
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
+import ErrorIcon from "../../../assets/svgs/errorpayment.svg?react";
 
 const PaymentForm = (props) => {
   const dispatch = useDispatch();
@@ -23,13 +24,16 @@ const PaymentForm = (props) => {
   const [formData, setFormData] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
   const depositAddress = useSelector((state) => state.crypto.depositAddress);
+  const limitMessage = useSelector(
+    (state) => state.crypto.withdrawLimitMessage
+  );
 
   const debouncedFormData = useDebounce(formData, 300);
 
   useEffect(() => {
-    const allFieldsFilled = Object.values(debouncedFormData).every(
-      (value) => value !== "" && value !== undefined
-    );
+    const allFieldsFilled = Object.values(debouncedFormData).every((value) => {
+      return value !== "" && value !== undefined;
+    });
 
     const validAmount =
       debouncedFormData.Amount == null || debouncedFormData.Amount > 0;
@@ -48,14 +52,20 @@ const PaymentForm = (props) => {
       const initialData = props.method.Fields.reduce((f, field) => {
         // Only include fields where Deposit is true
         if (field.Deposit !== false) {
-          const value =
-            (field.DefaultValue !== "-" && field.DefaultValue) || "";
-          try {
-            f[field.Name] = JSON.parse(value);
-          } catch (e) {
-            f[field.Name] = value;
+          f[field.Name] = "AF";
+          if (field.Name === "Country" && field.DefaultValue) {
+            f[field.Name] = field.DefaultValue;
+          } else {
+            const value =
+              (field.DefaultValue !== "-" && field.DefaultValue) || "";
+            try {
+              f[field.Name] = JSON.parse(value);
+            } catch (e) {
+              f[field.Name] = value;
+            }
           }
         }
+
         return f;
       }, {});
       setFormData(initialData);
@@ -65,27 +75,40 @@ const PaymentForm = (props) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]:
-        name === "Amount"
-          ? parseFloat(value) || undefined
-          : value === ""
-          ? undefined
-          : value,
-    }));
+    setFormData((prevData) => {
+      var result = "";
+      if (name === "Network") {
+        const selectedOption = e.target.selectedOptions[0];
+        const data = selectedOption.getAttribute("data");
+        result = JSON.parse(data);
+      } else if (name === "Amount") {
+        if (value === "" || value === undefined) {
+          result = undefined;
+        } else {
+          result = parseFloat(value);
+        }
+      } else {
+        result = value;
+      }
+      return { ...prevData, [name]: result };
+    });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    let cur = "";
+    let net = undefined;
+    if (debouncedFormData.Network) {
+      cur = Object.values(debouncedFormData.Network)[0];
+      net = Object.keys(debouncedFormData.Network)[0];
+    } else if (debouncedFormData.Currency) {
+      cur = debouncedFormData.Currency;
+    }
+
     const depositDTO = {
-      Currency:
-        debouncedFormData.Currency ||
-        (debouncedFormData.Network &&
-          Object.values(debouncedFormData.Network).join(", ")),
-      Network:
-        debouncedFormData.Network &&
-        Object.keys(debouncedFormData.Network).join(", "),
+      Currency: cur,
+      Network: net,
       Amount: debouncedFormData.Amount,
       PaymentType: debouncedFormData.PaymentType,
       PaymentMethod: debouncedFormData.PaymentMethod,
@@ -372,29 +395,12 @@ const PaymentForm = (props) => {
           {ListValues.map((item, index) => {
             const key = Object.keys(item)[0];
             return (
-              <option className={classes.SelectOptions} key={index} value={key}>
-                {key}
-              </option>
-            );
-          })}
-        </select>
-      );
-    } else if (
-      (Type === "string" || Type === "list") &&
-      ListValues.length > 0
-    ) {
-      inputElement = (
-        <select
-          name={Name}
-          id={Name}
-          className={classes.Select}
-          onChange={handleChange}
-          value={formData[Name]}
-        >
-          {ListValues.map((item, index) => {
-            const key = Object.keys(item)[0];
-            return (
-              <option className={classes.SelectOptions} key={index} value={key}>
+              <option
+                className={classes.SelectOptions}
+                key={index}
+                value={key}
+                data={JSON.stringify(item)}
+              >
                 {key}
               </option>
             );
@@ -456,6 +462,7 @@ const PaymentForm = (props) => {
                 {translate("Required Fields")}
               </span>
             </div>
+
             <button
               type="submit"
               className={
@@ -467,6 +474,12 @@ const PaymentForm = (props) => {
             >
               {props.type === "Crypto" ? "Get Deposit Address" : "Submit"}
             </button>
+            {limitMessage && limitMessage !== "" && (
+              <div className={classes.Message}>
+                <ErrorIcon />
+                <span>{translate(`${limitMessage}`)}</span>
+              </div>
+            )}
           </form>
         </>
       )}
