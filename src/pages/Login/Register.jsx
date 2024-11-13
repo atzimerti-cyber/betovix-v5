@@ -19,6 +19,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Link } from "react-router-dom";
 import config from "../../config";
 import AlternativeMethods from "./features/AlternativeMethods";
+import Arrow2LeftIcon from "../../assets/svgs/arrow2-left.svg?react";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -204,6 +205,16 @@ const Register = () => {
     if (registerStage === 2) setRegisterStage(1);
   };
 
+  const changeTab = (tab) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", "auth");
+    searchParams.set("tab", tab);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+  };
+
   return (
     <div className={classes.RegisterContainer}>
       <div className={classes.PromoContainer}>
@@ -219,7 +230,18 @@ const Register = () => {
       <form className={classes.Form} autoComplete="off">
         {registerStage === 1 && (
           <div className={classes.StepOne}>
-            <div className={classes.Title}>
+            <div
+              className={classes.Title}
+              style={{
+                marginBottom: "0.6rem",
+                textWrap: "wrap",
+                width: "100%",
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "flex-end",
+                gap: "0.4rem",
+              }}
+            >
               {translate(`Create your account`)}!
             </div>
             <label htmlFor="displayName">
@@ -471,9 +493,18 @@ const Register = () => {
         {registerStage === 2 && (
           <div className={classes.StepTwo}>
             <div className={classes.ReturnBtn} style={{ maxWidth: "30%" }}>
-              <MainButton color="secondary" onClick={handleBack}>
+              <button
+                onClick={handleBack}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  textDecoration: "underline",
+                }}
+              >
+                <Arrow2LeftIcon height="20px" width="20px" />
                 {translate("Back")}
-              </MainButton>
+              </button>
             </div>
 
             <label htmlFor="country">
@@ -770,6 +801,19 @@ const Register = () => {
         <GoogleOAuthProvider clientId={config.VITE_GOOGLE_CLIENT_ID}>
           <AlternativeMethods />
         </GoogleOAuthProvider>
+        <p
+          style={{
+            fontSize: "0.75rem",
+            fontWeight: "400",
+            cursor: "pointer",
+            textAlign: "center",
+            textDecoration: "underline",
+            color: "white",
+          }}
+          onClick={() => changeTab("login")}
+        >
+          <i>{translate("Already have an account? Log in")}</i>
+        </p>
       </form>
     </div>
   );
