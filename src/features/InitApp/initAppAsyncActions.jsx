@@ -613,6 +613,16 @@ export const getSiteSettings = (signal) => {
         siteCurrencies.push(curr);
       });
 
+      dispatch(
+        appActions.setRegisterPromoImg(
+          response.data.Contents.Site.RegisterPromoImg
+        )
+      );
+      dispatch(
+        appActions.setRegisterPromoImgMobile(
+          response.data.Contents.Site.RegisterPromoImgMobile
+        )
+      );
       dispatch(appActions.setSiteSettings(response.data.Contents["Site"]));
       dispatch(appActions.setAvailableLangs(languages));
       dispatch(appActions.setSiteCurrencies(siteCurrencies));
