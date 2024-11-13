@@ -5,6 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import classes from "./ModalRoot.module.css";
 import CashierModal from "./Modals/CashierModal";
 import LoginModal from "./Modals/LoginModal";
+import AnnouncementModal from "./Modals/AnnouncementModal";
+
 import OddsFormatModal from "./Modals/OddsFormatModal";
 import BonusModal from "./Modals/BonusModal";
 
@@ -33,7 +35,7 @@ const ModalRoot = () => {
   const onCloseModal = useSelector((state) => state.modal.onCloseModal);
   const user = useSelector((state) => state.login.user);
   const query = new URLSearchParams(location.search);
-  const modal = query.get("modal");
+  let modal = query.get("modal");
   const tab = query.get("tab");
 
   useEffect(() => {
@@ -76,6 +78,7 @@ const ModalRoot = () => {
   else if (modal === "ticket-receipt") modalPage = <TicketReceiptModal />;
   else if (modal === "load-ticket") modalPage = <LoadTicketModal />;
   else if (modal === "statistics") modalPage = <StatisticsModal />;
+  else if (modal === "announcement") modalPage = <AnnouncementModal />;
   // else if (modal === 'vip') modalPage = <VipModal />;
   else if (modal === "bonus") {
     if (user) modalPage = <BonusModal />;
@@ -101,6 +104,23 @@ const ModalRoot = () => {
     else
       modalPage = <Navigate replace to={getUrlWithParams("auth", "login")} />;
   }
+
+  
+  useEffect(() => {
+    const isShown = localStorage.getItem('promoShown');
+    if (!isShown) {
+      setTimeout(()=>{
+          // console.log('isShown')
+          modal = true
+          const searchParams = new URLSearchParams(location.search);
+          searchParams.set("modal", "announcement");
+          navigate(`${location.pathname}?${searchParams.toString()}`, {
+            replace: true,
+          });
+      },1000)
+    } 
+}, []);
+
 
   return (
     <div className={classes.ModalRoot} id="modal-root">

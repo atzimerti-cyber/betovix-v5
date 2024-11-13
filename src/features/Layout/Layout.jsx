@@ -11,6 +11,7 @@ import Minibar from "./features/Minibar";
 
 import classes from "./Layout.module.css";
 import Footer from "./features/Footer";
+import Cookies from "./features/Cookies";
 import BetslipIcon from "../../assets/svgs/betslip.svg?react";
 import ChatIcon from "../../assets/svgs/chat.svg?react";
 import SupportIcon from "../../assets/svgs/livesupportbtn.svg?react";
@@ -192,8 +193,8 @@ const Layout = () => {
 
               <Outlet />
             </div>
-          </main>
 
+          </main>
           <Footer />
         </div>
 
@@ -330,7 +331,7 @@ const Layout = () => {
       </AnimatePresence>
 
       {isMobile && <Bottombar />}
-
+      <Cookies/>
       <ModalRoot />
       <Ticket />
     </div>
