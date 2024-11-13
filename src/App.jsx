@@ -45,6 +45,7 @@ const ResponsibleGaming = React.lazy(() =>
 const PrivacyPolicy = React.lazy(() =>
   import("./pages/Footer Pages/PrivacyPolicy")
 );
+const ContactUs = React.lazy(() => import("./pages/Footer Pages/ContactUs"));
 const ErrorPage = React.lazy(() => import("./pages/Error Page/ErrorPage"));
 
 function App() {
@@ -251,6 +252,14 @@ function App() {
               element: (
                 <Suspense fallback={<PageFallback />}>
                   <Support />
+                </Suspense>
+              ),
+            },
+            {
+              path: "/contactus",
+              element: (
+                <Suspense fallback={<PageFallback />}>
+                  <ContactUs />
                 </Suspense>
               ),
             },

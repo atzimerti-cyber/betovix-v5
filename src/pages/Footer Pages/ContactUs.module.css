@@ -1,0 +1,65 @@
+.PageContent {
+  padding: 0px 2rem 40px;
+  margin: 2rem 0;
+  border-radius: 10px;
+  max-width: 1310px;
+  width: 100%;
+  container-type: inline-size;
+  background-color: var(--db-duelbits-gray);
+}
+
+.ToS {
+  margin-top: 0.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+.Context p {
+  color: whitesmoke;
+}
+.FormContainer {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.7rem;
+  padding: 1rem;
+}
+.FormGroup {
+  display: flex;
+  flex-direction: column;
+  color: white;
+  align-items: flex-start;
+  gap: 0.1rem;
+  width: 90%;
+}
+.Input {
+  height: auto;
+  border-radius: 6px;
+  width: 100%;
+  background-color: #0d2a3e;
+  padding: 0.5rem;
+}
+.TextArea {
+  height: auto;
+  border-radius: 6px;
+  width: 100%;
+  background-color: #0d2a3e;
+  padding: 0.5rem;
+}
+.Select {
+  height: auto;
+  border-radius: 6px;
+  width: 100%;
+  background-color: #0d2a3e;
+  padding: 0.5rem;
+}
+.Label {
+  color: lightblue;
+  font-size: 0.8rem;
+}
+.SubmitButton {
+  background-color: #689312;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+}

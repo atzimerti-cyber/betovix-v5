@@ -1,13 +1,25 @@
 .Form {
   display: flex;
-  height: 100%;
+  max-height: 300px;
   width: 100%;
   flex-direction: column;
-  padding-top: 0.75rem;
+  padding-top: 0.3rem;
   align-self: center;
+  overflow-y: auto;
 }
 
 .Form > label {
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
+  font-weight: bold;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.StepOne > label,
+.StepTwo > label {
   margin-bottom: 0.25rem;
   margin-top: 0.25rem;
   font-size: 0.75rem;
@@ -76,7 +88,6 @@
 }
 .CheckboxInput {
   height: 0.9rem;
-  width: 0.9rem;
 }
 .CheckboxLabel {
   margin-left: 0.6rem;
@@ -216,4 +227,12 @@
 }
 .PhoneInput .react-tel-input .flag-dropdown .open .selected-flag {
   background: #f80707 !important;
+}
+
+.PromoContainer {
+  height: 200px;
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #0f4767;
 }
