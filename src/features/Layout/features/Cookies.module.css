@@ -2,7 +2,7 @@
   position: fixed;
   bottom: 0;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateX(-50%);
     width: 100%;
   background-color: #f1f1f1;
   padding: 10px;
@@ -12,7 +12,7 @@
   align-items: center;
   z-index: 9999;
   padding: 10px;
-  width: 80%;
+  width: 90%;
   border-radius: 8px;
   margin-block: 10px;
 }
@@ -31,6 +31,7 @@
   flex: 1;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .CookiesContent button {
