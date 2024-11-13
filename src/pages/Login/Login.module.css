@@ -1,6 +1,6 @@
 .Form {
   display: flex;
-  max-height: 400px;
+  max-height: 480px;
   width: 100%;
   flex-direction: column;
   padding-top: 0.3rem;
@@ -234,17 +234,13 @@
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
-  background: linear-gradient(
-    45deg,
-    #0f4767,
-    #0d6b8c,
-    #4ba5a4,
-    #0a7f67,
-    #82c4b3
-  );
-  animation: gradientAnimation 8s ease infinite;
+  /* background: linear-gradient(45deg, #0f4767, #0d6b8c, #4ba5a4, #0a7f67, #82c4b3); */
+  animation: _gradientAnimation_1gomg_1 8s ease infinite;
   aspect-ratio: 9 / 5;
   background-size: 300% 300%;
+  max-height: 200px;
+  display: flex;
+  justify-content: center;
 }
 
 @keyframes gradientAnimation {
@@ -263,6 +259,8 @@
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
+  max-height: 200px;
+  aspect-ratio: 9 / 5;
 }
 
 .BigBtn > button {
@@ -295,5 +293,22 @@
     aspect-ratio: 6 / 9;
     animation: gradientAnimation 8s ease infinite;
     background-size: 300% 300%;
+    max-height: none;
   }
+  .ImageContainer {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    max-height: none;
+    aspect-ratio: 6 / 9;
+  }
+}
+
+.Title {
+  font-size: 1.6rem;
+  font-weight: 800;
+  text-wrap: wrap;
+  color: #96d023;
+  line-height: 1.8rem;
 }

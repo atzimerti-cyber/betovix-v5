@@ -15,8 +15,10 @@ import PromoImage from "../../assets/images/testpromo.png";
 import { register } from "./loginAsyncActions";
 import { translate } from "../../utils/translations";
 import { affiliateCampaigns } from "./loginAsyncActions";
-
+import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Link } from "react-router-dom";
+import config from "../../config";
+import AlternativeMethods from "./features/AlternativeMethods";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -217,6 +219,9 @@ const Register = () => {
       <form className={classes.Form} autoComplete="off">
         {registerStage === 1 && (
           <div className={classes.StepOne}>
+            <div className={classes.Title}>
+              {translate(`Create your account`)}!
+            </div>
             <label htmlFor="displayName">
               {translate("Username")}
               <span
@@ -761,6 +766,10 @@ const Register = () => {
             </div>
           </div>
         )}
+        <p className={classes.LoginWith}>{translate("or register with")}</p>
+        <GoogleOAuthProvider clientId={config.VITE_GOOGLE_CLIENT_ID}>
+          <AlternativeMethods />
+        </GoogleOAuthProvider>
       </form>
     </div>
   );
