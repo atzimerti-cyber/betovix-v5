@@ -234,7 +234,6 @@
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
-  /* background: linear-gradient(45deg, #0f4767, #0d6b8c, #4ba5a4, #0a7f67, #82c4b3); */
   animation: _gradientAnimation_1gomg_1 8s ease infinite;
   aspect-ratio: 9 / 5;
   background-size: 300% 300%;
@@ -288,7 +287,6 @@
     width: 100%;
     border-radius: 10px;
     overflow: hidden;
-    /* background: #0f4767; */
     aspect-ratio: 517 / 919;
     animation: gradientAnimation 8s ease infinite;
     background-size: 300% 300%;
