@@ -27,7 +27,7 @@ export const logingGoogle = (loginInfo, navigate, locationPathname) => {
       setAccessToken(response.data.Contents.Token);
 
       const response2 = await axiosApi.get(
-        `login/State/?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        `login/State/?lang=en&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -73,7 +73,7 @@ export const login = (loginInfo, navigate, locationPathname) => {
       setAccessToken(response.data.Contents.Token);
 
       const response2 = await axiosApi.get(
-        `login/State/?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        `login/State/?lang=en&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -110,7 +110,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
     try {
       let response2;
       const response1 = await axiosApi.get(
-        `/MyAccount/UsernameExists?username=${registerInfo.displayName}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        `/MyAccount/UsernameExists?username=${registerInfo.displayName}&lang=en&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -121,7 +121,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
         dispatch(loginActions.setLoginLoading(false));
       } else if (response1.data.Contents == false) {
         response2 = await axiosApi.post(
-          `MyAccount/Register/?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+          `MyAccount/Register/?lang=en&siteid=${config.VITE_SITE_ID}`,
           {
             Code: registerInfo.code,
             Email: registerInfo.email,
@@ -170,7 +170,7 @@ export const verify = (code, navigate) => {
         setAccessToken(response.data.Contents.Token);
 
         const response2 = await axiosApi.get(
-          `login/State/?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+          `login/State/?lang=en&siteid=${config.VITE_SITE_ID}`,
           {
             baseURLOverride: config.VITE_WALLET_API_BASE,
           }
@@ -178,15 +178,8 @@ export const verify = (code, navigate) => {
         if (response2.data.Status.StatusCode !== 200)
           throw Error(response2.data.Contents);
 
-        // TODO: The rest should come from the backend
         const user = {
           ...response2.data.Contents,
-
-          // profileHidden: false,
-          // marketingEmails: true,
-          // level: 0,
-          // wagered: 500,
-          // registered: 1712505696754,
         };
 
         dispatch(loginActions.setUser(user));
@@ -221,7 +214,7 @@ export const getUser = (navigate) => {
   return async (dispatch, getState) => {
     try {
       const response = await axiosApi.get(
-        `login/State/?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        `login/State/?lang=en&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
           // baseURLOverride: config.VITE_WALLET_STORETUBE,
@@ -284,7 +277,7 @@ export const sentRecoveryUsername = (username) => {
     const lang = getLang();
     try {
       const response = await axiosApi.get(
-        `/MyAccount/RecoverPassword?username=${username}&lang=${lang.id}`,
+        `/MyAccount/RecoverPassword?username=${username}&lang=en`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
