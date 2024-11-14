@@ -55,7 +55,7 @@ const Register = () => {
     password: null,
     verifyPassword: null,
     code: null,
-    country: "",
+    country: "AF",
   });
   const debDisplayName = useDebounce(registerInfo.displayName);
   const debEmail = useDebounce(registerInfo.email);
@@ -167,7 +167,7 @@ const Register = () => {
   }, [
     registerInfo.displayName,
     registerInfo.email,
-    // registerInfo.country,
+    registerInfo.country,
     registerInfo.password,
     registerInfo.verifyPassword,
     validChecks.displayName,

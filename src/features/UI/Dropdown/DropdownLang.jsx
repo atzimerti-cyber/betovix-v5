@@ -25,6 +25,7 @@ const DropdownLang = (props) => {
 
   let elClasses = [classes.Dropdown];
   if (props.openTo === "top") elClasses.push(classes.Top);
+  if (props.openTo === "side") elClasses.push(classes.Side);
   if (dropdownVisible) elClasses.push(classes.Visible);
   if (!fullLeftContainer) elClasses.push(classes.Closed);
 
@@ -112,7 +113,6 @@ const DropdownLang = (props) => {
                       />
                     </div>
                     <span>{getLangName(availableLang.id)}</span>
-                    {/* <span>{availableLang.label}</span> */}
                   </a>
                 </li>
               );

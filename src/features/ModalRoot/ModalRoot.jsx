@@ -27,6 +27,7 @@ import LoadTicketModal from "./Modals/LoadTicketModal";
 import TicketReceiptModal from "./Modals/TicketReceiptModal";
 import NotificationsModal from "./Modals/NotificationsModal";
 import CasinoGameOptionsModal from "./Modals/CasinoGameOptionsModal";
+import PleaseVerify from "./Modals/PleaseVerify";
 
 const ModalRoot = () => {
   const navigate = useNavigate();
@@ -74,6 +75,7 @@ const ModalRoot = () => {
   } else if (modal === "auth")
     modalPage = <LoginModal tab={tab} onClose={returnToPrevious} />;
   else if (modal === "odds-format") modalPage = <OddsFormatModal />;
+  else if (modal === "verify") modalPage = <PleaseVerify />;
   else if (modal === "booked-bet") modalPage = <BookedBetModal />;
   else if (modal === "load-booked") modalPage = <LoadBookedModal />;
   else if (modal === "ticket-receipt") modalPage = <TicketReceiptModal />;
@@ -107,22 +109,20 @@ const ModalRoot = () => {
       modalPage = <Navigate replace to={getUrlWithParams("auth", "login")} />;
   }
 
-  
   useEffect(() => {
-    const isShown = localStorage.getItem('promoShown');
+    const isShown = localStorage.getItem("promoShown");
     if (!isShown) {
-      setTimeout(()=>{
-          // console.log('isShown')
-          modal = true
-          const searchParams = new URLSearchParams(location.search);
-          searchParams.set("modal", "announcement");
-          navigate(`${location.pathname}?${searchParams.toString()}`, {
-            replace: true,
-          });
-      },1000)
-    } 
-}, []);
-
+      setTimeout(() => {
+        // console.log('isShown')
+        modal = true;
+        const searchParams = new URLSearchParams(location.search);
+        searchParams.set("modal", "announcement");
+        navigate(`${location.pathname}?${searchParams.toString()}`, {
+          replace: true,
+        });
+      }, 1000);
+    }
+  }, []);
 
   return (
     <div className={classes.ModalRoot} id="modal-root">

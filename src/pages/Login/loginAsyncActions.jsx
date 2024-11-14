@@ -115,14 +115,10 @@ export const register = (registerInfo, navigate, locationPathname) => {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
       );
-      setTimeout(() => {
-        dispatch(loginActions.setLoginLoading(false));
-        // navigate(`${locationPathname}?modal=auth&tab=login`, { replace: true });
 
-        // toast.success('Wow so easy!');
-      }, 1000);
       if (response1.data.Contents == true) {
         toast.error("Username already exists.");
+        dispatch(loginActions.setLoginLoading(false));
       } else if (response1.data.Contents == false) {
         response2 = await axiosApi.post(
           `MyAccount/Register/?lang=en&siteid=${config.VITE_SITE_ID}`,
@@ -145,13 +141,14 @@ export const register = (registerInfo, navigate, locationPathname) => {
           toast.success(
             "Success! Please check your email to verify your registration."
           );
-          navigate(`${locationPathname}?modal=auth&tab=login`, {
+          navigate(`${locationPathname}?modal=verify`, {
             replace: true,
           });
         }
-
+        dispatch(loginActions.setLoginLoading(false));
         console.log(response2);
       }
+      dispatch(loginActions.setLoginLoading(false));
     } catch (error) {
       dispatch(loginActions.setLoginLoading(false));
       toast.error("An error has occurred!");
@@ -181,15 +178,8 @@ export const verify = (code, navigate) => {
         if (response2.data.Status.StatusCode !== 200)
           throw Error(response2.data.Contents);
 
-        // TODO: The rest should come from the backend
         const user = {
           ...response2.data.Contents,
-
-          // profileHidden: false,
-          // marketingEmails: true,
-          // level: 0,
-          // wagered: 500,
-          // registered: 1712505696754,
         };
 
         dispatch(loginActions.setUser(user));
@@ -287,7 +277,7 @@ export const sentRecoveryUsername = (username) => {
     const lang = getLang();
     try {
       const response = await axiosApi.get(
-        `/MyAccount/RecoverPassword?username=${username}&lang=${lang.id}`,
+        `/MyAccount/RecoverPassword?username=${username}&lang=en`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
