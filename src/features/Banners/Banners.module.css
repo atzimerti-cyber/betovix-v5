@@ -5,19 +5,18 @@
   cursor: default;
 }
 .BannerBackground.NoUser {
-  min-height: 200px;
+  min-height: 240px;
 }
 
 .BannerBackground {
   position: relative;
   width: 100%;
   overflow: hidden;
-  min-height: 200px;
+  min-height: 240px;
 }
 
 .BannerBackground img {
-  object-fit: contain;
-  /* object-fit: cover; */
+  object-fit: contain; 
   height: 100%;
   width: 100%;
   border-radius: 10px;
