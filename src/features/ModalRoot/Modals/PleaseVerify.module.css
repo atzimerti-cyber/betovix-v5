@@ -1,0 +1,49 @@
+.ConfirmationModal {
+  width: 380px;
+  border-radius: 0.4rem;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(100% - 20px);
+  --tw-translate-y: -0.5rem;
+  --tw-scale-x: 0.9;
+  --tw-scale-y: 0.9;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  background-color: #b8ceddde;
+  margin-top: 60px;
+  animation: slide 2s ease-out forwards;
+}
+.ModalContent {
+  max-height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.625rem;
+  max-height: calc(100dvh - 80px);
+}
+
+.MainContent {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
+}
+.Message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 500;
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
+  text-align: center;
+}
+.Buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 1rem;
+}

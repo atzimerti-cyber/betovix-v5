@@ -115,14 +115,10 @@ export const register = (registerInfo, navigate, locationPathname) => {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
       );
-      setTimeout(() => {
-        dispatch(loginActions.setLoginLoading(false));
-        // navigate(`${locationPathname}?modal=auth&tab=login`, { replace: true });
 
-        // toast.success('Wow so easy!');
-      }, 1000);
       if (response1.data.Contents == true) {
         toast.error("Username already exists.");
+        dispatch(loginActions.setLoginLoading(false));
       } else if (response1.data.Contents == false) {
         response2 = await axiosApi.post(
           `MyAccount/Register/?lang=en&siteid=${config.VITE_SITE_ID}`,
@@ -145,13 +141,14 @@ export const register = (registerInfo, navigate, locationPathname) => {
           toast.success(
             "Success! Please check your email to verify your registration."
           );
-          navigate(`${locationPathname}?modal=auth&tab=login`, {
+          navigate(`${locationPathname}?modal=verify`, {
             replace: true,
           });
         }
-
+        dispatch(loginActions.setLoginLoading(false));
         console.log(response2);
       }
+      dispatch(loginActions.setLoginLoading(false));
     } catch (error) {
       dispatch(loginActions.setLoginLoading(false));
       toast.error("An error has occurred!");

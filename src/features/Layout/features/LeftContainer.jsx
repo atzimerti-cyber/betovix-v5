@@ -374,9 +374,15 @@ const LeftContainer = memo(function () {
             return getItems(menuItem, index, 0);
           }
         })}
-        <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
-          <DropdownLang fullLabel={true} openTo="top"/>
-        </div>
+        {fullLeftContainer ? (
+          <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
+            <DropdownLang fullLabel={true} openTo="top" />
+          </div>
+        ) : (
+          <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
+            <DropdownLang topbar openTo="side"/>
+          </div>
+        )}
       </div>
 
       {!isMobile && <div className={classes.SideMenuDivider}></div>}

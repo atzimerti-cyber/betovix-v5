@@ -29,14 +29,19 @@ const RegisterContainers = () => {
       <div className={classes.SignupTextContainer}>
         <span className={classes.SignUpTextV1}>{translate("Sign up")}</span>
         &nbsp;{translate("and")}&nbsp;
-        <span className={classes.SignUpTextV1}>{translate("choose")}{" "}</span>
+        <span className={classes.SignUpTextV1}>{translate("choose")} </span>
         <span className={classes.SignUpTextV1}>{translate("your hero")}</span>
         <span className={classes.SignUpTextV2}>
           {translate("100% on")}{" "}
           <span style={{ fontWeight: "400", textTransform: "lowercase" }}>
             {translate("1st")}
           </span>{" "}
-          <span style={{ fontWeight: "400" }}>{translate("deposit")}</span>
+          <span style={{ fontWeight: "400" }}>{translate("deposit")} </span>
+          <span style={{ fontWeight: "900", textTransform: "lowercase" }}>
+            {" "}
+            - x7{" "}
+          </span>
+          <span style={{ fontWeight: "400" }}>{translate("to withdraw")} </span>
         </span>
         <span className={classes.SignUpTextV1}>{translate("up to 200€")}</span>
         <button
