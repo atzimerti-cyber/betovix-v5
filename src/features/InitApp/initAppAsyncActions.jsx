@@ -91,7 +91,7 @@ export const loadInitData = (isMobile) => {
       let user = null;
       if (token) {
         const response = await axiosApi.get(
-          `login/State/?lang=en&siteid=${config.VITE_SITE_ID}`,
+          `login/State/?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
           {
             baseURLOverride: config.VITE_WALLET_API_BASE,
           }
@@ -432,7 +432,7 @@ export const loadInitData = (isMobile) => {
 
       /////////////////// Minibar Menu //////////////////////
       const footerResponse = await axiosApi.get(
-        `/Menu/MyMenu?type=sports&lang=en&siteid=${config.VITE_SITE_ID}`,
+        `/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
