@@ -5,14 +5,14 @@
   cursor: default;
 }
 .BannerBackground.NoUser {
-  min-height: 240px;
+  min-height: 260px;
 }
 
 .BannerBackground {
   position: relative;
   width: 100%;
   overflow: hidden;
-  min-height: 240px;
+  min-height: 260px;
 }
 
 .BannerBackground img {
@@ -45,3 +45,4 @@
   opacity: 0.9;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+
