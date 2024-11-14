@@ -1,6 +1,7 @@
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useMediaQuery } from "react-responsive";
 
 import classes from './AnnouncementModal.module.css';
 import { translate } from '../../../utils/translations';
@@ -13,13 +14,19 @@ const AnnouncementModal = () => {
     const location = useLocation();
     const siteSettings = useSelector((state) => state.app.siteSettings);
     const [logo, setLogo] = useState(null);
+    const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
     useEffect(() => {
         if (!siteSettings) {
             navigate(location.pathname);
         } else {
-            setLogo(siteSettings.AnouncementImgMobile);
+            if(isMobile) {
+                setLogo(siteSettings.AnouncementImgMobile);
+            } else {
+                setLogo(siteSettings.AnouncementImg);
+            }
         }
-    }, [siteSettings, navigate, location.pathname]);
+    }, [siteSettings, navigate, location.pathname, isMobile]);
 
 
     const addParamsToUrl = (modal, tab) => {

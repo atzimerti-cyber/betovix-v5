@@ -11,8 +11,10 @@ import rewards from '../../dummyData/rewards';
 export const getBonuses = (signal, status) => {
     return async (dispatch) => {
         try {
+            const lang = getLang();
+
             dispatch(modalActions.setLoading(true));
-            const response = await axiosApi.get(`/BonusForAccount/GetMyBonusesByStatus?status=${status}&lang=en&siteid=${config.VITE_SITE_ID}`, {
+            const response = await axiosApi.get(`/BonusForAccount/GetMyBonusesByStatus?status=${status}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                 signal: signal,
                 baseURLOverride: config.VITE_WALLET_API_BASE,
             });
@@ -31,8 +33,10 @@ export const getBonuses = (signal, status) => {
 export const claimBonus = (signal, bonusId, callback) => {
     return async (dispatch) => {
         try {
+            const lang = getLang();
+
             dispatch(modalActions.setLoading(true));
-            const response = await axiosApi.get(`/BonusForAccount/ClaimBonus?bonusFaId=${bonusId}&lang=en&siteid=${config.VITE_SITE_ID}`, {
+            const response = await axiosApi.get(`/BonusForAccount/ClaimBonus?bonusFaId=${bonusId}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                 signal: signal,
                 baseURLOverride: config.VITE_WALLET_API_BASE,
             });
@@ -50,6 +54,7 @@ export const claimBonus = (signal, bonusId, callback) => {
         }
     };
 };
+
 export const getVip = (signal) => {
     return async (dispatch) => {
         try {
@@ -57,7 +62,7 @@ export const getVip = (signal) => {
             // const lang = getLang();
 
             // const response = await axiosApi.post(
-            //     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+            //     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
             //     {
             //         data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
             //     },
@@ -85,8 +90,10 @@ export const getVip = (signal) => {
 export const getTicket = (signal, id) => {
     return async (dispatch) => {
         try {
+            const lang = getLang();
+
             dispatch(modalActions.setLoading(true));
-            const response = await axiosApi.get(`/MyTicket/GetTicket?TicketId=${id}&lang=en&siteid=${config.VITE_SITE_ID}`, {
+            const response = await axiosApi.get(`/MyTicket/GetTicket?TicketId=${id}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, {
                 signal: signal,
                 baseURLOverride: config.VITE_WALLET_API_BASE,
             });
@@ -101,3 +108,51 @@ export const getTicket = (signal, id) => {
         }
     };
 };
+
+export const getPromoPageById = (signal, id) => {
+    return async (dispatch, getState) => {
+      try {
+        const lang = getLang();
+  
+        const response = await axiosApi.get(
+          `/Pages/GetPageById?pageId=${id}&siteid=${config.VITE_SITE_ID}&lang=${lang.id}`,
+          {
+            signal: signal,
+            baseURLOverride: config.VITE_WALLET_API_BASE,
+          }
+        );
+  
+        if (response.status !== 200 || response.data.Status.StatusCode !== 200)
+          throw Error(response.data.Contents);
+  
+        dispatch(modalActions.setPromoPage(response.data.Contents));
+    } catch (error) {
+        const message = error?.message ? error.message : error;
+        if (!error?.code === "ERR_CANCELED") toast.error(message);
+      }
+    };
+  };
+
+export const getPromoPageBySlug = (signal, slug) => {
+    return async (dispatch, getState) => {
+      try {
+        const lang = getLang();
+  
+        const response = await axiosApi.get(
+          `/Pages/GetPageBySlugAndLang?slug=${slug}&siteid=${config.VITE_SITE_ID}&lang=${lang.id}`,
+          {
+            signal: signal,
+            baseURLOverride: config.VITE_WALLET_API_BASE,
+          }
+        );
+  
+        if (response.status !== 200 || response.data.Status.StatusCode !== 200)
+          throw Error(response.data.Contents);
+  
+        dispatch(modalActions.setPromoPage(response.data.Contents));
+    } catch (error) {
+        const message = error?.message ? error.message : error;
+        if (!error?.code === "ERR_CANCELED") toast.error(message);
+      }
+    };
+  };

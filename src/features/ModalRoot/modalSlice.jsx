@@ -7,6 +7,7 @@ const initialState = {
     loading: false,
     onCloseModal: null,
     ticketToPrint: null,
+    promoPage: null,
 };
 
 export const modalSlice = createSlice({
@@ -20,6 +21,7 @@ export const modalSlice = createSlice({
             state.loading = false;
             state.ticketToPrint = null;
             state.onCloseModal = null;
+            state.promoPage = null;
         },
         setLevels: (state, action) => {
             state.levels = action.payload;
@@ -38,6 +40,9 @@ export const modalSlice = createSlice({
         },
         setTicket(state, action) {
             state.ticketToPrint = action.payload;
+        },
+        setPromoPage(state, action) {
+            state.promoPage = action.payload;
         },
     },
 });

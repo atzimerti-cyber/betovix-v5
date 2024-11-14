@@ -22,6 +22,7 @@ import { useEffect } from "react";
 import StatisticsModal from "./Modals/StatisticsModal";
 import BookedBetModal from "./Modals/BookedBetModal";
 import LoadBookedModal from "./Modals/LoadBookedModal";
+import PromotionModal from "./Modals/PromotionModal";
 import LoadTicketModal from "./Modals/LoadTicketModal";
 import TicketReceiptModal from "./Modals/TicketReceiptModal";
 import NotificationsModal from "./Modals/NotificationsModal";
@@ -79,6 +80,7 @@ const ModalRoot = () => {
   else if (modal === "load-ticket") modalPage = <LoadTicketModal />;
   else if (modal === "statistics") modalPage = <StatisticsModal />;
   else if (modal === "announcement") modalPage = <AnnouncementModal />;
+  else if (modal === "promotion") modalPage = <PromotionModal />;
   // else if (modal === 'vip') modalPage = <VipModal />;
   else if (modal === "bonus") {
     if (user) modalPage = <BonusModal />;

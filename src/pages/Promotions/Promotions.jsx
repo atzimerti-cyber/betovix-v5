@@ -8,6 +8,7 @@ import { getPromotion } from "./promotionsAsyncActions";
 import { translate } from "../../utils/translations";
 import PromoImage from "../../assets/images/ccc.png";
 import PromotionsIcon from "../../assets/svgs/promotions.svg?react";
+import MainButton from "../../features/UI/Buttons/MainButton";
 
 const Promotions = (props) => {
   const dispatch = useDispatch();
@@ -24,6 +25,24 @@ const Promotions = (props) => {
 
     return () => dispatch(promotionsActions.reset());
   }, []);
+
+  const addParamsToUrl = (modal, link) => {
+    const searchParams = new URLSearchParams(location.search);
+    const linkParams = new URLSearchParams(link);
+
+    // Get values for "pageId" and "slug" from the linkParams
+    const pageId = linkParams.get("pageId");
+    const slug = linkParams.get("slug");
+  
+
+    searchParams.set("modal", modal);
+    if (pageId) searchParams.set("pageId", pageId);
+    if (slug) searchParams.set("slug", slug);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+};
 
   return (
     <div className={classes.PageContent}>
@@ -63,12 +82,13 @@ const Promotions = (props) => {
                     <div className={classes.PromoBottom}>
                       <div className={classes.Buttons}>
                         {promo.link !== "" && (
-                          <button
-                            className={classes.LinkButton}
-                            // onClick={() => navigate(`/${promo.link}`)}
-                          >
-                            {translate(`Read More`)}
-                          </button>
+                           <MainButton
+                           color="secondary"
+                            onClick={() => addParamsToUrl("promotion", promo.link)}                 
+                           className={classes.LinkButton}
+                       >
+                           {translate(`Read More`)}
+                       </MainButton>
                         )}
                         <button className={classes.InfoButton}></button>
                       </div>

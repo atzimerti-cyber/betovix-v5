@@ -121,7 +121,7 @@ header .Right {
 .PromoContainer {
   width: 100%;
   /* max-height: 200px; */
-  height: 220px;
+  height: 393px;
 }
 /* Right part */
 .FormSection {
@@ -135,7 +135,7 @@ header .Right {
   gap: 1rem;
 }
 .ImageContainer > div {
-  background-position: top;
+  background-position: center;
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
