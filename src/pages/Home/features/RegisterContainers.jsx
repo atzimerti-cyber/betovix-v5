@@ -55,7 +55,7 @@ const RegisterContainers = () => {
           <span className={classes.SignUpTextV1}>{translate("choose")} </span>
           <span className={classes.SignUpTextV1}>{translate("your hero")}</span>
           <span className={classes.SignUpTextV2}>
-            {translate("100% on")}{" "}
+            {translate("150% on")}{" "}
             <span style={{ fontWeight: "400", textTransform: "lowercase" }}>
               {translate("1st")}
             </span>{" "}
