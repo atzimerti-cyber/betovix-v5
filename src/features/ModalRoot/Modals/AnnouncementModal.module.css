@@ -123,6 +123,13 @@ header .Right {
   /* max-height: 200px; */
   height: 393px;
 }
+@media(max-width: 768px) {
+  .PromoContainer {
+  
+    height: 185px;
+  }
+}
+
 /* Right part */
 .FormSection {
   width: 100%;
