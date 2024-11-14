@@ -82,7 +82,9 @@ const FinalStageWithdraw = () => {
                 columnGap: "0.5rem",
               }}
             >
-              <h4>{translate(`Total: `)} </h4>
+              <h4>
+                {translate(`Total`)} {" : "}{" "}
+              </h4>
               <CoinsIcon />
               {user ? user.Wallet.Balance : 0}
             </div>

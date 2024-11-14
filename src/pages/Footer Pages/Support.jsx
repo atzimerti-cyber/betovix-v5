@@ -59,7 +59,7 @@ const Support = () => {
           }}
         >
           {translate(
-            "If our live chat is not working for you, please contact us at "
+            "If our live chat is not working for you, please contact us at"
           )}{" "}
           <i>
             <u>

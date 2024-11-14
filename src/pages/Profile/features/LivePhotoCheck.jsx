@@ -10,6 +10,7 @@ import RetakeIcon from "../../../assets/svgs/refresh.svg?react";
 import { uploadKYCFile } from "../profileAsyncActions";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
+import { translate } from "../../../utils/translations";
 
 const LivePhotoCheck = () => {
   const dispatch = useDispatch();
@@ -121,11 +122,15 @@ const LivePhotoCheck = () => {
             <>
               <div>
                 <img src={image} alt="Captured" />
-                <h3>Liveness Check Result:</h3>
+                <h3>{translate(`Liveness Check Result`)}:</h3>
                 {isLivenessChecked ? (
-                  <p style={{ color: "#749f0f" }}>Face Detected!</p>
+                  <p style={{ color: "#749f0f" }}>
+                    {translate(`Face Detected`)}!
+                  </p>
                 ) : (
-                  <p style={{ color: "#ec5750d6" }}>No Face Detected.</p>
+                  <p style={{ color: "#ec5750d6" }}>
+                    {translate(`No Face Detected`)}.
+                  </p>
                 )}
               </div>
               <div className={classes.ResultOptions}>
@@ -139,7 +144,7 @@ const LivePhotoCheck = () => {
                     style={{ backgroundColor: "gray" }}
                   >
                     <RetakeIcon height="17px" width="17px" fill="white" />
-                    Retake
+                    {translate(`Retake`)}
                   </button>
                 </div>
                 {isLivenessChecked ? (
@@ -151,17 +156,20 @@ const LivePhotoCheck = () => {
                       }}
                       className={classes.Button}
                     >
-                      Submit
+                      {translate(`Submit`)}
                     </button>
                   </div>
                 ) : (
                   <div className={classes.RetakePhoto}>
                     <button
-                      style={{ backgroundColor: "#80808029", pointerEvents:'none' }} 
+                      style={{
+                        backgroundColor: "#80808029",
+                        pointerEvents: "none",
+                      }}
                       className={classes.Button}
                       disabled
                     >
-                      Submit
+                      {translate(`Submit`)}
                     </button>
                   </div>
                 )}

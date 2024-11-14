@@ -29,7 +29,7 @@ const RegisterContainers = () => {
       <div className={classes.SignupTextContainer}>
         <span className={classes.SignUpTextV1}>{translate("Sign up")}</span>
         &nbsp;{translate("and")}&nbsp;
-        <span className={classes.SignUpTextV1}>{translate("choose ")}</span>
+        <span className={classes.SignUpTextV1}>{translate("choose")}{" "}</span>
         <span className={classes.SignUpTextV1}>{translate("your hero")}</span>
         <span className={classes.SignUpTextV2}>
           {translate("100% on")}{" "}

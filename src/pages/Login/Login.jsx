@@ -96,16 +96,6 @@ const Login = () => {
               style={{ marginBottom: "1rem", textWrap: "wrap", width: "60%" }}
             >
               {translate(`Log in to your account.`)}
-              {/* <p
-                style={{
-                  fontSize: "0.75rem",
-                  fontWeight: "200",
-                  cursor: "pointer",
-                }}
-                onClick={() => changeTab("register")}
-              >
-                <i>{translate(`or create an account here`)}</i>
-              </p> */}
             </div>
             <label htmlFor="Username">{translate("Username")}</label>
             <div className={classes.InputOuter}>

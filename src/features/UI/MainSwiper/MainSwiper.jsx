@@ -70,7 +70,7 @@ const MainSwiper = (props) => {
             {props.viewAll && (
               <>
                 <Link to={props.viewAll} className={classes.ViewAllLink}>
-                  View all <AngleRight2Icon />
+                  {translate(`View all`)} <AngleRight2Icon />
                 </Link>
               </>
             )}

@@ -78,7 +78,7 @@ const DropdownLang = (props) => {
                 className={classes.Flag}
               />
             </div>
-            {lang.label}
+            <span style={{ color: "white" }}>{getLangName(lang.id)}</span>
           </>
         )}
         {props.topbar && (

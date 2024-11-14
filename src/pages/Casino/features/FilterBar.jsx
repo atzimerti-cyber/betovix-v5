@@ -76,7 +76,7 @@ const FilterBar = (props) => {
       <div className={classes.NavigateSection}>
         <button className={classes.BackBtn} onClick={() => navigate(-1)}>
           <Arrow2LeftIcon />
-          Back
+          {translate(`Back`)}
         </button>
       </div>
       <div className={classes.SearchSection}>
@@ -95,7 +95,7 @@ const FilterBar = (props) => {
                 id="sort"
                 readOnly
                 role="textbox"
-                value={sortingValue}
+                value={translate(`${sortingValue}`)}
                 onClick={() => setShowSortingDD(!showSortingDD)}
               />
               <span className={classes.RightIcon}>

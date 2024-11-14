@@ -171,63 +171,74 @@ const LeftContainer = memo(function () {
 
               <div className={classes.SideMenuContainer}>
                 <div className={classes.SideMenuSubButtonContainer}>
-                  {permissions.AllowToSports && (
-                    <>
-                      <MainButton
-                        active={pathnameNoParams.includes("?modal=statistics")}
-                        onClick={() => navigate("?modal=statistics")}
-                        dataTooltipId="left-menu-tooltip"
-                        dataTooltipContent={translate("Stats")}
-                      >
-                        <StatsIcon
-                          className={
-                            pathnameNoParams.includes("?modal=statistics")
-                              ? classes.ActiveSvg
-                              : null
-                          }
-                        />
-                        <span>
-                          {fullLeftContainer ? translate("Statistics") : ""}
-                        </span>
-                      </MainButton>
+                  <>
+                    {/* <div className={classes.LangDropdown}>
+                      <DropdownLang topbar />
+                    </div> */}
+                    {permissions.AllowToSports && (
+                      <>
+                        <MainButton
+                          active={pathnameNoParams.includes(
+                            "?modal=statistics"
+                          )}
+                          onClick={() => navigate("?modal=statistics")}
+                          dataTooltipId="left-menu-tooltip"
+                          dataTooltipContent={translate("Stats")}
+                        >
+                          <StatsIcon
+                            className={
+                              pathnameNoParams.includes("?modal=statistics")
+                                ? classes.ActiveSvg
+                                : null
+                            }
+                          />
+                          <span>
+                            {fullLeftContainer ? translate("Statistics") : ""}
+                          </span>
+                        </MainButton>
 
-                      <MainButton
-                        active={pathnameNoParams.includes("?modal=load-booked")}
-                        onClick={() => navigate("?modal=load-booked")}
-                        dataTooltipId="left-menu-tooltip"
-                        dataTooltipContent={translate("Load Booked")}
-                      >
-                        <LoadIcon
-                          className={
-                            pathnameNoParams.includes("?modal=load-booked")
-                              ? classes.ActiveSvg
-                              : null
-                          }
-                        />
-                        <span>
-                          {fullLeftContainer ? translate("Load Booked") : ""}
-                        </span>
-                      </MainButton>
+                        <MainButton
+                          active={pathnameNoParams.includes(
+                            "?modal=load-booked"
+                          )}
+                          onClick={() => navigate("?modal=load-booked")}
+                          dataTooltipId="left-menu-tooltip"
+                          dataTooltipContent={translate("Load Booked")}
+                        >
+                          <LoadIcon
+                            className={
+                              pathnameNoParams.includes("?modal=load-booked")
+                                ? classes.ActiveSvg
+                                : null
+                            }
+                          />
+                          <span>
+                            {fullLeftContainer ? translate("Load Booked") : ""}
+                          </span>
+                        </MainButton>
 
-                      <MainButton
-                        active={pathnameNoParams.includes("?modal=load-ticket")}
-                        onClick={() => navigate("?modal=load-ticket")}
-                        dataTooltipId="left-menu-tooltip"
-                        dataTooltipContent={translate("Print Ticket")}
-                      >
-                        <TicketIcon
-                          className={
-                            pathnameNoParams.includes("?modal=load-ticket")
-                              ? classes.ActiveSvg
-                              : null
-                          }
-                        />
-                        <span>
-                          {fullLeftContainer ? translate("Print Ticket") : ""}
-                        </span>
-                      </MainButton>
-                    </>
-                  )}
+                        <MainButton
+                          active={pathnameNoParams.includes(
+                            "?modal=load-ticket"
+                          )}
+                          onClick={() => navigate("?modal=load-ticket")}
+                          dataTooltipId="left-menu-tooltip"
+                          dataTooltipContent={translate("Print Ticket")}
+                        >
+                          <TicketIcon
+                            className={
+                              pathnameNoParams.includes("?modal=load-ticket")
+                                ? classes.ActiveSvg
+                                : null
+                            }
+                          />
+                          <span>
+                            {fullLeftContainer ? translate("Print Ticket") : ""}
+                          </span>
+                        </MainButton>
+                      </>
+                    )}
+                  </>
                 </div>
 
                 {/* {isMobile && <CloseButton timesIcon onClick={() => dispatch(layoutActions.setFullLeftContainer(false))} />} */}
@@ -363,6 +374,9 @@ const LeftContainer = memo(function () {
             return getItems(menuItem, index, 0);
           }
         })}
+        <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
+          <DropdownLang fullLabel={true} openTo="top"/>
+        </div>
       </div>
 
       {!isMobile && <div className={classes.SideMenuDivider}></div>}

@@ -259,7 +259,8 @@ const Verification = () => {
               {level1Status === 1 && (
                 <MainButton2 disabled>
                   <span style={{ padding: "0 0.5rem" }}>
-                    {translate(`Pending${pendingDots}`)}
+                    {translate(`Pending`)}
+                    {pendingDots}
                   </span>
                 </MainButton2>
               )}
@@ -310,9 +311,8 @@ const Verification = () => {
               {level2Status === 1 && (
                 <div className={classes.AccordionContent}>
                   <p style={{ color: "#cbb507" }}>
-                    {translate(
-                      `Verification Pending. This might take a while${pendingDots} `
-                    )}
+                    {translate(`Verification Pending. This might take a while`)}
+                    {pendingDots}
                   </p>
                 </div>
               )}
@@ -476,9 +476,8 @@ const Verification = () => {
               )}
               {level3Status === 1 && (
                 <p style={{ color: "#cbb507" }}>
-                  {translate(
-                    `Verification Pending. This might take a while${pendingDots} `
-                  )}
+                  {translate(`Verification Pending. This might take a while`)}
+                  {pendingDots}
                 </p>
               )}
               {level3Status === 2 && (
@@ -621,9 +620,8 @@ const Verification = () => {
               {level4Status === 0 && <LivePhotoCheck />}
               {level4Status === 1 && (
                 <p style={{ color: "#cbb507" }}>
-                  {translate(
-                    `Verification Pending. This might take a while${pendingDots} `
-                  )}
+                  {translate(`Verification Pending. This might take a while`)}
+                  {pendingDots}
                 </p>
               )}
               {level4Status === 2 && (
@@ -739,9 +737,8 @@ const Verification = () => {
               {level5Status === 1 && (
                 <div className={classes.AccordionContent}>
                   <p style={{ color: "#cbb507" }}>
-                    {translate(
-                      `Verification Pending. This might take a while${pendingDots} `
-                    )}
+                    {translate(`Verification Pending. This might take a while`)}
+                    {pendingDots}
                   </p>
                 </div>
               )}
@@ -896,9 +893,8 @@ const Verification = () => {
               {level6Status === 1 && (
                 <div className={classes.AccordionContent}>
                   <p style={{ color: "#cbb507" }}>
-                    {translate(
-                      `Verification Pending. This might take a while${pendingDots} `
-                    )}
+                    {translate(`Verification Pending. This might take a while`)}
+                    {pendingDots}
                   </p>
                 </div>
               )}

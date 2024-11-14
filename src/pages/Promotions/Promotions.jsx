@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { promotionsActions } from "./promotionsSlice";
 import { getPromotion } from "./promotionsAsyncActions";
 import { translate } from "../../utils/translations";
-import PromoImage from "../../assets/images/promo.png";
+import PromoImage from "../../assets/images/ccc.png";
 import PromotionsIcon from "../../assets/svgs/promotions.svg?react";
 
 const Promotions = (props) => {
@@ -30,8 +30,13 @@ const Promotions = (props) => {
       <div className={classes.PromotionsContainer}>
         <div className={classes.PromotionsHeader}>
           <div className={classes.Title}>
-            <PromotionsIcon />
             <span>{translate(`Promotions`)}</span>
+            <p>
+              {translate(
+                `Explore exclusive casino and sportsbook promotions and special bonuses to boost your play`
+              )}
+              .
+            </p>
           </div>
           <div className={classes.PromoBanner}>
             <img src={PromoImage} alt="" />
@@ -41,27 +46,34 @@ const Promotions = (props) => {
           {promotions && promotions.length > 0 ? (
             promotions.map((promo, index) => (
               <div className={classes.Promo} key={index}>
-                <div
-                  className={classes.BgImage}
-                  style={{ backgroundImage: `url(${promo.image})` }}
-                ></div>
-                <div className={classes.Content}>
-                  <div className={classes.PromoTitle}>
-                    <span>{promo.title}</span>
+                <div className={classes.PromoCard} key={index}>
+                  <div
+                    className={classes.BgImage}
+                    style={{ backgroundImage: `url(${promo.image})` }}
+                  ></div>
+                  <div className={classes.Content}>
+                    <div className={classes.PromoTop}>
+                      <div className={classes.PromoTitle}>
+                        <span>{promo.title}</span>
+                      </div>
+                      <div className={classes.PromoText}>
+                        <span>{promo.content}</span>
+                      </div>
+                    </div>
+                    <div className={classes.PromoBottom}>
+                      <div className={classes.Buttons}>
+                        {promo.link !== "" && (
+                          <button
+                            className={classes.LinkButton}
+                            // onClick={() => navigate(`/${promo.link}`)}
+                          >
+                            {translate(`Read More`)}
+                          </button>
+                        )}
+                        <button className={classes.InfoButton}></button>
+                      </div>
+                    </div>
                   </div>
-                  <div className={classes.PromoText}>
-                    <span>{promo.content}</span>
-                  </div>
-                </div>
-                <div className={classes.Buttons}>
-                  {promo.link !== "" && (
-                    <button
-                      className={classes.LinkButton}
-                      onClick={() => navigate(`/${promo.link}`)}
-                    >
-                      {translate(`Read More`)}
-                    </button>
-                  )}
                 </div>
               </div>
             ))
@@ -79,4 +91,3 @@ const Promotions = (props) => {
 };
 
 export default Promotions;
- 

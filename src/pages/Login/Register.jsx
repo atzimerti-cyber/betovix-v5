@@ -717,11 +717,11 @@ const Register = () => {
               </select>
             </div>
 
-            <label htmlFor="code">
+            <label htmlFor="code" style={{ display: "none" }}>
               {translate("Affiliate Code")}
               <span className={classes.Optional}> (Optional)</span>
             </label>
-            <div className={classes.InputOuter}>
+            <div className={classes.InputOuter} style={{ display: "none" }}>
               <MainInput
                 role="textbox"
                 type="text"

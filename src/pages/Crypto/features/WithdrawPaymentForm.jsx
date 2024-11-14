@@ -1,4 +1,4 @@
- import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useDebounce from "../../../hooks/useDebounce";
@@ -304,7 +304,7 @@ const WithdrawPaymentForm = (props) => {
               }
               disabled={disabledButton}
             >
-              Make Withdraw Request
+              {translate(`Make Withdraw Request`)}
             </button>
           </form>
         </>

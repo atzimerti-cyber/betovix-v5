@@ -206,7 +206,7 @@ const Settings = () => {
                 marginTop: "0.5rem",
               }}
             >
-              User Information
+              {translate(`User Information`)}
             </div>
             <div className={classes.UsernameForm}>
               <p className={classes.Title}>{translate("Username")}</p>
@@ -286,7 +286,7 @@ const Settings = () => {
                           <div className={classes.Spinner}></div>
                         </>
                       ) : (
-                        "Save"
+                        translate("Save")
                       )}
                     </button>
                   </div>

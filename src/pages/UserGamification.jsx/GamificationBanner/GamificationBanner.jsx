@@ -103,7 +103,7 @@ const GamificationBanner = ({ onDataNotFound }) => {
               onClick={() => handleBannerClick({})}
               className={classes.ViewAllLink}
             >
-              <p>View all</p>
+              <p>{translate(`View all`)}</p>
             </div>
 
             <ArrowButton

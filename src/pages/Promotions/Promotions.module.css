@@ -11,29 +11,24 @@
   height: max-content;
 }
 .PromotionsHeader {
-  height: max-content;
+  height: 250px;
   width: 100%;
   padding: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  background: linear-gradient(208deg, #199bcf2e, transparent 80%);
   flex-direction: column-reverse;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
+  position: relative;
 }
 .PromotionsBody {
-  width: 100%;
-  padding: 1rem 0;
-  background: transparent;
   display: grid;
-  gap: 0.5rem;
-  grid-template-columns: repeat(1, minmax(0, 1fr));
-  justify-items: center;
-  justify-content: space-between;
-  align-content: center;
-  align-items: center;
+  grid-template-columns: 1fr;
+  margin-top: 24px;
+  row-gap: 20px;
 }
+
 .PromoBanner {
   display: flex;
   justify-content: flex-start;
@@ -41,8 +36,19 @@
   align-items: center;
 }
 .PromoBanner img {
-  min-width: 30%;
-  max-height: 200px;
+  height: 100%;
+  left: 50%;
+  max-height: 407px;
+  min-width: 768px;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  z-index: -1;
+  width: 100%;
+  object-position: top;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
 }
 .Title {
   font-size: 2rem;
@@ -51,63 +57,15 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  flex-direction: row;
+  flex-direction: column;
   column-gap: 0.5rem;
+  margin: auto;
 }
 .Title svg {
   height: 2rem;
   width: 2rem;
 }
-
-.Promo {
-  width: 98%;
-  height: 100%;
-  background-color: #0110182e;
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  transition: transform 0.2s ease-in-out;
-  max-height: 380px;
-  height: max-content;
-
-  background-color: #ffffff14;
-  color: #fff;
-  flex: 0 0 100%;
-  border-radius: 0.4rem;
-  overflow: hidden;
-}
-
-.PromoBanner {
-  position: relative;
-  overflow: hidden;
-  justify-content: center;
-  height: 16.0714285714rem;
-}
-
-.Promo:hover {
-  transform: translateY(-1%);
-}
-.BgImage {
-  aspect-ratio: 5 / 3;
-  width: 100%;
-  max-height: 250px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-}
-
-.Content {
-  padding: 0.6rem 0.8rem 0rem 0.8rem;
-  width: 100%;
-  height: -webkit-fill-available;
-  min-height: 70px;
-  justify-content: space-between;
-  flex-grow: 1;
-  gap: 1.6rem;
-}
-.PromoTitle {
+.Title p {
   font-size: 1rem;
   font-weight: 700;
   color: white;
@@ -116,23 +74,97 @@
   justify-content: flex-start;
   flex-direction: row;
   column-gap: 0.5rem;
-}
-.PromoText {
-  font-size: 0.89rem;
-  font-weight: 400;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-direction: row;
-  column-gap: 0.5rem;
-  overflow-y: auto; /* Changed from 'scroll' to 'auto' */
+  margin: auto;
+  text-wrap: wrap;
+  text-align: center;
 }
 
-.Buttons {
-  display: flex;
+.Promo {
+  border-radius: 12px;
+  min-height: 268px;
+  overflow: hidden;
+}
+.PromoCard {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
   width: 100%;
-  padding: 0.6rem;
+}
+
+.Promo:hover .BgImage::after {
+  background-color: rgba(0, 0, 0, 0.55);
+}
+.BgImage {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  left: 50%;
+  min-width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+}
+.BgImage::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  padding: 24px 16px;
+  position: relative;
+  width: 100%;
+}
+.PromoTop {
+  width: 100%;
+  height: max-content;
+}
+.PromoTitle {
+  color: hsla(0, 0%, 100%, 0.89);
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 20px;
+  margin: 0;
+  height: max-content;
+}
+.PromoText span {
+  color: #fff;
+  display: inline-block;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: -0.84px;
+  line-height: 32px;
+  margin: 16px 0 8px;
+  text-transform: uppercase;
+  text-wrap: wrap;
+  overflow-wrap: anywhere;
+}
+.PromoBottom {
+  align-items: center;
+  -moz-column-gap: 12px;
+  column-gap: 12px;
+  display: flex;
+}
+.Buttons {
+  align-items: center;
+  -moz-column-gap: 12px;
+  column-gap: 12px;
+  display: flex;
 }
 .LinkButton {
   height: 2rem;
@@ -145,62 +177,89 @@
 .LinkButton:hover {
   background-color: #154867;
 }
+.InfoButton {
+  height: 1rem;
+  width: 1rem;
+  border-radius: 50%;
+}
 
 @media (min-width: 600px) {
   .PromotionsHeader {
-    height: 200px;
+    height: 250px;
     width: 100%;
     padding: 1rem;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    background: linear-gradient(208deg, #199bcf2e, transparent 80%);
     flex-direction: row;
   }
   .PromoBanner {
     justify-content: space-around;
   }
+  .Promο {
+    min-height: 294px;
+  }
 }
-@media (min-width: 600px) {
+@media (min-width: 768px) {
   .PromotionsBody {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1fr 1fr;
+    column-gap: 16px;
+    row-gap: 16px;
+  }
+  .PromoBottom {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 @media (min-width: 1240px) {
   .PromotionsBody {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: 1fr 1fr;
+    column-gap: 16px;
+    row-gap: 16px;
+  }
+  .PromotionsBody {
+    min-height: 312px;
   }
   .PromotionsHeader {
-    height: 200px;
+    height: 400px;
     width: 100%;
     padding: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-end;
-    background: linear-gradient(208deg, #199bcf2e, transparent 80%);
+  }
+  .Title {
+    font-size: 3rem;
+  }
+  .Title p {
+    font-size: 1.3rem;
+  }
+  .Content {
+    padding: 32px 24px 24px 32px;
+  }
+  .PromoBottom {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
   }
 }
 
-/* Custom scrollbar for webkit browsers */
-.PromoText::-webkit-scrollbar {
+/* .PromoText::-webkit-scrollbar {
   width: 8px;
   height: 5px;
 }
-
-/* Track */
 .PromoText::-webkit-scrollbar-track {
-  background: #0d3146; /* Dark background */
+  background: #0d3146;
   border-radius: 5px;
 }
 
-/* Handle */
 .PromoText::-webkit-scrollbar-thumb {
-  background: #154867; /* Slightly lighter than the track */
+  background: #154867;
   border-radius: 5px;
 }
 
-/* Handle on hover */
 .PromoText::-webkit-scrollbar-thumb:hover {
-  background: #199bcf; /* Accent color for hover */
-}
+  background: #199bcf; 
+} */
