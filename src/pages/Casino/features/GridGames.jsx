@@ -93,10 +93,10 @@ const GridGames = (props) => {
           repeat = 7;
         }
       } else {
-        repeat = 7;
+        repeat = 8;
       }
     } else {
-      repeat = 7;
+      repeat = 8;
     }
     return repeat;
   };

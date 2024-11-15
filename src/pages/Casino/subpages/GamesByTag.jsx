@@ -10,6 +10,7 @@ import GridGames from "../features/GridGames";
 import { translate } from "../../../utils/translations";
 import { casinoActions } from "../casinoSlice";
 import { layoutActions } from "../../../features/Layout/layoutSlice";
+import TagIcon from "../../../assets/svgs/tagicon.svg?react";
 import { appActions } from "../../../features/InitApp/appSlice";
 import { AnimatePresence } from "framer-motion";
 
@@ -28,6 +29,7 @@ const GamesByTag = () => {
 
   const casinoByTags = useSelector((state) => state.casino.casinoByTags);
   const barLoading = useSelector((state) => state.app.barLoading);
+  const casinoIcons = useSelector((state) => state.app.casinoIcons);
 
   useEffect(() => {
     return () => {
@@ -76,7 +78,8 @@ const GamesByTag = () => {
           {items?.Data ? (
             <GridGames
               collection={items}
-              icon={""}
+              icon={casinoIcons[label] || <NoImageIcon />}
+              // icon={<TagIcon />}
               title={translate(`${label}`)}
               loading={false}
               bigTitle={true}

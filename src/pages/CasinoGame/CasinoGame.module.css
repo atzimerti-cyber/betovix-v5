@@ -1,24 +1,10 @@
-.CasinoGameWrapper {
-  width: 100%;
-  position: relative;
-  max-width: 1050px;
-  padding: 22px 20px 40px;
-}
-
-/* .CasinoGame {
-  position: relative;
-  margin-top: 1rem;
-  background-color: rgb(27, 40, 46);
-  overflow: hidden;
-} */
-
 /* General styles */
 .CasinoGameWrapper {
   width: 100%;
   position: relative;
   /* max-width: 1050px; */
   max-width: 95vw;
-  padding: 22px 20px 40px;
+  padding: 14px 8px 10px;
 }
 
 .CasinoGame {

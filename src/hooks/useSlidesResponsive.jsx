@@ -79,18 +79,18 @@ const useSlidesResponsive = (categ) => {
       }
     } else {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        slidesPerView = 7.3;
+        slidesPerView = 7;
         slidesPerGroup = 4;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
         if (isRightContainerOpen) {
-          slidesPerView = 7.3;
+          slidesPerView = 8;
           slidesPerGroup = 5;
         } else {
-          slidesPerView = 7.3;
-          slidesPerGroup = 2;
+          slidesPerView = 8;
+          slidesPerGroup = 5;
         }
       } else {
-        slidesPerView = 7.3;
+        slidesPerView = 8;
         slidesPerGroup = 5;
       }
     }

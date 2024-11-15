@@ -4,7 +4,7 @@
   transition: transform 0.2s linear;
 
   /* background-color: #0b1f2e; */
-  background: linear-gradient(180deg, #27465b94 40%, transparent 90%);
+  background: linear-gradient(180deg, #27465b54 40%, transparent 90%);
   /* background: linear-gradient(135deg, #081825 40%, #082432 70%); */
   border-radius: 0.375rem;
   padding: 0.3rem;
@@ -52,7 +52,7 @@
 
 .Card {
   width: 100%;
-    aspect-ratio: 1;
+  aspect-ratio: 1;
   /* height: 160px;
   width: 160px; */
   position: relative;

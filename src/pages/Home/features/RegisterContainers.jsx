@@ -42,7 +42,7 @@ const RegisterContainers = () => {
                     d="M 40,-5 m -30,0 a 30,30 0 1,0 60,0 a 30,30 0 1,0 -60,0"
                   />
                 </defs>
-                <text fill="white" font-size="10px" text-anchor="middle">
+                <text fill="white" fontSize="10px" textAnchor="middle">
                   <textPath href="#circlePath" startOffset="25%">
                     {translate("to withdraw")}
                   </textPath>

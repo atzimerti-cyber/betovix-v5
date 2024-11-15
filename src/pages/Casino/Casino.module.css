@@ -1,10 +1,10 @@
 .PageContent {
   padding: 0px 10px 40px;
-  max-width: 1310px;
+  max-width: 1500px;
   width: 100%;
   container-type: inline-size;
   position: relative;
-} 
+}
 
 .Casino {
   grid-column: span 2 / span 2;

@@ -7,6 +7,7 @@ import BigSwiper from "../../../features/UI/MainSwiper/BigSwiper";
 import LoaderPlaceholder from "../../../features/UI/Skeletons/LoaderPlaceholder";
 import OddsButton from "./OddsButton";
 import { useDispatch, useSelector } from "react-redux";
+import { useMediaQuery } from "react-responsive";
 
 const SportsBanners = (props) => {
   const [loadedImages, setLoadedImages] = useState([]);
@@ -14,6 +15,7 @@ const SportsBanners = (props) => {
   const updateLoadedImages = (index) => {
     setLoadedImages((prevData) => [...prevData, index]);
   };
+  const isTablet = useMediaQuery({ query: "(max-width: 850px)" });
 
   const getOddsLabel = (label) => {
     if (label === "W1") return "1";
@@ -43,7 +45,7 @@ const SportsBanners = (props) => {
   };
 
   return (
-    <BigSwiper slidesPerView={1} autoplay delay={6000}>
+    <BigSwiper slidesPerView={isTablet ? 1 : 2} autoplay delay={6000}>
       {props.banners ? (
         props.banners.map((banner, index) => {
           let link = null;
