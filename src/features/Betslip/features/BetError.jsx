@@ -15,6 +15,8 @@ const BetError = () => {
   const slips = useSelector((state) => state.betslip.slips);
   const betType = useSelector((state) => state.betslip.betType);
   const amounts = useSelector((state) => state.betslip.amounts);
+  const bonusBalance = useSelector((state) => state.layout.bonusBalance);
+
   // const settings = useSelector((state) => state.app.settings);
 
   const ticketSettings = useSelector((state) => state.ticket.ticketSettings);
@@ -106,6 +108,9 @@ const BetError = () => {
     } else if (slips.length === 1) {
       dispatch(betslipActions.setMultiLocked(true));
       dispatch(betslipActions.setSystemLocked(true));
+      if (totalBet > user?.Wallet.Balance && totalBet > bonusBalance) {
+        betError = "balance";
+      }
     } else if (betType === "Multiple" && slips.length === 1) {
       betError = "multiNum";
     } else if (betType === "System" && slips.length === 1) {
@@ -116,9 +121,12 @@ const BetError = () => {
       dispatch(betslipActions.setMultiLocked(true));
     } else if (ids.length !== uniqueIds.size) {
       dispatch(betslipActions.setMultiLocked(true));
+      if (totalBet > user?.Wallet.Balance && totalBet > bonusBalance) {
+        betError = "balance";
+      }
     } else if (slips.length && lessThanMinStake) {
       betError = "minimumStake";
-    } else if (totalBet > user?.Wallet.Balance) {
+    } else if (totalBet > user?.Wallet.Balance && totalBet > bonusBalance) {
       betError = "balance";
     }
 
