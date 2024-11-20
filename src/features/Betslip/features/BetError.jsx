@@ -16,6 +16,7 @@ const BetError = () => {
   const betType = useSelector((state) => state.betslip.betType);
   const amounts = useSelector((state) => state.betslip.amounts);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
+  const betslip = useSelector((state) => state.betslip.betslip);
 
   // const settings = useSelector((state) => state.app.settings);
 
@@ -121,7 +122,7 @@ const BetError = () => {
       dispatch(betslipActions.setMultiLocked(true));
     } else if (ids.length !== uniqueIds.size) {
       dispatch(betslipActions.setMultiLocked(true));
-      if (totalBet > user?.Wallet.Balance && totalBet > bonusBalance) {
+      if (betType === "System" && betslip?.totalStake > user?.Wallet.Balance && betslip?.totalStake > bonusBalance) {
         betError = "balance";
       }
     } else if (slips.length && lessThanMinStake) {
@@ -135,7 +136,7 @@ const BetError = () => {
 
     dispatch(betslipActions.setBetError(betError));
     setErrorContent(ec);
-  }, [ticketUpdated]);
+  }, [ticketUpdated, betslip?.totalStake]);
 
   return (
     <div className={classes.BetErrorGroup}>
