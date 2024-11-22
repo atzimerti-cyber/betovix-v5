@@ -189,7 +189,7 @@ const Cat2Swiper = (props) => {
                             </button>
                           </div>
                         </Link>
-                        {bonusBalance > 0 && (
+                        {bonusBalance > 0 && item.allowBonus && (
                           <Link
                             to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
                           >

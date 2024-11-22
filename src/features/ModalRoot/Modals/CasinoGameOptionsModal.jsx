@@ -65,7 +65,7 @@ const CasinoGameOptionsModal = (props) => {
               </button>
             </div>
           </Link>
-          {bonusBalance > 0 && (
+          {bonusBalance > 0 && game.allowBonus && (
             <Link
               to={`/casino/game/${gameType}/${game.Data.ProviderName}/${game.Data.Id}/${game.Data.BrandGameId}/${game.Data.Name}?isBonus=true`}
             >

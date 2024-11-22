@@ -16,6 +16,7 @@ import { register } from "./loginAsyncActions";
 import { translate } from "../../utils/translations";
 import { affiliateCampaigns } from "./loginAsyncActions";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { loginActions } from "../../pages/Login/loginSlice";
 import { Link } from "react-router-dom";
 import config from "../../config";
 import AlternativeMethods from "./features/AlternativeMethods";
@@ -45,6 +46,8 @@ const Register = () => {
     const searchParams = new URLSearchParams(location.search);
     const value = searchParams.get("code");
     if (value) {
+      dispatch(loginActions.logout());
+
       updateRegisterInfo("code", value);
       dispatch(affiliateCampaigns(value));
     }

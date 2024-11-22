@@ -66,7 +66,7 @@ const CasinoGameCard = (props) => {
           )}
         </article>
       </Link>
-      {bonusBalance > 0 && (
+      {bonusBalance > 0 && props.game.allowBonus && (
         <Link
           to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}?isBonus=true`}
         >

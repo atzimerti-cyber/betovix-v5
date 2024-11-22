@@ -123,7 +123,10 @@ export const getVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-          if (response.data.Status.StatusCode !== 200) throw Error();
+          if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+            toast.error(message);
+        }
         });
         //game = responses[0].data.Contents;
         gameUrl = responses[0].data.Contents;
@@ -138,7 +141,10 @@ export const getVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-          if (response.data.Status.StatusCode !== 200) throw Error();
+          if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+            toast.error(message);
+        }
         });
 
         if (providername === "Amarix") {
@@ -158,7 +164,10 @@ export const getVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-          if (response.data.Status.StatusCode !== 200) throw Error();
+         if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+            toast.error(message);
+        }
         });
         //game = responses[0].data.Contents;
         gameUrl = responses[0].data.Contents;
@@ -172,7 +181,10 @@ export const getVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-          if (response.data.Status.StatusCode !== 200) throw Error();
+         if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+            toast.error(message);
+        }
         });
         //game = responses[0].data.Contents;
         gameUrl = responses[0].data.Contents;
@@ -186,7 +198,10 @@ export const getVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-          if (response.data.Status.StatusCode !== 200) throw Error();
+         if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+            toast.error(message);
+        }
         });
         gameUrl = responses[0].data.Contents;
       } else if (providername === "Hub88") {
@@ -199,7 +214,10 @@ export const getVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-          if (response.data.Status.StatusCode !== 200) throw Error();
+         if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+            toast.error(message);
+        }
         });
         gameUrl = responses[0].data.Contents;
       }
@@ -242,7 +260,10 @@ export const getLiveVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-          if (response.data.Status.StatusCode !== 200) throw Error();
+         if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+            toast.error(message);
+        }
         });
         //game = responses[0].data.Contents;
         gameUrl = responses[0].data.Contents;
@@ -256,7 +277,10 @@ export const getLiveVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-          if (response.data.Status.StatusCode !== 200) throw Error();
+         if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+            toast.error(message);
+        }
         });
         gameUrl = responses[0].data.Contents;
       } else if (providername === "Hub88") {
@@ -269,7 +293,10 @@ export const getLiveVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-          if (response.data.Status.StatusCode !== 200) throw Error();
+         if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+            toast.error(message);
+        }
         });
         gameUrl = responses[0].data.Contents;
       }
