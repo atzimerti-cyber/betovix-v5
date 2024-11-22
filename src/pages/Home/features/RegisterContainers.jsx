@@ -35,7 +35,7 @@ const RegisterContainers = () => {
 
               <div className={classes.Animation}>
                 <p style={{fontSize:'0.9rem'}}>x</p>
-                <p>15</p>
+                <p>30</p>
               </div>
               {/* <svg width="80" height="80">
                 <defs>

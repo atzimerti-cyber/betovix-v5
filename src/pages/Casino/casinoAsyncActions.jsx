@@ -126,7 +126,8 @@ export const getVendorGame = (
           if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents? response.data.Contents : "Error Loading Game";
             toast.error(message);
-        }
+            throw Error()
+         }
         });
         //game = responses[0].data.Contents;
         gameUrl = responses[0].data.Contents;
@@ -144,6 +145,7 @@ export const getVendorGame = (
           if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents? response.data.Contents : "Error Loading Game";
             toast.error(message);
+            throw Error()
         }
         });
 
@@ -167,6 +169,7 @@ export const getVendorGame = (
          if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents? response.data.Contents : "Error Loading Game";
             toast.error(message);
+            throw Error()
         }
         });
         //game = responses[0].data.Contents;
@@ -184,6 +187,7 @@ export const getVendorGame = (
          if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents? response.data.Contents : "Error Loading Game";
             toast.error(message);
+            throw Error()
         }
         });
         //game = responses[0].data.Contents;
@@ -201,10 +205,12 @@ export const getVendorGame = (
          if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents? response.data.Contents : "Error Loading Game";
             toast.error(message);
+            throw Error()
         }
         });
         gameUrl = responses[0].data.Contents;
       } else if (providername === "Hub88") {
+       
         requests = [
           axiosApi.get(
             `CasinoHub/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL}/casino&siteid=${config.VITE_SITE_ID}`,
@@ -217,6 +223,7 @@ export const getVendorGame = (
          if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents? response.data.Contents : "Error Loading Game";
             toast.error(message);
+            throw Error()
         }
         });
         gameUrl = responses[0].data.Contents;
@@ -263,6 +270,8 @@ export const getLiveVendorGame = (
          if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents? response.data.Contents : "Error Loading Game";
             toast.error(message);
+            throw Error()
+
         }
         });
         //game = responses[0].data.Contents;
@@ -280,6 +289,8 @@ export const getLiveVendorGame = (
          if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents? response.data.Contents : "Error Loading Game";
             toast.error(message);
+            throw Error()
+
         }
         });
         gameUrl = responses[0].data.Contents;
@@ -296,6 +307,8 @@ export const getLiveVendorGame = (
          if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents? response.data.Contents : "Error Loading Game";
             toast.error(message);
+            throw Error()
+
         }
         });
         gameUrl = responses[0].data.Contents;
