@@ -35,7 +35,10 @@ const PromotionModal = () => {
     return (
         <div className={classes.PromotionModal}>
             <div className={classes.CloseButtonCont}>
-            <CloseButton timesIcon color='transparent' onClick={() => navigate(location.pathname)} />
+            <CloseButton
+                timesIcon
+                onClick={() => navigate(location.pathname)}
+              />
 
             </div>
 

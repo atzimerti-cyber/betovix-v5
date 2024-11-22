@@ -95,7 +95,7 @@
 
 .InputWrapper:focus-within,
 .InputWrapper:hover {
-    border-color: var(--db-brand-green);
+    border-color: #84bccb;
     /* background-color: var(--db-duelbits-gray); */
 }
 

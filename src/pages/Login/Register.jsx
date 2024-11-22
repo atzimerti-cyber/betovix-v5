@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import config from "../../config";
 import AlternativeMethods from "./features/AlternativeMethods";
 import Arrow2LeftIcon from "../../assets/svgs/arrow2-left.svg?react";
+import AngleLeftIcon from '../../assets/svgs/angle-left.svg?react';
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -142,10 +143,14 @@ const Register = () => {
     if (!debPassword || !debVerifyPassword) return;
 
     const isMatching = debPassword === debVerifyPassword;
-    setValidChecks({
-      ...validChecks,
+    setValidChecks((prevValidChecks) => ({
+      ...prevValidChecks,
       verifyPassword: isMatching,
-    });
+    }));
+    // setValidChecks({
+    //   ...validChecks,
+    //   verifyPassword: isMatching,
+    // });
   }, [debPassword, debVerifyPassword]);
 
   useEffect(() => {
@@ -337,8 +342,8 @@ const Register = () => {
                   <EyeIcon
                     className={
                       validChecks.password.show
-                        ? [classes.ShowPasswordIcon, classes.ShowLine].join(" ")
-                        : classes.ShowPasswordIcon
+                        ? classes.ShowPasswordIcon
+                        : [classes.ShowPasswordIcon, classes.ShowLine].join(" ")
                     }
                     onClick={onTogglePassword}
                   />
@@ -452,9 +457,9 @@ const Register = () => {
                 rightIcon={
                   <EyeIcon
                     className={
-                      validChecks.password.show
-                        ? [classes.ShowPasswordIcon, classes.ShowLine].join(" ")
-                        : classes.ShowPasswordIcon
+                        validChecks.password.show
+                        ? classes.ShowPasswordIcon
+                        : [classes.ShowPasswordIcon, classes.ShowLine].join(" ")
                     }
                     onClick={onTogglePassword}
                   />
@@ -492,17 +497,18 @@ const Register = () => {
 
         {registerStage === 2 && (
           <div className={classes.StepTwo}>
-            <div className={classes.ReturnBtn} style={{ maxWidth: "30%" }}>
+            <div className={classes.ReturnBtn} style={{ width: "100%", background: "rgb(20 55 75 / 33%)", borderRadius: "8px", paddingInline: "10px"}}>
               <button
                 onClick={handleBack}
                 style={{
                   display: "flex",
                   flexDirection: "row",
                   alignItems: "center",
-                  textDecoration: "underline",
+                  fontSize: "14px",
+                  width: "100%"
                 }}
               >
-                <Arrow2LeftIcon height="20px" width="20px" />
+                <AngleLeftIcon height="10px" width="20px" />
                 {translate("Back")}
               </button>
             </div>

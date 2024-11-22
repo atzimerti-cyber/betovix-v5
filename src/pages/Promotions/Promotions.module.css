@@ -34,6 +34,7 @@
   justify-content: flex-start;
   height: max-content;
   align-items: center;
+  opacity: 0.5;
 }
 .PromoBanner img {
   height: 100%;
@@ -60,6 +61,7 @@
   flex-direction: column;
   column-gap: 0.5rem;
   margin: auto;
+  z-index: 99;
 }
 .Title svg {
   height: 2rem;
@@ -91,9 +93,7 @@
   width: 100%;
 }
 
-.Promo:hover .BgImage::after {
-  background-color: rgba(0, 0, 0, 0.55);
-}
+
 .BgImage {
   background-repeat: no-repeat;
   background-position: center;
@@ -109,12 +109,12 @@
 .BgImage::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+  left: -1px;
+  z-index: 9;
+  background: linear-gradient(90deg, var(--db-gray-banner), transparent);
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 0;
+  width: 100%;
+  pointer-events: none;
 }
 
 .Content {

@@ -31,11 +31,13 @@ const RegisterContainers = () => {
         <div className={classes.ParentContainer}>
           <div className={classes.Badge}>
             <div className={classes.BagdeContent}>
+            <span>{translate("Wager")}</span>
+
               <div className={classes.Animation}>
                 <p style={{fontSize:'0.9rem'}}>x</p>
-                <p>7</p>
+                <p>15</p>
               </div>
-              <svg width="80" height="80">
+              {/* <svg width="80" height="80">
                 <defs>
                   <path
                     id="circlePath"
@@ -47,7 +49,7 @@ const RegisterContainers = () => {
                     {translate("to withdraw")}
                   </textPath>
                 </text>
-              </svg>
+              </svg> */}
             </div>
           </div>
           <span className={classes.SignUpTextV1}>{translate("Sign up")}</span>

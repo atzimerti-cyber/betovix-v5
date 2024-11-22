@@ -39,21 +39,24 @@
 }
 
 .Badge {
-  position: absolute;
-  top: -25px;
-  right: -5%;
-  background-color: #47c87b;
+  /* position: absolute; */
+  top: 10px;
+  right: 50%;
+  left: 50%;
+  /* background-color: #47c87b; */
   color: white;
   border-radius: 50%;
   font-size: 0.8rem;
   font-weight: bold;
   z-index: 10;
+  margin-bottom: 5px;
 }
 
 .ParentContainer {
   position: relative;
   height: 100%;
   padding: 37px 10px;
+  padding-top: 10px;
 }
 
 .RegisterButton {
@@ -155,28 +158,31 @@
 
 .BagdeContent {
   position: relative;
-  height: 60px;
-  width: 70px;
+  /* height: 60px;
+  width: 70px; */
   display: flex;
   align-items: center;
-  flex-direction: column;
   justify-content: center;
+  gap: 8px;
+}
+
+.BagdeContent span {
+  color: #c831e7; /* Base text color */
+  text-shadow: 0 0 3px #8121c1, 0 0 5px rgb(81, 81, 81); /* Outline effect */
+  font-size: 14px;
+  padding-top: 5px;
 }
 
 .Animation {
   font-size: 1.25rem;
   text-transform: lowercase;
-  line-height: 0.5rem;
-  padding-top: 1rem;
-  color: rgb(255, 255, 255); /* Base text color */
-  text-shadow: 0 0 3px white, 0 0 5px rgb(81, 81, 81); /* Outline effect */
+  color: #c831e7; /* Base text color */
+  text-shadow: 0 0 3px #8121c1, 0 0 5px rgb(81, 81, 81); /* Outline effect */
   animation: throb 1.5s infinite; /* Throbbing animation */
   display: flex;
   font-size: 1.25rem;
   text-transform: lowercase;
-  line-height: 0.5rem;
-  padding-top: 1rem;
-  align-items: baseline;
+  align-items: center;
 }
 
 @keyframes throb {
@@ -191,8 +197,8 @@
     transform: scale(1);
   }
 }
-@container (max-width: 350px) {
+/* @container (max-width: 350px) {
   .Badge {
     right: 0%;
   }
-}
+} */

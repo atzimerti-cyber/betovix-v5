@@ -237,13 +237,9 @@ const CasinoGame = (props) => {
   };
 
   const handleBack = () => {
-    const historyLength = window.history.length;
 
-    if (historyLength > 1) {
-      navigate(-1);
-    } else {
       navigate("/casino/lobby");
-    }
+    
   };
 
   return (

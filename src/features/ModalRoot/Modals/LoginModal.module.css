@@ -108,7 +108,7 @@
 /* Media */
 @media (min-width: 768px) {
   .ModalContent {
-    width: 600px;
+    width: 800px;
     max-width: none;
   }
 

@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { promotionsActions } from "./promotionsSlice";
 import { getPromotion } from "./promotionsAsyncActions";
 import { translate } from "../../utils/translations";
-import PromoImage from "../../assets/images/ccc.png";
+import PromoImage from "../../assets/images/promo_banner.png";
 import PromotionsIcon from "../../assets/svgs/promotions.svg?react";
 import MainButton from "../../features/UI/Buttons/MainButton";
 
