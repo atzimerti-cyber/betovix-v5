@@ -111,7 +111,7 @@ const ModalRoot = () => {
 
   useEffect(() => {
     const isShown = localStorage.getItem("promoShown");
-    if (!isShown) {
+    if (!isShown && modal == null) {
       setTimeout(() => {
         // console.log('isShown')
         modal = true;
