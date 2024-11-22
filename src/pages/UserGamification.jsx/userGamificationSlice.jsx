@@ -12,7 +12,6 @@ const initialState = {
     loading: false,
     progressBar: null,
     manualRewards: {
-        instantRewards: null,
         dailyRewards: null,
         weeklyRewards: null,
         monthlyRewards: null,

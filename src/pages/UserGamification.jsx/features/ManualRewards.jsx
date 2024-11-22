@@ -16,11 +16,10 @@ const ManualRewards = ({ onDataNotFound }) => {
     const user = useSelector((state) => state.login.user);
 
     const dataCame = useSelector((state) => state.gamification.dataCame);
-    const instantRewards = useSelector((state) => state.gamification.manualRewards.instantRewards);
     const dailyRewards = useSelector((state) => state.gamification.manualRewards.dailyRewards);
     const weeklyRewards = useSelector((state) => state.gamification.manualRewards.weeklyRewards);
     const monthlyRewards = useSelector((state) => state.gamification.manualRewards.monthlyRewards);
-    let rewards = [instantRewards, dailyRewards, weeklyRewards, monthlyRewards];
+    let rewards = [dailyRewards, weeklyRewards, monthlyRewards];
 
     const [timeUntilEndOfDay, setTimeUntilEndOfDay] = useState('');
     const [timeUntilNextSunday, setTimeUntilNextSunday] = useState('');

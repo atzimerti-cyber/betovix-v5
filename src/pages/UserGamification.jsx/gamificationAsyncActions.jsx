@@ -389,15 +389,6 @@ export const recRewards = () => {
             );
             if (response.status !== 200 || response.data.Status.StatusCode !== 200 || response.data.Contents == null) throw Error(response.data.Contents);
 
-            const instantRewards = {
-                id: response.data.Contents.instant?.AchievementId,
-                name: response.data.Contents.instant?.Name,
-                description: response.data.Contents.instant?.Description,
-                progress: response.data.Contents.instant?.Progress,
-                completed: response.data.Contents.instant?.Completed,
-                icon: response.data.Contents.instant?.Icon,
-                resetDate: response.data.Contents.instant?.ResetDate
-            }
             const dailyRewards = {
                 id: response.data.Contents.daily?.AchievementId,
                 name: response.data.Contents.daily?.Name,
@@ -427,7 +418,6 @@ export const recRewards = () => {
             }
 
             const manualRewards = {
-                instantRewards: instantRewards,
                 dailyRewards: dailyRewards,
                 weeklyRewards: weeklyRewards,
                 monthlyRewards: monthlyRewards
