@@ -105,6 +105,7 @@
   top: 50%;
   transform: translate(-50%, -50%);
   height: 100%;
+  border-radius: 12px;
 }
 .BgImage::after {
   content: "";
