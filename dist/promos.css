@@ -7,6 +7,7 @@
     padding: 40px 16px;
     position: relative;
     width: 100%;
+    background: linear-gradient(0deg, var(--db-gray-6), rgb(46 165 255 / 26%));
 }
 
 @media (min-width: 768px) {
@@ -132,7 +133,7 @@
 
 .promotionsModal {
         height: 100%;
-        overflow-y: auto;
+        /* overflow-y: auto; */
         position: relative;
     
 }
