@@ -446,6 +446,7 @@ export const loadInitData = (isMobile) => {
             categ?.Items?.map((subcateg) => ({
               name: subcateg?.Name || "Unnamed",
               link: subcateg?.Link || "#",
+              target: subcateg?.Target || "",
             })) || [],
         })) || [];
 

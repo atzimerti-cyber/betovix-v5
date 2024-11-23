@@ -43,7 +43,14 @@ const Footer = () => {
               {categ?.subcategs.map((subcateg, index) => (
                 <a
                   style={{ cursor: "pointer" }}
-                  onClick={() => navigate(`${subcateg.link}`)}
+                  onClick={() => {
+                    if (subcateg.target !== "download") {
+                      navigate(`${subcateg.link}`);
+                    }
+                  }}
+                  href={subcateg.target === "download" ? subcateg.link : undefined} // Set href for download
+                  download={subcateg.target === "download" ? "" : undefined}
+                  target={subcateg.target === "download" ? "_blank" : "_self"}
                   key={index}
                 >
                   {translate(`${subcateg.name}`)}

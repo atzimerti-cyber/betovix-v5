@@ -1126,9 +1126,23 @@ respect to your access to and use of the Service, and supersedes all other prior
 and communications, whether oral or written with respect to the subject matter hereof.
 
 `)}
-              <br />
-              <br />
+              </div>
+<br/>
+              <div className={classes.ParagraphTitle}>
+              26. {translate(`Acceptance of Gamification Terms and Conditions.`)}
+
             </div>
+ <div className={classes.ParagraphText}>
+              {translate(`By registering and accepting the General Terms and Conditions of Betovix, you also acknowledge and agree to the Gamification Terms and Conditions. These terms govern your participation in the gamification system, including rewards, milestones, and associated features.`)}
+              <br />
+              {translate(`It is your responsibility to review the Gamification Terms and Conditions, which are an integral part of the platform's overall terms.`)}
+              <br />
+              {translate(`If you do not agree with the Gamification Terms and Conditions, you must refrain from participating in the gamification system.`)}
+
+              <br />
+              <br />
+              </div>
+
           </div>
         </div>
       </div>

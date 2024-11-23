@@ -69,7 +69,7 @@ export const login = (loginInfo, navigate, locationPathname) => {
         }
       );
       if (response.data.Status.StatusCode !== 200)
-        throw Error(response.data.Contents);
+        throw Error(response.data.Contents?.Item1);
       setAccessToken(response.data.Contents.Token);
 
       const response2 = await axiosApi.get(
