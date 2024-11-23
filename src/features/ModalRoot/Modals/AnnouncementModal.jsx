@@ -41,7 +41,7 @@ const AnnouncementModal = () => {
 
      useEffect(() => {
          return () => {
-             localStorage.setItem('promoShown', 'true');
+             sessionStorage.setItem('promoShown', 'true');
            };
      }, []);
 

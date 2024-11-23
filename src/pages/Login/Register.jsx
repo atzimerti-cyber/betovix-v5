@@ -44,8 +44,12 @@ const Register = () => {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const value = searchParams.get("code");
+    let value = searchParams.get("code");
+    if(!value){
+      value =  sessionStorage.getItem("AffiliateCode");
+    }
     if (value) {
+      sessionStorage.setItem("AffiliateCode",value);
       dispatch(loginActions.logout());
 
       updateRegisterInfo("code", value);

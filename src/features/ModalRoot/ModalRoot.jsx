@@ -110,7 +110,7 @@ const ModalRoot = () => {
   }
 
   useEffect(() => {
-    const isShown = localStorage.getItem("promoShown");
+    const isShown = sessionStorage.getItem("promoShown");
     if (!isShown && modal == null) {
       setTimeout(() => {
         // console.log('isShown')
