@@ -8,7 +8,7 @@ const RewardsCategory = (props) => {
             <span className={classes.CategoryProgress} style={{ '--progress': `${props.progress}%`}}></span>
             <div className={classes.CategoryContent}>
                 <p className={classes.CategoryText}>{props.label}</p>
-                <p className={classes.CategoryText}>{props.progress}%</p>
+                <p className={classes.CategoryText}>{props.progress.toFixed(2)}%</p>
                 <CoinsIcon />
                 <p className={classes.CategoryBits}>{formatNumberTo(props.bits)}</p>
             </div>

@@ -111,7 +111,8 @@ const ModalRoot = () => {
 
   useEffect(() => {
     const isShown = sessionStorage.getItem("promoShown");
-    if (!isShown && modal == null) {
+    
+    if (!isShown && modal == null && !user) {
       setTimeout(() => {
         // console.log('isShown')
         modal = true;
