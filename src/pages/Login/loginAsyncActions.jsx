@@ -68,8 +68,11 @@ export const login = (loginInfo, navigate, locationPathname) => {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
       );
-      if (response.data.Status.StatusCode !== 200)
-        throw Error(response.data.Contents?.Item1);
+      if (response.data.Status.StatusCode !== 200) {
+        const errorm = response.data.Contents?.Item1? response.data.Contents?.Item1 : response.data.Contents
+        throw Error(errorm);
+
+      }
       setAccessToken(response.data.Contents.Token);
 
       const response2 = await axiosApi.get(
@@ -97,7 +100,8 @@ export const login = (loginInfo, navigate, locationPathname) => {
       dispatch(loginActions.setLoginLoading(false));
       navigate(locationPathname, { replace: true });
     } catch (error) {
-      toast.error(error?.message);
+      const message = error?.message || 'Invalid Login'
+      toast.error(message);
       dispatch(loginActions.setLoginLoading(false));
     }
   };
