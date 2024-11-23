@@ -1143,6 +1143,19 @@ and communications, whether oral or written with respect to the subject matter h
               <br />
               </div>
 
+
+              <br/>
+              <div className={classes.ParagraphTitle}>
+              27. {translate(`Modification of Terms and Conditions`)}
+
+            </div>
+ <div className={classes.ParagraphText}>
+              {translate(`Betovix reserves the right to update or modify these Terms and Conditions at any time. Users will be notified of any changes, but their explicit acceptance is not required. If a user disagrees with the updated Terms and Conditions, they must manually deactivate their account. Continued use of the platform or participation in activities on Betovix after such changes have been notified will constitute acceptance of the revised Terms and Conditions.`)}
+            
+              <br />
+              <br />
+              </div>
+
           </div>
         </div>
       </div>
