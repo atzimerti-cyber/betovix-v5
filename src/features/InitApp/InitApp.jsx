@@ -24,11 +24,12 @@ const InitApp = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const basePath = window.location.origin;
   useEffect(() => {
-    const img = new Image();
-    img.src = `${basePath}/loading.webp`;
-    img.onload = () => {
-      setIsLoaded(true); // Set the state to indicate the image is fully loaded
-    };
+    // const img = new Image();
+    // img.src = `${basePath}/loading.webp`;
+    // img.onload = () => {
+    //   setIsLoaded(true); // Set the state to indicate the image is fully loaded
+    // };
+    setIsLoaded(true);
   }, []);
 
   // Loads once on start
