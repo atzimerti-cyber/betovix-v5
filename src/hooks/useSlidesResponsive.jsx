@@ -28,8 +28,7 @@ const useSlidesResponsive = (categ) => {
 
  
   if (!categ || categ == "casino") {
-    console.log( `categ:${categ} isSmallMobile:${isSmallMobile} isMobile:${isMobile} isTablet:${isTablet} isDesktop:${isDesktop} isBigDesktop:${isBigDesktop} isVeryBigDesktop:${isVeryBigDesktop} isLeftContainerOpen:${isLeftContainerOpen} isRightContainerOpen:${isRightContainerOpen}`)
-
+   
     if (isSmallMobile) {
       slidesPerView = 2;
       slidesPerGroup = 2;
@@ -92,7 +91,9 @@ const useSlidesResponsive = (categ) => {
       }
     }
   } else if (categ == "match") {
-    if (isMobile) {
+    console.log( `categ:${categ} isSmallMobile:${isSmallMobile} isMobile:${isMobile} isTablet:${isTablet} isDesktop:${isDesktop} isBigDesktop:${isBigDesktop} isVeryBigDesktop:${isVeryBigDesktop} isLeftContainerOpen:${isLeftContainerOpen} isRightContainerOpen:${isRightContainerOpen}`)
+
+    if (isMobile || isSmallMobile) {
       slidesPerView = 1;
       slidesPerGroup = 1;
     } else if (isTablet) {
@@ -109,7 +110,7 @@ const useSlidesResponsive = (categ) => {
       slidesPerGroup = 2;
     }
   } else if (categ == "crypto-line") {
-    if (isMobile) {
+    if (isMobile || isSmallMobile) {
       slidesPerView = 2.5;
       slidesPerGroup = 2;
     } else if (isTablet) {
@@ -126,7 +127,7 @@ const useSlidesResponsive = (categ) => {
       slidesPerGroup = 4;
     }
   } else if (categ == "levels") {
-    if (isMobile) {
+    if (isMobile || isSmallMobile) {
       slidesPerView = 2;
       slidesPerGroup = 2;
     } else if (isTablet) {
@@ -143,7 +144,7 @@ const useSlidesResponsive = (categ) => {
       slidesPerGroup = 4;
     }
   } else if (categ == "milestones") {
-    if (isMobile) {
+    if (isMobile || isSmallMobile) {
       slidesPerView = 2.5;
       slidesPerGroup = 2;
     } else if (isTablet) {
@@ -160,7 +161,7 @@ const useSlidesResponsive = (categ) => {
       slidesPerGroup = 4;
     }
   } else if (categ == "casinoBanners") {
-    if (isMobile) {
+    if (isMobile || isSmallMobile) {
       slidesPerView = 1;
       slidesPerGroup = 1;
     } else if (isTablet) {
@@ -177,7 +178,7 @@ const useSlidesResponsive = (categ) => {
       slidesPerGroup = 2;
     }
   } else if (categ == "vendors") {
-    if (isMobile) {
+    if (isMobile || isSmallMobile) {
       slidesPerView = 2.5;
       slidesPerGroup = 2;
     } else if (isTablet) {
@@ -194,7 +195,7 @@ const useSlidesResponsive = (categ) => {
       slidesPerGroup = 6;
     }
   } else if (!categ || categ == "Cat2Swiper") {
-    if (isSmallMobile) {
+    if (isSmallMobile ) {
       slidesPerView = 1;
       slidesPerGroup = 1;
     } else if (isMobile) {
