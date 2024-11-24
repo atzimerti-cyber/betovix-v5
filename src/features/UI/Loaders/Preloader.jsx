@@ -12,7 +12,7 @@ const Preloader = () => {
     return (
         <div className={classes.Preloader}>
               {/* <img src={preloaderImage} alt='Loading' />   */}
-              <img src={`${basePath}/loading.gif`} alt='Loading' />  
+              <img src={`${basePath}/loading.webp`} alt='Loading' />  
             {/* <video
                     autoPlay
                     muted
