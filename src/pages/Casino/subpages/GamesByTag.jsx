@@ -13,6 +13,7 @@ import { layoutActions } from "../../../features/Layout/layoutSlice";
 import TagIcon from "../../../assets/svgs/tagicon.svg?react";
 import { appActions } from "../../../features/InitApp/appSlice";
 import { AnimatePresence } from "framer-motion";
+import NoImageIcon from "../../../assets/svgs/no-image.svg?react";
 
 import BarLoading from "../../../features/UI/BarLoading/BarLoading";
 
