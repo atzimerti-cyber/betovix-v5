@@ -212,16 +212,33 @@
         transform: translateX(20px);
       }
     }
-    [class*="SignupTextContainer"]  button {
+    [class*="SignupTextContainer"]  button    {
         position: relative !important;
     }
      /* Static snow pile */
-     [class*="SignupTextContainer"] button::before {
+     [class*="SignupTextContainer"] button::before  {
       content: '';
       position: absolute;
       top: -20px; /* Position above the button */
       right: 0;
       
+      width: 89px; /* Adjust to fit the button width */
+      height: 39px; /* Adjust for the height of the snow image */
+      background: url('snowpile.png') no-repeat center;
+      background-size: contain;
+      pointer-events: none; /* Ensure it doesn’t interfere with button clicks */
+    }
+    [class*="BannerContainer"]{
+        position: relative !important;
+    }
+    [class*="BannerContainer"]::before{
+        content: '';
+      position: absolute;
+      top: -20px; /* Position above the button */
+      right: -10px;
+      opacity: 1;
+    
+      transform:translateX(-44px) scaleX(-1);
       width: 89px; /* Adjust to fit the button width */
       height: 39px; /* Adjust for the height of the snow image */
       background: url('snowpile.png') no-repeat center;
