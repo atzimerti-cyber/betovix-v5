@@ -697,15 +697,21 @@ export const loadMoreSearch = (signal, pageItems, tags, searchStr, order) => {
       dispatch(casinoActions.setMoreLoading(true));
       const lang = getLang();
 
+   
       const currentState = getState().casino;
-      const searchResults = currentState.slotGames;
-
+      let searchResults;  
+      if (tags[0].includes("slot")) {
+        searchResults = currentState.slotGames;
+      } else if (tags[0].includes("live")) {
+        searchResults = currentState.liveGames;
+      }
+      let stateTags = searchResults.providers;
       let casinoGames = [];
 
       let searchPage = searchResults.casinoSearchPage;
       searchPage = searchResults.casinoSearchPage + 1;
 
-      let stateTags = searchResults.providers;
+      
 
       const payload = {
         Page: searchPage,

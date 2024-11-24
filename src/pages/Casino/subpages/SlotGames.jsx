@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import classes from './SlotGames.module.css';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'; 
 import { casinoActions } from '../casinoSlice';
 import { getSlotsVendors, searchCasino } from '../casinoAsyncActions';
 

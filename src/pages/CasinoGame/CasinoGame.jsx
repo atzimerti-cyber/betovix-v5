@@ -238,9 +238,43 @@ const CasinoGame = (props) => {
 
   const handleBack = () => {
 
-      navigate("/casino/lobby");
+      //navigate("/casino/lobby");
+
+      let stepsBack = -1; // Start by going one step back
+      const maxSteps = -window.history.length; // Maximum steps we can go back
     
+      const checkAndNavigate = () => {
+        if (stepsBack < maxSteps) {
+          // If we have reached the beginning of history
+          console.log("No valid URL found in history");
+          navigate("/casino/lobby"); // Fallback to a default route
+          return;
+        }
+    
+        // Go back one step in history
+        window.history.go(stepsBack);
+    
+        // Check after a short delay to allow history state to update
+        setTimeout(() => {
+          const currentURL = window.location.href;
+    
+          if (!currentURL.includes("modal")) {
+            // Found a valid URL, stop here
+          
+            return;
+          } else {
+            // Keep going back
+            //stepsBack--;
+            checkAndNavigate();
+          }
+        }, 100);
+      };
+    
+      checkAndNavigate();
+
   };
+
+  
 
   return (
     <>
