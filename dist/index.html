@@ -40,11 +40,224 @@
             document.getElementById('loadGame').style.display = 'none';
         }
     </script>
+
+
+    <style>
+        
+        
+      /* Snow container */
+    .snow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none; /* Prevent interaction */
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    /* Snowflake styles */
+    .snowflake {
+      position: absolute;
+      top: -10px; /* Start slightly above the viewport */
+      font-size: 1rem; /* Default size */
+      color: white;
+      opacity: 0.8;
+      animation: fall linear infinite, drift ease-in-out infinite;
+    }
+
+    /* Create variations with nth-child */
+    .snowflake:nth-child(1) {
+      left: 5%;
+      font-size: 1.5rem;
+      animation-duration: 8s, 3s;
+      animation-delay: 0s, 1s;
+    }
+    .snowflake:nth-child(2) {
+      left: 15%;
+      font-size: 1rem;
+      animation-duration: 6s, 4s;
+      animation-delay: 2s, 0s;
+    }
+    .snowflake:nth-child(3) {
+      left: 25%;
+      font-size: 1.2rem;
+      animation-duration: 7s, 3.5s;
+      animation-delay: 1s, 0.5s;
+    }
+    .snowflake:nth-child(4) {
+      left: 35%;
+      font-size: 2rem;
+      animation-duration: 9s, 2.5s;
+      animation-delay: 0s, 2s;
+    }
+    .snowflake:nth-child(5) {
+      left: 45%;
+      font-size: 1.8rem;
+      animation-duration: 6.5s, 4s;
+      animation-delay: 0.5s, 1.5s;
+    }
+    .snowflake:nth-child(6) {
+      left: 55%;
+      font-size: 1rem;
+      animation-duration: 5s, 3s;
+      animation-delay: 1s, 0s;
+    }
+    .snowflake:nth-child(7) {
+      left: 65%;
+      font-size: 1.3rem;
+      animation-duration: 6s, 2.5s;
+      animation-delay: 0s, 1s;
+    }
+    .snowflake:nth-child(8) {
+      left: 75%;
+      font-size: 1.4rem;
+      animation-duration: 7.5s, 3s;
+      animation-delay: 1.5s, 0.5s;
+    }
+    .snowflake:nth-child(9) {
+      left: 85%;
+      font-size: 1.6rem;
+      animation-duration: 8s, 4s;
+      animation-delay: 0s, 2s;
+    }
+    .snowflake:nth-child(10) {
+      left: 95%;
+      font-size: 1.7rem;
+      animation-duration: 7s, 2.5s;
+      animation-delay: 0.5s, 1s;
+    }
+
+    .snowflake:nth-child(11) {
+      left: 1%;
+      font-size: 2.5rem;
+      animation-duration: 11s, 5s;
+      animation-delay: 0s, 1s;
+    }
+    .snowflake:nth-child(12) {
+      left: 15%;
+      font-size: 2rem;
+      animation-duration: 9s, 6s;
+      animation-delay: 2s, 0s;
+    }
+    .snowflake:nth-child(13) {
+      left: 20%;
+      font-size: 2.2rem;
+      animation-duration: 10s, 5.5s;
+      animation-delay: 1s, 0.5s;
+    }
+    .snowflake:nth-child(14) {
+      left: 30%;
+      font-size: 1rem;
+      animation-duration: 12s, 5.5s;
+      animation-delay: 0s, 2s;
+    }
+    .snowflake:nth-child(15) {
+      left: 40%;
+      font-size: 2.8rem;
+      animation-duration: 9.5s, 6s;
+      animation-delay: 0.5s, 1.5s;
+    }
+    .snowflake:nth-child(16) {
+      left: 50%;
+      font-size: 2rem;
+      animation-duration: 8s, 2s;
+      animation-delay: 1s, 0s;
+    }
+    .snowflake:nth-child(17) {
+      left: 60%;
+      font-size: 2.3rem;
+      animation-duration: 9s, 5.5s;
+      animation-delay: 0s, 1s;
+    }
+    .snowflake:nth-child(18) {
+      left: 70%;
+      font-size: 2.4rem;
+      animation-duration: 10.5s, 2s;
+      animation-delay: 1.5s, 0.5s;
+    }
+    .snowflake:nth-child(19) {
+      left: 80%;
+      font-size: 2.6rem;
+      animation-duration: 11s, 6s;
+      animation-delay: 0s, 2s;
+    }
+    .snowflake:nth-child(20) {
+      left: 90%;
+      font-size: 2.7rem;
+      animation-duration: 10s, 4.5s;
+      animation-delay: 0.5s, 1s;
+    }
+
+    /* Falling animation */
+    @keyframes fall {
+      0% {
+        /*transform: translateY(-10px);  Start above the screen */
+        top: -10vh;
+      }
+      100% {
+        /*transform: translateY(100vh);  Move to the bottom of the screen */
+        top:100vh;
+      }
+    }
+
+    /* Horizontal drifting animation */
+    @keyframes drift {
+      0%, 100% {
+        transform: translateX(0);
+      }
+      50% {
+        transform: translateX(20px);
+      }
+    }
+    [class*="SignupTextContainer"]  button {
+        position: relative !important;
+    }
+     /* Static snow pile */
+     [class*="SignupTextContainer"] button::before {
+      content: '';
+      position: absolute;
+      top: -20px; /* Position above the button */
+      right: 0;
+      
+      width: 89px; /* Adjust to fit the button width */
+      height: 39px; /* Adjust for the height of the snow image */
+      background: url('snowpile.png') no-repeat center;
+      background-size: contain;
+      pointer-events: none; /* Ensure it doesn’t interfere with button clicks */
+    }
+    </style>
   <script type="module" crossorigin src="/assets/index-CcdvjFLG.js"></script>
   <link rel="stylesheet" crossorigin href="/assets/index-qLh94dvS.css">
 </head>
 
 <body>
+    <div class="snow">
+        <!-- Generate multiple snowflakes -->
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">✻</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">✻</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">✻</div>
+        <div class="snowflake">❄</div>
+
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">✻</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">✻</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">✻</div>
+        <div class="snowflake">❄</div>
+      </div>
+
     <div id="loadGame" style="position:fixed;
         top:0;
         left:0;
@@ -85,6 +298,8 @@
 
         gtag('config', 'G-5VMJB2G33G');
     </script>
+
+
 </body>
 
 </html>
