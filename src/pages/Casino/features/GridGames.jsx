@@ -90,13 +90,13 @@ const GridGames = (props) => {
         if (isRightContainerOpen) {
           repeat = 6;
         } else {
-          repeat = 7;
+          repeat = 6;
         }
       } else {
-        repeat = 8;
+        repeat = 6;
       }
     } else {
-      repeat = 8;
+      repeat = 6;
     }
     return repeat;
   };
