@@ -54,7 +54,7 @@ const CasinoGameCard = (props) => {
                   / /g,
                   "%20"
                 )})`,
-                backgroundSize: "cover",
+                backgroundSize: "100% 100%",
                 backgroundPosition: "center",
                 height: "100%",
               }}

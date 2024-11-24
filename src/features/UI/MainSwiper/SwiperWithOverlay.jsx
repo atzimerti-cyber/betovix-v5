@@ -178,7 +178,7 @@ const SwiperWithOverlay = (props) => {
                             <div
                               style={{
                                 backgroundImage: `url(${item.Data.ImageUrl})`,
-                                backgroundSize: "cover",
+                                backgroundSize: "100% 100%",
                                 backgroundPosition: "center",
                                 height: "100%",
                               }}
