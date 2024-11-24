@@ -25,7 +25,7 @@ const InitApp = () => {
   const basePath = window.location.origin;
   useEffect(() => {
     const img = new Image();
-    img.src = `${basePath}/loading.gif`;
+    img.src = `${basePath}/loading.webp`;
     img.onload = () => {
       setIsLoaded(true); // Set the state to indicate the image is fully loaded
     };
