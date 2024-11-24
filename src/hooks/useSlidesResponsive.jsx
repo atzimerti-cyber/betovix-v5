@@ -9,88 +9,85 @@ const useSlidesResponsive = (categ) => {
     (state) => state.layout.fullLeftContainer
   );
 
+  // const isSmallMobile = useMediaQuery({ query: "(max-width: 400px)" });
+  // const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
+  // const isTablet = useMediaQuery({ query: "(max-width: 768px)" });
+  // const isDesktop = useMediaQuery({ query: "(max-width: 992px)" });
+  // const isBigDesktop = useMediaQuery({ query: "(max-width: 1240px)" });
+  // const isVeryBigDesktop = useMediaQuery({ query: "(max-width: 1500px)" });
+
   const isSmallMobile = useMediaQuery({ query: "(max-width: 400px)" });
-  const isMobile = useMediaQuery({ query: "(max-width: 575px)" });
-  const isTablet = useMediaQuery({ query: "(max-width: 768px)" });
-  const isDesktop = useMediaQuery({ query: "(max-width: 992px)" });
-  const isBigDesktop = useMediaQuery({ query: "(max-width: 1240px)" });
-  const isVeryBigDesktop = useMediaQuery({ query: "(max-width: 1500px)" });
+  const isMobile = useMediaQuery({ query: "(min-width: 401px) and (max-width: 575px)" });
+  const isTablet = useMediaQuery({ query: "(min-width: 576px) and (max-width: 768px)" });
+  const isDesktop = useMediaQuery({ query: "(min-width: 769px) and (max-width: 992px)" });
+  const isBigDesktop = useMediaQuery({ query: "(min-width: 993px) and (max-width: 1240px)" });
+  const isVeryBigDesktop = useMediaQuery({ query: "(min-width: 1241px) and (max-width: 1600px) " });
 
   let slidesPerView = 6;
   let slidesPerGroup = 4;
 
+ 
   if (!categ || categ == "casino") {
+    console.log( `categ:${categ} isSmallMobile:${isSmallMobile} isMobile:${isMobile} isTablet:${isTablet} isDesktop:${isDesktop} isBigDesktop:${isBigDesktop} isVeryBigDesktop:${isVeryBigDesktop} isLeftContainerOpen:${isLeftContainerOpen} isRightContainerOpen:${isRightContainerOpen}`)
+
     if (isSmallMobile) {
       slidesPerView = 2;
       slidesPerGroup = 2;
     } else if (isMobile) {
-      slidesPerView = 3;
+      slidesPerView = 2.5;
       slidesPerGroup = 2;
     } else if (isTablet) {
-      slidesPerView = 4.4;
+      slidesPerView = 3.4;
       slidesPerGroup = 3;
     } else if (isDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        slidesPerView = 4;
+        slidesPerView = 3.5;
         slidesPerGroup = 2;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-        if (isRightContainerOpen) {
-          slidesPerView = 5;
+    
+          slidesPerView = 3.5;
           slidesPerGroup = 3;
-        } else {
-          slidesPerView = 4;
-          slidesPerGroup = 2;
-        }
+        
       } else {
-        slidesPerView = 5;
+        slidesPerView = 4.2;
         slidesPerGroup = 3;
       }
     } else if (isBigDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        slidesPerView = 5.5;
-        slidesPerGroup = 3;
-      } else if (isRightContainerOpen || isLeftContainerOpen) {
-        if (isRightContainerOpen) {
-          slidesPerView = 6.3;
-          slidesPerGroup = 5;
-        } else {
-          slidesPerView = 5.5;
-          slidesPerGroup = 3;
-        }
-      } else {
-        slidesPerView = 6.3;
-        slidesPerGroup = 5;
-      }
-    } else if (isVeryBigDesktop) {
-      if (isRightContainerOpen && isLeftContainerOpen) {
         slidesPerView = 4.5;
         slidesPerGroup = 3;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-        if (isRightContainerOpen) {
-          slidesPerView = 6;
-          slidesPerGroup = 4;
-        } else {
-          slidesPerView = 7;
-          slidesPerGroup = 5;
-        }
+       
+          slidesPerView = 4.5;
+          slidesPerGroup = 3;
+         
       } else {
-        slidesPerView = 7.3;
+        slidesPerView = 5.2;
+        slidesPerGroup = 3 ;
+      }
+    } else if (isVeryBigDesktop) {
+
+      if (isRightContainerOpen && isLeftContainerOpen) {
+        slidesPerView = 4.1;
+        slidesPerGroup = 3;
+      } else if (isRightContainerOpen || isLeftContainerOpen) {
+          slidesPerView = 5.5;
+          slidesPerGroup = 4;
+      } else {
+        slidesPerView = 6.2;
         slidesPerGroup = 5;
       }
     } else {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        slidesPerView = 7;
+        slidesPerView = 4.8;
         slidesPerGroup = 4;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-        if (isRightContainerOpen) {
-          slidesPerView = 8;
+       
+          slidesPerView = 5.8;
           slidesPerGroup = 5;
-        } else {
-          slidesPerView = 8;
-          slidesPerGroup = 5;
-        }
+        
       } else {
-        slidesPerView = 8;
+        slidesPerView = 6.2;
         slidesPerGroup = 5;
       }
     }
@@ -170,10 +167,10 @@ const useSlidesResponsive = (categ) => {
       slidesPerView = 1.5;
       slidesPerGroup = 1;
     } else if (isDesktop) {
-      slidesPerView = 2;
+      slidesPerView = 2.1;
       slidesPerGroup = 2;
     } else if (isBigDesktop) {
-      slidesPerView = 3;
+      slidesPerView = 2.5;
       slidesPerGroup = 2;
     } else {
       slidesPerView = 3;
