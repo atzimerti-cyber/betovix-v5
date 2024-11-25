@@ -132,7 +132,7 @@ const Topbar = () => {
                 }
               >
                 <CameraIcon />
-                <div className={classes.LiveBadge}>{translate("Live")}</div>
+                <div className={classes.LiveBadge}> Live </div>
               </MainButton>
             )}
           </div>

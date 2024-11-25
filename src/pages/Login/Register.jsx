@@ -21,7 +21,8 @@ import { Link } from "react-router-dom";
 import config from "../../config";
 import AlternativeMethods from "./features/AlternativeMethods";
 import Arrow2LeftIcon from "../../assets/svgs/arrow2-left.svg?react";
-import AngleLeftIcon from '../../assets/svgs/angle-left.svg?react';
+import AngleLeftIcon from "../../assets/svgs/angle-left.svg?react";
+import { isMoreThan14DaysOld } from "../../utils/custom";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -45,11 +46,19 @@ const Register = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     let value = searchParams.get("code");
-    if(!value){
-      value =  sessionStorage.getItem("AffiliateCode");
+    if (!value) {
+      value = localStorage.getItem("AffiliateCode");
+      const date = localStorage.getItem("AffiliateCodeDate");
+      const isMore = isMoreThan14DaysOld(date);
+      if (isMore) {
+        localStorage.removeItem("AffilliateCode");
+        localStorage.removeItem("AffilliateCodeDate");
+      }
     }
     if (value) {
-      sessionStorage.setItem("AffiliateCode",value);
+      localStorage.setItem("AffiliateCode", value);
+      localStorage.setItem("AffiliateCodeDate", new Date().toISOString());
+
       dispatch(loginActions.logout());
 
       updateRegisterInfo("code", value);
@@ -464,7 +473,7 @@ const Register = () => {
                 rightIcon={
                   <EyeIcon
                     className={
-                        validChecks.password.show
+                      validChecks.password.show
                         ? classes.ShowPasswordIcon
                         : [classes.ShowPasswordIcon, classes.ShowLine].join(" ")
                     }
@@ -504,7 +513,15 @@ const Register = () => {
 
         {registerStage === 2 && (
           <div className={classes.StepTwo}>
-            <div className={classes.ReturnBtn} style={{ width: "100%", background: "rgb(20 55 75 / 33%)", borderRadius: "8px", paddingInline: "10px"}}>
+            <div
+              className={classes.ReturnBtn}
+              style={{
+                width: "100%",
+                background: "rgb(20 55 75 / 33%)",
+                borderRadius: "8px",
+                paddingInline: "10px",
+              }}
+            >
               <button
                 onClick={handleBack}
                 style={{
@@ -512,7 +529,7 @@ const Register = () => {
                   flexDirection: "row",
                   alignItems: "center",
                   fontSize: "14px",
-                  width: "100%"
+                  width: "100%",
                 }}
               >
                 <AngleLeftIcon height="10px" width="20px" />
