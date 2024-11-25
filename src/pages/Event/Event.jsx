@@ -328,11 +328,11 @@ const Event = () => {
                             <span>{translate('Event not found or has ended')}</span>
                         ) : (
                             <div className={classes.EventPage}>
-                                <h1 className={classes.EventTitle}>
+                                {/* <h1 className={classes.EventTitle}>
                                     {event?.Info?.AwayTeamName
                                         ? `${translateNameWithLang(event?.Info?.HomeTeamName)} vs ${translateNameWithLang(event?.Info?.AwayTeamName)}`
                                         : translateNameWithLang(event?.Info?.HomeTeamName)}
-                                </h1>
+                                </h1> */}
 
                                 <aside className={event?.type === 'live' ? classes.Side : [classes.Side, classes.Pregame].join(' ')}>
                                     <div

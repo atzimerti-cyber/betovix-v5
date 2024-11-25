@@ -54,7 +54,8 @@
 }
 
 .Provider {
-  color: var(--db-body-subheading);
+  color: lightblue;
+  /* color: var(--db-body-subheading); */
 }
 
 .isBonus {

@@ -128,7 +128,7 @@ const Lobby = () => {
 
   return (
     <>
-      <BigSwiper2 items={casinoBanners} autoplay />
+      <BigSwiper2 items={casinoBanners} autoplay casinoBannerPromo={false} />
 
       <VendorSwiper
         title={translate("Our Vendors")}

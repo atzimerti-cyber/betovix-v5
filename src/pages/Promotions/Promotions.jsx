@@ -33,7 +33,6 @@ const Promotions = (props) => {
     // Get values for "pageId" and "slug" from the linkParams
     const pageId = linkParams.get("pageId");
     const slug = linkParams.get("slug");
-  
 
     searchParams.set("modal", modal);
     if (pageId) searchParams.set("pageId", pageId);
@@ -42,7 +41,7 @@ const Promotions = (props) => {
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
     });
-};
+  };
 
   return (
     <div className={classes.PageContent}>
@@ -73,22 +72,24 @@ const Promotions = (props) => {
                   <div className={classes.Content}>
                     <div className={classes.PromoTop}>
                       <div className={classes.PromoTitle}>
-                        <span>{promo.title}</span>
+                        <span>{translate(`${promo.title}`)}</span>
                       </div>
                       <div className={classes.PromoText}>
-                        <span>{promo.content}</span>
+                        <span>{translate(`${promo.content}`)} </span>
                       </div>
                     </div>
                     <div className={classes.PromoBottom}>
                       <div className={classes.Buttons}>
                         {promo.link !== "" && (
-                           <MainButton
-                           color="secondary"
-                            onClick={() => addParamsToUrl("promotion", promo.link)}                 
-                           className={classes.LinkButton}
-                       >
-                           {translate(`Read More`)}
-                       </MainButton>
+                          <MainButton
+                            color="secondary"
+                            onClick={() =>
+                              addParamsToUrl("promotion", promo.link)
+                            }
+                            className={classes.LinkButton}
+                          >
+                            {translate(`Read More`)}
+                          </MainButton>
                         )}
                         <button className={classes.InfoButton}></button>
                       </div>

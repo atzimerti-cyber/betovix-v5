@@ -50,7 +50,7 @@ const CasinoGameCard = (props) => {
               {props.game.Data.Name}
               {props.game.isNew && <div className={classes.NewBadge}>New </div>}
             </div>
-            <p className={classes.Provider}>{props.game.Data.ProviderName}</p>
+            <p className={classes.Provider}>{props.game.Data.VendorName}</p>
           </div>
         </Link>
       </article>

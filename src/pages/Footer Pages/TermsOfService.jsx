@@ -495,12 +495,17 @@ you will be limited to € 5,000 (or currency equivalent) for withdrawal per mon
 the maximum withdrawal amount per month is € 10,000.`)}
               <br />
               <br />
-              {translate(`8.7. Please note that we cannot guarantee successful processing of withdrawals or refunds in 
-the event if you breach the Restricted use policy stated in Clauses 3.3 and 4.
+              {translate(`8.7. The maximum withdrawal amount per day is €500 (or equivalent in your account currency).
 `)}
               <br />
               <br />
-              {translate(`8.8. In line with our AML policy, every player is required to wager their deposit amount at least one (1) time before being able to withdraw.
+              {translate(`8.8. Please note that we cannot guarantee the successful processing of withdrawals or refunds in the event you breach the Restricted Use policy stated in Clauses 3.3 and 4.
+
+`)}
+              <br />
+              <br />
+              {translate(`8.9. In line with our AML policy, every player is required to wager their deposit amount at least one (1) time before being able to withdraw.
+
 `)}
               <br />
               <br />
@@ -1126,36 +1131,41 @@ respect to your access to and use of the Service, and supersedes all other prior
 and communications, whether oral or written with respect to the subject matter hereof.
 
 `)}
-              </div>
-<br/>
-              <div className={classes.ParagraphTitle}>
-              26. {translate(`Acceptance of Gamification Terms and Conditions.`)}
-
             </div>
- <div className={classes.ParagraphText}>
-              {translate(`By registering and accepting the General Terms and Conditions of Betovix, you also acknowledge and agree to the Gamification Terms and Conditions. These terms govern your participation in the gamification system, including rewards, milestones, and associated features.`)}
+            <br />
+            <div className={classes.ParagraphTitle}>
+              26.{" "}
+              {translate(`Acceptance of Gamification Terms and Conditions.`)}
+            </div>
+            <div className={classes.ParagraphText}>
+              {translate(
+                `By registering and accepting the General Terms and Conditions of Betovix, you also acknowledge and agree to the Gamification Terms and Conditions. These terms govern your participation in the gamification system, including rewards, milestones, and associated features.`
+              )}
               <br />
-              {translate(`It is your responsibility to review the Gamification Terms and Conditions, which are an integral part of the platform's overall terms.`)}
+              {translate(
+                `It is your responsibility to review the Gamification Terms and Conditions, which are an integral part of the platform's overall terms.`
+              )}
               <br />
-              {translate(`If you do not agree with the Gamification Terms and Conditions, you must refrain from participating in the gamification system.`)}
+              {translate(
+                `If you do not agree with the Gamification Terms and Conditions, you must refrain from participating in the gamification system.`
+              )}
 
               <br />
               <br />
-              </div>
+            </div>
 
-
-              <br/>
-              <div className={classes.ParagraphTitle}>
+            <br />
+            <div className={classes.ParagraphTitle}>
               27. {translate(`Modification of Terms and Conditions`)}
-
             </div>
- <div className={classes.ParagraphText}>
-              {translate(`Betovix reserves the right to update or modify these Terms and Conditions at any time. Users will be notified of any changes, but their explicit acceptance is not required. If a user disagrees with the updated Terms and Conditions, they must manually deactivate their account. Continued use of the platform or participation in activities on Betovix after such changes have been notified will constitute acceptance of the revised Terms and Conditions.`)}
-            
-              <br />
-              <br />
-              </div>
+            <div className={classes.ParagraphText}>
+              {translate(
+                `Betovix reserves the right to update or modify these Terms and Conditions at any time. Users will be notified of any changes, but their explicit acceptance is not required. If a user disagrees with the updated Terms and Conditions, they must manually deactivate their account. Continued use of the platform or participation in activities on Betovix after such changes have been notified will constitute acceptance of the revised Terms and Conditions.`
+              )}
 
+              <br />
+              <br />
+            </div>
           </div>
         </div>
       </div>

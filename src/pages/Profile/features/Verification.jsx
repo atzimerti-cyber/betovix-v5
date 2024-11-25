@@ -410,7 +410,7 @@ const Verification = () => {
                     <div className={classes.FileForms}>
                       <div className={classes.FileInputForm}>
                         <h2>
-                          <i>(SIDE 1)</i>
+                          <i>{translate("(SIDE 1)")}</i>
                         </h2>
                         <input
                           id="frontSideInput"
@@ -434,7 +434,7 @@ const Verification = () => {
                       </div>
                       <div className={classes.FileInputForm}>
                         <h2>
-                          <i>(SIDE 2)</i>
+                          <i>{translate("(SIDE 2)")}</i>
                         </h2>
                         <input
                           id="backSideInput"

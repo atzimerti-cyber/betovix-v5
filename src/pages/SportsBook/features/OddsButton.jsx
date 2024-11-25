@@ -154,14 +154,14 @@ const OddsButton = (props) => {
       !props.odds ||
       !props.market ||
       props.market.Active === false ||
-      props.event.PreviousMarkets === undefined ||
+      props.event?.PreviousMarkets === undefined ||
       props.event.PreviousMarkets === null ||
-      _.isEmpty(props.event.PreviousMarkets)
+      _.isEmpty(props.event?.PreviousMarkets)
     ) {
       return;
     }
 
-    const foundMarket = props.event.PreviousMarkets.find(
+    const foundMarket = props.event?.PreviousMarkets.find(
       (m) => m.MarketId === props.market.MarketId
     );
     if (foundMarket && foundMarket.MarketFields) {
@@ -191,7 +191,7 @@ const OddsButton = (props) => {
     props.odds,
     props.market,
     props.marketField,
-    props.event.PreviousMarkets,
+    props.event?.PreviousMarkets,
   ]);
 
   let elClasses = [classes.OddsButton];

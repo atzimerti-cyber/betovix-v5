@@ -77,10 +77,15 @@
 }
 
 .EventTitle {
-  position: absolute;
+  /* position: absolute;
   clip: rect(0px, 0px, 0px, 0px);
   width: 1px;
   height: 1px;
+  overflow: hidden; */
+  position: relative;
+  /* clip: rect(0px, 0px, 0px, 0px); */
+  width: auto;
+  height: max-content;
   overflow: hidden;
 }
 

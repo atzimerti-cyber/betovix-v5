@@ -177,6 +177,21 @@ const Breadcrumb = (props) => {
     setShowTournaments(false);
   }, [selectedTournament?.TournamentId]);
 
+  function formatUserFriendlyDate(dateString) {
+    const date = new Date(dateString);
+
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    };
+
+    return date.toLocaleDateString(undefined, options);
+  }
+
   return (
     <div className={classes.Breadcrumb}>
       {/* <div className={[classes.Crumb, classes.BackButton].join(' ')} onClick={() => navigate(`/sportsbook/${props.page}/${selectedSport.slug}`)}>
@@ -402,6 +417,16 @@ const Breadcrumb = (props) => {
             </Dropdown2>
           )}
         </AnimatePresence>
+      </div>
+      <div className={classes.NoPaddingCrumb}>
+        {selectedEvent ? (
+          <div
+            className={classes.DateContainer}
+            style={{ pointerEvents: "none" }}
+          >
+            {formatUserFriendlyDate(`${selectedEvent.DateOfMatch}`)}
+          </div>
+        ) : null}
       </div>
     </div>
   );

@@ -136,6 +136,9 @@ const CasinoGame = (props) => {
     if (isIOS) {
       console.info("paixnidi");
       document.getElementById("btnBack").style.display = "block";
+      document.getElementById("gameName").style.display = "block"; // Make sure it is visible
+      document.getElementById("gameName").innerText = name; // Set the name inside the <p> tag
+      document.getElementById("gameHeader").style.display = "block";
       document.getElementById("game").style.display = "block";
       document.getElementById("game").src = casinoGame?.url;
     }
@@ -144,6 +147,8 @@ const CasinoGame = (props) => {
     return () => {
       document.getElementById("game").style.display = "none";
       document.getElementById("btnBack").style.display = "none";
+      document.getElementById("gameHeader").style.display = "none";
+      document.getElementById("gameName").style.display = "none"; // Hide the <p> tag on unmount
     };
   }, [casinoGame]);
 
@@ -237,44 +242,40 @@ const CasinoGame = (props) => {
   };
 
   const handleBack = () => {
+    //navigate("/casino/lobby");
 
-      //navigate("/casino/lobby");
+    let stepsBack = -1; // Start by going one step back
+    const maxSteps = -window.history.length; // Maximum steps we can go back
 
-      let stepsBack = -1; // Start by going one step back
-      const maxSteps = -window.history.length; // Maximum steps we can go back
-    
-      const checkAndNavigate = () => {
-        if (stepsBack < maxSteps) {
-          // If we have reached the beginning of history
-          console.log("No valid URL found in history");
-          navigate("/casino/lobby"); // Fallback to a default route
+    const checkAndNavigate = () => {
+      if (stepsBack < maxSteps) {
+        // If we have reached the beginning of history
+        console.log("No valid URL found in history");
+        navigate("/casino/lobby"); // Fallback to a default route
+        return;
+      }
+
+      // Go back one step in history
+      window.history.go(stepsBack);
+
+      // Check after a short delay to allow history state to update
+      setTimeout(() => {
+        const currentURL = window.location.href;
+
+        if (!currentURL.includes("modal")) {
+          // Found a valid URL, stop here
+
           return;
+        } else {
+          // Keep going back
+          //stepsBack--;
+          checkAndNavigate();
         }
-    
-        // Go back one step in history
-        window.history.go(stepsBack);
-    
-        // Check after a short delay to allow history state to update
-        setTimeout(() => {
-          const currentURL = window.location.href;
-    
-          if (!currentURL.includes("modal")) {
-            // Found a valid URL, stop here
-          
-            return;
-          } else {
-            // Keep going back
-            //stepsBack--;
-            checkAndNavigate();
-          }
-        }, 100);
-      };
-    
-      checkAndNavigate();
+      }, 100);
+    };
 
+    checkAndNavigate();
   };
-
-  
 
   return (
     <>

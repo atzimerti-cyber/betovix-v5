@@ -112,7 +112,11 @@ const LivePhotoCheck = () => {
             disabled={loading}
             style={{ backgroundColor: "#749f0f" }}
           >
-            {loading ? "Loading..." : "Take Selfie"}
+            {loading ? (
+              <>{translate("Loading")}...</>
+            ) : (
+              translate("Take Selfie")
+            )}
           </button>
         </div>
       )}

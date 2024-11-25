@@ -68,7 +68,7 @@ const RewardsSwiper = (props) => {
       {props.items ? (
         props.items.length === 0 ? (
           <p className={classes.NoResults}>
-            {translate("No")} {props.title}
+            {translate("0")} {props.title}
           </p>
         ) : (
           props.items.map((item, index) => {
@@ -122,7 +122,31 @@ const RewardsSwiper = (props) => {
                             </React.Fragment>
                           ))}
                       </h1>
-                      <p>{item.MetaData.Description}</p>
+                      <p>
+                        {item.MetaData.Description &&
+                          item.MetaData.Description.split("?").map(
+                            (part, index) => (
+                              <React.Fragment key={index}>
+                                {index === 0 ? (
+                                  <>{part}</>
+                                ) : (
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "row",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                    }}
+                                  >
+                                    <CoinsIcon style={{ margin: "0 0.2rem" }} />
+                                    {part}
+                                  </div>
+                                )}
+                              </React.Fragment>
+                            )
+                          )}
+                      </p>
+                      {/* <p>{item.MetaData.Description}</p> */}
                     </div>
 
                     <div className={classes.ClaimButton}>
@@ -136,7 +160,7 @@ const RewardsSwiper = (props) => {
                             color="bv-light-green"
                             onClick={() => handleClaim(item.Id)}
                           >
-                            Claim Reward
+                            {translate("Claim Reward")}
                           </MainButton>
                         )
                       ) : null}
