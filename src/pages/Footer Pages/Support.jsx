@@ -7,6 +7,7 @@ import { translate } from "../../utils/translations";
 const Support = () => {
   // Determine the iframe height based on window width
   const iframeHeight = window.innerWidth <= 670 ? "550px" : "500px";
+  const lang = useSelector((state) => state.app.lang);
 
   return (
     <div className={classes.PageContent} style={{ padding: "0px 1rem 40px" }}>

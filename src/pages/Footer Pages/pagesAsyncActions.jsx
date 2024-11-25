@@ -31,3 +31,37 @@ export const getPage = (signal, slug) => {
     }
   };
 };
+
+export const contactForm = (form) => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+
+      // Make the POST request with the provided form data and configurations
+      const response = await axiosApi.post(
+        `/ContactRequest/PostFormContact`,
+        form,
+        {
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+          timeout: 1000,
+        }
+      );
+
+      // Check response status and throw an error for unsuccessful cases
+      const isSuccessful =
+        response?.status === 200 && response?.data?.Status?.StatusCode === 200;
+
+      if (!isSuccessful) {
+        throw new Error("Unsuccessful response");
+      }
+
+      // Show success toast on successful submission
+      toast.success(
+        "Form successfully submitted! Please await our response by email."
+      );
+    } catch (error) {
+      // Show error toast for failures
+      toast.error("Something went wrong. Please try again.");
+    }
+  };
+};

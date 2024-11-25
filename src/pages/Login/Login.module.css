@@ -1,6 +1,6 @@
 .Form {
   display: flex;
-  max-height: 480px;
+  /* max-height: 480px; */
   width: 100%;
   flex-direction: column;
   padding-top: 0.3rem;

@@ -1,15 +1,40 @@
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./ContactUs.module.css";
-import InfoIcon from "../../assets/svgs/info-circle.svg?react";
 import ContactUsIcon from "../../assets/svgs/contactus.svg?react";
 import { translate } from "../../utils/translations";
-import { LeftArrow } from "../../features/UI/HorizontalMenu/Arrows";
-
+import { useState } from "react";
+import { contactForm } from "./pagesAsyncActions";
 const ContactUs = () => {
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    issue: null,
+    details: "",
+  });
+
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Add logic for form submission, e.g., dispatching a Redux action or API call
-    console.log("Form submitted");
+
+    const payload = {
+      Firstname: formData.firstname,
+      Lastname: formData.lastname,
+      Email: formData.email,
+      Details: formData.details,
+      Issue: formData.issue,
+    };
+
+    console.log("Form Data:", payload);
+    dispatch(contactForm(payload));
   };
 
   return (
@@ -33,35 +58,50 @@ const ContactUs = () => {
       </div>
       <form className={classes.FormContainer} onSubmit={handleSubmit}>
         <div className={classes.FormGroup}>
-          <label htmlFor="firstName" className={classes.Label}>
+          <label htmlFor="firstname" className={classes.Label}>
             {translate("First Name")}
           </label>
-          <input id="firstName" className={classes.Input} type="text" />
+          <input
+            onChange={handleChange}
+            id="firstname"
+            className={classes.Input}
+            type="text"
+          />
         </div>
 
         <div className={classes.FormGroup}>
-          <label htmlFor="lastName" className={classes.Label}>
+          <label htmlFor="lastname" className={classes.Label}>
             {translate("Last Name")}
           </label>
-          <input id="lastName" className={classes.Input} type="text" />
+          <input
+            onChange={handleChange}
+            id="lastname"
+            className={classes.Input}
+            type="text"
+          />
         </div>
 
         <div className={classes.FormGroup}>
           <label htmlFor="email" className={classes.Label}>
             {translate("Email")}
           </label>
-          <input id="email" className={classes.Input} type="email" />
+          <input
+            onChange={handleChange}
+            id="email"
+            className={classes.Input}
+            type="email"
+          />
         </div>
 
         <div className={classes.FormGroup}>
           <label htmlFor="issue" className={classes.Label}>
             {translate("Issue")}
           </label>
-          <select id="issue" className={classes.Select}>
+          <select id="issue" className={classes.Select} onChange={handleChange}>
             <option value="">{translate("Select an issue")}</option>
-            <option value="billing">{translate("Billing")}</option>
-            <option value="technical">{translate("Technical Issue")}</option>
-            <option value="general">{translate("General Inquiry")}</option>
+            <option value={1}>{translate("Billing")}</option>
+            <option value={2}>{translate("Technical Issue")}</option>
+            <option value={3}>{translate("General Inquiry")}</option>
           </select>
         </div>
 
@@ -69,7 +109,11 @@ const ContactUs = () => {
           <label htmlFor="details" className={classes.Label}>
             {translate("Details")}
           </label>
-          <textarea id="details" className={classes.TextArea}></textarea>
+          <textarea
+            id="details"
+            onChange={handleChange}
+            className={classes.TextArea}
+          ></textarea>
         </div>
 
         <div className={classes.FormGroup}>
