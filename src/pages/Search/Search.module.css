@@ -1,14 +1,15 @@
 .Content {
     margin-top: 1rem;
     padding: 0px 10px 40px;
-    max-width: 1310px;
+    /* max-width: 1310px; */
+    max-width: 1500px;
     width: 100%;
     container-type: inline-size;
 }
 
 .PageContent {
     padding: 0px 10px 40px;
-    max-width: 1220px;
+    /* max-width: 1220px; */
     width: 100%;
     container-type: inline-size;
 }
