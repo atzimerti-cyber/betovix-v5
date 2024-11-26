@@ -11,6 +11,7 @@ import SportsBookMenu from '../SportsBook/features/SportsBookMenu';
 import { getEvent } from './eventAsyncActions';
 import { eventActions } from './eventSlice';
 import Breadcrumb from './features/Breadcrumb';
+import EventHeader from './features/EventHeader';
 import BreadcrumbLive from './features/BreadcrumbLive';
 import MarketsMenu from './features/MarketsMenu';
 import MarketGroup from './features/MarketGroup';
@@ -334,6 +335,7 @@ const Event = () => {
                                         : translateNameWithLang(event?.Info?.HomeTeamName)}
                                 </h1> */}
 
+
                                 <aside className={event?.type === 'live' ? classes.Side : [classes.Side, classes.Pregame].join(' ')}>
                                     <div
                                         className={
@@ -362,6 +364,8 @@ const Event = () => {
 
                                 {marketGroups && (event?.type === 'live' || showTab === 'tab1') && (
                                     <div className={classes.Main}>
+                                                                        {event?.type !== 'live' && <EventHeader event={event}/>}
+
                                         {marketGroups.length > 0 && <MarketsMenu marketGroups={marketGroups} />}
 
                                         <div>

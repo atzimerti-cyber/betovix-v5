@@ -1,0 +1,97 @@
+.EventHeader {
+  background: var(--db-gray-3);
+    box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  justify-content: center;
+  flex-direction: column;
+  align-content: flex-start;
+  border-radius: 10px;
+  padding: 20px 15px;
+  position: relative;
+  overflow: hidden;
+}
+
+.EventHeader > :first-child {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.EventHeader > :last-child {
+  border-bottom-left-radius: 8px;
+  max-width: 100%;
+  border-bottom-right-radius: 8px;
+}
+
+.SportItemIcon {
+  margin-inline: 0px 1.25em;
+  height: 100%;
+  width: 16px;
+}
+
+.SportItemIcon > svg {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex: 0 0 1.5rem;
+}
+
+.SportItemIcon > svg path {
+  fill: #fff;
+}
+
+/* Teams */
+.TeamsContainer {
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.04rem;
+  font-weight: 700;
+}
+
+.TeamVersusWord {
+  text-align: center;
+  vertical-align: middle;
+  line-height: 50%;
+  margin: 0px 8px;
+  font-size: 13px;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
+
+.TeamName {
+  max-width: 120px;
+  vertical-align: middle;
+  line-height: 100%;
+  margin-inline: 0px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  z-index: 2;
+}
+
+.TeamName.Outright {
+  max-width: unset;
+}
+
+.TeamName.First {
+  margin-left: 5px;
+}
+
+.TeamName.Second {
+  margin-right: 5px;
+}
+
+.DateContainer {
+  padding: 0px 8px 10px 19px;
+  pointer-events: none;
+  cursor: default;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: rgb(232, 249, 255);
+  opacity: 0.95;
+  z-index: 2;
+  position: relative;
+}
