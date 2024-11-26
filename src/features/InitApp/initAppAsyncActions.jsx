@@ -638,6 +638,36 @@ export const getSiteSettings = (signal) => {
   };
 };
 
+export const getUserNotifications = () => {
+  return async (dispatch, getState) => {
+    try {
+      const lang = getLang();
+      const response = await axiosApi.get(
+        `Notifications/Notifications?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        {
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+
+      if (response.status !== 200)
+        throw new Error("Failed to fetch notifications.");
+
+      const notifications = response.data.Contents.map((item) => ({
+        title: item?.Title,
+        message: item?.Message,
+        date: item?.Date,
+        viewed: item?.Viewed,
+      }));
+
+      dispatch(layoutActions.setNotifications(notifications));
+    } catch (error) {
+      toast.error(
+        error?.message || "An error occurred while fetching notifications."
+      );
+    }
+  };
+};
+
 // export const tawktoChat = () => {
 //   return async (dispatch, getState) => {
 //     try {

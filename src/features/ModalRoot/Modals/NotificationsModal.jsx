@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import CloseButton from "../../UI/Buttons/CloseButton";
 import { translate } from "../../../utils/translations";
+import { getUserNotifications } from "../../InitApp/initAppAsyncActions";
 
 const NotificationsModal = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const NotificationsModal = () => {
     if (!isMobile) {
       navigate(location.pathname);
     }
+    dispatch(getUserNotifications());
   }, [isMobile, navigate, location.pathname]);
 
   const handleToggle = () => {

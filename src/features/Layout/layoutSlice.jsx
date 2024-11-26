@@ -19,6 +19,9 @@ const initialState = {
   availableBonus: 0,
   footer: {},
   // tawkToScript: null,
+  notifications: null,
+  newNotifications: null,
+  selectedNotification: null,
 };
 
 export const layoutSlice = createSlice({
@@ -72,6 +75,16 @@ export const layoutSlice = createSlice({
     // setTawkToScript: (state, action) => {
     //   state.tawkToScript = action.payload;
     // },
+    setNotifications: (state, action) => {
+      state.notifications = action.payload;
+      state.newNotifications = action.payload.filter(
+        (notification) => !notification.viewed
+      );
+    },
+
+    setSelectedNotification: (state, action) => {
+      state.selectedNotification = action.payload;
+    },
   },
 });
 

@@ -25,7 +25,7 @@
 }
 
 .EventInfo {
-  width: 350px;
+  /* width: 350px;
   max-width: 90%;
   height: 230px;
   max-height: 100%;
@@ -33,10 +33,17 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 69%);
   background-color: #0b1218db;
   border-radius: 10px;
-  padding: 8px;
+  padding: 8px; */
+
+  width: 100%;
+  height: 100%;
+  padding: 0.5rem;
+  opacity: 0.94;
+  border-radius: 10px;
 }
 .EventInfo p {
   color: aliceblue;
+  font-weight: 600;
 }
 
 .EventHeader {
@@ -45,29 +52,55 @@
   align-content: center;
 }
 .EventDate {
-  font-size: 13px;
+  /* font-size: 13px;
   height: 15%;
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: flex-end;
+  align-items: flex-end; */
+
+  font-size: 13px;
+  height: 15%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
 }
 .EventTeams {
-  font-size: 15px;
+  /* font-size: 15px;
   height: 50%;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
-  align-items: center;
+  align-items: center; */
+
+  font-size: 15px;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-start;
 }
 .EventTeams span {
-  display: flex;
+  /* display: flex;
   width: 10%;
   font-size: 15px;
   color: aliceblue;
   justify-content: center;
+  align-items: center; */
+
+  display: flex;
+  /* width: 10%; */
+  margin-left: 2%;
+  font-size: 15px;
+  color: aliceblue;
+  justify-content: center;
+  justify-content: center;
   align-items: center;
+  /* font-weight: 300; */
+  line-height: 0.5rem;
 }
 .EventTeams p {
   color: aliceblue;
@@ -81,9 +114,15 @@
 }
 .HomeTeam,
 .AwayTeam {
-  width: 45%;
+  /* width: 45%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap; */
+  gap: 0.7rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -95,8 +134,8 @@
   background-repeat: no-repeat;
 }
 .EventMarkets {
-  padding: 6px;
-  height: 20%;
+  padding-top: 6px;
+  /* height: 20%; */
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -104,8 +143,14 @@
 }
 .EventMarkets > button {
   margin: 5px;
-  color: aliceblue;
+  color: #040404;
   font-weight: 600;
   border-radius: 5px;
-  background-color: #121f31;
+  /* background-color: #121f31; */
+
+  background-color: #edededd1;
+}
+.EventMarkets > button > span {
+  color: #7c7c7c !important;
+  font-size: 10px !important;
 }

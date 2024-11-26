@@ -261,13 +261,13 @@ const Topbar = () => {
                   <div className={classes.DropDownWrapper}>
                     <div
                       className={classes.DropDownLabel}
-                      onClick={() =>
+                      onClick={() => {
                         dispatch(
                           layoutActions.setNotificationDropdownVisible(
                             !notificationDropdownVisible
                           )
-                        )
-                      }
+                        );
+                      }}
                     >
                       <div className={classes.NotificationButtonContainer}>
                         <button

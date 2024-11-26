@@ -13,6 +13,7 @@ import { loginActions } from "../../../pages/Login/loginSlice";
 import classes from "./MenuItems.module.css";
 import { translate } from "../../../utils/translations";
 import { useMediaQuery } from "react-responsive";
+import { useState } from "react";
 
 const MenuItems = (props) => {
   const navigate = useNavigate();
@@ -20,12 +21,15 @@ const MenuItems = (props) => {
 
   const lang = useSelector((state) => state.app.lang);
 
+  const newNotifications = useSelector(
+    (state) => state.layout.newNotifications
+  );
+
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
 
   const newRewards = useSelector(
     (state) => state.gamification.availableRewards
   );
-  const newNotifications = 0; ///////////////////////////////////////////////////////////////
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);
@@ -56,8 +60,10 @@ const MenuItems = (props) => {
           <a onClick={() => addParamsToUrl("notifications")}>
             <BellIcon />
             <span>{translate("Notifications")}</span>
-            {newNotifications > 0 && (
-              <div className={classes.NumberBadge}>{newNotifications}</div>
+            {newNotifications && newNotifications.length > 0 && (
+              <div className={classes.NumberBadge}>
+                {newNotifications.length}
+              </div>
             )}
           </a>
         </li>

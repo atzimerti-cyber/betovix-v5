@@ -1,15 +1,19 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classes from "./Notification.module.css";
 import LogoSmall from "../../../assets/svgs/logo-small.svg?react";
 import { translate } from "../../../utils/translations";
+import { disableInstantTransitions } from "framer-motion";
+import { layoutActions } from "../layoutSlice";
 
 const Notification = (props) => {
+  const dispatch = useDispatch();
   const lang = useSelector((state) => state.app.lang);
 
-  const addParamsToUrl = (modal, tab) => {
+  const openNotifPopUp = (modal, notif) => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("modal", modal);
-    if (tab) searchParams.set("tab", tab);
+
+    dispatch(layoutActions.setSelectedNotification(notif));
 
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
@@ -24,7 +28,7 @@ const Notification = (props) => {
             ? [classes.NotificationContainer, classes.Unviewed].join(" ")
             : classes.NotificationContainer
         }
-        onClick={addParamsToUrl("n")}
+        onClick={openNotifPopUp("n", props.notification)}
       >
         <div className={classes.Icon}>
           <LogoSmall />

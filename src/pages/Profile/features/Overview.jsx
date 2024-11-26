@@ -47,7 +47,7 @@ const Overview = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.2 }}
     >
-      <p className={classes.OverviewTitle}>{translate("Profile Overview")}</p>
+      <p className={classes.OverviewTitle}>{translate("Overview")}</p>
 
       <div className={classes.GridContainer}>
         {/* <div className={classes.UserClassContainer}>

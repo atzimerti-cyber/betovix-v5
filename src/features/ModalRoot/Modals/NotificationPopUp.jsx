@@ -11,6 +11,10 @@ const NotificationsModal = (props) => {
 
   const lang = useSelector((state) => state.app.lang);
 
+  const notification = useSelector(
+    (state) => state.layout.selectedNotification
+  );
+
   return (
     isMobile && (
       <div className={classes.NotificationModal}>

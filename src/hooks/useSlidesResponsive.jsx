@@ -178,6 +178,81 @@ const useSlidesResponsive = (categ) => {
       slidesPerView = 3;
       slidesPerGroup = 2;
     }
+  } else if (categ == "sportsBanners") {
+    if (isSmallMobile) {
+      slidesPerView = 1;
+      slidesPerGroup = 1;
+    } else if (isMobile) {
+      slidesPerView = 1;
+      slidesPerGroup = 1;
+    } else if (isTablet) {
+      slidesPerView = 1.5;
+      slidesPerGroup = 1;
+    } else if (isDesktop) {
+      if (isRightContainerOpen && isLeftContainerOpen) {
+        slidesPerView = 2;
+        slidesPerGroup = 1;
+      } else if (isRightContainerOpen || isLeftContainerOpen) {
+        if (isRightContainerOpen) {
+          slidesPerView = 2;
+          slidesPerGroup = 1;
+        } else {
+          slidesPerView = 2;
+          slidesPerGroup = 1;
+        }
+      } else {
+        slidesPerView = 2;
+        slidesPerGroup = 1;
+      }
+    } else if (isBigDesktop) {
+      if (isRightContainerOpen && isLeftContainerOpen) {
+        slidesPerView = 2;
+        slidesPerGroup = 1;
+      } else if (isRightContainerOpen || isLeftContainerOpen) {
+        if (isRightContainerOpen) {
+          slidesPerView = 2;
+          slidesPerGroup = 1;
+        } else {
+          slidesPerView = 2;
+          slidesPerGroup = 1;
+        }
+      } else {
+        slidesPerView = 2.5;
+        slidesPerGroup = 1;
+      }
+    } else if (isVeryBigDesktop) {
+      if (isRightContainerOpen && isLeftContainerOpen) {
+        slidesPerView = 2;
+        slidesPerGroup = 1;
+      } else if (isRightContainerOpen || isLeftContainerOpen) {
+        if (isRightContainerOpen) {
+          slidesPerView = 3;
+          slidesPerGroup = 2;
+        } else {
+          slidesPerView = 3;
+          slidesPerGroup = 2;
+        }
+      } else {
+        slidesPerView = 3;
+        slidesPerGroup = 2;
+      }
+    } else {
+      if (isRightContainerOpen && isLeftContainerOpen) {
+        slidesPerView = 3;
+        slidesPerGroup = 2;
+      } else if (isRightContainerOpen || isLeftContainerOpen) {
+        if (isRightContainerOpen) {
+          slidesPerView = 3;
+          slidesPerGroup = 2;
+        } else {
+          slidesPerView = 3;
+          slidesPerGroup = 2;
+        }
+      } else {
+        slidesPerView = 3;
+        slidesPerGroup = 2;
+      }
+    }
   } else if (categ == "vendors") {
     if (isMobile || isSmallMobile) {
       slidesPerView = 2.5;

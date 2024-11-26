@@ -8,6 +8,7 @@ import LoaderPlaceholder from "../../../features/UI/Skeletons/LoaderPlaceholder"
 import OddsButton from "./OddsButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
+import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 
 const SportsBanners = (props) => {
   const [loadedImages, setLoadedImages] = useState([]);
@@ -16,6 +17,7 @@ const SportsBanners = (props) => {
     setLoadedImages((prevData) => [...prevData, index]);
   };
   const isTablet = useMediaQuery({ query: "(max-width: 850px)" });
+  const slidesPerView = useSlidesResponsive("sportsBanners").slidesPerView;
 
   const getOddsLabel = (label) => {
     if (label === "W1") return "1";
@@ -45,7 +47,7 @@ const SportsBanners = (props) => {
   };
 
   return (
-    <BigSwiper slidesPerView={isTablet ? 1 : 2} autoplay delay={6000}>
+    <BigSwiper slidesPerView={slidesPerView} autoplay delay={6000}>
       {props.banners ? (
         props.banners.map((banner, index) => {
           let link = null;
@@ -65,13 +67,15 @@ const SportsBanners = (props) => {
                 <div className={classes.EventInfoWrapper}>
                   <div className={classes.EventInfo}>
                     <div className={classes.EventHeader}>
-                      <p>
-                        {banner.event?.Info.SportName?.International}
-                        {" / "}
-                        {banner.event?.Info.CategoryName?.International}
-                        {" / "}
-                        {banner.event?.Info.TournamentName?.International}
-                      </p>
+                      <i>
+                        <p style={{fontWeight:'400'}}>
+                          {banner.event?.Info.SportName?.International}
+                          {" / "}
+                          {banner.event?.Info.CategoryName?.International}
+                          {" / "}
+                          {banner.event?.Info.TournamentName?.International}
+                        </p>
+                      </i>
                     </div>
                     <div className={classes.EventDate}>
                       <p>{dateFormatter(banner.event?.Info.DateOfMatch)}</p>
@@ -96,7 +100,9 @@ const SportsBanners = (props) => {
                             {banner.event?.Info?.HomeTeamName?.International}
                           </p>
                         </div>
-                        <span>VS</span>
+                        <span style={{ fontFamily: "Impact, sans-serif" }}>
+                          <i>VS</i>
+                        </span>
                         <div className={classes.AwayTeam}>
                           <div
                             className={classes.Img}
