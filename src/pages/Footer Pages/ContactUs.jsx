@@ -10,7 +10,7 @@ const ContactUs = () => {
     firstname: "",
     lastname: "",
     email: "",
-    issue: null,
+    issue: "",
     details: "",
   });
 
@@ -35,6 +35,15 @@ const ContactUs = () => {
 
     console.log("Form Data:", payload);
     dispatch(contactForm(payload));
+
+    // Reset form fields
+    setFormData({
+      firstname: "",
+      lastname: "",
+      email: "",
+      issue: "",
+      details: "",
+    });
   };
 
   return (
@@ -66,6 +75,7 @@ const ContactUs = () => {
             id="firstname"
             className={classes.Input}
             type="text"
+            value={formData.firstname}
           />
         </div>
 
@@ -78,6 +88,7 @@ const ContactUs = () => {
             id="lastname"
             className={classes.Input}
             type="text"
+            value={formData.lastname}
           />
         </div>
 
@@ -90,6 +101,7 @@ const ContactUs = () => {
             id="email"
             className={classes.Input}
             type="email"
+            value={formData.email}
           />
         </div>
 
@@ -97,7 +109,12 @@ const ContactUs = () => {
           <label htmlFor="issue" className={classes.Label}>
             {translate("Issue")}
           </label>
-          <select id="issue" className={classes.Select} onChange={handleChange}>
+          <select
+            id="issue"
+            className={classes.Select}
+            onChange={handleChange}
+            value={formData.issue}
+          >
             <option value="">{translate("Select an issue")}</option>
             <option value={1}>{translate("Billing")}</option>
             <option value={2}>{translate("Technical Issue")}</option>
@@ -113,6 +130,7 @@ const ContactUs = () => {
             id="details"
             onChange={handleChange}
             className={classes.TextArea}
+            value={formData.details}
           ></textarea>
         </div>
 

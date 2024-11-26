@@ -1,85 +1,85 @@
 .Accordion {
-    animation: 0.3s ease 0s 1 normal backwards running iJJWSU;
-    margin-block-end: 1rem;
+  animation: 0.3s ease 0s 1 normal backwards running iJJWSU;
+  margin-block-end: 1rem;
 }
 
 .AccordionHeader {
-    background: var(--db-gray-11);
-    /* background: var(--db-gray-4); */
-    box-sizing: border-box;
-    box-shadow: rgb(25, 38, 43) 0px 1px 2px;
-    color: rgb(255, 255, 255);
-    cursor: pointer;
-    pointer-events: auto;
-    display: flex;
-    flex-flow: row;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    fill: rgb(255, 255, 255);
-    overflow: hidden;
-    padding: 0px 1.125rem;
-    position: relative;
-    transition: border-radius 0.2s ease 0s;
-    user-select: none;
-    z-index: 20;
+  background: var(--db-gray-11);
+  /* background: var(--db-gray-4); */
+  box-sizing: border-box;
+  box-shadow: rgb(25, 38, 43) 0px 1px 2px;
+  color: rgb(255, 255, 255);
+  cursor: pointer;
+  pointer-events: auto;
+  display: flex;
+  flex-flow: row;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  fill: rgb(255, 255, 255);
+  overflow: hidden;
+  padding: 0px 1.125rem;
+  position: relative;
+  transition: border-radius 0.2s ease 0s;
+  user-select: none;
+  z-index: 20;
 
-    min-height: 40px;
-    border-radius: 6px;
+  min-height: 40px;
+  border-radius: 6px;
 
-    gap: 8px;
+  gap: 8px;
 }
 
 .HeaderContent {
-    color: rgb(255, 255, 255);
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    gap: 8px;
-    -webkit-box-flex: 1;
-    flex-grow: 1;
+  color: rgb(255, 255, 255);
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  gap: 8px;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
 }
 
 .AccordionHeader > svg {
-    width: 16px;
-    height: 16px;
-    transition: transform 0.3s ease 0s;
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s ease 0s;
 }
 
-.Accordion.Open > .AccordionHeader > svg {
-    transform: scaleY(-1);
+.Accordion.Open .AccordionHeader > svg {
+  transform: scaleY(-1);
 }
 
 .AccordionBody {
-    background: var(--db-gray-1);
-    border-radius: 0px 0px 5px 5px;
+  background: var(--db-gray-1);
+  border-radius: 0px 0px 5px 5px;
 }
 
 .IconWrapper {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    fill: rgb(255, 255, 255);
-    width: 16px;
-    height: 16px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  fill: rgb(255, 255, 255);
+  width: 16px;
+  height: 16px;
 }
 .IconWrapper svg {
-    width: 16px;
-    height: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 .AccordionBase {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 7px 2px;
-    margin-block: 1rem;
-    margin-inline: 0.72rem;
-    display: flex;
-    flex-direction: column;
-    scroll-margin-block-start: 80px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 7px 2px;
+  margin-block: 1rem;
+  margin-inline: 0.72rem;
+  display: flex;
+  flex-direction: column;
+  scroll-margin-block-start: 80px;
 }
 
 @keyframes iJJWSU {
-    0% {
-        opacity: 0;
-    }
+  0% {
+    opacity: 0;
+  }
 }

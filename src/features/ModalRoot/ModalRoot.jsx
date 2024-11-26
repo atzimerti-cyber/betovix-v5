@@ -93,6 +93,8 @@ const ModalRoot = () => {
     if (user) modalPage = <NotificationsModal />;
     else
       modalPage = <Navigate replace to={getUrlWithParams("auth", "login")} />;
+  } else if (modal === "n") {
+    if (user) modalPage = <NotificationPopUp />;
   } else if (modal === "achievement") {
     if (user) modalPage = <AchievementModal />;
     else
@@ -111,7 +113,7 @@ const ModalRoot = () => {
 
   useEffect(() => {
     const isShown = sessionStorage.getItem("promoShown");
-    
+
     if (!isShown && modal == null && !user) {
       setTimeout(() => {
         // console.log('isShown')

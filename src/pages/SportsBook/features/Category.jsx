@@ -53,7 +53,7 @@ const Category = (props) => {
                 {categoryTournaments.map((categoryTournament, tournamentIndex) => {
                     return (
                         <div key={categoryTournament.Id} data-tournament={`Tournament:${categoryTournament.Id}`}>
-                            <AccordionSmall icon={selectedSport.icon} title={translate(categoryTournament.Name.International)} initOpen={tournamentIndex < 3}>
+                            <AccordionSmall icon={selectedSport.icon} title={translate(categoryTournament.Name.International)} initOpen={tournamentIndex < 0}>
                                 <Tournament
                                     tournament={categoryTournament}
                                     slice={props.slice}

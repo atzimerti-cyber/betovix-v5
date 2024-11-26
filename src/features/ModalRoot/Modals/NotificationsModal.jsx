@@ -1,5 +1,5 @@
 import { useRef, useCallback, useState, useEffect } from "react";
-
+import { useSelector } from "react-redux";
 import classes from "./NotificationsModal.module.css";
 import ArrowIcon from "../../../assets/svgs/notif-arrow.svg?react";
 import Notification from "../../Layout/features/Notification";
@@ -7,11 +7,15 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import CloseButton from "../../UI/Buttons/CloseButton";
+import { translate } from "../../../utils/translations";
 
 const NotificationsModal = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const lang = useSelector((state) => state.app.lang);
+
   const isMobile = useMediaQuery({ query: "(max-width: 1023px)" });
   const notifications = [];
   // const notifications = [
@@ -53,9 +57,9 @@ const NotificationsModal = () => {
       <div className={classes.NotificationModal}>
         <div className={classes.ModalContent}>
           <div className={classes.ModalHeader}>
-            <h1>Notifications</h1>
+            <h1>{translate("Notifications")}</h1>
             <div className={classes.ToggleButton}>
-              <p>Only show unread</p>
+              <p>{translate("Only show unread")}</p>
               <label className={classes.Switch}>
                 <input
                   type="checkbox"
@@ -83,7 +87,7 @@ const NotificationsModal = () => {
                     ))
                 ) : (
                   <div className={classes.Empty}>
-                    <span>No Unread Notifications.</span>
+                    <span>{translate("No Unread Notifications.")}</span>
                   </div>
                 )
               ) : (
@@ -93,7 +97,7 @@ const NotificationsModal = () => {
               )
             ) : (
               <div className={classes.Empty}>
-                <span>No Notifications.</span>
+                <span>{translate("No Notifications")}.</span>
               </div>
             )}
           </div>

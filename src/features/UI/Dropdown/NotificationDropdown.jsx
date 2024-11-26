@@ -1,12 +1,15 @@
 import { useRef, useCallback, useState } from "react";
-
+import { useSelector } from "react-redux";
 import classes from "./NotificationDropdown.module.css";
 import useClickOutside from "../../../hooks/useClickOutside";
 import ArrowIcon from "../../../assets/svgs/notif-arrow.svg?react";
 import Notification from "../../Layout/features/Notification";
+import { translate } from "../../../utils/translations";
 
 const NotificationDropdown = (props) => {
   const dropdownRef = useRef();
+
+  const lang = useSelector((state) => state.app.lang);
   const notifications = [];
 
   const [unreadOnly, setUnreadOnly] = useState(false);

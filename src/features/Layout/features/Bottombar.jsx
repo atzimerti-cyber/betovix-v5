@@ -9,7 +9,8 @@ import CasinoIcon from "../../../assets/svgs/casino.svg?react";
 import SportsIcon from "../../../assets/svgs/sports.svg?react";
 import Chat2Icon from "../../../assets/svgs/chat2.svg?react";
 import BetslipIcon from "../../../assets/svgs/betslip.svg?react";
-import Paper2Icon from "../../../assets/svgs/paper2.svg?react";
+// import Paper2Icon from "../../../assets/svgs/paper2.svg?react";
+import Paper2Icon from "../../../assets/svgs/mybets.svg?react";
 import PlayIcon from "../../../assets/svgs/play.svg?react";
 import LeaderIcon from "../../../assets/svgs/leader.svg?react";
 import PricesIcon from "../../../assets/svgs/prices.svg?react";
@@ -138,7 +139,7 @@ const Bottombar = () => {
       onClick={() => addParamsToUrl("search")}
     >
       <SearchIcon className={classes.WithStroke} />
-      <span className={classes.Label}>{translate("Slots")}</span>
+      <span className={classes.Label}>{translate("Search")}</span>
     </button>,
 
     <button

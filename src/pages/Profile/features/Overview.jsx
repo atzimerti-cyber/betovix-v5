@@ -3,18 +3,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
 
 import classes from "./Overview.module.css";
-import SwiperWithOverlay from "../../../features/UI/MainSwiper/SwiperWithOverlay";
-import LogoSmallIcon from "../../../assets/svgs/logo-small.svg?react";
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
+import InfoIcon from "../../../assets/svgs/info-circle.svg?react";
 import { getOverview } from "../profileAsyncActions";
 import { profileActions } from "../profileSlice";
 import DecorationDiv from "../../../features/DecorationDiv/DecorationDiv";
-import OverviewCategory from "./OverviewCategory";
-import { millisecondsToDateStr } from "../../../utils/custom";
 import { translate } from "../../../utils/translations";
+import { useNavigate } from "react-router-dom";
 
 const Overview = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const topGames = useSelector((state) => state.profile.topGames);
@@ -29,6 +28,18 @@ const Overview = () => {
     return () => dispatch(profileActions.setTopGames(null));
   }, []);
 
+  function formatUserFriendlyDate(dateString) {
+    const date = new Date(dateString);
+
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    };
+
+    return date.toLocaleDateString(undefined, options);
+  }
+
   return (
     <motion.div
       className={classes.TabContent}
@@ -36,34 +47,88 @@ const Overview = () => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.2 }}
     >
-      <p className={classes.OverviewTitle}>{translate("Overview")}</p>
+      <p className={classes.OverviewTitle}>{translate("Profile Overview")}</p>
 
       <div className={classes.GridContainer}>
-        <div className={classes.UserClassContainer}>
-          <div className={classes.LevelContainer}>
-            {/* <div className={classes.LevelBadge}>
-                            <div>{user?.level}</div>
-                        </div> */}
+        {/* <div className={classes.UserClassContainer}>
+          <div className={classes.LevelContainer}> 
           </div>
-          <p className={classes.Username}>{user?.Username}</p>
-          {/* <p className={classes.MemberSince}>
-                        {translate('Member since')} {millisecondsToDateStr(user?.registered)}
-                    </p> */}
-        </div>
-
+          <p className={classes.Username}>{user?.Username}</p> 
+        </div> */}
         <DecorationDiv color="primary">
           <>
-            <p className={classes.TotalName}>{translate("Active Tickets")}</p>
+            <p className={classes.TotalName}>{translate("Account Id")}</p>
+            <p className={classes.TotalBits}>{user?.Wallet.AccountId}</p>
+          </>
+        </DecorationDiv>
+        <DecorationDiv color="primary">
+          <>
+            <p className={classes.TotalName}>{translate("Username")}</p>
+            <p className={classes.TotalBits}>{user?.Username}</p>
+          </>
+        </DecorationDiv>
+        <DecorationDiv color="primary">
+          <>
+            <p className={classes.TotalName}>{translate("Member since")}</p>
             <p className={classes.TotalBits}>
-              {/* <CoinsIcon /> */}
-              {user?.OpenTickets}
+              {" "}
+              {formatUserFriendlyDate(`${user?.Wallet.CreationDate}`)}{" "}
+            </p>
+          </>
+        </DecorationDiv>
+        <DecorationDiv color="primary">
+          <>
+            <p className={classes.TotalName}>{translate("Total Balance")}</p>
+            <p className={classes.TotalBits}>
+              <CoinsIcon />
+              {user?.Wallet.Balance}
             </p>
           </>
         </DecorationDiv>
 
-        <DecorationDiv color="secondary">
+        <DecorationDiv color="primary">
           <>
-            <p className={classes.TotalName}>{translate("Active Wagared")}</p>
+            <p className={classes.TotalName}>{translate("Reserved Balance")}</p>
+            <p className={classes.TotalBits}>
+              <CoinsIcon />
+              {user?.Wallet.ReservedBalance}
+              <div
+                style={{
+                  margin: "0 0.5rem",
+                  height: "22px",
+                  width: "22px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  cursor: "pointer",
+                }}
+                onClick={() => navigate("/terms-and-conditions")}
+              >
+                <InfoIcon />
+              </div>
+            </p>
+          </>
+        </DecorationDiv>
+        <div
+          className={classes.GoToDiv}
+          onClick={() => navigate("/sportsbook/mybets")}
+          style={{
+            cursor: "pointer",
+          }}
+        >
+          <DecorationDiv color="primary">
+            <>
+              <p className={classes.TotalName}>{translate("Active Tickets")}</p>
+              <p className={classes.TotalBits}>{user?.OpenTickets}</p>
+            </>
+          </DecorationDiv>
+        </div>
+
+        <DecorationDiv color="primary">
+          <>
+            <p className={classes.TotalName}>
+              {translate("Wagared in Active Tickets")}
+            </p>
             <p className={classes.TotalBits}>
               <CoinsIcon />
               {user?.OpenTotal.toFixed(2)}
@@ -82,7 +147,7 @@ const Overview = () => {
                 </div> */}
       </div>
 
-      <div className={classes.GamesContainer}>
+      {/* <div className={classes.GamesContainer}>
         <SwiperWithOverlay
           title={translate("Top Games")}
           link="/casino/slots"
@@ -90,7 +155,7 @@ const Overview = () => {
           items={topGames?.Data}
           max={24}
         />
-      </div>
+      </div> */}
     </motion.div>
   );
 };

@@ -17,18 +17,26 @@ const useSlidesResponsive = (categ) => {
   // const isVeryBigDesktop = useMediaQuery({ query: "(max-width: 1500px)" });
 
   const isSmallMobile = useMediaQuery({ query: "(max-width: 400px)" });
-  const isMobile = useMediaQuery({ query: "(min-width: 401px) and (max-width: 575px)" });
-  const isTablet = useMediaQuery({ query: "(min-width: 576px) and (max-width: 768px)" });
-  const isDesktop = useMediaQuery({ query: "(min-width: 769px) and (max-width: 992px)" });
-  const isBigDesktop = useMediaQuery({ query: "(min-width: 993px) and (max-width: 1240px)" });
-  const isVeryBigDesktop = useMediaQuery({ query: "(min-width: 1241px) and (max-width: 1600px) " });
+  const isMobile = useMediaQuery({
+    query: "(min-width: 401px) and (max-width: 575px)",
+  });
+  const isTablet = useMediaQuery({
+    query: "(min-width: 576px) and (max-width: 768px)",
+  });
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 769px) and (max-width: 992px)",
+  });
+  const isBigDesktop = useMediaQuery({
+    query: "(min-width: 993px) and (max-width: 1240px)",
+  });
+  const isVeryBigDesktop = useMediaQuery({
+    query: "(min-width: 1241px) and (max-width: 1600px) ",
+  });
 
   let slidesPerView = 6;
   let slidesPerGroup = 4;
 
- 
   if (!categ || categ == "casino") {
-   
     if (isSmallMobile) {
       slidesPerView = 2;
       slidesPerGroup = 2;
@@ -43,10 +51,8 @@ const useSlidesResponsive = (categ) => {
         slidesPerView = 3.5;
         slidesPerGroup = 2;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-    
-          slidesPerView = 3.5;
-          slidesPerGroup = 3;
-        
+        slidesPerView = 3.5;
+        slidesPerGroup = 3;
       } else {
         slidesPerView = 4.2;
         slidesPerGroup = 3;
@@ -56,22 +62,19 @@ const useSlidesResponsive = (categ) => {
         slidesPerView = 4.5;
         slidesPerGroup = 3;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-       
-          slidesPerView = 4.5;
-          slidesPerGroup = 3;
-         
+        slidesPerView = 4.5;
+        slidesPerGroup = 3;
       } else {
         slidesPerView = 5.2;
-        slidesPerGroup = 3 ;
+        slidesPerGroup = 3;
       }
     } else if (isVeryBigDesktop) {
-
       if (isRightContainerOpen && isLeftContainerOpen) {
         slidesPerView = 4.1;
         slidesPerGroup = 3;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-          slidesPerView = 5.5;
-          slidesPerGroup = 4;
+        slidesPerView = 5.5;
+        slidesPerGroup = 4;
       } else {
         slidesPerView = 6.2;
         slidesPerGroup = 5;
@@ -81,17 +84,15 @@ const useSlidesResponsive = (categ) => {
         slidesPerView = 4.8;
         slidesPerGroup = 4;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-       
-          slidesPerView = 5.8;
-          slidesPerGroup = 5;
-        
+        slidesPerView = 5.8;
+        slidesPerGroup = 5;
       } else {
         slidesPerView = 6.2;
         slidesPerGroup = 5;
       }
     }
   } else if (categ == "match") {
-    console.log( `categ:${categ} isSmallMobile:${isSmallMobile} isMobile:${isMobile} isTablet:${isTablet} isDesktop:${isDesktop} isBigDesktop:${isBigDesktop} isVeryBigDesktop:${isVeryBigDesktop} isLeftContainerOpen:${isLeftContainerOpen} isRightContainerOpen:${isRightContainerOpen}`)
+    // console.log( `categ:${categ} isSmallMobile:${isSmallMobile} isMobile:${isMobile} isTablet:${isTablet} isDesktop:${isDesktop} isBigDesktop:${isBigDesktop} isVeryBigDesktop:${isVeryBigDesktop} isLeftContainerOpen:${isLeftContainerOpen} isRightContainerOpen:${isRightContainerOpen}`)
 
     if (isMobile || isSmallMobile) {
       slidesPerView = 1;
@@ -195,7 +196,7 @@ const useSlidesResponsive = (categ) => {
       slidesPerGroup = 6;
     }
   } else if (!categ || categ == "Cat2Swiper") {
-    if (isSmallMobile ) {
+    if (isSmallMobile) {
       slidesPerView = 1;
       slidesPerGroup = 1;
     } else if (isMobile) {
