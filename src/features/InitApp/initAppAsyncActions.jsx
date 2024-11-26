@@ -229,14 +229,32 @@ export const loadInitData = (isMobile) => {
         // });
         // sportsMenuItems.push(topTournamentsMenu);
 
+        // topTournaments.SubCategs.forEach((subCateg) => {
+        //   subCateg.Items.forEach((topTournament) => {
+        //     const value = topTournament.Value.split(",");
+        //     topTournamentsMenu.items.push({
+        //       id: topTournament.Value,
+        //       label: topTournament.Par2 + " " + topTournament.Name,
+        //       icon: <img src={topTournament.Icon} alt="-" />,
+        //       page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
+        //     });
+        //   });
+        // });
+
+        // sportsMenuItems.push(topTournamentsMenu);
+
         topTournaments.SubCategs.forEach((subCateg) => {
-          subCateg.Items.forEach((topTournament) => {
+          // Create a copy of the Items array and sort it
+          const sortedItems = [...subCateg?.Items].sort(
+            (a, b) => parseFloat(a?.Par1) - parseFloat(b?.Par1)
+          );
+
+          sortedItems.forEach((topTournament) => {
             const value = topTournament.Value.split(",");
             topTournamentsMenu.items.push({
               id: topTournament.Value,
-              label: topTournament.Par2 + " " + topTournament.Name,
+              label: `${topTournament.Par2} ${topTournament.Name}`,
               icon: <img src={topTournament.Icon} alt="-" />,
-              // icon: sportIcons[subCateg.SubCateg.Name],
               page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
             });
           });
