@@ -47,7 +47,7 @@ const NotificationsModal = () => {
     if (!isMobile) {
       navigate(location.pathname);
     }
-    dispatch(getUserNotifications());
+    //dispatch(getUserNotifications());
   }, [isMobile, navigate, location.pathname]);
 
   const handleToggle = () => {

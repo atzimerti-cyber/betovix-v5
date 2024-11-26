@@ -17,6 +17,7 @@ const MainButton = (props) => {
     if (props.size === 'small') elClasses.push(classes.Small);
 
     if (props.active) elClasses.push(classes.Active);
+    if (props.active2) elClasses.push(classes.Active2);
     if (props.disabled) elClasses.push(classes.Disabled);
     if (props.loading) {
         elClasses.push(classes.Loading);

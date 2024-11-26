@@ -68,7 +68,7 @@ const SportsBanners = (props) => {
                   <div className={classes.EventInfo}>
                     <div className={classes.EventHeader}>
                       <i>
-                        <p style={{fontWeight:'400'}}>
+                        <p style={{ fontWeight: "400" }}>
                           {banner.event?.Info.SportName?.International}
                           {" / "}
                           {banner.event?.Info.CategoryName?.International}
@@ -100,9 +100,9 @@ const SportsBanners = (props) => {
                             {banner.event?.Info?.HomeTeamName?.International}
                           </p>
                         </div>
-                        <span style={{ fontFamily: "Impact, sans-serif" }}>
+                        {/* <span style={{ fontFamily: "Impact, sans-serif" }}>
                           <i>VS</i>
-                        </span>
+                        </span> */}
                         <div className={classes.AwayTeam}>
                           <div
                             className={classes.Img}

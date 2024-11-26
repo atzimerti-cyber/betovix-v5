@@ -1,153 +1,160 @@
 .MainButton {
-    display: inline-flex;
-    flex-shrink: 0;
-    cursor: pointer;
-    -webkit-user-select: none;
-    user-select: none;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    border-color: transparent;
-    border-color: hsl(var(--n) / var(--tw-border-opacity));
-    text-align: center;
-    transition-property: color, background-color, border-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-text-decoration-color,
-        -webkit-backdrop-filter;
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter,
-        -webkit-text-decoration-color, -webkit-backdrop-filter;
-    transition-duration: 0.2s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    border-radius: var(--rounded-btn, 0.5rem);
-    height: 3rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    line-height: 1em;
-    min-height: 3rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    text-transform: var(--btn-text-case, uppercase);
-    -webkit-text-decoration-line: none;
-    text-decoration-line: none;
-    border-width: var(--border-btn, 1px);
-    --tw-border-opacity: 1;
-    --tw-bg-opacity: 1;
-    background-color: hsl(var(--n) / var(--tw-bg-opacity));
-    --tw-text-opacity: 1;
-    color: hsl(var(--nc) / var(--tw-text-opacity));
-    position: relative;
-    text-transform: none;
+  display: inline-flex;
+  flex-shrink: 0;
+  cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  border-color: transparent;
+  border-color: hsl(var(--n) / var(--tw-border-opacity));
+  text-align: center;
+  transition-property: color, background-color, border-color, fill, stroke,
+    opacity, box-shadow, transform, filter, -webkit-text-decoration-color,
+    -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+    backdrop-filter;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter,
+    backdrop-filter, -webkit-text-decoration-color, -webkit-backdrop-filter;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: var(--rounded-btn, 0.5rem);
+  height: 3rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  line-height: 1em;
+  min-height: 3rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-transform: var(--btn-text-case, uppercase);
+  -webkit-text-decoration-line: none;
+  text-decoration-line: none;
+  border-width: var(--border-btn, 1px);
+  --tw-border-opacity: 1;
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--n) / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: hsl(var(--nc) / var(--tw-text-opacity));
+  position: relative;
+  text-transform: none;
 }
 
 .MainButton:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
 }
 
 .MainButton:hover {
-    --tw-border-opacity: 1;
-    border-color: hsl(var(--nf, var(--n)) / var(--tw-border-opacity));
-    --tw-bg-opacity: 1;
-    background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity));
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--nf, var(--n)) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity));
 }
 
 .BVixLGreen.MainButton {
-    --tw-border-opacity: 1;
-    border-color: hsl(var(--blg) / var(--tw-border-opacity));
-    --tw-bg-opacity: 1;
-    background-color: hsl(var(--blg) / var(--tw-bg-opacity));
-    --tw-text-opacity: 1;
-    color: hsl(var(--pc) / var(--tw-text-opacity));
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--blg) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--blg) / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: hsl(var(--pc) / var(--tw-text-opacity));
 }
 
 .BVixLGreen.MainButton:hover {
-    --tw-border-opacity: 1;
-    border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
-    --tw-bg-opacity: 1;
-    background-color: hsl(112, 90%, 32%);
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(112, 90%, 32%);
 }
 
 .Primary.MainButton {
-    --tw-border-opacity: 1;
-    border-color: hsl(var(--p) / var(--tw-border-opacity));
-    --tw-bg-opacity: 1;
-    background-color: hsl(var(--p) / var(--tw-bg-opacity));
-    --tw-text-opacity: 1;
-    color: hsl(var(--pc) / var(--tw-text-opacity));
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--p) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--p) / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: hsl(var(--pc) / var(--tw-text-opacity));
 }
 
 .Primary.MainButton:hover {
-    --tw-border-opacity: 1;
-    border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
-    --tw-bg-opacity: 1;
-    background-color: hsl(var(--pf, var(--p)) / var(--tw-bg-opacity));
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--pf, var(--p)) / var(--tw-bg-opacity));
 }
 
 .Secondary.MainButton {
-    --tw-border-opacity: 1;
-    border-color: hsl(var(--s) / var(--tw-border-opacity));
-    --tw-bg-opacity: 1;
-    background-color: hsl(var(--s) / var(--tw-bg-opacity));
-    --tw-text-opacity: 1;
-    color: hsl(var(--sc) / var(--tw-text-opacity));
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--s) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--s) / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: hsl(var(--sc) / var(--tw-text-opacity));
 }
 
 .Secondary.MainButton:hover {
-    --tw-border-opacity: 1;
-    border-color: hsl(var(--sf, var(--s)) / var(--tw-border-opacity));
-    --tw-bg-opacity: 1;
-    background-color: hsl(var(--sf, var(--s)) / var(--tw-bg-opacity));
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--sf, var(--s)) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--sf, var(--s)) / var(--tw-bg-opacity));
 }
 
 .Transparent.MainButton {
-    border-width: 1px;
-    border-color: transparent;
-    background-color: initial;
-    color: currentColor;
+  border-width: 1px;
+  border-color: transparent;
+  background-color: initial;
+  color: currentColor;
 }
 
 .Transparent.MainButton:hover {
-    --tw-border-opacity: 0;
-    background-color: hsl(var(--bc) / var(--tw-bg-opacity));
-    --tw-bg-opacity: 0.1;
+  --tw-border-opacity: 0;
+  background-color: hsl(var(--bc) / var(--tw-bg-opacity));
+  --tw-bg-opacity: 0.1;
 }
 
 .Dark.MainButton {
-    --tw-border-opacity: 1;
-    --tw-bg-opacity: 1;
-    border-color: var(--value-30);
-    background-color: var(--value-30);
+  --tw-border-opacity: 1;
+  --tw-bg-opacity: 1;
+  border-color: var(--value-30);
+  background-color: var(--value-30);
 }
 
 .Dark.MainButton:hover {
-    --tw-border-opacity: 1;
-    --tw-bg-opacity: 1;
-    background-color: var(--value-44);
+  --tw-border-opacity: 1;
+  --tw-bg-opacity: 1;
+  background-color: var(--value-44);
 }
 
 .Small.MainButton {
-    height: 1.75rem;
-    min-height: 1.5rem;
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+  height: 1.75rem;
+  min-height: 1.5rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .Active.MainButton {
-    background-color: var(--db-brand-green-36);
+  background-color: var(--db-brand-green-36);
+}
+.Active2.MainButton {
+  background-color: #af37cf52;
 }
 
 .MainButton.Disabled {
-    pointer-events: none;
-    --tw-border-opacity: 0;
-    background-color: #273b4c;
-    --tw-bg-opacity: 0.4;
-    color: hsl(var(--bc) / var(--tw-text-opacity));
-    --tw-text-opacity: 0.4;
+  pointer-events: none;
+  --tw-border-opacity: 0;
+  background-color: #273b4c;
+  --tw-bg-opacity: 0.4;
+  color: hsl(var(--bc) / var(--tw-text-opacity));
+  --tw-text-opacity: 0.4;
 }
 
 .MainButton.noPadding {
-    padding-left: 0;
-    padding-right: 0;
+  padding-left: 0;
+  padding-right: 0;
 }

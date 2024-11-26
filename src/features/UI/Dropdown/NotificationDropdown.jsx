@@ -21,7 +21,7 @@ const NotificationDropdown = (props) => {
 
   useEffect(() => {
     if (props.show) {
-      dispatch(getUserNotifications());
+      //dispatch(getUserNotifications());
     }
   }, [props.show, dispatch]);
 
