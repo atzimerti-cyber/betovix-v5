@@ -150,6 +150,9 @@
 .SideMenuButtonContainer button .ActiveSvg path {
   fill: var(--db-brand-green) !important;
 }
+.SideMenuButtonContainer button .Active2Svg path {
+  fill: #ba0dff !important;
+}
 
 .SideMenuButtonContainer button span {
   display: flex;

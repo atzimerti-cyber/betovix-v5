@@ -121,7 +121,7 @@ const LeftContainer = memo(function () {
 
             {(permissions.AllowToCasino || permissions.AllowToSlots) && (
               <MainButton
-                active={pathnameNoParams.includes("/casino")}
+                active2={pathnameNoParams.includes("/casino")}
                 onClick={() => navigate("/casino/lobby")}
                 dataTooltipId="left-menu-tooltip"
                 dataTooltipContent={translate("Casino")}
@@ -129,7 +129,7 @@ const LeftContainer = memo(function () {
                 <CasinoIcon
                   className={
                     pathnameNoParams.includes("casino")
-                      ? classes.ActiveSvg
+                      ? classes.Active2Svg
                       : null
                   }
                 />

@@ -218,16 +218,30 @@ export const loadInitData = (isMobile) => {
           category: { id: 2, label: "Top Leagues", visible: true },
           items: [],
         };
-        topTournaments.SubCategs[0]?.Items.forEach((topTournament) => {
-          const value = topTournament.Value.split(",");
-          topTournamentsMenu.items.push({
-            id: topTournament.Value,
-            label: topTournament.Par2 + " " + topTournament.Name,
-            icon: <img src={topTournament.Icon} alt="-" />,
-            // icon: sportIcons[topTournaments.SubCategs[0].SubCateg.Name],
-            page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
+        // topTournaments.SubCategs[0]?.Items.forEach((topTournament) => {
+        //   const value = topTournament.Value.split(",");
+        //   topTournamentsMenu.items.push({
+        //     id: topTournament.Value,
+        //     label: topTournament.Par2 + " " + topTournament.Name,
+        //     icon: <img src={topTournament.Icon} alt="-" />,
+        //     page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
+        //   });
+        // });
+        // sportsMenuItems.push(topTournamentsMenu);
+
+        topTournaments.SubCategs.forEach((subCateg) => {
+          subCateg.Items.forEach((topTournament) => {
+            const value = topTournament.Value.split(",");
+            topTournamentsMenu.items.push({
+              id: topTournament.Value,
+              label: topTournament.Par2 + " " + topTournament.Name,
+              icon: <img src={topTournament.Icon} alt="-" />,
+              // icon: sportIcons[subCateg.SubCateg.Name],
+              page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
+            });
           });
         });
+
         sportsMenuItems.push(topTournamentsMenu);
 
         let topSportsMenu = {
