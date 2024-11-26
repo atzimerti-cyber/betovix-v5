@@ -418,7 +418,7 @@ const Breadcrumb = (props) => {
           )}
         </AnimatePresence>
       </div>
-      <div className={classes.NoPaddingCrumb}>
+      {/* <div className={classes.NoPaddingCrumb}>
         {selectedEvent ? (
           <div
             className={classes.DateContainer}
@@ -427,7 +427,7 @@ const Breadcrumb = (props) => {
             {formatUserFriendlyDate(`${selectedEvent.DateOfMatch}`)}
           </div>
         ) : null}
-      </div>
+      </div> */}
     </div>
   );
 };

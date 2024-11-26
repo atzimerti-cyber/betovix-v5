@@ -1,0 +1,18 @@
+
+.Logo {
+    position: absolute;
+    opacity: 0.6;
+    top: 5px;
+  }
+
+
+  @media (max-width: 768px) {
+    .Logo {
+      display: none;
+    }
+  }
+.Logo img,
+.Logo svg {
+    width: 75px;
+    height: 75px;
+}
