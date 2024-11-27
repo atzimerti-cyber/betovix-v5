@@ -103,6 +103,7 @@ const LeftContainer = memo(function () {
                   pathnameNoParams.includes("/sportsbook") ||
                   pathnameNoParams.includes("/event")
                 }
+                // onClick={() => navigate(`/${lang.id}/sportsbook/home/football`)}
                 onClick={() => navigate("/sportsbook/home/football")}
                 dataTooltipId="left-menu-tooltip"
                 dataTooltipContent={translate("Sports")}

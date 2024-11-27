@@ -173,15 +173,6 @@ const SwiperWithOverlay = (props) => {
                     }
                   >
                     <>
-                      {/* <Link
-                        to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
-                        onClick={(e) => {
-                          if (!user) {
-                            e.preventDefault();
-                            addParamsToUrl("auth", "login");
-                          }
-                        }}
-                      > */}
                       <article className={classes.Card}>
                         <div className={classes.ImageContainer}>
                           <div
@@ -193,7 +184,6 @@ const SwiperWithOverlay = (props) => {
                                   / /g,
                                   "%20"
                                 )})`,
-                              // backgroundImage: `url(${item.Data.ImageUrl})`,
                               backgroundSize: "100% 100%",
                               backgroundPosition: "center",
                               height: "100%",
@@ -204,20 +194,61 @@ const SwiperWithOverlay = (props) => {
                         {item.isNew && (
                           <div className={classes.NewLabel}>NEW</div>
                         )}
-                      </article>
-                      {/* </Link> */}
-                      {/* {bonusBalance > 0 && item.allowBonus && (
-                        <Link
-                          to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
-                        >
-                          <div className={classes.isBonus}>
-                            <button className={classes.bonusContainer}>
-                              <GiftIcon />
-                              {translate("Play With Bonus")}
-                            </button>
+                        {!isTouchScreen && (
+                          <div className={classes.OverlayContainer}>
+                            <div className={classes.InfoContainer}>
+                              <div className={classes.FavContainer}>
+                                <HeartIcon
+                                  className={
+                                    item.isFav ? classes.FavoriteIcon : null
+                                  }
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    e.preventDefault();
+                                    if (user) {
+                                      onToggleFavorite(item);
+                                    } else {
+                                      toast.warning(
+                                        "Login to access this feature"
+                                      );
+                                    }
+                                  }}
+                                />
+                              </div>
+                              <div>
+                                <p className={classes.BgGameName}>
+                                  {item.Data.Name}
+                                </p>
+                                <p className={classes.BgVendor}>
+                                  {item.Data.VendorName}
+                                </p>
+                              </div>
+                            </div>
+                            <div className={classes.ButtonsContainer}>
+                              <Link
+                                to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
+                              >
+                                <div className={classes.PlayBtnContainer}>
+                                  <button className={classes.PlayBtn}>
+                                    <PlayButton />
+                                  </button>
+                                </div>
+                              </Link>
+                              {bonusBalance > 0 && item.allowBonus && (
+                                <Link
+                                  to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                                >
+                                  <div className={classes.isBonus}>
+                                    <button className={classes.bonusContainer}>
+                                      <GiftIcon />
+                                    </button>
+                                  </div>
+                                </Link>
+                              )}
+                            </div>
                           </div>
-                        </Link>
-                      )} */}
+                        )}
+                      </article>
                     </>
                     <div className={classes.BackgroundContainer}>
                       <div>
@@ -226,107 +257,6 @@ const SwiperWithOverlay = (props) => {
                         </p>
                       </div>
                     </div>
-
-                    {/* <div className={classes.BackgroundContainer}>
-                      <div>
-                        <p className={classes.BgGameName}>{item.Data.Name}</p>
-                        <p className={classes.BgVendor}>
-                          {item.Data.VendorName}
-                        </p>
-                      </div>
-                      <HeartIcon
-                        className={item.isFav ? classes.FavoriteIcon : null}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          e.preventDefault();
-                          if (user) {
-                            onToggleFavorite(item);
-                          } else {
-                            toast.warning("Login to access this feature");
-                          }
-                        }}
-                      />
-                    </div> */}
-                    {!isTouchScreen && (
-                      <div className={classes.OverlayContainer}>
-                        <div className={classes.InfoContainer}>
-                          <div className={classes.FavContainer}>
-                            <HeartIcon
-                              className={
-                                item.isFav ? classes.FavoriteIcon : null
-                              }
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
-                                if (user) {
-                                  onToggleFavorite(item);
-                                } else {
-                                  toast.warning("Login to access this feature");
-                                }
-                              }}
-                            />
-                          </div>
-                          <div>
-                            <p className={classes.BgGameName}>
-                              {item.Data.Name}
-                            </p>
-                            <p className={classes.BgVendor}>
-                              {item.Data.VendorName}
-                            </p>
-                          </div>
-                        </div>
-                        <div className={classes.ButtonsContainer}>
-                          {/* <div className={classes.FavContainer}>
-                          <HeartIcon
-                            className={item.isFav ? classes.FavoriteIcon : null}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              e.preventDefault();
-                              if (user) {
-                                onToggleFavorite(item);
-                              } else {
-                                toast.warning("Login to access this feature");
-                              }
-                            }}
-                          />
-                        </div> */}
-                          <Link
-                            to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
-                          >
-                            <div className={classes.PlayBtnContainer}>
-                              <button className={classes.PlayBtn}>
-                                {/* {translate("Play Game")} */}
-                                <PlayButton />
-                              </button>
-                            </div>
-                          </Link>
-                          {/* {bonusBalance > 0 && item.allowBonus && (
-                          <Link
-                            to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
-                          >
-                            <div className={classes.isBonus}>
-                              <button className={classes.bonusContainer}>
-                                <GiftIcon />
-                                {translate("Play With Bonus")}
-                              </button>
-                            </div>
-                          </Link>
-                        )} */}
-                          {bonusBalance > 0 && item.allowBonus && (
-                            <Link
-                              to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
-                            >
-                              <div className={classes.isBonus}>
-                                <button className={classes.bonusContainer}>
-                                  <GiftIcon />
-                                  {/* <span>{translate("With Bonus")}</span> */}
-                                </button>
-                              </div>
-                            </Link>
-                          )}
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </SwiperSlide>
               );

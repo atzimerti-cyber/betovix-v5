@@ -59,7 +59,7 @@
   justify-content: center;
 }
 .ImageContainer {
-  aspect-ratio: 1/2;
+  aspect-ratio: 2/3;
   max-width: 200px;
   width: 98%;
   display: flex;
@@ -73,7 +73,7 @@
   background-size: contain;
   background-position: center center;
   height: 100%;
-  aspect-ratio: 1 / 2;
+  aspect-ratio: 2/3;
   background-repeat: no-repeat;
   border-radius: 10px;
 }
