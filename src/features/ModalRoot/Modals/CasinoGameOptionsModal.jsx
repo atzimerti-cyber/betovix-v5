@@ -43,7 +43,11 @@ const CasinoGameOptionsModal = (props) => {
             <div
               className={classes.Image}
               style={{
-                backgroundImage: `url(${game.Data.ImageUrl})`,
+                // backgroundImage: `url(${game.Data.ImageUrl3})`,
+                backgroundImage:
+                  game.Data.ImageUrl3 !== null &&
+                  `url(${game.Data.ImageUrl3.replace(/ /g, "%20")})`,
+                // backgroundImage: `url(${game.Data.ImageUrl})`,
               }}
             ></div>
           </div>

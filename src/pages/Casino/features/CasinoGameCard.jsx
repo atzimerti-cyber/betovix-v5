@@ -50,10 +50,13 @@ const CasinoGameCard = (props) => {
             {/* <img src={props.game.Data.ImageUrl} loading='lazy' onLoad={() => setIsLoaded(true)} /> */}
             <div
               style={{
-                backgroundImage: `url(${props.game.Data.ImageUrl.replace(
-                  / /g,
-                  "%20"
-                )})`,
+                // backgroundImage: `url(${props.game.Data.ImageUrl.replace(
+                //   / /g,
+                //   "%20"
+                // )})`,
+                backgroundImage:
+                  props.game.Data.ImageUrl3 !== null &&
+                  `url(${props.game.Data.ImageUrl3.replace(/ /g, "%20")})`,
                 backgroundSize: "100% 100%",
                 backgroundPosition: "center",
                 height: "100%",
