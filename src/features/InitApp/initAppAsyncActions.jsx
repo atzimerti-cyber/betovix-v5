@@ -675,7 +675,7 @@ export const getUserNotifications = () => {
     try {
       const lang = getLang();
       const response = await axiosApi.get(
-        `Notifications/Notifications?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        `UserNotificationsController/GetUserNotifications`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }

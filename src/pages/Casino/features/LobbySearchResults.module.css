@@ -80,6 +80,11 @@
 }
 @media (min-width: 900px) {
   .CardsContainer {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+}
+@media (min-width: 1000px) {
+  .CardsContainer {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
@@ -87,5 +92,11 @@
 @media (min-width: 1200px) {
   .CardsContainer {
     grid-template-columns: repeat(7, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1350px) {
+  .CardsContainer {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
   }
 }

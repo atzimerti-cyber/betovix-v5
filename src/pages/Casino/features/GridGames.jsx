@@ -58,30 +58,30 @@ const GridGames = (props) => {
     } else if (isMobile) {
       repeat = 3;
     } else if (isTablet) {
-      repeat = 4;
+      repeat = 5;
     } else if (isDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
         repeat = 4;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
         if (isRightContainerOpen) {
-          repeat = 5;
+          repeat = 6;
         } else {
           repeat = 4;
         }
       } else {
-        repeat = 5;
+        repeat = 6;
       }
     } else if (isBigDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        repeat = 5;
+        repeat = 6;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
         if (isRightContainerOpen) {
-          repeat = 6;
+          repeat = 7;
         } else {
-          repeat = 5;
+          repeat = 6;
         }
       } else {
-        repeat = 6;
+        repeat = 7;
       }
     } else if (isVeryBigDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
@@ -93,10 +93,10 @@ const GridGames = (props) => {
           repeat = 6;
         }
       } else {
-        repeat = 6;
+        repeat = 8;
       }
     } else {
-      repeat = 6;
+      repeat = 8;
     }
     return repeat;
   };

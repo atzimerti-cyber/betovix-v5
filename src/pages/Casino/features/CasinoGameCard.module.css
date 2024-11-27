@@ -66,9 +66,7 @@
 }
 .Card {
   width: 100%;
-  aspect-ratio: 1;
-  /* aspect-ratio: 6 / 4; */
-  aspect-ratio: 1;
+  aspect-ratio: 1/2; 
   position: relative;
   cursor: pointer;
   overflow: hidden;
@@ -85,13 +83,12 @@
 
 .ImageContainer {
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 1/2;
   position: relative;
 }
 
 .ImageContainer img {
-  object-fit: fill;
-  /* aspect-ratio: 6 / 4; */
+  object-fit: fill; 
   height: 160px;
   width: 160px;
   height: 100%;

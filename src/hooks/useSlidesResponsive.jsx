@@ -41,53 +41,53 @@ const useSlidesResponsive = (categ) => {
       slidesPerView = 2;
       slidesPerGroup = 2;
     } else if (isMobile) {
-      slidesPerView = 2.5;
+      slidesPerView = 3;
       slidesPerGroup = 2;
     } else if (isTablet) {
-      slidesPerView = 3.4;
+      slidesPerView = 4.3;
       slidesPerGroup = 3;
     } else if (isDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        slidesPerView = 3.5;
+        slidesPerView = 4;
         slidesPerGroup = 2;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-        slidesPerView = 3.5;
+        slidesPerView = 4;
         slidesPerGroup = 3;
       } else {
-        slidesPerView = 4.2;
+        slidesPerView = 4.7;
         slidesPerGroup = 3;
       }
     } else if (isBigDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        slidesPerView = 4.5;
+        slidesPerView = 5;
         slidesPerGroup = 3;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-        slidesPerView = 4.5;
+        slidesPerView = 5;
         slidesPerGroup = 3;
       } else {
-        slidesPerView = 5.2;
-        slidesPerGroup = 3;
+        slidesPerView = 6;
+        slidesPerGroup = 4;
       }
     } else if (isVeryBigDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        slidesPerView = 4.1;
+        slidesPerView = 4;
         slidesPerGroup = 3;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-        slidesPerView = 5.5;
+        slidesPerView = 6;
         slidesPerGroup = 4;
       } else {
-        slidesPerView = 6;
+        slidesPerView = 7;
         slidesPerGroup = 5;
       }
     } else {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        slidesPerView = 5.8;
+        slidesPerView = 7;
         slidesPerGroup = 4;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-        slidesPerView = 6.9;
+        slidesPerView = 9;
         slidesPerGroup = 5;
       } else {
-        slidesPerView = 6.9;
+        slidesPerView = 9;
         slidesPerGroup = 5;
       }
     }

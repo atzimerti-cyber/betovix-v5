@@ -28,6 +28,7 @@ import TicketReceiptModal from "./Modals/TicketReceiptModal";
 import NotificationsModal from "./Modals/NotificationsModal";
 import CasinoGameOptionsModal from "./Modals/CasinoGameOptionsModal";
 import PleaseVerify from "./Modals/PleaseVerify";
+import PromoCodeModal from "./Modals/PromoCodeModal";
 
 const ModalRoot = () => {
   const navigate = useNavigate();
@@ -80,6 +81,7 @@ const ModalRoot = () => {
   else if (modal === "load-booked") modalPage = <LoadBookedModal />;
   else if (modal === "ticket-receipt") modalPage = <TicketReceiptModal />;
   else if (modal === "load-ticket") modalPage = <LoadTicketModal />;
+  else if (modal === "promo-code") modalPage = <PromoCodeModal />;
   else if (modal === "statistics") modalPage = <StatisticsModal />;
   else if (modal === "announcement") modalPage = <AnnouncementModal />;
   else if (modal === "promotion") modalPage = <PromotionModal />;

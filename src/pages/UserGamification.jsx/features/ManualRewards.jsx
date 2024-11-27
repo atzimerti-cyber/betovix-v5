@@ -184,7 +184,7 @@ const ManualRewards = ({ onDataNotFound }) => {
               ) : (
                 <>
                   <p className={classes.Description}>
-                    {translate(`Loading`)}...
+                    {translate(`Place a bet to unlock the rewards`)}.
                   </p>
                   <div className={classes.ProgressBarContainer}>
                     <div className={classes.ProgressBar}>

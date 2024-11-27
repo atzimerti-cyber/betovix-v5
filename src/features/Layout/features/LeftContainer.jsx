@@ -217,7 +217,7 @@ const LeftContainer = memo(function () {
                           </span>
                         </MainButton>
 
-                        <MainButton
+                        {/* <MainButton
                           active={pathnameNoParams.includes(
                             "?modal=load-ticket"
                           )}
@@ -234,6 +234,26 @@ const LeftContainer = memo(function () {
                           />
                           <span>
                             {fullLeftContainer ? translate("Print Ticket") : ""}
+                          </span>
+                        </MainButton> */}
+
+                        <MainButton
+                          active={pathnameNoParams.includes(
+                            "?modal=promo-code"
+                          )}
+                          onClick={() => navigate("?modal=promo-code")}
+                          dataTooltipId="left-menu-tooltip"
+                          dataTooltipContent={translate("Promo Code")}
+                        >
+                          <TicketIcon
+                            className={
+                              pathnameNoParams.includes("?modal=promo-code")
+                                ? classes.ActiveSvg
+                                : null
+                            }
+                          />
+                          <span>
+                            {fullLeftContainer ? translate("Promo Code") : ""}
                           </span>
                         </MainButton>
                       </>
@@ -380,7 +400,7 @@ const LeftContainer = memo(function () {
           </div>
         ) : (
           <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
-            <DropdownLang topbar openTo="side"/>
+            <DropdownLang topbar openTo="side" />
           </div>
         )}
       </div>

@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 
 import MainSwiper from "./MainSwiper";
 import HeartIcon from "../../../assets/svgs/heart.svg?react";
+import PlayButton from "../../../assets/svgs/playbutton.svg?react";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
 import classes from "./SwiperWithOverlay.module.css";
 import LoaderPlaceholder from "../../UI/Skeletons/LoaderPlaceholder";
@@ -17,10 +18,13 @@ import {
 import { translate } from "../../../utils/translations";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 import _ from "lodash";
+import useTouchScreen from "../../../hooks/useTouchScreen";
+import { casinoActions } from "../../../pages/Casino/casinoSlice";
 
 const SwiperWithOverlay = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const isTouchScreen = useTouchScreen(); // Detect if the device has a touchscreen
 
   const lang = useSelector((state) => state.app.lang);
 
@@ -109,6 +113,10 @@ const SwiperWithOverlay = (props) => {
       });
     }
   };
+  const openGameModal = (game) => {
+    dispatch(casinoActions.setGameOptionsModal(game));
+    addParamsToUrl("game-options");
+  };
 
   return (
     items &&
@@ -120,11 +128,11 @@ const SwiperWithOverlay = (props) => {
         slidesPerGroup={slidesPerGroup}
         title={
           props.link ? (
-            <Link to={props.link}>{props.title}</Link>
+            <Link to={props.link}>{translate(`${props.title}`)}</Link>
           ) : props.task ? (
-            <a onClick={props.task}>props.title</a>
+            <a onClick={props.task}>{translate(`${props.title}`)}</a>
           ) : (
-            props.title
+            translate(`${props.title}`)
           )
         }
         viewAll={props.link}
@@ -150,11 +158,13 @@ const SwiperWithOverlay = (props) => {
                 : "slots";
 
               return (
-                <SwiperSlide
-                  key={item.Data.Id}
-                  // style={{ maxWidth: "none", minWidth: "none" }}
-                >
+                <SwiperSlide key={item.Data.Id}>
                   <div
+                    onClick={() => {
+                      if (isTouchScreen) {
+                        openGameModal(item);
+                      }
+                    }}
                     className={classes.SlideContainer}
                     style={
                       bonusBalance > 0
@@ -163,8 +173,7 @@ const SwiperWithOverlay = (props) => {
                     }
                   >
                     <>
-                      <Link
-                        // to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
+                      {/* <Link
                         to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
                         onClick={(e) => {
                           if (!user) {
@@ -172,25 +181,26 @@ const SwiperWithOverlay = (props) => {
                             addParamsToUrl("auth", "login");
                           }
                         }}
-                      >
-                        <article className={classes.Card}>
-                          <div className={classes.ImageContainer}>
-                            <div
-                              style={{
-                                backgroundImage: `url(${item.Data.ImageUrl})`,
-                                backgroundSize: "100% 100%",
-                                backgroundPosition: "center",
-                                height: "100%",
-                              }}
-                              onLoad={() => updateLoadedImages(index)}
-                            ></div>
-                          </div>
-                          {item.isNew && (
-                            <div className={classes.NewLabel}>NEW</div>
-                          )}
-                        </article>
-                      </Link>
-                      {bonusBalance > 0 && item.allowBonus && (
+                      > */}
+                      <article className={classes.Card}>
+                        <div className={classes.ImageContainer}>
+                          <div
+                            style={{
+                              backgroundImage: `url(${item.Data.ImageUrl3})`,
+                              // backgroundImage: `url(${item.Data.ImageUrl})`,
+                              backgroundSize: "100% 100%",
+                              backgroundPosition: "center",
+                              height: "100%",
+                            }}
+                            onLoad={() => updateLoadedImages(index)}
+                          ></div>
+                        </div>
+                        {item.isNew && (
+                          <div className={classes.NewLabel}>NEW</div>
+                        )}
+                      </article>
+                      {/* </Link> */}
+                      {/* {bonusBalance > 0 && item.allowBonus && (
                         <Link
                           to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
                         >
@@ -201,10 +211,17 @@ const SwiperWithOverlay = (props) => {
                             </button>
                           </div>
                         </Link>
-                      )}
+                      )} */}
                     </>
-
                     <div className={classes.BackgroundContainer}>
+                      <div>
+                        <p className={classes.SmallGameName}>
+                          {item.Data.Name}
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* <div className={classes.BackgroundContainer}>
                       <div>
                         <p className={classes.BgGameName}>{item.Data.Name}</p>
                         <p className={classes.BgVendor}>
@@ -223,7 +240,87 @@ const SwiperWithOverlay = (props) => {
                           }
                         }}
                       />
-                    </div>
+                    </div> */}
+                    {!isTouchScreen && (
+                      <div className={classes.OverlayContainer}>
+                        <div className={classes.InfoContainer}>
+                          <div className={classes.FavContainer}>
+                            <HeartIcon
+                              className={
+                                item.isFav ? classes.FavoriteIcon : null
+                              }
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                e.preventDefault();
+                                if (user) {
+                                  onToggleFavorite(item);
+                                } else {
+                                  toast.warning("Login to access this feature");
+                                }
+                              }}
+                            />
+                          </div>
+                          <div>
+                            <p className={classes.BgGameName}>
+                              {item.Data.Name}
+                            </p>
+                            <p className={classes.BgVendor}>
+                              {item.Data.VendorName}
+                            </p>
+                          </div>
+                        </div>
+                        <div className={classes.ButtonsContainer}>
+                          {/* <div className={classes.FavContainer}>
+                          <HeartIcon
+                            className={item.isFav ? classes.FavoriteIcon : null}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              e.preventDefault();
+                              if (user) {
+                                onToggleFavorite(item);
+                              } else {
+                                toast.warning("Login to access this feature");
+                              }
+                            }}
+                          />
+                        </div> */}
+                          <Link
+                            to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
+                          >
+                            <div className={classes.PlayBtnContainer}>
+                              <button className={classes.PlayBtn}>
+                                {/* {translate("Play Game")} */}
+                                <PlayButton />
+                              </button>
+                            </div>
+                          </Link>
+                          {/* {bonusBalance > 0 && item.allowBonus && (
+                          <Link
+                            to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                          >
+                            <div className={classes.isBonus}>
+                              <button className={classes.bonusContainer}>
+                                <GiftIcon />
+                                {translate("Play With Bonus")}
+                              </button>
+                            </div>
+                          </Link>
+                        )} */}
+                          {bonusBalance > 0 && item.allowBonus && (
+                            <Link
+                              to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                            >
+                              <div className={classes.isBonus}>
+                                <button className={classes.bonusContainer}>
+                                  <GiftIcon />
+                                  {/* <span>{translate("With Bonus")}</span> */}
+                                </button>
+                              </div>
+                            </Link>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
                 </SwiperSlide>
               );

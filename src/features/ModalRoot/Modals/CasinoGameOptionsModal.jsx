@@ -47,15 +47,21 @@ const CasinoGameOptionsModal = (props) => {
               }}
             ></div>
           </div>
+          {/* <div className={classes.GameName}>
+            {translate(`${game.Data.Name}`)}
+          </div>
+          <div className={classes.GameVendor}>
+            {translate(`${game.Data.VendorName}`)}
+          </div> */}
+        </div>
+
+        <div className={classes.OptionsContainer}>
           <div className={classes.GameName}>
             {translate(`${game.Data.Name}`)}
           </div>
           <div className={classes.GameVendor}>
             {translate(`${game.Data.VendorName}`)}
           </div>
-        </div>
-
-        <div className={classes.OptionsContainer}>
           <Link
             to={`/casino/game/${gameType}/${game.Data.ProviderName}/${game.Data.Id}/${game.Data.BrandGameId}/${game.Data.Name}?isBonus=false`}
           >
