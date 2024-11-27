@@ -4,9 +4,12 @@ import LogoSmall from "../../../assets/svgs/logo-small.svg?react";
 import { translate } from "../../../utils/translations";
 import { disableInstantTransitions } from "framer-motion";
 import { layoutActions } from "../layoutSlice";
+import { useNavigate } from "react-router-dom";
+import { viewUserNotification } from "../../InitApp/initAppAsyncActions";
 
 const Notification = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const lang = useSelector((state) => state.app.lang);
 
   const openNotifPopUp = (modal, notif) => {
@@ -20,6 +23,27 @@ const Notification = (props) => {
     });
   };
 
+  function formatUserFriendlyDate(dateString) {
+    const date = new Date(dateString);
+
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    };
+
+    return date.toLocaleDateString(undefined, options);
+  }
+
+  const readNotification = (id) => {
+    if (id) {
+      dispatch(viewUserNotification(id));
+    }
+  };
+
   return (
     <>
       <div
@@ -28,7 +52,10 @@ const Notification = (props) => {
             ? [classes.NotificationContainer, classes.Unviewed].join(" ")
             : classes.NotificationContainer
         }
-        onClick={openNotifPopUp("n", props.notification)}
+        onClick={() => {
+          openNotifPopUp("n", props.notification);
+          readNotification(props.notification.id);
+        }}
       >
         <div className={classes.Icon}>
           <LogoSmall />
@@ -42,7 +69,9 @@ const Notification = (props) => {
             </div>
             <div className={classes.RightPart}>
               <div className={classes.Date}>
-                {props.notification.date ? props.notification.date : " "}
+                {props.notification.date
+                  ? formatUserFriendlyDate(`${props.notification.date}`)
+                  : " "}
               </div>
               {!props.notification.viewed && (
                 <span className={classes.NewNotif}></span>

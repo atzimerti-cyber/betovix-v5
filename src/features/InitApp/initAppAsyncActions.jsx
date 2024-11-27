@@ -675,7 +675,7 @@ export const getUserNotifications = () => {
     try {
       const lang = getLang();
       const response = await axiosApi.get(
-        `UserNotificationsController/GetUserNotifications`,
+        `UserNotifications/GetUserNotifications`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -685,16 +685,37 @@ export const getUserNotifications = () => {
         throw new Error("Failed to fetch notifications.");
 
       const notifications = response.data.Contents.map((item) => ({
+        id: item.NotificationId,
         title: item?.Title,
-        message: item?.Message,
-        date: item?.Date,
-        viewed: item?.Viewed,
+        message: item?.Description,
+        date: item?.CreatedAt,
+        viewed: item?.Status === 0 ? false : true,
       }));
 
       dispatch(layoutActions.setNotifications(notifications));
     } catch (error) {
       toast.error(
         error?.message || "An error occurred while fetching notifications."
+      );
+    }
+  };
+};
+
+export const viewUserNotification = (id) => {
+  return async (dispatch, getState) => {
+    try {
+      const lang = getLang();
+      const response = await axiosApi.get(
+        `UserNotifications/ViewNotification?notificationId=${id}`,
+        {
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+
+      if (response.status !== 200) throw new Error();
+    } catch (error) {
+      console.error(
+        error?.message || "An error occurred while reading the notification."
       );
     }
   };

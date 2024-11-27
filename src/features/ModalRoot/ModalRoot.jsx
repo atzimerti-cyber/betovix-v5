@@ -29,6 +29,7 @@ import NotificationsModal from "./Modals/NotificationsModal";
 import CasinoGameOptionsModal from "./Modals/CasinoGameOptionsModal";
 import PleaseVerify from "./Modals/PleaseVerify";
 import PromoCodeModal from "./Modals/PromoCodeModal";
+import NotificationPopUp from "./Modals/NotificationPopUp";
 
 const ModalRoot = () => {
   const navigate = useNavigate();

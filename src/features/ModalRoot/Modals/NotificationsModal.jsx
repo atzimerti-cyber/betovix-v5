@@ -18,28 +18,7 @@ const NotificationsModal = () => {
   const lang = useSelector((state) => state.app.lang);
 
   const isMobile = useMediaQuery({ query: "(max-width: 1023px)" });
-  const notifications = [];
-  // const notifications = [
-  //   {
-  //     title: "Notification",
-  //     message:
-  //       "eidopoihshheidopoihshhh hheidopoih shhhhhei dopoihshhhhheidopoihsh hhhheidopoihshhhhhhhh",
-  //     date: "Yesterday",
-  //     viewed: false,
-  //   },
-  //   {
-  //     title: "Notiion",
-  //     message: "eidopoihshhhhh",
-  //     date: "Yesterday",
-  //     viewed: true,
-  //   },
-  //   {
-  //     title: "Ncation",
-  //     message: "eidopoihshhhhh",
-  //     date: "Yesterday",
-  //     viewed: true,
-  //   },
-  // ];
+  const notifications = useSelector((state) => state.layout.notifications);
 
   const [unreadOnly, setUnreadOnly] = useState(false);
 
@@ -47,7 +26,7 @@ const NotificationsModal = () => {
     if (!isMobile) {
       navigate(location.pathname);
     }
-    //dispatch(getUserNotifications());
+    dispatch(getUserNotifications());
   }, [isMobile, navigate, location.pathname]);
 
   const handleToggle = () => {

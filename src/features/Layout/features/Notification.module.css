@@ -3,11 +3,11 @@
   width: 100%;
   justify-content: flex-start;
   border-top: 1px solid #255873;
-  padding: 7px 5px 5px 5px;
+  padding: 7px 5px 5px 0px;
   height: fit-content;
+  border-bottom: 1px solid #0e1b2663;
 }
 .NotificationContainer.Unviewed {
-  /* background-color: rgba(146, 200, 230, 0.108); */
   background-color: #00d3ff21;
   cursor: pointer;
 }
@@ -19,8 +19,11 @@
 }
 
 .Icon {
+  display: flex;
   width: max-content;
-  margin: 0 1rem 0 0.5rem;
+  margin: 0 0.6rem 0 0.5rem;
+  justify-content: center;
+  align-items: center;
 }
 .Main {
   width: inherit;
@@ -55,6 +58,13 @@
 .Message {
   font-size: 0.8rem;
   color: azure;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 3 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Add the 3 dots */
+  white-space: normal; /* Allow text to wrap */
 }
 .NewNotif {
   margin-top: 3px;

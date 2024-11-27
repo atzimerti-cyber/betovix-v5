@@ -1,10 +1,13 @@
 import { useSelector } from "react-redux";
-import classes from "./NotificationsModal.module.css";
+import { useEffect } from "react";
+import { layoutActions } from "../../Layout/layoutSlice";
+import classes from "./NotificationPopUp.module.css";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import CloseButton from "../../UI/Buttons/CloseButton";
+import BellIcon from "../../../assets/svgs/bell.svg?react";
 
-const NotificationsModal = (props) => {
+const NotificationPopUp = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -15,27 +18,57 @@ const NotificationsModal = (props) => {
     (state) => state.layout.selectedNotification
   );
 
+  useEffect(() => {
+    return () => {
+      dispatch(layoutActions.setSelectedNotification(null));
+    };
+  }, []);
+
+  function formatUserFriendlyDate(dateString) {
+    const date = new Date(dateString);
+
+    const options = {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: false,
+    };
+
+    return date.toLocaleDateString(undefined, options);
+  }
+
   return (
-    isMobile && (
-      <div className={classes.NotificationModal}>
-        <div className={classes.ModalContent}>
-          <div className={classes.ModalHeader}>
-            <span className={classes.CloseWrapper}>
-              <CloseButton
-                timesIcon
-                onClick={() => navigate(location.pathname)}
-              />
-            </span>
-          </div>
-          <div className={classes.MainContent}>
-            {props.notification && (
-              <p>jkjkkkkkkkkkkkkkkvsbjddddddddddddddddddddddddddddddddd</p>
-            )}
-          </div>
+    <div className={classes.NotificationModal}>
+      <div className={classes.ModalContent}>
+        <div className={classes.ModalHeader}>
+          <span className={classes.CloseWrapper}>
+            <CloseButton
+              timesIcon
+              onClick={() => navigate(location.pathname)}
+            />
+          </span>
+        </div>
+        <div className={classes.MainContent}>
+          {notification && (
+            <>
+              <h1 className={classes.Title}>
+                <BellIcon />
+                {notification.title}
+              </h1>
+              <p className={classes.Message}>{notification.message}</p>
+              <p className={classes.Date}>
+                {notification.date
+                  ? formatUserFriendlyDate(`${notification.date}`)
+                  : " "}
+              </p>
+            </>
+          )}
         </div>
       </div>
-    )
+    </div>
   );
 };
 
-export default NotificationsModal;
+export default NotificationPopUp;

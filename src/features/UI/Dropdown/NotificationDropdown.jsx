@@ -6,13 +6,15 @@ import ArrowIcon from "../../../assets/svgs/notif-arrow.svg?react";
 import Notification from "../../Layout/features/Notification";
 import { getUserNotifications } from "../../InitApp/initAppAsyncActions";
 import { translate } from "../../../utils/translations";
+import { useNavigate } from "react-router-dom";
 
 const NotificationDropdown = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const dropdownRef = useRef();
 
   const lang = useSelector((state) => state.app.lang);
-  const notifications = [];
+  const notifications = useSelector((state) => state.layout.notifications);
 
   const [unreadOnly, setUnreadOnly] = useState(false);
 
@@ -21,7 +23,7 @@ const NotificationDropdown = (props) => {
 
   useEffect(() => {
     if (props.show) {
-      //dispatch(getUserNotifications());
+      dispatch(getUserNotifications());
     }
   }, [props.show, dispatch]);
 
