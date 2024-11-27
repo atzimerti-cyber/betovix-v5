@@ -136,7 +136,8 @@ const Bottombar = () => {
       key={6}
       type="button"
       className={classes.BottomMenuItem}
-      onClick={() => addParamsToUrl("search")}
+      onClick={() => navigate("/search")}
+      // onClick={() => addParamsToUrl("search")}
     >
       <SearchIcon className={classes.WithStroke} />
       <span className={classes.Label}>{translate("Search")}</span>

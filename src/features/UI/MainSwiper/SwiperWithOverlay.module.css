@@ -76,7 +76,7 @@
 
 .ImageContainer img {
   object-fit: contain;
-  aspect-ratio: 1/2;
+  aspect-ratio: 2/3;
   /* height: 160px;
   width: 160px;  */
   transform: translateZ(0);
