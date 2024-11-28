@@ -1,10 +1,34 @@
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import classes from "./TermsOfService.module.css";
 
 import { translate } from "../../utils/translations";
+import { affiliateCampaigns } from "../Login/loginAsyncActions";
+import { isMoreThan14DaysOld } from "../../utils/custom";
 
 const TermsOfService = () => {
   const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   const searchParams = new URLSearchParams(location.search);
+  //   let value = searchParams.get("code");
+  //   if (!value) {
+  //     value = localStorage.getItem("AffiliateCode");
+  //     const date = localStorage.getItem("AffiliateCodeDate");
+  //     const isMore = isMoreThan14DaysOld(date);
+  //     if (isMore) {
+  //       localStorage.removeItem("AffilliateCode");
+  //       localStorage.removeItem("AffilliateCodeDate");
+  //     }
+  //   }
+  //   if (value) {
+  //     localStorage.setItem("AffiliateCode", value);
+  //     localStorage.setItem("AffiliateCodeDate", new Date().toISOString());
+  //     console.log("nai");
+
+  //     dispatch(affiliateCampaigns(value));
+  //   }
+  // }, []);
 
   const lang = useSelector((state) => state.app.lang);
 

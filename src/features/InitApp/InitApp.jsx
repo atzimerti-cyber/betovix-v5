@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import Preloader from "../UI/Loaders/Preloader";
 import { loadInitData } from "./initAppAsyncActions";
 import { getUser } from "../../pages/Login/loginAsyncActions";
+import { affiliateCampaigns } from "../../pages/Login/loginAsyncActions";
+import { isMoreThan14DaysOld } from "../../utils/custom";
 
 const InitApp = () => {
   const dispatch = useDispatch();
@@ -23,12 +25,28 @@ const InitApp = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const basePath = window.location.origin;
+
   useEffect(() => {
-    // const img = new Image();
-    // img.src = `${basePath}/loading.webp`;
-    // img.onload = () => {
-    //   setIsLoaded(true); // Set the state to indicate the image is fully loaded
-    // };
+    const searchParams = new URLSearchParams(location.search);
+    let value = searchParams.get("code");
+    if (!value) {
+      value = localStorage.getItem("AffiliateCode");
+      const date = localStorage.getItem("AffiliateCodeDate");
+      const isMore = isMoreThan14DaysOld(date);
+      if (isMore) {
+        localStorage.removeItem("AffilliateCode");
+        localStorage.removeItem("AffilliateCodeDate");
+      }
+    }
+    if (value) {
+      localStorage.setItem("AffiliateCode", value);
+      localStorage.setItem("AffiliateCodeDate", new Date().toISOString());
+
+      dispatch(affiliateCampaigns(value));
+    }
+  }, []);
+
+  useEffect(() => {
     setIsLoaded(true);
   }, []);
 
