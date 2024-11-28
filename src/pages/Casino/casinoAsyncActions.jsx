@@ -113,6 +113,10 @@ export const getVendorGame = (
       var gameUrl;
       var urlObj;
 
+      if (isBonus === null) {
+        isBonus === false;
+      }
+
       if (providername === "Softion") {
         requests = [
           axiosApi.get(
@@ -124,10 +128,12 @@ export const getVendorGame = (
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
           if (response.data.Status.StatusCode !== 200) {
-            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+            const message = response.data.Contents
+              ? response.data.Contents
+              : "Error Loading Game";
             toast.error(message);
-            throw Error()
-         }
+            throw Error();
+          }
         });
         //game = responses[0].data.Contents;
         gameUrl = responses[0].data.Contents;
@@ -143,10 +149,12 @@ export const getVendorGame = (
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
           if (response.data.Status.StatusCode !== 200) {
-            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+            const message = response.data.Contents
+              ? response.data.Contents
+              : "Error Loading Game";
             toast.error(message);
-            throw Error()
-        }
+            throw Error();
+          }
         });
 
         if (providername === "Amarix") {
@@ -166,11 +174,13 @@ export const getVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-         if (response.data.Status.StatusCode !== 200) {
-            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+          if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents
+              ? response.data.Contents
+              : "Error Loading Game";
             toast.error(message);
-            throw Error()
-        }
+            throw Error();
+          }
         });
         //game = responses[0].data.Contents;
         gameUrl = responses[0].data.Contents;
@@ -184,11 +194,13 @@ export const getVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-         if (response.data.Status.StatusCode !== 200) {
-            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+          if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents
+              ? response.data.Contents
+              : "Error Loading Game";
             toast.error(message);
-            throw Error()
-        }
+            throw Error();
+          }
         });
         //game = responses[0].data.Contents;
         gameUrl = responses[0].data.Contents;
@@ -202,15 +214,16 @@ export const getVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-         if (response.data.Status.StatusCode !== 200) {
-            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+          if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents
+              ? response.data.Contents
+              : "Error Loading Game";
             toast.error(message);
-            throw Error()
-        }
+            throw Error();
+          }
         });
         gameUrl = responses[0].data.Contents;
       } else if (providername === "Hub88") {
-       
         requests = [
           axiosApi.get(
             `CasinoHub/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL}/casino&siteid=${config.VITE_SITE_ID}`,
@@ -220,11 +233,13 @@ export const getVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-         if (response.data.Status.StatusCode !== 200) {
-            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+          if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents
+              ? response.data.Contents
+              : "Error Loading Game";
             toast.error(message);
-            throw Error()
-        }
+            throw Error();
+          }
         });
         gameUrl = responses[0].data.Contents;
       }
@@ -254,8 +269,11 @@ export const getLiveVendorGame = (
 
       let requests = [];
       var game;
-      var gameUrl;
-      //var urlObj;
+      var gameUrl; 
+
+      if (isBonus === null) {
+        isBonus === false;
+      }
 
       if (providername === "MultiGames") {
         requests = [
@@ -267,12 +285,13 @@ export const getLiveVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-         if (response.data.Status.StatusCode !== 200) {
-            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+          if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents
+              ? response.data.Contents
+              : "Error Loading Game";
             toast.error(message);
-            throw Error()
-
-        }
+            throw Error();
+          }
         });
         //game = responses[0].data.Contents;
         gameUrl = responses[0].data.Contents;
@@ -286,12 +305,13 @@ export const getLiveVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-         if (response.data.Status.StatusCode !== 200) {
-            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+          if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents
+              ? response.data.Contents
+              : "Error Loading Game";
             toast.error(message);
-            throw Error()
-
-        }
+            throw Error();
+          }
         });
         gameUrl = responses[0].data.Contents;
       } else if (providername === "Hub88") {
@@ -304,12 +324,13 @@ export const getLiveVendorGame = (
 
         const responses = await Promise.all(requests);
         responses.forEach((response) => {
-         if (response.data.Status.StatusCode !== 200) {
-            const message = response.data.Contents? response.data.Contents : "Error Loading Game";
+          if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents
+              ? response.data.Contents
+              : "Error Loading Game";
             toast.error(message);
-            throw Error()
-
-        }
+            throw Error();
+          }
         });
         gameUrl = responses[0].data.Contents;
       }
@@ -697,9 +718,8 @@ export const loadMoreSearch = (signal, pageItems, tags, searchStr, order) => {
       dispatch(casinoActions.setMoreLoading(true));
       const lang = getLang();
 
-   
       const currentState = getState().casino;
-      let searchResults;  
+      let searchResults;
       if (tags[0].includes("slot")) {
         searchResults = currentState.slotGames;
       } else if (tags[0].includes("live")) {
@@ -710,8 +730,6 @@ export const loadMoreSearch = (signal, pageItems, tags, searchStr, order) => {
 
       let searchPage = searchResults.casinoSearchPage;
       searchPage = searchResults.casinoSearchPage + 1;
-
-      
 
       const payload = {
         Page: searchPage,
