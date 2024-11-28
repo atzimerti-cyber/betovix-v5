@@ -182,7 +182,7 @@ const Betslip = memo(function (props) {
                 </button>
             );
         }
-    }, [user?.AccountId, betError, slips?.length, betslip?.totalStake, placingBetLoading, savingBetLoading, isBonus]);
+    }, [user?.AccountId, betError, slips?.length, betslip?.totalStake, placingBetLoading, savingBetLoading, isBonus, lang]);
 
     const onChangeTab = (tab) => {
         slips.forEach((slip, index) => {
