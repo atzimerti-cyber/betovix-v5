@@ -143,6 +143,9 @@ export const loadInitData = (isMobile) => {
       //Get user rewards
       dispatch(getRewards());
 
+      //GetUserNotifications
+      dispatch(getUserNotifications());
+
       // Get permissions after setting user
       const currentLoginState = getState().login;
       const permissions = currentLoginState.permissions;

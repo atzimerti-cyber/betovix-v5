@@ -53,7 +53,9 @@ const Topbar = () => {
   );
   const showingLiveEvent = useSelector((state) => state.event.showingLiveEvent);
   const availableBonus = useSelector((state) => state.layout.availableBonus);
-  const newNotifications = 0; ///////////////////////////////////////////////////////////////
+  const newNotifications = useSelector(
+    (state) => state.layout.newNotifications
+  );
   const newRewards = useSelector(
     (state) => state.gamification.availableRewards
   );
@@ -276,9 +278,9 @@ const Topbar = () => {
                         >
                           <BellIcon />
                         </button>
-                        {newNotifications > 0 && (
+                        {newNotifications.length > 0 && (
                           <NumberBadge
-                            number={newNotifications}
+                            number={newNotifications.length}
                             floating
                             justifyRight
                           />

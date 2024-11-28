@@ -1,1 +1,12 @@
-<svg width="50" height="50.023" viewBox="0 0 13.229 13.235" xmlns="http://www.w3.org/2000/svg"><g transform="translate(-39.454 -45.822)"><rect width="13.229" height="13.229" x="39.454" y="45.825" ry="0" style="fill: none; stroke: none; stroke-width: 0.264583; stroke-miterlimit: 4; stroke-dasharray: none; stroke-opacity: 1;"></rect><path d="m47.491 45.822-.615 2.056h-6.569v9.028h3.868l-.554 1.852 1 .3 3.87-12.937zm4.338 2.052-2.93.024-.088.297-2.613 8.732 5.631-.022zm-10.681.844h5.477l-1.423 4.757a5.72 5.72 0 0 0-.41-.525c-.168-.172-.476-.149-.476-.149s-.355-.026-.54.195c-.38.471-1.204 1.93-1.786 2.124l-.256.086-.004.392 2.837-.003-.14.471h-3.28zm9.84.003v7.346l-3.66.015.138-.46 2.951-.08.018-1.36s-.54-.392-.782-.997c-.242-.606-1.081-1.166-1.081-1.166l.955-3.286Zm-7.783 1.04a.946.979 0 0 0-.946.978.946.979 0 0 0 .946.979.946.979 0 0 0 .946-.979.946.979 0 0 0-.946-.979Z" style="stroke-width: 0.289941;"></path></g></svg>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+
+<!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+<svg width="30px" height="30px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#000000">
+
+<g id="SVGRepo_bgCarrier" stroke-width="0"/>
+
+<g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+
+<g id="SVGRepo_iconCarrier"> <title>/svg/ic-horizontal-menu-2</title> <desc>Created with Sketch.</desc> <defs> </defs> <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"> <g id="ic-horizontal-menu-2" fill-rule="nonzero" fill="#000"> <path d="M12,6 C12.5522847,6 13,5.55228475 13,5 C13,4.44771525 12.5522847,4 12,4 C11.4477153,4 11,4.44771525 11,5 C11,5.55228475 11.4477153,6 12,6 L12,6 Z M12,8 C10.3431458,8 9,6.65685425 9,5 C9,3.34314575 10.3431458,2 12,2 C13.6568542,2 15,3.34314575 15,5 C15,6.65685425 13.6568542,8 12,8 Z M12,15 C10.3431458,15 9,13.6568542 9,12 C9,10.3431458 10.3431458,9 12,9 C13.6568542,9 15,10.3431458 15,12 C15,13.6568542 13.6568542,15 12,15 Z M12,13 C12.5522847,13 13,12.5522847 13,12 C13,11.4477153 12.5522847,11 12,11 C11.4477153,11 11,11.4477153 11,12 C11,12.5522847 11.4477153,13 12,13 Z M12,22 C10.3431458,22 9,20.6568542 9,19 C9,17.3431458 10.3431458,16 12,16 C13.6568542,16 15,17.3431458 15,19 C15,20.6568542 13.6568542,22 12,22 Z M12,20 C12.5522847,20 13,19.5522847 13,19 C13,18.4477153 12.5522847,18 12,18 C11.4477153,18 11,18.4477153 11,19 C11,19.5522847 11.4477153,20 12,20 Z" id="Combined-Shape" transform="translate(12.000000, 12.000000) rotate(90.000000) translate(-12.000000, -12.000000) "> </path> </g> </g> </g>
+
+</svg>
