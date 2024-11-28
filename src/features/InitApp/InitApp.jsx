@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
 import { useNavigate } from "react-router-dom";
@@ -11,10 +11,15 @@ import { getUser } from "../../pages/Login/loginAsyncActions";
 import { affiliateCampaigns } from "../../pages/Login/loginAsyncActions";
 import { isMoreThan14DaysOld } from "../../utils/custom";
 
+import { appActions } from "./appSlice";
+import { setLang, getLang } from "../../utils/storage";
+
 const InitApp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
+  const lang = useSelector((state) => state.app.lang);
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const initDataLoaded = useSelector((state) => state.app.initDataLoaded);
@@ -45,6 +50,21 @@ const InitApp = () => {
       dispatch(affiliateCampaigns(value));
     }
   }, []);
+
+  useEffect(() => {
+    if (Object.keys(lang).length > 0) {
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set("lang", lang.id); // Add or update the "lang" parameter
+
+      // Construct the new path with the updated query string
+      const newPath = `${location.pathname}?${searchParams.toString()}`;
+
+      // Prevent unnecessary navigation if the path is already correct
+      if (newPath !== `${location.pathname}${location.search}`) {
+        navigate(newPath, { replace: true });
+      }
+    }
+  }, [location.pathname, lang.id, navigate]);
 
   useEffect(() => {
     setIsLoaded(true);

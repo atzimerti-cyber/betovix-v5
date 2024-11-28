@@ -3,6 +3,7 @@ import axiosApi from "../../axios-api";
 import { getLang } from "../../utils/storage";
 import { casinoCrashGamesActions } from "./crashGamesSlice";
 import config from "../../config";
+import { translate } from "../../utils/translations";
 
 export const getCasinoCrashGames = (signal) => {
   return async (dispatch) => {
@@ -26,7 +27,10 @@ export const getCasinoCrashGames = (signal) => {
         casinoCrashGamesActions.setCasinoCrashGames(response.data.Contents)
       );
     } catch (error) {
-      if (!error?.code === "ERR_CANCELED") toast.error(error?.message);
+      if (!error?.code === "ERR_CANCELED") {
+        let toastMessage = translate(`${error?.message}`);
+        toast.error(toastMessage);
+      }
       dispatch(casinoCrashGamesActions.setCasinoCrashGames([]));
     }
   };

@@ -213,8 +213,8 @@ const Settings = () => {
               {editUsername && (
                 <p className={classes.Text}>
                   {translate(
-                    "Your username must be between 1 and 24 characters."
-                  )}
+                    "Your username must be between 1 and 24 characters"
+                  )}.
                 </p>
               )}
 
@@ -242,8 +242,8 @@ const Settings = () => {
                 <>
                   <p className={classes.Text}>
                     {translate(
-                      "You must enter your password to change your username."
-                    )}
+                      "You must enter your password to change your username"
+                    )}.
                   </p>
                   <div className={classes.ChangeUsernameSection}>
                     <MainInput
@@ -526,8 +526,8 @@ const Settings = () => {
             </p>
             <p className={classes.Text}>
               {translate(
-                "This is your unique ID. Please include this ID when contacting support."
-              )}
+                "This is your unique ID. Please include this ID when contacting support"
+              )}.
             </p>
 
             <CopyToClipboardCont text={user?.AccountId} />

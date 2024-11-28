@@ -3,6 +3,7 @@ import axiosApi from "../../axios-api";
 import { getLang } from "../../utils/storage";
 import { casinoTagActions } from "./CasinoTagSlice";
 import config from "../../config";
+import { translate } from "../../utils/translations";
 
 export const getCasinoSwiperByTag = (signal, tag) => {
   return async (dispatch) => {
@@ -24,7 +25,10 @@ export const getCasinoSwiperByTag = (signal, tag) => {
 
       dispatch(casinoTagActions.setCasinoByTag({ tag, data: response.data }));
     } catch (error) {
-      if (!error?.code === "ERR_CANCELED") toast.error(error?.message);
+      if (!error?.code === "ERR_CANCELED") {
+        let toastMessage = translate(`${error?.message}`);
+        toast.error(toastMessage);
+      }
       dispatch(casinoTagActions.setCasinoByTag([]));
     }
   };

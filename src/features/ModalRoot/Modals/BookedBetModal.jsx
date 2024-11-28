@@ -22,10 +22,12 @@ const BookedBetModal = () => {
       navigator.clipboard
         .writeText(lastBooked.BookId)
         .then(() => {
-          toast.success("ID copied to clipboard");
+          let toastMessage = translate("ID copied to clipboard");
+          toast.success(toastMessage);
         })
         .catch((err) => {
-          toast.error("ID can not be copied");
+          let toastMessage = translate("ID can not be copied");
+          toast.error(toastMessage);
         });
     }
   };
@@ -34,7 +36,8 @@ const BookedBetModal = () => {
   const invalidPoints = ticketData?.points.some((point) => !point.MatchId);
 
   if (invalidPoints) {
-    toast.error("Please select other matches");
+    let toastMessage = translate("Please select other matches");
+    toast.error(toastMessage);
     return null;
   }
 

@@ -24,14 +24,16 @@ const PleaseVerify = () => {
         <div className={classes.MainContent}>
           <InboxIcon />
           <p className={classes.Message}>
+            {translate("A verification email has been sent to your inbox")}.
             {translate(
-              "A verification email has been sent to your inbox. Please check your email and click the link to confirm your account."
+              "Please check your email and click the link to confirm your account"
             )}
+            .
           </p>
         </div>
         <div className={classes.Buttons}>
           <MainButton color="dark" onClick={handleButtonClick}>
-            <span>{translate("Done!")}</span>
+            <span>{translate("Done")}</span>
           </MainButton>
         </div>
       </div>

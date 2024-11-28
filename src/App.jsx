@@ -51,15 +51,9 @@ const ContactUs = React.lazy(() => import("./pages/Footer Pages/ContactUs"));
 const ErrorPage = React.lazy(() => import("./pages/Error Page/ErrorPage"));
 
 function App() {
-  const lang = useSelector((state) => state.app.lang.id);
-
   const router = createBrowserRouter([
-    // {
-    //   path: "/",
-    //   element: <Navigate to={`/${lang}`} replace />,
-    // },
     {
-      // path: "/:lang/",
+      path: "/",
       element: <InitApp />,
       //errorElement: <ErrorPage />,
       children: [

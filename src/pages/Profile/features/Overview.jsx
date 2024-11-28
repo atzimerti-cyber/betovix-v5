@@ -50,11 +50,6 @@ const Overview = () => {
       <p className={classes.OverviewTitle}>{translate("Overview")}</p>
 
       <div className={classes.GridContainer}>
-        {/* <div className={classes.UserClassContainer}>
-          <div className={classes.LevelContainer}> 
-          </div>
-          <p className={classes.Username}>{user?.Username}</p> 
-        </div> */}
         <DecorationDiv color="primary">
           <>
             <p className={classes.TotalName}>{translate("Account Id")}</p>

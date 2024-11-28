@@ -4,6 +4,8 @@ import { getLang } from "../../utils/storage";
 import { bannersActions } from "./BannersSlice";
 import config from "../../config";
 
+import { translate } from "../../utils/translations";
+
 export const getBanners = (signal, device) => {
   return async (dispatch) => {
     try {
@@ -38,7 +40,8 @@ export const getBanners = (signal, device) => {
       }
       dispatch(bannersActions.setBanners(banners));
     } catch (error) {
-      if (!error?.code === "ERR_CANCELED") toast.error(error?.message);
+      let toastMessage = translate(`${error?.message}`);
+      if (!error?.code === "ERR_CANCELED") toast.error(toastMessage);
     }
   };
 };

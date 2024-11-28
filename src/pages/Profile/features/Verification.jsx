@@ -311,7 +311,8 @@ const Verification = () => {
               {level2Status === 1 && (
                 <div className={classes.AccordionContent}>
                   <p style={{ color: "#cbb507" }}>
-                    {translate(`Verification Pending. This might take a while`)}
+                    {translate(`Verification Pending`)}.
+                    {translate(`This might take a while`)}
                     {pendingDots}
                   </p>
                 </div>
@@ -335,8 +336,10 @@ const Verification = () => {
                         textAlign: "center",
                       }}
                     >
-                      {translate(` Your request was rejected. You can resend your information
-                      for reevaluation.`)}
+                      {translate(`Your request was rejected`)}.
+                      {translate(`You can resend your information
+                      for reevaluation`)}
+                      .
                     </p>
                   </div>
 
@@ -377,8 +380,9 @@ const Verification = () => {
                     }}
                   >
                     {translate(
-                      `Your personal information has been successfully verified.`
+                      `Your personal information has been successfully verified`
                     )}
+                    .
                   </p>
                 </div>
               )}
@@ -410,7 +414,11 @@ const Verification = () => {
                     <div className={classes.FileForms}>
                       <div className={classes.FileInputForm}>
                         <h2>
-                          <i>{translate("(SIDE 1)")}</i>
+                          <i>
+                            {"("}
+                            {translate("SIDE")}
+                            {" 1)"}
+                          </i>
                         </h2>
                         <input
                           id="frontSideInput"
@@ -434,7 +442,11 @@ const Verification = () => {
                       </div>
                       <div className={classes.FileInputForm}>
                         <h2>
-                          <i>{translate("(SIDE 2)")}</i>
+                          <i>
+                            {" "}
+                            {"("}
+                            {translate("(SIDE)")} {" 2)"}
+                          </i>
                         </h2>
                         <input
                           id="backSideInput"
@@ -476,7 +488,8 @@ const Verification = () => {
               )}
               {level3Status === 1 && (
                 <p style={{ color: "#cbb507" }}>
-                  {translate(`Verification Pending. This might take a while`)}
+                  {translate(`Verification Pending`)}.
+                  {translate(`This might take a while`)}
                   {pendingDots}
                 </p>
               )}
@@ -499,8 +512,10 @@ const Verification = () => {
                         textAlign: "start",
                       }}
                     >
-                      {translate(`Your request was rejected. You can resend your ID for
-                      reevaluation.`)}
+                      {translate(`Your request was rejected`)}.
+                      {translate(`You can resend your ID for
+                      reevaluation`)}
+                      .
                     </p>
                   </div>
                   <form onSubmit={handleIDSubmit} style={{ width: "100%" }}>
@@ -589,7 +604,7 @@ const Verification = () => {
                       textAlign: "start",
                     }}
                   >
-                    {translate(`Your ID has been successfully verified.`)}
+                    {translate(`Your ID has been successfully verified`)}.
                   </p>
                 </div>
               )}
@@ -614,13 +629,15 @@ const Verification = () => {
             <div className={classes.AccordionContent}>
               <p>
                 {translate(
-                  "Take an interactive selfie and ID picture with liveness check."
+                  "Take an interactive selfie and ID picture with liveness check"
                 )}
+                .
               </p>
               {level4Status === 0 && <LivePhotoCheck />}
               {level4Status === 1 && (
                 <p style={{ color: "#cbb507" }}>
-                  {translate(`Verification Pending. This might take a while`)}
+                  {translate(`Verification Pending`)}.
+                  {translate(`This might take a while`)}
                   {pendingDots}
                 </p>
               )}
@@ -643,8 +660,10 @@ const Verification = () => {
                         textAlign: "start",
                       }}
                     >
-                      {translate(`Your request was rejected. Retake a photo for
-                      reevaluation.`)}
+                      {translate(`Your request was rejected`)}.
+                      {translate(`Retake a photo for
+                      reevaluation`)}
+                      .
                     </p>
                   </div>
                   <LivePhotoCheck />
@@ -669,8 +688,9 @@ const Verification = () => {
                     }}
                   >
                     {translate(
-                      `Your live photo check has been successfully verified.`
+                      `Your live photo check has been successfully verified`
                     )}
+                    .
                   </p>
                 </div>
               )}
@@ -695,7 +715,7 @@ const Verification = () => {
             <>
               {level5Status === 0 && (
                 <div className={classes.AccordionContent}>
-                  <p>{translate("Submit proof of your current address.")}</p>
+                  <p>{translate("Submit proof of your current address")}.</p>
                   <form
                     onSubmit={handlePOASubmit}
                     className={classes.FileInputForm}
@@ -737,7 +757,8 @@ const Verification = () => {
               {level5Status === 1 && (
                 <div className={classes.AccordionContent}>
                   <p style={{ color: "#cbb507" }}>
-                    {translate(`Verification Pending. This might take a while`)}
+                    {translate(`Verification Pending`)}.
+                    {translate(`This might take a while`)}
                     {pendingDots}
                   </p>
                 </div>
@@ -761,12 +782,14 @@ const Verification = () => {
                         textAlign: "start",
                       }}
                     >
-                      {translate(`Your request was rejected. Sumbit proof of address for
-                      reevaluation.`)}
+                      {translate(`Your request was rejected`)}.
+                      {translate(`Sumbit proof of address for
+                      reevaluation`)}
+                      .
                     </p>
                   </div>
                   <div className={classes.AccordionContent}>
-                    <p>{translate("Submit proof of your current address.")}</p>
+                    <p>{translate("Submit proof of your current address")}.</p>
                     <form
                       onSubmit={handlePOASubmit}
                       className={classes.FileInputForm}
@@ -825,8 +848,9 @@ const Verification = () => {
                     }}
                   >
                     {translate(
-                      `Your proof of address has been successfully verified.`
+                      `Your proof of address has been successfully verified`
                     )}
+                    .
                   </p>
                 </div>
               )}
@@ -851,7 +875,7 @@ const Verification = () => {
             <>
               {level6Status === 0 && (
                 <div className={classes.AccordionContent}>
-                  <p>{translate("Submit proof of source of funds.")}</p>
+                  <p>{translate("Submit proof of source of funds")}.</p>
                   <form
                     onSubmit={handleSOFSubmit}
                     className={classes.FileInputForm}
@@ -893,7 +917,8 @@ const Verification = () => {
               {level6Status === 1 && (
                 <div className={classes.AccordionContent}>
                   <p style={{ color: "#cbb507" }}>
-                    {translate(`Verification Pending. This might take a while`)}
+                    {translate(`Verification Pending`)}.
+                    {translate(`This might take a while`)}
                     {pendingDots}
                   </p>
                 </div>
@@ -917,8 +942,10 @@ const Verification = () => {
                         textAlign: "start",
                       }}
                     >
-                      {translate(`Your request was rejected. Sumbit source of funds for
-                      reevaluation.`)}
+                      {translate(`Your request was rejected`)}.
+                      {translate(`Sumbit source of funds for
+                      reevaluation`)}
+                      .
                     </p>
                   </div>
                   <div className={classes.AccordionContent}>
@@ -980,8 +1007,9 @@ const Verification = () => {
                     }}
                   >
                     {translate(
-                      `Your source of funds has been successfully verified.`
+                      `Your source of funds has been successfully verified`
                     )}
+                    .
                   </p>
                 </div>
               )}

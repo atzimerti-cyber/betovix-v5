@@ -8,6 +8,7 @@ import { getLang } from "../../utils/storage";
 import { toast } from "react-toastify";
 import { setAccessToken } from "../../utils/auth";
 import config from "../../config";
+import { translate } from "../../utils/translations";
 
 export const logingGoogle = (loginInfo, navigate, locationPathname) => {
   return async (dispatch) => {
@@ -69,9 +70,10 @@ export const login = (loginInfo, navigate, locationPathname) => {
         }
       );
       if (response.data.Status.StatusCode !== 200) {
-        const errorm = response.data.Contents?.Item1? response.data.Contents?.Item1 : response.data.Contents
+        const errorm = response.data.Contents?.Item1
+          ? response.data.Contents?.Item1
+          : response.data.Contents;
         throw Error(errorm);
-
       }
       setAccessToken(response.data.Contents.Token);
 
@@ -100,7 +102,7 @@ export const login = (loginInfo, navigate, locationPathname) => {
       dispatch(loginActions.setLoginLoading(false));
       navigate(locationPathname, { replace: true });
     } catch (error) {
-      const message = error?.message || 'Invalid Login'
+      const message = error?.message || "Invalid Login";
       toast.error(message);
       dispatch(loginActions.setLoginLoading(false));
     }
@@ -141,10 +143,11 @@ export const register = (registerInfo, navigate, locationPathname) => {
         if (response2.data.Status.StatusCode !== 200) {
           toast.error(response2.data.Contents);
         } else {
-          // toast.success(response2.data.Contents);
-          toast.success(
-            "Success! Please check your email to verify your registration."
+          let toastMessage1 = translate(`Success`);
+          let toastMessage2 = translate(
+            `Please check your email to verify your registration`
           );
+          toast.success(`${toastMessage1}! ${toastMessage2}.`);
           navigate(`${locationPathname}?modal=verify`, {
             replace: true,
           });

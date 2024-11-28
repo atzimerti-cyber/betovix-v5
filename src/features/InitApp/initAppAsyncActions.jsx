@@ -44,6 +44,7 @@ import {
 } from "../../pages/UserGamification.jsx/gamificationAsyncActions";
 import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
 import Footer from "../Layout/features/Footer";
+import { translate } from "../../utils/translations";
 
 export const loadInitData = (isMobile) => {
   return async (dispatch, getState) => {
@@ -70,8 +71,25 @@ export const loadInitData = (isMobile) => {
       if (storageTicket && storageTicket.type)
         dispatch(betslipActions.setBetType(storageTicket.type));
 
-      const lang = getLang();
-      dispatch(appActions.setLang(lang));
+      //====================================LANG================================================//
+      let lang;
+      const searchParams = new URLSearchParams(location.search);
+      let urlLang = searchParams.get("lang");
+      let urlLangObj = { id: urlLang };
+      if (urlLang) {
+        lang = urlLangObj;
+        dispatch(appActions.setLang(lang));
+        // setLang(lang);
+      } else {
+        lang = getLang();
+        dispatch(appActions.setLang(lang));
+        searchParams.set("lang", lang.id); // Update the searchParams object
+        const newUrl = `${location.pathname}?${searchParams.toString()}`; // Construct the new URL
+        window.history.replaceState(null, "", newUrl); // Update the browser's URL without reloading
+      }
+
+      // const lang = getLang();
+      // dispatch(appActions.setLang(lang));
 
       let oddsFormat = storageGetOddsFormat();
       if (!oddsFormat) {
@@ -144,7 +162,9 @@ export const loadInitData = (isMobile) => {
       dispatch(getRewards());
 
       //GetUserNotifications
-      dispatch(getUserNotifications());
+      {
+        user && dispatch(getUserNotifications());
+      }
 
       // Get permissions after setting user
       const currentLoginState = getState().login;
@@ -487,14 +507,14 @@ export const loadInitData = (isMobile) => {
 
       dispatch(layoutActions.setFooter(footer));
 
-      ///////////////////////////
-      //console.log(allMenuItems);
       dispatch(appActions.setMenuItems(allMenuItems));
       setTimeout(function () {
         dispatch(appActions.setInitDataLoaded(true));
       }, 2500);
     } catch (error) {
+      // let toastMessage = translate(`${error?.message}`);
       toast.error(error?.message);
+      // toast.error(toastMessage);
       dispatch(appActions.setInitDataLoaded(true));
     }
   };
@@ -552,7 +572,7 @@ export const fetchChildDetails = (accountId) => {
         throw new Error("Failed to fetch child accounts");
       }
     } catch (error) {
-      toast.error(error.message || "Error fetching child details");
+      toast.error(error.message || translate("Error fetching child details"));
     }
   };
 };
@@ -614,7 +634,8 @@ export const getTranslations = (lang) => {
       dispatch(appActions.setLang(lang));
       setLang(lang);
     } catch (error) {
-      toast.error(error?.message);
+      let toastMessage = translate(`${error?.message}`);
+      toast.error(toastMessage);
     }
   };
 };
@@ -667,7 +688,8 @@ export const getSiteSettings = (signal) => {
       );
     } catch (error) {
       toast.error(
-        error?.message || "An error occurred while fetching site settings"
+        error?.message ||
+          translate("An error occurred while fetching site settings")
       );
     }
   };
@@ -698,7 +720,8 @@ export const getUserNotifications = () => {
       dispatch(layoutActions.setNotifications(notifications));
     } catch (error) {
       toast.error(
-        error?.message || "An error occurred while fetching notifications."
+        error?.message ||
+          translate("An error occurred while fetching notifications.")
       );
     }
   };

@@ -271,7 +271,8 @@
   pointer-events: auto; /* Allow interaction */
 }
 .SlideContainer:hover .BackgroundContainer {
-  opacity: 0;
+  /* opacity: 0; */
+  opacity: 1;
 }
 .OverlayContainer {
   opacity: 0; /* Default hidden */

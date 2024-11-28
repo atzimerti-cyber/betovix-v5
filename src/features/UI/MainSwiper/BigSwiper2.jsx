@@ -16,6 +16,7 @@ import classes from "./BigSwiper2.module.css";
 import LoaderPlaceholder from "../../UI/Skeletons/LoaderPlaceholder";
 import { getLang } from "../../../utils/storage";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
+import { translate } from "../../../utils/translations";
 
 const BigSwiper2 = (props) => {
   const navigate = useNavigate();
@@ -61,9 +62,9 @@ const BigSwiper2 = (props) => {
       navigate(
         `/casino/game/${gameType}/${providerName}/${gameid}/${brandGameId}/${gameName}?isBonus=${isBonus}`
       );
-      // navigate(`/casino/game/${gameType}/${gameId}/${brandGameId}/${gameName}`);
     } catch (error) {
-      if (!error?.code === "ERR_CANCELED") toast.error(error?.message);
+      if (!error?.code === "ERR_CANCELED")
+        toast.error(translate(`${error?.message}`));
     }
   };
 

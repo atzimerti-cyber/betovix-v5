@@ -65,7 +65,6 @@
   display: flex;
   border-radius: 10px;
   overflow: hidden;
-  padding-bottom: 0.5rem;
   justify-content: center;
   align-items: center;
 }
@@ -104,17 +103,20 @@
   justify-content: center;
 }
 .PlayBtnContainer {
+  margin-top: 1rem;
   width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .PlayBtn {
-  background: #6696b9c9;
+  background: #751eaf;
   color: white;
   font-weight: 500;
   font-size: 11px;
   padding: 0.5rem 1rem;
   height: max-content;
-  width: max-content;
+  width: 80%;
   display: flex;
   justify-content: center;
   border-radius: 5px;
@@ -122,6 +124,9 @@
 }
 .isBonus {
   width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 @keyframes jQMcyq {
@@ -148,7 +153,7 @@
   border: 1px solid var(--db-gray-4);
   animation: 6s ease 0s infinite normal none running jQMcyq;
   height: max-content;
-  width: max-content;
+  width: 80%;
   display: flex;
   justify-content: center;
   border-radius: 5px;
@@ -202,7 +207,7 @@
     border: 1px solid var(--db-gray-4);
     animation: 6s ease 0s infinite normal none running jQMcyq;
     height: max-content;
-    width: max-content;
+    width: 80%;
     display: flex;
     justify-content: center;
     border-radius: 5px;

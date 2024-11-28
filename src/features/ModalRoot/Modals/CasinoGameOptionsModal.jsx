@@ -43,7 +43,6 @@ const CasinoGameOptionsModal = (props) => {
             <div
               className={classes.Image}
               style={{
-                // backgroundImage: `url(${game.Data.ImageUrl3})`,
                 backgroundImage:
                   game.Data.ImageUrl3 !== null &&
                   `url(${game.Data.ImageUrl3.replace(/ /g, "%20")})`,
@@ -68,6 +67,7 @@ const CasinoGameOptionsModal = (props) => {
           </div>
           <Link
             to={`/casino/game/${gameType}/${game.Data.ProviderName}/${game.Data.Id}/${game.Data.BrandGameId}/${game.Data.Name}?isBonus=false`}
+            style={{ width: "100%" }}
           >
             <div className={classes.PlayBtnContainer}>
               <button className={classes.PlayBtn}>
@@ -77,6 +77,7 @@ const CasinoGameOptionsModal = (props) => {
           </Link>
           {bonusBalance > 0 && game.allowBonus && (
             <Link
+              style={{ width: "100%" }}
               to={`/casino/game/${gameType}/${game.Data.ProviderName}/${game.Data.Id}/${game.Data.BrandGameId}/${game.Data.Name}?isBonus=true`}
             >
               <div className={classes.isBonus}>

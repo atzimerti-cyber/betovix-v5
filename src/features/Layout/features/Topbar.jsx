@@ -278,7 +278,7 @@ const Topbar = () => {
                         >
                           <BellIcon />
                         </button>
-                        {newNotifications.length > 0 && (
+                        {newNotifications && newNotifications.length > 0 && (
                           <NumberBadge
                             number={newNotifications.length}
                             floating

@@ -58,7 +58,7 @@ const FinalStageDeposit = () => {
               alignItems: "center",
             }}
           >
-            <span>{translate(`Total Balance:`)}</span>
+            <span>{translate(`Total Balance`)}:</span>
             <CoinsIcon />
             <span>{user?.Wallet.Balance}</span>
           </div>

@@ -784,7 +784,7 @@ const Register = () => {
                 className={classes.CheckboxInput}
               />
               <label htmlFor="over18" className={classes.CheckboxLabel}>
-                {translate("Yes, I'm over 18 *")}
+                {translate("Yes, I'm over 18")}*
               </label>
             </div>
             <div className={classes.CheckboxContainer}>
