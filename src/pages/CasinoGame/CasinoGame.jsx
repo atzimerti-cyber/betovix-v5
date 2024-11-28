@@ -61,7 +61,7 @@ const CasinoGame = (props) => {
     const searchParams = new URLSearchParams(location.search);
     const isBonus = searchParams.get("isBonus");
     if (isBonus === null) {
-      isBonus === false;
+      isBonus = false;
     }
 
     const controller = new AbortController();

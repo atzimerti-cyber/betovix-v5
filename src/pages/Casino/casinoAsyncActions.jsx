@@ -114,7 +114,7 @@ export const getVendorGame = (
       var urlObj;
 
       if (isBonus === null) {
-        isBonus === false;
+        isBonus = false;
       }
 
       if (providername === "Softion") {
@@ -272,7 +272,7 @@ export const getLiveVendorGame = (
       var gameUrl; 
 
       if (isBonus === null) {
-        isBonus === false;
+        isBonus = false;
       }
 
       if (providername === "MultiGames") {
