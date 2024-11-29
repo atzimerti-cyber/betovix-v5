@@ -64,7 +64,7 @@ const Notification = (props) => {
           <div className={classes.Header}>
             <div className={classes.Title}>
               {props.notification.title
-                ? props.notification.title
+                ? translate(`${props.notification.title}`)
                 : translate("Notification")}
             </div>
             <div className={classes.RightPart}>
@@ -80,7 +80,7 @@ const Notification = (props) => {
           </div>
           <div className={classes.Message}>
             {props.notification.message
-              ? props.notification.message
+              ? translate(`${props.notification.message}`)
               : translate("You have a new notification!")}
           </div>
         </div>

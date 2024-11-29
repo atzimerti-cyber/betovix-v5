@@ -70,7 +70,7 @@ const NotificationDropdown = (props) => {
           )
         ) : (
           <div className={classes.Empty}>
-            <span>No Notifications.</span>
+            <span>{translate("No Notifications")}.</span>
           </div>
         )}
       </div>
