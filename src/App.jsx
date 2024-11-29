@@ -49,13 +49,24 @@ const PrivacyPolicy = React.lazy(() =>
 );
 const ContactUs = React.lazy(() => import("./pages/Footer Pages/ContactUs"));
 const ErrorPage = React.lazy(() => import("./pages/Error Page/ErrorPage"));
+const MaintenancePage = React.lazy(() =>
+  import("./pages/Error Page/MaintenancePage")
+);
 
 function App() {
   const router = createBrowserRouter([
+    // {
+    //   path: "/m",
+    //   element: (
+    //     <Suspense fallback={<PageFallback />}>
+    //       <MaintenancePage />
+    //     </Suspense>
+    //   ),
+    // },
     {
       path: "/",
       element: <InitApp />,
-      //errorElement: <ErrorPage />,
+      errorElement: <ErrorPage />,
       children: [
         {
           element: <Layout />,
@@ -284,6 +295,14 @@ function App() {
                 </Suspense>
               ),
             },
+            // {
+            //   path: "/m",
+            //   element: (
+            //     <Suspense fallback={<PageFallback />}>
+            //       <MaintenancePage />
+            //     </Suspense>
+            //   ),
+            // },
           ],
         },
       ],

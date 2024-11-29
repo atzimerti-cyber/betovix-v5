@@ -11,6 +11,16 @@ import {
   getTicketChangesSettings,
   getTicketFromStorage,
 } from "../../utils/storage";
+
+import { getAccessToken } from "../../utils/auth";
+import { loginActions } from "../../pages/Login/loginSlice";
+import { liveActions } from "./liveSlice";
+import { setLang } from "../../utils/storage";
+import { ticketActions } from "../Ticket/ticketSlice";
+import { betslipActions } from "../Betslip/betslipSlice";
+import { layoutActions } from "../Layout/layoutSlice";
+import config from "../../config";
+
 import NoImageIcon from "../../assets/svgs/no-image.svg?react";
 import HomeIcon from "../../assets/svgs/home.svg?react";
 import SlotsIcon from "../../assets/svgs/slots.svg?react";
@@ -28,23 +38,12 @@ import ProvidersMenu from "../../assets/svgs/providers-menu.svg?react";
 import PromotionsIcon from "../../assets/svgs/promotions.svg?react";
 import SupportIcon from "../../assets/svgs/livesupportbtn.svg?react";
 
-import { getAccessToken } from "../../utils/auth";
-import { loginActions } from "../../pages/Login/loginSlice";
-import { liveActions } from "./liveSlice";
-import { setLang } from "../../utils/storage";
-import { ticketActions } from "../Ticket/ticketSlice";
-import { betslipActions } from "../Betslip/betslipSlice";
-import { layoutActions } from "../Layout/layoutSlice";
-import config from "../../config";
-
 import {
   getRewards,
-  getUserAchievements,
   heroProgress,
 } from "../../pages/UserGamification.jsx/gamificationAsyncActions";
-import { ConsoleLogger } from "@microsoft/signalr/dist/esm/Utils";
-import Footer from "../Layout/features/Footer";
 import { translate } from "../../utils/translations";
+import { useNavigate } from "react-router-dom";
 
 export const loadInitData = (isMobile) => {
   return async (dispatch, getState) => {
@@ -77,9 +76,28 @@ export const loadInitData = (isMobile) => {
       let urlLang = searchParams.get("lang");
       let urlLangObj = { id: urlLang };
       if (urlLang) {
-        lang = urlLangObj;
-        dispatch(appActions.setLang(lang));
-        setLang(lang);
+        // Get available languages from state
+        const alState = getState().app;
+        const availableLangs = alState.availableLangs;
+
+        const isObjectInArray = (array, obj) => {
+          return array.some(
+            (item) => JSON.stringify(item) === JSON.stringify(obj)
+          );
+        };
+
+        // Check if urlLangObj is in availableLangs
+        if (isObjectInArray(availableLangs, urlLangObj)) {
+          lang = urlLangObj;
+          dispatch(appActions.setLang(lang));
+          setLang(lang);
+        } else {
+          lang = getLang();
+          dispatch(appActions.setLang(lang));
+          searchParams.set("lang", lang.id); // Update the searchParams object
+          const newUrl = `${location.pathname}?${searchParams.toString()}`; // Construct the new URL
+          window.history.replaceState(null, "", newUrl); // Update the browser's URL without reloading
+        }
       } else {
         lang = getLang();
         dispatch(appActions.setLang(lang));
@@ -87,9 +105,7 @@ export const loadInitData = (isMobile) => {
         const newUrl = `${location.pathname}?${searchParams.toString()}`; // Construct the new URL
         window.history.replaceState(null, "", newUrl); // Update the browser's URL without reloading
       }
-
-      // const lang = getLang();
-      // dispatch(appActions.setLang(lang));
+      //====================================END LANG================================================//
 
       let oddsFormat = storageGetOddsFormat();
       if (!oddsFormat) {
@@ -485,7 +501,6 @@ export const loadInitData = (isMobile) => {
         ],
       });
 
-      /////////////////// Minibar Menu //////////////////////
       const footerResponse = await axiosApi.get(
         `/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
@@ -510,7 +525,7 @@ export const loadInitData = (isMobile) => {
       dispatch(appActions.setMenuItems(allMenuItems));
       setTimeout(function () {
         dispatch(appActions.setInitDataLoaded(true));
-      }, 2500);
+      }, 2000);
     } catch (error) {
       // let toastMessage = translate(`${error?.message}`);
       toast.error(error?.message);
@@ -686,11 +701,16 @@ export const getSiteSettings = (signal) => {
       dispatch(
         appActions.setSocialMedia(response.data.Contents["Social Media"])
       );
+      dispatch(appActions.setSiteSettingsSuccess(true));
+      // window.location.href = "/m";
     } catch (error) {
-      toast.error(
-        error?.message ||
-          translate("An error occurred while fetching site settings")
-      );
+      dispatch(appActions.setSiteSettingsSuccess(false));
+      // Redirect to `/m` upon error
+      window.location.href = "/m";
+      // toast.error(
+      //   error?.message ||
+      //     translate("An error occurred while fetching site settings")
+      // );
     }
   };
 };

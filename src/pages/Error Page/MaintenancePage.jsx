@@ -3,32 +3,15 @@ import { useEffect, useState } from "react";
 import classes from "./ErrorPage.module.css";
 
 import { useLocation, useNavigate } from "react-router-dom";
-import ErrorIcon from "../../assets/svgs/errorsvg.svg?react"; 
+import MaintenanceIcon from "../../assets/svgs/maintenance.svg?react";
 
-const ErrorPage = () => {
+const MaintenancePage = () => {
   const navigate = useNavigate();
   const lang = useSelector((state) => state.app.lang);
 
-  const [countdown, setCountdown] = useState(10);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCountdown((prevCountdown) => prevCountdown - 1);
-    }, 1000);
-
-    const timer = setTimeout(() => {
-      navigate("/");
-    }, 10000);
-
-    return () => {
-      clearInterval(interval);
-      clearTimeout(timer);
-    };
-  }, [navigate]);
-
   return (
     <div className={classes.PageContent}>
-      <h1>Oh no, something went wrong!</h1>
+      <h1>We're under maintenace right now.</h1>
 
       <p>Please try refreshing the page, or come back later.</p>
       <br></br>
@@ -37,7 +20,7 @@ const ErrorPage = () => {
           fontSize: "1.2rem",
         }}
       >
-        Redirecting to{" "}
+        You can redirect to betovix.com{" "}
         <i>
           <a
             href="/"
@@ -46,10 +29,9 @@ const ErrorPage = () => {
               textDecoration: "underline",
             }}
           >
-            betovix.com
+            here
           </a>
-        </i>{" "}
-        in {countdown} seconds...
+        </i>
       </p>
       <br></br>
       <p
@@ -72,16 +54,16 @@ const ErrorPage = () => {
           margin: "0.3rem",
         }}
       >
-        Contact us at{" "}
+        You can contact us at{" "}
         <i>
           <u>
             <a href="mailto:support@betovix.com">support@betovix.com</a>
           </u>
         </i>
       </p>
-      <ErrorIcon className={classes.ErrorSvg} />
+      <MaintenanceIcon className={classes.ErrorSvg} />
     </div>
   );
 };
 
-export default ErrorPage;
+export default MaintenancePage;

@@ -53,6 +53,7 @@ const Topbar = () => {
   );
   const showingLiveEvent = useSelector((state) => state.event.showingLiveEvent);
   const availableBonus = useSelector((state) => state.layout.availableBonus);
+  const bonusBalance = useSelector((state) => state.layout.bonusBalance);
   const newNotifications = useSelector(
     (state) => state.layout.newNotifications
   );
@@ -61,7 +62,9 @@ const Topbar = () => {
   );
 
   const [balanceInteger, setBalanceInteger] = useState(0);
+  const [balanceBonusInteger, setBalanceBonusInteger] = useState(0);
   const [balanceDecimal, setBalanceDecimal] = useState("00");
+  const [balanceBonusDecimal, setBalanceBonusDecimal] = useState("00");
 
   useEffect(() => {
     if (!user) {
@@ -72,6 +75,16 @@ const Topbar = () => {
 
     getBalance();
   }, [user?.Wallet.Balance]);
+
+  useEffect(() => {
+    if (!user) {
+      setBalanceBonusInteger(0);
+      setBalanceBonusDecimal("00");
+      return;
+    }
+
+    getBonusBalance();
+  }, [bonusBalance]);
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);
@@ -91,6 +104,16 @@ const Topbar = () => {
 
     setBalanceInteger(integer);
     setBalanceDecimal(decimal.padStart(2, "0"));
+  };
+
+  const getBonusBalance = () => {
+    let integer = Math.floor(bonusBalance);
+    integer = addThousandsSeparator(integer, 0);
+
+    const decimal = ((bonusBalance % 1) * 100).toFixed(0);
+
+    setBalanceBonusInteger(integer);
+    setBalanceBonusDecimal(decimal.padStart(2, "0"));
   };
 
   const inCasinoGame = location.pathname.includes("/casino/game/");
@@ -166,7 +189,6 @@ const Topbar = () => {
               <span>{translate("Wallet")}</span>
             </MainButton>
             <div className={classes.BalanceContainer}>
-              <CoinsIcon />
               <div
                 className={
                   inCasinoGame
@@ -174,12 +196,53 @@ const Topbar = () => {
                     : classes.HeaderBalanceWrap
                 }
               >
-                <div className={classes.HeaderBalance}>
-                  {balanceInteger}
-                  <span>.{balanceDecimal}</span>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <div
+                    className={classes.HeaderBalance}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      alignItems: "center",
+                    }}
+                  >
+                    <CoinsIcon />
+                    {balanceInteger}
+                    <span>.{balanceDecimal}</span>
+                  </div>
+                  {balanceBonusInteger && (
+                    <div
+                      className={classes.HeaderBalance}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      <CoinsIcon />
+                      {balanceBonusInteger}
+                      <span>.{balanceBonusDecimal}</span>
+                      <span className={classes.BonusBalanceText}>
+                        ({translate("Bonus")}){" "}
+                      </span>
+                    </div>
+                  )}
                 </div>
                 <div className={classes.InPlay}>(In Play)</div>
               </div>
+            </div>
+            <div className={classes.BonusButtonContainer}>
+              <MainButton
+                className={classes.BonusButton}
+                color="transparent"
+                onClick={() => addParamsToUrl("bonus")}
+              >
+                <GiftIcon />
+                <div className={classes.BonusButtonColor}>
+                  {translate("Bonus")}
+                </div>
+              </MainButton>
+              {availableBonus > 0 && (
+                <NumberBadge number={availableBonus} floating justifyRight />
+              )}
             </div>
           </>
         )}
@@ -195,7 +258,7 @@ const Topbar = () => {
         >
           {user ? (
             <>
-              <div className={classes.BonusButtonContainer}>
+              {/* <div className={classes.BonusButtonContainer}>
                 <MainButton
                   className={classes.BonusButton}
                   color="transparent"
@@ -209,7 +272,7 @@ const Topbar = () => {
                 {availableBonus > 0 && (
                   <NumberBadge number={availableBonus} floating justifyRight />
                 )}
-              </div>
+              </div> */}
 
               <div className={classes.DropDownWrapper}>
                 <div

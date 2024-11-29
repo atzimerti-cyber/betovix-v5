@@ -15,11 +15,13 @@ const Footer = () => {
   const navigate = useNavigate();
   const lang = useSelector((state) => state.app.lang);
   const footer = useSelector((state) => state.layout.footer);
+  const siteSettings = useSelector((state) => state.app.siteSettings);
 
   useEffect(() => {
     const controller = new AbortController();
-
-    dispatch(getSiteSettings(controller.signal));
+    if (Object.keys(siteSettings).length === 0) {
+      dispatch(getSiteSettings(controller.signal));
+    }
 
     return () => {
       controller.abort();
@@ -48,7 +50,9 @@ const Footer = () => {
                       navigate(`${subcateg.link}`);
                     }
                   }}
-                  href={subcateg.target === "download" ? subcateg.link : undefined} // Set href for download
+                  href={
+                    subcateg.target === "download" ? subcateg.link : undefined
+                  } // Set href for download
                   download={subcateg.target === "download" ? "" : undefined}
                   target={subcateg.target === "download" ? "_blank" : "_self"}
                   key={index}

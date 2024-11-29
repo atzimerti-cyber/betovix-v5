@@ -6,7 +6,7 @@ import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
 
 import Preloader from "../UI/Loaders/Preloader";
-import { loadInitData } from "./initAppAsyncActions";
+import { getSiteSettings, loadInitData } from "./initAppAsyncActions";
 import { getUser } from "../../pages/Login/loginAsyncActions";
 import { affiliateCampaigns } from "../../pages/Login/loginAsyncActions";
 import { isMoreThan14DaysOld } from "../../utils/custom";
@@ -23,6 +23,9 @@ const InitApp = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const initDataLoaded = useSelector((state) => state.app.initDataLoaded);
+  const siteSettingsSuccess = useSelector(
+    (state) => state.app.siteSettingsSuccess
+  );
   // const user = useSelector((state) => state.login.user);
   const userAccountId = useSelector((state) => state.login.user)?.AccountId;
 
@@ -72,12 +75,19 @@ const InitApp = () => {
 
   // Loads once on start
   useEffect(() => {
-    dispatch(loadInitData(isMobile));
-  }, []);
+    const controller = new AbortController();
+    dispatch(getSiteSettings(controller.signal));
 
-  // useEffect(() => {
-  //   dispatch(tawktoChat());
-  // }, []);
+    return () => {
+      controller.abort();
+    };
+  }, [userAccountId]);
+
+  useEffect(() => {
+    if (siteSettingsSuccess) {
+      dispatch(loadInitData(isMobile));
+    }
+  }, [siteSettingsSuccess]);
 
   // For loading initial data. Loads on change log in
   useEffect(() => {

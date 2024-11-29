@@ -5,7 +5,7 @@
   max-width: 1310px;
   width: 100%;
   container-type: inline-size;
-  color: antiquewhite;
+  color: rgb(255, 249, 240);
   overflow: hidden;
 }
 
@@ -24,14 +24,15 @@
   height: 100%;
   width: fit-content;
   animation: moveUpDown 2s ease-in-out infinite;
+  fill: var(--db-brand-green);
 }
 
 @keyframes moveUpDown {
   0%,
   100% {
-    transform: translateY(0);
+    transform: scale(1);
   }
   50% {
-    transform: translateY(-5px);
+    transform: scale(1.02);
   }
 }

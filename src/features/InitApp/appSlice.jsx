@@ -107,6 +107,7 @@ import BTG from "../../assets/casinoIcons/btg.svg?react";
 import Favorites from "../../assets/svgs/heart.svg?react";
 
 const initialState = {
+  siteSettingsSuccess: false,
   unreadNotifications: 0,
   initDataLoaded: false,
   barLoading: false,
@@ -309,6 +310,9 @@ export const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
+    setSiteSettingsSuccess: (state, action) => {
+      state.siteSettingsSuccess = action.payload;
+    },
     setUnreadNotifications: (state, action) => {
       state.unreadNotifications = action.payload;
     },
