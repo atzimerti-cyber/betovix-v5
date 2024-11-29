@@ -64,7 +64,7 @@ const InitApp = () => {
         navigate(newPath, { replace: true });
       }
     }
-  }, [location.pathname, lang.id, navigate]);
+  }, [location.pathname, location.search, lang.id, navigate]);
 
   useEffect(() => {
     setIsLoaded(true);
