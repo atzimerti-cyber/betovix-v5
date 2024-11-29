@@ -25,6 +25,8 @@ const CasinoLobbySearch = (props) => {
   const debSearchString = useDebounce(value);
   const searchRef = useRef(null);
 
+  const gamesLoading = useSelector((state) => state.search.loading);
+
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -96,6 +98,19 @@ const CasinoLobbySearch = (props) => {
             <span className={classes.RightIcon}>
               <SearchIcon />
             </span>
+          )}
+          {value !== "" && gamesLoading && (
+            <AnimatePresence>
+              <motion.div
+                className={classes.Overlay}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className={classes.Spinner}></div>
+              </motion.div>
+            </AnimatePresence>
           )}
           {casinoResults && (
             <AnimatePresence>

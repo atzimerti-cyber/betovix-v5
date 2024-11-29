@@ -154,7 +154,9 @@ const PaymentForm = (props) => {
             value={formData[Name] || ""}
             onChange={handleChange}
             onKeyDown={(e) => e.key === "-" && e.preventDefault()}
-            placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+            placeholder={translate(
+              `Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`
+            )}
             style={{ paddingLeft: "2rem" }}
           />
         </div>
@@ -375,7 +377,9 @@ const PaymentForm = (props) => {
             name={Name}
             value={formData[Name] || ""}
             onChange={handleChange}
-            placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+            placeholder={translate(
+              `Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`
+            )}
             readOnly={Name === "PaymentType" || Name === "PaymentMethod"}
           />
         );

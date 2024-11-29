@@ -44,10 +44,10 @@ const CasinoMenu = () => {
                 ? [classes.NavItem, classes.ActiveItem].join(" ")
                 : classes.NavItem
             }
-            to="/casino/slots"
+            to="/casino/providers"
           >
-            <SlotsIcon />
-            {translate("Slots")}
+            <ProvidersIcon fill="var(--db-gray-5)" />
+            {translate("Providers")}
           </NavLink>
         </SwiperSlide>
 
@@ -130,10 +130,10 @@ const CasinoMenu = () => {
                 ? [classes.NavItem, classes.ActiveItem].join(" ")
                 : classes.NavItem
             }
-            to="/casino/providers"
+            to="/casino/slots"
           >
-            <ProvidersIcon fill="var(--db-gray-5)" />
-            {translate("Providers")}
+            <SlotsIcon />
+            {translate("Slots")}
           </NavLink>
         </SwiperSlide>
       </SwiperMenu>

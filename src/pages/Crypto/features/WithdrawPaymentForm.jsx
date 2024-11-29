@@ -143,7 +143,9 @@ const WithdrawPaymentForm = (props) => {
             value={formData[Name] || ""}
             onChange={handleChange}
             onKeyDown={(e) => e.key === "-" && e.preventDefault()}
-            placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+            placeholder={translate(
+              `Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`
+            )}
             style={{ paddingLeft: "2rem" }}
           />
         </div>
@@ -166,10 +168,9 @@ const WithdrawPaymentForm = (props) => {
                 name={Name}
                 value={formData[Name] || ""}
                 onChange={handleChange}
-                placeholder={`Enter ${Name.replace(
-                  /([a-z])([A-Z])/g,
-                  "$1 $2"
-                )}`}
+                placeholder={translate(
+                  `Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`
+                )}
                 readOnly={isReadOnly}
                 autoComplete="false"
                 style={{ paddingLeft: "2.6rem" }}
@@ -187,9 +188,11 @@ const WithdrawPaymentForm = (props) => {
                   alignSelf: "flex-start",
                 }}
               >
+                {translate(`Please note`)}:{" "}
                 {translate(
-                  `Please note: Your credit card information will NOT be stored or retained for future use.`
+                  `Your credit card information will NOT be stored or retained for future use`
                 )}
+                .
               </p>
             )}
           </>
@@ -202,7 +205,9 @@ const WithdrawPaymentForm = (props) => {
             name={Name}
             value={formData[Name] || ""}
             onChange={handleChange}
-            placeholder={`Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`}
+            placeholder={translate(
+              `Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`
+            )}
             readOnly={isReadOnly}
           />
         );

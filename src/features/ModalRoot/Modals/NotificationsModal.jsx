@@ -27,7 +27,7 @@ const NotificationsModal = () => {
       navigate(location.pathname);
     }
     dispatch(getUserNotifications());
-  }, [isMobile, navigate, location.pathname]);
+  }, [isMobile, navigate, location.pathname]); 
 
   const handleToggle = () => {
     setUnreadOnly(!unreadOnly);

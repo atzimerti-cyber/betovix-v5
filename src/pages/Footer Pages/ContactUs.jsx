@@ -158,7 +158,7 @@ const ContactUs = () => {
             margin: "0.3rem",
           }}
         >
-          {translate("or contact us at ")}{" "}
+          {translate("or contact us at")}{" "}
           <i>
             <u>
               <a href="mailto:support@betovix.com">support@betovix.com</a>
