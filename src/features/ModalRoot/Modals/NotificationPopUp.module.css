@@ -58,6 +58,11 @@
   align-items: center;
   flex-direction: row;
   justify-content: flex-start;
+  max-width: 90%;
+}
+.Title svg {
+  min-height: 1.5rem;
+  min-width: 1.5rem;
 }
 .Message {
   color: aliceblue;
@@ -75,7 +80,7 @@
 @media (min-width: 450px) {
   .NotificationModal {
     max-height: 80vh;
-    max-width: 50vh;
+    max-width: 70vw;
     background-color: var(--db-gray-6);
   }
 }

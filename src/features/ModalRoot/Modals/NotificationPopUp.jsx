@@ -55,7 +55,7 @@ const NotificationPopUp = (props) => {
             <>
               <h1 className={classes.Title}>
                 <BellIcon />
-                {notification.title}
+                <p>{notification.title}</p>
               </h1>
               <p className={classes.Message}>{notification.message}</p>
               <p className={classes.Date}>
