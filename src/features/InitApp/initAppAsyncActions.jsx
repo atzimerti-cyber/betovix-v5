@@ -79,7 +79,7 @@ export const loadInitData = (isMobile) => {
       if (urlLang) {
         lang = urlLangObj;
         dispatch(appActions.setLang(lang));
-        // setLang(lang);
+        setLang(lang);
       } else {
         lang = getLang();
         dispatch(appActions.setLang(lang));
