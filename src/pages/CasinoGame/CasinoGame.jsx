@@ -135,10 +135,12 @@ const CasinoGame = (props) => {
   useEffect(() => {
     if (isIOS) {
       console.info("paixnidi");
-      document.getElementById("btnBack").style.display = "block";
-      document.getElementById("gameName").style.display = "block"; // Make sure it is visible
+      document.getElementById("btnBack").style.display = "flex";
+      // document.getElementById("btnBack").style.display = "block";
+      document.getElementById("gameName").style.display = "flex";
+      // document.getElementById("gameName").style.display = "block";
       document.getElementById("gameName").innerText = name; // Set the name inside the <p> tag
-      document.getElementById("gameHeader").style.display = "block";
+      document.getElementById("gameHeader").style.display = "flex";
       document.getElementById("game").style.display = "block";
       document.getElementById("game").src = casinoGame?.url;
     }

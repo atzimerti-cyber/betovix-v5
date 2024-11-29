@@ -287,6 +287,36 @@
       pointer-events: none;
       z-index: 99;
     }
+
+    /* =====Spinner======= */
+    .Spinner {
+      border: 4px solid rgba(255, 255, 255, 0.093);
+      /* Light white semi-transparent border */
+      border-top: 4px solid rgba(255, 255, 255, 0.708);
+      /* Solid white for the spinning part */
+      border-radius: 50%;
+      width: 36px;
+      /* Adjust size */
+      height: 36px;
+      /* Adjust size */
+      animation: spin 1s linear infinite;
+      /* Smooth spinning animation */
+      margin: 2rem auto 2rem auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
   </style>
 </head>
 
@@ -317,7 +347,7 @@
         <div class="snowflake">❄</div> -->
   </div>
 
-  <div id="loadGame" style="position:fixed;
+  <!-- <div id="loadGame" style="position:fixed;
         top:0;
         left:0;
         right:0;
@@ -330,14 +360,26 @@
     <h1
       style="font-size: 1rem; color: aliceblue; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
       Loading...</h1>
+  </div> -->
+  <div id="loadGame" style="position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        display: none;
+        background: black;
+        z-index: 21474836;">
+    <div class="Spinner"></div>
   </div>
   <div id="gameHeader"
-    style="position: fixed;display: none;top:0;height: 45px;background: #123953;width: 100%;z-index:2147483640">
+    style="position: fixed;display: none;align-items: center;top:0;height: 45px;background: #123953;width: 100%;z-index:2147483640">
     <p id="gameName"
-      style="display:none;position:fixed;top:1.8%; left:5%;height:30px;width:30px;z-index:2147483647;color:white;font-weight:500;font-size:15px;text-wrap: nowrap;">
+      style="display:none;position:fixed; left:5%;max-width:50%;align-items: center;z-index:2147483647;color:white;font-weight:500;font-size:15px;text-wrap: nowrap;">
     </p>
     <button id="btnBack" onclick="hideGame()"
-      style="display:none;position:fixed;top:1%; right:5%;height:30px;width:30px;z-index:2147483647;background: rgba(77, 77, 77, 0);border-radius:20px;color:white;font-weight:500;font-size:25px;">✖</button>
+      style="display:none;position:fixed; right:5%;justify-content: center;align-items: center;height:30px;width:30px;z-index:2147483647;background: rgba(77, 77, 77, 0);border-radius:20px;color:white;font-weight:500;font-size:25px;">✖</button>
   </div>
   <iframe id="game" style="position:fixed;
     padding-top: 45px;

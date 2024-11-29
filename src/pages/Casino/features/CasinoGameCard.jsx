@@ -93,7 +93,7 @@ const CasinoGameCard = (props) => {
           <div className={classes.OverlayContainer}>
             <div className={classes.InfoContainer}>
               <div className={classes.FavContainer}>
-                <HeartIcon
+                {/* <HeartIcon
                   className={props.game.isFav ? classes.FavoriteIcon : null}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -103,6 +103,19 @@ const CasinoGameCard = (props) => {
                     } else {
                       toast.warning("Login to access this feature");
                     }
+                  }}
+                /> */}
+                <HeartIcon
+                  className={isFavorite ? classes.FavoriteIcon : null}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    onToggleFavorite();
+                    // if (user) {
+                    //   onToggleFavorite(props.game);
+                    // } else {
+                    //   toast.warning("Login to access this feature");
+                    // }
                   }}
                 />
               </div>
