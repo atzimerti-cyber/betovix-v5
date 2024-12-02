@@ -445,7 +445,7 @@ const Verification = () => {
                           <i>
                             {" "}
                             {"("}
-                            {translate("(SIDE)")} {" 2)"}
+                            {translate("SIDE")} {" 2)"}
                           </i>
                         </h2>
                         <input
