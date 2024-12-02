@@ -197,6 +197,24 @@ const WithdrawPaymentForm = (props) => {
             )}
           </>
         );
+      } else if (Name === "Phone") {
+        inputElement = (
+          <input
+            className={`${classes.Input}`}
+            type="number"
+            name={Name}
+            value={formData[Name] || ""}
+            onChange={handleChange}
+            placeholder={translate(
+              `Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`
+            )}
+            readOnly={isReadOnly}
+            onInput={(e) => {
+              // Remove any non-numeric characters from the input
+              e.target.value = e.target.value.replace(/[^0-9]/g, "");
+            }}
+          />
+        );
       } else {
         inputElement = (
           <input

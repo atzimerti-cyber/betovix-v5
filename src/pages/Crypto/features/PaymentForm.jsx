@@ -365,6 +365,28 @@ const PaymentForm = (props) => {
             <option value="ZW">Zimbabwe</option>
           </select>
         );
+      } else if (Name === "Phone") {
+        inputElement = (
+          <input
+            className={
+              Name === "PaymentType" || Name === "PaymentMethod"
+                ? [classes.Input, classes.ReadOnly].join(" ")
+                : classes.Input
+            }
+            type="number"
+            name={Name}
+            value={formData[Name] || ""}
+            onChange={handleChange}
+            placeholder={translate(
+              `Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`
+            )}
+            readOnly={Name === "PaymentType" || Name === "PaymentMethod"}
+            onInput={(e) => {
+              // Remove any non-numeric characters from the input
+              e.target.value = e.target.value.replace(/[^0-9]/g, "");
+            }}
+          />
+        );
       } else {
         inputElement = (
           <input
@@ -429,7 +451,7 @@ const PaymentForm = (props) => {
           )}
           {Name === "Amount" && (
             <p style={{ color: "lightblue", fontWeight: "300" }}>
-                {translate(`(Minimum amount: €20)`)}
+              {translate(`(Minimum amount: €20)`)}
             </p>
           )}
         </label>
