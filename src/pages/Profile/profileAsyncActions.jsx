@@ -217,6 +217,7 @@ export const submitPersonalInfo = (personalInfo, signal) => {
 export const uploadKYCFile = (file, level, signal) => {
   return async (dispatch) => {
     try {
+      dispatch(profileActions.setDisableVerifyButton(true));
       const lang = getLang();
 
       const formData = new FormData();
@@ -237,8 +238,10 @@ export const uploadKYCFile = (file, level, signal) => {
 
       dispatch(getLevelsVerified(signal));
       toast.success("Upload Successful");
+      dispatch(profileActions.setDisableVerifyButton(false));
       return { success: true }; // Return success if needed
     } catch (error) {
+      dispatch(profileActions.setDisableVerifyButton(false));
       const message =
         error?.response?.data?.Status?.Message ||
         error?.message ||

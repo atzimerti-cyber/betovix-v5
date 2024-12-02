@@ -23,6 +23,9 @@ const Verification = () => {
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const user = useSelector((state) => state.login.user);
+  const disableVerifyButton = useSelector(
+    (state) => state.profile.disableVerifyButton
+  );
   const level1Status = useSelector(
     (state) => state.profile.verificationLevels.level1
   );
@@ -471,6 +474,7 @@ const Verification = () => {
                     </div>
                     <div className={classes.FileForms}>
                       <button
+                        disabled={disableVerifyButton}
                         type="submit"
                         className={
                           idFiles.frontSide && idFiles.backSide
@@ -480,7 +484,11 @@ const Verification = () => {
                               )
                         }
                       >
-                        {translate("Upload Both Sides")}
+                        {disableVerifyButton ? (
+                          <div className={classes.Spinner}></div>
+                        ) : (
+                          translate(`Upload Both Sides`)
+                        )}
                       </button>
                     </div>
                   </form>
@@ -572,6 +580,7 @@ const Verification = () => {
                     <div className={classes.FileForms}>
                       <button
                         type="submit"
+                        disabled={disableVerifyButton}
                         className={
                           idFiles.frontSide && idFiles.backSide
                             ? classes.FileSubmitButton
@@ -580,7 +589,11 @@ const Verification = () => {
                               )
                         }
                       >
-                        {translate(`Upload Both Sides`)}
+                        {disableVerifyButton ? (
+                          <div className={classes.Spinner}></div>
+                        ) : (
+                          translate(`Upload Both Sides`)
+                        )}
                       </button>
                     </div>
                   </form>
@@ -741,6 +754,7 @@ const Verification = () => {
                     )}
                     <button
                       type="submit"
+                      disabled={disableVerifyButton}
                       className={
                         proofOfAddress
                           ? classes.FileSubmitButton
@@ -749,7 +763,11 @@ const Verification = () => {
                             )
                       }
                     >
-                      {translate(`Upload`)}
+                      {disableVerifyButton ? (
+                        <div className={classes.Spinner}></div>
+                      ) : (
+                        translate(`Upload`)
+                      )}
                     </button>
                   </form>
                 </div>
@@ -815,6 +833,7 @@ const Verification = () => {
                       )}
                       <button
                         type="submit"
+                        disabled={disableVerifyButton}
                         className={
                           proofOfAddress
                             ? classes.FileSubmitButton
@@ -823,7 +842,11 @@ const Verification = () => {
                               )
                         }
                       >
-                        {translate(`Upload`)}
+                        {disableVerifyButton ? (
+                          <div className={classes.Spinner}></div>
+                        ) : (
+                          translate(`Upload`)
+                        )}
                       </button>
                     </form>
                   </div>
@@ -901,6 +924,7 @@ const Verification = () => {
                     )}
                     <button
                       type="submit"
+                      disabled={disableVerifyButton}
                       className={
                         fundsSource
                           ? classes.FileSubmitButton
@@ -909,7 +933,11 @@ const Verification = () => {
                             )
                       }
                     >
-                      {translate(`Upload`)}
+                      {disableVerifyButton ? (
+                        <div className={classes.Spinner}></div>
+                      ) : (
+                        translate(`Upload`)
+                      )}
                     </button>
                   </form>
                 </div>
@@ -974,6 +1002,7 @@ const Verification = () => {
                       )}
                       <button
                         type="submit"
+                        disabled={disableVerifyButton}
                         className={
                           fundsSource
                             ? classes.FileSubmitButton
@@ -982,7 +1011,11 @@ const Verification = () => {
                               )
                         }
                       >
-                        {translate(`Upload`)}
+                        {disableVerifyButton ? (
+                          <div className={classes.Spinner}></div>
+                        ) : (
+                          translate(`Upload`)
+                        )}
                       </button>
                     </form>
                   </div>

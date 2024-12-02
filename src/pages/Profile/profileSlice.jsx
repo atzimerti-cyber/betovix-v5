@@ -1,8 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit"; 
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   topGames: null,
   verificationLevels: {},
+  disableVerifyButton: false,
 };
 
 export const profileSlice = createSlice({
@@ -17,6 +18,9 @@ export const profileSlice = createSlice({
     },
     setVerificationLevels: (state, action) => {
       state.verificationLevels = action.payload;
+    },
+    setDisableVerifyButton: (state, action) => {
+      state.disableVerifyButton = action.payload;
     },
   },
 });
