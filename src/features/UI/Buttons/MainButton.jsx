@@ -13,6 +13,7 @@ const MainButton = (props) => {
     else if (props.color === 'transparent') elClasses.push(classes.Transparent);
     else if (props.color === 'dark') elClasses.push(classes.Dark);
     else if (props.color === 'bv-light-green') elClasses.push(classes.BVixLGreen);
+    else if (props.color === 'danger') elClasses.push(classes.Danger);
 
     if (props.size === 'small') elClasses.push(classes.Small);
 

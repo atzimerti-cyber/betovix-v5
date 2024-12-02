@@ -113,8 +113,9 @@ const FinalStageDeposit = () => {
             <WarningIcon height="15px" />
             <span>
               {translate(
-                `Please be advised that your transaction may take a while to complete. You will receive an email once it is completed.`
+                `Please be advised that your transaction may take a while to complete. You will receive an email once it is completed`
               )}
+              .
             </span>
           </div>
         </div>

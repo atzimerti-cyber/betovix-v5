@@ -14,8 +14,13 @@ const GoogleLoginButton = () => {
   const location = useLocation();
 
   const onSuccess = (credentialResponse) => {
-    const body = { Token: credentialResponse.credential };
-    
+    const affcode = localStorage.getItem("AffiliateCode");
+
+    const body = { 
+      Token: credentialResponse.credential,
+      ...(affcode && { code: affcode }) 
+    };
+
     console.log("dispatch(logingGoogle(body, navigate, location.pathname));")
     // Dispatch the login action
     dispatch(logingGoogle(body, navigate, location.pathname));

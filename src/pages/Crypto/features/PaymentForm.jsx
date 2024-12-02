@@ -429,7 +429,7 @@ const PaymentForm = (props) => {
           )}
           {Name === "Amount" && (
             <p style={{ color: "lightblue", fontWeight: "300" }}>
-              {translate(`(Minimum amount: €20)`)}
+                {translate(`(Minimum amount: €20)`)}
             </p>
           )}
         </label>
