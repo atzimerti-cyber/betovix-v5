@@ -236,20 +236,13 @@ export const getUser = (navigate) => {
         `login/State/?lang=en&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
-          // baseURLOverride: config.VITE_WALLET_STORETUBE,
         }
       );
       if (response.data.Status.StatusCode !== 200)
         dispatch(loginActions.logout());
       else {
-        // TODO: The rest should come from the backend
         const user = {
           ...response.data.Contents,
-          // profileHidden: false,
-          // marketingEmails: true,
-          // level: 0,
-          // wagered: 500,
-          // registered: 1712505696754,
         };
 
         //REWARDS
@@ -264,7 +257,6 @@ export const getUser = (navigate) => {
         ) {
           rewards = response.data.Contents.Rewards;
           dispatch(gamificationActions.setPopupRewards(rewards));
-          //console.log(rewards);
           const params = new URLSearchParams(location.search);
           params.set("modal", "achievement");
           navigate(`${location.pathname}?modal=achievement`, {

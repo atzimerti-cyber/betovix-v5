@@ -190,10 +190,8 @@ const Layout = () => {
                                     <VipProgress />
                                 </div>
                             } */}
-
               <Outlet />
             </div>
-
           </main>
           <Footer />
         </div>
@@ -331,7 +329,7 @@ const Layout = () => {
       </AnimatePresence>
 
       {isMobile && <Bottombar />}
-      <Cookies/>
+      <Cookies />
       <ModalRoot />
       <Ticket />
     </div>

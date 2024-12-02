@@ -1,77 +1,76 @@
 .LoadBetslipWrapper {
-    text-shadow: none;
-    margin-bottom: 10px;
-    margin-top: 10px;
-  }
-  
-  .LoadBetslipTitle {
-    height: 30px;
-    cursor: default;
-    color: var(--db-brand-green);
-  }
-  
-  .LoadBetslipTitle h3 {
-    font-size: 13px;
-    padding: 7px 0 5px 10px;
-  }
-  
-  .LoadBetslipContent {
-    padding: 0 !important;
-    overflow: hidden;
-  }
-  
-  .LoadBetslipContent p {
-    margin-bottom: 10px;
-  }
-  
-  .LoadBetslipContent a {
-    color: var(--db-brand-green);
-    text-decoration: underline;
-  }
-  
-  .LoadBetslipFormWrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-  }
-  
-  .LoadBetslipFormWrapper input {
-    flex: 1 0 0;
-    -webkit-box-sizing: border-box;
-    box-sizing: border-box;
-    padding: 3px 10px;
-    font-size: 14px;
-    border: none;
-    margin-right: 0.5rem;
-    border-color: transparent;
-    background-color: var(--db-gray-1);
-    border-color: transparent;
-    background-color: var(--db-gray-1);
-    border-radius: 0.375rem;
-    border-width: 1px;
-    border-style: solid;
-    position: relative;
-    display: flex;
-    align-items: center;
-    transition-duration: 0.2s;
-    display: block;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+  text-shadow: none;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
 
-  }
-  
-  .LoadBetslipFormWrapper button {
-    flex: 1 0 0;
-    background: var(--db-brand-green);
-    color: #071848;
-    font-size: 14px;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    display: block;
-    border-radius: 0.375rem;
-    padding: 8px 15px;
-    }
-  
+.LoadBetslipTitle {
+  height: 30px;
+  cursor: default;
+  color: var(--db-brand-green);
+}
+
+.LoadBetslipTitle h3 {
+  font-size: 13px;
+  padding: 7px 0 5px 10px;
+}
+
+.LoadBetslipContent {
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.LoadBetslipContent p {
+  margin-bottom: 10px;
+  color: #d2dfea;
+}
+
+.LoadBetslipContent a {
+  color: var(--db-brand-green);
+  text-decoration: underline;
+}
+
+.LoadBetslipFormWrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.LoadBetslipFormWrapper input {
+  flex: 1 0 0;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 3px 10px;
+  font-size: 14px;
+  border: none;
+  margin-right: 0.5rem;
+  border-color: transparent;
+  background-color: var(--db-gray-1);
+  border-color: transparent;
+  background-color: var(--db-gray-1);
+  border-radius: 0.375rem;
+  border-width: 1px;
+  border-style: solid;
+  position: relative;
+  display: flex;
+  align-items: center;
+  transition-duration: 0.2s;
+  display: block;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.LoadBetslipFormWrapper button {
+  flex: 1 0 0;
+  background: var(--db-brand-green);
+  color: #071848;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  display: block;
+  border-radius: 0.375rem;
+  padding: 8px 15px;
+}
