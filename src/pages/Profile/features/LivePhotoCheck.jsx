@@ -1,5 +1,6 @@
 // WebcamCapture.js
 import React, { useRef, useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import Webcam from "react-webcam";
 import * as faceapi from "face-api.js";
 
@@ -16,6 +17,10 @@ const LivePhotoCheck = () => {
   const dispatch = useDispatch();
 
   const webcamRef = useRef(null);
+
+  const disableVerifyButton = useSelector(
+    (state) => state.profile.disableVerifyButton
+  );
 
   const [image, setImage] = useState(null);
   const [isLivenessChecked, setIsLivenessChecked] = useState(false);
@@ -159,8 +164,13 @@ const LivePhotoCheck = () => {
                         submitLivePhoto(image);
                       }}
                       className={classes.Button}
+                      disabled={disableVerifyButton}
                     >
-                      {translate(`Submit`)}
+                      {disableVerifyButton ? (
+                        <div className={classes.Spinner}></div>
+                      ) : (
+                        translate(`Submit`)
+                      )}
                     </button>
                   </div>
                 ) : (
