@@ -7,8 +7,10 @@ import { translate } from "../../../utils/translations";
 
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
 import BackIcon from "../../../assets/svgs/times3.svg?react";
-
+import axiosApi from "../../../axios-api";
 import { modalActions } from "../modalSlice";
+import config from "../../../config";
+import { getLang } from "../../../utils/storage";
 
 const CasinoGameOptionsModal = (props) => {
   const navigate = useNavigate();
@@ -18,15 +20,64 @@ const CasinoGameOptionsModal = (props) => {
   const game = useSelector((state) => state.casino.gameOptionsModal);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
 
+  const [bannerGame, setBannerGame] = useState({});
+
   const gameType = game?.Data?.Tags.toLowerCase().includes("live")
     ? "live"
     : "slots";
 
   useEffect(() => {
-    if (!game || !game.Data) {
+    if (!game) {
       closeModal();
     }
   }, [game]);
+
+  useEffect(() => {
+    if (game.Position !== null) {
+      fetchGameData(game);
+    }
+  }, [game]);
+
+  const fetchGameData = async (game) => {
+    try {
+      if (game.GameId !== null && game.GameName !== null) {
+        const lang = getLang();
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        const response = await axiosApi.get(
+          `MyCasino/GetGame?id=${game.GameId}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+          {
+            signal: signal,
+            baseURLOverride: config.VITE_CASINO_BASE,
+          }
+        );
+
+        if (response.data.Status.StatusCode !== 200) throw Error();
+
+        const providerName = response.data?.Contents?.ProviderName;
+        const gameid = game.GameId;
+        const brandGameId = response.data?.Contents?.BrandGameId;
+        const gameName = response.data?.Contents?.Name;
+        const isDemo = false;
+        const isBonus = false;
+
+        if (!brandGameId) throw Error();
+
+        setBannerGame({
+          providerName: providerName,
+          gameid: gameid,
+          brandGameId: brandGameId,
+          gameName: gameName,
+          isDemo: isDemo,
+          isBonus: isBonus,
+        });
+      }
+    } catch (error) {
+      if (!error?.code === "ERR_CANCELED")
+        toast.error(translate(`${error?.message}`));
+    }
+  };
 
   const closeModal = () => {
     props.onClose();
@@ -46,16 +97,9 @@ const CasinoGameOptionsModal = (props) => {
                 backgroundImage:
                   game.Data.ImageUrl3 !== null &&
                   `url(${game.Data.ImageUrl3.replace(/ /g, "%20")})`,
-                // backgroundImage: `url(${game.Data.ImageUrl})`,
               }}
             ></div>
           </div>
-          {/* <div className={classes.GameName}>
-            {translate(`${game.Data.Name}`)}
-          </div>
-          <div className={classes.GameVendor}>
-            {translate(`${game.Data.VendorName}`)}
-          </div> */}
         </div>
 
         <div className={classes.OptionsContainer}>
@@ -91,7 +135,62 @@ const CasinoGameOptionsModal = (props) => {
         </div>
       </div>
     </div>
-  ) : null;
+  ) : (
+    Object.keys(bannerGame).length > 0 && (
+      <div className={classes.GameOptionsModal}>
+        <div className={classes.ModalContent}>
+          <div className={classes.CloseButton} onClick={() => closeModal()}>
+            <BackIcon />
+          </div>
+          <div className={classes.GameInfo}>
+            <div className={classes.ImageContainer}>
+              <div
+                className={classes.Image}
+                style={{
+                  backgroundImage:
+                    game.Img !== null &&
+                    `url(${game.Img.replace(/ /g, "%20")})`,
+                }}
+              ></div>
+            </div>
+          </div>
+
+          <div className={classes.OptionsContainer}>
+            <div className={classes.GameName}>
+              {translate(`${bannerGame.gameName}`)}
+            </div>
+            <div className={classes.GameVendor}>
+              {translate(`${bannerGame.providerName}`)}
+            </div>
+            <Link
+              to={`/casino/game/${gameType}/${bannerGame.providerName}/${bannerGame.gameid}/${bannerGame.brandGameId}/${bannerGame.gameName}?isBonus=false`}
+              style={{ width: "100%" }}
+            >
+              <div className={classes.PlayBtnContainer}>
+                <button className={classes.PlayBtn}>
+                  <span>{translate("Play Game")}</span>
+                </button>
+              </div>
+            </Link>
+            {bonusBalance > 0 && true && (
+              // {bonusBalance > 0 && game.allowBonus && (
+              <Link
+                style={{ width: "100%" }}
+                to={`/casino/game/${gameType}/${bannerGame.providerName}/${bannerGame.gameid}/${bannerGame.brandGameId}/${bannerGame.gameName}?isBonus=true`}
+              >
+                <div className={classes.isBonus}>
+                  <button className={classes.bonusContainer}>
+                    <GiftIcon />
+                    <span>{translate("Play With Bonus")}</span>
+                  </button>
+                </div>
+              </Link>
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  );
 };
 
 export default CasinoGameOptionsModal;

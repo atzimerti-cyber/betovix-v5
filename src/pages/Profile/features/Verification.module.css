@@ -167,7 +167,7 @@
   padding: 0.3rem 0.5rem;
   border-radius: 5px;
   color: rgb(255, 255, 255);
-  /* max-width: 7rem; */
+  margin-top: 1rem;
   width: fit-content;
 }
 .FileSubmitButton.Disabled {
@@ -203,6 +203,8 @@
   align-items: center;
   flex-direction: row;
   justify-content: flex-start;
+  overflow: auto;
+  gap: 0.5rem;
 }
 
 @media (max-width: 900px) {
@@ -210,4 +212,24 @@
     flex-direction: column;
     align-items: flex-start;
   }
+}
+
+/* Custom scrollbar styling */
+.FileForms::-webkit-scrollbar {
+  width: 5px; /* Adjust the width of the vertical scrollbar */
+  height: 6px; /* Adjust the height of the horizontal scrollbar */
+}
+
+.FileForms::-webkit-scrollbar-track {
+  background: #161717; /* Color of the scrollbar track */
+  border-radius: 4px; /* Rounded corners for the track */
+}
+
+.FileForms::-webkit-scrollbar-thumb {
+  background: #1e3f53; /* Color of the scrollbar thumb */
+  border-radius: 4px; /* Rounded corners for the thumb */
+}
+
+.FileForms::-webkit-scrollbar-thumb:hover {
+  background: rgb(125, 156, 167); /* Color of the thumb when hovered */
 }

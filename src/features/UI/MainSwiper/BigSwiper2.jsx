@@ -17,6 +17,7 @@ import LoaderPlaceholder from "../../UI/Skeletons/LoaderPlaceholder";
 import { getLang } from "../../../utils/storage";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 import { translate } from "../../../utils/translations";
+import { casinoActions } from "../../../pages/Casino/casinoSlice";
 
 const BigSwiper2 = (props) => {
   const navigate = useNavigate();
@@ -68,6 +69,21 @@ const BigSwiper2 = (props) => {
     }
   };
 
+  const openGameModal = (game) => {
+    dispatch(casinoActions.setGameOptionsModal(game));
+    addParamsToUrl("game-options");
+  };
+
+  const addParamsToUrl = (modal, tab) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", modal);
+    if (tab) searchParams.set("tab", tab);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+  };
+
   return (
     props.items && (
       <div className={classes.MainSwiperWrapper}>
@@ -103,9 +119,11 @@ const BigSwiper2 = (props) => {
                   <SwiperSlide key={index}>
                     <div className={classes.SlideContainer}>
                       <div
-                        onClick={() =>
-                          getGameId(gameType, item.GameId, item.GameName)
-                        }
+                        onClick={() => {
+                          item.GameId !== null &&
+                            item.GameName !== null &&
+                            openGameModal(item);
+                        }}
                       >
                         <article className={classes.Card}>
                           <div className={classes.ImageContainer}>

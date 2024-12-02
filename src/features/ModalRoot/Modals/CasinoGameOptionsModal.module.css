@@ -40,10 +40,10 @@
 }
 .CloseButton {
   position: absolute;
-  top: 1%;
-  right: 1%;
-  height: 30px;
-  width: 30px;
+  top: 3%;
+  right: 2%;
+  height: 15px;
+  width: 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,7 +51,6 @@
   background: radial-gradient(black 0%, transparent 50%);
 }
 .GameInfo {
-  height: 50%;
   width: 40%;
   display: flex;
   flex-direction: column;
@@ -189,7 +188,7 @@
 @media (min-width: 450px) {
   .GameOptionsModal {
     max-height: 80vh;
-    max-width: 50vh;
+    max-width: 70vh;
     background-color: var(--db-gray-6);
   }
   .GameName {
