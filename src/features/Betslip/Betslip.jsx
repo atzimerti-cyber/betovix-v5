@@ -233,6 +233,18 @@ const Betslip = memo(function (props) {
 
   useEffect(() => {
     if (slips?.length === 1) onChangeTab("Single");
+    if (slips?.length > 1) {
+      const matchIds = slips.map((slip) => slip.MatchId);
+      const uniqueMatchIds = new Set(matchIds);
+
+      if (uniqueMatchIds.size === matchIds.length) {
+        //console.log("All MatchId values are unique");
+        onChangeTab("Multiple");
+      } else {
+        // console.log("There are duplicate MatchId values");
+        onChangeTab("System");
+      }
+    }
   }, [slips?.length]);
 
   const getTicketPayload = () => {

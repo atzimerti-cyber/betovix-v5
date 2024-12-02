@@ -70,11 +70,22 @@ export const login = (loginInfo, navigate, locationPathname) => {
         }
       );
       if (response.data.Status.StatusCode !== 200) {
-        const errorm = response.data.Contents?.Item1
-          ? response.data.Contents?.Item1
-          : response.data.Contents;
-        throw Error(errorm);
+        if (response.data.Status.StatusCode === 409) {
+          let toastMessage = translate("Your account needs to be verified.");
+          // toast.error(toastMessage);
+          dispatch(loginActions.setMailToVerify(response.data.Contents?.Item3));
+          navigate(`${locationPathname}?modal=verify`, {
+            replace: false,
+          });
+          throw Error(toastMessage);
+        } else {
+          const errorm = response.data.Contents?.Item1
+            ? response.data.Contents?.Item1
+            : response.data.Contents;
+          throw Error(errorm);
+        }
       }
+
       setAccessToken(response.data.Contents.Token);
 
       const response2 = await axiosApi.get(
@@ -148,6 +159,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
             `Please check your email to verify your registration`
           );
           toast.success(`${toastMessage1}! ${toastMessage2}.`);
+          dispatch(loginActions.setMailToVerify(registerInfo.email));
           navigate(`${locationPathname}?modal=verify`, {
             replace: true,
           });
@@ -158,7 +170,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
       dispatch(loginActions.setLoginLoading(false));
     } catch (error) {
       dispatch(loginActions.setLoginLoading(false));
-      toast.error("An error has occurred!");
+      toast.error("An error has occurred");
     }
   };
 };
@@ -197,7 +209,7 @@ export const verify = (code, navigate) => {
         dispatch(loginActions.setLoginLoading(false));
       }
     } catch (error) {
-      toast.error("An error has occurred!");
+      toast.error("An error has occurred");
     }
   };
 };
@@ -212,7 +224,7 @@ export const affiliateCampaigns = (code) => {
         }
       );
     } catch (error) {
-      toast.error("An error has occurred!");
+      toast.error("An error has occurred");
     }
   };
 };
@@ -301,7 +313,7 @@ export const sentRecoveryUsername = (username) => {
         dispatch(loginActions.setUsernameSentCorrectly(false));
       }
     } catch (error) {
-      toast.error("An error has occurred!");
+      toast.error("An error has occurred");
       dispatch(loginActions.setUsernameSentCorrectly(false));
       dispatch(loginActions.setUpdateLoading(false));
     }
@@ -332,7 +344,7 @@ export const verifyCode = (code) => {
         dispatch(loginActions.setRecoverAccountId(null));
       }
     } catch (error) {
-      toast.error("An error has occurred!");
+      toast.error("An error has occurred");
       dispatch(loginActions.setRecoverAccountId(null));
       dispatch(loginActions.setUpdateLoading(false));
     }
@@ -362,14 +374,47 @@ export const updatePassword = (info, id, navigate, locationPathname) => {
       if (response.data.Status.StatusCode !== 200) {
         toast.error(response.data.Contents);
       } else {
-        toast.success("Update Successful!");
+        let toastMessage1 = translate(`Update Successful!`);
+        toast.success(`${toastMessage1}.`);
         dispatch(loginActions.setUsernameSentCorrectly(false));
         dispatch(loginActions.setRecoverAccountId(null));
 
         navigate(`${locationPathname}?modal=auth&tab=login`, { replace: true });
       }
     } catch (error) {
-      toast.error("An error has occurred!");
+      let toastMessage1 = translate(`An error has occurred`);
+      toast.error(`${toastMessage1}.`);
+      dispatch(loginActions.setUpdateLoading(false));
+    }
+  };
+};
+
+export const resendEmail = (data) => {
+  return async (dispatch) => {
+    dispatch(loginActions.setUpdateLoading(true));
+    try {
+      const response = await axiosApi.get(
+        `MailTemplates/ResendAccVerificationEmail?data=${data}`,
+        {
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+
+      if (response.data.Status.StatusCode !== 200) {
+        dispatch(loginActions.setUpdateLoading(false));
+        let toastMessage1 = translate(`An error has occurred`);
+        toast.error(`${toastMessage1}.`);
+      } else {
+        let toastMessage1 = translate(`Success`);
+        let toastMessage2 = translate(
+          `Please check your email to verify your registration`
+        );
+        toast.success(`${toastMessage1}! ${toastMessage2}.`);
+        dispatch(loginActions.setUpdateLoading(false));
+      }
+    } catch (error) {
+      let toastMessage1 = translate(`An error has occurred`);
+      toast.error(`${toastMessage1}.`);
       dispatch(loginActions.setUpdateLoading(false));
     }
   };

@@ -8,14 +8,20 @@ import InboxIcon from "../../../assets/svgs/inbox.svg?react";
 
 import { translate } from "../../../utils/translations";
 import MainButton from "../../UI/Buttons/MainButton";
+import { resendEmail } from "../../../pages/Login/loginAsyncActions";
 
 const PleaseVerify = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
+  const email = useSelector((state) => state.login.mailToVerify);
+
   const handleButtonClick = () => {
     navigate(`${location.pathname}`);
+  };
+  const handleEmailResend = (email) => {
+    dispatch(resendEmail(email));
   };
 
   return (
@@ -24,7 +30,7 @@ const PleaseVerify = () => {
         <div className={classes.MainContent}>
           <InboxIcon />
           <p className={classes.Message}>
-            {translate("A verification email has been sent to your inbox")}.
+            {translate("A verification email has been sent to your inbox")}.{" "}
             {translate(
               "Please check your email and click the link to confirm your account"
             )}
@@ -35,6 +41,14 @@ const PleaseVerify = () => {
           <MainButton color="dark" onClick={handleButtonClick}>
             <span>{translate("Done")}</span>
           </MainButton>
+          {email && (
+            <MainButton
+              color="secondary"
+              onClick={() => handleEmailResend(email)}
+            >
+              <span>{translate("Resend Email")}</span>
+            </MainButton>
+          )}
         </div>
       </div>
     </div>

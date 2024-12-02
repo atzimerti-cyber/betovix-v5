@@ -706,7 +706,7 @@ export const getSiteSettings = (signal) => {
     } catch (error) {
       dispatch(appActions.setSiteSettingsSuccess(false));
       // Redirect to `/m` upon error
-      window.location.href = "/m";
+      // window.location.href = "/m";
       // toast.error(
       //   error?.message ||
       //     translate("An error occurred while fetching site settings")

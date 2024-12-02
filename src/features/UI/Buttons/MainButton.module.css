@@ -117,8 +117,7 @@
 .Secondary.MainButton:hover {
   --tw-border-opacity: 1;
   border-color: hsl(var(--sf, var(--s)) / var(--tw-border-opacity));
-  --tw-bg-opacity: 1;
-  background-color: hsl(var(--sf, var(--s)) / var(--tw-bg-opacity));
+  background-color: #602389;
 }
 
 .Transparent.MainButton {
