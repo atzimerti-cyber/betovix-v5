@@ -64,11 +64,29 @@
   color: hsl(var(--pc) / var(--tw-text-opacity));
 }
 
+.Danger.MainButton {
+  --tw-border-opacity: 1;
+  border-color: hsl(0deg 59% 41%);
+  --tw-bg-opacity: 1;
+  background-color: hsl(0deg 59% 41%);
+  --tw-text-opacity: 1;
+  color: hsl(var(--pc) / var(--tw-text-opacity));
+  min-height: 2rem;
+  height: 2rem;
+}
+
 .BVixLGreen.MainButton:hover {
   --tw-border-opacity: 1;
   border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: hsl(112, 90%, 32%);
+}
+
+.Danger.MainButton:hover {
+  --tw-border-opacity: 1;
+  border-color: hsl(0deg 58.2% 47.84%);
+  --tw-bg-opacity: 1;
+  background-color: hsl(0deg 90% 32%);
 }
 
 .Primary.MainButton {

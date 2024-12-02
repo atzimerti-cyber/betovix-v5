@@ -132,6 +132,15 @@
   flex-direction: column;
   justify-content: space-evenly;
   align-items: flex-start;
+  overflow: hidden;
+  text-overflow: ellipsis;    
+  max-width: 100%;
+}
+
+.Center p {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .Right {
   display: flex;
@@ -211,5 +220,8 @@
     align-items: flex-end;
     width: auto;
     padding: 0;
+  }
+  .Center {
+    max-width: 35%;
   }
 }

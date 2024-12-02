@@ -182,8 +182,10 @@ export const submitWithdrawForm = (signal, withrawDTO) => {
 export const getWithrawalReqs = (signal, page, count, sort, status) => {
   return async (dispatch) => {
     try {
+      const lang = getLang();
+
       const response = await axiosApi.post(
-        `/Payments/PostData?action=WithdrawRequestsTable&lang=en`,
+        `/Payments/PostData?action=WithdrawRequestsTable&lang=${lang.id}`,
 
         {
           data: `{"page":${page},"count":${count},"sort":"${sort}","filter":{"Status":"${status}"}}`,
@@ -216,6 +218,41 @@ export const getWithrawalReqs = (signal, page, count, sort, status) => {
       const result = { requests: withdrawReqs, total };
 
       dispatch(cryptoActions.setWithdrawals(result));
+    } catch (error) {
+      const message = error?.message ? error.message : error;
+      if (!error?.code === "ERR_CANCELED") toast.error(message);
+    }
+  };
+};
+
+export const cancelWithdrawRequest = (signal, id, onSuccess) => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+      
+      const response = await axiosApi.post(
+        `/Payments/PostData?action=WithdrawRequestsCancel&lang=${lang.id}`,
+
+        {
+          data: id,
+        },
+
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_STORETUBE,
+        }
+      );
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
+        throw Error("Failed");
+
+
+      if(response.data.Contents === true) {
+        toast.success('Withdraw Request Cancelled');
+        onSuccess();
+      }
+      else throw Error("Failed")
+
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(message);

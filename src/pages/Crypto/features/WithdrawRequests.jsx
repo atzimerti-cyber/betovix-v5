@@ -7,7 +7,8 @@ import classes from "./WithdrawRequests.module.css";
 import AngleLeft2Icon from "../../../assets/svgs/angle-left2.svg?react";
 import NoReqs from "../../../assets/svgs/no-withdraw-reqs.svg?react";
 import { translate } from "../../../utils/translations";
-import { getWithrawalReqs } from "../cryptoAsyncActions";
+import { getWithrawalReqs, cancelWithdrawRequest } from "../cryptoAsyncActions";
+import MainButton from "../../../features/UI/Buttons/MainButton";
 import AngleLeftIcon from "../../../assets/svgs/angle-left.svg?react";
 import AngleRightIcon from "../../../assets/svgs/angle-right.svg?react";
 import UpArrowIcon from "../../../assets/svgs/up.svg?react";
@@ -40,6 +41,12 @@ const WithdrawRequests = () => {
       controller.abort();
     };
   }, [currentPage, sortOrder, selectedStatus, dispatch]);
+  
+  const refreshData = () => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    dispatch(getWithrawalReqs(signal, currentPage, count, sortOrder, selectedStatus));
+  };
 
   useEffect(() => {
     if (withdrawReqs && withdrawReqs.requests.length > 0) {
@@ -156,6 +163,13 @@ const WithdrawRequests = () => {
       fractionalSecondDigits: 2,
       hour12: false,
     });
+  };
+
+  const handleCancelRequest = (reqid) => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    dispatch(cancelWithdrawRequest(signal, reqid, refreshData)); // Dispatch cancel action
   };
 
   // Get unique statuses from withdrawReqs if it's not empty
@@ -285,6 +299,15 @@ const WithdrawRequests = () => {
                     <p>
                       <b>{renderReqStatus(req.status)}</b>
                     </p>
+                    {req.status === 0 && ( // Show Cancel button only if status is Pending
+                      <MainButton
+                        color="danger"
+                        onClick={() => handleCancelRequest(req.reqId)}
+                        className={classes.CancelButton}
+                      >
+                        {translate("Cancel Request")}
+                      </MainButton>
+                    )}
                   </div>
                 </div>
               ))}
