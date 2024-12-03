@@ -93,7 +93,7 @@ const SportsBanners = (props) => {
                           <div
                             className={classes.Img}
                             style={{
-                              backgroundImage: `url(https://cdnsports.storetube.gr/assets/teams/b/${banner.event?.Info?.HomeTeamId}.png)`,
+                              backgroundImage: `url(https://cdnsports.modulesports.com/assets/teams/b/${banner.event?.Info?.HomeTeamId}.png)`,
                             }}
                           ></div>
                           <p>
@@ -107,7 +107,7 @@ const SportsBanners = (props) => {
                           <div
                             className={classes.Img}
                             style={{
-                              backgroundImage: `url(https://cdnsports.storetube.gr/assets/teams/b/${banner.event?.Info?.AwayTeamId}.png)`,
+                              backgroundImage: `url(https://cdnsports.modulesports.com/assets/teams/b/${banner.event?.Info?.AwayTeamId}.png)`,
                             }}
                           ></div>
                           <p>

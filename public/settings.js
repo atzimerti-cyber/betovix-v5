@@ -2,7 +2,7 @@ window.SETTINGS ={
     VITE_CASINO_BASE: 'https://casinoapi.storetube.gr:61020/api',
     VITE_WALLET_API_BASE: 'https://storetube.gr:61009/api',
     VITE_SPORTS_API_BASE: 'https://storetube.gr:60009/api',
-    VITE_SPORTS_LOGOS: 'https://cdnsports.pick777.net/assets',
+    VITE_SPORTS_LOGOS: 'https://cdnsports.modulesports.com/assets',
     VITE_CASINO_LOBBY: 'https://casinom.storetube.gr',
     VITE_CASINO_LIVE_LOBBY: 'https://casinom.storetube.gr',
     VITE_BETS_API: 'https://storetube.gr:60019/api',
