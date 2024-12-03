@@ -9,6 +9,7 @@ import OddsButton from "./OddsButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
+import { translate } from "../../../utils/translations.jsx";
 
 const SportsBanners = (props) => {
   const [loadedImages, setLoadedImages] = useState([]);
@@ -119,25 +120,42 @@ const SportsBanners = (props) => {
                     <div className={classes.EventMarkets}>
                       {banner.event.Markets &&
                       banner.event.Markets.length > 0 ? (
-                        banner.event.Markets.find(
-                          (market) => market.MarketTypeId === 14
-                        )?.MarketFields.map((marketField) => (
-                          <OddsButton
-                            key={marketField.FieldId}
-                            label={getOddsLabel(
-                              marketField.FieldName?.International
-                            )}
-                            event={banner.event}
-                            market={banner.event?.Markets.find(
-                              (market) => market.MarketTypeId === 14
-                            )}
-                            marketField={marketField}
-                            odds={marketField.Value}
-                            disabled={!marketField.Active}
-                            style="card"
-                            className={classes.Market}
-                          />
-                        ))
+                        // banner.event.Markets.find(
+                        //   (market) => market.MarketTypeId === 14
+                        // )?.MarketFields.map((marketField) => (
+                        //   <OddsButton
+                        //     key={marketField.FieldId}
+                        //     label={getOddsLabel(
+                        //       marketField.FieldName?.International
+                        //     )}
+                        //     event={banner.event}
+                        //     market={banner.event?.Markets.find(
+                        //       (market) => market.MarketTypeId === 14
+                        //     )}
+                        //     marketField={marketField}
+                        //     odds={marketField.Value}
+                        //     disabled={!marketField.Active}
+                        //     style="card"
+                        //     className={classes.Market}
+                        //   />
+                        // ))
+                        banner.event.Markets[0]?.MarketFields.map(
+                          (marketField) => (
+                            <OddsButton
+                              key={marketField.FieldId}
+                              label={getOddsLabel(
+                                marketField.FieldName?.International
+                              )}
+                              event={banner.event}
+                              market={banner.event?.Markets[0]}
+                              marketField={marketField}
+                              odds={marketField.Value}
+                              disabled={!marketField.Active}
+                              style="card"
+                              className={classes.Market}
+                            />
+                          )
+                        )
                       ) : (
                         <>
                           <OddsButton
