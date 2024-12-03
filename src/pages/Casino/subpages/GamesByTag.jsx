@@ -81,7 +81,7 @@ const GamesByTag = () => {
               collection={items}
               icon={casinoIcons[label] || <NoImageIcon />}
               // icon={<TagIcon />}
-              title={translate(`${label}`)}
+              title={label}
               loading={false}
               bigTitle={true}
             />
