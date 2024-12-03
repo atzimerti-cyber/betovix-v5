@@ -7,7 +7,7 @@
 .CategoryTitle {
   margin-top: 0.75rem;
   margin-bottom: 0.5rem;
-  font-size: 0.85rem;
+  font-size: 1rem;
   line-height: 1rem;
   font-weight: 600;
   --tw-text-opacity: 1;
@@ -22,6 +22,7 @@
   display: flex;
   column-gap: 0.5rem;
   align-items: center;
+  font-size: 0.85rem;
 }
 .ViewAll svg {
   padding-top: 3px;

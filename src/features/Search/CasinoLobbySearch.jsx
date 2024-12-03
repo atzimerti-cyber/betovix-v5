@@ -5,16 +5,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 import TimesIcon from "../../assets/svgs/times.svg?react";
 import SearchIcon from "../../assets/svgs/search.svg?react";
-import CherriesIcon from "../../assets/svgs/cherries.svg?react";
 import classes from "./CasinoLobbySearch.module.css";
 import { searchActions } from "../../pages/Search/searchSlice";
 import { translate } from "../../utils/translations";
 import { searchCasino } from "../../pages/Search/searchAsyncActions";
 import useDebounce from "../../hooks/useDebounce";
-import GridGames from "../../pages/Casino/features/GridGames";
-import CasinoGames from "../ModalRoot/features/CasinoGames";
 import LobbySearchResults from "../../pages/Casino/features/LobbySearchResults";
-import { casinoActions } from "../../pages/Casino/casinoSlice";
 
 const CasinoLobbySearch = (props) => {
   const dispatch = useDispatch();
@@ -34,7 +30,7 @@ const CasinoLobbySearch = (props) => {
     if (debSearchString !== "") {
       dispatch(searchActions.setCasinoResults(null));
       dispatch(
-        searchCasino(signal, 1, 15, [], debSearchString, "Default", true)
+        searchCasino(signal, 1, 20, [], debSearchString, "Default", true)
       );
     }
 
