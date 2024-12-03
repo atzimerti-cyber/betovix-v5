@@ -84,7 +84,7 @@ const Overview = () => {
         <DecorationDiv color="primary">
           <>
             <p className={classes.TotalName}>{translate("Reserved Balance")}</p>
-            <p className={classes.TotalBits}>
+            <div className={classes.TotalBits}>
               <CoinsIcon />
               {user?.Wallet.ReservedBalance}
               <div
@@ -101,7 +101,7 @@ const Overview = () => {
               >
                 <InfoIcon />
               </div>
-            </p>
+            </div>
           </>
         </DecorationDiv>
         <div

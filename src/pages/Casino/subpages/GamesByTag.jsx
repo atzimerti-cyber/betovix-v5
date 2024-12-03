@@ -21,11 +21,12 @@ const GamesByTag = () => {
   const dispatch = useDispatch();
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const location = useLocation();
-  const { label } = location.state || {};
+  // const { label } = location.state || {};
 
   const user = useSelector((state) => state.login.user);
 
   const [menuTag, setMenuTag] = useState(null);
+  const [label, setLabel] = useState(null);
   const [items, setItems] = useState({ Data: null });
 
   const casinoByTags = useSelector((state) => state.casino.casinoByTags);
@@ -33,10 +34,14 @@ const GamesByTag = () => {
   const casinoIcons = useSelector((state) => state.app.casinoIcons);
 
   useEffect(() => {
+    if (location.state && location.state.label) {
+      setLabel(location.state.label);
+    }
+
     return () => {
       dispatch(casinoActions.reset());
     };
-  }, []);
+  }, [location.state, dispatch]);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);

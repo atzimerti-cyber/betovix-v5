@@ -60,13 +60,26 @@ const VirtualGames = () => {
   return (
     <>
       <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
-
+      {/* <div className={classes.PromotionsHeader}>
+        <div className={classes.Title}>
+          <span>{translate(`Promotions`)}</span>
+          <p>
+            {translate(
+              `Explore exclusive casino and sportsbook promotions and special bonuses to boost your play`
+            )}
+            .
+          </p>
+        </div>
+        <div className={classes.PromoBanner}>
+          <img src={PromoImage} alt="" />
+        </div>
+      </div> */}
       {!barLoading ? (
         <div className={classes.TagGames}>
           {items?.Data ? (
             <GridGames
               collection={items}
-              icon={<VirtualGamesIcon/>}
+              icon={<VirtualGamesIcon />}
               title={translate(`Virtual Games`)}
               loading={false}
               bigTitle={true}
