@@ -1,0 +1,5 @@
+<<<<<<<< HEAD:dist/assets/arrow2-left-CSU0lGAp.js
+import{r as e}from"./index-Cf8eNVKJ.js";const o=t=>e.createElement("svg",{stroke:"currentColor",fill:"currentColor",strokeWidth:0,viewBox:"0 0 16 16",className:"caret-down",height:"1em",width:"1em",xmlns:"http://www.w3.org/2000/svg",...t},e.createElement("path",{fillRule:"evenodd",d:"M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"}));export{o as S};
+========
+import{r as e}from"./index-B8tUnHIr.js";const o=t=>e.createElement("svg",{stroke:"currentColor",fill:"currentColor",strokeWidth:0,viewBox:"0 0 16 16",className:"caret-down",height:"1em",width:"1em",xmlns:"http://www.w3.org/2000/svg",...t},e.createElement("path",{fillRule:"evenodd",d:"M12 8a.5.5 0 0 1-.5.5H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5a.5.5 0 0 1 .5.5z"}));export{o as S};
+>>>>>>>> 6ecc3c9a3112f5bca125b599d33f2b75706ead9e:dist/assets/arrow2-left-BFehu9xM.js
