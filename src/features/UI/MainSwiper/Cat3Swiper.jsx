@@ -27,6 +27,7 @@ import _ from "lodash";
 import { useMediaQuery } from "react-responsive";
 import useTouchScreen from "../../../hooks/useTouchScreen";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
+import DecorImage from "../../../assets/casinoIcons/xmaslights.png";
 
 const Cat3Swiper = (props) => {
   const dispatch = useDispatch();
@@ -147,6 +148,9 @@ const Cat3Swiper = (props) => {
             backgroundAttachment: isIOS ? "local" : "fixed",
           }}
         >
+          {/* <div className={classes.SwiperDecor}>
+            <img src={DecorImage} />
+          </div> */}
           <div
             className={classes.SwiperImage}
             style={{

@@ -66,6 +66,7 @@ import NoLimit from "../../assets/casinoIcons/nolimit.svg?react";
 import Peterandsons from "../../assets/casinoIcons/peterandsons.svg?react";
 import New from "../../assets/casinoIcons/newrelease.svg?react";
 import Blackjack from "../../assets/casinoIcons/bj.svg?react";
+import XmasCasinoIcon from "../../assets/casinoIcons/xmascasinoIcon.svg?react";
 
 import Amatic from "../../assets/casinoIcons/amatic.svg?react";
 import Aristocrat from "../../assets/casinoIcons/aristocrat-logo.svg?react";
@@ -295,7 +296,7 @@ const initialState = {
     "Card Games": <CardGames />,
     Premium: <Premium />,
     "No Limit": <NoLimit />,
-    "Peter & Sons": <Peterandsons />,
+    "X-mas Specials": <XmasCasinoIcon />,
     Blackjack: <Blackjack />,
   },
   sportSettings: null,

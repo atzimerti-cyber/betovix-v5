@@ -91,10 +91,9 @@
 }
 
 .NoResults {
-  margin-left: auto;
-  margin-right: auto;
+  width: 100%;
   text-align: center;
-  font-size: 1.125rem;
+  font-size: 0.9rem;
   line-height: 1.75rem;
 }
 
@@ -104,23 +103,7 @@
   position: relative;
 }
 
-@media (max-width: 400px) {
-  /* .GameGrid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    } */
-}
-
-@media (min-width: 400px) {
-  /* .GameGrid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    } */
-}
-
 @media (min-width: 550px) {
-  /* .GameGrid {
-        gap: 1rem;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    } */
   .Header {
     margin-bottom: 1rem;
   }

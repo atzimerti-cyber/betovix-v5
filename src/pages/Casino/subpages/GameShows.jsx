@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 
@@ -14,12 +14,14 @@ import { AnimatePresence } from "framer-motion";
 
 import BarLoading from "../../../features/UI/BarLoading/BarLoading";
 import GameShowsIcon from "../../../assets/svgs/gameshows.svg?react";
-
+import Arrow2LeftIcon from "../../../assets/svgs/angle-left.svg?react"; 
+import PromoImage from "../../../assets/casinoIcons/gs.png";
 import { translate } from "../../../utils/translations";
 
 const GameShows = () => {
   const dispatch = useDispatch();
-  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations 
+  const navigate = useNavigate();
+  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
   const user = useSelector((state) => state.login.user);
 
@@ -59,14 +61,26 @@ const GameShows = () => {
   return (
     <>
       <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
-
+      <div className={classes.PromotionsHeader}>
+        <div className={classes.GoBackBtn}>
+          <button className={classes.BackBtn} onClick={() => navigate(-1)}>
+            <Arrow2LeftIcon />
+            {translate(`Back`)}
+          </button>
+        </div>
+        <div className={classes.PromoBanner}>
+          <p className={classes.PageTitle}>{translate(`Game Shows`)}</p>
+          <img src={PromoImage} alt="" />
+        </div>
+      </div>
       {!barLoading ? (
         <div className={classes.TagGames}>
           {items?.Data ? (
             <GridGames
               collection={items}
-              icon={<GameShowsIcon/>}
-              title={translate(`Game Shows`)}
+              icon={<GameShowsIcon />}
+              // title={translate(`Game Shows`)}
+              noTitle
               loading={false}
               bigTitle={true}
             />
@@ -74,7 +88,7 @@ const GameShows = () => {
         </div>
       ) : (
         <div className={classes.Header}>
-          <p className={classes.Title}>Loading...</p>
+          {/* <p className={classes.Title}>Loading...</p> */}
         </div>
       )}
     </>

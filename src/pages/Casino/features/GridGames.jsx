@@ -103,11 +103,19 @@ const GridGames = (props) => {
 
   return (
     <div className={classes.Games}>
-      <div className={classes.Header}>
-        {props.icon}
-        <p className={props.bigTitle ? classes.BigTitle : classes.Title}>
-          {translate(props.title)}
-        </p>
+      <div
+        className={classes.Header}
+        style={props.noTitle && { marginBottom: 0 }}
+      >
+        {props.noTitle ? null : (
+          <>
+            {props.icon}
+            <p className={props.bigTitle ? classes.BigTitle : classes.Title}>
+              {translate(props.title)}
+            </p>
+          </>
+        )}
+
         {props.collection?.Data.Total > 0 && (
           <p className={classes.Total}>
             {props.collection?.Total} {translate("Games")}
@@ -124,6 +132,26 @@ const GridGames = (props) => {
           gridTemplateColumns: `repeat(${responsiveGrid()}, minmax(0, 1fr))`,
         }}
       >
+        {/* {props.collection?.Total === 0 ||
+          (props.collection?.Data.length === 0 && (
+            <p className={classes.NoResults}>
+              {props.searchString
+                ? `${translate("No results with")} '${props.searchString}'`
+                : translate("No results")}
+            </p>
+          ))} */}
+        {props.collection &&
+          props.collection.Total === 0 &&
+          !props.collection?.Data.length && (
+            <p className={classes.NoResults}>{translate("No results")}</p>
+          )}
+
+        {props.collection &&
+          (props.collection.Total === undefined || null) &&
+          !props.collection?.Data.length && (
+            <p className={classes.NoResults}>{translate("No results")}</p>
+          )}
+
         {props.collection &&
           props.collection.Data.map((game) => {
             return <CasinoGameCard key={game.Data.Id} game={game} />;
@@ -137,15 +165,6 @@ const GridGames = (props) => {
             ))
           : null}
       </div>
-
-      {props.collection?.Total === 0 ||
-        (props.collection?.Data.length === 0 && (
-          <p className={classes.NoResults}>
-            {props.searchString
-              ? `${translate("No results with")} '${props.searchString}'`
-              : translate("No results")}
-          </p>
-        ))}
 
       {props.collection?.Total > props.collection?.Data.length &&
         props.collection?.Data.length > 0 && (

@@ -17,6 +17,7 @@ import BigSwiper2 from "../../../features/UI/MainSwiper/BigSwiper2";
 import ProvidersIcon from "../../../assets/casinoIcons/providers.svg?react";
 import { translate } from "../../../utils/translations";
 
+import DecorImage from "../../../assets/casinoIcons/xmaslights.png";
 import TESTIMAGE from "../../../assets/images/pragmatic-logo3d.png";
 
 const Lobby = () => {
@@ -161,15 +162,17 @@ const Lobby = () => {
               />
             )}
             {tag && tag.Category === "3" && (
-              <Cat3Swiper
-                title={`${translate(tag.Name)}`}
-                icon={""}
-                thIcon={!notGridSwiper && tag.Icon}
-                tag={tag.Tags}
-                max={20}
-                backgroundImage={tag?.BgImage}
-                frontImage={tag?.Image}
-              />
+              <>
+                <Cat3Swiper
+                  title={`${translate(tag.Name)}`}
+                  icon={""}
+                  thIcon={!notGridSwiper && tag.Icon}
+                  tag={tag.Tags}
+                  max={20}
+                  backgroundImage={tag?.BgImage}
+                  frontImage={tag?.Image}
+                />
+              </>
             )}
           </React.Fragment>
         );

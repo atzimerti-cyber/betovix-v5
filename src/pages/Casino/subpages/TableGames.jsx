@@ -74,7 +74,7 @@ const TableGames = () => {
         </div>
       ) : (
         <div className={classes.Header}>
-          <p className={classes.Title}>Loading...</p>
+          {/* <p className={classes.Title}>Loading...</p> */}
         </div>
       )}
     </>
