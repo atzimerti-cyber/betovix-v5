@@ -39,7 +39,7 @@ export const contactForm = (form) => {
 
       // Make the POST request with the provided form data and configurations
       const response = await axiosApi.post(
-        `/ContactRequest/PostFormContact`,
+        `/ContactRequest/PostFormContact?siteId=${config.VITE_SITE_ID}`,
         form,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,

@@ -45,7 +45,7 @@ const GridGames = (props) => {
     setAxiosController(controller);
 
     //dispatch(addToGamesWithFilter(props.property, signal));
-    let tags = [...props.providers, props.tag];
+    let tags = [props.tag, ...props.providers];
     dispatch(
       loadMoreSearch(signal, 28, tags, props.searchString, props.sorting)
     );
