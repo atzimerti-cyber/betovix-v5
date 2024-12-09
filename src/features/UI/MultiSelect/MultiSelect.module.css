@@ -6,9 +6,11 @@
 }
 
 .DropdownInner {
-  background-color: var(--db-gray-4);
+  /* background-color: var(--db-gray-4); */
+  background: linear-gradient(222deg, #26465bbf 0%, #396b8140 50%);
   border-width: 1px;
-  border-radius: 0.375rem;
+  /* border-radius: 0.375rem; */
+  border-radius: 2rem;
   border-style: none;
   position: relative;
   display: flex;
@@ -33,23 +35,23 @@
   font-size: 0.75rem;
 }
 .DropdownInner > input::placeholder {
-  color: var(--db-body-subheading);
+  color: rgba(255, 255, 255, 0.518);
   opacity: 1;
 }
 .DropdownInner > input::-webkit-input-placeholder {
-  color: var(--db-body-subheading);
+  color: rgba(255, 255, 255, 0.518);
   opacity: 1;
 }
 .DropdownInner > input::-moz-placeholder {
-  color: var(--db-body-subheading);
+  color: rgba(255, 255, 255, 0.518);
   opacity: 1;
 }
 .DropdownInner > input:-ms-input-placeholder {
-  color: var(--db-body-subheading);
+  color: rgba(255, 255, 255, 0.518);
   opacity: 1;
 }
 .DropdownInner > input:-moz-placeholder {
-  color: var(--db-body-subheading);
+  color: rgba(255, 255, 255, 0.518);
   opacity: 1;
 }
 

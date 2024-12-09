@@ -1,113 +1,112 @@
 .SlotGames {
-    margin-top: 0.625rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
 .NewIcon path:not(:first-child) {
-    fill: #000000 !important;
+  fill: #000000 !important;
 }
 
 .SlotGames {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .Header {
-    margin-bottom: 0.75rem;
-    display: flex;
-    align-items: center;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
 }
 
 .Header > svg {
-    margin-right: 0.5rem;
-    height: 1.25rem;
-    width: 1.25rem;
+  margin-right: 0.5rem;
+  height: 1.25rem;
+  width: 1.25rem;
 }
 .Header > svg path {
-    fill: var(--db-brand-green);
+  fill: var(--db-brand-green);
 }
 
 .Title {
-    display: flex;
-    align-items: center;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    font-weight: 700;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .Total {
-    margin-left: auto;
-    color: var(--db-brand-green);
+  margin-left: auto;
+  color: var(--db-brand-green);
 }
 
 .GameGrid {
-    display: grid;
-    gap: 0.5rem;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
 .LoadMore {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    display: flex;
-    justify-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  justify-content: center;
 }
 .LoadMore button {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    height: 3rem !important;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  height: 3rem !important;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
 }
 
 .MoreLoadingAnimation {
-    height: 4rem;
-    width: 4rem;
-    border-radius: 0.375rem;
+  height: 4rem;
+  width: 4rem;
+  border-radius: 0.375rem;
 }
 
 .NewIcon path:not(:first-child) {
-    fill: #000000 !important;
+  fill: #000000 !important;
 }
 
 .ImageContainer {
-    width: 100%;
-    aspect-ratio: 6 / 4;
-    position: relative;
+  width: 100%;
+  aspect-ratio: 6 / 4;
+  position: relative;
 }
 
 .NoResults {
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
 }
 
 @media (min-width: 640px) {
-    .VendorGames {
-        margin-top: 0.875rem;
-    }
-    .GameGrid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+  .VendorGames {
+    margin-top: 0.875rem;
+  }
+  .GameGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 768px) {
-    .GameGrid {
-        gap: 1rem;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
+  .GameGrid {
+    gap: 1rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }
 
 @media (min-width: 1280px) {
-    .GameGrid {
-        grid-template-columns: repeat(5, minmax(0, 1fr));
-    }
+  .GameGrid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
 }

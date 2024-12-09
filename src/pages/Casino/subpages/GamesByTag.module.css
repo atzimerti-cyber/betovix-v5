@@ -50,7 +50,7 @@
 
 /* ==================================================== */
 .PromotionsHeader {
-  height: 150px;
+  height: max-content;
   width: 100%;
   display: flex;
   justify-content: flex-end;
@@ -58,6 +58,7 @@
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   position: relative;
+  gap: 1rem;
   align-items: flex-start;
 }
 .PromoBanner {
@@ -92,10 +93,12 @@
   right: 0;
 }
 .BackBtn {
-  padding: 0 1rem 0 0.7rem;
+  margin-left: 0.7rem;
+  padding: 0 0.2rem 0 0.38rem;
   height: 100%;
   width: 100%;
-  background-color: #1c4558;
+  /* background-color: #1c455875; */
+  background: linear-gradient(222deg, #82cdd938, #00ff8c14);
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -104,7 +107,7 @@
   color: white;
   justify-content: flex-start;
   column-gap: 1rem;
-  min-height: 40px;
+  min-height: 33px;
   font-size: 0.8rem;
 }
 .BackBtn svg {
@@ -129,5 +132,8 @@
     color: white;
     font-size: 3rem;
     font-weight: 700;
+  }
+  .BackBtn {
+    padding: 0 0.1rem 0 0.6rem;
   }
 }

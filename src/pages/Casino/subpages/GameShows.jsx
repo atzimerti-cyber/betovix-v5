@@ -14,7 +14,7 @@ import { AnimatePresence } from "framer-motion";
 
 import BarLoading from "../../../features/UI/BarLoading/BarLoading";
 import GameShowsIcon from "../../../assets/svgs/gameshows.svg?react";
-import Arrow2LeftIcon from "../../../assets/svgs/angle-left.svg?react"; 
+import Arrow2LeftIcon from "../../../assets/svgs/angle-left.svg?react";
 import PromoImage from "../../../assets/casinoIcons/gs.png";
 import { translate } from "../../../utils/translations";
 
@@ -69,8 +69,10 @@ const GameShows = () => {
           </button>
         </div>
         <div className={classes.PromoBanner}>
-          <p className={classes.PageTitle}>{translate(`Game Shows`)}</p>
-          <img src={PromoImage} alt="" />
+          <p className={classes.PageTitle} style={{ marginLeft: "1rem" }}>
+            {translate(`Game Shows`)}
+          </p>
+          {/* <img src={PromoImage} alt="" /> */}
         </div>
       </div>
       {!barLoading ? (

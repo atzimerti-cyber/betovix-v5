@@ -141,7 +141,10 @@ const Withdraw = () => {
                   classes.PaymentButtonContainer,
                   classes.CryptoCoin,
                 ].join(" ")}
-                style={{ backgroundColor: "#113750" }}
+                style={{
+                  // backgroundColor: "#113750",
+                  background: "linear-gradient(45deg, #35506d61, #11375057)",
+                }}
               >
                 <MainButton
                   color="transparent"

@@ -18,7 +18,8 @@
   animation: __slide_1kf3c_1_7cfl1_1 0.2s ease-out forwards;
   overflow-x: hidden;
   overflow-y: auto;
-  padding: 0.5rem 0.5rem 0.8rem 0.5rem;
+  padding: 1.5rem;
+  /* padding: 0.5rem 0.5rem 0.8rem 0.5rem; */
   max-height: 85vh;
   height: max-content;
 }
@@ -42,7 +43,6 @@
 
 .ModalContent {
   max-height: 100dvh;
-  padding-top: 0.625rem;
 }
 .MainContent {
   height: max-content;

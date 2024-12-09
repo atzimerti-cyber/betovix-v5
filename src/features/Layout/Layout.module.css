@@ -352,3 +352,30 @@
   font-weight: bold; /* Make it stand out */
   pointer-events: none; /* Ensure clicks pass through */
 }
+/* =============================================================================== */
+.BackToTopButton {
+  position: fixed;
+  bottom: 60px;
+  height: 40px;
+  width: 40px;
+  background-color: #374e5760;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.BackToTopButton:hover {
+  background-color: #2d3e47;
+}
+
+.BackToTopButton:active {
+  transform: scale(0.95);
+}

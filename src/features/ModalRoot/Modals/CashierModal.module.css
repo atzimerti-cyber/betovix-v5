@@ -1,74 +1,76 @@
 .CashierModal {
-    position: relative;
-    z-index: 10;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    height: 100%;
-    width: 100%;
-    flex-direction: column;
-    background-color: var(--db-duelbits-gray);
-    border-radius: 10px;
+  position: relative;
+  z-index: 10;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+  background-color: var(--db-duelbits-gray);
 }
 
 .TabContainer > div {
-    margin: 0;
+  margin: 0;
 }
 
 .TabContentHiddenBox {
-    flex-grow: 1;
-    overflow: hidden;
+  flex-grow: 1;
+  overflow: hidden;
 }
 
 .TabContentInner {
-    display: flex;
-    height: 100%;
-    transition-property: transform;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 0.15s;
+  display: flex;
+  height: 100%;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
 }
 .TabContentInner.TabContentInner_deposit,
 .TabContentInner.TabContentInner_withdraw {
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .TabContentInner.TabContentInner_deposit {
-    --tw-translate-x: 0px;
+  --tw-translate-x: 0px;
 }
 .TabContentInner.TabContentInner_withdraw {
-    --tw-translate-x: -100%;
+  --tw-translate-x: -100%;
 }
 .TabContentInner.TabContentInner_buy-crypto {
-    --tw-translate-x: -200%;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  --tw-translate-x: -200%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
 .TabContent {
-    width: 100%;
-    flex-shrink: 0;
-    height: 0;
+  width: 100%;
+  flex-shrink: 0;
+  height: 0;
 }
 .TabContent.Active {
-    height: auto;
+  height: auto;
 }
 
 .TabContentInner.TabContentInner_buy-crypto .TabContent {
-    position: relative;
-    overflow-y: auto;
+  position: relative;
+  overflow-y: auto;
 }
 
 @media (min-width: 640px) {
-    .CashierModal {
-        /* max-height: 680px; */
-        max-height: 90vh;
-        width: 552px;
-        background-color: var(--db-gray-6);
-    }
+  .CashierModal {
+    /* max-height: 680px; */
+    max-height: 90vh;
+    width: 552px;
+    background-color: var(--db-gray-6);
+    border-radius: 10px;
+  }
 }
 
 @media (max-height: 700px) {
-    .CashierModal {
-        height: 100%;
-    }
+  .CashierModal {
+    height: 100%;
+  }
 }

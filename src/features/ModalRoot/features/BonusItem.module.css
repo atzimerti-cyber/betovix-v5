@@ -1,175 +1,218 @@
 .bonusItem {
-    display: flex;
-    flex-flow: column;
-    position: relative;
-    background-color: var(--db-gray-2);
-    margin-top: 25px;
-    border-radius: 8px;
+  display: flex;
+  flex-flow: column;
+  position: relative;
+  background-color: var(--db-gray-2);
+  margin-top: 25px;
+  border-radius: 8px;
 }
 
 .bonusShadow {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: 130px;
-    height: 100%;
-    background: linear-gradient(to right, var(--db-purple-box), transparent);
-    transform: translateY(-50%);
-    z-index: 0;
-    border-top-left-radius: 8px;
-    border-bottom-left-radius: 8px;
-    opacity: 0.5;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 130px;
+  height: 100%;
+  background: linear-gradient(to right, var(--db-purple-box), transparent);
+  transform: translateY(-50%);
+  z-index: 0;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  opacity: 0.5;
 }
 
 .bonusItem:first-child {
-    margin-top: 0;
+  margin-top: 0;
 }
- .bonusItem > .bonusItemContent {
-    padding: 15px;
-    position: relative;
-    display: flex;
-    flex-direction: row;
+.bonusItem > .bonusItemContent {
+  padding: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: row;
 }
 @media (max-width: 425px) {
-     .bonusItem > .bonusItemContent {
-        flex-direction: column;
-        padding: 10px 8px;
-   }
-  
+  .bonusItem > .bonusItemContent {
+    flex-direction: column;
+    padding: 10px 8px;
+  }
 }
- .bonusItem > .bonusItemContent > .bonusItemImage {
-    display: flex;
-    height: 100px;
-    width: 120px;
+.bonusItem > .bonusItemContent > .bonusItemImage {
+  display: flex;
+  height: 100px;
+  width: 120px;
 }
- .bonusItem > .bonusItemContent > .bonusItemImage img {
-    border-radius: 8px;
+.bonusItem > .bonusItemContent > .bonusItemImage img {
+  border-radius: 8px;
 }
 
- .bonusItem > .bonusItemContent > .bonusContentContainer {
-    width: 100%;
-    display: flex;
-    flex-flow: column;
-    padding-left: 20px;
-    overflow-x: auto;
+.bonusItem > .bonusItemContent > .bonusContentContainer {
+  width: 100%;
+  display: flex;
+  flex-flow: column;
+  padding-left: 20px;
+  overflow-x: auto;
 }
 @media (max-width: 768px) {
-     .bonusItem > .bonusItemContent > .bonusContentContainer {
-        margin-top: 10px;
-        padding: 0 5px;
-   }
+  .bonusItem > .bonusItemContent > .bonusContentContainer {
+    margin-top: 10px;
+    padding: 0 5px;
+  }
 }
 
 @media (max-width: 500px) {
-    .bonusItem > .bonusItemContent > .bonusContentContainer {
-       z-index: 2;
+  .bonusItem > .bonusItemContent > .bonusContentContainer {
+    z-index: 2;
   }
   .bonusItem > .bonusItemContent > .bonusItemImage {
     position: absolute;
     right: 0;
     opacity: 0.5;
-    width: 100px!important;
+    width: 100px !important;
+  }
 }
+.bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
 }
- .bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 6px;
-}
- .bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle h3 {
-    font-size: 17px;
-    font-weight: 700;
-    color: #fff;
-}
-
-.bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle > div > div {
-    color: var(--db-body-text);
-}
- .bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle .bonusDate {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-}
- .bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle .bonusDate > div {
-    padding: 3px 5px;
-    border-radius: 5px;
-    font-size: 12px;
-    color: #fff;
-    font-weight: 700;
-}
-.bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle .bonusDate > div:nth-child(2) {
-    padding: 0;
-}
- .bonusItem > .bonusItemContent > .bonusContentContainer .wageringContent {
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-    padding: 8px 0;
+.bonusItem > .bonusItemContent > .bonusContentContainer .contentTitle h3 {
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
 }
 
-.bonusWrapperBtns {
-    margin-top: auto;
+.bonusItem
+  > .bonusItemContent
+  > .bonusContentContainer
+  .contentTitle
+  > div
+  > div {
+  color: var(--db-body-text);
 }
- .bonusItem .bonusWrapperBtns .bonusItemClaim {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+.bonusItem
+  > .bonusItemContent
+  > .bonusContentContainer
+  .contentTitle
+  .bonusDate {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
 }
- .bonusItem .bonusWrapperBtns .bonusItemClaim .claimBtn {
-    padding: 8px 25px;
-    margin: 5px;
-    --tw-border-opacity: 1;
-    border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
-    --tw-bg-opacity: 1;
-    background-color: hsl(var(--pf, var(--p)) / var(--tw-bg-opacity));    color: #fff;
-    font-size: 15px;
-    font-weight: 700;
-    border-radius: 5px;
-    cursor: pointer;
-    transition-duration: 0.2s;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+.bonusItem
+  > .bonusItemContent
+  > .bonusContentContainer
+  .contentTitle
+  .bonusDate
+  > div {
+  padding: 3px 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  color: #fff;
+  font-weight: 700;
+}
+.bonusItem
+  > .bonusItemContent
+  > .bonusContentContainer
+  .contentTitle
+  .bonusDate
+  > div:nth-child(2) {
+  padding: 0;
+}
+.bonusItem > .bonusItemContent > .bonusContentContainer .wageringContent {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  padding: 8px 0;
+}
+
+.bonusItem .bonusWrapperBtns .bonusItemClaim {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.bonusItem .bonusWrapperBtns .bonusItemClaim .claimBtn {
+  padding: 8px 25px;
+  margin: 5px;
+  --tw-border-opacity: 1;
+  border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
+  --tw-bg-opacity: 1;
+  background-color: hsl(var(--pf, var(--p)) / var(--tw-bg-opacity));
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: 5px;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .bonusItem .bonusWrapperBtns .bonusItemClaim .claimBtn:active {
-    transform: scale(0.95);
+  transform: scale(0.95);
+}
 
+.CancelBtn,
+.BackBtn {
+  padding: 4px 10px;
+  margin: 5px 0 0 0;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 400;
+  border-radius: 5px;
+  cursor: pointer;
+  transition-duration: 0.2s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
- .bonusItem .bonusWrapperBtns .bonusItemError {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.CancelBtn:hover {
+  background-color: #c32727db !important;
 }
- .bonusItem .bonusWrapperBtns .bonusItemError .errorBtn {
-    padding: 10px 25px;
-    margin: 5px;
-    color: red;
-    font-size: 15px;
-    font-weight: 700;
+.BackBtn:hover {
+  background-color: #93d1d393 !important;
 }
- .bonusItem .bonusWrapperBtns .bonusItemError.redeemed .errorBtn {
-    color: #00b30f;
+.BackBtn:hover svg {
+  fill: #0c0c0cc9;
+}
+.BackBtn svg {
+  fill: #e8e8e8c9;
+  height: 1rem;
+  width: 1rem;
+}
+
+.bonusItem .bonusWrapperBtns .bonusItemError {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bonusItem .bonusWrapperBtns .bonusItemError .errorBtn {
+  padding: 10px 25px;
+  margin: 5px;
+  color: red;
+  font-size: 15px;
+  font-weight: 700;
+}
+.bonusItem .bonusWrapperBtns .bonusItemError.redeemed .errorBtn {
+  color: #00b30f;
 }
 @media (max-width: 1200px) {
-    .bonusesBodyWrapper {
-        padding: 10px;
-   }
-    .bonusItem {
-        margin-top: 20px;
-   }
+  .bonusesBodyWrapper {
+    padding: 10px;
+  }
+  .bonusItem {
+    margin-top: 20px;
+  }
 }
 @media (max-width: 768px) {
-    .bonusesBodyWrapper {
-        flex-direction: column;
-   }
-    .bonusItem {
-        margin-top: 15px;
-   }
+  .bonusesBodyWrapper {
+    flex-direction: column;
+  }
+  .bonusItem {
+    margin-top: 15px;
+  }
 }
 @media (max-width: 480px) {
-    .bonusesBodyWrapper {
-        padding: 5px;
-   }
-    .bonusItem {
-        margin-top: 10px;
-   }
+  .bonusesBodyWrapper {
+    padding: 5px;
+  }
+  .bonusItem {
+    margin-top: 10px;
+  }
 }

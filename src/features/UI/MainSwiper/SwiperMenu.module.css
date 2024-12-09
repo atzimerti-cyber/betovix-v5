@@ -1,22 +1,6 @@
 .SwiperMenu > div > div {
-  /* margin-right: 4px; */
   width: auto;
 }
-
-/* .SwiperMenu::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  width: 100px;
-  background: transparent; 
-  pointer-events: none;
-  z-index: -2;
-  border-bottom-right-radius: 5px;
-  border-top-right-radius: 5px;
-  width: 15%;
-} */
 
 .SwiperMenu {
   display: flex;
@@ -26,7 +10,7 @@
 }
 .SwiperMenu > div:last-child {
   position: relative !important;
-  margin-top: 5px;
+  margin-top: 2px;
 }
 .SwiperMenu > div:last-child > div {
   background: #0a131c !important;

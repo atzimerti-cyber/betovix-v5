@@ -72,12 +72,36 @@ const Layout = () => {
   const scrollToTop = useSelector((state) => state.layout.scrollToTop);
 
   const [isFirstRender, setIsFirstRender] = useState(true);
+  const [showBackToTop, setShowBackToTop] = useState(false); ///////////////////////////////////////////////////////////
 
   // After the first render, set isFirstRender to false
   useEffect(() => {
     setIsFirstRender(false);
   }, []);
 
+  //==============================================================================================================================Handle scroll events
+  useEffect(() => {
+    const handleScroll = () => {
+      if (centerContainerRef.current.scrollTop > 200) {
+        setShowBackToTop(true);
+      } else {
+        setShowBackToTop(false);
+      }
+    };
+
+    const container = centerContainerRef.current;
+    if (container) {
+      container.addEventListener("scroll", handleScroll);
+      return () => container.removeEventListener("scroll", handleScroll);
+    }
+  }, []);
+  // Scroll to top functionality
+  const scrollToTopHandler = () => {
+    if (centerContainerRef.current) {
+      centerContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  };
+  //==============================================================================================================================
   // scroll to top of page after a page transition.
   useLayoutEffect(() => {
     if (centerContainerRef.current) {
@@ -327,6 +351,16 @@ const Layout = () => {
       <AnimatePresence>
         {!isDesktop && user && userDropdownVisible && <UserDrawer />}
       </AnimatePresence>
+
+      {showBackToTop && (
+        <button
+          className={classes.BackToTopButton}
+          onClick={scrollToTopHandler}
+          aria-label="Back to top"
+        >
+          ↑
+        </button>
+      )}
 
       {isMobile && <Bottombar />}
       <Cookies />

@@ -3,14 +3,11 @@ import { useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import _ from "lodash";
 
-import { getCasinoByTags, getCasinoTags } from "../casinoAsyncActions";
+import { getCasinoByTags } from "../casinoAsyncActions";
 import classes from "./GamesByTag.module.css";
 
 import GridGames from "../features/GridGames";
-import { translate } from "../../../utils/translations";
 import { casinoActions } from "../casinoSlice";
-import { layoutActions } from "../../../features/Layout/layoutSlice";
-import TagIcon from "../../../assets/svgs/tagicon.svg?react";
 import { appActions } from "../../../features/InitApp/appSlice";
 import { AnimatePresence } from "framer-motion";
 import NoImageIcon from "../../../assets/svgs/no-image.svg?react";

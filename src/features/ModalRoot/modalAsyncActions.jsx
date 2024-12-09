@@ -69,33 +69,32 @@ export const claimBonus = (signal, bonusId, callback) => {
   };
 };
 
-export const getVip = (signal) => {
+export const cancelBonus = (signal, bonus) => {
   return async (dispatch) => {
     try {
+      const lang = getLang();
+
       dispatch(modalActions.setLoading(true));
-      // const lang = getLang();
+      const response = await axiosApi.post(
+        `/BonusForAccount/PostData?action=BonusForAccountSave&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        bonus,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
 
-      // const response = await axiosApi.post(
-      //     `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-      //     {
-      //         data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":"","ProviderId":1,"BrandId":0,"VendorId":0}`,
-      //     },
-      //     {
-      //         signal: signal,
-      //         baseURLOverride: config.VITE_CASINO_BASE,
-      //     }
-      // );
-
-      // if (response.data.Status.StatusCode !== 200) throw Error();
-
-      // dispatch(modalActions.setLevels(response.data.Contents));
-
-      dispatch(modalActions.setLevels(levels));
-      dispatch(modalActions.setRewards(rewards));
+      if (response.data.Status.StatusCode !== 200)
+        throw new Error("Failed to cancel bonus");
       dispatch(modalActions.setLoading(false));
+
+      let toastMessage = translate("Bonus cancelled successfully!");
+      toast.success(toastMessage);
     } catch (error) {
-      const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      let toastMessage = translate(`${error?.message}`);
+      const message = toastMessage || translate("Failed to cancel bonus");
+      if (error?.code !== "ERR_CANCELED") toast.error(message);
+
       dispatch(modalActions.setLoading(false));
     }
   };

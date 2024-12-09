@@ -71,9 +71,11 @@ const VirtualGames = () => {
           </button>
         </div>
         <div className={classes.PromoBanner}>
-        {/* <VirtualGamesIcon /> */}
-          <p className={classes.PageTitle}>{translate(`Virtual Games`)}</p>
-          <img src={PromoImage} alt="" />
+          {/* <VirtualGamesIcon /> */}
+          <p className={classes.PageTitle} style={{ marginLeft: "1rem" }}>
+            {translate(`Virtual Games`)}
+          </p>
+          {/* <img src={PromoImage} alt="" /> */}
         </div>
       </div>
       {!barLoading ? (

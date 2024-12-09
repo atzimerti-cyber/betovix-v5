@@ -86,6 +86,9 @@
   grid-column: span 2 / span 2;
   border-radius: 0.375rem;
 }
+.PaymentButtonContainer > button {
+  padding: 1rem 0 !important;
+}
 
 .PaymentOptionsWrapper .PaymentButtonContainer > button {
   position: relative;
