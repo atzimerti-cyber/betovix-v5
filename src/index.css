@@ -61,6 +61,7 @@
     var(--db-topbar-height-mobile) + var(--db-minibar-height-mobile)
   );
 
+  --db-bottom-bar-height: 52px;
   --db-bottom-nav-height: 56px;
   --db-sticky-language-height: 0px;
   --db-scrollbar-width: 6px;

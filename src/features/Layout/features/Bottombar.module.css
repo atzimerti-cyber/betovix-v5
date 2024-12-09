@@ -4,7 +4,9 @@
   left: 0;
   z-index: 40;
   display: flex;
-  height: 3.3rem;
+  height: var(--db-bottom-bar-height);
+  /* height: 3.3rem; */
+
   width: 100%;
   justify-content: space-around;
   background-color: var(--db-duelbits-gray);

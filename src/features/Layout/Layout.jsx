@@ -24,6 +24,7 @@ import Bottombar from "./features/Bottombar";
 import ChatContainer from "./features/ChatContainer";
 import WarningIcon from "../../assets/svgs/warning.svg?react";
 import SuccessIcon from "../../assets/svgs/check-filled.svg?react";
+import BackToTop from "../../assets/svgs/backtotop.svg?react";
 import UserDrawer from "./features/UserDrawer";
 import BetslipContainer from "./features/BetslipContainer";
 import NumberBadge from "../UI/Badges/NumberBudge";
@@ -40,7 +41,6 @@ const Layout = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  const centerContainerRef = useRef(null);
   // const tawkToRef = useRef(null);
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
@@ -69,21 +69,32 @@ const Layout = () => {
   const pageNotAuthorized = useSelector(
     (state) => state.layout.pageNotAuthorized
   );
-  const scrollToTop = useSelector((state) => state.layout.scrollToTop);
 
   const [isFirstRender, setIsFirstRender] = useState(true);
-  const [showBackToTop, setShowBackToTop] = useState(false); ///////////////////////////////////////////////////////////
+
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const [isInactive, setIsInactive] = useState(false); // Track inactivity
+  const centerContainerRef = useRef(null);
+  const inactivityTimeoutRef = useRef(null);
 
   // After the first render, set isFirstRender to false
   useEffect(() => {
     setIsFirstRender(false);
   }, []);
 
-  //==============================================================================================================================Handle scroll events
+  // Function to handle user activity
+  const handleUserActivity = () => {
+    setIsInactive(false);
+    clearTimeout(inactivityTimeoutRef.current); // Clear any existing timeout
+    inactivityTimeoutRef.current = setTimeout(() => setIsInactive(true), 2000); // Set new timeout
+  };
+
+  // Scroll event listener
   useEffect(() => {
     const handleScroll = () => {
-      if (centerContainerRef.current.scrollTop > 200) {
+      if (centerContainerRef.current.scrollTop > 800) {
         setShowBackToTop(true);
+        handleUserActivity(); // Reset inactivity on scroll
       } else {
         setShowBackToTop(false);
       }
@@ -92,26 +103,36 @@ const Layout = () => {
     const container = centerContainerRef.current;
     if (container) {
       container.addEventListener("scroll", handleScroll);
-      return () => container.removeEventListener("scroll", handleScroll);
+      return () => {
+        container.removeEventListener("scroll", handleScroll);
+        clearTimeout(inactivityTimeoutRef.current);
+      };
     }
   }, []);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      clearTimeout(inactivityTimeoutRef.current);
+    };
+  }, []);
+
   // Scroll to top functionality
   const scrollToTopHandler = () => {
     if (centerContainerRef.current) {
       centerContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
-  //==============================================================================================================================
-  // scroll to top of page after a page transition.
-  useLayoutEffect(() => {
-    if (centerContainerRef.current) {
-      centerContainerRef.current.scrollTo({
-        top: 0,
-        left: 0,
-        behavior: "auto",
-      });
-    }
-  }, [location.pathname, scrollToTop]); // Dependency on pathname to trigger scroll on route change. Can also be triggered with scrollToTop
+
+  // useLayoutEffect(() => {
+  //   if (centerContainerRef.current) {
+  //     centerContainerRef.current.scrollTo({
+  //       top: 0,
+  //       left: 0,
+  //       behavior: "auto",
+  //     });
+  //   }
+  // }, [location.pathname, scrollToTop]);
 
   let layoutClasses = [classes.Layout];
   if (isMobile) layoutClasses.push("IsMobile");
@@ -209,11 +230,6 @@ const Layout = () => {
               }
             >
               {user?.Role < 40 && <OperatorView />}
-              {/* {isMobile && hasHero && Object.keys(hasHero).length > 0 &&
-                                <div className={classes.HeroProgress}>
-                                    <VipProgress />
-                                </div>
-                            } */}
               <Outlet />
             </div>
           </main>
@@ -352,13 +368,14 @@ const Layout = () => {
         {!isDesktop && user && userDropdownVisible && <UserDrawer />}
       </AnimatePresence>
 
-      {showBackToTop && (
+      {showBackToTop && !isInactive && (
         <button
           className={classes.BackToTopButton}
           onClick={scrollToTopHandler}
           aria-label="Back to top"
+          onMouseMove={handleUserActivity} // Reset inactivity on hover
         >
-          ↑
+          <BackToTop />
         </button>
       )}
 
