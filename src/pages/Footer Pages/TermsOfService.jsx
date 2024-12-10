@@ -37,7 +37,7 @@ const TermsOfService = () => {
       <div className={classes.ToS}>
         <div className={classes.Title}>
           <h1>{translate("Terms and Conditions")}</h1>
-          <h2>{translate("Last updated on: October 14, 2024")}.</h2>
+          <h2>{translate("Last updated on: December 5, 2024")}.</h2>
         </div>
         <div className={classes.Context}>
           <div className={classes.Text}>
@@ -249,6 +249,11 @@ advertising, promotional or other agencies, media partners, contractors, retaile
 of the immediate families of each are NOT allowed to use the Service for real money without 
 prior consent from the Company Director or CEO. Should such activity be discovered, the 
 account(s) will be immediately terminated and all bonuses/winnings will be forfeited.`)}
+              <br />
+              <br />{" "}
+              {translate(
+                `4.6. By registering on our website, you confirm that you are not a resident of a restricted country or a jurisdiction requiring a local license for sports and casino gambling. If this condition is not met, we reserve the right to deny access to our services and cancel any pending transactions that may lead to loss of your current balance.`
+              )}
               <br />
               <br />
             </div>

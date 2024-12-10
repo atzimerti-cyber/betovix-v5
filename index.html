@@ -265,8 +265,7 @@
       /* Adjust for the height of the snow image */
       background: url('snowpile.png') no-repeat center;
       background-size: contain;
-      pointer-events: none;
-      /* Ensure it doesn’t interfere with button clicks */
+      pointer-events: none; 
     }
 
     [class*="BannerContainer"] {
@@ -288,7 +287,7 @@
       z-index: 99;
     }
 
-    /* =====Spinner======= */
+    /*  Spinner  */
     .Spinner {
       border: 4px solid rgba(255, 255, 255, 0.093);
       /* Light white semi-transparent border */
@@ -328,39 +327,8 @@
 
     <div class="snowflake">✻</div>
     <div class="snowflake">❄</div>
-    <!-- <div class="snowflake">❅</div>
-        <div class="snowflake">✻</div>
-       <div class="snowflake">❄</div>
-        <div class="snowflake">❅</div>
-        <div class="snowflake">✻</div>
-        <div class="snowflake">❄</div>
-
-        <div class="snowflake">❄</div>
-        <div class="snowflake">❅</div>
-        <div class="snowflake">✻</div>
-        <div class="snowflake">❄</div>
-        <div class="snowflake">❅</div>
-        <div class="snowflake">✻</div>
-        <div class="snowflake">❄</div>
-        <div class="snowflake">❅</div>
-        <div class="snowflake">✻</div>
-        <div class="snowflake">❄</div> -->
   </div>
 
-  <!-- <div id="loadGame" style="position:fixed;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
-        width:100vw;
-        height: 100vh;
-        display: none;
-        background:black;
-        z-index:21474836;">
-    <h1
-      style="font-size: 1rem; color: aliceblue; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-      Loading...</h1>
-  </div> -->
   <div id="loadGame" style="position: fixed;
         top: 0;
         left: 0;
@@ -392,9 +360,6 @@
         display: none;
         z-index:214748364;
         " allow="fullscreen"></iframe>
-  <!-- <button id="btnBack" onclick="hideGame()"
-    style="display:none;position:fixed;top:3%;right:5%;height:30px;width:30px;z-index:2147483647;background: rgba(77, 77, 77, 0.341);border-radius:20px;color:white;font-weight:500;font-size:20px;">X</button> -->
-
 
   <div id="root"></div>
 
