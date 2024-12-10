@@ -1,0 +1,143 @@
+.CalendarModal {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(100% - 20px);
+  --tw-translate-y: -0.5rem;
+  --tw-scale-x: 0.9;
+  --tw-scale-y: 0.9;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  /* background-color: var(--db-gray-6); */
+  background: linear-gradient(222deg, #073c59 0%, #062537 72%);
+  opacity: 0;
+  animation: slide 0.2s ease-out forwards;
+  border-radius: 10px;
+  width: 300px;
+}
+
+@keyframes slide {
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.ModalContent {
+  max-height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.2rem 0.625rem 0.625rem 0.625rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.CalendarModal header {
+  height: var(--db-modal-header-height);
+  padding-bottom: 0.2rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+}
+.Center {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.5rem;
+}
+.Center svg {
+  height: 1rem;
+  width: 1rem;
+}
+.Center h1 {
+  display: flex;
+  align-items: start;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: rgb(255, 255, 255);
+}
+
+.Right {
+  position: absolute;
+  right: 7px;
+  top: 7px;
+}
+.ModalContent .Right button svg {
+  padding: 0.375rem !important;
+  height: 1.5rem !important;
+  width: 1.5rem !important;
+}
+.CalendarContainer {
+  max-width: 100%;
+  padding-top: 0.3rem;
+  display: block;
+}
+.CalendarContainer > div {
+  background: transparent;
+  border: none;
+}
+.CalendarContainer abbr {
+  color: white;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.CalendarContainer button {
+  padding: 0.5rem 0.5rem;
+}
+.CalendarContainer button:disabled,
+.CalendarContainer button:disabled abbr {
+  background: transparent !important;
+  color: rgba(128, 128, 128, 0.601);
+  pointer-events: none;
+}
+.CalendarContainer > div > div > button,
+.CalendarContainer > div > div > div > button,
+.CalendarContainer > div > div > div > div > button {
+  color: white;
+  font-weight: 700;
+}
+.CalendarContainer > div > div > button:hover,
+.CalendarContainer > div > div > button:focus {
+  background-color: #0a4d57 !important;
+  background: linear-gradient(307deg, #3cafaa80 0%, #57a7c957 50%) !important;
+}
+.CalendarContainer > div > div > div > div > button:enabled:hover,
+.CalendarContainer > div > div > div > div > button:enabled:focus {
+  background-color: #0a4d57 !important;
+  background: linear-gradient(307deg, #3cafaa80 0%, #57a7c957 50%) !important;
+}
+.CalendarContainer > div > div > div > div > div > div > button:enabled:hover,
+.CalendarContainer > div > div > div > div > div > div > button:enabled:focus {
+  background-color: #0a4d57 !important;
+  background: linear-gradient(307deg, #3cafaa80 0%, #57a7c957 50%) !important;
+}
+.CalendarContainer > div > div > div > div > button,
+.CalendarContainer > div > div > div > div > div > div > button {
+  background: transparent !important;
+}
+
+.SubmitButton {
+  margin-top: 1rem;
+  background: linear-gradient(307deg, #3cafaa80 0%, #57a7c957 50%);
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: center;
+  border-radius: 2rem;
+  color: white;
+  justify-content: flex-start;
+  column-gap: 0.3rem;
+  min-height: 33px;
+  font-size: 0.8rem;
+  padding: 0 2rem 0 2rem;
+  height: 100%;
+  width: max-content;
+  cursor: pointer;
+}
+.SubmitButton:hover {
+  background: linear-gradient(307deg, #49d4cd80 0%, #66c3eb57 50%);
+}

@@ -61,7 +61,7 @@ const BonusItem = ({ bonus, handleTabClick }) => {
 
       const cancelledBonus = { ...bonus, Status: 3 };
 
-      dispatch(cancelBonus(signal, bonus));
+      dispatch(cancelBonus(signal, cancelledBonus));
     }
   };
 

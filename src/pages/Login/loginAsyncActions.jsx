@@ -268,7 +268,7 @@ export const getUser = (navigate) => {
           const rew = currentState.availableRewards;
           const newRew = rew + response.data.Contents.Rewards.length;
 
-          dispatch(gamificationActions.setAvailableRewards(newRew));
+         dispatch(gamificationActions.setAvailableRewards(newRew));
         }
 
         dispatch(loginActions.setUser(user));

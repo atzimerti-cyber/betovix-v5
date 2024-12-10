@@ -180,6 +180,10 @@ div* {
   user-select: none;
 }
 
+abbr[title] {
+  text-decoration: none;
+}
+
 :host,
 html {
   line-height: 1.5;

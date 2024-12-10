@@ -4,6 +4,7 @@ const initialState = {
   topGames: null,
   verificationLevels: {},
   disableVerifyButton: false,
+  marketingEmails: false,
 };
 
 export const profileSlice = createSlice({
@@ -21,6 +22,9 @@ export const profileSlice = createSlice({
     },
     setDisableVerifyButton: (state, action) => {
       state.disableVerifyButton = action.payload;
+    },
+    setMarketingEmails: (state, action) => {
+      state.marketingEmails = action.payload;
     },
   },
 });

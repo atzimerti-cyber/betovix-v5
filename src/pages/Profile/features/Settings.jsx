@@ -15,16 +15,20 @@ import ReturnIcon from "../../../assets/svgs/return.svg?react";
 import ArrowDown from "../../../assets/svgs/arrowdown.svg?react";
 import Times2Icon from "../../../assets/svgs/times2.svg?react";
 import Autoheight from "../../../features/UI/Autoheight/Autoheight"; // Import Autoheight
-import { changePassword, changeUsername } from "../profileAsyncActions";
+import {
+  changePassword,
+  changeUsername,
+  subscribeToEmails,
+} from "../profileAsyncActions";
 
 const Settings = () => {
   const dispatch = useDispatch();
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const user = useSelector((state) => state.login.user);
   const username = useSelector((state) => state.login.user?.Username);
+  const isSubscribed = useSelector((state) => state.profile.marketingEmails);
 
-  //   const [profileIsHidden, setProfileIsHidden] = useState(user?.profileHidden);
-  //   const [marketingEmails, setMarketingEmails] = useState(user?.marketingEmails);
+  // const [isSubscribed, setIsSubscribed] = useState(false);
   const [displayName, setDisplayName] = useState(user?.Username);
   const [changeUsernameDisabled, setChangeUsernameDisabled] = useState(true);
   const [password, setPassword] = useState("");
@@ -187,6 +191,14 @@ const Settings = () => {
     }
   };
 
+  //------------------MARKETING EMAILS------------------//
+  const handleToggle = (isSubscribed) => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    dispatch(subscribeToEmails(signal, !isSubscribed));
+  };
+
   return (
     <motion.div
       className={classes.TabContent}
@@ -214,7 +226,8 @@ const Settings = () => {
                 <p className={classes.Text}>
                   {translate(
                     "Your username must be between 1 and 24 characters"
-                  )}.
+                  )}
+                  .
                 </p>
               )}
 
@@ -243,7 +256,8 @@ const Settings = () => {
                   <p className={classes.Text}>
                     {translate(
                       "You must enter your password to change your username"
-                    )}.
+                    )}
+                    .
                   </p>
                   <div className={classes.ChangeUsernameSection}>
                     <MainInput
@@ -527,10 +541,37 @@ const Settings = () => {
             <p className={classes.Text}>
               {translate(
                 "This is your unique ID. Please include this ID when contacting support"
-              )}.
+              )}
+              .
             </p>
 
             <CopyToClipboardCont text={user?.AccountId} />
+          </div>
+          <div className={classes.FormGroup}>
+            <p className={classes.GroupTitle}>
+              {translate("Marketing Emails")}
+            </p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-start",
+                columnGap: "1rem",
+                alignItems: "center",
+              }}
+            >
+              <p className={classes.Text}>
+                {translate("I want to receive  marketing emails.")}
+              </p>
+              <label className={classes.Switch}>
+                <input
+                  type="checkbox"
+                  checked={isSubscribed}
+                  onChange={() => handleToggle(isSubscribed)}
+                />
+                <span className={classes.SliderRound}></span>
+              </label>
+            </div>
           </div>
           <div className={classes.FormGroup}>
             <p className={classes.GroupTitle}>{translate("Account Type")}</p>

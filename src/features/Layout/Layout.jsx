@@ -35,7 +35,7 @@ import OperatorView from "./features/OperatorView";
 import LiveLoader from "./features/LiveLoader";
 import VipProgress from "../../pages/Home/features/VipProgress";
 
-//import ScriptInjector from "../../utils/scriptinjector";
+// import ScriptInjector from "../../utils/scriptinjector";
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -286,7 +286,6 @@ const Layout = () => {
                 className={classes.BtnFill}
                 style={{ "--percentage": levelProgress }}
               ></div>
-              {/* <div className={classes.Percentage}>33.33%</div> */}
               <div className={classes.Percentage}>{levelProgress}%</div>
               <div className={classes.IconContainer}>
                 {userCurrentLevel.icon && (

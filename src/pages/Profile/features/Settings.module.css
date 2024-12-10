@@ -97,20 +97,12 @@
   padding-left: 0.4rem;
 }
 
-/* .FormGroup:not(:last-child) {
-  margin-bottom: 1rem;
-} */
-
 .Text {
   font-size: 0.74rem;
   line-height: 1rem;
   color: var(--db-body-text);
-  margin-top: 0.1rem;
+  margin: 0.3rem 0;
 }
-
-/* .FormGroup > :not(:last-child) {
-  margin-bottom: 0.75rem;
-} */
 
 .ToggleContainer {
   display: flex;
@@ -215,7 +207,7 @@
 }
 
 .ChangePasswordForm {
-  background-color: #0f1a2f82;
+  /* background-color: #0f1a2f82; */
   padding: 0.3rem;
   border-radius: 10px;
   margin-top: 0.5rem;
@@ -266,4 +258,57 @@
   animation: spin 1s linear infinite;
   display: inline-block;
   vertical-align: middle;
+}
+
+/* ============================================================ */
+.Switch {
+  position: relative;
+  display: inline-block;
+  width: 39px;
+  height: 20px;
+  margin: 10px;
+}
+
+.Switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.SliderRound {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #848484;
+  transition: 0.3s;
+}
+
+.SliderRound:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 0px;
+  bottom: 0px;
+  background-color: white;
+  transition: 0.5s;
+}
+
+input:checked + .SliderRound {
+  background-color: var(--db-brand-green);
+}
+
+input:checked + .SliderRound:before {
+  transform: translateX(20px);
+}
+
+.SliderRound {
+  border-radius: 34px;
+}
+
+.SliderRound:before {
+  border-radius: 50%;
 }

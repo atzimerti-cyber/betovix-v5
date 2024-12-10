@@ -4,6 +4,7 @@ import { getLang } from "../../utils/storage";
 import axiosApi from "../../axios-api";
 import { profileActions } from "./profileSlice";
 import config from "../../config";
+import { translate } from "../../utils/translations";
 
 export const getOverview = (signal) => {
   return async (dispatch) => {
@@ -31,6 +32,37 @@ export const getOverview = (signal) => {
   };
 };
 
+export const subscribeToEmails = (signal, state) => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+
+      const response = await axiosApi.get(
+        `/Permission/SaveAllowPromo?allow=${state}`,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_UPLOAD,
+        }
+      );
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
+        throw new Error("Something went wrong. Please try again later");
+      }
+
+      if (state === true) {
+        dispatch(profileActions.setMarketingEmails(true));
+      } else {
+        dispatch(profileActions.setMarketingEmails(false));
+      }
+    } catch (error) {
+      const message =
+        translate("Something went wrong. Please try again later") ||
+        translate("Error occurred");
+      toast.error(message);
+    }
+  };
+};
+
 export const getHeroes = (signal) => {
   return async (dispatch) => {
     try {
@@ -41,7 +73,6 @@ export const getHeroes = (signal) => {
         baseURLOverride: config.VITE_WALLET_STORETUBE,
       });
 
-      // if (response.status !== 200 || response.data.Status.StatusCode !== 200) throw Error('Failed to fetch heroes');
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
         throw Error(response.data.Contents);
 

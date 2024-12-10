@@ -30,6 +30,7 @@ import CasinoGameOptionsModal from "./Modals/CasinoGameOptionsModal";
 import PleaseVerify from "./Modals/PleaseVerify";
 import PromoCodeModal from "./Modals/PromoCodeModal";
 import NotificationPopUp from "./Modals/NotificationPopUp";
+import CalendarModal from "./Modals/CalendarModal";
 
 const ModalRoot = () => {
   const navigate = useNavigate();
@@ -79,6 +80,7 @@ const ModalRoot = () => {
   else if (modal === "odds-format") modalPage = <OddsFormatModal />;
   else if (modal === "verify") modalPage = <PleaseVerify />;
   else if (modal === "booked-bet") modalPage = <BookedBetModal />;
+  else if (modal === "calendar") modalPage = <CalendarModal />;
   else if (modal === "load-booked") modalPage = <LoadBookedModal />;
   else if (modal === "ticket-receipt") modalPage = <TicketReceiptModal />;
   else if (modal === "load-ticket") modalPage = <LoadTicketModal />;
