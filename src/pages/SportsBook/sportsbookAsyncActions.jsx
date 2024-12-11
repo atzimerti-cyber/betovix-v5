@@ -272,25 +272,39 @@ export const getLiveStreams = (signal) => {
   };
 };
 
-// export const getCustomDateEvents = (signal, date) => {
-//   return async (dispatch) => {
-//     try {
-//       const lang = getLang();
+export const getCustomDateEvents = (signal, payload) => {
+  return async (dispatch) => {
+    try {
+      dispatch(sportsbookActions.setLoading(true));
+      const lang = getLang();
 
-//       const response = await axiosApi.get(
-//         `Pregame/PostData/?action=marketsTreeCalendarTable&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-//         {
-//           signal: signal,
-//           baseURLOverride: config.VITE_WALLET_API_BASE,
-//         }
-//       );
+      const response = await axiosApi.post(
+        `Pregame/PostData/?action=marketsTreeCalendarTable&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        { data: payload },
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_SPORTS_API_BASE,
+        }
+      );
 
-//       if (response.status !== 200) throw Error(response.data.Contents);
+      if (response.status !== 200) throw Error(response.data.Contents);
 
-//       dispatch(sportsbookActions.setLiveStreams(response.data));
-//     } catch (error) {
-//       const message = error?.message ? error.message : error;
-//       if (!error?.code === "ERR_CANCELED") toast.error(message);
-//     }
-//   };
-// };
+      const events = response.data.Contents.Events;
+
+      // Sort the events by DateOfMatch in ascending order
+      events.sort((a, b) => {
+        const dateA = new Date(a.Info.DateOfMatch);
+        const dateB = new Date(b.Info.DateOfMatch);
+        return dateA - dateB; // Ascending order (earliest date first)
+      });
+
+      // Dispatch the sorted events
+      dispatch(sportsbookActions.setCustomDateTournaments(events));
+      dispatch(sportsbookActions.setLoading(false));
+    } catch (error) {
+      dispatch(sportsbookActions.setLoading(false));
+      const message = error?.message ? error.message : error;
+      if (!error?.code === "ERR_CANCELED") toast.error(message);
+    }
+  };
+};

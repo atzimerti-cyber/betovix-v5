@@ -1,5 +1,6 @@
 .OddsButton {
   background: var(--db-gray-7);
+  background: #296d8c;
   border-radius: 8px;
   color: rgb(255, 255, 255);
   cursor: pointer;
@@ -14,7 +15,7 @@
   position: relative;
   transition: background-color 0.3s ease 0s, opacity 0.3s ease 0s;
   min-height: 2.5rem;
-  border: 3px solid transparent;
+  border: 1px solid transparent;
 }
 /* .OddsButton:hover {
   background: var(--db-gray-5);
@@ -81,8 +82,11 @@
 }
 
 .OddsButton.Selected {
-  background: var(--db-gray-12);
-  border-color: var(--db-gray-13);
+  /* background: var(--db-gray-12);
+  border-color: var(--db-gray-13); */
+
+  background: #0f3047;
+  border-color: #85bbcb;
 }
 
 .OddsButton.Selected:disabled {

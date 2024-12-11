@@ -372,7 +372,7 @@ const Layout = () => {
           className={classes.BackToTopButton}
           onClick={scrollToTopHandler}
           aria-label="Back to top"
-          onMouseMove={handleUserActivity} // Reset inactivity on hover
+          onMouseMove={handleUserActivity}
         >
           <BackToTop />
         </button>

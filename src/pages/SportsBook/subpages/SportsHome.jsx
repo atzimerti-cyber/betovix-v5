@@ -15,6 +15,7 @@ import ShimmerIcon from "../../../features/UI/Shimmer/shimmer.svg?react";
 import Category from "../features/Category";
 import { getSportMarketTree } from "../sportsbookAsyncActions";
 import { translate } from "../../../utils/translations";
+import EventRow from "../features/EventRow";
 
 const SportsHome = () => {
   const dispatch = useDispatch();
@@ -48,6 +49,7 @@ const SportsHome = () => {
   const sports = useSelector((state) => state.sportsbook.sports);
   const allSports = useSelector((state) => state.app.allSports);
   const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
+  const loading = useSelector((state) => state.sportsbook.loading);
 
   const [categoriesArr, setCategoriesArr] = useState(null);
   const [loadingCategories, setLoadingCategories] = useState(true);
@@ -93,6 +95,8 @@ const SportsHome = () => {
       controller.abort();
       if (getLiveStreamsInterval) clearInterval(getLiveStreamsInterval);
       dispatch(sportsHomeActions.reset());
+      dispatch(sportsbookActions.setCustomDate(null));
+      dispatch(sportsbookActions.setCustomDateTournaments(null));
     };
   }, []);
 
@@ -378,6 +382,24 @@ const SportsHome = () => {
     return closestTimeframe;
   };
 
+  const getDateOfLastItem = (customDateTournaments) => {
+    if (customDateTournaments !== null) {
+      const lastItem = customDateTournaments[customDateTournaments.length - 1];
+      const lastItemDate = lastItem.Info.DateOfMatch;
+
+      const date = new Date(lastItemDate);
+
+      const options = { year: "numeric", month: "long", day: "numeric" };
+      const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
+        date
+      );
+
+      return formattedDate;
+    } else {
+      return null;
+    }
+  };
+
   return (
     <>
       <SportSelection
@@ -390,14 +412,56 @@ const SportsHome = () => {
       />
 
       <div className={classes.TopRowWrapper}>
-        <div className={classes.Grouped}>
-          <TournamentSort />
-          <TournamentSearch withMargin={true} />
-        </div>
-
-        <TournamentTimeSelection />
+        {customDateTournaments &&
+        Object.keys(customDateTournaments).length > 0 ? (
+          <TournamentTimeSelection home />
+        ) : (
+          <>
+            <div className={classes.Grouped}>
+              <TournamentSort />
+              <TournamentSearch withMargin={true} />
+            </div>
+            <TournamentTimeSelection home />
+          </>
+        )}
       </div>
-      {customDateTournaments && customDateTournaments.length > 0 ? null : (
+
+      {loading ? (
+        <div className={classes.Loading}>
+          <div className={classes.Spinner}></div>
+        </div>
+      ) : customDateTournaments &&
+        Object.keys(customDateTournaments).length > 0 ? (
+        <>
+          <div
+            className={classes.Header}
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "2rem",
+            }}
+          >
+            <p
+              className={classes.Title}
+              style={{ color: "white", fontWeight: "bold", marginLeft: "10px" }}
+            >
+              {/* {translate(`Search Results`)} */}
+              {getDateOfLastItem(customDateTournaments)}
+            </p>
+            {customDateTournaments.length > 0 && (
+              <p className={classes.Total}>
+                ({customDateTournaments.length} {translate("Events")})
+              </p>
+            )}
+          </div>
+
+          {customDateTournaments.map((event) => {
+            return (
+              <EventRow key={event.MatchId} event={event} withTournament />
+            );
+          })}
+        </>
+      ) : (
         <div className={classes.TournamentGroup}>
           {selectedSport && !loadingCategories ? (
             categoriesArr.length === 0 ? (

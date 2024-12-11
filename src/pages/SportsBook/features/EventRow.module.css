@@ -1,152 +1,155 @@
 .EventRow {
-    border-block-end: 1px solid #096a816e;
-    display: flex;
-    margin: 0px 10px;
-    padding: 10px 0px;
-    position: relative;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+  border-block-end: 1px solid #096a816e;
+  display: flex;
+  margin: 0px 10px;
+  padding: 10px 0px;
+  position: relative;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
 }
 
 .Info {
-    flex-basis: 250px;
-    -webkit-box-pack: start;
-    justify-content: flex-start;
-    overflow: hidden;
+  flex-basis: 250px;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  overflow: hidden;
 
-    color: rgb(255, 255, 255);
-    display: flex;
-    flex-direction: column;
+  color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
 }
 
 .RowTop {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    min-height: 32px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  /* min-height: 32px; */
+  height: max-content;
 }
 
 .EventTime {
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum';
-    display: flex;
-    font-size: 13px;
-    -webkit-box-align: center;
-    align-items: center;
-    height: 2rem;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  display: flex;
+  font-size: 13px;
+  -webkit-box-align: center;
+  align-items: center;
+  /* height: 2rem; */
 }
 
 .Time {
-    color: var(--db-body-text);
-    min-width: 0px;
+  color: var(--db-body-text);
+  min-width: 0px;
 }
 
 .IconWrapper {
-    gap: 8px;
-    display: flex;
-    flex-direction: row;
-    -webkit-box-align: start;
-    align-items: start;
+  gap: 8px;
+  display: flex;
+  flex-direction: row;
+  -webkit-box-align: start;
+  align-items: start;
 }
 
 .IconContainer {
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: end;
-    align-items: end;
-    margin: 0px;
-    width: auto;
-    gap: 8px;
-    cursor: pointer;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: end;
+  align-items: end;
+  margin: 0px;
+  width: auto;
+  gap: 8px;
+  cursor: pointer;
 }
 
 .ExtraMarkets {
-    white-space: nowrap;
-    padding: 0px;
+  white-space: nowrap;
+  padding: 0px;
 }
 
-.RowBottom {
-    min-height: 48px;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
+.RowBottom {  
+  min-height: 48px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: flex-start;
+  flex-direction: column;
+  row-gap: 0.5rem;
 }
 
 .TeamGroup {
-    display: flex;
-    flex: 1 1 0%;
-    flex-direction: column;
-    min-width: 0px;
-    gap: 0.3rem;
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  min-width: 0px;
+  gap: 0.3rem;
 }
 
 .Team {
-    color: rgb(255, 255, 255);
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    height: 30px;
+  color: rgb(255, 255, 255);
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  height: 30px;
 }
 
 .LogoWrapper {
-    margin-inline-end: 8px;
+  margin-inline-end: 8px;
 }
 
 .CompetitorName {
-    margin-inline: 0px auto;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  margin-inline: 0px auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .ScoreGroup {
-    color: rgb(51, 193, 108);
-    display: flex;
+  color: rgb(51, 193, 108);
+  display: flex;
 }
 .Score {
-    margin-inline: 2px 0px;
-    text-align: center;
-    white-space: nowrap;
-    min-width: 20px;
-    opacity: 0.7;
+  margin-inline: 2px 0px;
+  text-align: center;
+  white-space: nowrap;
+  min-width: 20px;
+  opacity: 0.7;
 }
 .Score:first-child {
-    opacity: 1;
+  opacity: 1;
 }
 
 /* Outcome */
 .Outcome {
-    color: rgb(255, 255, 255);
-    display: flex;
-    flex-direction: column;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+  color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
 
-    flex: 1 1 0%;
-    margin: 0px 12px;
+  flex: 1 1 0%;
+  margin: 0px 12px;
 }
 
 .OutcomeHeaders {
-    display: none;
-    grid-template-columns: repeat(3, 1fr);
-    grid-column: 1 / span 3;
-    padding: 6px 0px;
+  display: none;
+  grid-template-columns: repeat(3, 1fr);
+  grid-column: 1 / span 3;
+  padding: 6px 0px;
 }
 
 @container (max-width: 860px) {
-    .EventRow {
-        flex-wrap: wrap;
-        padding: 8px 0px;
-    }
-    .Info {
-        flex: 0 0 100% !important;
-    }
-    .Outcome {
-        flex: 0 0 100% !important;
-    }
+  .EventRow {
+    flex-wrap: wrap;
+    padding: 8px 0px;
+  }
+  .Info {
+    flex: 0 0 100% !important;
+  }
+  .Outcome {
+    flex: 0 0 100% !important;
+  }
 }

@@ -1,55 +1,61 @@
 .InputBox {
-    background: var(--db-gray-1);
-    border-radius: 8px;
-    -webkit-box-align: center;
-    align-items: center;
-    height: 36px;
-    position: relative;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
-    display: flex;
+  background: var(--db-gray-1);
+  background: linear-gradient(222deg, #26465bbf 0%, #396b8140 50%);
+  border-radius: 8px;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 36px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+  display: flex;
 }
 .InputBox svg {
-    color: var(--db-body-subheading);
-    margin-inline: 14px 8px;
-    width: 16px;
-    height: 16px;
-    position: absolute;
-    pointer-events: none;
+  color: var(--db-body-subheading);
+  margin-inline: 14px 8px;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  pointer-events: none;
 }
 
 .InputBox input {
-    flex: 1 1 0%;
-    height: 100%;
-    padding-inline: 40px 4px;
-    text-overflow: ellipsis;
-    background: transparent;
-    color: rgb(255, 255, 255);
+  flex: 1 1 0%;
+  height: 100%;
+  padding-inline: 40px 4px;
+  text-overflow: ellipsis;
+  background: transparent;
+  color: rgb(255, 255, 255);
 }
 
-.InputBox input[type='search']::-webkit-search-decoration,
-.InputBox input[type='search']::-webkit-search-cancel-button,
-.InputBox input[type='search']::-webkit-search-results-button,
-.InputBox input[type='search']::-webkit-search-results-decoration {
-    -webkit-appearance: none;
+.InputBox input[type="search"]::-webkit-search-decoration,
+.InputBox input[type="search"]::-webkit-search-cancel-button,
+.InputBox input[type="search"]::-webkit-search-results-button,
+.InputBox input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
 }
 
 .InputBox input::placeholder {
-    color: var(--db-body-subheading);
-    opacity: 1;
+  /* color: var(--db-body-subheading); */
+  color: #add8e6a5;
+  opacity: 1;
 }
 .InputBox input::-webkit-input-placeholder {
-    color: var(--db-body-subheading);
-    opacity: 1;
+  /* color: var(--db-body-subheading); */
+  color: #add8e6a5;
+  opacity: 1;
 }
 .InputBox input::-moz-placeholder {
-    color: var(--db-body-subheading);
-    opacity: 1;
+  /* color: var(--db-body-subheading); */
+  color: #add8e6a5;
+  opacity: 1;
 }
 .InputBox input:-ms-input-placeholder {
-    color: var(--db-body-subheading);
-    opacity: 1;
+  /* color: var(--db-body-subheading); */
+  color: #add8e6a5;
+  opacity: 1;
 }
 .InputBox input:-moz-placeholder {
-    color: var(--db-body-subheading);
-    opacity: 1;
+  /* color: var(--db-body-subheading); */
+  color: #add8e6a5;
+  opacity: 1;
 }

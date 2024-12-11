@@ -49,7 +49,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0.4rem 0
+  margin: 0.4rem 0;
 }
 .MarketSelect {
   background-color: transparent;
@@ -67,4 +67,5 @@
 }
 .MarketOption {
   background-color: #154667;
+  background-color: #194359;
 }

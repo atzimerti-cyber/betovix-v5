@@ -5,7 +5,7 @@
 
 .AccordionHeader {
   background: var(--db-gray-11);
-  /* background: var(--db-gray-4); */
+  background: linear-gradient(222deg, #1e5063 0%, #26556dba 50%); 
   box-sizing: border-box;
   box-shadow: rgb(25, 38, 43) 0px 1px 2px;
   color: rgb(255, 255, 255);
@@ -53,6 +53,8 @@
 
 .AccordionBody {
   background: var(--db-gray-1);
+  background: linear-gradient(72deg, #1e506357 0%, #26556d47 50%);
+
   border-radius: 0px 0px 5px 5px;
 }
 

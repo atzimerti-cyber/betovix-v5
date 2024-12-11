@@ -6,9 +6,9 @@
 }
 
 .AccordionHeader {
-  /* background: var(--db-gray-11); */
   background: var(--db-gray-4);
-  /* background: var(--db-gray-4); */
+  background: linear-gradient(222deg, #1e5063 0%, #26556dba 50%);
+  /* background: linear-gradient(307deg, #72dcff5d 0%, #57a7c957 50%); */
   border-radius: 8px;
   box-sizing: border-box;
   box-shadow: rgb(25, 38, 43) 0px 1px 2px;
@@ -59,6 +59,7 @@
 
 .AccordionBody {
   background: var(--db-gray-1);
+  background: linear-gradient(72deg, #1e506321 0%, #1f55705e 50%);
   border-radius: 0px 0px 8px 8px;
 }
 
@@ -72,5 +73,21 @@
 }
 .IconWrapper svg {
   width: 16px;
+  height: 16px;
+}
+
+.CatIconWrapper {
+  overflow: hidden;
+  /* height: 25px;
+  width: 35px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.CatIcon {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 25px;
   height: 16px;
 }

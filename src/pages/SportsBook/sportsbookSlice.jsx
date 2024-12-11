@@ -69,6 +69,7 @@ const initialState = {
   categories: null,
   customDate: null,
   customDateTournaments: null,
+  loading: false,
 };
 
 export const sportsbookSlice = createSlice({
@@ -88,6 +89,8 @@ export const sportsbookSlice = createSlice({
       state.selectedSport = null;
       state.tournamentEvents = {};
       state.liveStreams = null;
+      state.customDate = null;
+      state.customDateTournaments = null;
 
       state.categories = null;
     },
@@ -97,6 +100,8 @@ export const sportsbookSlice = createSlice({
       state.selectedSport = null;
       state.tournamentEvents = {};
       state.liveStreams = null;
+      state.customDate = null;
+      state.customDateTournaments = null;
     },
 
     setTournamentSearchString: (state, action) => {
@@ -158,6 +163,9 @@ export const sportsbookSlice = createSlice({
     },
     setCustomDateTournaments: (state, action) => {
       state.customDateTournaments = action.payload;
+    },
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
   },
 });

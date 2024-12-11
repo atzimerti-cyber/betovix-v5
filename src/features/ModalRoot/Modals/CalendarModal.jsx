@@ -10,6 +10,7 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { sportsbookActions } from "../../../pages/SportsBook/sportsbookSlice";
 import CalendarIcon from "../../../assets/svgs/calendar.svg?react";
+import { getCustomDateEvents } from "../../../pages/SportsBook/sportsbookAsyncActions";
 
 const CalendarModal = () => {
   const navigate = useNavigate();
@@ -17,16 +18,32 @@ const CalendarModal = () => {
   const dispatch = useDispatch();
 
   const [date, setDate] = useState(null);
-  //   const [date, setDate] = useState(new Date());
+  const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
 
   const handleSearchButton = (date) => {
-    if (date) {
+    let payload = {};
+    if (date && selectedSport) {
       const month = (date.getMonth() + 1).toString().padStart(2, "0");
       const day = date.getDate().toString().padStart(2, "0");
 
       const formattedDate = month + day;
 
+      payload = {
+        ProviderId: 1,
+        did: formattedDate,
+        sportid: selectedSport.Id,
+        groupName: null,
+        subGroupName: null,
+      };
+
+      // Stringify the payload
+      const stringifiedPayload = JSON.stringify(payload);
+
+      const controller = new AbortController();
+      const signal = controller.signal;
+
       dispatch(sportsbookActions.setCustomDate(formattedDate));
+      dispatch(getCustomDateEvents(signal, stringifiedPayload));
 
       if (location.pathname) {
         navigate(location.pathname);
@@ -35,43 +52,30 @@ const CalendarModal = () => {
   };
 
   const handleDateChange = (date) => {
-    const isSameDate = (d1, d2) =>
-      d1.toISOString().split("T")[0] === d2.toISOString().split("T")[0];
-
-    const todaysDate = new Date(); // Assuming TodaysDate is today's date
-
-    // Check if the selected date is the same as today's date
-    if (isSameDate(date, todaysDate)) return;
-
-    // Update the state and dispatch the action
     setDate(date);
   };
 
   // Disable dates not in the range of today to a week from today
   const disableDates = ({ date, view }) => {
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Reset time to midnight for comparison
+    today.setHours(0, 0, 0, 0);
     const oneWeekFromNow = new Date();
     oneWeekFromNow.setDate(today.getDate() + 7);
-    oneWeekFromNow.setHours(23, 59, 59, 999); // End of the day for comparison
+    oneWeekFromNow.setHours(23, 59, 59, 999);
 
     if (view === "month") {
-      // Disable individual dates outside the range
       return date < today || date > oneWeekFromNow;
     } else if (view === "year") {
-      // Disable months where all dates are outside the range
       const startOfMonth = new Date(date.getFullYear(), date.getMonth(), 1);
       const endOfMonth = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
       return endOfMonth < today || startOfMonth > oneWeekFromNow;
     } else if (view === "decade") {
-      // Disable years where all months are outside the range
       const startOfYear = new Date(date.getFullYear(), 0, 1);
       const endOfYear = new Date(date.getFullYear(), 11, 31);
 
       return endOfYear < today || startOfYear > oneWeekFromNow;
     } else if (view === "century") {
-      // Disable decades where all years are outside the range
       const startOfDecade = new Date(
         Math.floor(date.getFullYear() / 10) * 10,
         0,
