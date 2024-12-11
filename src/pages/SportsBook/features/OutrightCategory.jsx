@@ -59,7 +59,7 @@ const CategoryOutright = (props) => {
     <Accordion
       title={translateNameWithLang(props.category.Name)}
       initOpen={props.initOpen}
-      catIcon={`url('/public/flags/flags/${props.category.Name.International}.png')`}
+      catIcon={`url('/flags/flags/${props.category.Name.International}.png')`}
     >
       {categoryTournaments.map((categoryTournament, tournamentIndex) => {
         return (

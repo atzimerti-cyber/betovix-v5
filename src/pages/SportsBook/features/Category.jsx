@@ -78,7 +78,7 @@ const Category = (props) => {
       <Accordion
         title={translate(props.category.Name.International)}
         initOpen={props.initOpen}
-        catIcon={`url('/public/flags/flags/${props.category.Name.International}.png')`}
+        catIcon={`url('/flags/flags/${props.category.Name.International}.png')`}
       >
         {categoryTournaments.map((categoryTournament, tournamentIndex) => {
           return (

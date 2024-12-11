@@ -414,7 +414,7 @@ const SportsHome = () => {
       <div className={classes.TopRowWrapper}>
         {customDateTournaments &&
         Object.keys(customDateTournaments).length > 0 ? (
-          <TournamentTimeSelection home />
+          <TournamentTimeSelection home/>
         ) : (
           <>
             <div className={classes.Grouped}>

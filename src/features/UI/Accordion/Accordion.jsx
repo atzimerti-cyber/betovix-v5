@@ -3,7 +3,6 @@ import { useState } from "react";
 import classes from "./Accordion.module.css";
 import AngleDownIcon from "../../../assets/svgs/angle-down.svg?react";
 import Ripple from "../Ripple/Ripple";
-import England from "../../../../public/flags/flags/England.png";
 
 const Accordion = (props) => {
   const [isOpen, setIsOpen] = useState(props.initOpen);
