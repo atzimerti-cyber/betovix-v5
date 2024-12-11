@@ -95,6 +95,14 @@ const MenuItems = (props) => {
       </li>
       <li>
         <a
+          onClick={() => {addParamsToUrl("transactions")}}
+        >
+          <PaperIcon fill="#527491" />
+          <span>{translate("My Transactions")}</span>
+        </a>
+      </li>
+      <li>
+        <a
           onClick={() => {
             navigate(`/support`);
             props.onClick();

@@ -200,7 +200,7 @@ const WithdrawRequests = () => {
           <>
             <div className={classes.FilterContainer}>
               <div className={classes.Filter}>
-                <label htmlFor="statusFilter">{translate("Status:")}</label>
+                <label htmlFor="statusFilter">{translate("Status")}:</label>
                 <select
                   id="statusFilter"
                   value={selectedStatus}

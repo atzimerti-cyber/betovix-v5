@@ -25,6 +25,7 @@ import LoadBookedModal from "./Modals/LoadBookedModal";
 import PromotionModal from "./Modals/PromotionModal";
 import LoadTicketModal from "./Modals/LoadTicketModal";
 import TicketReceiptModal from "./Modals/TicketReceiptModal";
+import TransactionsModal from "./Modals/TransactionsModal";
 import NotificationsModal from "./Modals/NotificationsModal";
 import CasinoGameOptionsModal from "./Modals/CasinoGameOptionsModal";
 import PleaseVerify from "./Modals/PleaseVerify";
@@ -86,6 +87,7 @@ const ModalRoot = () => {
   else if (modal === "statistics") modalPage = <StatisticsModal />;
   else if (modal === "announcement") modalPage = <AnnouncementModal />;
   else if (modal === "promotion") modalPage = <PromotionModal />;
+  else if (modal === "transactions") modalPage = <TransactionsModal />;
   // else if (modal === 'vip') modalPage = <VipModal />;
   else if (modal === "bonus") {
     if (user) modalPage = <BonusModal />;
