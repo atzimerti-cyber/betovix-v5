@@ -38,6 +38,39 @@ export const getBonuses = (signal, status) => {
   };
 };
 
+export const getTransactionList = (signal, filter ) => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+
+      dispatch(modalActions.setLoading(true));
+      const response = await axiosApi.post(
+        `/MyWalletTransaction/GetTransactionTable?lang=${lang.id}`,
+        filter,
+
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+
+      if (response.data.Status.StatusCode !== 200)
+        throw new Error("Failed to fetch transactions");
+
+      dispatch(modalActions.setTransactions(response.data.Contents));
+      dispatch(modalActions.setLoading(false));
+
+    } catch (error) {
+      let toastMessage = translate(`${error?.message}`);
+      const message = toastMessage || "Error fetching transactions";
+      if (error?.code !== "ERR_CANCELED") {
+        toast.error(message);
+      }
+      dispatch(modalActions.setLoading(false));
+    }
+  };
+};
+
 export const claimBonus = (signal, bonusId, callback) => {
   return async (dispatch) => {
     try {

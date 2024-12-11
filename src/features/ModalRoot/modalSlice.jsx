@@ -8,6 +8,7 @@ const initialState = {
     onCloseModal: null,
     ticketToPrint: null,
     promoPage: null,
+    transactions: null,
 };
 
 export const modalSlice = createSlice({
@@ -22,6 +23,7 @@ export const modalSlice = createSlice({
             state.ticketToPrint = null;
             state.onCloseModal = null;
             state.promoPage = null;
+            state.transactions = null;
         },
         setLevels: (state, action) => {
             state.levels = action.payload;
@@ -37,6 +39,9 @@ export const modalSlice = createSlice({
         },  
         setBonuses(state, action) {
             state.bonuses = action.payload;
+        },  
+        setTransactions(state, action) {
+            state.transactions = action.payload;
         },
         setTicket(state, action) {
             state.ticketToPrint = action.payload;
