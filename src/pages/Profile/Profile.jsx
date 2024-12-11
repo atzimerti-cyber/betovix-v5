@@ -19,6 +19,7 @@ import Heroes from "../UserGamification.jsx/features/Heroes";
 
 import BarLoading from "../../features/UI/BarLoading/BarLoading";
 import { translate } from "../../utils/translations";
+import RGT from "./features/RGT";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -76,6 +77,12 @@ const Profile = () => {
                   icon: <CheckFilledIcon />,
                   active: selectedTab === "verification",
                 },
+                // {
+                //   id: "rgt",
+                //   label: translate("Responsible Gambling Tools"),
+                //   icon: <CheckFilledIcon />,
+                //   active: selectedTab === "rgt",
+                // },
               ]}
               onChangeTab={(tab) => setSelectedTab(tab)}
               type="buttons"
@@ -85,7 +92,8 @@ const Profile = () => {
               {selectedTab === "overview" && <Overview />}
               {selectedTab === "heroes" && <Heroes />}
               {selectedTab === "settings" && <Settings />}
-              {selectedTab === 'verification' && <Verification />}
+              {selectedTab === "verification" && <Verification />}
+              {selectedTab === "rgt" && <RGT />}
             </div>
           </div>
         </div>
