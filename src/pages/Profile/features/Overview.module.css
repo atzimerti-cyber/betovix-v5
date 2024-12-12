@@ -131,14 +131,9 @@
   width: 1.25rem;
 }
 
-.TotalName svg path,
-.TotalBits svg path {
-  /* fill: var(--db-gold-primary); */
-}
-
 @media (min-width: 768px) {
   .TabContent {
-    background-color: var(--db-duelbits-gray);
+    /* background-color: var(--db-duelbits-gray); */
     padding: 3rem 2.5rem;
   }
   .OverviewTitle {
@@ -180,6 +175,6 @@
     font-weight: 500;
   }
   .GoToDiv:hover {
-    filter: saturate(50%);
+    filter: saturate(350%);
   }
 }

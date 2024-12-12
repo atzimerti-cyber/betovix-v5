@@ -215,13 +215,13 @@
 
 @media (min-width: 900px) {
   .TabContent {
-    background-color: var(--db-duelbits-gray);
+    /* background-color: var(--db-duelbits-gray); */
     padding: 1rem 1rem;
   }
 
   .TabContent > .Form {
     gap: 1rem;
-    grid-template-columns: repeat(2, minmax(250px, 360px));
+    grid-template-columns: repeat(2, minmax(250px, 460px));
   }
 
   .Title {

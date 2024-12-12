@@ -313,6 +313,7 @@ const LeftContainer = memo(function () {
               <div className={classes.SideMenuDivider}></div>
               {!isMobile && (
                 <Search
+                  id="casinoSearchSidebar"
                   placeholder={translate("Search Casino")}
                   hide={!fullLeftContainer}
                   dataTooltipId="left-menu-tooltip"

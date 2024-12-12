@@ -2,17 +2,19 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classes from "./RGT.module.css";
-import Dropdown2 from "../../../features/UI/Dropdown/Dropdown5";
+import Dropdown5 from "../../../features/UI/Dropdown/Dropdown5";
 import { translate } from "../../../utils/translations";
 import { AnimatePresence } from "framer-motion";
 import AngleDownIcon from "../../../assets/svgs/angle-down.svg?react";
 import AccountActivity from "./AccountActivity";
+import SelfExclusion from "./SelfExclusion";
+import AccountClosure from "./AccountClosure";
 
 const RGT = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showDropdown, setShowDropdown] = useState(false);
-  const [page, setPage] = useState("Account Activity");
+  const [page, setPage] = useState("Self-Exclusion");
   return (
     <div className={classes.PageContainer}>
       <div
@@ -31,9 +33,9 @@ const RGT = () => {
         </button>
         <AnimatePresence>
           {showDropdown && (
-            <Dropdown2 onClickOutside={() => setShowDropdown(false)}>
+            <Dropdown5 onClickOutside={() => setShowDropdown(false)}>
               <div className={classes.DropdownMenu}>
-                <div
+                {/* <div
                   className={
                     page === "Account Activity"
                       ? [classes.DropdownItem, classes.Active].join(" ")
@@ -45,8 +47,8 @@ const RGT = () => {
                   }}
                 >
                   {translate("Account Activity")}
-                </div>
-                <div
+                </div> */}
+                {/* <div
                   className={
                     page === "Account Limits"
                       ? [classes.DropdownItem, classes.Active].join(" ")
@@ -58,8 +60,8 @@ const RGT = () => {
                   }}
                 >
                   {translate("Account Limits")}
-                </div>
-                <div
+                </div> */}
+                {/* <div
                   className={
                     page === "Time-Out"
                       ? [classes.DropdownItem, classes.Active].join(" ")
@@ -71,7 +73,7 @@ const RGT = () => {
                   }}
                 >
                   {translate("Time-Out")}
-                </div>
+                </div> */}
                 <div
                   className={
                     page === "Self-Exclusion"
@@ -98,7 +100,7 @@ const RGT = () => {
                 >
                   {translate("Account Closure")}
                 </div>
-                <div
+                {/* <div
                   className={
                     page === "Reality Checks"
                       ? [classes.DropdownItem, classes.Active].join(" ")
@@ -110,9 +112,9 @@ const RGT = () => {
                   }}
                 >
                   {translate("Reality Checks")}
-                </div>
+                </div> */}
               </div>
-            </Dropdown2>
+            </Dropdown5>
           )}
         </AnimatePresence>
       </div>
@@ -120,8 +122,8 @@ const RGT = () => {
         {page === "Account Activity" && <AccountActivity />}
         {page === "Account Limits" && <AccountActivity />}
         {page === "Time-Out" && <AccountActivity />}
-        {page === "Self-Exclusion" && <AccountActivity />}
-        {page === "Account Closure" && <AccountActivity />}
+        {page === "Self-Exclusion" && <SelfExclusion />}
+        {page === "Account Closure" && <AccountClosure />}
         {page === "Reality Checks" && <AccountActivity />}
       </div>
     </div>

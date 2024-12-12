@@ -1,0 +1,143 @@
+.Content {
+  height: max-content;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.Container {
+  height: max-content;
+  width: 100%;
+  background: linear-gradient(122deg, #1c4a67bf 0%, #21617f40 50%);
+  border-radius: 5px;
+  padding: 0.7rem;
+  margin: 0.5rem 0 0 0;
+}
+.Container p {
+  color: #fffffffa;
+  font-size: 14px;
+}
+.Container label {
+  color: #fffffffa;
+  font-weight: 500;
+}
+
+.CheckboxContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 1rem 0 0 0;
+}
+.CheckboxContainer h2 {
+  color: #fffffffa;
+  font-weight: 500;
+  font-size: 1rem;
+  padding-left: 1rem;
+}
+.Form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.Form input,
+.Form label {
+  width: max-content;
+}
+.Row {
+  display: flex;
+  flex-direction: row;
+  gap: 0.6rem;
+  padding-left: 1rem;
+}
+.ContinueBtn {
+  background-color: #68a13c;
+  width: 100%;
+  max-width: 450px;
+  padding: 0.6rem 2rem;
+  border-radius: 5px;
+  color: #fffffffa;
+  font-weight: 500;
+}
+.ContinueBtn:hover {
+  background-color: #6bbb2e;
+}
+.ContinueBtn:disabled {
+  background-color: #6bbb2e31;
+  color: #ffffff63;
+}
+
+/* ================================================= */
+.CustomRadio {
+  display: none; /* Hide the default radio button */
+}
+
+.CustomLabel {
+  display: inline-block;
+  padding: 7px 15px;
+  border: 1px solid #cccccc7c;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 14px;
+  user-select: none; /* Prevent text selection */
+  transition: all 0.3s ease;
+}
+
+.CustomLabel:hover {
+  border-color: #aaa;
+}
+
+.CustomRadio:checked + .CustomLabel {
+  background: #3ca19290;
+  color: white;
+  border-color: #3c95a1d3;
+}
+
+.PasswordContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin: 1rem 0 0 0;
+}
+.InputWrapper {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+  max-width: 450px;
+}
+
+.Input {
+  padding: 1rem 3rem 1rem 1rem;
+  width: 100%;
+  border-radius: 5px;
+  background: linear-gradient(222deg, #0d202d 0%, #04232f 50%);
+  color: white;
+  box-sizing: border-box;
+}
+
+.ShowPasswordBtn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+.ShowPasswordBtn svg {
+  fill: white;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+.Form2 {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  align-items: center;
+}
+.CancelBtn{
+  align-self: center;
+  color: white;
+  font-weight: 500;
+}

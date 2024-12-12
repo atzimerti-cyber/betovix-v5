@@ -4,14 +4,6 @@
   perspective: 500px;
 }
 
-/* .DecorationDiv::before {
-    position: absolute;
-    z-index: -10;
-    border-radius: 0.5rem;
-    height: calc(100% + 1px);
-    content: '';
-} */
-
 .DecorationDiv.Primary::before {
   left: 50%;
   transform-origin: bottom;
@@ -43,12 +35,7 @@
 }
 
 .DecorationDiv.Primary .Container {
-  background: linear-gradient(
-      180deg,
-      rgb(52 102 72 / 0%),
-      rgb(40 117 112 / 35%) 284.37%
-    ),
-    #10202e;
+  background: linear-gradient(222deg, #26465bbf 0%, #396b8140 50%);
 }
 .DecorationDiv.Secondary .Container {
   background: linear-gradient(

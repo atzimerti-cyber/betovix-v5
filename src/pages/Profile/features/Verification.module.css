@@ -49,6 +49,7 @@
   font-size: 0.75rem;
   line-height: 1rem;
   color: var(--db-body-text);
+  color: lightblue;
   padding: 0 0.375rem;
 }
 
@@ -58,6 +59,7 @@
   align-items: center;
   border-color: transparent;
   background-color: var(--db-gray-4);
+  background: linear-gradient(350deg, #3e6f8fbf 0%, #1b6e9340 56%);
   transition-duration: 0.2s;
   border-width: 1px;
   border-radius: 0.375rem;
@@ -79,7 +81,7 @@
 
 @media (min-width: 768px) {
   .TabContent {
-    background-color: var(--db-duelbits-gray);
+    /* background-color: var(--db-duelbits-gray); */
     padding: 1rem 1.5rem;
   }
   .Title {
@@ -95,7 +97,8 @@
 .FormGroup {
   border-radius: 0.5rem;
   background-color: var(--db-gray-2);
-  /* padding: 0.5rem; */
+
+  background: linear-gradient(222deg, #26465bbf 0%, #396b8140 50%);
   width: 100%;
 }
 

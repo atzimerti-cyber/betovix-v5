@@ -7,8 +7,9 @@ import classes from "./Profile.module.css";
 import UserIcon from "../../assets/svgs/user.svg?react";
 import GlobeIcon from "../../assets/svgs/globe.svg?react";
 import Settings2Icon from "../../assets/svgs/settings2.svg?react";
-import CheckFilledIcon from "../../assets/svgs/check-filled.svg?react";
-import LogoSmallIcon from "../../assets/svgs/logo-small.svg?react";
+import CheckFilledIcon from "../../assets/svgs/verify.svg?react";
+import LogoSmallIcon from "../../assets/svgs/logo-small-onecolor.svg?react";
+import ToolsIcon from "../../assets/svgs/tools.svg?react";
 import TabsVertical from "../../features/UI/Tabs/TabsVertical";
 import Overview from "./features/Overview";
 import Settings from "./features/Settings";
@@ -77,12 +78,12 @@ const Profile = () => {
                   icon: <CheckFilledIcon />,
                   active: selectedTab === "verification",
                 },
-                // {
-                //   id: "rgt",
-                //   label: translate("Responsible Gambling Tools"),
-                //   icon: <CheckFilledIcon />,
-                //   active: selectedTab === "rgt",
-                // },
+                {
+                  id: "rgt",
+                  label: translate("Responsible Gambling Tools"),
+                  icon: <ToolsIcon />,
+                  active: selectedTab === "rgt",
+                },
               ]}
               onChangeTab={(tab) => setSelectedTab(tab)}
               type="buttons"
