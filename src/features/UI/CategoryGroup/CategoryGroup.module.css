@@ -8,13 +8,20 @@
   border-bottom-left-radius: 10px;
 }
 .CategoryGroup.Closed {
-  border: 1px solid #00000043;
+  /* border: 1px solid #00000043;
   background-color: transparent;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 33%);
   margin-bottom: 0.5rem;
-  background-color: #06263f;
+  background-color: #06263f; */
+
+  background-color: transparent;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 29%);
+  margin-bottom: 0.5rem;
+  background-color: #102c43;
 }
 .CategoryGroup.Closed:hover {
   background-color: #1c3d55;

@@ -232,7 +232,7 @@ const TournamentTimeSelection = (props) => {
             }
             style={{ gap: "0.5rem", borderRadius: "6px" }}
           >
-            <span>{translate("Custom Date")}</span>
+            <span>{translate("Calendar")}</span>
             <Calendar />
           </button>
           {customDateTournaments !== null && (
@@ -280,7 +280,7 @@ const TournamentTimeSelection = (props) => {
             }
             style={{ gap: "0.5rem", borderRadius: "6px" }}
           >
-            <span>{translate("Custom Date")}</span>
+            <span>{translate("Calendar")}</span>
             <Calendar />
           </button>
           {customDateTournaments !== null && (
