@@ -48,7 +48,12 @@ const SportsBanners = (props) => {
   };
 
   return (
-    <BigSwiper slidesPerView={slidesPerView} autoplay delay={6000}>
+    <BigSwiper
+      slidesPerView={slidesPerView}
+      autoplay
+      delay={6000}
+      spaceBetween={10}
+    >
       {props.banners ? (
         props.banners.map((banner, index) => {
           let link = null;

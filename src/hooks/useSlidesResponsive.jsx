@@ -183,10 +183,10 @@ const useSlidesResponsive = (categ) => {
       slidesPerView = 1;
       slidesPerGroup = 1;
     } else if (isMobile) {
-      slidesPerView = 1;
+      slidesPerView = 1.3;
       slidesPerGroup = 1;
     } else if (isTablet) {
-      slidesPerView = 1.5;
+      slidesPerView = 1.6;
       slidesPerGroup = 1;
     } else if (isDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
@@ -210,7 +210,7 @@ const useSlidesResponsive = (categ) => {
         slidesPerGroup = 1;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
         if (isRightContainerOpen) {
-          slidesPerView = 2;
+          slidesPerView = 2.5;
           slidesPerGroup = 1;
         } else {
           slidesPerView = 2;

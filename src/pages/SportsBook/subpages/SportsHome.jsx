@@ -16,6 +16,7 @@ import Category from "../features/Category";
 import { getSportMarketTree } from "../sportsbookAsyncActions";
 import { translate } from "../../../utils/translations";
 import EventRow from "../features/EventRow";
+import { getCustomDateEvents } from "../sportsbookAsyncActions";
 
 const SportsHome = () => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const SportsHome = () => {
   const customDateTournaments = useSelector(
     (state) => state.sportsbook.customDateTournaments
   );
+  const customDate = useSelector((state) => state.sportsbook.customDate);
 
   const categories = useSelector((state) => state.sportsHome.categories);
   const sports = useSelector((state) => state.sportsbook.sports);
@@ -136,6 +138,23 @@ const SportsHome = () => {
       /////////ADDED && tournamentTimeFilter !== '24H' for Daily Events
       closestTimeframe = findClosestTimeframe();
       dispatch(sportsbookActions.setTournamentTimeFilter(closestTimeframe));
+    }
+
+    if (customDate !== null) {
+      let payload;
+      payload = {
+        ProviderId: 1,
+        did: customDate,
+        sportid: selectedSport?.Id,
+        groupName: null,
+        subGroupName: null,
+      };
+
+      const stringifiedPayload = JSON.stringify(payload);
+
+      const controller = new AbortController();
+      const signal = controller.signal;
+      dispatch(getCustomDateEvents(signal, stringifiedPayload));
     }
 
     setLoadingCategories(true);
@@ -412,10 +431,11 @@ const SportsHome = () => {
       />
 
       <div className={classes.TopRowWrapper}>
-        {customDateTournaments &&
-        Object.keys(customDateTournaments).length > 0 ? (
-          <TournamentTimeSelection home/>
+        {customDateTournaments !== null ? (
+          //  Object.keys(customDateTournaments).length > 0 && (
+          <TournamentTimeSelection home />
         ) : (
+          //   )
           <>
             <div className={classes.Grouped}>
               <TournamentSort />
@@ -430,37 +450,46 @@ const SportsHome = () => {
         <div className={classes.Loading}>
           <div className={classes.Spinner}></div>
         </div>
-      ) : customDateTournaments &&
+      ) : customDateTournaments !== null ? (
         Object.keys(customDateTournaments).length > 0 ? (
-        <>
-          <div
-            className={classes.Header}
-            style={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "2rem",
-            }}
-          >
-            <p
-              className={classes.Title}
-              style={{ color: "white", fontWeight: "bold", marginLeft: "10px" }}
+          <>
+            <div
+              className={classes.Header}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "2rem",
+              }}
             >
-              {/* {translate(`Search Results`)} */}
-              {getDateOfLastItem(customDateTournaments)}
-            </p>
-            {customDateTournaments.length > 0 && (
-              <p className={classes.Total}>
-                ({customDateTournaments.length} {translate("Events")})
+              <p
+                className={classes.Title}
+                style={{
+                  color: "white",
+                  fontWeight: "bold",
+                  marginLeft: "10px",
+                }}
+              >
+                {/* {translate(`Search Results`)} */}
+                {getDateOfLastItem(customDateTournaments)}
               </p>
-            )}
-          </div>
+              {customDateTournaments.length > 0 && (
+                <p className={classes.Total}>
+                  ({customDateTournaments.length} {translate("Events")})
+                </p>
+              )}
+            </div>
 
-          {customDateTournaments.map((event) => {
-            return (
-              <EventRow key={event.MatchId} event={event} withTournament />
-            );
-          })}
-        </>
+            {customDateTournaments.map((event) => {
+              return (
+                <EventRow key={event.MatchId} event={event} withTournament />
+              );
+            })}
+          </>
+        ) : (
+          <div>
+            <p>{translate(`No games where found.`)}</p>
+          </div>
+        )
       ) : (
         <div className={classes.TournamentGroup}>
           {selectedSport && !loadingCategories ? (

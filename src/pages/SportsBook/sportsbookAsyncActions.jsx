@@ -289,14 +289,19 @@ export const getCustomDateEvents = (signal, payload) => {
 
       if (response.status !== 200) throw Error(response.data.Contents);
 
-      const events = response.data.Contents.Events;
+      let events;
+      if (response.data.Contents !== null) {
+        events = response.data.Contents.Events;
 
-      // Sort the events by DateOfMatch in ascending order
-      events.sort((a, b) => {
-        const dateA = new Date(a.Info.DateOfMatch);
-        const dateB = new Date(b.Info.DateOfMatch);
-        return dateA - dateB; // Ascending order (earliest date first)
-      });
+        // Sort the events by DateOfMatch in ascending order
+        events.sort((a, b) => {
+          const dateA = new Date(a.Info.DateOfMatch);
+          const dateB = new Date(b.Info.DateOfMatch);
+          return dateA - dateB; // Ascending order (earliest date first)
+        });
+      } else {
+        events = {};
+      }
 
       // Dispatch the sorted events
       dispatch(sportsbookActions.setCustomDateTournaments(events));

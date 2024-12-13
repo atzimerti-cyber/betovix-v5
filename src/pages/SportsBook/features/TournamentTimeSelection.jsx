@@ -40,17 +40,15 @@ const TournamentTimeSelection = (props) => {
     });
   };
 
-  const getDateOfLastItem = (customDateTournaments) => {
-    if (customDateTournaments !== null) {
+  const getDateOfLastItem = (customDateTournaments, customDate) => {
+    if (
+      customDateTournaments !== null &&
+      Object.keys(customDateTournaments).length > 0
+    ) {
       const lastItem = customDateTournaments[customDateTournaments.length - 1];
       const lastItemDate = lastItem.Info.DateOfMatch;
 
       const date = new Date(lastItemDate);
-
-      // const options = { year: "numeric", month: "long", day: "numeric" };
-      // const formattedDate = new Intl.DateTimeFormat("en-US", options).format(
-      //   date
-      // );
 
       const day = String(date.getDate()).padStart(2, "0");
       const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -60,7 +58,16 @@ const TournamentTimeSelection = (props) => {
 
       return formattedDate;
     } else {
-      return null;
+      if (customDate !== null) {
+        // Extract day and month from the string
+        const day = customDate.slice(2, 4);
+        const month = customDate.slice(0, 2);
+
+        // Format as DD/MM
+        return `${day}/${month}`;
+      } else {
+        return "Selected Date";
+      }
     }
   };
 
@@ -243,7 +250,7 @@ const TournamentTimeSelection = (props) => {
                 <TimesIcon />
               </div>
 
-              <p>{getDateOfLastItem(customDateTournaments)}</p>
+              <p>{getDateOfLastItem(customDateTournaments, customDate)}</p>
             </button>
           )}
         </div>
@@ -291,7 +298,7 @@ const TournamentTimeSelection = (props) => {
               >
                 <TimesIcon />
               </div>
-              <p>{getDateOfLastItem(customDateTournaments)}</p>
+              <p>{getDateOfLastItem(customDateTournaments, customDate)}</p>
             </button>
           )}
         </div>

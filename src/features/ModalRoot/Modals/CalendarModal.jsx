@@ -53,6 +53,7 @@ const CalendarModal = () => {
 
   const handleDateChange = (date) => {
     setDate(date);
+    handleSearchButton(date);
   };
 
   // Disable dates not in the range of today to a week from today
@@ -117,12 +118,12 @@ const CalendarModal = () => {
             tileDisabled={disableDates}
           />
         </div>
-        <div
+        {/* <div
           className={classes.SubmitButton}
           onClick={() => handleSearchButton(date)}
         >
           <button>{translate("Search")}</button>
-        </div>
+        </div>*/}
       </div>
     </div>
   );
