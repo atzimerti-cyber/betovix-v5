@@ -3,6 +3,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";
 
+import ScrollToTop from "./hooks/ScrollToTop";
+
 import InitApp from "./features/InitApp/InitApp";
 import Layout from "./features/Layout/Layout";
 import PrivateRoute from "./features/PrivateRoute/PrivateRoute";
@@ -55,14 +57,6 @@ const MaintenancePage = React.lazy(() =>
 
 function App() {
   const router = createBrowserRouter([
-    // {
-    //   path: "/m",
-    //   element: (
-    //     <Suspense fallback={<PageFallback />}>
-    //       <MaintenancePage />
-    //     </Suspense>
-    //   ),
-    // },
     {
       path: "/",
       element: <InitApp />,
@@ -81,7 +75,6 @@ function App() {
               ),
             },
             {
-              // path: "casino/game/:type/:providername/:id/:brandgameid/:name",
               path: "/casino/game/:type/:providername/:id/:brandgameid/:name",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -94,7 +87,6 @@ function App() {
               ),
             },
             {
-              // path: "casino/*",
               path: "/casino/*",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -107,7 +99,6 @@ function App() {
               ),
             },
             {
-              // path: "sportsbook/mybets",
               path: "/sportsbook/mybets",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -118,7 +109,6 @@ function App() {
               ),
             },
             {
-              // path: "sportsbook/tournament/:sportid/:categoryid/:tournamentid",
               path: "/sportsbook/tournament/:sportid/:categoryid/:tournamentid",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -129,7 +119,6 @@ function App() {
               ),
             },
             {
-              // path: "sportsbook/outrights/:sportname/:sportid/:categoryid/:tournamentid/:eventid",
               path: "/sportsbook/outrights/:sportname/:sportid/:categoryid/:tournamentid/:eventid",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -140,7 +129,6 @@ function App() {
               ),
             },
             {
-              // path: "sportsbook/*",
               path: "/sportsbook/*",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -151,7 +139,6 @@ function App() {
               ),
             },
             {
-              // path: "event/:sportname/:sportid/:eventid",
               path: "/event/:sportname/:sportid/:eventid",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -162,7 +149,6 @@ function App() {
               ),
             },
             {
-              // path: "crypto",
               path: "/crypto",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -171,7 +157,6 @@ function App() {
               ),
             },
             {
-              // path: "search",
               path: "/search",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -184,7 +169,6 @@ function App() {
               ),
             },
             {
-              // path: "searchEvent",
               path: "/searchEvent",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -195,7 +179,6 @@ function App() {
               ),
             },
             {
-              // path: "profile",
               path: "/profile",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -206,7 +189,6 @@ function App() {
               ),
             },
             {
-              // path: "leaderboard/*",
               path: "/leaderboard/*",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -215,7 +197,6 @@ function App() {
               ),
             },
             {
-              // path: "rewards",
               path: "/rewards",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -224,7 +205,6 @@ function App() {
               ),
             },
             {
-              // path: "promotions",
               path: "/promotions",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -233,7 +213,6 @@ function App() {
               ),
             },
             {
-              // path: "hero",
               path: "/hero",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -242,7 +221,6 @@ function App() {
               ),
             },
             {
-              // path: "terms-and-conditions",
               path: "/terms-and-conditions",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -251,7 +229,6 @@ function App() {
               ),
             },
             {
-              // path: "aml",
               path: "/aml",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -260,7 +237,6 @@ function App() {
               ),
             },
             {
-              // path: "privacy-policy",
               path: "/privacy-policy",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -269,7 +245,6 @@ function App() {
               ),
             },
             {
-              // path: "rpg",
               path: "/rpg",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -278,7 +253,6 @@ function App() {
               ),
             },
             {
-              // path: "support",
               path: "/support",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -287,7 +261,6 @@ function App() {
               ),
             },
             {
-              // path: "contactus",
               path: "/contactus",
               element: (
                 <Suspense fallback={<PageFallback />}>
@@ -295,21 +268,19 @@ function App() {
                 </Suspense>
               ),
             },
-            // {
-            //   path: "/m",
-            //   element: (
-            //     <Suspense fallback={<PageFallback />}>
-            //       <MaintenancePage />
-            //     </Suspense>
-            //   ),
-            // },
           ],
         },
       ],
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  // return <RouterProvider router={router} />;
+  return (
+    <RouterProvider router={router}>
+      {/* Wrap ScrollToTop inside the Router context */}
+      <ScrollToTop />
+    </RouterProvider>
+  );
 }
 
 export default App;

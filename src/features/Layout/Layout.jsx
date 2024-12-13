@@ -82,6 +82,11 @@ const Layout = () => {
     setIsFirstRender(false);
   }, []);
 
+  useEffect(() => {
+    // Scroll to top on path change
+    scrollToTopHandler();
+  }, [location.pathname]);
+
   // Function to handle user activity
   const handleUserActivity = () => {
     setIsInactive(false);
@@ -123,16 +128,6 @@ const Layout = () => {
       centerContainerRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
-
-  // useLayoutEffect(() => {
-  //   if (centerContainerRef.current) {
-  //     centerContainerRef.current.scrollTo({
-  //       top: 0,
-  //       left: 0,
-  //       behavior: "auto",
-  //     });
-  //   }
-  // }, [location.pathname, scrollToTop]);
 
   let layoutClasses = [classes.Layout];
   if (isMobile) layoutClasses.push("IsMobile");
@@ -186,7 +181,6 @@ const Layout = () => {
       />
 
       <LiveLoader />
-      {/* <Minibar /> */}
       <Topbar />
 
       <div className={classes.Content}>
