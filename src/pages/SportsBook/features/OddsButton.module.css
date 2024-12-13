@@ -110,17 +110,19 @@
   text-wrap: nowrap;
   text-overflow: ellipsis;
   max-width: 50%;
-  /* display: inline-block; */
-  /* vertical-align: middle; */
 }
 .CardButton.Selected {
+  /* background: var(--db-gray-12);
+  border-color: var(--db-gray-13); */
+
   background: var(--db-gray-12);
+  color: white;
   border-color: var(--db-gray-13);
 }
 
-/* .CardButton:hover {
-  background-color: rgb(41, 63, 82);
-} */
+.CardButton.Selected .OddsLabel {
+  color: rgb(221, 221, 221) !important;
+}
 
 .CardButton:disabled {
   background-color: rgb(66 81 95 / 19%);
