@@ -288,7 +288,7 @@ const Home = () => {
           )}
 
         {/* REWARDS */}
-        {showRewards && user && (
+        {showRewards && user && allowGamification.AllowGamification && (
           <div ref={rewardsRef} style={{ minHeight: "60px", marginTop: "5px" }}>
             {isRewardsVisible && (
               <div
