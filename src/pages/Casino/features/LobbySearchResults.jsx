@@ -49,6 +49,20 @@ const LobbySearchResults = (props) => {
           return <CasinoGameCard key={game.Data.Id} game={game} />;
         })}
 
+        {props.viewAllItem && (
+          <li>
+            <div className={classes.SlideContainer}>
+              <div
+                className={classes.ViewAllItem}
+                onClick={() => viewAll(props.searchString)}
+              >
+                <p>{translate(`View All`)}</p>
+                <ArrowRight height="10px" />
+              </div>
+            </div>
+          </li>
+        )}
+
         {props.loading || props.collection === null || moreLoading
           ? Array.from({ length: 10 }, (_, index) => (
               <SkeletonGameCardRow key={index} />

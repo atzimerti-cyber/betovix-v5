@@ -47,6 +47,7 @@ const Home = () => {
 
   const user = useSelector((state) => state.login.user);
   const permissions = useSelector((state) => state.login.permissions);
+  const allowGamification = useSelector((state) => state.app.permissions);
   const hasHero = useSelector((state) => state.gamification.selectedHero);
   const liveState = useSelector((state) => state.live.liveState);
 
@@ -174,15 +175,17 @@ const Home = () => {
         )}
 
         {/* HEROES BANNER */}
-        {(!user || !hasHero) && showHeroBanner && (
-          <div style={{ minHeight: "300px" }} ref={heroBannersRef}>
-            {isHeroBannersVisible && (
-              <GamificationBanner
-                onDataNotFound={handleRemoveHeroBannerComponent}
-              />
-            )}
-          </div>
-        )}
+        {(!user || !hasHero) &&
+          showHeroBanner &&
+          allowGamification.AllowGamification && (
+            <div style={{ minHeight: "300px" }} ref={heroBannersRef}>
+              {isHeroBannersVisible && (
+                <GamificationBanner
+                  onDataNotFound={handleRemoveHeroBannerComponent}
+                />
+              )}
+            </div>
+          )}
 
         {/* CRYPTO */}
         {showCrypto && (

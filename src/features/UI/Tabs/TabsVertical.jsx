@@ -5,21 +5,28 @@ const TabsVertical = (props) => {
   return (
     <div className={classes.Tabs}>
       {props.tabs.map((tab) => {
-        return (
-          <div
-            key={tab.id}
-            role="tab"
-            className={
-              tab.active ? [classes.Tab, classes.Active].join(" ") : classes.Tab
-            }
-            onClick={() => props.onChangeTab(tab.id)}
-          >
-            {tab.icon && tab.icon}
-
-            <p>{tab.label}</p>
-            {props.type === "buttons" && <Ripple type="square" opacity={0.2} />}
-          </div>
-        );
+        // Ensure the 'tab' has an 'id' before rendering
+        if (tab.id) {
+          return (
+            <div
+              key={tab.id}
+              role="tab"
+              className={
+                tab.active
+                  ? [classes.Tab, classes.Active].join(" ")
+                  : classes.Tab
+              }
+              onClick={() => props.onChangeTab(tab.id)}
+            >
+              {tab.icon && tab.icon}
+              <p>{tab.label}</p>
+              {props.type === "buttons" && (
+                <Ripple type="square" opacity={0.2} />
+              )}
+            </div>
+          );
+        }
+        return null; // Ensure no invalid elements are rendered
       })}
     </div>
   );

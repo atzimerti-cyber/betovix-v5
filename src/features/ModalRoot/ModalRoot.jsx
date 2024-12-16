@@ -38,6 +38,7 @@ const ModalRoot = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
+  const permissions = useSelector((state) => state.app.permissions);
   const onCloseModal = useSelector((state) => state.modal.onCloseModal);
   const user = useSelector((state) => state.login.user);
   const query = new URLSearchParams(location.search);
@@ -90,7 +91,6 @@ const ModalRoot = () => {
   else if (modal === "announcement") modalPage = <AnnouncementModal />;
   else if (modal === "promotion") modalPage = <PromotionModal />;
   else if (modal === "transactions") modalPage = <TransactionsModal />;
-  // else if (modal === 'vip') modalPage = <VipModal />;
   else if (modal === "bonus") {
     if (user) modalPage = <BonusModal />;
     else
@@ -103,13 +103,15 @@ const ModalRoot = () => {
   } else if (modal === "n") {
     if (user) modalPage = <NotificationPopUp />;
   } else if (modal === "achievement") {
-    if (user) modalPage = <AchievementModal />;
+    if (user && permissions.AllowGamification) modalPage = <AchievementModal />;
     else
       modalPage = <Navigate replace to={getUrlWithParams("auth", "login")} />;
   } else if (modal === "hero-confirm") modalPage = <HeroConfirmation />;
-  else if (modal === "buy-level-confirm") modalPage = <BuyLevelConfirmation />;
-  else if (modal === "your-progress") {
-    if (user) modalPage = <YourProgress />;
+  else if (modal === "buy-level-confirm") {
+    if (user && !permissions.AllowGamification)
+      modalPage = <BuyLevelConfirmation />;
+  } else if (modal === "your-progress") {
+    if (user && permissions.AllowGamification) modalPage = <YourProgress />;
     else
       modalPage = <Navigate replace to={getUrlWithParams("auth", "login")} />;
   } else if (modal === "game-options") {

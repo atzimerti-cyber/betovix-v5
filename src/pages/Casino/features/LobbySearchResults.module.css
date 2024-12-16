@@ -101,3 +101,25 @@
     grid-template-columns: repeat(8, minmax(0, 1fr));
   }
 }
+
+.SlideContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  aspect-ratio: 2 / 3;
+}
+.ViewAllItem {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.3rem;
+  align-items: center;
+  background: linear-gradient(222deg, #0f354e 0%, #3f727d 61%);
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  color: aliceblue;
+  cursor: pointer;
+}

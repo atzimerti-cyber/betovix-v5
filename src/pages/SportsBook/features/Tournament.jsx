@@ -7,6 +7,7 @@ import { sportsbookActions } from "../sportsbookSlice";
 import EventRow from "./EventRow";
 import EventRowLive from "./EventRowLive";
 import EventRowLiveList from "./EventRowLiveList";
+import { translate } from "../../../utils/translations";
 
 const Tournament = (props) => {
   const dispatch = useDispatch();
@@ -23,6 +24,12 @@ const Tournament = (props) => {
     (state) => state.live.addedRemovedEvent
   );
   const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
+  // const loading = useSelector(
+  //   (state) => state.sportsbook.tournamentEventsLoading
+  // );
+  const tournamentLoading = useSelector(
+    (state) => state.sportsHome.tournamentEventsLoading[props.tournament.Id]
+  );
 
   const [sortedEvents, setSortedEvents] = useState([]);
   const [events, setEvents] = useState([]);
@@ -116,9 +123,23 @@ const Tournament = (props) => {
 
   return (
     <div className={classes.TournamentContent}>
-      {(!events || events.length === 0) &&
+      {/* {loading === true && <div className={classes.Spinner}></div>}
+      {loading === false &&
+        (!events || events.length === 0) &&
         (!liveEventsIds || liveEventsIds.length === 0) && (
-          <div className={classes.Spinner}></div>
+          <div className={classes.Text}>
+            {" "}
+            {translate(`Νο events are currently available`)}.
+          </div>
+        )} */}
+      {tournamentLoading && <div className={classes.Spinner}></div>}
+      {!tournamentLoading &&
+        (!events || events.length === 0) &&
+        (!liveEventsIds || liveEventsIds.length === 0) && (
+          <div className={classes.Text}>
+            {" "}
+            {translate(`Νο events are currently available`)}.
+          </div>
         )}
       {liveEventsIds &&
         liveEventsIds.map((eventId) => {

@@ -12,6 +12,7 @@ const SelfExclusion = () => {
 
   const [pageStep, setPageStep] = useState(1);
   const [selectedOption, setSelectedOption] = useState(null);
+  const [reason, setReason] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
@@ -21,9 +22,16 @@ const SelfExclusion = () => {
     }
   };
 
+  const handleReasonChange = (event) => {
+    if (pageStep === 1) {
+      setReason(event.target.value);
+    }
+  };
+
   const handleStepChange = (pageStep) => {
     if (pageStep === 1) {
       setPageStep(2);
+      console.log(selectedOption);
     } else if (pageStep === 2) {
       setPageStep(1);
     }
@@ -95,8 +103,42 @@ const SelfExclusion = () => {
                 <input
                   type="radio"
                   name="self_exclusion"
+                  id="self_exclusion_1d"
+                  value={0}
+                  onChange={handleOptionChange}
+                  className={classes.CustomRadio}
+                />
+                <label
+                  htmlFor="self_exclusion_1d"
+                  className={classes.CustomLabel}
+                >
+                  1 {translate("Day")}
+                </label>
+              </div>
+              <br />
+              <div className={classes.Row}>
+                <input
+                  type="radio"
+                  name="self_exclusion"
+                  id="self_exclusion_1w"
+                  value={1}
+                  onChange={handleOptionChange}
+                  className={classes.CustomRadio}
+                />
+                <label
+                  htmlFor="self_exclusion_1w"
+                  className={classes.CustomLabel}
+                >
+                  1 {translate("Week")}
+                </label>
+              </div>
+              <br />
+              <div className={classes.Row}>
+                <input
+                  type="radio"
+                  name="self_exclusion"
                   id="self_exclusion_1m"
-                  value="1_month"
+                  value={2}
                   onChange={handleOptionChange}
                   className={classes.CustomRadio}
                 />
@@ -113,7 +155,7 @@ const SelfExclusion = () => {
                   type="radio"
                   name="self_exclusion"
                   id="self_exclusion_6m"
-                  value="6_months"
+                  value={3}
                   onChange={handleOptionChange}
                   className={classes.CustomRadio}
                 />
@@ -130,7 +172,7 @@ const SelfExclusion = () => {
                   type="radio"
                   name="self_exclusion"
                   id="self_exclusion_4ever"
-                  value="indefinitely"
+                  value={4}
                   onChange={handleOptionChange}
                   className={classes.CustomRadio}
                 />
@@ -141,11 +183,30 @@ const SelfExclusion = () => {
                   {translate("Indefinitely")}
                 </label>
               </div>
+              <div className={classes.Column}>
+                <label
+                  htmlFor="self_exclusion_reason"
+                  className={classes.CustomTextAreaLabel}
+                >
+                  {" "}
+                  {translate(
+                    "What is the reason for requesting self-exclusion"
+                  )}
+                  ?
+                </label>
+                <textarea
+                  name="self_exclusion_reason"
+                  id="self_exclusion_reason"
+                  value={reason}
+                  onChange={handleReasonChange}
+                  className={classes.CustomTextArea}
+                />
+              </div>
               <br />
               <button
                 className={classes.ContinueBtn}
                 type="submit"
-                disabled={!selectedOption}
+                disabled={!selectedOption || reason === ""}
                 onClick={() => handleStepChange(pageStep)}
               >
                 {translate("Continue")}
