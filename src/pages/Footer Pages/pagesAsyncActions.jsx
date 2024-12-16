@@ -22,12 +22,12 @@ export const getPage = (signal, slug) => {
         (response.data.Status && response.data.Status.StatusCode !== 200)
       )
         throw Error();
-      if (slug === "rpg") {
-        dispatch(pagesActions.setRpg(response.data.Contents));
-      }
+      dispatch(pagesActions.setPage(response.data.Contents));
+
     } catch (error) {
       if (!error?.code === "ERR_CANCELED") toast.error(error?.message);
-      dispatch(pagesActions.setRpg([]));
+      dispatch(pagesActions.setPage([]));
+
     }
   };
 };

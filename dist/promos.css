@@ -143,3 +143,49 @@
         max-height: 800px;
     }
 }
+
+.ToS {
+    margin-top: 0.625rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+.Title h1 {
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: whitesmoke;
+}
+
+.Title h2 {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: #73a5b3;
+}
+
+.Context p {
+    color: whitesmoke;
+}
+
+.Text {
+    color: whitesmoke;
+}
+
+.ParagraphTitle {
+    color: #84bccb;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 0.3rem 0;
+}
+
+.ParagraphText {
+    font-size: 0.9rem;
+    font-weight: 400;
+    padding: 0.5rem 0;
+}
+
+@media (min-width: 640px) {
+    .ToS {
+        margin-top: 0.875rem;
+    }
+}

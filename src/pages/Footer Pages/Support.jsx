@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import classes from "./TermsOfService.module.css";
+import classes from "./Support.module.css";
 import InfoIcon from "../../assets/svgs/info-circle.svg?react";
 import SupportIcon from "../../assets/svgs/livesupportbtn.svg?react";
 import { translate } from "../../utils/translations";
