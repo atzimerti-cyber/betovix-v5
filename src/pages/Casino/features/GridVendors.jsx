@@ -2,9 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import classes from "./GridVendors.module.css";
-import diceAnimation from "../../../assets/images/dice_animation_1.webp";
-import CasinoGameCard from "../features/CasinoGameCard";
-import MainButton from "../../../features/UI/Buttons/MainButton";
 import LoaderPlaceholder from "../../../features/UI/Skeletons/LoaderPlaceholder";
 import { translate } from "../../../utils/translations";
 import VendorCard from "./VendorCard";

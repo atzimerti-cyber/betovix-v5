@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import classes from "./GridGames.module.css";
-import diceAnimation from "../../../assets/images/dice_animation_1.webp";
+import classes from "./GridGames.module.css"; 
 import logoAnimation from "../../../assets/images/small-logo-animation.gif";
 import CasinoGameCard from "../features/CasinoGameCard";
 import MainButton from "../../../features/UI/Buttons/MainButton";

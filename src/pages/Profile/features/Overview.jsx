@@ -97,7 +97,7 @@ const Overview = () => {
                   alignItems: "center",
                   cursor: "pointer",
                 }}
-                onClick={() => navigate("/terms-and-conditions")}
+                onClick={() => navigate("/pages/terms-of-service")}
               >
                 <InfoIcon />
               </div>
