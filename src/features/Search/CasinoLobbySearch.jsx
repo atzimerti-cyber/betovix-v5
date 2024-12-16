@@ -124,6 +124,7 @@ const CasinoLobbySearch = (props) => {
                       title={translate("Results")}
                       property="allSlots"
                       searchString={value}
+                      viewAllItem={true}
                     />
                   ) : (
                     <p style={{ padding: "1rem", color: "white" }}>

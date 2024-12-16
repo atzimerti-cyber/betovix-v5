@@ -29,6 +29,8 @@ const Profile = () => {
   const tab = query.get("tab");
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+
+  const permissions = useSelector((state) => state.app.permissions);
   const barLoading = useSelector((state) => state.app.barLoading);
   const [selectedTab, setSelectedTab] = useState(tab || "overview");
 
@@ -60,7 +62,7 @@ const Profile = () => {
                   icon: <GlobeIcon />,
                   active: selectedTab === "overview",
                 },
-                {
+                permissions.AllowGamification && {
                   id: "heroes",
                   label: translate("Realm of Heroes"),
                   icon: <LogoSmallIcon />,
@@ -91,7 +93,9 @@ const Profile = () => {
 
             <div className={classes.TabPanel}>
               {selectedTab === "overview" && <Overview />}
-              {selectedTab === "heroes" && <Heroes />}
+              {selectedTab === "heroes" && permissions.AllowGamification && (
+                <Heroes />
+              )}
               {selectedTab === "settings" && <Settings />}
               {selectedTab === "verification" && <Verification />}
               {selectedTab === "rgt" && <RGT />}

@@ -13,20 +13,23 @@ const initialState = {
   usernameSent: false,
 
   permissions: {
-    AllowToBomba: false,
-    AllowToCasino: true,
     AllowToHistory: false,
     AllowToJackpots: false,
     AllowToSlots: true,
     AllowToSports: true,
+
+    AllowGamification: true,
+    AllowToCasino: true,
+    AllowToVerification: false,
   },
   notLoggedInPermissions: {
-    AllowToBomba: false,
+    AllowGamification: true,
     AllowToCasino: true,
     AllowToHistory: false,
     AllowToJackpots: false,
     AllowToSlots: true,
     AllowToSports: true,
+    AllowToVerification: false,
   },
   mailToVerify: null,
 };

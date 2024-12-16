@@ -487,7 +487,7 @@ const SportsHome = () => {
           </>
         ) : (
           <div>
-            <p>{translate(`No games where found.`)}</p>
+            <p>{translate(`Νο events are currently available`)}.</p>
           </div>
         )
       ) : (
@@ -495,7 +495,7 @@ const SportsHome = () => {
           {selectedSport && !loadingCategories ? (
             categoriesArr.length === 0 ? (
               <span className={classes.NoGames}>
-                {translate("No games where found.")}
+                {translate(`Νο events are currently available`)}.
               </span>
             ) : (
               categoriesArr.map((category, catIndex) => (

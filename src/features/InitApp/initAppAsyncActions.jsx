@@ -444,29 +444,35 @@ export const loadInitData = (isMobile) => {
       }
 
       // Rest of menu items
-      allMenuItems.push({
-        category: { id: 5, label: "Arena", visible: true, isNew: true },
-        items: [
-          {
-            id: 1,
-            label: `My Progress`,
-            icon: <LogoSmall1C color="#FF0000" />,
-            modal: "your-progress",
-          },
-          {
-            id: 2,
-            label: `My Rewards`,
-            icon: <RewardsIcon color="#FF0000" />,
-            page: "rewards",
-          },
-          // {
-          //   id: 3,
-          //   label: `Hero’s Haven`,
-          //   icon: <RewardsIcon color="#FF0000" />,
-          //   page: "hero",
-          // },
-        ],
-      });
+      const appPermission = getState().app;
+      const allowGamification = appPermission.permissions;
+      {
+        allowGamification.AllowGamification &&
+          allMenuItems.push({
+            category: { id: 5, label: "Arena", visible: true, isNew: true },
+            items: [
+              {
+                id: 1,
+                label: `My Progress`,
+                icon: <LogoSmall1C color="#FF0000" />,
+                modal: "your-progress",
+              },
+              {
+                id: 2,
+                label: `My Rewards`,
+                icon: <RewardsIcon color="#FF0000" />,
+                page: "rewards",
+              },
+              // {
+              //   id: 3,
+              //   label: `Hero’s Haven`,
+              //   icon: <RewardsIcon color="#FF0000" />,
+              //   page: "hero",
+              // },
+            ],
+          });
+      }
+
       allMenuItems.push({
         category: { id: 6, label: "More", visible: false },
         items: [
@@ -688,11 +694,20 @@ export const getSiteSettings = (signal) => {
         siteCurrencies.push(curr);
       });
 
+      let allowGamification;
+      if (response.data.Contents.Site.AllowGamification === "true") {
+        allowGamification = true;
+      } else if (response.data.Contents.Site.AllowGamification === "false") {
+        allowGamification = false;
+      }
+
       dispatch(
         appActions.setRegisterPromoImg(
           response.data.Contents.Site.RegisterPromoImg
         )
       );
+
+      dispatch(appActions.setGamificationPermission(allowGamification));
       dispatch(
         appActions.setRegisterPromoImgMobile(
           response.data.Contents.Site.RegisterPromoImgMobile

@@ -32,6 +32,8 @@ const MenuItems = (props) => {
     (state) => state.gamification.availableRewards
   );
 
+  const permissions = useSelector((state) => state.app.permissions);
+
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.set("modal", modal);
@@ -69,20 +71,23 @@ const MenuItems = (props) => {
           </a>
         </li>
       )}
-      <li>
-        <a
-          onClick={() => {
-            navigate(`rewards`);
-            props.onClick();
-          }}
-        >
-          <StarIcon />
-          <span>{translate("My Rewards")}</span>
-          {newRewards > 0 && (
-            <div className={classes.NumberBadge}>{newRewards}</div>
-          )}
-        </a>
-      </li>
+      {permissions.AllowGamification && (
+        <li>
+          <a
+            onClick={() => {
+              navigate(`rewards`);
+              props.onClick();
+            }}
+          >
+            <StarIcon />
+            <span>{translate("My Rewards")}</span>
+            {newRewards > 0 && (
+              <div className={classes.NumberBadge}>{newRewards}</div>
+            )}
+          </a>
+        </li>
+      )}
+
       <li>
         <a
           onClick={() => {
@@ -96,7 +101,9 @@ const MenuItems = (props) => {
       </li>
       <li>
         <a
-          onClick={() => {addParamsToUrl("transactions")}}
+          onClick={() => {
+            addParamsToUrl("transactions");
+          }}
         >
           <ExchangeIcon fill="#527491" />
           <span>{translate("My Transactions")}</span>

@@ -200,7 +200,9 @@ function App() {
               path: "/rewards",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <Gamification />
+                  <HasPermission checkPermissions={["AllowGamification"]}>
+                    <Gamification />
+                  </HasPermission>
                 </Suspense>
               ),
             },
@@ -216,7 +218,9 @@ function App() {
               path: "/hero",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <ProgressMap />
+                  <HasPermission checkPermissions={["AllowGamification"]}>
+                    <ProgressMap />
+                  </HasPermission>
                 </Suspense>
               ),
             },

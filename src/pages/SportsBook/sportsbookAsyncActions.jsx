@@ -113,6 +113,13 @@ export const getPregameData = (sportIcons, signal, isOutrights = false) => {
 export const getTournamentEvents = (tournamentId, ids, slice, signal) => {
   return async (dispatch) => {
     try {
+      // dispatch(sportsbookActions.setTournamentEventsLoading(true));
+      dispatch(
+        sportsHomeActions.setTournamentLoading({
+          tournamentId,
+          isLoading: true,
+        })
+      );
       const lang = getLang();
 
       const isOutright = slice === "sportsOutrights" ? true : false;
@@ -169,7 +176,19 @@ export const getTournamentEvents = (tournamentId, ids, slice, signal) => {
             events: response.data.Contents,
           })
         );
+      dispatch(
+        sportsHomeActions.setTournamentLoading({
+          tournamentId,
+          isLoading: false,
+        })
+      );
     } catch (error) {
+      dispatch(
+        sportsHomeActions.setTournamentLoading({
+          tournamentId,
+          isLoading: false,
+        })
+      );
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(message);
     }
@@ -292,6 +311,13 @@ export const getCustomDateEvents = (signal, payload) => {
       let events;
       if (response.data.Contents !== null) {
         events = response.data.Contents.Events;
+
+        // Filter out events where either AwayTeamName.International or HomeTeamName.International is an empty string
+        events = events.filter((event) => {
+          const awayTeamInternational = event.Info.AwayTeamName.International;
+          const homeTeamInternational = event.Info.HomeTeamName.International;
+          return awayTeamInternational !== "" && homeTeamInternational !== "";
+        });
 
         // Sort the events by DateOfMatch in ascending order
         events.sort((a, b) => {

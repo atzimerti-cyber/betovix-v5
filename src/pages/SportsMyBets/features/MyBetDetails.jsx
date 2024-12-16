@@ -42,7 +42,7 @@ const MyBetDetails = memo(function (props) {
         <section className={classes.MyBetDetailsSection}>
             {props.item.TicketEvents.map((ticketEvent, index) => {
                 return (
-                    <div key={ticketEvent.EventId}>
+                    <div key={ticketEvent?.TicketEventId}>
                         {index > 0 && <div className={classes.Separator}></div>}
                         <div className={classes.DateOfMatch}>
                             {ticketEvent.DateOfMatch ? (
@@ -86,7 +86,7 @@ const MyBetDetails = memo(function (props) {
                             </div>
                         </div>
 
-                        {liveState[ticketEvent.EventId] ? (
+                        {liveState[ticketEvent?.TicketEventId] ? (
                             <div className={classes.InfoContainer}>
                                 <div className={classes.EventTime}>
                                     {liveState[ticketEvent.EventId] && (

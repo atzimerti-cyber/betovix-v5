@@ -70,6 +70,7 @@ const initialState = {
   customDate: null,
   customDateTournaments: null,
   loading: false,
+  tournamentEventsLoading: false,
 };
 
 export const sportsbookSlice = createSlice({
@@ -140,6 +141,9 @@ export const sportsbookSlice = createSlice({
     },
     setTournamentEvents: (state, action) => {
       state.tournamentEvents = action.payload;
+    },
+    setTournamentEventsLoading: (state, action) => {
+      state.tournamentEventsLoading = action.payload;
     },
     addTournamentEvents: (state, action) => {
       state.tournamentEvents[action.payload.tournamentId] =
