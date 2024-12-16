@@ -38,17 +38,11 @@ const ProgressMap = React.lazy(() =>
 const Gamification = React.lazy(() =>
   import("./pages/UserGamification.jsx/Gamification")
 );
-const TermsOfService = React.lazy(() =>
-  import("./pages/Footer Pages/TermsOfService")
-);
-const Aml = React.lazy(() => import("./pages/Footer Pages/AML"));
+// const TermsOfService = React.lazy(() =>
+//   import("./pages/Footer Pages/TermsOfService")
+// );
+const Pages = React.lazy(() => import("./pages/Footer Pages/Pages"));
 const Support = React.lazy(() => import("./pages/Footer Pages/Support"));
-const ResponsibleGaming = React.lazy(() =>
-  import("./pages/Footer Pages/ResponsibleGaming")
-);
-const PrivacyPolicy = React.lazy(() =>
-  import("./pages/Footer Pages/PrivacyPolicy")
-);
 const ContactUs = React.lazy(() => import("./pages/Footer Pages/ContactUs"));
 const ErrorPage = React.lazy(() => import("./pages/Error Page/ErrorPage"));
 const MaintenancePage = React.lazy(() =>
@@ -220,38 +214,38 @@ function App() {
                 </Suspense>
               ),
             },
+            // {
+            //   path: "/terms-and-conditions",
+            //   element: (
+            //     <Suspense fallback={<PageFallback />}>
+            //       <TermsOfService />
+            //     </Suspense>
+            //   ),
+            // },
             {
-              path: "/terms-and-conditions",
+              path: "/pages/:slug",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <TermsOfService />
+                  <Pages />
                 </Suspense>
               ),
             },
-            {
-              path: "/aml",
-              element: (
-                <Suspense fallback={<PageFallback />}>
-                  <Aml />
-                </Suspense>
-              ),
-            },
-            {
-              path: "/privacy-policy",
-              element: (
-                <Suspense fallback={<PageFallback />}>
-                  <PrivacyPolicy />
-                </Suspense>
-              ),
-            },
-            {
-              path: "/rpg",
-              element: (
-                <Suspense fallback={<PageFallback />}>
-                  <ResponsibleGaming />
-                </Suspense>
-              ),
-            },
+            // {
+            //   path: "/privacy-policy",
+            //   element: (
+            //     <Suspense fallback={<PageFallback />}>
+            //       <PrivacyPolicy />
+            //     </Suspense>
+            //   ),
+            // },
+            // {
+            //   path: "/rpg",
+            //   element: (
+            //     <Suspense fallback={<PageFallback />}>
+            //       <ResponsibleGaming />
+            //     </Suspense>
+            //   ),
+            // },
             {
               path: "/support",
               element: (

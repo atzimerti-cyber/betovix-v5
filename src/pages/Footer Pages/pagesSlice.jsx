@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   rpg: null,
+  page: null,
 };
 
 export const pagesSlice = createSlice({
@@ -9,11 +10,11 @@ export const pagesSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.rpg = null;
+      state.page = null;
     },
 
-    setRpg: (state, action) => {
-      state.rpg = action.payload;
+    setPage: (state, action) => {
+      state.page = action.payload;
     },
   },
 });

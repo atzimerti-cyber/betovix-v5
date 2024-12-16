@@ -49,7 +49,7 @@ const TransactionsModal = () => {
     return () => {
       controller.abort();
     };
-  }, [currentPage, user, selectedPeriod,customPeriod, dispatch]);
+  }, [currentPage, user, selectedPeriod, customPeriod, dispatch]);
 
   useEffect(() => {
     if (transactions && transactions.Rows.length > 0) {
@@ -71,33 +71,57 @@ const TransactionsModal = () => {
     const currentDate = new Date();
     let fromDate = "";
     let toDate = "";
-
+  
+    // Function to format date in 'YYYY-MM-DD HH:MM:SS' format
+    const formatDateForQuery = (date) => {
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+      const day = String(date.getDate()).padStart(2, '0');
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const seconds = String(date.getSeconds()).padStart(2, '0');
+      
+      return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    };
+  
     switch (selectedPeriod) {
       case "today":
-        fromDate = new Date(currentDate.setHours(0, 0, 0, 0)).toISOString();
-        toDate = new Date(currentDate.setHours(23, 59, 59, 999)).toISOString();
+        // Set fromDate to start of today (00:00:00)
+        const startOfDay = new Date(currentDate.setHours(0, 0, 0, 0));
+        fromDate = formatDateForQuery(startOfDay);
+  
+        // Set toDate to end of today (23:59:59)
+        const endOfDay = new Date(currentDate.setHours(23, 59, 59, 999));
+        toDate = formatDateForQuery(endOfDay);
         break;
+  
       case "1week":
-        fromDate = new Date(currentDate.setDate(currentDate.getDate() - 7)).toISOString();
-        toDate = new Date().toISOString();
+        const oneWeekAgo = new Date(currentDate.setDate(currentDate.getDate() - 7));
+        fromDate = formatDateForQuery(oneWeekAgo);
+        toDate = formatDateForQuery(new Date()); // Current date
         break;
+  
       case "30days":
-        fromDate = new Date(currentDate.setDate(currentDate.getDate() - 30)).toISOString();
-        toDate = new Date().toISOString();
+        const thirtyDaysAgo = new Date(currentDate.setDate(currentDate.getDate() - 30));
+        fromDate = formatDateForQuery(thirtyDaysAgo);
+        toDate = formatDateForQuery(new Date()); // Current date
         break;
+  
       case "custom":
         if (customPeriod.from && customPeriod.to) {
-          fromDate = new Date(customPeriod.from).toISOString();
-          toDate = new Date(customPeriod.to).toISOString();
+          fromDate = formatDateForQuery(new Date(customPeriod.from));
+          toDate = formatDateForQuery(new Date(customPeriod.to));
         } else {
           return ""; // Return an empty filter query or a fallback value
         }
         break;
+  
       default:
         break;
     }
-
-    return `DateAdded BETWEEN '${fromDate}' AND '${toDate}'`;
+  
+    // Return the query formatted correctly for SQL
+    return ` (DateAdded BETWEEN '${fromDate}' AND '${toDate}') `;
   };
 
   const renderBgColor = (kind) => {
@@ -232,7 +256,7 @@ const TransactionsModal = () => {
       case 12:
         return translate("Reward");
       case 13:
-        return translate("CancelWithdraw");
+        return translate("Cancel Withdraw");
       default:
         return " ";
     }
