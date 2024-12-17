@@ -3,9 +3,8 @@
   --db-body-12: #165985;
   --db-body-subheading: #199bcf;
   --db-brand-green: #88be2b;
-  /* --db-brand-green: #96d023; */
   --db-brand-green-36: rgba(150, 208, 35, 0.36);
-  --db-brand-color: #056b37;
+  --db-brand-color: #49a326;
   --db-brand-dark: #022a15;
   --db-duelbits-blue: #165985;
   --db-duelbits-gray: #0e1b26;
@@ -23,9 +22,9 @@
   --db-gray-11: rgba(24, 95, 126, 0.5019607843137255);
   --db-gray-12: #738fa7;
   --db-gray-13: #84d0e5;
-  --db-gray-130: #558a98;
   --db-gray-14: #1a7e91;
-  --db-gray-666: #3a5660;
+  --db-gray-666: #42859d;
+  --db-gray-667: #398099cf;
   --db-gray-708: #143a53;
   --db-gray-800: #527491;
   --db-gray-banner: #0d2a3e;
@@ -36,7 +35,7 @@
   --db-pink-text: #c434e3;
   --db-white-primary: #fbfbfb;
   --db-white-hover: hsla(0, 0%, 100%, 0.05);
-  --db-white-hover-light: hsla(0, 0%, 100%, 0.17);
+  --db-white-hover-light: hsla(0, 0%, 100%, 0.127);
   --db-gold-primary: #ffcf52;
   --db-red-primary: #bb3c4b;
   --db-like: #c13333;
@@ -49,13 +48,44 @@
   --db-chat-width: 330px;
   --db-left-menu-width: 260px;
   --db-left-menu-width-collapsed: 60px;
+  --yellow-accent-color: #f1bf2b;
+
+  --placeholder-light: #add8e6a5;
+  --lightcolor-low-op: #add8e64a;
+  --lightcolor-op1: #add8e6;
+  --darkcolor-op1: #031a22;
+  --darkcolor-low-op: #00000080;
+
+  --layout-icon-btn: linear-gradient(222deg, #215164 0%, #15364a 63%);
+  --toast-grad-op1: linear-gradient(50deg, #176180 0%, #237496 50%);
+  --button-grad-op1: linear-gradient(307deg, #72dcff5d 0%, #57a7c957 50%);
+  --button-grad-op-mid: linear-gradient(222deg, #26465bbf 0%, #396b8140 50%);
+  --odds-button: #558a98;
+  --odds-button-disabled: #041d328f;
+  --card-odds-button: #a6d0d5c6;
+  --card-odds-button-selected: #03131e5d;
+  --card-odds-button-disabled: #42515f30;
+
+  --outer-container-left: #00000015;
+  --sidebar-category-group: #0e2f45;
+  --sidebar-left-menu-item: #102b41;
+  --sidebar-casino-active: #af37cf52;
+  --sidebar-casino-active-svg: #ba0dff;
+  --dropdown-bg: #23486d;
+
+  --swiper-container-grad: linear-gradient(45deg, #96d02333, #1a4b70 120%);
+  --accordion-header: linear-gradient(222deg, #1e5063 0%, #26556dba 50%);
+  --accordion-body: linear-gradient(72deg, #1e506321 0%, #1f55705e 50%);
+  --accordion-small-header: linear-gradient(222deg, #1e5063 0%, #26556dba 50%);
+  --accordion-small-body: linear-gradient(72deg, #1e506357 0%, #26556d47 50%);
+
+  --event-board-bg: #001937e3;
 
   --db-minibar-height: 0px;
   --db-minibar-height-mobile: 0px;
 
   --db-topbar-height: 60px;
   --db-topbar-height-mobile: 50px;
-  /* --db-topbar-height-mobile: 42px; */
 
   --db-header-height: calc(var(--db-topbar-height) + var(--db-minibar-height));
   --db-header-height-mobile: calc(
@@ -72,7 +102,6 @@
   --db-transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   --db-modal-overlay: rgba(18, 57, 83, 0.85);
   --db-dropdown-shadow: -10px 6px 30px rgb(0 0 0 / 35%);
-  /* --db-dropdown-shadow: 0px 4px 22px rgba(0, 0, 0, 0.18); */
   --db-modal-header-height: 38px;
   --db-milestone-card-width: 140px;
 

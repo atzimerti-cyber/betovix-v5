@@ -1,6 +1,6 @@
 .MenuButton {
-  /* background: var(--db-gray-4); */
-  background: linear-gradient(307deg, #72dcff5d 0%, #57a7c957 50%);
+  /* background: linear-gradient(307deg, #72dcff5d 0%, #57a7c957 50%); */
+  background: var(--button-grad-op1);
   border: none;
   border-radius: 6px;
   color: rgb(228, 248, 255);

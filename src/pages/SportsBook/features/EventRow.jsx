@@ -82,8 +82,7 @@ const EventRow = (props) => {
           {props.withTournament && (
             <p
               style={{
-                color: "#f1bf2b",
-                // color: "var(--db-brand-green)",
+                color: "var(--yellow-accent-color)",
                 fontSize: "13px",
               }}
             >

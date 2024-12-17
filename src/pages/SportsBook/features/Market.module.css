@@ -53,19 +53,15 @@
 }
 .MarketSelect {
   background-color: transparent;
-  /* background-color: #154667; */
   height: 1.5rem;
   border-radius: 5px;
-  border: 1px solid #92b7ca45;
+  border: 1px solid var(--lightcolor-low-op);
   width: fit-content;
   text-align: center;
   max-width: 80%;
 }
 
-.MarketOption:hover {
-  background-color: #4e748d;
-}
 .MarketOption {
-  background-color: #154667;
-  background-color: #194359;
+  background-color: var(--db-gray-666);
+  border-bottom: 1px solid var(--lightcolor-low-op);
 }

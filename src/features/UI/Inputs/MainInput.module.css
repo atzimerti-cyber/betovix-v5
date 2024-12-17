@@ -1,140 +1,135 @@
 .InputWrapper {
-    position: relative;
-    display: flex;
-    align-items: center;
-    border-color: transparent;
-    background-color: var(--db-gray-2);
-    border-radius: 0.5rem;
-    /* border-radius: 0.125rem; */
-    border-color: var(--db-gray-2);
-    border-width: 1px;
-    transition: border-color 0.4s;
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-color: transparent;
+  background-color: var(--db-gray-2);
+  border-radius: 0.5rem;
+  border-color: var(--db-gray-2);
+  border-width: 1px;
+  transition: border-color 0.4s;
 }
 
 .MainInput {
-    flex-grow: 1;
-    resize: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 0.75rem;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-    border-radius: 0.125rem;
-    /* background-color: var(--db-gray-2); */
-    background: transparent;
-    padding-top: 0.625rem;
-    padding-bottom: 0.625rem;
-    font-size: 0.75rem;
-    line-height: 1rem;
+  flex-grow: 1;
+  resize: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0.75rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  border-radius: 0.125rem;
+  /* background-color: var(--db-gray-2); */
+  background: transparent;
+  padding-top: 0.625rem;
+  padding-bottom: 0.625rem;
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .WithRightIcon.InputWrapper .MainInput {
-    padding-right: 2rem;
+  padding-right: 2rem;
 }
 
 .RightIcon {
-    right: 1rem;
-    line-height: 0;
-    pointer-events: none;
-    position: absolute;
-    top: 50%;
-    --tw-translate-y: -50%;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  right: 1rem;
+  line-height: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .RightIcon svg {
-    height: 0.75rem;
-    width: 0.75rem;
+  height: 0.75rem;
+  width: 0.75rem;
 }
 .RightIcon svg path {
-    fill: var(--db-body-subheading);
+  fill: var(--db-body-subheading);
 }
 
 .DeleteIcon {
-    cursor: pointer;
-    z-index: 10;
-    pointer-events: all;
+  cursor: pointer;
+  z-index: 10;
+  pointer-events: all;
 }
 
 .IsInvalid.InputWrapper {
-    border-color: var(--db-red-primary) !important;
+  border-color: var(--db-red-primary) !important;
 }
 
-.InputWrapper input[type='search']::-webkit-search-decoration,
-.InputWrapper input[type='search']::-webkit-search-cancel-button,
-.InputWrapper input[type='search']::-webkit-search-results-button,
-.InputWrapper input[type='search']::-webkit-search-results-decoration {
-    -webkit-appearance: none;
+.InputWrapper input[type="search"]::-webkit-search-decoration,
+.InputWrapper input[type="search"]::-webkit-search-cancel-button,
+.InputWrapper input[type="search"]::-webkit-search-results-button,
+.InputWrapper input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance: none;
 }
 
 .InputWrapper input::placeholder {
-    color:rgba(148, 158, 192, 0.774);
-    /* color: var(--db-body-subheading); */
-    opacity: 1;
+  color: var(--placeholder-light);
+  opacity: 1;
 }
 .InputWrapper input::-webkit-input-placeholder {
-    color:rgba(148, 158, 192, 0.774);
-    /* color: var(--db-body-subheading); */
-    opacity: 1;
+  color: var(--placeholder-light);
+  opacity: 1;
 }
 .InputWrapper input::-moz-placeholder {
-    color:rgba(148, 158, 192, 0.774);
-    /* color: var(--db-body-subheading); */
-    opacity: 1;
+  color: var(--placeholder-light);
+  opacity: 1;
 }
 .InputWrapper input:-ms-input-placeholder {
-    color:rgba(148, 158, 192, 0.774);
-    /* color: var(--db-body-subheading); */
-    opacity: 1;
+  color: var(--placeholder-light);
+  opacity: 1;
 }
 .InputWrapper input:-moz-placeholder {
-    color:rgba(148, 158, 192, 0.774);
-    /* color: var(--db-body-subheading); */
-    opacity: 1;
+  color: var(--placeholder-light);
+  opacity: 1;
 }
 
 .InputWrapper:focus-within,
 .InputWrapper:hover {
-    border-color: #84bccb;
-    /* background-color: var(--db-duelbits-gray); */
+  border-color: #84bccb;
+  border-color: var(--lightcolor-op1);
 }
 
 .InputWrapper input::-webkit-outer-spin-button,
 .InputWrapper input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 /* Firefox */
-.InputWrapper input[type='number'] {
-    -moz-appearance: textfield;
+.InputWrapper input[type="number"] {
+  -moz-appearance: textfield;
 }
 
 .InputWrapper input:-webkit-autofill,
 .InputWrapper input:-webkit-autofill:hover,
 .InputWrapper input:-webkit-autofill:focus,
 .InputWrapper input:-webkit-autofill:active {
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: #ffffff;
-    transition: background-color 5000s ease-in-out 0s;
-    box-shadow: inset 0 0 20px 20px var(--db-gray-4);
-    border-radius: 10px;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px var(--db-gray-4);
+  border-radius: 10px;
 }
 
 .RightButton {
-    margin-inline: 0.5rem;
-    opacity: 1;
-    visibility: visible;
-    overflow: hidden;
-    transition: opacity 0.3s, visibility 0s;
-    margin-bottom: 0 !important;
-    height: unset !important;
-    border-radius: unset !important;
-    min-height: unset !important;
-    line-height: unset !important;
-    font-size: unset !important;
+  margin-inline: 0.5rem;
+  opacity: 1;
+  visibility: visible;
+  overflow: hidden;
+  transition: opacity 0.3s, visibility 0s;
+  margin-bottom: 0 !important;
+  height: unset !important;
+  border-radius: unset !important;
+  min-height: unset !important;
+  line-height: unset !important;
+  font-size: unset !important;
 }
 
-.inSettings{
-    background-color: var(--db-gray-4);
+.inSettings {
+  background-color: var(--db-gray-4);
 }

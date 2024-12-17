@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import classes from "./SelfExclusion.module.css";
@@ -6,6 +6,7 @@ import { translate } from "../../../utils/translations";
 import Hide from "../../../assets/svgs/eye-open.svg?react";
 import Show from "../../../assets/svgs/eye-closed.svg?react";
 import { toast } from "react-toastify";
+import { selfExclusion } from "../profileAsyncActions";
 
 const SelfExclusion = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,16 @@ const SelfExclusion = () => {
   const [reason, setReason] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      setPageStep(1);
+      setSelectedOption(null);
+      setReason("");
+      setPassword("");
+      setShowPassword(false);
+    };
+  }, []);
 
   const handleOptionChange = (event) => {
     if (pageStep === 1) {
@@ -34,6 +45,7 @@ const SelfExclusion = () => {
       console.log(selectedOption);
     } else if (pageStep === 2) {
       setPageStep(1);
+      setPassword("");
     }
   };
 
@@ -45,9 +57,20 @@ const SelfExclusion = () => {
     setShowPassword((prevState) => !prevState);
   };
 
-  const throwerror = (event) => {
-    event.preventDefault(); // Prevent the default form submission
-    toast.error("Something went wrong. Please contact our customer support.");
+  const makeRequest = (event) => {
+    event.preventDefault();
+    let payload = {};
+    if (selectedOption && reason !== "" && password !== "") {
+      payload = {
+        ExcludeUntil: selectedOption,
+        ExcludedReason: reason,
+        Password: password,
+      };
+    }
+    console.log(payload);
+    const controller = new AbortController();
+    const signal = controller.signal;
+    dispatch(selfExclusion(signal, payload));
   };
 
   return (
@@ -215,7 +238,7 @@ const SelfExclusion = () => {
           </div>
         ) : (
           <div className={classes.PasswordContainer}>
-            <form onSubmit={throwerror} className={classes.Form2}>
+            <form onSubmit={makeRequest} className={classes.Form2}>
               <label htmlFor="password"></label>
               <div className={classes.InputWrapper}>
                 <input

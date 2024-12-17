@@ -1,9 +1,6 @@
 .EventRow {
-  background: #0e4863;
-  /* background: rgb(43, 65, 84); */
-  /* outline: transparent solid 2px; */
-  outline: #05141e solid 1px;
-  border-radius: 0px;
+  background: var(--db-gray-6);
+  border-radius: 10px;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -13,17 +10,16 @@
   overflow: hidden;
   position: relative;
   transition: all 0.3s ease 0s;
+  border-bottom: 1px solid var(--lightcolor-low-op);
+  margin-top: 5px;
 }
 
 .RowTop {
-  /* margin-top: 1px; */
   display: flex;
   height: 26px;
   width: 100%;
   justify-content: space-between;
   overflow: hidden;
-  background-color: #0b283d;
-  /* background-color: var(--db-gray-4); */
   padding-left: 10px;
   display: flex;
   -webkit-box-align: center;
@@ -68,7 +64,7 @@
 }
 
 .ServerIndicator {
-  background: rgb(62, 235, 131);
+  background: var(--db-brand-color);
   border-radius: 50%;
   margin: 10px 0px;
   transition: transform 0.4s cubic-bezier(0.5, -0.5, 0.5, 1.5) 0s;
@@ -151,7 +147,7 @@
 }
 
 .ScoreGroup {
-  color: rgb(51, 193, 108);
+  color: var(--db-brand-color);
   display: flex;
 }
 

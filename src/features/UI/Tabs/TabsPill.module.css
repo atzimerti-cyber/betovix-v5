@@ -1,50 +1,53 @@
-.Tabs[role='tablist'] {
-    padding: 1rem 0.5rem 0.25rem;
-    display: flex;
-    gap: 2px;
+.Tabs[role="tablist"] {
+  padding: 1rem 0.5rem 0.25rem;
+  display: flex;
+  gap: 2px;
 }
 
 .Tab {
-    border-radius: 9999px;
-    background-color: initial;
-    position: relative;
-    display: flex;
-    height: 2.5rem;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    border-radius: 0.375rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+  border-radius: 9999px;
+  background-color: initial;
+  position: relative;
+  display: flex;
+  height: 2.5rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.375rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .Tab.Active,
 .Tab:hover {
-    background-color: var(--db-gray-4);
+  background-color: var(--db-gray-4);
 }
 .Tab > svg {
-    margin-right: 0.5rem;
-    width: 100%;
-    max-width: 1em;
+  margin-right: 0.5rem;
+  width: 100%;
+  max-width: 1em;
+}
+.Tab > svg path {
+  fill: var(--db-gray-4);
 }
 .Tab.Active > svg path {
-    fill: var(--db-brand-green);
+  fill: var(--db-brand-green);
 }
 .Tab > p {
-    margin: 0;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    line-height: 1;
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  line-height: 1;
 }
 
-.Tabs[role='tablist'] > * {
-    border-radius: 9999px;
-    height: 2.25rem;
-    flex-grow: 1;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+.Tabs[role="tablist"] > * {
+  border-radius: 9999px;
+  height: 2.25rem;
+  flex-grow: 1;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
-.Tabs[role='tablist'] > :last-child {
-    margin-right: 3rem;
+.Tabs[role="tablist"] > :last-child {
+  margin-right: 3rem;
 }

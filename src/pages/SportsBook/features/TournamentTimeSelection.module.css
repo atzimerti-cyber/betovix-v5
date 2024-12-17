@@ -5,8 +5,8 @@
   overflow: hidden;
 }
 .TimeSelectionButton {
-  background: var(--db-gray-4);
-  background: linear-gradient(307deg, #72dcff5d 0%, #57a7c957 50%);
+  /* background: linear-gradient(307deg, #72dcff5d 0%, #57a7c957 50%); */
+  background: var(--button-grad-op1);
   border: none;
   border-radius: 6px;
   color: rgb(228, 248, 255);
@@ -47,10 +47,8 @@
 }
 
 .TimeSelectionButton.Active {
-  /* background: var(--db-brand-green); */
-  background: #a9e72dc7;
+  background: var(--db-brand-green);
   color: rgb(255, 255, 255);
-  /* pointer-events: none; */
 }
 
 .TimeSelectionButton:hover {
@@ -136,7 +134,7 @@
   width: 1.5rem;
 }
 .RemoveDateBtn {
-  background: linear-gradient(222deg, #26465bbf 0%, #396b8140 50%);
+  background: var(--button-grad-op-mid);
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -153,5 +151,5 @@
 .RemoveDateBtn svg {
   height: 0.6rem;
   width: 0.6rem;
-  fill: rgba(240, 248, 255, 0.5);
+  fill: #f0f8ff80;
 }

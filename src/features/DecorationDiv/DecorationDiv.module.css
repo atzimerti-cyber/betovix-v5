@@ -35,7 +35,7 @@
 }
 
 .DecorationDiv.Primary .Container {
-  background: linear-gradient(222deg, #26465bbf 0%, #396b8140 50%);
+  background: var(--button-grad-op-mid);
 }
 .DecorationDiv.Secondary .Container {
   background: linear-gradient(

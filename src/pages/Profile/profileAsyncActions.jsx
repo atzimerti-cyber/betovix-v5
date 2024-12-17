@@ -5,6 +5,7 @@ import axiosApi from "../../axios-api";
 import { profileActions } from "./profileSlice";
 import config from "../../config";
 import { translate } from "../../utils/translations";
+import { loginActions } from "../Login/loginSlice";
 
 export const getOverview = (signal) => {
   return async (dispatch) => {
@@ -278,6 +279,37 @@ export const uploadKYCFile = (file, level, signal) => {
         error?.message ||
         "Error occurred";
       return { success: false, error: message };
+    }
+  };
+};
+
+export const selfExclusion = (signal, payload) => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+
+      const response = await axiosApi.post(
+        `/SelfExclusion/SelfExclusion?siteid=${config.VITE_SITE_ID}`,
+        payload,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
+        throw new Error(response.data.Contents);
+      }
+
+      const message = translate(`Your request was successful`);
+      toast.success(message);
+      window.location.reload();
+      dispatch(loginActions.logout());
+    } catch (error) {
+      const message = translate(
+        `Something went wrong. Please contact our customer support.`
+      );
+      toast.error(message);
     }
   };
 };

@@ -98,7 +98,7 @@
   border-radius: 0.5rem;
   background-color: var(--db-gray-2);
 
-  background: linear-gradient(222deg, #26465bbf 0%, #396b8140 50%);
+  background: var(--button-grad-op-mid);
   width: 100%;
 }
 

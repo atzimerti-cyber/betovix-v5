@@ -94,13 +94,13 @@
   bottom: 100%;
   top: auto;
   transform-origin: left;
-  --tw-translate-x: 0rem; 
+  --tw-translate-x: 0rem;
 }
 .Side.Dropdown .DropdownContentMobile {
   bottom: 100%;
   top: auto;
   transform-origin: left;
-  --tw-translate-x: 0rem; 
+  --tw-translate-x: 0rem;
 }
 
 .DropdownContent li:first-child,
@@ -162,11 +162,9 @@
   flex-direction: column;
   flex-wrap: wrap;
   margin-bottom: 0.5rem;
-  /* background-color: var(--db-gray-4) !important; */
   width: 9rem;
   border-radius: 0.25rem;
-  /* background-color: var(--db-gray-6); */
-  background-color: #23486d;
+  background-color: var(--dropdown-bg);
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
@@ -213,7 +211,6 @@
 }
 
 .LangItem:before {
-  /* background: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0)); */
   content: "";
   position: absolute;
   inset: 0px;

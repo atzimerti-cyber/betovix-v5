@@ -11,9 +11,8 @@
 }
 
 .Header {
-  background-color: #001937e3;
-  /* background-color: var(--db-gray-3); */
-  color: #83bccb;
+  background: var(--event-board-bg);
+  color: var(--placeholder-light);
   display: flex;
   flex-direction: column;
   -webkit-box-pack: center;
@@ -29,7 +28,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: row;
-  /* background-color: var(--db-gray-4); */
   width: 100%;
 }
 
@@ -38,9 +36,7 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  /* background-color: var(--db-gray-4); */
-  background-color: #010d22eb;
-  /* background-color: #000c22d1; */
+  background: var(--event-board-bg);
   padding: 0.3rem 0.9rem;
   height: 45%;
   width: 100%;
@@ -51,8 +47,7 @@
   transition: color 0.3s ease 0s;
   width: 100%;
   max-height: 30%;
-  /* background-color: var(--db-gray-4); */
-  background-color: #010d22eb;
+  background: var(--event-board-bg);
   justify-content: space-evenly;
   align-items: center;
   overflow-y: hidden;
@@ -119,7 +114,7 @@
   /* height: 26px; */
   width: 100%;
   padding: 5px;
-  margin: 0.1rem
+  margin: 0.1rem;
 }
 
 .LogoWrapper img {

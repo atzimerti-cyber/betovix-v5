@@ -1,15 +1,15 @@
 .SlideContainer {
-    height: 146px;
-    width: 100%;
-    transition: transform 0.2s linear;
+  height: 146px;
+  width: 100%;
+  transition: transform 0.2s linear;
 }
 
-.LiveSwiper{
-    background: linear-gradient(45deg, #96d02333, #1a4b70 120%);
-    border-radius: 15px;
-    padding: 7px;
+.LiveSwiper {
+  background: var(--swiper-container-grad);
+  border-radius: 15px;
+  padding: 7px;
 }
 
-.LiveSwiper>div>div{
-    margin-bottom: 0;
+.LiveSwiper > div > div {
+  margin-bottom: 0;
 }

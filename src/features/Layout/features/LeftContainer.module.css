@@ -36,7 +36,6 @@
 }
 
 .SideMenuContainer {
-  /* margin: 1rem 0.5rem 0.75rem; */
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -151,14 +150,13 @@
   fill: var(--db-brand-green) !important;
 }
 .SideMenuButtonContainer button .Active2Svg path {
-  fill: #ba0dff !important;
+  fill: var(--sidebar-casino-active-svg) !important;
 }
 
 .SideMenuButtonContainer button span {
   display: flex;
   max-height: 45%;
   max-width: 100%;
-  /* overflow: hidden; */
   opacity: 1;
   transition: var(--db-transition);
   transition-duration: 0ms, 0.6s;
@@ -250,16 +248,12 @@
 .List li:first-child,
 .List li:first-child a {
   border-top-left-radius: inherit;
-  /* border-top-right-radius: inherit; */
-  /* border-bottom-right-radius: unset; */
   border-bottom-left-radius: unset;
 }
 
 .List li:last-child,
 .List li:last-child a {
   border-top-left-radius: unset;
-  /* border-top-right-radius: unset;
-    border-bottom-right-radius: inherit; */
   border-bottom-left-radius: inherit;
   border-bottom-right-radius: 10px;
 }

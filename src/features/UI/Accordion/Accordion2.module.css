@@ -15,14 +15,14 @@
   display: flex;
   -webkit-box-pack: justify;
   justify-content: space-between;
-  background: #0e2c40;
-  /* background: rgb(18, 57, 83); */
+  background: var(--db-gray-667); 
+  color: black;
   border-radius: 0px;
   line-height: 20px;
   fill: rgb(255, 255, 255);
   white-space: nowrap;
   padding-inline: 12px;
-  padding-block: 11px;
+  padding-block: 7px;
   -webkit-box-align: center;
   align-items: center;
 }
@@ -35,8 +35,8 @@
   width: 20px;
   height: 20px;
 }
-.TitleIcon svg path {
-  fill: rgb(82, 116, 144);
+.TitleIcon svg path { 
+  fill: var(--placeholder-light);
 }
 
 .TitleName {
@@ -67,14 +67,30 @@
 }
 
 .Title:hover {
-  background: var(--db-dark-1);
+  background: var(--placeholder-light);
 }
 
 .Accordion.Open .Title {
-  background: #123b58;
-  /* background: rgb(18, 57, 83); */
-}
+  background: var(--db-gray-708);
+} 
 
+.AccordionBody {
+  background: var(--db-gray-708);
+  padding: 0 5px 5px 5px;
+}
 .AccordionBody > div {
   margin: 0;
+}
+.CatIconWrapper {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.CatIcon {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 25px;
+  height: 15px;
 }

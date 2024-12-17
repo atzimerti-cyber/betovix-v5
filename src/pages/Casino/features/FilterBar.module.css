@@ -12,7 +12,7 @@
   margin-right: -0.625rem;
 }
 .BackBtn {
-  background: linear-gradient(222deg, #26465bbf 0%, #396b8140 50%);
+  background: var(--button-grad-op-mid);
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -58,7 +58,7 @@
 
 .DropdownInner {
   cursor: pointer; 
-  background: linear-gradient(222deg, #26465bbf 0%, #396b8140 50%);
+  background: var(--button-grad-op-mid);
   border-width: 1px;
   /* border-radius: 0.375rem; */
   border-radius: 2rem;

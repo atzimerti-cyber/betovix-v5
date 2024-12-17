@@ -1,6 +1,5 @@
 .LeftMenuItem {
-  background-color: #102b41;
-  /* background-color: #0c2233; */
+  /* background-color: var(--sidebar-left-menu-item); */
   padding-left: 0.2rem;
 }
 
@@ -80,12 +79,9 @@
 }
 
 .LeftMenuItem.Active {
-  background-color: #2c546f87;
-  /* background-color: #183a5187; */
-  /* background-color: var(--db-gray-4); */
+  background-color: var(--db-white-hover);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
-  /* border-left: 3px solid var(--db-brand-green); */
   position: relative;
 }
 .LeftMenuItem.Active::before {
@@ -97,7 +93,7 @@
   bottom: 0;
   width: 5px;
   background-color: var(--db-brand-green);
-  height: 50%; /* Set desired height for the border */
+  height: 50%;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -127,9 +123,9 @@
 
 /* ------------------------------------- */
 .LeftMenuItem.NotCateg {
-  /* background: #102737; */
-  background: linear-gradient(41deg, #89d9ff2b 0%, #05243b 20%);
-  /* background: #0e1b26; */
+  /* background: linear-gradient(41deg, #89d9ff2b 0%, #05243b 20%); */
+  background: transparent;
+
   background-size: 500% 500%;
   animation: gradientAnimation 10s ease infinite;
   margin-bottom: 0.25rem;

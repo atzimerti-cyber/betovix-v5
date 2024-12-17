@@ -12,10 +12,6 @@
   height: 100%;
   width: 100%;
   overflow: hidden;
-  /* padding-top: 72px; */
-  /* padding-top: calc(
-    var(--db-minibar-height-mobile) + var(--db-topbar-height-mobile)
-  ); */
   padding-top: var(--db-header-height-mobile);
   box-sizing: border-box;
 }
@@ -39,14 +35,15 @@
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  /* background-color: var(--db-duelbits-gray); */
-  background: linear-gradient(222deg, #215164 0%, #15364a 63%);
+  background: var(--layout-icon-btn);
   transition-property: var(--db-transition);
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 0.15s;
   box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
 }
-
+.IconButton svg path {
+  fill: var(--db-brand-green);
+}
 .OverlayButtons .IconButton:not(:last-child) {
   margin-bottom: 1.25rem;
 }
@@ -55,11 +52,9 @@
   position: relative;
   z-index: 990;
   height: 100%;
-  width: var(--db-left-menu-width);
+  width: var(--db-left-menu-width-collapsed);
   flex-shrink: 0;
-  /* background-color: #042035; */
-  background-color: #0420354f;
-  /* background-color: var(--db-gray-6); */
+  background-color: var(--outer-container-left);
   padding-bottom: 1.5rem;
   box-sizing: border-box;
 }
@@ -78,7 +73,6 @@
   flex-direction: column;
   overflow-y: auto;
   overflow-x: hidden;
-
   justify-content: space-between;
 }
 
@@ -145,7 +139,7 @@
 }
 
 .MyToast > div {
-  color: rgb(82, 116, 128);
+  color: var(--lightcolor-op1);
   font-family: "Proxima Nova", sans-serif;
   font-size: 14px;
   font-weight: 400;
@@ -153,17 +147,11 @@
   box-shadow: rgba(24, 36, 40, 0.6) 0px 5px 8px;
   display: flex;
   align-items: center;
-  background: linear-gradient(
-    90deg,
-    var(--db-gray-3) var(--progress-with),
-    var(--db-gray-4) var(--progress-with)
-  );
+  background: var(--toast-grad-op1);
   --progress-with: 5px;
   margin-bottom: 0.5rem;
   border-radius: 0.375rem !important;
-  background-color: var(--db-gray-4) !important;
   padding: 0.875rem 2.75rem 0.875rem 20px;
-
   position: relative;
   min-height: 64px;
   cursor: pointer;
@@ -221,7 +209,6 @@
   position: absolute;
   right: 0.25rem;
   top: 0.25rem;
-
   display: flex;
   cursor: pointer;
   align-items: center;
@@ -234,8 +221,8 @@
 
 .MyToast .ToastCloseButton svg {
   padding: 0.375rem;
-  height: 1.5rem;
-  width: 1.5rem;
+  height: 1.6rem;
+  width: 1.6rem;
 }
 
 .MyToast .ToastCloseButton svg path {

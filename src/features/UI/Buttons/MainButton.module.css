@@ -79,7 +79,7 @@
   --tw-border-opacity: 1;
   border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
-  background-color: hsl(112, 90%, 32%);
+  background-color: var(--db-brand-color);
 }
 
 .Danger.MainButton:hover {
@@ -96,6 +96,8 @@
   background-color: hsl(var(--p) / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: hsl(var(--pc) / var(--tw-text-opacity));
+
+  background-color: var(--db-brand-color);
 }
 
 .Primary.MainButton:hover {
@@ -103,6 +105,8 @@
   border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: hsl(var(--pf, var(--p)) / var(--tw-bg-opacity));
+
+  background-color: var(--db-brand-color);
 }
 
 .Secondary.MainButton {
@@ -117,7 +121,7 @@
 .Secondary.MainButton:hover {
   --tw-border-opacity: 1;
   border-color: hsl(var(--sf, var(--s)) / var(--tw-border-opacity));
-  background-color: #602389;
+  /* background-color: #602389; */
 }
 
 .Transparent.MainButton {
@@ -143,7 +147,8 @@
 .Dark.MainButton:hover {
   --tw-border-opacity: 1;
   --tw-bg-opacity: 1;
-  background-color: var(--value-44);
+  /* background-color: var(--value-44); */
+  background-color: var(--db-white-hover);
 }
 
 .Small.MainButton {
@@ -159,13 +164,14 @@
   background-color: var(--db-brand-green-36);
 }
 .Active2.MainButton {
-  background-color: #af37cf52;
+  background-color: var(--sidebar-casino-active);
 }
 
 .MainButton.Disabled {
   pointer-events: none;
   --tw-border-opacity: 0;
-  background-color: #273b4c;
+  /* background-color: #273b4c; */
+  background-color: var(--odds-button-disabled);
   --tw-bg-opacity: 0.4;
   color: hsl(var(--bc) / var(--tw-text-opacity));
   --tw-text-opacity: 0.4;

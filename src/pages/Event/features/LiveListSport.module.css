@@ -3,6 +3,8 @@
   align-items: stretch;
   flex-direction: column;
   display: flex;
+  overflow: hidden;
+  border: 0px solid transparent;
 }
 
 .Title {
@@ -12,15 +14,11 @@
   display: flex;
   -webkit-box-pack: justify;
   justify-content: space-between;
-  /* background: rgb(28, 43, 56); */
-  /* border-radius: 20px; */
-  /* border-top-left-radius: 20px; */
-  border-top-right-radius: 20px;
   line-height: 20px;
   fill: rgb(255, 255, 255);
   white-space: nowrap;
   padding-inline: 12px;
-  padding-block: 11px;
+  padding-block: 8px;
 }
 
 .TitleIcon {
@@ -38,7 +36,7 @@
   height: 20px;
 }
 .TitleIcon svg path {
-  fill: rgb(82, 116, 144);
+  fill: var(--placeholder-light);
 }
 
 .TitleName {
@@ -62,18 +60,23 @@
 }
 
 .Title:hover {
-  background: rgb(36, 53, 78);
+  background: var(--db-white-hover);
 }
 
+.Group.IsOpen {
+  border-top-right-radius: 20px;
+  border: 0px solid transparent;
+}
 .Group.IsOpen .DropdownIcon {
   transform: scaleY(-1);
 }
 .Group.IsOpen .Title {
-  /* background: rgb(18, 57, 83); */
-  background: #0e2c40;
+  background: var(--db-gray-666);
+  color: var(--db-duelbits-gray);
+  font-weight: 600;
 }
 .Group.IsOpen .TitleIcon svg path {
-  fill: var(--db-brand-green);
+  fill: var(--db-duelbits-gray);
 }
 
 .TournamentGroup {
@@ -81,6 +84,5 @@
   -webkit-box-align: stretch;
   align-items: stretch;
   flex-direction: column;
-  margin: 1px 15px 15px 15px;
   margin-inline: 0px;
 }

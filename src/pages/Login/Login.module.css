@@ -1,6 +1,5 @@
 .Form {
   display: flex;
-  /* max-height: 480px; */
   width: 100%;
   flex-direction: column;
   padding-top: 0.3rem;
@@ -81,7 +80,7 @@
   text-align: start;
   font-size: 0.75rem;
   line-height: 1.25;
-  color: lightblue;
+  color: var(--placeholder-light);
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -176,7 +175,7 @@
 }
 
 .PasswordMessage.IsValid svg path {
-  fill: #33c16c;
+  fill: var(--db-brand-color);
 }
 
 /* Media */

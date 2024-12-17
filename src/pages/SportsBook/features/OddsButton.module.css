@@ -1,6 +1,5 @@
 .OddsButton {
-  background: var(--db-gray-7);
-  background: #296d8c;
+  background: var(--odds-button);
   border-radius: 8px;
   color: rgb(255, 255, 255);
   cursor: pointer;
@@ -17,9 +16,6 @@
   min-height: 2.5rem;
   border: 1px solid transparent;
 }
-/* .OddsButton:hover {
-  background: var(--db-gray-5);
-} */
 
 .OddsLabel {
   flex: 0 1 100%;
@@ -40,13 +36,7 @@
 
 .Indicator {
   opacity: 1;
-  /* animation: 0.3s ease 7s 1 normal forwards running epImaF; */
 }
-/* @keyframes epImaF {
-    100% {
-        opacity: 0;
-    }
-} */
 
 .IndicatorUp path:last-child,
 .IndicatorDown path:first-child {
@@ -54,7 +44,6 @@
 }
 
 .Odds {
-  /* color: rgb(248, 214, 72); */
   color: var(--db-white-primary);
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
@@ -68,65 +57,62 @@
 }
 
 .OddsButton:disabled {
-  /* background-color: var(--db-gray-6);
-    cursor: default;
-    pointer-events: none; */
-
-  background: rgb(24, 35, 41);
+  background: var(--odds-button-disabled);
   cursor: not-allowed;
   opacity: 0.3;
   pointer-events: none;
 }
 .OddsButton:disabled .OddsLabel {
-  color: var(--db-gray-5);
+  color: var(--placeholder-light);
 }
 
 .OddsButton.Selected {
-  /* background: var(--db-gray-12);
-  border-color: var(--db-gray-13); */
-
-  background: #0f3047;
-  border-color: #85bbcb;
+  background: var(--db-gray-2);
+  border-color: var(--lightcolor-op1);
 }
 
 .OddsButton.Selected:disabled {
-  background: rgb(24, 35, 41);
+  background: var(--odds-button-disabled);
   border-color: var(--db-gray-13) !important;
 }
 
 /* CardButton */
 .CardButton {
-  background-color: rgb(3 19 30 / 52%);
+  background: var(--card-odds-button);
+  color: var(--darkcolor-op1);
+  font-weight: 500;
   padding: 10px 5px;
   flex: 1;
   text-align: center;
+  border: 1px solid transparent;
 }
 
 .CardButton .OddsLabel {
-  color: rgb(165, 195, 222);
+  color: var(--darkcolor-low-op);
   margin-right: 6px;
-
   overflow: hidden;
-  text-wrap: nowrap;
+  text-wrap: wrap;
   text-overflow: ellipsis;
   max-width: 50%;
+  font-size: 0.7rem;
 }
 .CardButton.Selected {
-  /* background: var(--db-gray-12);
-  border-color: var(--db-gray-13); */
-
-  background: var(--db-gray-12);
+  background-color: var(--card-odds-button-selected);
   color: white;
   border-color: var(--db-gray-13);
+  font-weight: 700;
+  border: 1px solid var(--lightcolor-low-op);
 }
 
 .CardButton.Selected .OddsLabel {
-  color: rgb(221, 221, 221) !important;
+  font-weight: 400;
+  color: var(--lightcolor-op1);
 }
 
 .CardButton:disabled {
-  background-color: rgb(66 81 95 / 19%);
+  background-color: var(--card-odds-button-disabled);
   cursor: default;
+  color: aliceblue;
 }
 
 .TempDisabled.OddsButton,

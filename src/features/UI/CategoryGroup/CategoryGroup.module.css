@@ -1,6 +1,5 @@
 .CategoryGroup {
-  background-color: #0e2f45;
-  /* background-color: var(--db-duelbits-gray); */
+  background-color: var(--sidebar-category-group);
   margin-bottom: 0.25rem;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -8,27 +7,17 @@
   border-bottom-left-radius: 10px;
 }
 .CategoryGroup.Closed {
-  /* border: 1px solid #00000043;
-  background-color: transparent;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 33%);
-  margin-bottom: 0.5rem;
-  background-color: #06263f; */
-
-  background-color: transparent;
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 29%);
   margin-bottom: 0.5rem;
-  background-color: #102c43;
+  background-color: var(--sidebar-category-group);
 }
 .CategoryGroup.Closed:hover {
-  background-color: #1c3d55;
-  /* background-color: var(--db-duelbits-gray); */
+  background-color: var(--db-white-hover-light);
 }
 .CategoryGroup > ul {
-  background-color: #102b41;
+  background-color: var(--sidebar-category-group);
 }
 .CategoryGroup > ul:last-child {
   border-bottom: 1px solid rgba(170, 234, 255, 0.129);
@@ -95,7 +84,6 @@
 .LiveBadge {
   animation: 6s ease 0s infinite normal none running _jQMcyq_dgbon_1;
   background: var(--db-brand-green);
-  /* background: var(--db-purple-text); */
   border-radius: 3px;
   color: rgb(255, 255, 255);
   font-size: 11px;
@@ -105,7 +93,6 @@
   text-shadow: rgba(41, 39, 33, 1) 0px 1px 2px;
   white-space: nowrap;
   height: 18px;
-  /* width: 30px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,7 +114,6 @@
   60% {
     box-shadow: rgba(150, 208, 35, 0.1) 0px 0.25em 1em,
       rgba(150, 208, 35, 1) 0px 0px 0.5em;
-    /* box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em, rgba(200, 49, 231, 0.8) 0px 0px 0.5em; */
   }
 }
 
