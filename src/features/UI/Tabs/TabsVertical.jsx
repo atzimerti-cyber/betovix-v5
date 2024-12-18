@@ -5,7 +5,6 @@ const TabsVertical = (props) => {
   return (
     <div className={classes.Tabs}>
       {props.tabs.map((tab) => {
-        // Ensure the 'tab' has an 'id' before rendering
         if (tab.id) {
           return (
             <div

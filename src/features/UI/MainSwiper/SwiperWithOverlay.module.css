@@ -2,9 +2,8 @@
   height: 100%;
   width: 100%;
   transition: transform 0.2s linear;
-  background: linear-gradient(180deg, #27465b54 40%, transparent 90%);
+  /* background: linear-gradient(180deg, #27465b54 40%, transparent 90%); */
   border-radius: 0.375rem;
-  /* padding: 0.3rem;  */
   position: relative;
 }
 
@@ -52,8 +51,6 @@
 .Card {
   width: 100%;
   aspect-ratio: 2/3;
-  /* height: 160px;
-  width: 160px; */
   position: relative;
   cursor: pointer;
   overflow: hidden;
@@ -69,136 +66,14 @@
 .ImageContainer {
   width: 100%;
   aspect-ratio: 2/3;
-  /* height: 160px;
-  width: 160px; */
   position: relative;
 }
 
 .ImageContainer img {
   object-fit: contain;
   aspect-ratio: 2/3;
-  /* height: 160px;
-  width: 160px;  */
   transform: translateZ(0);
   -webkit-transform: translateZ(0);
-}
-
-.InfoOverlay {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-  opacity: 0;
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.Card:hover .InfoOverlay {
-  opacity: 1;
-  transition-property: opacity;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.15s;
-}
-
-.InfoContent {
-  display: flex;
-  height: 80%;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  text-shadow: rgba(41, 39, 33, 1) 3px -3px 8px;
-}
-
-.InfoContent > svg {
-  margin-top: 0.25rem;
-  height: 1rem;
-  width: 1rem;
-  flex-shrink: 0;
-  cursor: pointer;
-}
-
-.InfoContent > svg path {
-  fill: #fff;
-}
-
-.InfoCategory {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-  font-weight: 700;
-  text-transform: capitalize;
-}
-
-.Rtp {
-  font-size: 1rem;
-  line-height: 1.5rem;
-  font-weight: 700;
-  color: var(--db-brand-green);
-  line-height: 0.8;
-}
-
-.RtpLabel {
-  display: block;
-  text-align: center;
-  font-size: 1rem;
-  line-height: 0.8rem;
-  font-weight: 700;
-  color: var(--db-brand-green);
-}
-
-.isBonus {
-  width: 100%;
-}
-
-@keyframes jQMcyq {
-  0%,
-  100% {
-    opacity: 0.8;
-  }
-
-  10%,
-  90% {
-    opacity: 1;
-  }
-
-  40%,
-  60% {
-    box-shadow: rgba(24, 95, 126, 0.3) 0px 0.25em 1em,
-      rgba(24, 95, 126, 0.8) 0px 0px 0.5em;
-  }
-}
-
-.isBonus button {
-  color: var(--db-body-text);
-  border: 1px solid var(--db-gray-4);
-  animation: 6s ease 0s infinite normal none running jQMcyq;
-  width: 100%;
-  font-weight: 500;
-  font-size: 11px;
-  margin-top: 5px;
-  border-radius: 5px;
-  padding: 3px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  line-height: normal;
-  padding: 4px 10px;
-}
-
-.isBonus button svg {
-  height: 16px;
-  width: 16px;
-}
-
-@media (max-width: 500px) {
-  .isBonus button svg {
-    display: none;
-  }
 }
 
 .NewLabel {
@@ -230,22 +105,6 @@
 }
 
 @media (min-width: 640px) {
-  .InfoContent > svg {
-    margin-top: 0.5rem;
-    height: 1.5rem;
-    width: 1.5rem;
-  }
-
-  .Rtp {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-
-  .RtpLabel {
-    font-size: 1rem;
-    line-height: 1.5rem;
-  }
-
   .NewLabel {
     height: 14px;
     font-size: 0.75rem;
@@ -253,31 +112,41 @@
   }
 }
 
-@media (min-width: 768px) {
-  .Rtp {
-    font-size: 1.5rem;
-    line-height: 2rem;
-  }
-
-  .RtpLabel {
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-  }
-}
-
 /* ==================================================================================== */
 .SlideContainer:hover .OverlayContainer {
-  opacity: 1; /* Visible when hovering over the .Card */
-  pointer-events: auto; /* Allow interaction */
+  opacity: 1;
+  pointer-events: auto;
 }
 .SlideContainer:hover .BackgroundContainer {
   /* opacity: 0; */
   opacity: 1;
 }
+
+.SlideContainer:hover .ButtonsContainer {
+  animation: slideInUp 0.4s ease-out forwards;
+}
+
+.ButtonsContainer {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .OverlayContainer {
-  opacity: 0; /* Default hidden */
-  pointer-events: none; /* Prevent interference when not visible */
-  transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth fade-in/out */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
 
   width: 100%;
   position: absolute;
@@ -373,26 +242,27 @@
   display: flex;
 }
 .PlayBtn {
-  background: #7d7d7db6;
+  background: var(--casino-play-round);
   color: var(--db-body-text);
   font-weight: 400;
   font-size: 12px;
-  height: 3rem;
-  width: 3rem;
+  height: 3.3rem;
+  width: 3.3rem;
   display: flex;
   justify-content: center;
   border-radius: 50%;
   align-items: center;
   padding: 0 0.5rem;
+  transition: transform 0.09s linear;
 }
 .PlayBtn svg {
-  height: 1rem;
-  width: 1rem;
+  height: 1.2rem;
+  width: 1.2rem;
   transform: scale(1); /* Default scale */
-  transition: transform 0.15s linear;
+  transition: transform 0.19s linear;
 }
 .PlayBtn:hover {
-  background: #5383a1b1;
+  transform: scale(1.1);
   color: aliceblue;
 }
 .PlayBtn:hover svg {
@@ -422,58 +292,26 @@
   }
 }
 
-/* .isBonus button {
-  color: #ebfbff;
-  border: 1px solid var(--db-gray-4);
-  animation: 6s ease 0s infinite normal none running jQMcyq;
-  width: max-content;
-  font-weight: 400;
-  font-size: 11px;
-  margin-top: 5px;
-  border-radius: 5px;
-  padding: 3px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  line-height: normal;
-  padding: 4px 10px;
-  background-color: #8dbcc96b;
-  column-gap: 0.5rem;
-}
-
-.isBonus button svg {
-  height: 20px;
-  width: 20px;
-}
-.isBonus > button:hover {
-  background-color: #6bc6e091;
-  color: #ffffff;
-}
-
-@media (max-width: 500px) {
-  .isBonus button svg {
-    display: none;
-  }
-} */
-
 .isBonus button {
   border: 1px solid var(--db-gray-4);
   animation: 6s ease 0s infinite normal none running jQMcyq;
-  height: 3rem;
-  width: 3rem;
-  margin-top: 5px;
+  height: 3.3rem;
+  width: 3.3rem;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   line-height: normal;
-  background-color: #8dbcc96b;
+  background: var(--casino-play-bonus-button);
   column-gap: 0.5rem;
   text-align: center;
   text-wrap: wrap;
+  transition: transform 0.09s linear;
 }
 
 .isBonus button svg {
+  transform: scale(1); /* Default scale */
+  transition: transform 0.19s linear;
   height: 20px;
   width: 20px;
 }
@@ -490,8 +328,12 @@
   font-size: 0.8rem;
 }
 .isBonus > button:hover {
-  background-color: #5ca9bea1;
+  transform: scale(1.1);
   color: #ffffff;
+}
+
+.isBonus > button:hover svg {
+  transform: scale(1.2); /* Scale smoothly */
 }
 
 @media (max-width: 500px) {

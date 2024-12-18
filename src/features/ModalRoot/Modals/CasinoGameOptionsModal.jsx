@@ -115,7 +115,7 @@ const CasinoGameOptionsModal = (props) => {
           >
             <div className={classes.PlayBtnContainer}>
               <button className={classes.PlayBtn}>
-                <span>{translate("Play Game")}</span>
+                <span>{translate("Play")}</span>
               </button>
             </div>
           </Link>

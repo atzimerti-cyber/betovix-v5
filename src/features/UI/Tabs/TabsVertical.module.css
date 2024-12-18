@@ -53,15 +53,13 @@
 }
 
 .Tab:hover {
-  /* background-color: var(--db-duelbits-gray); */
-  background-color: #2e4a5dce;
+  background-color: var(--db-white-hover);
 }
 
 .Tab.Active {
   border-bottom-color: var(--db-brand-green);
   color: var(--db-brand-green);
-  /* background-color: initial; */
-  background: linear-gradient(222deg, #2e4a5dce 0%, #6eb1ce68 50%);
+  background: var(--accordion-header);
 }
 
 .Tab svg {
@@ -93,7 +91,7 @@
     display: flex;
     overflow-x: hidden;
     overflow-y: hidden;
-    background: linear-gradient(224deg, #183447c7, #0d2a3e);
+    /* background: linear-gradient(224deg, #183447c7, #0d2a3e); */
   }
   .Tab {
     justify-content: flex-start;
@@ -105,8 +103,6 @@
     flex-grow: unset;
   }
   .Tab.Active {
-    background-color: var(--db-gray-4);
-    background: linear-gradient(222deg, #2e4a5dce 0%, #6eb1ce68 50%);
     color: rgb(255 255 255 / var(--tw-text-opacity));
   }
   .Tab.Active:hover {

@@ -177,7 +177,6 @@ const SwiperWithOverlay = (props) => {
                         <div className={classes.ImageContainer}>
                           <div
                             style={{
-                              // backgroundImage: `url(${item.Data.ImageUrl3})`,
                               backgroundImage:
                                 item.Data.ImageUrl3 !== null &&
                                 `url(${item.Data.ImageUrl3.replace(

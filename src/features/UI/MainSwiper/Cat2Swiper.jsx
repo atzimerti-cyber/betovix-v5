@@ -21,6 +21,7 @@ import {
 import { translate } from "../../../utils/translations";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 import _ from "lodash";
+import { casinoActions } from "../../../pages/Casino/casinoSlice";
 
 const Cat2Swiper = (props) => {
   const dispatch = useDispatch();
@@ -101,6 +102,21 @@ const Cat2Swiper = (props) => {
     }
   };
 
+  const openGameModal = (game) => {
+    dispatch(casinoActions.setGameOptionsModal(game));
+    addParamsToUrl("game-options");
+  };
+
+  const addParamsToUrl = (modal, tab) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", modal);
+    if (tab) searchParams.set("tab", tab);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+  };
+
   return (
     items &&
     items.length > 0 && (
@@ -136,6 +152,9 @@ const Cat2Swiper = (props) => {
                         ? { minHeight: "213px" }
                         : { minHeight: "178px" }
                     }
+                    onClick={() => {
+                      openGameModal(item);
+                    }}
                   >
                     <div className={classes.BackgroundContainer}>
                       <article className={classes.Card}>
@@ -165,7 +184,7 @@ const Cat2Swiper = (props) => {
                           </p>
                         </div>
                       </div>
-                      <div className={classes.ButtonsContainer}>
+                      {/* <div className={classes.ButtonsContainer}>
                         <div className={classes.FavContainer}>
                           <HeartIcon
                             className={item.isFav ? classes.FavoriteIcon : null}
@@ -185,7 +204,7 @@ const Cat2Swiper = (props) => {
                         >
                           <div className={classes.PlayBtnContainer}>
                             <button className={classes.PlayBtn}>
-                              {translate("Play Game")}
+                              {translate("Play")}
                             </button>
                           </div>
                         </Link>
@@ -201,7 +220,7 @@ const Cat2Swiper = (props) => {
                             </div>
                           </Link>
                         )}
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </SwiperSlide>

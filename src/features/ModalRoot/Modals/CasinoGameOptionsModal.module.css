@@ -1,4 +1,6 @@
 .GameOptionsModal {
+  background-color: var(--db-gray-6);
+  background: var(--casino-options-bg);
   width: 90vw;
   border-radius: 0.6rem;
   position: relative;
@@ -11,7 +13,6 @@
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  background-color: var(--db-gray-6);
   margin-top: 60px;
   opacity: 0;
   animation: slide 0.2s ease-out forwards;
@@ -40,8 +41,8 @@
 }
 .CloseButton {
   position: absolute;
-  top: 3%;
-  right: 2%;
+  top: 10px;
+  right: 10px;
   height: 15px;
   width: 15px;
   display: flex;
@@ -49,6 +50,7 @@
   justify-content: center;
   z-index: 100;
   background: radial-gradient(black 0%, transparent 50%);
+  cursor: pointer;
 }
 .GameInfo {
   width: 40%;
@@ -102,17 +104,17 @@
   justify-content: center;
 }
 .PlayBtnContainer {
-  margin-top: 1rem;
+  margin-top: 0.5rem;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .PlayBtn {
-  background: #751eaf;
+  background: var(--casino-play-button);
   color: white;
-  font-weight: 500;
-  font-size: 11px;
+  font-weight: 400;
+  font-size: 13px;
   padding: 0.5rem 1rem;
   height: max-content;
   width: 80%;
@@ -120,6 +122,10 @@
   justify-content: center;
   border-radius: 5px;
   align-items: center;
+  letter-spacing: 0.02rem;
+}
+.PlayBtn:hover {
+  font-weight: 700;
 }
 .isBonus {
   width: 100%;
@@ -158,11 +164,14 @@
   border-radius: 5px;
   margin-top: 5px;
   align-items: center;
-  background-color: #8dbcc96b;
+  background: var(--casino-play-bonus-button);
   column-gap: 0.5rem;
   text-align: center;
   text-wrap: wrap;
   padding: 0.5rem;
+}
+.isBonus button:hover span {
+  font-weight: 700;
 }
 
 .isBonus button svg {
@@ -170,7 +179,7 @@
   width: 20px;
 }
 .isBonus button span {
-  color: #ebfbff;
+  color: #ffffff;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -178,13 +187,9 @@
   text-overflow: ellipsis;
   line-height: 1.5em;
   text-align: center;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 11px;
 }
-/* .isBonus > button:hover {
-  background-color: #5ca9bea1;
-  color: #ffffff;
-} */
 @media (min-width: 450px) {
   .GameOptionsModal {
     max-height: 80vh;
@@ -212,7 +217,6 @@
     border-radius: 5px;
     margin-top: 5px;
     align-items: center;
-    background-color: #8dbcc96b;
     column-gap: 0.5rem;
     text-align: center;
     text-wrap: wrap;

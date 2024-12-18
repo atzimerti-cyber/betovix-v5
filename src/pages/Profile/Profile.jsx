@@ -28,7 +28,7 @@ const Profile = () => {
   const query = new URLSearchParams(location.search);
   const tab = query.get("tab");
 
-  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const lang = useSelector((state) => state.app.lang);
 
   const permissions = useSelector((state) => state.app.permissions);
   const barLoading = useSelector((state) => state.app.barLoading);

@@ -27,7 +27,6 @@ import _ from "lodash";
 import { useMediaQuery } from "react-responsive";
 import useTouchScreen from "../../../hooks/useTouchScreen";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
-import DecorImage from "../../../assets/casinoIcons/xmaslights.png";
 
 const Cat3Swiper = (props) => {
   const dispatch = useDispatch();
@@ -45,7 +44,7 @@ const Cat3Swiper = (props) => {
   const { slidesPerView, slidesPerGroup } = useSlidesResponsive("Cat3Swiper");
 
   const gridSwiper = useMediaQuery({ query: "(min-width: 700px)" });
-  const isTouchScreen = useTouchScreen(); // Detect if the device has a touchscreen
+  const isTouchScreen = useTouchScreen();
   const [isIOS, setIsIOS] = useState(null);
 
   useEffect(() => {
@@ -148,9 +147,6 @@ const Cat3Swiper = (props) => {
             backgroundAttachment: isIOS ? "local" : "fixed",
           }}
         >
-          {/* <div className={classes.SwiperDecor}>
-            <img src={DecorImage} />
-          </div> */}
           <div
             className={classes.SwiperImage}
             style={{
@@ -192,22 +188,10 @@ const Cat3Swiper = (props) => {
               gridRows={gridSwiper && 2}
               gridFill={gridSwiper && "row"}
               spaceBetween={7}
-              // title={
-              //   !notGridSwiper &&
-              //   (props.link ? (
-              //     <Link to={props.link}>{props.title}</Link>
-              //   ) : props.task ? (
-              //     <a onClick={props.task}>{props.title}</a>
-              //   ) : (
-              //     props.title
-              //   ))
-              // }
               title={false}
               viewText={props.text}
               onTask={props.task}
               icon={false}
-              // icon={props.icon}
-              // thIcon={props.thIcon}
               thIcon={false}
             >
               {items ? (
@@ -293,7 +277,6 @@ const Cat3Swiper = (props) => {
                                         className={classes.bonusContainer}
                                       >
                                         <GiftIcon />
-                                        {/* <span>{translate("With Bonus")}</span> */}
                                       </button>
                                     </div>
                                   </Link>
