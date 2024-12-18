@@ -210,7 +210,6 @@ const WithdrawPaymentForm = (props) => {
             )}
             readOnly={isReadOnly}
             onInput={(e) => {
-              // Remove any non-numeric characters from the input
               e.target.value = e.target.value.replace(/[^0-9]/g, "");
             }}
           />

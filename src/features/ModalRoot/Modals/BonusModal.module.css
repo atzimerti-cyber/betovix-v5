@@ -176,8 +176,7 @@
 }
 
 .bonusesHeader .bonusesHeaderWrapper > div.active {
-  /* background-color: var(--db-gray-4) !important; */
-  background: linear-gradient(321deg, #26465bb5 0%, #397d817d 74%);
+  background: var(--button-grad-op1);
 }
 
 .ImageContainer {
@@ -197,7 +196,7 @@
   height: 110px;
   width: 70px;
   border-radius: 9999px;
-  background-color: #ffbf00;
+  background-color: var(--yellow-accent-color);
   content: "";
   filter: blur(65px);
   -webkit-clip-path: inset(-100% -100% 96px);
@@ -268,7 +267,7 @@ header .Right {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .bonusesBody {
-  border-top: 1px solid #96d02382;
+  border-top: 1px solid var(--db-brand-green);
   padding: 10px;
   position: relative;
   padding-bottom: 50px;

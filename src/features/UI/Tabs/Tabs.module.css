@@ -1,112 +1,112 @@
 .Tabs {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    margin-block: 0px 5px;
-    position: relative;
-    margin-inline: 14px;
-    
-    /* min-height: 50px; */
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  margin-block: 0px 5px;
+  position: relative;
+  margin-inline: 14px;
+
+  /* min-height: 50px; */
 }
 .Tabs::after {
-    background: rgb(42, 65, 74);
-    content: '';
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    height: 1px;
-    z-index: 1;
+  background: transparent;
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 1px;
+  z-index: 1;
 }
 .NoMargin.Tabs {
-    margin: 0;
+  margin: 0;
 }
-.Width100.Tabs{
-    width: 100%;
+.Width100.Tabs {
+  width: 100%;
 }
 
 .TabsInner {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    flex: 1 1 0%;
-    gap: 4px;
-    -webkit-box-pack: center;
-    justify-content: center;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  flex: 1 1 0%;
+  gap: 4px;
+  -webkit-box-pack: center;
+  justify-content: center;
 }
 
 .Tab {
-    flex: 1 1 auto;
-    appearance: none;
-    background: none;
-    border: none;
-    border-block-end: 1px solid transparent;
-    border-radius: 4px 4px 0px 0px;
-    color: #fff;
-    cursor: pointer;
-    fill: var(--db-brand-green);
-    font: inherit;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    margin: 0px;
-    overflow: hidden;
-    padding-inline: 16px;
-    position: relative;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
-    height: 40px;
-    z-index: 3;
-    font-weight: 700;
-    transition: color 0.3s;
+  flex: 1 1 auto;
+  appearance: none;
+  background: none;
+  border: none;
+  border-block-end: 1px solid transparent;
+  border-radius: 4px 4px 0px 0px;
+  color: #fff;
+  cursor: pointer;
+  fill: var(--db-brand-green);
+  font: inherit;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin: 0px;
+  overflow: hidden;
+  padding-inline: 16px;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+  height: 40px;
+  z-index: 3;
+  font-weight: 700;
+  transition: color 0.3s;
 }
 
 .Tab.LighterColor {
-    color: rgb(177, 197, 204);
+  color: rgb(177, 197, 204);
 }
 
 .Tab:not(.Active):hover {
-    color: #fff;
+  color: #fff;
 }
 
 .Tab.Active {
-    color: var(--db-brand-green);
-    border-block-end-color: var(--db-brand-green);
-    cursor: default;
-    pointer-events: none;
+  color: var(--db-brand-green);
+  border-block-end-color: var(--db-brand-green);
+  cursor: default;
+  pointer-events: none;
 }
 
 .Tab.Disabled {
-    opacity: 0.2;
-    pointer-events: none;
+  opacity: 0.2;
+  pointer-events: none;
 }
 
 .Tabs.AsTabs .TabsInner {
-    gap: 0;
+  gap: 0;
 }
 
 .Tabs.AsTabs .Tab:hover {
-    border-bottom-color: var(--db-brand-green);
-    color: var(--db-brand-green);
+  border-bottom-color: var(--db-brand-green);
+  color: var(--db-brand-green);
 }
 
 .WithUnderline.Tabs .Tab {
-    height: 2.5rem;
-    max-width: 115px;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    font-weight: 700;
+  height: 2.5rem;
+  max-width: 115px;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
 
-    border-radius: 0;
-    border-bottom-color: var(--db-gray-4);
-    background-color: initial;
-    padding: 0.25rem 1rem;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-    border-bottom-width: 1px;
+  border-radius: 0;
+  border-bottom-color: var(--db-gray-4);
+  background-color: initial;
+  padding: 0.25rem 1rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  border-bottom-width: 1px;
 }

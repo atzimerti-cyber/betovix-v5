@@ -42,7 +42,6 @@
   width: 100%;
 }
 .Stats {
-  color: rgb(29, 44, 50);
   display: flex;
   transition: color 0.3s ease 0s;
   width: 100%;
@@ -59,7 +58,6 @@
   text-overflow: ellipsis;
   white-space: nowrap;
   max-width: 300px;
-  /* overflow: hidden; */
 }
 
 .EventTime {
@@ -76,7 +74,7 @@
   animation: 6s ease 0s infinite normal none running jQMcyq;
   background: var(--db-purple-text);
   border-radius: 2px;
-  color: rgb(255, 255, 255);
+  color: white;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -87,7 +85,7 @@
 }
 
 .Time {
-  color: rgb(255, 255, 255);
+  color: white;
 }
 
 .ContentRow {
@@ -95,7 +93,6 @@
   -webkit-box-align: center;
   align-items: center;
   min-height: 30px;
-  /* border-bottom: 1px solid rgb(41, 63, 71); */
   transition: color 0.3s ease 0s;
   padding-inline-start: 0px;
 }
@@ -104,14 +101,13 @@
 }
 
 .TeamText {
-  color: rgb(255, 255, 255);
+  color: white;
   display: flex;
   flex-direction: column;
   -webkit-box-align: center;
   justify-content: center;
   align-items: center;
   -webkit-box-pack: justify;
-  /* height: 26px; */
   width: 100%;
   padding: 5px;
   margin: 0.1rem;
@@ -135,7 +131,7 @@
 }
 
 .ScoreGroup {
-  color: rgb(51, 193, 108);
+  color: var(--db-brand-green);
   display: flex;
 }
 
@@ -168,12 +164,11 @@
 .AwayScore {
   position: relative;
   border-radius: 10px;
-  color: aliceblue;
+  color: white;
   font-weight: 700;
   font-size: 1.3rem;
-  background-color: #0cabd73d;
+  background-color: var(--db-duelbits-gray);
   height: 2.2rem;
-  /* width: 2.2rem; */
 
   padding: 0 0.25rem;
   width: max-content;
@@ -181,7 +176,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  /* padding: 0.1rem; */
 }
 
 .HomeScore.Server::before {
@@ -190,11 +184,9 @@
   height: 60%;
   background-color: var(--db-brand-green);
   position: absolute;
-  /* left: -2px; */
   right: 98%;
   top: 50%;
   transform: translateY(-50%);
-  /* border-radius: 3px; */
   border-top-left-radius: 3px;
   border-bottom-left-radius: 3px;
 }
@@ -208,7 +200,6 @@
   left: 98%;
   top: 50%;
   transform: translateY(-50%);
-  /* border-radius: 3px; */
   border-top-right-radius: 3px;
   border-bottom-right-radius: 3px;
 }
@@ -216,7 +207,7 @@
 .Dash {
   margin: 0 0.4rem;
   border-radius: 5px;
-  color: aliceblue;
+  color: white;
   font-weight: 700;
   font-size: 1.3rem;
 }
@@ -236,26 +227,25 @@
   }
 }
 
-/* Customizing the scrollbar for the entire page */
 ::-webkit-scrollbar {
-  width: 8px; /* Width of the scrollbar */
-  height: 7px; /* Height for horizontal scrollbar */
+  width: 5px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--db-gray-1); /* Track background */
+  background: var(--darkcolor-low-op);
 }
 
 ::-webkit-scrollbar-thumb {
-  background-color: #83bccb; /* Thumb (scrollbar handle) color */
-  border-radius: 10px; /* Round edges */
-  border: 2px solid var(--db-gray-1); /* Adds some padding around the thumb */
+  background: var(--darkcolor-low-op);
+  border-radius: 10px;
+  border: 2px solid var(--db-gray-1);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #5ca1b3; /* Darken the thumb when hovering */
+  background: var(--placeholder-light);
 }
 
 ::-webkit-scrollbar-thumb:active {
-  background-color: #407c89; /* Thumb color when active (clicked) */
+  background-color: #407c89;
 }

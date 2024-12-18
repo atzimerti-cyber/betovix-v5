@@ -271,13 +271,14 @@ export const uploadKYCFile = (file, level, signal) => {
       dispatch(getLevelsVerified(signal));
       toast.success("Upload Successful");
       dispatch(profileActions.setDisableVerifyButton(false));
-      return { success: true }; // Return success if needed
+      return { success: true };
     } catch (error) {
       dispatch(profileActions.setDisableVerifyButton(false));
       const message =
         error?.response?.data?.Status?.Message ||
         error?.message ||
         "Error occurred";
+      toast.error(message + ".");
       return { success: false, error: message };
     }
   };

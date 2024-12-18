@@ -4,7 +4,7 @@
   --db-body-subheading: #199bcf;
   --db-brand-green: #88be2b;
   --db-brand-green-36: rgba(150, 208, 35, 0.36);
-  --db-brand-color: #49a326;
+  --db-brand-color: #4a9932;
   --db-brand-dark: #022a15;
   --db-duelbits-blue: #165985;
   --db-duelbits-gray: #0e1b26;
@@ -54,7 +54,7 @@
   --lightcolor-low-op: #add8e64a;
   --lightcolor-op1: #add8e6;
   --darkcolor-op1: #031a22;
-  --darkcolor-low-op: #00000080;
+  --darkcolor-low-op: #00000058;
 
   --layout-icon-btn: linear-gradient(222deg, #215164 0%, #15364a 63%);
   --toast-grad-op1: linear-gradient(50deg, #176180 0%, #237496 50%);
@@ -86,6 +86,7 @@
   --sidebar-left-menu-item: #102b41;
   --sidebar-casino-active: #af37cf52;
   --sidebar-casino-active-svg: #ba0dff;
+  --footer: #081826;
   --dropdown-bg: #23486d;
 
   --swiper-container-grad: linear-gradient(45deg, #96d02333, #1a4b70 120%);
@@ -93,7 +94,6 @@
   --accordion-body: linear-gradient(72deg, #1e506321 0%, #1f55705e 50%);
   --accordion-small-header: linear-gradient(222deg, #1e5063 0%, #26556dba 50%);
   --accordion-small-body: linear-gradient(72deg, #1e506357 0%, #26556d47 50%);
-  --casino-options-bg: linear-gradient(45deg, #05133457 40%, #04456b47 80%);
   --casino-options-bg: radial-gradient(
       65.95% 124.31% at 100% 100%,
       #0d2f39 10.17%,
@@ -122,7 +122,7 @@
   --db-scrollbar-thumb-bg: var(--db-gray-5);
   --db-scrollbar-track-bg: var(--db-gray-3);
   --db-transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  --db-modal-overlay: rgba(18, 57, 83, 0.85);
+  --db-modal-overlay: #132e40c7;
   --db-dropdown-shadow: -10px 6px 30px rgb(0 0 0 / 35%);
   --db-modal-header-height: 38px;
   --db-milestone-card-width: 140px;

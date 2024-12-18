@@ -8,7 +8,7 @@
 .Container {
   height: max-content;
   width: 100%;
-  background: linear-gradient(122deg, #1c4a67bf 0%, #21617f40 50%);
+  background: var(--accordion-body);
   border-radius: 5px;
   padding: 0.7rem;
   margin: 0.5rem 0 0 0;
@@ -39,7 +39,6 @@
   flex-direction: column;
   gap: 0.1rem;
 }
-/* .Form label, */
 .Form input {
   width: max-content;
 }
@@ -67,13 +66,13 @@
 }
 .CustomTextArea {
   margin-left: 1rem;
-  color: whitesmoke;
+  color: white;
   padding: 0.3rem 0.5rem;
   border-radius: 5px;
-  background: linear-gradient(222deg, #0d202d 0%, #04232f 50%);
+  background: var(--accordion-header);
 }
 .ContinueBtn {
-  background-color: #68a13c;
+  background-color: var(--db-brand-green);
   width: 100%;
   max-width: 450px;
   padding: 0.6rem 2rem;
@@ -82,38 +81,37 @@
   font-weight: 500;
 }
 .ContinueBtn:hover {
-  background-color: #6bbb2e;
+  background-color: var(--db-brand-color);
 }
 .ContinueBtn:disabled {
-  background-color: #6bbb2e31;
-  color: #ffffff63;
+  background-color: var(--card-odds-button-disabled);
+  color: var(--lightcolor-low-op);
 }
 
-/* ================================================= */
 .CustomRadio {
-  display: none; /* Hide the default radio button */
+  display: none;
 }
 
 .CustomLabel {
   display: inline-block;
   padding: 7px 15px;
-  border: 1px solid #cccccc7c;
+  border: 1px solid var(--db-gray-800);
   border-radius: 5px;
   cursor: pointer;
   text-align: center;
   font-size: 14px;
-  user-select: none; /* Prevent text selection */
+  user-select: none;
   transition: all 0.3s ease;
 }
 
 .CustomLabel:hover {
-  border-color: #aaa;
+  border-color: var(--card-odds-button);
 }
 
 .CustomRadio:checked + .CustomLabel {
-  background: #3ca19290;
+  background: var(--odds-button);
   color: white;
-  border-color: #3c95a1d3;
+  border-color: transparent;
 }
 
 .PasswordContainer {
@@ -133,9 +131,12 @@
   padding: 1rem 3rem 1rem 1rem;
   width: 100%;
   border-radius: 5px;
-  background: linear-gradient(222deg, #0d202d 0%, #04232f 50%);
+  background: var(--accordion-header);
   color: white;
   box-sizing: border-box;
+}
+.Input::placeholder {
+  color: var(--placeholder-light);
 }
 
 .ShowPasswordBtn {

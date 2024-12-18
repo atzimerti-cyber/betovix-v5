@@ -242,7 +242,7 @@ const Verification = () => {
                 <WarningIcon height="20px" width="20px" />
                 <p
                   style={{
-                    color: "#ec5750d6",
+                    color: "var(--db-cancelled)",
                     textAlign: "center",
                   }}
                 >
@@ -313,7 +313,7 @@ const Verification = () => {
               )}
               {level2Status === 1 && (
                 <div className={classes.AccordionContent}>
-                  <p style={{ color: "#cbb507" }}>
+                  <p style={{ color: "var(--yellow-accent-color)" }}>
                     {translate(`Verification Pending`)}.
                     {translate(`This might take a while`)}
                     {pendingDots}
@@ -324,7 +324,7 @@ const Verification = () => {
                 <>
                   <div
                     style={{
-                      backgroundColor: "#0c2233",
+                      backgroundColor: "var(--sidebar-left-menu-item)",
                       display: "flex",
                       flexDirection: "row",
                       columnGap: "0.5rem",
@@ -335,7 +335,7 @@ const Verification = () => {
                     <WarningIcon height="20px" width="20px" />
                     <p
                       style={{
-                        color: "#ec5750d6",
+                        color: "var(--db-cancelled)",
                         textAlign: "center",
                       }}
                     >
@@ -367,7 +367,7 @@ const Verification = () => {
               {level2Status === 3 && (
                 <div
                   style={{
-                    backgroundColor: "#0c2233",
+                    backgroundColor: "var(--sidebar-left-menu-item)",
                     display: "flex",
                     flexDirection: "row",
                     columnGap: "0.5rem",
@@ -378,7 +378,7 @@ const Verification = () => {
                   <SuccessIcon height="20px" width="20px" />
                   <p
                     style={{
-                      color: "#2ea360",
+                      color: "var(--db-brand-green)",
                       textAlign: "center",
                     }}
                   >
@@ -495,7 +495,7 @@ const Verification = () => {
                 </div>
               )}
               {level3Status === 1 && (
-                <p style={{ color: "#cbb507" }}>
+                <p style={{ color: "var(--yellow-accent-color)" }}>
                   {translate(`Verification Pending`)}.
                   {translate(`This might take a while`)}
                   {pendingDots}
@@ -505,7 +505,7 @@ const Verification = () => {
                 <div className={classes.IDForms}>
                   <div
                     style={{
-                      backgroundColor: "#0c2233",
+                      backgroundColor: "var(--sidebar-left-menu-item)",
                       display: "flex",
                       flexDirection: "row",
                       columnGap: "0.5rem",
@@ -516,7 +516,7 @@ const Verification = () => {
                     <WarningIcon height="20px" width="20px" />
                     <p
                       style={{
-                        color: "#ec5750d6",
+                        color: "var(--db-cancelled)",
                         textAlign: "start",
                       }}
                     >
@@ -602,7 +602,7 @@ const Verification = () => {
               {level3Status === 3 && (
                 <div
                   style={{
-                    backgroundColor: "#0c2233",
+                    backgroundColor: "var(--sidebar-left-menu-item)",
                     display: "flex",
                     flexDirection: "row",
                     columnGap: "0.5rem",
@@ -613,7 +613,7 @@ const Verification = () => {
                   <SuccessIcon height="20px" width="20px" />
                   <p
                     style={{
-                      color: "#2ea360",
+                      color: "var(--db-brand-green)",
                       textAlign: "start",
                     }}
                   >
@@ -648,7 +648,7 @@ const Verification = () => {
               </p>
               {level4Status === 0 && <LivePhotoCheck />}
               {level4Status === 1 && (
-                <p style={{ color: "#cbb507" }}>
+                <p style={{ color: "var(--yellow-accent-color)" }}>
                   {translate(`Verification Pending`)}.
                   {translate(`This might take a while`)}
                   {pendingDots}
@@ -658,7 +658,7 @@ const Verification = () => {
                 <>
                   <div
                     style={{
-                      backgroundColor: "#0c2233",
+                      backgroundColor: "var(--sidebar-left-menu-item)",
                       display: "flex",
                       flexDirection: "row",
                       columnGap: "0.5rem",
@@ -669,7 +669,7 @@ const Verification = () => {
                     <WarningIcon height="20px" width="20px" />
                     <p
                       style={{
-                        color: "#ec5750d6",
+                        color: "var(--db-cancelled)",
                         textAlign: "start",
                       }}
                     >
@@ -685,7 +685,7 @@ const Verification = () => {
               {level4Status === 3 && (
                 <div
                   style={{
-                    backgroundColor: "#0c2233",
+                    backgroundColor: "var(--sidebar-left-menu-item)",
                     display: "flex",
                     flexDirection: "row",
                     columnGap: "0.5rem",
@@ -696,7 +696,7 @@ const Verification = () => {
                   <SuccessIcon height="20px" width="20px" />
                   <p
                     style={{
-                      color: "#2ea360",
+                      color: "var(--db-brand-green)",
                       textAlign: "start",
                     }}
                   >
@@ -774,7 +774,7 @@ const Verification = () => {
               )}
               {level5Status === 1 && (
                 <div className={classes.AccordionContent}>
-                  <p style={{ color: "#cbb507" }}>
+                  <p style={{ color: "var(--yellow-accent-color)" }}>
                     {translate(`Verification Pending`)}.
                     {translate(`This might take a while`)}
                     {pendingDots}
@@ -785,7 +785,7 @@ const Verification = () => {
                 <>
                   <div
                     style={{
-                      backgroundColor: "#0c2233",
+                      backgroundColor: "var(--sidebar-left-menu-item)",
                       display: "flex",
                       flexDirection: "row",
                       columnGap: "0.5rem",
@@ -796,7 +796,7 @@ const Verification = () => {
                     <WarningIcon height="20px" width="20px" />
                     <p
                       style={{
-                        color: "#ec5750d6",
+                        color: "var(--db-cancelled)",
                         textAlign: "start",
                       }}
                     >
@@ -855,7 +855,7 @@ const Verification = () => {
               {level5Status === 3 && (
                 <div
                   style={{
-                    backgroundColor: "#0c2233",
+                    backgroundColor: "var(--sidebar-left-menu-item)",
                     display: "flex",
                     flexDirection: "row",
                     columnGap: "0.5rem",
@@ -866,7 +866,7 @@ const Verification = () => {
                   <SuccessIcon height="20px" width="20px" />
                   <p
                     style={{
-                      color: "#2ea360",
+                      color: "var(--db-brand-green)",
                       textAlign: "start",
                     }}
                   >
@@ -944,7 +944,7 @@ const Verification = () => {
               )}
               {level6Status === 1 && (
                 <div className={classes.AccordionContent}>
-                  <p style={{ color: "#cbb507" }}>
+                  <p style={{ color: "var(--yellow-accent-color)" }}>
                     {translate(`Verification Pending`)}.
                     {translate(`This might take a while`)}
                     {pendingDots}
@@ -955,7 +955,7 @@ const Verification = () => {
                 <>
                   <div
                     style={{
-                      backgroundColor: "#0c2233",
+                      backgroundColor: "var(--sidebar-left-menu-item)",
                       display: "flex",
                       flexDirection: "row",
                       columnGap: "0.5rem",
@@ -966,7 +966,7 @@ const Verification = () => {
                     <WarningIcon height="20px" width="20px" />
                     <p
                       style={{
-                        color: "#ec5750d6",
+                        color: "var(--db-cancelled)",
                         textAlign: "start",
                       }}
                     >
@@ -1024,7 +1024,7 @@ const Verification = () => {
               {level6Status === 3 && (
                 <div
                   style={{
-                    backgroundColor: "#0c2233",
+                    backgroundColor: "var(--sidebar-left-menu-item)",
                     display: "flex",
                     flexDirection: "row",
                     columnGap: "0.5rem",
@@ -1035,7 +1035,7 @@ const Verification = () => {
                   <SuccessIcon height="20px" width="20px" />
                   <p
                     style={{
-                      color: "#2ea360",
+                      color: "var(--db-brand-green)",
                       textAlign: "start",
                     }}
                   >

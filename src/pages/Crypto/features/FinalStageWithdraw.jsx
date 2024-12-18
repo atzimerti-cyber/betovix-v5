@@ -121,13 +121,6 @@ const FinalStageWithdraw = () => {
               <span>{user.Wallet.ReservedBalance}</span>
             </div>
 
-            {/* <span style={{ textAlign: "start" }}>
-              {translate(
-                `Available to Withdraw = €${
-                  user.Wallet.Balance - user.Wallet.ReservedBalance
-                }`
-              )}
-            </span> */}
             <div
               style={{
                 display: "flex",

@@ -93,7 +93,7 @@
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.9);
+  color: white;
 }
 
 .BalanceInfo {
@@ -130,7 +130,7 @@
 
 .Message {
   width: 100%;
-  color: lightblue;
+  color: var(--lightcolor-op1);
   font-size: 0.8rem;
   width: 100%;
   display: flex;

@@ -65,8 +65,8 @@
 }
 
 .Tab.Active {
-  color: rgb(51, 193, 108);
-  border-block-end-color: rgb(51, 193, 108);
+  color: var(--db-brand-green);
+  border-block-end-color: var(--db-brand-green);
 }
 
 .TabContent {

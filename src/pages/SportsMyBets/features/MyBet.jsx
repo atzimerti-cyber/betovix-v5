@@ -66,10 +66,11 @@ const MyBet = (props) => {
   }, []);
 
   const getCircleStyle = () => {
-    if (betStatus === "Active") return { background: "rgb(255, 207, 82)" };
+    if (betStatus === "Active")
+      return { background: "var(--yellow-accent-color)" };
     else if (betStatus === "Win" || betStatus === "Cashed Out")
-      return { background: "rgb(51, 193, 108)" };
-    else if (betStatus === "Loss") return { background: "rgb(255, 40, 40)" };
+      return { background: "var(--db-brand-green)" };
+    else if (betStatus === "Loss") return { background: "var(--db-cancelled)" };
   };
 
   const onShowConfirmCashout = () => {

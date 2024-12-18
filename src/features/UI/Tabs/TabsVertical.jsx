@@ -25,7 +25,7 @@ const TabsVertical = (props) => {
             </div>
           );
         }
-        return null; // Ensure no invalid elements are rendered
+        return null;
       })}
     </div>
   );

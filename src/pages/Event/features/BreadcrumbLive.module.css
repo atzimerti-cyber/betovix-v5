@@ -34,7 +34,7 @@
 }
 
 .Crumb.BackButton {
-  background: var(--db-gray-4);
+  background: var(--odds-button);
   width: 80px;
   overflow: hidden;
   padding: 0px;
@@ -42,8 +42,8 @@
 
 .Crumb {
   border-radius: 8px;
-  color: rgb(255, 255, 255);
-  fill: rgb(255, 255, 255);
+  color: white;
+  fill: white;
   cursor: pointer;
   display: flex;
   -webkit-box-align: center;
@@ -63,7 +63,7 @@
 }
 
 .Crumb:hover {
-  background-color: var(--db-gray-5);
+  background-color: var(--lightcolor-low-op);
 }
 
 .BackIcon {
@@ -124,8 +124,7 @@
   display: flex;
   flex-direction: column;
   overflow-y: auto;
-
-  background: rgb(49, 75, 97);
+  background-color: var(--dropdown-bg);
   border-radius: 0 0px 8px 8px;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 8px 16px -8px;
   box-sizing: border-box;
@@ -145,7 +144,6 @@
   padding: 0.75em 1.5em;
   transition: all 0.3s ease 0s;
   color: #fff;
-
   border-radius: 0px;
   box-sizing: border-box;
   display: flex;
@@ -169,11 +167,11 @@
 }
 
 .DropdownItem:hover {
-  background-color: rgb(51, 65, 76);
+  background-color: var(--db-white-hover);
 }
 
 .DropdownItem.Active {
-  background-color: rgb(51, 65, 76);
+  background-color: var(--odds-button);
 }
 
 .NoPaddingCrumb > div:nth-child(2) {
@@ -207,7 +205,7 @@
 }
 
 .DropdownOpen .Crumb {
-  background-color: rgb(49, 75, 97);
+  background-color: var(--dropdown-bg);
   border-radius: 8px 8px 0 0;
 }
 
@@ -225,7 +223,7 @@
   margin: 0px 8px;
   font-size: 13px;
   font-weight: bold;
-  color: rgb(255, 255, 255);
+  color: white;
 }
 
 .TeamName {
@@ -271,5 +269,5 @@
   cursor: default;
   font-size: 1rem;
   font-weight: 400;
-  color: rgb(232, 249, 255);
+  color: white;
 }

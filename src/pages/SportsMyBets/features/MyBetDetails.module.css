@@ -1,150 +1,150 @@
 .MyBetDetailsSection {
-    display: flex;
-    flex-direction: column;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    padding: 10px;
-    max-height: 205px;
-    overflow-y: auto;
-    scroll-behavior: smooth;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  padding: 10px;
+  max-height: 205px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
 }
 :global(.IsMobile) :local(.MyBetDetailsSection) {
-    max-height: unset;
+  max-height: unset;
 }
 
 .HeaderContainer {
-    display: flex;
-    width: 100%;
+  display: flex;
+  width: 100%;
 }
 
 .InfoContainer {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
 }
 
 .Separator {
-    border-top: 1px solid var(--db-dark-1);
-    width: 96%;
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    margin: 10px auto;
+  border-top: 1px solid var(--db-dark-1);
+  width: 96%;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  margin: 10px auto;
 }
 
 .TeamSection {
-    display: flex;
-    flex-direction: column;
-    margin-top: 5px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5px;
 }
 
 .OddsSection {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    margin-top: 5px;
-    flex: 1 1 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin-top: 5px;
+  flex: 1 1 0%;
 }
 
 .OutcomeContainer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 .Outcome {
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    flex-direction: column;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  flex-direction: column;
 }
 
 .TeamVersusGroup {
-    color: rgb(255, 255, 255);
-    display: -webkit-inline-box;
-    justify-content: space-around;
-    width: fit-content;
-    overflow: hidden;
+  color: white;
+  display: -webkit-inline-box;
+  justify-content: space-around;
+  width: fit-content;
+  overflow: hidden;
 
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .MarketName {
-    color: var(--db-body-text);
-    font-size: 12px;
-    font-weight: 700;
-    margin-top: 10px;
+  color: var(--db-body-text);
+  font-size: 12px;
+  font-weight: 700;
+  margin-top: 10px;
 }
 
 .SectionOutcome {
-    color: rgb(255, 255, 255);
-    text-transform: capitalize;
-    font-weight: 500;
-    font-size: 14px;
+  color: white;
+  text-transform: capitalize;
+  font-weight: 500;
+  font-size: 14px;
 }
 
 .EventTime {
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum';
-    display: flex;
-    font-size: 13px;
-    -webkit-box-align: center;
-    align-items: center;
-    height: 2rem;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  display: flex;
+  font-size: 13px;
+  -webkit-box-align: center;
+  align-items: center;
+  height: 2rem;
 }
 
 .InfoScore {
-    color: rgb(51, 193, 108);
+  color: var(--db-brand-green);
 }
 
 .StatusContainer {
-    display: flex;
-    -webkit-box-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    align-items: center;
-    text-transform: capitalize;
-    margin-top: 5px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  text-transform: capitalize;
+  margin-top: 5px;
 }
 
 .Circle {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    margin-right: 10px;
-    background: rgb(246, 168, 0);
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: var(--yellow-accent-color);
 }
 
 .StatusContainer.Loss .Circle {
-    background: rgb(255, 40, 40);
+  background: var(--db-cancelled);
 }
 .StatusContainer.Win .Circle {
-    background: rgb(51, 193, 108);
+  background: var(--db-brand-green);
 }
 
 .Odds {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 .Odds > span {
-    color: var(--db-white-primary);
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum';
-    font-weight: 600;
+  color: var(--db-white-primary);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-weight: 600;
 }
 
 .Status {
-    color: white;
+  color: white;
 }
 
 .Time {
-    min-width: 0px;
-    color: rgb(84, 116, 128);
-    margin-right: 8px;
+  min-width: 0px;
+  color: var(--placeholder-light);
+  margin-right: 8px;
 }
 
 .DateOfMatch {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 17px;
-    color: rgb(84, 116, 128);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--placeholder-light);
 }

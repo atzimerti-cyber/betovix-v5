@@ -1,8 +1,4 @@
 .MainSwiperWrapper {
-  /* margin-left: -1rem;
-    margin-right: -1rem;
-    margin-top: -0.5rem; */
-
   max-width: 100%;
   max-height: inherit;
 }
@@ -45,7 +41,7 @@
   width: 13px;
   border-radius: 0.375rem;
   --tw-bg-opacity: 1;
-  background-color: rgb(49 75 97 / var(--tw-bg-opacity));
+  background-color: var(--db-brand-green);
   transition: all 0.2s ease-in-out;
 }
 
@@ -59,6 +55,7 @@
   border-color: transparent;
   --tw-bg-opacity: 1;
   background-color: rgb(71 200 122 / var(--tw-bg-opacity));
+  background-color: var(--db-brand-green);
   box-shadow: none;
   opacity: 1;
 }

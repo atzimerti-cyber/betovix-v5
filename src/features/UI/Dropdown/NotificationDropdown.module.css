@@ -6,8 +6,6 @@
   z-index: 50;
   opacity: 0;
   transform-origin: right top;
-  /* --tw-scale-x: 0.5;
-  --tw-scale-y: 0.5; */
   --tw-scale-x: 0;
   --tw-scale-y: 0;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
@@ -20,7 +18,7 @@
   height: 40vh;
   background-color: var(--dropdown-bg);
   border-radius: 10px;
-  padding: 5px;
+  overflow: hidden;
 }
 
 .Dropdown.Visible {
@@ -71,7 +69,7 @@
 }
 .ToggleButton p {
   font-size: 0.8rem;
-  color: #88b7cbf6;
+  color: var(--placeholder-light);
 }
 
 .Switch {
@@ -95,7 +93,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #848484;
+  background-color: var(--lightcolor-low-op);
   transition: 0.3s;
 }
 
@@ -147,5 +145,5 @@ input:checked + .SliderRound:before {
 }
 .Empty span {
   font-size: 1rem;
-  color: #88b7cbf6;
+  color: var(--placeholder-light);
 }

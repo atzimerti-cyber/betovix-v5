@@ -15,7 +15,7 @@
   -webkit-box-pack: justify;
   justify-content: space-between;
   line-height: 20px;
-  fill: rgb(255, 255, 255);
+  fill: white;
   white-space: nowrap;
   padding-inline: 12px;
   padding-block: 8px;
@@ -72,11 +72,11 @@
 }
 .Group.IsOpen .Title {
   background: var(--db-gray-666);
-  color: var(--db-duelbits-gray);
+  color: white;
   font-weight: 600;
 }
 .Group.IsOpen .TitleIcon svg path {
-  fill: var(--db-duelbits-gray);
+  fill: white;
 }
 
 .TournamentGroup {

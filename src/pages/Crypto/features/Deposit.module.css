@@ -11,10 +11,6 @@
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
-/* .PaymentVerticalWrapper.Crypto {
-    --tw-translate-y: -100%;
-} */
-
 .PaymentVerticalWrapper.Methods {
   --tw-translate-y: -100%;
 }
@@ -32,21 +28,10 @@
 
 .Grid {
   display: grid;
-  /* grid-template-columns: auto; */
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.5rem;
   padding: 0.5rem;
 }
-
-/* .DepositCryptoWrapper {
-    height: 100%;
-    flex-shrink: 0;
-    overflow: auto;
-    padding: 0.5rem;
-    position: absolute;
-    top: 100%;
-    width: 100%;
-} */
 
 .DepositMethodsWrapper {
   height: 100%;
@@ -83,7 +68,6 @@
   flex-direction: column;
   border-radius: 0.375rem;
   border-color: transparent;
-  /* background-color: var(--db-gray-1); */
   padding-left: 0.25rem;
   padding-right: 0.25rem;
   width: 100%;
@@ -99,7 +83,6 @@
   border-color: hsl(var(--nf, var(--n)) / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
   background-color: var(--db-white-hover-light);
-  /* background-color: hsl(var(--nf, var(--n)) / var(--tw-bg-opacity)); */
 }
 
 .PaymentButtonContainer > button img {
@@ -122,7 +105,6 @@
 .PaymentButtonContainer.CryptoCoin > button h2 {
   width: 100%;
   text-overflow: ellipsis;
-  /* white-space: nowrap; */
   white-space: normal;
 }
 
@@ -158,11 +140,6 @@
 }
 
 @media (min-width: 640px) {
-  /* .PaymentOptionsWrapper,
-    .DepositCryptoWrapper,
-    .DepositFiatWrapper {
-        overflow: visible;
-    } */
   .DepositMethodsWrapper {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -184,7 +161,6 @@
 
   .Grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    /* grid-template-columns: auto auto; */
   }
 
   .PaymentButtonContainer > button img {
@@ -207,45 +183,6 @@
   }
 }
 
-/* ////////////////////////////////////////////////////////////// */
-.CryptoCard {
-  background: linear-gradient(
-      90deg,
-      var(--crypto-color),
-      transparent 45%,
-      transparent
-    ),
-    var(--db-gray-4);
-  position: relative;
-  display: flex;
-  height: 3rem;
-  width: 100%;
-  cursor: pointer;
-  justify-content: space-between;
-  overflow: hidden;
-  border-radius: 0.5rem;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
-}
-
-.LogoContainer {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.PriceContainer {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: 600;
-}
-
 .Image {
   height: 50%;
   width: 80%;
@@ -266,47 +203,9 @@
   -webkit-transform: translateZ(0);
 }
 
-.LogoContainer p {
-  margin-left: 0.75rem;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 600;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.Price {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.Delta {
-  color: var(--db-brand-green);
-}
-
-.Delta.Lower {
-  color: #ef4444;
-}
-
 @media (min-width: 640px) {
-  .CryptoCard {
-    height: 70px;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-
-  .PriceContainer {
-    font-size: 0.875rem;
-    line-height: 1rem;
-  }
-
   .ImageContainer {
     height: 1.5rem;
     width: 1.5rem;
-  }
-
-  .LogoContainer p {
-    font-size: 1.25rem;
-    line-height: 1.75rem;
   }
 }

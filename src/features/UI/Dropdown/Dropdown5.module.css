@@ -1,13 +1,13 @@
 .Dropdown {
   width: auto;
   position: absolute;
-  background-color: var(--db-gray-1);
-  background: linear-gradient(222deg, #1e3748 0%, #2d5464 50%);
-  border-radius: 10px;
+  background: var(--db-gray-666);
+  border-radius: 5px;
   box-shadow: rgba(24, 36, 40, 0.6) 0px 5px 8px;
   z-index: 200;
   margin-top: 1px;
   top: 35px;
   left: 10px;
   min-width: 140px;
-} 
+  overflow: hidden;
+}
