@@ -24,10 +24,11 @@ const Ticket = () => {
   const liveState = useSelector((state) => state.live.liveState);
   const user = useSelector((state) => state.login.user);
   const selectedAccount = useSelector((state) => state.login.selectedAccount);
+  const permissions = useSelector((state) => state.login.permissions);
 
   useEffect(() => {
     dispatch(getTicketSettings());
-
+    if (permissions.AllowToSports === false) return;
     // Get slips from storage
     const storageTicket = getTicketFromStorage();
     if (storageTicket) {
