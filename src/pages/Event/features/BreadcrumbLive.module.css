@@ -1,5 +1,5 @@
 .Breadcrumb {
-  background: var(--db-gray-1);
+  background: var(--sb-search);
   box-sizing: border-box;
   display: flex;
   -webkit-box-align: center;

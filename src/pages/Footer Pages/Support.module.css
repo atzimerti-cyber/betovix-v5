@@ -5,7 +5,7 @@
     max-width: 1310px;
     width: 100%;
     container-type: inline-size;
-    background-color: var(--db-duelbits-gray);
+    background-color: var(--topbar-bg);
 }
 
 .ToS {

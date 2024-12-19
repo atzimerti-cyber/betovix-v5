@@ -35,7 +35,7 @@
 }
 
 .isBonus button {
-  color: var(--db-body-text);
+  color: var(--lightcolor-op1);
   border: 1px solid var(--db-gray-4);
   animation: 6s ease 0s infinite normal none running jQMcyq;
   width: 100%;
@@ -148,7 +148,7 @@
   font-size: 0.8rem;
   line-height: 1.5rem;
   font-weight: 700;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
   line-height: 0.8;
 }
 
@@ -158,7 +158,7 @@
   font-size: 1rem;
   line-height: 0.8rem;
   font-weight: 700;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .NewLabel {
@@ -169,7 +169,7 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  background-color: var(--db-purple-box);
+  background-color: var(--badge-new-purple);
   font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;
@@ -325,7 +325,7 @@
 }
 
 .BgVendor {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
   font-size: 0.9rem;
   font-weight: 500;
   text-align: center;
@@ -360,7 +360,7 @@
 }
 .PlayBtn {
   background: #7d7d7db6;
-  color: var(--db-body-text);
+  color: var(--lightcolor-op1);
   font-weight: 400;
   font-size: 12px;
   height: 3rem;

@@ -86,7 +86,7 @@
 .DescTitle {
     font-weight: bold;
     font-size: 20px;
-    color: var(--db-brand-green);
+    color: var(--brand-green);
 }
 
 .Description {
@@ -121,7 +121,7 @@
 
 @media (min-width: 1200px) {
     .TabContent {
-        /* background-color: var(--db-duelbits-gray); */
+        /* background-color: var(--topbar-bg); */
         padding: 1rem 2.5rem 1rem;
     } 
 }

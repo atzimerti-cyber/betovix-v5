@@ -28,7 +28,7 @@
   padding-top: 3px;
 }
 .ViewAll:hover {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .CardsContainer {

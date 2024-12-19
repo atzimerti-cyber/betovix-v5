@@ -2,7 +2,7 @@
     position: relative;
     overflow: hidden;
     border-radius: 9999px;
-    background-color: var(--db-gray-3);
+    background-color: var(--mid-blue-1);
     height: 26px;
 }
 
@@ -13,7 +13,7 @@
     top: 0;
     display: block;
     height: 100%;
-    background-color: var(--db-purple-box);
+    background-color: var(--badge-new-purple);
     width: var(--progress);
     border-radius: inherit;
 }

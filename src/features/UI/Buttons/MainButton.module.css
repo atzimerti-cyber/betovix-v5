@@ -79,7 +79,7 @@
   --tw-border-opacity: 1;
   border-color: hsl(var(--pf, var(--p)) / var(--tw-border-opacity));
   --tw-bg-opacity: 1;
-  background-color: var(--db-brand-color);
+  background-color: var(--brand-color);
 }
 
 .Danger.MainButton:hover {
@@ -97,7 +97,7 @@
   --tw-text-opacity: 1;
   color: hsl(var(--pc) / var(--tw-text-opacity));
 
-  background-color: var(--db-brand-color);
+  background-color: var(--brand-color);
 }
 
 .Primary.MainButton:hover {
@@ -106,7 +106,7 @@
   --tw-bg-opacity: 1;
   background-color: hsl(var(--pf, var(--p)) / var(--tw-bg-opacity));
 
-  background-color: var(--db-brand-color);
+  background-color: var(--brand-color);
 }
 
 .Secondary.MainButton {
@@ -161,7 +161,7 @@
 }
 
 .Active.MainButton {
-  background-color: var(--db-brand-green-36);
+  background-color: var(--brand-green-lowop);
 }
 .Active2.MainButton {
   background-color: var(--sidebar-casino-active);

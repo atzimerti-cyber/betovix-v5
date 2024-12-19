@@ -142,7 +142,7 @@
 }
 .PlayBtn {
   background: var(--casino-play-round);
-  color: var(--db-body-text);
+  color: var(--lightcolor-op1);
   font-weight: 400;
   font-size: 12px;
   height: 3.5rem;

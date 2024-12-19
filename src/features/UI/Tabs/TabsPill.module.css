@@ -32,7 +32,7 @@
   fill: var(--db-gray-4);
 }
 .Tab.Active > svg path {
-  fill: var(--db-brand-green);
+  fill: var(--brand-green);
 }
 .Tab > p {
   margin: 0;

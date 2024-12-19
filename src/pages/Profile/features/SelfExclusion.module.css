@@ -72,7 +72,7 @@
   background: var(--accordion-header);
 }
 .ContinueBtn {
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   width: 100%;
   max-width: 450px;
   padding: 0.6rem 2rem;
@@ -81,7 +81,7 @@
   font-weight: 500;
 }
 .ContinueBtn:hover {
-  background-color: var(--db-brand-color);
+  background-color: var(--brand-color);
 }
 .ContinueBtn:disabled {
   background-color: var(--card-odds-button-disabled);

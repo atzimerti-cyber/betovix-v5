@@ -40,7 +40,7 @@
 }
 
 .LeftArrow.MenuArrowButton {
-  background: linear-gradient(-90deg, transparent, var(--db-dark-1) 14px);
+  background: linear-gradient(-90deg, transparent, var(--body-bg) 14px);
   left: -10px;
 
   bottom: 0px;
@@ -48,7 +48,7 @@
 }
 
 .RightArrow.MenuArrowButton {
-  background: linear-gradient(90deg, transparent, var(--db-dark-1) 14px);
+  background: linear-gradient(90deg, transparent, var(--body-bg) 14px);
   right: -10px;
 
   bottom: 0px;

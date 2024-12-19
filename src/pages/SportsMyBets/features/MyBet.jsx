@@ -69,8 +69,8 @@ const MyBet = (props) => {
     if (betStatus === "Active")
       return { background: "var(--yellow-accent-color)" };
     else if (betStatus === "Win" || betStatus === "Cashed Out")
-      return { background: "var(--db-brand-green)" };
-    else if (betStatus === "Loss") return { background: "var(--db-cancelled)" };
+      return { background: "var(--brand-green)" };
+    else if (betStatus === "Loss") return { background: "var(--cancelled)" };
   };
 
   const onShowConfirmCashout = () => {

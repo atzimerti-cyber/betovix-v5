@@ -3,9 +3,9 @@
   display: flex;
   align-items: center;
   border-color: transparent;
-  background-color: var(--db-gray-2);
+  background-color: var(--mid-blue);
   border-radius: 0.5rem;
-  border-color: var(--db-gray-2);
+  border-color: var(--mid-blue);
   border-width: 1px;
   transition: border-color 0.4s;
 }
@@ -19,7 +19,7 @@
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
   border-radius: 0.125rem;
-  /* background-color: var(--db-gray-2); */
+  /* background-color: var(--mid-blue); */
   background: transparent;
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
@@ -47,7 +47,7 @@
   width: 0.75rem;
 }
 .RightIcon svg path {
-  fill: var(--db-body-subheading);
+  fill: var(--lightcolor-op1);
 }
 
 .DeleteIcon {
@@ -57,7 +57,7 @@
 }
 
 .IsInvalid.InputWrapper {
-  border-color: var(--db-red-primary) !important;
+  border-color: var(--cancelled) !important;
 }
 
 .InputWrapper input[type="search"]::-webkit-search-decoration,

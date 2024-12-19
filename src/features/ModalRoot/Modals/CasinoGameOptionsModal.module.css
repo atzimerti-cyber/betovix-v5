@@ -1,5 +1,5 @@
 .GameOptionsModal {
-  background-color: var(--db-gray-6);
+  background-color: var(--dark-blue-1);
   background: var(--casino-options-bg);
   width: 90vw;
   border-radius: 0.6rem;
@@ -194,7 +194,7 @@
   .GameOptionsModal {
     max-height: 80vh;
     max-width: 70vh;
-    background-color: var(--db-gray-6);
+    background-color: var(--dark-blue-1);
   }
   .GameName {
     font-size: 1.2rem;

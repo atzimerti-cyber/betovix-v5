@@ -1,7 +1,7 @@
 .SearchModal {
     display: flex;
     flex-direction: column;
-    background-color: var(--db-duelbits-gray);
+    background-color: var(--topbar-bg);
 
     position: relative;
     height: 100%;
@@ -43,7 +43,7 @@
     flex-shrink: 0;
 }
 .TitleContainer h1 svg path {
-    fill: var(--db-brand-green);
+    fill: var(--brand-green);
 }
 
 .CloseWrapper {

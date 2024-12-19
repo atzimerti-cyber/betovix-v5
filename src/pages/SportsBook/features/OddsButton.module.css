@@ -44,13 +44,13 @@
 }
 
 .Odds {
-  color: var(--db-white-primary);
+  color: var(--white);
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
   font-weight: 600;
 }
 .Odds.Up {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 .Odds.Down {
   color: rgb(236, 100, 75);
@@ -67,13 +67,13 @@
 }
 
 .OddsButton.Selected {
-  background: var(--db-gray-2);
+  background: var(--mid-blue);
   border-color: var(--lightcolor-op1);
 }
 
 .OddsButton.Selected:disabled {
   background: var(--odds-button-disabled);
-  border-color: var(--db-gray-13) !important;
+  border-color: var(--odds-button-border) !important;
 }
 
 /* CardButton */
@@ -99,7 +99,7 @@
 .CardButton.Selected {
   background-color: var(--card-odds-button-selected);
   color: white;
-  border-color: var(--db-gray-13);
+  border-color: var(--odds-button-border);
   font-weight: 700;
   border: 1px solid var(--lightcolor-low-op);
 }

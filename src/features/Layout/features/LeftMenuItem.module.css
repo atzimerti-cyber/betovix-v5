@@ -31,11 +31,11 @@
 .LeftMenuItem a img {
   width: 1.3rem;
   height: 1.3rem;
-  fill: var(--db-gray-5);
+  fill: var(--light-blue);
 }
 
 .LeftMenuItem a svg path {
-  fill: var(--db-gray-5);
+  fill: var(--light-blue);
 }
 
 .BadgeFree,
@@ -51,18 +51,18 @@
 }
 
 .BadgeFree {
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
 }
 
 .BadgeNew {
-  background-color: var(--db-purple-box);
+  background-color: var(--badge-new-purple);
 }
 
 .Timer {
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .Container {
@@ -92,7 +92,7 @@
   top: 50%;
   bottom: 0;
   width: 5px;
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   height: 50%;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -110,7 +110,7 @@
 }
 
 .LeftMenuItem.ShowEmphasis .IconWrapper path {
-  fill: var(--db-brand-green);
+  fill: var(--brand-green);
 }
 
 .LeftMenuItem.Active.ShowEmphasis .IconWrapper path {

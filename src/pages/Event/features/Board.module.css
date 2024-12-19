@@ -72,7 +72,7 @@
 
 .LiveBadge {
   animation: 6s ease 0s infinite normal none running jQMcyq;
-  background: var(--db-purple-text);
+  background: var(--live-badge-purple);
   border-radius: 2px;
   color: white;
   font-size: 12px;
@@ -131,7 +131,7 @@
 }
 
 .ScoreGroup {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
   display: flex;
 }
 
@@ -153,7 +153,7 @@
 }
 
 .ServerIndicator {
-  background: var(--db-brand-green);
+  background: var(--brand-green);
   border-radius: 0%;
   transition: transform 0.4s cubic-bezier(0.5, -0.5, 0.5, 1.5);
   width: 35%;
@@ -167,7 +167,7 @@
   color: white;
   font-weight: 700;
   font-size: 1.3rem;
-  background-color: var(--db-duelbits-gray);
+  background-color: var(--topbar-bg);
   height: 2.2rem;
 
   padding: 0 0.25rem;
@@ -182,7 +182,7 @@
   content: "";
   width: 5px;
   height: 60%;
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   position: absolute;
   right: 98%;
   top: 50%;
@@ -195,7 +195,7 @@
   content: "";
   width: 5px;
   height: 60%;
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   position: absolute;
   left: 98%;
   top: 50%;
@@ -239,7 +239,7 @@
 ::-webkit-scrollbar-thumb {
   background: var(--darkcolor-low-op);
   border-radius: 10px;
-  border: 2px solid var(--db-gray-1);
+  border: 2px solid var(--sb-search);
 }
 
 ::-webkit-scrollbar-thumb:hover {

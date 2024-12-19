@@ -91,7 +91,7 @@
 
 .InstantDecoration span {
   border-radius: 9999px;
-  background-color: var(--db-gray-5);
+  background-color: var(--light-blue);
   width: 6px;
   height: 3px;
 }
@@ -123,7 +123,7 @@
 .TempButton {
   min-height: 30px;
   border-radius: 0.375rem;
-  /* background-color: var(--db-brand-green); */
+  /* background-color: var(--brand-green); */
   background: transparent;
   padding: 0.125rem 0rem;
   text-align: center;
@@ -206,16 +206,16 @@
 .Progress {
   --progress: 50%;
   border-radius: 9999px;
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   height: inherit;
   width: var(--progress);
   transition: width 0.3s ease;
 
   background: linear-gradient(
     120deg,
-    var(--db-brand-green) 25%,
+    var(--brand-green) 25%,
     rgb(189, 217, 177) 50%,
-    var(--db-brand-green) 75%
+    var(--brand-green) 75%
   );
   background-size: 200% 100%;
   animation: shineLines 10s infinite linear;

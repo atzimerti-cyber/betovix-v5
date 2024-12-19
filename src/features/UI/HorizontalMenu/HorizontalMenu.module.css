@@ -34,8 +34,8 @@
   margin-right: 3px;
   line-height: 13px;
   flex: 0 0 auto;
-  color: var(--db-white-primary);
-  fill: var(--db-white-primary);
+  color: var(--white);
+  fill: var(--white);
   height: 45px;
   width: auto;
   margin-inline-end: 3px;
@@ -84,7 +84,7 @@
   fill: var(--db-gray-800);
 }
 .SportIcon.Selected svg path {
-  fill: var(--db-brand-green);
+  fill: var(--brand-green);
 }
 
 .SportName {
@@ -106,14 +106,14 @@
 }
 
 .Item.Selected {
-  border-bottom-color: var(--db-brand-green);
-  color: var(--db-brand-green);
-  fill: var(--db-brand-green);
+  border-bottom-color: var(--brand-green);
+  color: var(--brand-green);
+  fill: var(--brand-green);
 }
 .Item.Selected svg {
-  border-bottom-color: var(--db-brand-green);
-  color: var(--db-brand-green);
-  fill: var(--db-brand-green);
+  border-bottom-color: var(--brand-green);
+  color: var(--brand-green);
+  fill: var(--brand-green);
 }
 
 .LightColor .Item:not(.Selected) {

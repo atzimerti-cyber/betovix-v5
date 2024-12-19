@@ -22,7 +22,7 @@
 
 .MailFormGroup {
   border-radius: 0.5rem;
-  background-color: var(--db-gray-2);
+  background-color: var(--mid-blue);
   padding: 0.5rem;
   width: 100%;
 }
@@ -93,7 +93,7 @@
 
 .FormGroup {
   border-radius: 0.5rem;
-  background-color: var(--db-gray-2);
+  background-color: var(--mid-blue);
 
   background: var(--button-grad-op-mid);
   width: 100%;
@@ -163,7 +163,7 @@
   height: auto;
 }
 .FileSubmitButton {
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   padding: 0.3rem 0.5rem;
   border-radius: 5px;
   color: rgb(255, 255, 255);
@@ -182,7 +182,7 @@
   max-width: 7rem;
 }
 .RemoveFileButton:hover {
-  background-color: var(--db-cancelled);
+  background-color: var(--cancelled);
 }
 .FileInfo {
   display: flex;

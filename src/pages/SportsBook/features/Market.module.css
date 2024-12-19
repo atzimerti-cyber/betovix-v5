@@ -62,6 +62,6 @@
 }
 
 .MarketOption {
-  background-color: var(--db-gray-666);
+  background-color: var(--light-blue-2);
   border-bottom: 1px solid var(--lightcolor-low-op);
 }

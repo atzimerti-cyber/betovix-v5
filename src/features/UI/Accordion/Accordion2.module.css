@@ -1,5 +1,5 @@
 .Accordion {
-  background: var(--db-duelbits-gray);
+  background: var(--topbar-bg);
   border-radius: 0px;
   margin-block: 0px;
   -webkit-box-align: stretch;
@@ -15,7 +15,7 @@
   display: flex;
   -webkit-box-pack: justify;
   justify-content: space-between;
-  background: var(--db-gray-667); 
+  background: var(--light-blue-2);
   color: black;
   border-radius: 0px;
   line-height: 20px;
@@ -35,7 +35,7 @@
   width: 20px;
   height: 20px;
 }
-.TitleIcon svg path { 
+.TitleIcon svg path {
   fill: var(--placeholder-light);
 }
 
@@ -71,11 +71,11 @@
 }
 
 .Accordion.Open .Title {
-  background: var(--db-gray-708);
-} 
+  background: var(--mid-blue);
+}
 
 .AccordionBody {
-  background: var(--db-gray-708);
+  background: var(--mid-blue);
   padding: 0 5px 5px 5px;
 }
 .AccordionBody > div {

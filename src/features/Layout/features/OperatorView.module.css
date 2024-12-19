@@ -15,7 +15,7 @@
 }
 
 .operatorViewTitle {
-  border-bottom: 1px solid var(--db-gray-5);
+  border-bottom: 1px solid var(--light-blue);
   cursor: default;
   font-size: 16px;
   font-weight: 600;
@@ -63,7 +63,7 @@
 .loadTicketContainer > div {
   display: flex;
   align-items: center;
-  color: var(--db-body-text);
+  color: var(--lightcolor-op1);
   flex: 0;
   flex-wrap: wrap;
 }

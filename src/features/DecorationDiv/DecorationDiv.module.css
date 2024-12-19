@@ -7,7 +7,7 @@
 .DecorationDiv.Primary::before {
   left: 50%;
   transform-origin: bottom;
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   transform: translateX(-50%) rotateX(4deg);
   width: calc(100% + 2px);
 }
@@ -15,7 +15,7 @@
   bottom: 0;
   right: 0;
   transform-origin: top left;
-  background-color: var(--db-purple-box);
+  background-color: var(--badge-new-purple);
   transform: rotateX(-4deg) rotateY(0deg);
   width: calc(100% + 2px);
 }

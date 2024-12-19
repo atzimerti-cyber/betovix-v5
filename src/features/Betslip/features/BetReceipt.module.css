@@ -1,6 +1,6 @@
 .BetReceipt {
   animation: 0.3s ease 0s 1 normal backwards running gydbdh;
-  background: var(--db-gray-1);
+  background: var(--sb-search);
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 16px 8px -4px;
   color: rgb(255, 255, 255);
@@ -18,14 +18,14 @@
 }
 
 .BetSuccessIcon {
-  fill: var(--db-brand-color);
+  fill: var(--brand-color);
   flex: 0 0 32px;
   margin: 24px auto 0px;
   width: 32px;
   height: 32px;
 }
 .BetErrorIcon {
-  fill: var(--db-error);
+  fill: var(--cancelled);
   flex: 0 0 32px;
   margin: 24px auto 0px;
   width: 32px;
@@ -40,7 +40,7 @@
 
 .AddPreviousButton {
   appearance: none;
-  background: var(--db-brand-color);
+  background: var(--brand-color);
   color: rgb(255, 255, 255);
   cursor: pointer;
   border: 1px solid rgb(51, 193, 108);
@@ -63,7 +63,7 @@
   background: none;
   color: rgb(255, 255, 255);
   cursor: pointer;
-  border: 1px solid var(--db-brand-color);
+  border: 1px solid var(--brand-color);
   border-radius: 4px;
   display: flex;
   -webkit-box-align: center;

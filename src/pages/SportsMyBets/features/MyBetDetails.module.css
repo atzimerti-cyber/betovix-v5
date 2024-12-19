@@ -24,7 +24,7 @@
 }
 
 .Separator {
-  border-top: 1px solid var(--db-dark-1);
+  border-top: 1px solid var(--body-bg);
   width: 96%;
   display: flex;
   -webkit-box-pack: center;
@@ -70,7 +70,7 @@
 }
 
 .MarketName {
-  color: var(--db-body-text);
+  color: var(--lightcolor-op1);
   font-size: 12px;
   font-weight: 700;
   margin-top: 10px;
@@ -94,7 +94,7 @@
 }
 
 .InfoScore {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .StatusContainer {
@@ -116,17 +116,17 @@
 }
 
 .StatusContainer.Loss .Circle {
-  background: var(--db-cancelled);
+  background: var(--cancelled);
 }
 .StatusContainer.Win .Circle {
-  background: var(--db-brand-green);
+  background: var(--brand-green);
 }
 
 .Odds {
   margin-top: 5px;
 }
 .Odds > span {
-  color: var(--db-white-primary);
+  color: var(--white);
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
   font-weight: 600;

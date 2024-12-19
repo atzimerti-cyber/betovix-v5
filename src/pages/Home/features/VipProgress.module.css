@@ -69,7 +69,7 @@
   justify-content: center;
   font-size: 0.8rem;
   font-weight: 400;
-  color: var(--db-white-primary);
+  color: var(--white);
 }
 
 .TitleContainer {
@@ -94,7 +94,7 @@
   }
 }
 .TitleAccent {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .LevelName {
@@ -132,7 +132,7 @@
   font-size: 0.75rem;
   line-height: 1rem;
   font-weight: 600;
-  color: var(--db-white-primary);
+  color: var(--white);
 }
 
 .RightContainer .IconContainer {
@@ -142,11 +142,11 @@
 }
 
 .ProgressTextAccent {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .BarContainer {
-  background-color: var(--db-dark-1);
+  background-color: var(--body-bg);
   height: 5px;
   border-radius: 9999px;
   position: absolute;
@@ -164,7 +164,7 @@
   display: block;
   height: inherit;
   border-radius: inherit;
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   transition: width 0.3s linear;
   animation: shineLines 7s infinite linear;
 }
@@ -204,11 +204,11 @@
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   height: 14px;
   width: 14px;
-  background-color: var(--db-dark-1);
+  background-color: var(--body-bg);
 }
 
 .Complete.DiamondPosition .Diamond {
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
 }
 
 @media (min-width: 640px) {

@@ -10,7 +10,7 @@
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  background-color: var(--db-gray-6);
+  background-color: var(--dark-blue-1);
   margin-top: 60px;
   opacity: 0;
   animation: slide 0.2s ease-out forwards;
@@ -59,7 +59,7 @@
   left: -200px;
   width: 200px;
   height: 2px;
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   animation: loading 2s linear infinite;
 }
 
@@ -267,7 +267,7 @@ header .Right {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .bonusesBody {
-  border-top: 1px solid var(--db-brand-green);
+  border-top: 1px solid var(--brand-green);
   padding: 10px;
   position: relative;
   padding-bottom: 50px;

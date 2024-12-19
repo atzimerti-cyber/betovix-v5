@@ -1,7 +1,7 @@
 .NotificationModal {
   display: flex;
   flex-direction: column;
-  background-color: var(--db-duelbits-gray);
+  background-color: var(--topbar-bg);
 
   position: relative;
   height: 100%;
@@ -99,7 +99,7 @@
 }
 
 input:checked + .SliderRound {
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
 }
 
 input:checked + .SliderRound:before {

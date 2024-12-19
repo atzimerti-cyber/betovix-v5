@@ -1,7 +1,7 @@
 .LiveBadge {    
     display: inline-block;
     animation: 6s ease 0s infinite normal none running jQMcyq;
-    background: var(--db-purple-text);
+    background: var(--live-badge-purple);
     border-radius: 2px;
     color: rgb(255, 255, 255);
     font-size: 12px;

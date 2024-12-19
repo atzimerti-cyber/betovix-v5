@@ -45,8 +45,8 @@
     border-bottom: 0px !important;
 }
 .DropdownItem:hover {
-    background-color: var(--db-brand-green);
+    background-color: var(--brand-green);
 }
 .DropdownItem.Active {
-    background-color: var(--db-brand-green);
+    background-color: var(--brand-green);
 }

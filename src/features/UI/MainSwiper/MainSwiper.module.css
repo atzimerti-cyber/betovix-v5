@@ -21,7 +21,7 @@
 }
 
 .Title i {
-  color: var(--db-gray-5);
+  color: var(--light-blue);
   margin-right: 5px;
 }
 .Title svg {
@@ -32,7 +32,7 @@
 }
 
 .Title svg path {
-  fill: var(--db-brand-green);
+  fill: var(--brand-green);
 }
 .GoToSVG {
   cursor: pointer;
@@ -68,7 +68,7 @@
   line-height: 0.8rem;
   font-weight: 600;
   line-height: 1;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .NavButtons > a > svg {
@@ -108,7 +108,7 @@
 
 :local(.WithPagination) :global(.swiper-pagination-bullet-active) {
   width: 1.75rem;
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   --tw-shadow: 0 0 transparent;
   --tw-shadow-colored: 0 0 transparent;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent),

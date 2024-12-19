@@ -7,7 +7,7 @@
   height: 100%;
   width: 100%;
   flex-direction: column;
-  background-color: var(--db-duelbits-gray);
+  background-color: var(--topbar-bg);
 }
 
 .TabContainer > div {
@@ -64,7 +64,7 @@
     /* max-height: 680px; */
     max-height: 90vh;
     width: 552px;
-    background-color: var(--db-gray-6);
+    background-color: var(--dark-blue-1);
     border-radius: 10px;
   }
 }

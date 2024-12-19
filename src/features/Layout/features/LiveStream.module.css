@@ -19,7 +19,7 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    background: var(--db-gray-3);
+    background: var(--mid-blue-1);
     -webkit-box-align: center;
     align-items: center;
     -webkit-box-pack: center;

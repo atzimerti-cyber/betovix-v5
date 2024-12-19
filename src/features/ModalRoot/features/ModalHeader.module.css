@@ -24,7 +24,7 @@
 }
 
 .ModalHeaderCenter svg path {
-  fill: var(--db-brand-green);
+  fill: var(--brand-green);
 }
 
 .ModalHeaderCenter h2 {

@@ -9,7 +9,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: var(--db-gray-banner);
+    background-color: var(--body-bg);
     transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     z-index: 10000;
 }

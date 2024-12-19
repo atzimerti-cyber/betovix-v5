@@ -67,19 +67,19 @@
 .DropdownInner .RightIcon svg {
   height: 1.25rem;
   width: 1.25rem;
-  fill: var(--db-brand-green);
+  fill: var(--brand-green);
 }
 
 .DropdownItem.Active {
-  border-right: 2px solid var(--db-brand-green);
-  background-color: var(--db-gray-2);
+  border-right: 2px solid var(--brand-green);
+  background-color: var(--mid-blue);
 }
 .DropdownItem.Active:hover {
   background-color: var(--db-white-hover);
 }
 
 .Placeholder {
-  color: var(--db-body-subheading);
+  color: var(--lightcolor-op1);
 }
 
 .TopElement {
@@ -95,12 +95,12 @@
 }
 .SumbitButton {
   height: 2rem;
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   border-radius: 5px;
   padding: 0.1rem 0.7rem;
 }
 .SearchContainer {
-  border-color: var(--db-gray-1);
+  border-color: var(--sb-search);
   border-width: 1px;
   position: relative;
   display: flex;
@@ -114,7 +114,7 @@
 }
 
 .ClearLabel {
-  border-color: var(--db-gray-1);
+  border-color: var(--sb-search);
   cursor: pointer;
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
@@ -135,7 +135,7 @@
   font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero)
     var(--tw-numeric-figure) var(--tw-numeric-spacing)
     var(--tw-numeric-fraction);
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 .ClearLabel.Disabled .SelectedCount {
   cursor: auto;
@@ -143,7 +143,7 @@
 }
 
 .SearchContainer input {
-  background-color: var(--db-gray-1);
+  background-color: var(--sb-search);
   padding-left: 40px !important;
   flex-grow: 1;
   resize: none;
@@ -165,23 +165,23 @@
 }
 
 .SearchContainer input::placeholder {
-  color: var(--db-body-subheading);
+  color: var(--lightcolor-op1);
   opacity: 1;
 }
 .SearchContainer input::-webkit-input-placeholder {
-  color: var(--db-body-subheading);
+  color: var(--lightcolor-op1);
   opacity: 1;
 }
 .SearchContainer input::-moz-placeholder {
-  color: var(--db-body-subheading);
+  color: var(--lightcolor-op1);
   opacity: 1;
 }
 .SearchContainer input:-ms-input-placeholder {
-  color: var(--db-body-subheading);
+  color: var(--lightcolor-op1);
   opacity: 1;
 }
 .SearchContainer input:-moz-placeholder {
-  color: var(--db-body-subheading);
+  color: var(--lightcolor-op1);
   opacity: 1;
 }
 
@@ -199,7 +199,7 @@
   left: 0.75rem !important;
   height: 0.75rem !important;
   width: 0.75rem !important;
-  fill: var(--db-brand-green);
+  fill: var(--brand-green);
 }
 
 .VendorOption a {
@@ -224,21 +224,21 @@
 }
 .VendorOption.Active {
   border-right-width: 2px;
-  border-color: var(--db-brand-green);
-  background-color: var(--db-gray-2);
+  border-color: var(--brand-green);
+  background-color: var(--mid-blue);
 }
 
 .Checkbox path {
-  fill: var(--db-gray-3);
+  fill: var(--mid-blue-1);
 }
 
 .VendorOption.Active .Checkbox svg path {
-  fill: var(--db-brand-green);
+  fill: var(--brand-green);
 }
 
 .Count {
   margin-left: 0.25rem;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .List {

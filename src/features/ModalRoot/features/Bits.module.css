@@ -3,7 +3,7 @@
     flex-basis: calc(25% - 10px);
     flex-grow: 1;
     border-radius: 0.5rem;
-    background-color: var(--db-gray-2);
+    background-color: var(--mid-blue);
     padding: 0.5rem;
     --tw-text-opacity: 1;
     color: rgb(255 255 255 / var(--tw-text-opacity));
@@ -59,7 +59,7 @@
 }
 .InstantDecoration span {
     border-radius: 9999px;
-    background-color: var(--db-gray-5);
+    background-color: var(--light-blue);
     width: 6px;
     height: 3px;
 }
@@ -71,7 +71,7 @@
     margin-top: 22px;
     min-height: 30px;
     border-radius: 0.375rem;
-    background-color: var(--db-brand-green);
+    background-color: var(--brand-green);
     padding: 0.125rem 0.5rem;
     text-align: center;
     font-size: 0.75rem;
@@ -101,7 +101,7 @@
     line-height: 0.8rem;
     font-weight: 500;
     line-height: 1;
-    color: var(--db-body-subheading);
+    color: var(--lightcolor-op1);
 }
 
 .ClaimIn {
@@ -123,7 +123,7 @@
 .Progress {
     --progress: 50%;
     border-radius: 9999px;
-    background-color: var(--db-brand-green);
+    background-color: var(--brand-green);
     height: inherit;
     width: var(--progress);
     transition: width 0.3s ease;

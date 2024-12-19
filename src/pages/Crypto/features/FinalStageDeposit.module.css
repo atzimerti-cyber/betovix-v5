@@ -77,7 +77,7 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 0.375rem;
-  background-color: var(--db-dark-1);
+  background-color: var(--body-bg);
   padding-left: 1rem;
   padding-right: 0.75rem;
   padding-top: 0.5rem;

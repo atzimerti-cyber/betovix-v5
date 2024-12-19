@@ -84,7 +84,7 @@
   align-items: center;
   justify-content: space-between;
   border-radius: 0.375rem;
-  background-color: var(--db-dark-1);
+  background-color: var(--body-bg);
   padding-left: 0.7rem;
   padding-right: 0.75rem;
   padding-top: 0.5rem;
@@ -147,7 +147,7 @@
   width: 5rem;
 }
 .GoToReqs {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
   font-weight: 400;
   font-size: 0.85rem;
 

@@ -1,5 +1,5 @@
 .TournamentSearch {
-    background: var(--db-gray-1);
+    background: var(--sb-search);
     border-radius: 8px;
     -webkit-box-align: center;
     align-items: center;

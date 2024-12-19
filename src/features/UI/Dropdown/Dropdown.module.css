@@ -46,7 +46,7 @@
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 600;
-    color: var(--db-white-primary);
+    color: var(--white);
     --tw-shadow: var(--db-dropdown-shadow);
     --tw-shadow-colored: var(--db-dropdown-shadow);
     box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent), var(--tw-ring-shadow, 0 0 transparent), var(--tw-shadow);

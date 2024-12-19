@@ -73,7 +73,7 @@
 }
 .RightIcon svg path,
 .LeftIcon svg path {
-  fill: var(--db-body-subheading);
+  fill: var(--lightcolor-op1);
 }
 
 .SearchContainer input[type="search"]::-webkit-search-decoration,
@@ -85,34 +85,34 @@
 
 .SearchContainer input::placeholder {
   color: white;
-  /* color: var(--db-body-subheading); */
+  /* color: var(--lightcolor-op1); */
   opacity: 1;
 }
 .SearchContainer input::-webkit-input-placeholder {
   color: white;
-  /* color: var(--db-body-subheading); */
+  /* color: var(--lightcolor-op1); */
   opacity: 1;
 }
 .SearchContainer input::-moz-placeholder {
   color: white;
-  /* color: var(--db-body-subheading); */
+  /* color: var(--lightcolor-op1); */
   opacity: 1;
 }
 .SearchContainer input:-ms-input-placeholder {
   color: white;
-  /* color: var(--db-body-subheading); */
+  /* color: var(--lightcolor-op1); */
   opacity: 1;
 }
 .SearchContainer input:-moz-placeholder {
   color: white;
-  /* color: var(--db-body-subheading); */
+  /* color: var(--lightcolor-op1); */
   opacity: 1;
 }
 
 .SearchContainer:focus-within,
 .SearchContainer:hover {
-  border-color: var(--db-brand-green);
-  background-color: var(--db-duelbits-gray);
+  border-color: var(--brand-green);
+  background-color: var(--topbar-bg);
 }
 
 .DeleteIcon {

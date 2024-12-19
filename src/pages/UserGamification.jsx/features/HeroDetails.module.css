@@ -46,7 +46,7 @@
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 /* Customizing the scrollbar for the entire page */
 ::-webkit-scrollbar {
@@ -55,13 +55,13 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--db-gray-1); /* Track background */
+  background: var(--sb-search); /* Track background */
 }
 
 ::-webkit-scrollbar-thumb {
   background-color: #83bccb; /* Thumb (scrollbar handle) color */
   border-radius: 10px; /* Round edges */
-  border: 2px solid var(--db-gray-1); /* Adds some padding around the thumb */
+  border: 2px solid var(--sb-search); /* Adds some padding around the thumb */
 }
 
 ::-webkit-scrollbar-thumb:hover {

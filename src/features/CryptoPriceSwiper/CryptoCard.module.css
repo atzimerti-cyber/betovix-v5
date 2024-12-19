@@ -16,7 +16,7 @@
 
 .Delta {
     margin-left: 0.25rem;
-    color: var(--db-brand-green);
+    color: var(--brand-green);
 }
 .Delta.Lower {
     color: #ef4443;
@@ -26,5 +26,5 @@
     padding-right: 0.25rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
-    color: var(--db-body-text);
+    color: var(--lightcolor-op1);
 }

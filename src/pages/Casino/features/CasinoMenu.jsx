@@ -46,7 +46,7 @@ const CasinoMenu = () => {
             }
             to="/casino/providers"
           >
-            <ProvidersIcon fill="var(--db-gray-5)" />
+            <ProvidersIcon fill="var(--light-blue)" />
             {translate("Providers")}
           </NavLink>
         </SwiperSlide>

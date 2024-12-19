@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   border-color: transparent;
-  background-color: var(--db-gray-6);
+  background-color: var(--dark-blue-1);
   transition-duration: 0.2s;
   border-width: 1px;
   border-style: none;
@@ -45,7 +45,7 @@
   cursor: pointer;
 }
 .Copy > button:hover {
-  background-color: var(--db-gray-5);
+  background-color: var(--light-blue);
 }
 
 .Copy > button label {

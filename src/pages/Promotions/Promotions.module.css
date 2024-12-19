@@ -112,7 +112,7 @@
   position: absolute;
   left: -1px;
   z-index: 9;
-  background: linear-gradient(90deg, var(--db-gray-banner), transparent);
+  background: linear-gradient(90deg, var(--body-bg), transparent);
   height: 100%;
   width: 100%;
   pointer-events: none;

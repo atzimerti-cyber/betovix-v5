@@ -19,7 +19,7 @@
   line-height: 1.5rem;
   --tw-text-opacity: 1;
   color: white;
-  /* color: rgb(255 255 255 / var(--db-brand-green)); */
+  /* color: rgb(255 255 255 / var(--brand-green)); */
   font-weight: bold;
   padding-top: 1rem;
   margin-bottom: 1rem;
@@ -47,7 +47,7 @@
 
 @media (min-width: 768px) {
   .TabContent {
-    background-color: var(--db-duelbits-gray);
+    background-color: var(--topbar-bg);
     padding: 3rem 2.5rem;
   }
 

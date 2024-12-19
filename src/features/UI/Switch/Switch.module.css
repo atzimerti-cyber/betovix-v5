@@ -13,7 +13,7 @@
     border-radius: 9999px;
     background-color: var(--db-white-hover);
     padding: 0.125rem;
-    color: var(--db-brand-green);
+    color: var(--brand-green);
     transition: grid-template-columns 0.2s;
     grid-template-columns: 0fr -webkit-min-content;
     grid-template-columns: 0fr min-content;
@@ -24,13 +24,13 @@
     height: 100%;
     width: 0.75rem;
     border-radius: 9999px;
-    background-color: var(--db-duelbits-gray);
+    background-color: var(--topbar-bg);
     grid-column: 2;
 }
 
 .Switch.Active .SwitchIcon {
-    background-color: var(--db-brand-green);
-    color: var(--db-gray-5);
+    background-color: var(--brand-green);
+    color: var(--light-blue);
     grid-template-columns: 1fr -webkit-min-content;
     grid-template-columns: 1fr min-content;
 }

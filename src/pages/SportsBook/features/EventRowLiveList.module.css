@@ -1,5 +1,5 @@
 .EventRow {
-  background: var(--db-gray-6);
+  background: var(--dark-blue-1);
   border-radius: 10px;
   cursor: pointer;
   display: flex;
@@ -32,7 +32,7 @@
   min-width: fit-content;
   font-size: 12px;
   font-weight: 500;
-  color: var(--db-body-text);
+  color: var(--lightcolor-op1);
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -64,7 +64,7 @@
 }
 
 .ServerIndicator {
-  background: var(--db-brand-color);
+  background: var(--brand-color);
   border-radius: 50%;
   margin: 10px 0px;
   transition: transform 0.4s cubic-bezier(0.5, -0.5, 0.5, 1.5) 0s;
@@ -103,7 +103,7 @@
   cursor: pointer;
 }
 .IconContainer > svg {
-  fill: var(--db-brand-color);
+  fill: var(--brand-color);
 }
 
 .ExtraMarkets {
@@ -147,7 +147,7 @@
 }
 
 .ScoreGroup {
-  color: var(--db-brand-color);
+  color: var(--brand-color);
   display: flex;
 }
 
@@ -176,7 +176,7 @@
 
 .LiveBadge {
   animation: 6s ease 0s infinite normal none running jQMcyq;
-  background: var(--db-purple-text);
+  background: var(--live-badge-purple);
   border-radius: 2px;
   color: rgb(255, 255, 255);
   font-size: 12px;

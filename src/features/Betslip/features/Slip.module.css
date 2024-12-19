@@ -1,6 +1,6 @@
 .Slip {
     /* animation: 0.3s ease 0s 1 normal backwards running GqXly; */
-    background: var(--db-gray-1);
+    background: var(--sb-search);
     border-radius: 8px;
     border-inline: 2px solid transparent;
     display: flex;
@@ -16,7 +16,7 @@
 
 .Selection {
     animation: 0.3s ease 0s 1 normal backwards running GqXly;
-    background: var(--db-gray-1);
+    background: var(--sb-search);
     border-radius: 8px;
     border-inline: 2px solid transparent;
     display: flex;
@@ -114,7 +114,7 @@
     cursor: pointer;
     display: grid;
     place-items: center;
-    fill: var(--db-white-primary);
+    fill: var(--white);
     width: 32px;
     height: 32px;
     flex: 0 0 32px;
@@ -122,7 +122,7 @@
 .DismissButton svg {
     width: 10px;
     height: 10px;
-    fill: var(--db-white-primary);
+    fill: var(--white);
     transition: fill 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
 }
 
@@ -131,7 +131,7 @@
 }
 
 .Separator {
-    background: var(--db-gray-5);
+    background: var(--light-blue);
     height: 1px;
     margin-inline: 10px;
 }
@@ -180,7 +180,7 @@
 }
 
 .MarketName {
-    color: var(--db-body-text);
+    color: var(--lightcolor-op1);
     font-size: 12px;
     font-weight: 700;
     margin: 4px 0px;
@@ -240,7 +240,7 @@
     flex: 0 1 152px;
     height: 30px;
     position: relative;
-    background: var(--db-gray-1);
+    background: var(--sb-search);
 }
 
 .PaymentMarketInfo {
@@ -254,7 +254,7 @@
 }
 
 .AmountLabel {
-    color: var(--db-body-text);
+    color: var(--lightcolor-op1);
     font-size: 12px;
     margin: 0px;
     margin-bottom: 5px;
@@ -316,7 +316,7 @@
 .LiveBadge {
     margin-inline: 10px 0px;
     animation: 6s ease 0s infinite normal none running jQMcyq;
-    background: var(--db-purple-text);
+    background: var(--live-badge-purple);
     border-radius: 2px;
     color: rgb(255, 255, 255);
     font-size: 12px;

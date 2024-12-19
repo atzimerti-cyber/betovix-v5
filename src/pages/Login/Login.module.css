@@ -31,13 +31,13 @@
 .Form .InputOuter {
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;
-  border-color: var(--db-gray-2);
+  border-color: var(--mid-blue);
 }
 .InputOuterCountrySelect {
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;
-  border-color: var(--db-gray-2);
-  background-color: var(--db-gray-2);
+  border-color: var(--mid-blue);
+  background-color: var(--mid-blue);
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -48,7 +48,7 @@
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 .InputOuterCountrySelect:hover {
-  border-color: var(--db-brand-green);
+  border-color: var(--brand-green);
 }
 
 .LoginWith {
@@ -94,13 +94,13 @@
 }
 
 .Required {
-  color: var(--db-gray-5);
+  color: var(--light-blue);
   font-size: 0.9rem;
   margin-inline: 0.25ch;
   transition: color 0.3s;
 }
 .Optional {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
   font-size: 0.7rem;
   font-weight: 500;
   margin-inline: 0.25ch;
@@ -108,7 +108,7 @@
 }
 
 .Required.Fulfilled {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .Container {
@@ -117,7 +117,7 @@
 
 .FormValidationMessage {
   animation: fadeIn 0.3s backwards;
-  color: var(--db-red-primary);
+  color: var(--cancelled);
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -153,7 +153,7 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  color: var(--db-gray-5);
+  color: var(--light-blue);
   transition: color 0.3s;
 }
 
@@ -171,11 +171,11 @@
 }
 
 .PasswordMessage.IsValid {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .PasswordMessage.IsValid svg path {
-  fill: var(--db-brand-color);
+  fill: var(--brand-color);
 }
 
 /* Media */
@@ -193,11 +193,11 @@
   border-radius: 0.5rem;
 }
 .PhoneInput > div:hover {
-  border: 1px solid var(--db-brand-green) !important;
+  border: 1px solid var(--brand-green) !important;
 }
 
 .PhoneInput > div > input {
-  background: var(--db-gray-2) !important;
+  background: var(--mid-blue) !important;
   border: 1px solid transparent !important;
   width: 100% !important;
   border-radius: 0.5rem !important;
@@ -205,19 +205,19 @@
   font-weight: 400 !important;
 }
 .PhoneInput > div > div {
-  background: var(--db-gray-2) !important;
+  background: var(--mid-blue) !important;
   border: 1px solid transparent !important;
   border-radius: 0.5rem !important;
 }
 .PhoneInput > div > div > div:hover,
 .PhoneInput > div > div > div:focus {
-  background-color: var(--db-gray-6) !important;
-  background: var(--db-gray-6) !important;
+  background-color: var(--dark-blue-1) !important;
+  background: var(--dark-blue-1) !important;
   border: 0px solid transparent !important;
   border-radius: 0.4rem !important;
 }
 .PhoneInput > div > div > ul {
-  background: var(--db-gray-2) !important;
+  background: var(--mid-blue) !important;
 }
 .PhoneInput > div > div > ul > li:hover {
   background: #0f4767 !important;
@@ -226,7 +226,7 @@
   color: #fff !important;
 }
 .PhoneInput .react-tel-input .flag-dropdown .open .selected-flag {
-  background: var(--db-cancelled) !important;
+  background: var(--cancelled) !important;
 }
 
 .PromoContainer {

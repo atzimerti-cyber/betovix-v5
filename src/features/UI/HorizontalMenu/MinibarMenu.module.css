@@ -25,8 +25,8 @@
     padding: 0px 10px;
     line-height: 13px;
     flex: 0 0 auto;
-    color: var(--db-white-primary);
-    fill: var(--db-white-primary);
+    color: var(--white);
+    fill: var(--white);
     height: 45px;
     width: auto;
     margin-inline-end: 3px;
@@ -65,14 +65,14 @@
 }
 
 .ItemName.Selected {
-    border-bottom-color: var(--db-brand-green);
-    color: var(--db-brand-green);
-    fill: var(--db-brand-green);
+    border-bottom-color: var(--brand-green);
+    color: var(--brand-green);
+    fill: var(--brand-green);
 }
 /* .Selected {
-    border-bottom-color: var(--db-brand-green);
-    color: var(--db-brand-green);
-    fill: var(--db-brand-green);
+    border-bottom-color: var(--brand-green);
+    color: var(--brand-green);
+    fill: var(--brand-green);
 } */
 
 .LightColor .Item:not(.Selected) {

@@ -20,7 +20,7 @@ const BonusItem = ({ bonus, handleTabClick }) => {
 
   const [message, setMessage] = useState("Remove Bonus");
 
-  let color = "var(--db-purple-box)";
+  let color = "var(--badge-new-purple)";
 
   const {
     Status: status,
@@ -34,10 +34,10 @@ const BonusItem = ({ bonus, handleTabClick }) => {
     progress = (100 * Waggered) / WinsLimit;
   }
 
-  if (status === 1) color = "var(--db-available)";
-  if (status === 3 || status === 4) color = "var(--db-cancelled)";
-  if (status === 5) color = "var(--db-pending)";
-  if (status === 6) color = "var(--db-brand-green)";
+  if (status === 1) color = "var(--light-blue)";
+  if (status === 3 || status === 4) color = "var(--cancelled)";
+  if (status === 5) color = "var(--yellow-accent-color)";
+  if (status === 6) color = "var(--brand-green)";
 
   const handleClaimBonus = (id) => {
     const controller = new AbortController();

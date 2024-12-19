@@ -13,7 +13,7 @@
 .Background {
     display: grid;
     place-items: center;
-    background-color: var(--db-gray-2);
+    background-color: var(--mid-blue);
     position: absolute;
     top: 0;
     left: 0;
@@ -89,7 +89,7 @@
 .Title span {
     display: block;
     white-space: nowrap;
-    color: var(--db-body-text);
+    color: var(--lightcolor-op1);
 }
 
 .Content button {
@@ -112,7 +112,7 @@
     line-height: 0.8rem;
     font-weight: 600;
     line-height: 1;
-    color: var(--db-brand-green);
+    color: var(--brand-green);
 }
 .WageredNeeded svg {
     margin-left: 0.125rem;

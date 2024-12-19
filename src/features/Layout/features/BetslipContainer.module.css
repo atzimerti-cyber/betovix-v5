@@ -4,7 +4,7 @@
     z-index: 2000;
     height: 100%;
     width: 100%;
-    background-color: var(--db-gray-6);
+    background-color: var(--dark-blue-1);
 }
 
 .ChatContainer header > button {

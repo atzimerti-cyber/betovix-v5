@@ -129,7 +129,7 @@
   width: 90%;
   padding: 1.3rem 1.4rem;
 
-  background: var(--db-gray-1);
+  background: var(--sb-search);
   border-radius: 12px;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   overflow: hidden;

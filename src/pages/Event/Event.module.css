@@ -13,8 +13,7 @@
 
 .MenuWrapper {
   border-radius: 0px;
-  background: var(--db-dark-1); 
-  background: var(--db-gray-banner);
+  background: var(--body-bg);
   display: flex;
   -webkit-box-pack: justify;
   justify-content: space-between;
@@ -58,7 +57,7 @@
 }
 
 .Tabs {
-  background: var(--db-gray-1);
+  background: var(--sb-search);
   box-sizing: border-box;
   display: none;
   -webkit-box-align: center;
@@ -77,13 +76,7 @@
 }
 
 .EventTitle {
-  /* position: absolute;
-  clip: rect(0px, 0px, 0px, 0px);
-  width: 1px;
-  height: 1px;
-  overflow: hidden; */
   position: relative;
-  /* clip: rect(0px, 0px, 0px, 0px); */
   width: auto;
   height: max-content;
   overflow: hidden;
@@ -102,7 +95,7 @@
 .EventTracker {
   width: 440px;
   min-width: 440px;
-  background: var(--db-gray-7);
+  background: var(--mid-blue-1);
   border-radius: 8px;
   overflow: hidden;
   position: relative;
@@ -186,7 +179,7 @@
 }
 
 .Tab.Active {
-  background: var(--db-brand-green);
+  background: var(--brand-green);
 }
 
 .Tab svg {

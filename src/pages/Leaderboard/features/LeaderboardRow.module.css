@@ -57,7 +57,7 @@
     align-items: center;
     justify-content: flex-start;
     background-color: var(--color-end);
-    /* background-color: var(--db-duelbits-gray); */
+    /* background-color: var(--topbar-bg); */
 }
 
 .PositionColumn .CellContent.HasPosition {
@@ -100,7 +100,7 @@
 .BitsAmount span {
     margin-top: 0.125rem;
     font-size: 10px;
-    color: var(--db-gray-5);
+    color: var(--light-blue);
 }
 
 /* Media */

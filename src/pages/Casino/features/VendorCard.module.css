@@ -90,7 +90,7 @@
   font-size: 1rem;
   line-height: 1.3rem;
   font-weight: 700;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 .RtpLabel {
   display: block;
@@ -98,7 +98,7 @@
   font-size: 1rem;
   line-height: 0.8rem;
   font-weight: 700;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .NewLabel {
@@ -109,7 +109,7 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  background-color: var(--db-purple-box);
+  background-color: var(--badge-new-purple);
   font-size: 10px;
   font-weight: 600;
   text-transform: uppercase;

@@ -11,7 +11,7 @@
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  background-color: var(--db-gray-6);
+  background-color: var(--dark-blue-1);
   margin-top: 60px;
   /* margin-bottom: 60px; */
   /* opacity: 0; */
@@ -81,6 +81,6 @@
   .NotificationModal {
     max-height: 80vh;
     max-width: 70vw;
-    background-color: var(--db-gray-6);
+    background-color: var(--dark-blue-1);
   }
 }

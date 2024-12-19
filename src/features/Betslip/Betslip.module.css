@@ -44,7 +44,7 @@
 }
 
 .BetOverview {
-  background: var(--db-gray-6);
+  background: var(--dark-blue-1);
   display: flex;
   flex-direction: column;
   flex: 0 1 0%;
@@ -91,7 +91,7 @@
 .BonusButton.selected {
   border: 1px solid var(--db-gray-4);
   border-radius: 8px;
-  color: var(--db-body-text);
+  color: var(--lightcolor-op1);
 }
 .bonusContainer {
   display: flex;
@@ -113,7 +113,7 @@
 }
 
 .bonusContainer input[type="checkbox"]:checked + .checkMark {
-  background-color: var(--db-body-text);
+  background-color: var(--lightcolor-op1);
   border: 1px solid var(--db-gray-4);
 }
 
@@ -137,7 +137,7 @@
 .BetButton,
 .SaveButton {
   appearance: none;
-  background: var(--db-brand-green);
+  background: var(--brand-green);
   border: none;
   color: rgb(255, 255, 255);
   cursor: pointer;
@@ -180,11 +180,11 @@
 
 .BetButton:hover {
   background: rgb(51, 193, 108);
-  background: var(--db-brand-green);
+  background: var(--brand-green);
 }
 
 .BetButton:disabled {
-  background: var(--db-gray-12);
+  background: var(--placeholder-light);
   background: var(--lightcolor-low-op);
   pointer-events: none;
 }
@@ -215,15 +215,15 @@
 }
 
 .BetButton > div > svg circle {
-  stroke: var(--db-brand-green);
+  stroke: var(--brand-green);
 }
 
 @keyframes wlstx {
   0%,
   100% {
-    background: var(--db-brand-color);
+    background: var(--brand-color);
   }
   50% {
-    background: var(--db-brand-color);
+    background: var(--brand-color);
   }
 }

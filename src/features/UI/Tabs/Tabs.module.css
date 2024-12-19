@@ -46,7 +46,7 @@
   border-radius: 4px 4px 0px 0px;
   color: #fff;
   cursor: pointer;
-  fill: var(--db-brand-green);
+  fill: var(--brand-green);
   font: inherit;
   display: flex;
   -webkit-box-align: center;
@@ -73,8 +73,8 @@
 }
 
 .Tab.Active {
-  color: var(--db-brand-green);
-  border-block-end-color: var(--db-brand-green);
+  color: var(--brand-green);
+  border-block-end-color: var(--brand-green);
   cursor: default;
   pointer-events: none;
 }
@@ -89,8 +89,8 @@
 }
 
 .Tabs.AsTabs .Tab:hover {
-  border-bottom-color: var(--db-brand-green);
-  color: var(--db-brand-green);
+  border-bottom-color: var(--brand-green);
+  color: var(--brand-green);
 }
 
 .WithUnderline.Tabs .Tab {

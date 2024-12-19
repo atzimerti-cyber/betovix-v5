@@ -8,7 +8,7 @@
     --tw-scale-y: 0.9;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
         scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    background-color: var(--db-gray-6);
+    background-color: var(--dark-blue-1);
     opacity: 0;
     animation: slide 0.2s ease-out forwards;
 color: #fff;
@@ -127,7 +127,7 @@ color: #fff;
 		line-height: 14px;
 		text-transform: uppercase;
 		text-align: center;
-		border: 1px solid var(--db-body-text);
+		border: 1px solid var(--lightcolor-op1);
 		overflow: auto;
 	}
 
@@ -143,7 +143,7 @@ color: #fff;
 
     .bodyPrint	.row {
 		display: block;
-		border-bottom: 1px solid var(--db-body-text);
+		border-bottom: 1px solid var(--lightcolor-op1);
 	}
 
     .bodyPrint	.fullWidth {
@@ -227,7 +227,7 @@ color: #fff;
         line-height: 13px;
     }
     .divToBePrinted {
-        background: var(--db-gray-1);
+        background: var(--sb-search);
     }
         .footerPrintOdds {
             background: var(--dark-theme-two);

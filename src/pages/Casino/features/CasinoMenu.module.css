@@ -19,14 +19,14 @@
 }
 
 .NavItem svg path {
-    fill: var(--db-gray-5);
+    fill: var(--light-blue);
 }
 
 .ActiveItem {
     background-color: var(--db-gray-4);
 }
 .NavItem:hover {
-    background-color: var(--db-gray-3);
+    background-color: var(--mid-blue-1);
 }
 
 .ActiveItem svg path {

@@ -9,7 +9,7 @@
 
   width: 100%;
   justify-content: space-around;
-  background-color: var(--db-duelbits-gray);
+  background-color: var(--topbar-bg);
 }
 
 .Bottombar > * {
@@ -22,7 +22,7 @@
 
 .BottomMenuItem {
   position: relative;
-  color: var(--db-white-primary);
+  color: var(--white);
 }
 
 .BottomMenuItem svg {
@@ -39,13 +39,13 @@
 }
 
 .WithStroke {
-  stroke: var(--db-white-primary);
+  stroke: var(--white);
 }
 .WithFill {
-  fill: var(--db-white-primary);
+  fill: var(--white);
 }
 .WithFill path {
-  fill: var(--db-white-primary);
+  fill: var(--white);
 }
 
 .OddsBubble {
@@ -99,7 +99,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   padding-left: 0.375rem;
   padding-right: 0.375rem;
   font-size: 0.875rem;

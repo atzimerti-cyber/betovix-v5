@@ -34,7 +34,7 @@ const Cookies = () => {
                         <span
                             className={classes.MoreInfo}
                             onClick={() => navigate('/terms-and-conditions')}
-                            style={{ color: 'var(--db-gray-5)', textDecoration: 'underline', cursor: 'pointer' }}
+                            style={{ color: 'var(--light-blue)', textDecoration: 'underline', cursor: 'pointer' }}
                         >
                           {translate('More Info')}
                                                 

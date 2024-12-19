@@ -27,7 +27,7 @@
 }
 
 .InputContainer.ReadOnly{
-    background-color: var(--db-gray-6);
+    background-color: var(--dark-blue-1);
     pointer-events: none;
 }
 .InputContainer.ReadOnly:hover{
@@ -42,30 +42,30 @@
 }
 
 .MainInput::placeholder {
-    color: var(--db-body-subheading);
+    color: var(--lightcolor-op1);
     opacity: 1;
 }
 .MainInput::-webkit-input-placeholder {
-    color: var(--db-body-subheading);
+    color: var(--lightcolor-op1);
     opacity: 1;
 }
 .MainInput::-moz-placeholder {
-    color: var(--db-body-subheading);
+    color: var(--lightcolor-op1);
     opacity: 1;
 }
 .MainInput:-ms-input-placeholder {
-    color: var(--db-body-subheading);
+    color: var(--lightcolor-op1);
     opacity: 1;
 }
 .MainInput:-moz-placeholder {
-    color: var(--db-body-subheading);
+    color: var(--lightcolor-op1);
     opacity: 1;
 }
 
 .InputContainer:focus-within,
 .InputContainer:hover {
-    border-color: var(--db-brand-green);
-    background-color: var(--db-duelbits-gray);
+    border-color: var(--brand-green);
+    background-color: var(--topbar-bg);
 }
 
 .MainInput::-webkit-outer-spin-button,

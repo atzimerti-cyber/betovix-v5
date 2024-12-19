@@ -43,7 +43,7 @@
   border-radius: 0.375rem;
 }
 .EditBtn:hover {
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
 }
 .ChangeUsernameSection {
   display: flex;
@@ -57,7 +57,7 @@
   flex-grow: 1;
 }
 .SaveUsernameBtn {
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   height: max-content;
   max-width: max-content;
   padding: 0.3rem 1rem;
@@ -90,7 +90,7 @@
 
 .FormGroup {
   border-radius: 0.5rem;
-  background-color: var(--db-gray-2);
+  background-color: var(--mid-blue);
   padding: 0.35rem;
   margin-bottom: 1rem;
   padding-left: 0.4rem;
@@ -99,7 +99,7 @@
 .Text {
   font-size: 0.74rem;
   line-height: 1rem;
-  color: var(--db-body-text);
+  color: var(--lightcolor-op1);
   margin: 0.1rem 0 0.1rem 0;
 }
 
@@ -135,7 +135,7 @@
 
 .FormValidationMessage {
   animation: fadeIn 0.3s backwards;
-  color: var(--db-red-primary);
+  color: var(--cancelled);
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -156,7 +156,7 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
-  color: var(--db-gray-5);
+  color: var(--light-blue);
   transition: color 0.3s;
 }
 
@@ -174,7 +174,7 @@
 }
 
 .PasswordMessage.IsValid {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .PasswordMessage.IsValid svg path {
@@ -184,7 +184,7 @@
 .InputOuter {
   margin-bottom: 0.5rem;
   border-radius: 0.5rem;
-  border-color: var(--db-gray-6);
+  border-color: var(--dark-blue-1);
 }
 
 .AccBtn {
@@ -296,7 +296,7 @@
 }
 
 input:checked + .SliderRound {
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
 }
 
 input:checked + .SliderRound:before {

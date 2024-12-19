@@ -242,7 +242,7 @@ const Verification = () => {
                 <WarningIcon height="20px" width="20px" />
                 <p
                   style={{
-                    color: "var(--db-cancelled)",
+                    color: "var(--cancelled)",
                     textAlign: "center",
                   }}
                 >
@@ -335,7 +335,7 @@ const Verification = () => {
                     <WarningIcon height="20px" width="20px" />
                     <p
                       style={{
-                        color: "var(--db-cancelled)",
+                        color: "var(--cancelled)",
                         textAlign: "center",
                       }}
                     >
@@ -378,7 +378,7 @@ const Verification = () => {
                   <SuccessIcon height="20px" width="20px" />
                   <p
                     style={{
-                      color: "var(--db-brand-green)",
+                      color: "var(--brand-green)",
                       textAlign: "center",
                     }}
                   >
@@ -516,7 +516,7 @@ const Verification = () => {
                     <WarningIcon height="20px" width="20px" />
                     <p
                       style={{
-                        color: "var(--db-cancelled)",
+                        color: "var(--cancelled)",
                         textAlign: "start",
                       }}
                     >
@@ -613,7 +613,7 @@ const Verification = () => {
                   <SuccessIcon height="20px" width="20px" />
                   <p
                     style={{
-                      color: "var(--db-brand-green)",
+                      color: "var(--brand-green)",
                       textAlign: "start",
                     }}
                   >
@@ -669,7 +669,7 @@ const Verification = () => {
                     <WarningIcon height="20px" width="20px" />
                     <p
                       style={{
-                        color: "var(--db-cancelled)",
+                        color: "var(--cancelled)",
                         textAlign: "start",
                       }}
                     >
@@ -696,7 +696,7 @@ const Verification = () => {
                   <SuccessIcon height="20px" width="20px" />
                   <p
                     style={{
-                      color: "var(--db-brand-green)",
+                      color: "var(--brand-green)",
                       textAlign: "start",
                     }}
                   >
@@ -796,7 +796,7 @@ const Verification = () => {
                     <WarningIcon height="20px" width="20px" />
                     <p
                       style={{
-                        color: "var(--db-cancelled)",
+                        color: "var(--cancelled)",
                         textAlign: "start",
                       }}
                     >
@@ -866,7 +866,7 @@ const Verification = () => {
                   <SuccessIcon height="20px" width="20px" />
                   <p
                     style={{
-                      color: "var(--db-brand-green)",
+                      color: "var(--brand-green)",
                       textAlign: "start",
                     }}
                   >
@@ -966,7 +966,7 @@ const Verification = () => {
                     <WarningIcon height="20px" width="20px" />
                     <p
                       style={{
-                        color: "var(--db-cancelled)",
+                        color: "var(--cancelled)",
                         textAlign: "start",
                       }}
                     >
@@ -1035,7 +1035,7 @@ const Verification = () => {
                   <SuccessIcon height="20px" width="20px" />
                   <p
                     style={{
-                      color: "var(--db-brand-green)",
+                      color: "var(--brand-green)",
                       textAlign: "start",
                     }}
                   >

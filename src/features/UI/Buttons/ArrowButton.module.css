@@ -6,7 +6,7 @@
   cursor: pointer;
   border-radius: 50%;
   border-style: none;
-  /* background-color: var(--db-gray-1); */
+  /* background-color: var(--sb-search); */
   background: linear-gradient(159deg, #0e344d 0%, #1b4560 88%);
   align-items: center;
   justify-content: center;
@@ -20,7 +20,7 @@
   cursor: pointer;
   border-radius: 50%;
   border-style: none;
-  background-color: var(--db-gray-1);
+  background-color: var(--sb-search);
   align-items: center;
   justify-content: center;
 }
@@ -35,7 +35,7 @@
   background: linear-gradient(159deg, #0e344d2f 0%, #1b45602f 88%);
 }
 .Disabled.ArrowButton svg path {
-  fill: var(--db-gray-12);
+  fill: var(--placeholder-light);
 }
 
 .ArrowButton:not(.Disabled):active {

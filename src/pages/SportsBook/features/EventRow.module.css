@@ -38,7 +38,7 @@
 }
 
 .Time {
-  color: var(--db-body-text);
+  color: var(--lightcolor-op1);
   min-width: 0px;
 }
 
@@ -107,7 +107,7 @@
 
 .ScoreGroup {
   color: rgb(51, 193, 108);
-  color: var(--db-brand-green);
+  color: var(--brand-green);
   display: flex;
 }
 .Score {

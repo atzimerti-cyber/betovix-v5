@@ -25,7 +25,7 @@ const MaintenancePage = () => {
           <a
             href="/"
             style={{
-              color: "var(--db-brand-green)",
+              color: "var(--brand-green)",
               textDecoration: "underline",
             }}
           >

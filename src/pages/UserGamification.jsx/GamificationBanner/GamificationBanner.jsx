@@ -200,7 +200,7 @@ const GamificationBanner = ({ onDataNotFound }) => {
                       >
                         <LoaderPlaceholder
                           extraStyles={{
-                            backgroundColor: "var(--db-gray-3)",
+                            backgroundColor: "var(--mid-blue-1)",
                             borderRadius: "0.375rem",
                           }}
                         />

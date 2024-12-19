@@ -6,8 +6,8 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    background-color: var(--db-gray-3);
-    color: var(--db-gray-5);
+    background-color: var(--mid-blue-1);
+    color: var(--light-blue);
 }
 
 .ImageNotFound svg {
@@ -15,5 +15,5 @@
     width: 2rem;
 }
 .ImageNotFound svg path {
-    fill: var(--db-gray-5);
+    fill: var(--light-blue);
 }

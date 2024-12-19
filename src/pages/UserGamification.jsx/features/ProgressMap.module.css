@@ -7,7 +7,7 @@
   /* min-height: 750px; */
   max-height: fit-content;
   --tw-bg-opacity: 1;
-  background-color: var(--db-gray-banner);
+  background-color: var(--body-bg);
   flex-direction: column;
   align-content: center;
   align-items: center;
@@ -21,7 +21,7 @@
   font-family: Byker, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   line-height: 1;
-  background-color: var(--db-gray-banner);
+  background-color: var(--body-bg);
   align-self: center;
 }
 
@@ -47,13 +47,13 @@
   font-size: 20px;
   font-weight: 300;
   --tw-text-opacity: 1;
-  color: var(--db-brand-color);
+  color: var(--brand-color);
 }
 
 .BannerTitle span {
   display: block;
   font-weight: 800;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .BannerBoost {
@@ -62,7 +62,7 @@
   font-size: 0.75rem;
   line-height: 1rem;
   font-weight: 800;
-  color: var(--db-purple-text);
+  color: var(--live-badge-purple);
 }
 
 .BannerBoost > span {

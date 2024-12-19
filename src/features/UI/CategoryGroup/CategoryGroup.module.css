@@ -83,7 +83,7 @@
 
 .LiveBadge {
   animation: 6s ease 0s infinite normal none running _jQMcyq_dgbon_1;
-  background: var(--db-brand-green);
+  background: var(--brand-green);
   border-radius: 3px;
   color: rgb(255, 255, 255);
   font-size: 11px;

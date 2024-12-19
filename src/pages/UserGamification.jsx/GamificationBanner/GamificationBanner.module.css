@@ -94,7 +94,7 @@
 }
 
 .Title svg path {
-  fill: var(--db-brand-green);
+  fill: var(--brand-green);
 }
 
 .Title a {
@@ -117,7 +117,7 @@
   line-height: 0.8rem;
   font-weight: 600;
   line-height: 1;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .NavButtons > a > svg {

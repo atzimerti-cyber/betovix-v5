@@ -58,12 +58,12 @@
 }
 
 .DsButton.Active {
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
 }
 
 .DsButton.Locked {
-  border-color: var(--db-dark-1) !important;
-  background-color: var(--db-dark-1) !important;
+  border-color: var(--body-bg) !important;
+  background-color: var(--body-bg) !important;
   color: var(--db-gray-4) !important;
 }
 .DsButton.Disabled,
@@ -74,5 +74,5 @@
   color: hsl(var(--bc) / var(--tw-text-opacity));
   --tw-text-opacity: 0.2;
   pointer-events: none;
-  color: var(--db-body-text);
+  color: var(--lightcolor-op1);
 }

@@ -24,7 +24,7 @@
 .SystemRow > span,
 .SystemRow > div {
   flex: 1;
-  color: var(--db-body-text);
+  color: var(--lightcolor-op1);
   text-align: center;
 }
 .SystemRow > div {

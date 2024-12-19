@@ -49,7 +49,7 @@
     --tw-scale-x: 0.9;
     --tw-scale-y: 0.9;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    background-color: var(--db-gray-6);
+    background-color: var(--dark-blue-1);
     margin-top: 60px;
     opacity: 0;
     animation: slide 0.2s ease-out forwards;
@@ -119,7 +119,7 @@
 }
 
 .Title svg path {
-    fill: var(--db-error);
+    fill: var(--cancelled);
 }
 
 .TopContent header .Right button svg {

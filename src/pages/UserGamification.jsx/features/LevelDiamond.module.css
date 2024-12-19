@@ -12,7 +12,7 @@
     --tw-rotate: -45deg;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
         scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    background-color: var(--db-gray-3);
+    background-color: var(--mid-blue-1);
 }
 .DiamondPosition:first-child .Diamond,
 .DiamondPosition:last-child .Diamond {
@@ -30,17 +30,17 @@
 } */
 
 .Complete.Diamond {
-    background-color: var(--db-brand-green);
+    background-color: var(--brand-green);
 }
 
 .Complete.Diamond.Small {
-    background-color: var(--db-brand-green);
+    background-color: var(--brand-green);
     height: 12px;
     width: 12px;
 }
 
 .Diamond.Small {
-    background-color:var(--db-dark-1);
+    background-color:var(--body-bg);
     height: 12px;
     width: 12px;
 }

@@ -72,7 +72,7 @@
   width: 0.65rem;
   left: 0px;
   bottom: 0px;
-  background-color: var(--db-body-text);
+  background-color: var(--lightcolor-op1);
   transition: 0.4s;
   border-radius: 50%;
   margin: 0 0.2rem;

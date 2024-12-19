@@ -13,7 +13,7 @@
 
 .MenuWrapper {
   border-radius: 0px;
-  background: var(--db-gray-banner);
+  background: var(--body-bg);
   display: flex;
   -webkit-box-pack: justify;
   justify-content: space-between;

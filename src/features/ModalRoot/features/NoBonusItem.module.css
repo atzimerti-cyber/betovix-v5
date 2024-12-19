@@ -5,10 +5,10 @@
   font-weight: 700;
   min-height: 130px;
   gap: 10px;
-  background-color: var(--db-gray-2);
+  background-color: var(--mid-blue);
   border-radius: 8px;
   border-left: 10px solid var(--db-gray-4);
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .noBonus svg {
@@ -16,5 +16,5 @@
   width: 25px;
 }
 .noBonus svg path {
-  fill: var(--db-brand-green);
+  fill: var(--brand-green);
 }

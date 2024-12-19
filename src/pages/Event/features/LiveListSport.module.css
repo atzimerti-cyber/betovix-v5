@@ -71,7 +71,7 @@
   transform: scaleY(-1);
 }
 .Group.IsOpen .Title {
-  background: var(--db-gray-666);
+  background: var(--light-blue-2);
   color: white;
   font-weight: 600;
 }

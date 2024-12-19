@@ -40,7 +40,7 @@
 .AmountArea {
     height: 36px;
     position: relative;
-    background: var(--db-gray-1);
+    background: var(--sb-search);
     display: flex;
     flex: 1 0 36px;
     margin-block: 0px 10px;

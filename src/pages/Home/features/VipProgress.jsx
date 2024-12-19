@@ -78,7 +78,7 @@ const VipProgress = () => {
                             </span> */}
                 <span
                   className={classes.LevelName}
-                  style={{ color: "var(--db-brand-green)" }}
+                  style={{ color: "var(--brand-green)" }}
                 >{`${levelProgress}%`}</span>
               </div>
             </div>
@@ -94,7 +94,7 @@ const VipProgress = () => {
                     alignItems: "center",
                   }}
                 >
-                  <span style={{ color: "var(--db-brand-green)" }}>
+                  <span style={{ color: "var(--brand-green)" }}>
                     {nextLevel.name}
                   </span>
                   <div

@@ -12,14 +12,14 @@
 }
 
 .Required {
-    color: var(--db-gray-5);
+    color: var(--light-blue);
     font-size: 0.9rem;
     margin-inline: 0.25ch;
     transition: color 0.3s;
 }
 
 .Required.Fulfilled {
-    color: var(--db-brand-green);
+    color: var(--brand-green);
 }
 
 .Container {
@@ -37,7 +37,7 @@
 
 .FormValidationMessage {
     animation: _fadeIn_2pkma_1 0.3s backwards;
-    color: var(--db-red-primary);
+    color: var(--cancelled);
     font-size: 10px;
     font-weight: 600;
     letter-spacing: 0.01em;
@@ -58,7 +58,7 @@
     display: flex;
     align-items: center;
     gap: 0.25rem;
-    color: var(--db-gray-5);
+    color: var(--light-blue);
     transition: color 0.3s;
 }
 
@@ -76,7 +76,7 @@
 }
 
 .PasswordMessage.IsValid {
-    color: var(--db-brand-green);
+    color: var(--brand-green);
 }
 
 .PasswordMessage.IsValid svg path {
@@ -94,7 +94,7 @@
 .InputOuter {
     margin-bottom: 0.5rem;
     border-radius: 0.125rem;
-    border-color: var(--db-gray-2);
+    border-color: var(--mid-blue);
 }
 
 .RequestButtonWrapper {
@@ -113,7 +113,7 @@
 .RecoverForm .InputOuter {
     margin-bottom: 0.5rem;
     border-radius: 0.5rem;
-    border-color: var(--db-gray-2);
+    border-color: var(--mid-blue);
 }
 
 .Text {
@@ -122,6 +122,6 @@
     font-size: 0.75rem;
     line-height: 1rem;
     line-height: 1rem;
-    color: var(--db-body-text);
+    color: var(--lightcolor-op1);
     margin-top: 0.75rem;
 }

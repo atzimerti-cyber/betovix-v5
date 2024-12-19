@@ -8,7 +8,7 @@
     margin-right: 8px;
     position: relative;
     border-radius: 0.25em;
-    background-color: var(--db-gray-2);
+    background-color: var(--mid-blue);
     cursor: pointer;
     transition: background-color 0.2s ease-in-out;
 }
@@ -23,7 +23,7 @@
 }
 
 .MainCheckboxWrapper input.Checked {
-    background-color: var(--db-brand-green);
+    background-color: var(--brand-green);
     position: relative;
 }
 

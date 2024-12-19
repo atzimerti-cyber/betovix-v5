@@ -1,20 +1,17 @@
-/* General styles */
 .CasinoGameWrapper {
   width: 100%;
   position: relative;
-  /* max-width: 1050px; */
   max-width: 95vw;
   padding: 14px 8px 10px;
 }
 
 .CasinoGame {
   position: relative;
-  /* margin-top: 1rem; */
-  background-color: rgb(27, 40, 46);
+  background-color: var(--dark-blue-lowop);
+  border-radius: 10px;
 }
 
 .CasinoGameWrapper.Expanded {
-  /* max-width: unset; */
   max-width: none;
   width: 100%;
 }
@@ -26,7 +23,7 @@
   justify-content: space-between;
   padding: 4px;
   margin-bottom: 2px;
-  background: var(--db-gray-3);
+  background: var(--sb-search);
   position: relative;
   border-top-right-radius: 8px;
   border-top-left-radius: 8px;
@@ -34,10 +31,7 @@
 
 .Placeholder {
   position: relative;
-  /* height: calc(-250px + 100vh); */
-  /* height: 65vh; */
   height: 75vh;
-  /* height: 100%; */
 }
 .Placeholder::before {
   height: 0px;
@@ -54,7 +48,7 @@
   align-items: center;
   -webkit-box-pack: justify;
   justify-content: space-between;
-  background-color: rgb(33, 50, 65);
+  background: var(--mid-blue);
   padding: 0px 20px;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px;
@@ -87,7 +81,7 @@
 }
 
 .OverlayTitle {
-  color: rgb(255, 255, 255);
+  color: white;
   font-size: 20px;
   margin-bottom: 18px;
 }
@@ -118,7 +112,7 @@
 }
 
 .Header > svg path {
-  fill: var(--db-duelbits-gray);
+  fill: var(--topbar-bg);
 }
 
 .LeftSection {
@@ -177,15 +171,9 @@
   border: solid 1px transparent;
 }
 
-/* .RightSection button:first-child svg path {
-  stroke: var(--db-body-subheading);
-  transition-property: all;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 0.15s;
-} */
 .NotFavoriteIcon {
   padding-top: 2px;
-  stroke: var(--db-body-subheading);
+  stroke: var(--lightcolor-op1);
   transition-property: all;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   transition-duration: 0.15s;
@@ -194,7 +182,7 @@
   fill: white;
 }
 .RightSection button:not(:first-child) svg path {
-  fill: var(--db-body-subheading);
+  fill: var(--lightcolor-op1);
 }
 .RightSection button span {
   color: #fff;
@@ -212,14 +200,14 @@
   width: 50%;
   display: flex;
   justify-content: space-between;
-  color: rgb(255, 255, 255);
+  color: white;
   font-size: 18px;
   font-weight: 400;
 }
 .GameName {
   font-size: 14px;
   font-weight: 600;
-  color: rgb(255, 255, 255);
+  color: white;
 }
 
 .DemoControl {
@@ -246,7 +234,7 @@
 }
 
 .FavoriteIcon path {
-  fill: #db2777 !important;
+  fill: var(--db-like) !important;
 }
 .FavoriteIcon {
   padding-top: 2px;
@@ -263,34 +251,3 @@
     font-size: 12px;
   }
 }
-
-/* @media screen and (max-width: 768px) {
-  .CasinoGame {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: 10000000000000;
-  }
-
-  .Placeholder {
-    height: 100vh;
-    width: 100vw;
-  }
-
-  .GameContent {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-  }
-
-  .GameContent iframe {
-    width: 100%;
-    height: 100%;
-  }
-} */

@@ -228,7 +228,7 @@
     "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 0.8rem;
   font-weight: 600;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .SubTimelineContent {

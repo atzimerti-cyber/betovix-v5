@@ -17,13 +17,13 @@
 }
 
 .MilestoneCard.Complete .Background {
-    background-color: var(--db-gray-1);
+    background-color: var(--sb-search);
 }
 
 .Background {
     display: grid;
     place-items: center;
-    background-color: var(--db-gray-1);
+    background-color: var(--sb-search);
     position: absolute;
     top: 0;
     left: 0;

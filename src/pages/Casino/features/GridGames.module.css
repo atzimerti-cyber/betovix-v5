@@ -15,7 +15,7 @@
   width: 1.75rem;
 }
 .Header > svg path {
-  fill: var(--db-brand-green);
+  fill: var(--brand-green);
 }
 
 .Title {
@@ -39,7 +39,7 @@
 
 .Total {
   margin-left: auto;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .TotalBubble {

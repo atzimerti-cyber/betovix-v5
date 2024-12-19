@@ -48,7 +48,7 @@
     position: relative;
     margin: 15px;
     display: flex;
-    background: var(--db-gray-1);
+    background: var(--sb-search);
 }
 
 .ImageContainer img {

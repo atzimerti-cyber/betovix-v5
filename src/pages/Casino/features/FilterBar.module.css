@@ -102,8 +102,8 @@
 }
 
 .DropdownItem.Active {
-  border-right: 2px solid var(--db-brand-green);
-  background-color: var(--db-gray-2);
+  border-right: 2px solid var(--brand-green);
+  background-color: var(--mid-blue);
 }
 .DropdownItem.Active:hover {
   background-color: #405363;

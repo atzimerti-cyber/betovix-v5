@@ -19,7 +19,7 @@
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
-  color: var(--db-white-primary);
+  color: var(--white);
 }
 
 .NoBetsErrorInner button {
@@ -57,10 +57,10 @@
   font-size: 14px;
   white-space: nowrap;
   overflow: hidden;
-  border-color: var(--db-brand-green);
+  border-color: var(--brand-green);
   width: fit-content;
   height: 100%;
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   padding: 0.5rem 1.5rem;
 }
 .Pagination button:disabled {

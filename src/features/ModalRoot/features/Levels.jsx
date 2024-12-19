@@ -33,7 +33,7 @@
 //                       })
 //                     : Array.from({ length: 8 }, (_, index) => (
 //                           <SwiperSlide style={{ width: '75px', height: '33.3px' }} key={index}>
-//                               <LoaderPlaceholder extraStyles={{ backgroundColor: 'var(--db-gray-3)', borderRadius: '0.375rem' }} />
+//                               <LoaderPlaceholder extraStyles={{ backgroundColor: 'var(--mid-blue-1)', borderRadius: '0.375rem' }} />
 //                           </SwiperSlide>
 //                       ))}
 //             </SimpleSwiper>

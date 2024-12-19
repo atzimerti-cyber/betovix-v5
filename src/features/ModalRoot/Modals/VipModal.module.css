@@ -10,7 +10,7 @@
     --tw-scale-y: 0.9;
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
         scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    background-color: var(--db-gray-6);
+    background-color: var(--dark-blue-1);
     margin-top: 60px;
     opacity: 0;
     animation: slide 0.2s ease-out forwards;
@@ -46,7 +46,7 @@
     height: 110px;
     width: 70px;
     border-radius: 9999px;
-    background-color: var(--db-brand-color);
+    background-color: var(--brand-color);
     content: '';
     filter: blur(24px);
     -webkit-clip-path: inset(-100% -100% 96px);
@@ -107,7 +107,7 @@
 }
 
 .Title svg path {
-    fill: var(--db-brand-green);
+    fill: var(--brand-green);
 }
 
 .TopContent header .Right button svg {
@@ -169,7 +169,7 @@
     text-overflow: ellipsis;
     font-size: 0.75rem;
     line-height: 1rem;
-    color: var(--db-body-text);
+    color: var(--lightcolor-op1);
 }
 
 .TotalBits {

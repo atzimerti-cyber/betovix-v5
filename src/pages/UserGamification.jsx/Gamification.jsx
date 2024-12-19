@@ -38,8 +38,7 @@ const Gamification = () => {
                 id: "my-rewards",
                 label: translate("My Rewards"),
                 active: showTab === "my-rewards",
-              },
-              //{ id: 'other', label: 'Other', active: showTab === 'other' },
+              }, 
             ]}
             onChangeTab={(tab) => setShowTab(tab)}
             titleGroupStyle={{ justifyContent: "flex-start" }}

@@ -63,7 +63,7 @@
 }
 :local(.MainSwiperWrapper) :global(.swiper-pagination-bullet-active) {
   width: 1.75rem;
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
   --tw-shadow: 0 0 transparent;
   --tw-shadow-colored: 0 0 transparent;
   box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent),

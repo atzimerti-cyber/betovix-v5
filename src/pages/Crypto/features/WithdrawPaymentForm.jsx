@@ -263,7 +263,7 @@ const WithdrawPaymentForm = (props) => {
         <label className={classes.Labels}>
           {translate(Name.replace(/([a-z])([A-Z])/g, "$1 $2"))}
           {Name !== "PaymentType" && Name !== "PaymentMethod" && (
-            <p style={{ color: "var(--db-brand-green)" }}>*</p>
+            <p style={{ color: "var(--brand-green)" }}>*</p>
           )}
           {Name === "Amount" && (
             <p style={{ color: "lightblue", fontWeight: "300" }}>
@@ -307,7 +307,7 @@ const WithdrawPaymentForm = (props) => {
                   fontSize: "0.7rem",
                 }}
               >
-                <p style={{ color: "var(--db-brand-green)" }}>*</p>
+                <p style={{ color: "var(--brand-green)" }}>*</p>
                 {translate("Required Fields")}
               </span>
             </div>

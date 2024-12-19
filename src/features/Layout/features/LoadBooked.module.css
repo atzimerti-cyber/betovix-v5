@@ -7,7 +7,7 @@
 .LoadBetslipTitle {
   height: 30px;
   cursor: default;
-  color: var(--db-brand-green);
+  color: var(--brand-green);
 }
 
 .LoadBetslipTitle h3 {
@@ -26,7 +26,7 @@
 }
 
 .LoadBetslipContent a {
-  color: var(--db-brand-green);
+  color: var(--brand-green);
   text-decoration: underline;
 }
 
@@ -45,9 +45,9 @@
   border: none;
   margin-right: 0.5rem;
   border-color: transparent;
-  background-color: var(--db-gray-1);
+  background-color: var(--sb-search);
   border-color: transparent;
-  background-color: var(--db-gray-1);
+  background-color: var(--sb-search);
   border-radius: 0.375rem;
   border-width: 1px;
   border-style: solid;
@@ -63,7 +63,7 @@
 
 .LoadBetslipFormWrapper button {
   flex: 1 0 0;
-  background: var(--db-brand-green);
+  background: var(--brand-green);
   color: #071848;
   font-size: 14px;
   font-weight: 600;

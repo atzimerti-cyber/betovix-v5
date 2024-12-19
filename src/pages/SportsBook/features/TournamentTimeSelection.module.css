@@ -47,17 +47,17 @@
 }
 
 .TimeSelectionButton.Active {
-  background: var(--db-brand-green);
+  background: var(--brand-green);
   color: rgb(255, 255, 255);
 }
 
 .TimeSelectionButton:hover {
-  background: var(--db-brand-green);
+  background: var(--brand-green);
 }
 
 .TimeSelectionButton:disabled {
-  background: var(--db-gray-1);
-  color: var(--db-gray-3);
+  background: var(--sb-search);
+  color: var(--mid-blue-1);
   pointer-events: none;
 }
 
@@ -114,19 +114,19 @@
   border-bottom: 0px !important;
 }
 .DropdownItem:hover {
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
 }
 .DropdownItem.Active {
-  background-color: var(--db-brand-green);
+  background-color: var(--brand-green);
 }
 
 .DropdownItem[disabled] {
-  background: var(--db-gray-1);
-  color: var(--db-gray-5);
+  background: var(--sb-search);
+  color: var(--light-blue);
   pointer-events: none;
 }
 .TimeSelectionButton:disabled {
-  color: var(--db-gray-5);
+  color: var(--light-blue);
 }
 .TimeSelectionButton svg {
   fill: #fff;

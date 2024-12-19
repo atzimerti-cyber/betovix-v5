@@ -1,5 +1,5 @@
 :local(.SelectionSlider) :global(.rc-slider-rail) {
-    background-color: var(--db-gray-11);
+    background-color: var(--mid-blue);
     height: 3px;
 }
 
@@ -11,7 +11,7 @@
 }
 
 :local(.SelectionSlider) :global(.rc-slider-handle) {
-    background-color: var(--db-gray-5);
+    background-color: var(--light-blue);
     border-radius: 0px;
     border: none;
 }

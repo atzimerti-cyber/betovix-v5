@@ -25,7 +25,7 @@
 .RefreshButton {
     height: 28px;
     width: 28px;
-    background-color: var(--db-brand-green);
+    background-color: var(--brand-green);
     border: none;
     cursor: pointer;
     display: flex;
@@ -55,7 +55,7 @@
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y)) !important;
     height: 2.5rem !important;
     width: min(100%, 260px);
-    background-color: var(--db-brand-green);
+    background-color: var(--brand-green);
 }
 
 .CarouselContainer {
@@ -109,7 +109,7 @@
 .BarContainer {
     height: 4px;
     border-radius: 9999px;
-    background-color: var(--db-gray-3);
+    background-color: var(--mid-blue-1);
     position: absolute;
     left: 50%;
     top: 50%;
@@ -123,7 +123,7 @@
     display: block;
     height: inherit;
     border-radius: inherit;
-    background-color: var(--db-brand-green);
+    background-color: var(--brand-green);
     transition: width 0.3s linear;
 }
 
@@ -197,7 +197,7 @@ position: relative;
 .Background {
     display: grid;
     place-items: center;
-    background-color: var(--db-gray-2);
+    background-color: var(--mid-blue);
     position: absolute;
     top: 0;
     left: 0;

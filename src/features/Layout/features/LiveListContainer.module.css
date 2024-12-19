@@ -1,5 +1,5 @@
 .Pane {
-    background: var(--db-gray-6);
+    background: var(--dark-blue-1);
     box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 16px;
     position: fixed;
     left: 0px;
@@ -22,7 +22,7 @@
     overflow-y: auto;
     transform: translateX(0px);
     visibility: visible;
-    background: var(--db-gray-6);
+    background: var(--dark-blue-1);
     transition: all 0.22s ease 0s, visibility 0s ease;
 }
 
@@ -110,11 +110,11 @@
 }
 
 .SideMenuButtonContainer button svg path {
-    fill: var(--db-brand-green);
+    fill: var(--brand-green);
 }
 
 .SideMenuButtonContainer button .ActiveSvg path {
-    fill: var(--db-brand-green) !important;
+    fill: var(--brand-green) !important;
 }
 
 .SideMenuButtonContainer button span {
@@ -145,7 +145,7 @@
 
 .LiveBadge {
     animation: 3s ease 0s infinite normal none running _jQMcyq_dgbon_1;
-    background: var(--db-purple-text);
+    background: var(--live-badge-purple);
     border-radius: 3px;
     color: rgb(255, 255, 255);
     font-size: 12px;

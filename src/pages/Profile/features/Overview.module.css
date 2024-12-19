@@ -67,7 +67,7 @@
   font-size: 0.75rem;
   line-height: 1rem;
   text-transform: lowercase;
-  color: var(--db-gray-5);
+  color: var(--light-blue);
 }
 
 .LevelBadge {
@@ -81,7 +81,7 @@
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  background-color: var(--db-purple-box);
+  background-color: var(--badge-new-purple);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,7 +133,7 @@
 
 @media (min-width: 768px) {
   .TabContent {
-    /* background-color: var(--db-duelbits-gray); */
+    /* background-color: var(--topbar-bg); */
     padding: 3rem 2.5rem;
   }
   .OverviewTitle {
@@ -159,7 +159,7 @@
   .MemberSince {
     font-size: 0.875rem;
     line-height: 1.25rem;
-    color: var(--db-body-text);
+    color: var(--lightcolor-op1);
   }
   .Rewards {
     grid-column: 2 / 4;
