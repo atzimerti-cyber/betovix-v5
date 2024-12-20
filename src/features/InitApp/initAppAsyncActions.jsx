@@ -666,16 +666,22 @@ export const getSite = (signal) => {
   return async (dispatch) => {
     try {
       const currentDomain = window.location.hostname;
-      // const response = await axiosApi.get(`Site/GetSite?domainName=${currentDomain}`, {
       const response = await axiosApi.get(
-        `Site/GetSite?domainName=betovix.storetube.gr`,
+        `Site/GetSite?domainName=${currentDomain}`,
         {
+          // const response = await axiosApi.get(
+          //   `Site/GetSite?domainName=betovix.storetube.gr`,
+          // {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
       );
 
       if (response.status !== 200) throw new Error("Something went wrong");
+
+      if (!response.data.Contents.SiteTheme) {
+        response.data.Contents.SiteTheme = "themes/theme-0.css";
+      }
 
       config.VITE_SITE_ID = response.data.Contents.SiteId;
       // Set the page title
