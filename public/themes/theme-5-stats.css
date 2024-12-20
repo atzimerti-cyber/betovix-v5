@@ -1,22 +1,22 @@
 :root {
-  --brand-color: #4d6aa3;
-  --brand-bright-color: #867ba7;
+  --brand-color: #6a6a6a;
+  --brand-bright-color: #8c8c8c;
 
-  --dark-theme-zero: #131d2b;
-  --dark-theme-one: #1a273c;
-  --dark-theme-two: #243552;
-  --dark-theme-three: #1d3350;
-  --dark-theme-four: #324563;
-  --dark-theme-five: #264474;
-  --dark-theme-six: #c3a2d452;
-  --dark-theme-seven: #d2b4ff;
+  --dark-theme-zero: #121212;
+  --dark-theme-one: #1c1c1c;
+  --dark-theme-two: #2b2b2b;
+  --dark-theme-three: #1f1f1f;
+  --dark-theme-four: #383838;
+  --dark-theme-five: #262626;
+  --dark-theme-six: #bfbfbf52;
+  --dark-theme-seven: #d0d0d0;
 
   --light-theme-one: #fbfbfb;
-  --light-theme-two: #b09fd1;
-  --light-theme-three: #ac8bcf;
-  --light-theme-four: #6c7e9f;
-  --light-theme-five: #485e8c;
-  --light-theme-six: #3a467a;
+  --light-theme-two: #bfbfbf;
+  --light-theme-three: #d4d4d4;
+  --light-theme-four: #7e7e7e;
+  --light-theme-five: #4a4a4a;
+  --light-theme-six: #3a3a3a;
 
   --text-color-primary: var(--light-theme-one);
   --text-color-dark: var(--dark-theme-one);
