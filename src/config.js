@@ -36,5 +36,6 @@ const config = {
     VITE_GOOGLE_CLIENT_ID: SETTINGS.VITE_GOOGLE_CLIENT_ID,
     VITE_UPLOAD: SETTINGS.VITE_UPLOAD,
     VITE_SITE_NAME: "",
+    VITE_STATS_THEME: "",
 };
 export default config;

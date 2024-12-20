@@ -4,6 +4,7 @@ import DraggableBox from '../../UI/DraggableBox/DraggableBox';
 
 import { sportsbookActions } from '../../../pages/SportsBook/sportsbookSlice';
 import { translateNameWithLang } from '../../../utils/translations';
+import config from '../../../config';
 
 const Stats = (props) => {
     const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const Stats = (props) => {
         >
             {props.showStatsFor.Info.DateOfMatch ? (
                  <iframe
-                 src={`/stats/Stats.html?styles=#${lang.id}/external/page/h2h/${
+                 src={`/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}/external/page/h2h/${
                     props.showStatsFor.Info.HomeTeamId
                  }/${props.showStatsFor.Info.AwayTeamId}`}
                  style={{ width: '100%', height: '100%', border: 'none' }}

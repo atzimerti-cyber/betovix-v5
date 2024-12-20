@@ -5,12 +5,13 @@ import { useMediaQuery } from "react-responsive";
 
 import classes from "./Topbar.module.css";
 
-import UserIcon from "../../../assets/svgs/user.svg?react";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
 import WalletIcon from "../../../assets/svgs/wallet.svg?react";
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
+
 import LogoBig from "../../../assets/svgs/logo-big.svg?react";
 import LogoSmall from "../../../assets/svgs/logo-small.svg?react";
+
 import MenuBurgerIcon from "../../../assets/svgs/menu-burger.svg?react";
 import CameraIcon from "../../../assets/svgs/video.svg?react";
 import BellIcon from "../../../assets/svgs/bell.svg?react";

@@ -665,7 +665,7 @@ export const getTranslations = (lang) => {
 export const getSite = (signal) => {
   return async (dispatch) => {
     try {
-      const currentDomain = window.location.hostname;
+      const currentDomain = "betovix.storetube.gr"; // window.location.hostname;
       const response = await axiosApi.get(
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -679,9 +679,14 @@ export const getSite = (signal) => {
       if (!response.data.Contents.SiteTheme) {
         response.data.Contents.SiteTheme = "themes/theme-0.css";
       }
+      if (!response.data.Contents.StatsTheme) {
+        response.data.Contents.StatsTheme =
+          window.location.origin + "/themes/theme-0-stats.css";
+      }
 
       config.VITE_SITE_ID = response.data.Contents.SiteId;
       config.VITE_SITE_NAME = response.data.Contents.Name;
+      config.VITE_STATS_THEME = response.data.Contents.StatsTheme;
 
       // Set the page title
       document.title = response.data.Contents.PageTitle;
