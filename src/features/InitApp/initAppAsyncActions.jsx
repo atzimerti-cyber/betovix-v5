@@ -665,7 +665,7 @@ export const getTranslations = (lang) => {
 export const getSite = (signal) => {
   return async (dispatch) => {
     try {
-      const currentDomain = "betovix.storetube.gr"; // window.location.hostname;
+      const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
         `Site/GetSite?domainName=${currentDomain}`,
         {
