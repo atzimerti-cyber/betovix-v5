@@ -669,9 +669,6 @@ export const getSite = (signal) => {
       const response = await axiosApi.get(
         `Site/GetSite?domainName=${currentDomain}`,
         {
-          // const response = await axiosApi.get(
-          //   `Site/GetSite?domainName=betovix.storetube.gr`,
-          // {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -684,6 +681,8 @@ export const getSite = (signal) => {
       }
 
       config.VITE_SITE_ID = response.data.Contents.SiteId;
+      config.VITE_SITE_NAME = response.data.Contents.Name;
+
       // Set the page title
       document.title = response.data.Contents.PageTitle;
 
@@ -697,12 +696,90 @@ export const getSite = (signal) => {
           response.data.Contents.PageDescription
         );
       }
-      // Create a <link> tag
+      // Theme
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.type = "text/css";
       link.href = response.data.Contents.SiteTheme;
       document.head.appendChild(link);
+
+      // Update all favicon links
+      const basePath = window.location.origin;
+
+      const updateFavicon = (size, path) => {
+        const icon = document.querySelector(
+          `link[rel~='icon'][sizes='${size}']`
+        );
+        if (icon) {
+          icon.href = path;
+        } else {
+          const newIcon = document.createElement("link");
+          newIcon.rel = "icon";
+          newIcon.type = "image/png";
+          newIcon.sizes = size;
+          newIcon.href = path;
+          document.head.appendChild(newIcon);
+        }
+      };
+      // Update or add Apple Touch Icon
+      const updateAppleTouchIcon = (size, path) => {
+        const icon = document.querySelector(
+          `link[rel='apple-touch-icon'][sizes='${size}']`
+        );
+        if (icon) {
+          icon.href = path; // Update the existing icon
+        } else {
+          const newIcon = document.createElement("link");
+          newIcon.rel = "apple-touch-icon";
+          newIcon.sizes = size; // Set the size
+          newIcon.href = path; // Set the href to the path
+          document.head.appendChild(newIcon); // Add to the head
+        }
+      };
+      const updateMaskIcon = (path, color) => {
+        const icon = document.querySelector("link[rel='mask-icon']");
+        if (icon) {
+          icon.href = path; // Update the href attribute
+          icon.color = color; // Update the color attribute
+        } else {
+          const newIcon = document.createElement("link");
+          newIcon.rel = "mask-icon";
+          newIcon.href = path; // Set the href to the path
+          newIcon.color = color; // Set the color for the icon
+          document.head.appendChild(newIcon); // Add to the head
+        }
+      };
+
+      // Define paths
+      const defaultPath32 = basePath + "/favicon-32x32.png";
+      const defaultPath16 = basePath + "/favicon-16x16.png";
+      const customPath32 =
+        basePath + "/" + response.data.Contents.Name + "/favicon-32x32.png";
+      const customPath16 =
+        basePath + "/" + response.data.Contents.Name + "/favicon-16x16.png";
+      const defaultPath180 = basePath + "/apple-touch-icon-180x180.png";
+      const customPath180 =
+        basePath +
+        "/" +
+        response.data.Contents.Name +
+        "/apple-touch-icon-180x180.png";
+      const defaultMaskPath = basePath + "/safari-pinned-tab.svg";
+      const customMaskPath =
+        basePath + "/" + response.data.Contents.Name + "/safari-pinned-tab.svg";
+      const maskColor = "#000000";
+
+      // Update icons based on response
+      if (!response.data.Contents.Name) {
+        updateFavicon("32x32", defaultPath32);
+        updateFavicon("16x16", defaultPath16);
+        updateAppleTouchIcon("180x180", defaultPath180);
+        updateMaskIcon(defaultMaskPath, maskColor);
+      } else {
+        updateFavicon("32x32", customPath32);
+        updateFavicon("16x16", customPath16);
+        updateAppleTouchIcon("180x180", customPath180);
+        updateMaskIcon(customMaskPath, maskColor);
+      }
 
       dispatch(appActions.setSiteId(true));
     } catch (error) {

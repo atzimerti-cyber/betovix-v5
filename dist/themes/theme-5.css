@@ -1,0 +1,181 @@
+/* kafe/kitrino */
+:root {
+  --white: #fbfbfb;
+
+  --body-bg: #1c1c1c;
+  --topbar-bg: #2b2b2b;
+  --sb-search: #383838;
+  --footer: #121212;
+  --sidebar-category-group: #1f1f1f;
+  --sidebar-left-menu-item: #262626;
+  --sidebar-casino-active: #bfbfbf52;
+  --sidebar-casino-active-svg: #d0d0d0;
+
+  --brand-green: #a3a3a3;
+  --brand-green: #f1ea27;
+  --brand-green-lowop: #a3a3a37a;
+
+  --brand-color: #6a6a6a;
+
+  --placeholder-light: #8c8c8c;
+  --light-blue: #d4d4d4;
+  --light-blue-2: #bfbfbf;
+  --db-gray-4: #7e7e7e;
+  --mid-blue-1: #4a4a4a;
+  --mid-blue: #3a3a3a;
+  --dark-blue-1: #2b2b2b;
+  --dark-blue: #212121;
+  --dark-blue-lowop: #2121218c;
+
+  --db-white-hover: hsla(0, 0%, 100%, 0.05);
+  --db-white-hover-light: hsla(0, 0%, 100%, 0.127);
+
+  --odds-button-border: #c4c4c4;
+  --odds-button: #a5a5a5;
+  --odds-button-disabled: #2121218f;
+  --card-odds-button: #c6c6c6c6;
+  --card-odds-button-selected: #2121215d;
+  --card-odds-button-disabled: #4f4f4f30;
+
+  --badge-new-purple: #acacac;
+  --live-badge-purple: #cfcfcf;
+
+  --db-like: #cfcfcf;
+  --cancelled: #cfcfcf;
+
+  --yellow-accent-color: #d3d3d3;
+
+  --lightcolor-low-op: #dbdbdb4a;
+  --lightcolor-op1: #dbdbdb;
+  --darkcolor-op1: #212121;
+  --darkcolor-low-op: #21212158;
+
+  --layout-icon-btn: linear-gradient(222deg, #2f2f2f 0%, #202020 63%);
+  --toast-grad-op1: linear-gradient(50deg, #4b4b4b 0%, #5f5f5f 50%);
+  --casino-play-round: #a3a3a376;
+  --casino-play-button: linear-gradient(
+    30deg,
+    #6a6a6a 20%,
+    #8b8b8b 75%,
+    #848484 110%
+  );
+  --casino-play-bonus-button: linear-gradient(
+    120deg,
+    #bfbfbf44 0%,
+    #bfbfbf81 75%,
+    #bfbfbf44 110%
+  );
+  --button-grad-op1: linear-gradient(307deg, #dbdbdb5d 0%, #a5a5a557 50%);
+  --button-grad-op-mid: linear-gradient(222deg, #4b4b4bbf 0%, #5f5f5f40 50%);
+
+  --provider-card-bg: #2e2e2e;
+  --provider-card-bg-lowOp: #5e5e5e4f;
+
+  --outer-container-left: #00000015;
+
+  --dropdown-bg: #3f3f3f;
+
+  --swiper-container-grad: linear-gradient(45deg, #bfbfbf33, #2e2e2e 120%);
+  --accordion-header: linear-gradient(222deg, #343434 0%, #3d3d3dba 50%);
+  --accordion-body: linear-gradient(72deg, #34343421 0%, #3d3d3d5e 50%);
+  --accordion-small-header: linear-gradient(222deg, #343434 0%, #3d3d3dba 50%);
+  --accordion-small-body: linear-gradient(72deg, #34343457 0%, #3d3d3d47 50%);
+  --casino-options-bg: radial-gradient(
+      65.95% 124.31% at 100% 100%,
+      #2e2e2e 10.17%,
+      #1f1f1f27
+    ),
+    #1c1c1c;
+
+  --event-board-bg: #2e2e2ee3;
+
+  --db-modal-auth-height: 506px;
+  --db-modal-announcement-height: 480px;
+  --db-chat-width: 330px;
+  --db-left-menu-width: 260px;
+  --db-left-menu-width-collapsed: 60px;
+
+  --db-minibar-height: 0px;
+  --db-minibar-height-mobile: 0px;
+
+  --db-topbar-height: 60px;
+  --db-topbar-height-mobile: 50px;
+
+  --db-header-height: calc(var(--db-topbar-height) + var(--db-minibar-height));
+  --db-header-height-mobile: calc(
+    var(--db-topbar-height-mobile) + var(--db-minibar-height-mobile)
+  );
+
+  --db-bottom-bar-height: 52px;
+  --db-bottom-nav-height: 56px;
+  --db-sticky-language-height: 0px;
+  --db-scrollbar-width: 6px;
+  --db-scrollbar-sm-width: 4px;
+  --db-scrollbar-thumb-bg: var(--light-blue);
+  --db-scrollbar-track-bg: var(--mid-blue-1);
+  --db-transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --db-modal-overlay: #2e2e2ec7;
+  --db-dropdown-shadow: -10px 6px 30px rgb(0 0 0 / 35%);
+  --db-modal-header-height: 38px;
+  --db-milestone-card-width: 140px;
+
+  --blg: 0 0% 41%;
+  --p: 0 0% 47%;
+  --b2: 0 0% 23%;
+  --b3: 0 0% 22%;
+  --inc: 0 0% 22%;
+  --suc: 0 0% 20%;
+  --wac: 0 0% 21%;
+  --erc: 0 0% 24%;
+  --rounded-box: 1rem;
+  --rounded-badge: 1.9rem;
+  --animation-btn: 0.25s;
+  --animation-input: 0.2s;
+  --btn-focus-scale: 0.95;
+  --border-btn: 1px;
+  --tab-border: 1px;
+  --tab-radius: 0.5rem;
+  --pf: 0 0% 47%;
+  --pc: 0 0% 100%;
+  --s: 0 0% 44%;
+  --sf: 0 0% 44%;
+  --sc: 0 0% 100%;
+  --a: 0 0% 37%;
+  --af: 0 0% 37%;
+  --ac: 0 0% 100%;
+  --n: 0 0% 28%;
+  --nf: 0 0% 28%;
+  --nc: 0 0% 100%;
+  --b1: 0 0% 15%;
+  --bc: 0 0% 100%;
+  --in: 0 0% 60%;
+  --su: 0 0% 51%;
+  --wa: 0 0% 56%;
+  --er: 0 0% 70%;
+  --btn-text-case: none;
+  --rounded-btn: 0.25rem;
+
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgba(59, 130, 246, 0.5);
+  --tw-ring-offset-shadow: 0 0 transparent;
+  --tw-ring-shadow: 0 0 transparent;
+  --tw-shadow: 0 0 transparent;
+  --tw-shadow-colored: 0 0 transparent;
+
+  --swiper-theme-color: #a3a3a3;
+  color: hsla(var(--bc) / var(--tw-text-opacity, 1));
+}
+body {
+  background-color: var(--body-bg);
+}
