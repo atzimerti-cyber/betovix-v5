@@ -6,7 +6,7 @@ window.SETTINGS ={
     VITE_CASINO_LOBBY: 'https://casinom.storetube.gr',
     VITE_CASINO_LIVE_LOBBY: 'https://casinom.storetube.gr',
     VITE_BETS_API: 'https://storetube.gr:60019/api',
-    VITE_SITE_ID: 45,
+    VITE_SITE_ID: 0,
     VITE_HOME_URL: 'https://betovix.storetube.gr',
 
     VITE_WALLET_STORETUBE: 'https://storetube.gr:61009/api',

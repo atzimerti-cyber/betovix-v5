@@ -43,7 +43,6 @@ import {
   heroProgress,
 } from "../../pages/UserGamification.jsx/gamificationAsyncActions";
 import { translate } from "../../utils/translations";
-import { useNavigate } from "react-router-dom";
 
 export const loadInitData = (isMobile) => {
   return async (dispatch, getState) => {
@@ -536,13 +535,12 @@ export const loadInitData = (isMobile) => {
         dispatch(appActions.setInitDataLoaded(true));
       }, 2000);
     } catch (error) {
-      // let toastMessage = translate(`${error?.message}`);
       toast.error(error?.message);
-      // toast.error(toastMessage);
       dispatch(appActions.setInitDataLoaded(true));
     }
   };
 };
+
 export const fetchChildDetails = (accountId) => {
   return async (dispatch, getState) => {
     try {
@@ -664,6 +662,49 @@ export const getTranslations = (lang) => {
   };
 };
 
+export const getSite = (signal) => {
+  return async (dispatch) => {
+    try {
+      const currentDomain = window.location.hostname;
+      // const response = await axiosApi.get(`Site/GetSite?domainName=${currentDomain}`, {
+      const response = await axiosApi.get(
+        `Site/GetSite?domainName=betovix.storetube.gr`,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+
+      if (response.status !== 200) throw new Error("Something went wrong");
+
+      config.VITE_SITE_ID = response.data.Contents.SiteId;
+      // Set the page title
+      document.title = response.data.Contents.PageTitle;
+
+      // Set the meta description
+      const metaDescription = document.querySelector(
+        "meta[name='description']"
+      );
+      if (metaDescription) {
+        metaDescription.setAttribute(
+          "content",
+          response.data.Contents.PageDescription
+        );
+      }
+      // Create a <link> tag
+      const link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.type = "text/css";
+      link.href = response.data.Contents.SiteTheme;
+      document.head.appendChild(link);
+
+      dispatch(appActions.setSiteId(true));
+    } catch (error) {
+      dispatch(appActions.setSiteId(false));
+    }
+  };
+};
+
 export const getSiteSettings = (signal) => {
   return async (dispatch) => {
     try {
@@ -721,37 +762,30 @@ export const getSiteSettings = (signal) => {
       );
       dispatch(appActions.setSiteSettingsSuccess(true));
 
-      if (
-        response.data.Contents["Site"] &&
-        response.data.Contents["Site"]["Default Theme"]
-      ) {
-        const defaultTheme = response.data.Contents["Site"]["Default Theme"];
-        const themeHref = `public/themes/${defaultTheme}.css`;
+      // if (
+      //   response.data.Contents["Site"] &&
+      //   response.data.Contents["Site"]["Default Theme"]
+      // ) {
+      //   const defaultTheme = response.data.Contents["Site"]["Default Theme"];
+      //   const themeHref = `public/themes/${defaultTheme}.css`;
 
-        const existingLink = document.querySelector(
-          `link[href="${themeHref}"]`
-        );
+      //   const existingLink = document.querySelector(
+      //     `link[href="${themeHref}"]`
+      //   );
 
-        if (!existingLink && defaultTheme !== "default") {
-          const link = document.createElement("link");
-          link.rel = "stylesheet";
-          link.type = "text/css";
-          link.href = themeHref;
+      //   if (!existingLink && defaultTheme !== "default") {
+      //     const link = document.createElement("link");
+      //     link.rel = "stylesheet";
+      //     link.type = "text/css";
+      //     link.href = themeHref;
 
-          document.head.appendChild(link);
+      //     document.head.appendChild(link);
 
-          console.log(`Applied theme: ${defaultTheme}`);
-        }
-      }
-      // window.location.href = "/m";
+      //     console.log(`Applied theme: ${defaultTheme}`);
+      //   }
+      // }
     } catch (error) {
       dispatch(appActions.setSiteSettingsSuccess(false));
-      // Redirect to `/m` upon error
-      // window.location.href = "/m";
-      // toast.error(
-      //   error?.message ||
-      //     translate("An error occurred while fetching site settings")
-      // );
     }
   };
 };

@@ -108,6 +108,7 @@ import BTG from "../../assets/casinoIcons/btg.svg?react";
 import Favorites from "../../assets/svgs/heart.svg?react";
 
 const initialState = {
+  siteId: false,
   siteSettingsSuccess: false,
   unreadNotifications: 0,
   initDataLoaded: false,
@@ -314,6 +315,9 @@ export const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
+    setSiteId: (state, action) => {
+      state.siteId = action.payload;
+    },
     setSiteSettingsSuccess: (state, action) => {
       state.siteSettingsSuccess = action.payload;
     },

@@ -6,8 +6,7 @@
   cursor: pointer;
   border-radius: 50%;
   border-style: none;
-  /* background-color: var(--sb-search); */
-  background: linear-gradient(159deg, #0e344d 0%, #1b4560 88%);
+  background: var(--arrow-button);
   align-items: center;
   justify-content: center;
 }
@@ -32,7 +31,7 @@
 
 .Disabled.ArrowButton {
   cursor: default;
-  background: linear-gradient(159deg, #0e344d2f 0%, #1b45602f 88%);
+  background: var(--arrow-button-disabled);
 }
 .Disabled.ArrowButton svg path {
   fill: var(--placeholder-light);

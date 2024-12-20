@@ -6,7 +6,7 @@ import { useMediaQuery } from "react-responsive";
 import { useNavigate } from "react-router-dom";
 
 import Preloader from "../UI/Loaders/Preloader";
-import { getSiteSettings, loadInitData } from "./initAppAsyncActions";
+import { getSite, getSiteSettings, loadInitData } from "./initAppAsyncActions";
 import { getUser } from "../../pages/Login/loginAsyncActions";
 import { affiliateCampaigns } from "../../pages/Login/loginAsyncActions";
 import { isMoreThan14DaysOld } from "../../utils/custom";
@@ -23,6 +23,7 @@ const InitApp = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const initDataLoaded = useSelector((state) => state.app.initDataLoaded);
+  const site = useSelector((state) => state.app.siteId);
   const siteSettingsSuccess = useSelector(
     (state) => state.app.siteSettingsSuccess
   );
@@ -32,8 +33,8 @@ const InitApp = () => {
   const timerIdRef = useRef(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const basePath = window.location.origin;
 
+  //Affiliate Code
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     let value = searchParams.get("code");
@@ -54,6 +55,7 @@ const InitApp = () => {
     }
   }, []);
 
+  //Lang in url
   useEffect(() => {
     if (Object.keys(lang).length > 0) {
       const searchParams = new URLSearchParams(location.search);
@@ -69,19 +71,34 @@ const InitApp = () => {
     }
   }, [location.pathname, location.search, lang.id, navigate]);
 
-  useEffect(() => {
-    setIsLoaded(true);
-  }, []);
+  // useEffect(() => {
+  //   setIsLoaded(true);
+  // }, []);
 
-  // Loads once on start
+  // useEffect(() => {
+  //   const controller = new AbortController();
+  //   dispatch(getSiteSettings(controller.signal));
+
+  //   return () => {
+  //     controller.abort();
+  //   };
+  // }, [userAccountId]);
+
+  //  1.Get site
   useEffect(() => {
     const controller = new AbortController();
-    dispatch(getSiteSettings(controller.signal));
+    const { signal } = controller;
+    dispatch(getSite(signal));
+  }, []);
 
-    return () => {
-      controller.abort();
-    };
-  }, [userAccountId]);
+  // 2. Get site settings
+  useEffect(() => {
+    if (site) {
+      setIsLoaded(true);
+      const controller = new AbortController();
+      dispatch(getSiteSettings(controller.signal));
+    }
+  }, [site]);
 
   useEffect(() => {
     if (siteSettingsSuccess) {

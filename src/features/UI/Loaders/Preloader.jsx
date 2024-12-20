@@ -1,29 +1,12 @@
-import classes from './Preloader.module.css';
-import { useState } from 'react';
-//import preloaderImage from '../../../assets/images/loading.webp';
-import preloaderVideo from '../../../assets/mp4/betovix_logo_animation.mp4';
+import classes from "./Preloader.module.css";
 
 const Preloader = () => {
-    const [loading, setLoading] = useState(true);
-    const basePath = window.location.origin;
-    const handleVideoEnd = () => {
-        setLoading(false);
-    };
-    return (
-        <div className={classes.Preloader}>
-              {/* <img src={preloaderImage} alt='Loading' />   */}
-              <img src={`${basePath}/loading.webp`} alt='Loading' />  
-            {/* <video
-                    autoPlay
-                    muted
-                    className={classes.PreloaderVideo}
-                    onEnded={handleVideoEnd}
-                >
-                    <source src={preloaderVideo} type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video> */}
-        </div>
-    );
+  const basePath = window.location.origin;
+  return (
+    <div className={classes.Preloader}>
+      <img src={`${basePath}/loading.webp`} alt="Loading" />
+    </div>
+  );
 };
 
 export default Preloader;
