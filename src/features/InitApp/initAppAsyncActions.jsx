@@ -684,6 +684,7 @@ export const getSite = (signal) => {
           window.location.origin + "/themes/theme-0-stats.css";
       }
 
+      // config.VITE_SITE_ID = 45;
       config.VITE_SITE_ID = response.data.Contents.SiteId;
       config.VITE_SITE_NAME = response.data.Contents.Name;
       config.VITE_STATS_THEME = response.data.Contents.StatsTheme;
@@ -705,6 +706,7 @@ export const getSite = (signal) => {
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.type = "text/css";
+      // link.href = "https://site1.betovix.com/themes/theme-5.css";
       link.href = response.data.Contents.SiteTheme;
       document.head.appendChild(link);
 

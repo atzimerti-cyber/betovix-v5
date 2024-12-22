@@ -59,9 +59,9 @@ const BonusItem = ({ bonus, handleTabClick }) => {
       const controller = new AbortController();
       const signal = controller.signal;
 
-      const cancelledBonus = { ...bonus, Status: 3 };
+      const bonusId = bonus.Id;
 
-      dispatch(cancelBonus(signal, cancelledBonus));
+      dispatch(cancelBonus(signal, bonusId));
     }
   };
 

@@ -38,7 +38,7 @@ export const getBonuses = (signal, status) => {
   };
 };
 
-export const getTransactionList = (signal, filter ) => {
+export const getTransactionList = (signal, filter) => {
   return async (dispatch) => {
     try {
       const lang = getLang();
@@ -59,7 +59,6 @@ export const getTransactionList = (signal, filter ) => {
 
       dispatch(modalActions.setTransactions(response.data.Contents));
       dispatch(modalActions.setLoading(false));
-
     } catch (error) {
       let toastMessage = translate(`${error?.message}`);
       const message = toastMessage || "Error fetching transactions";
@@ -102,15 +101,14 @@ export const claimBonus = (signal, bonusId, callback) => {
   };
 };
 
-export const cancelBonus = (signal, bonus) => {
+export const cancelBonus = (signal, bonusId) => {
   return async (dispatch) => {
     try {
       const lang = getLang();
 
       dispatch(modalActions.setLoading(true));
-      const response = await axiosApi.post(
-        `/BonusForAccount/PostData?action=BonusForAccountSave&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-        bonus,
+      const response = await axiosApi.get(
+        `/BonusForAccount/CancelMyBonus?bonusFAid=${bonusId}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
@@ -123,6 +121,8 @@ export const cancelBonus = (signal, bonus) => {
 
       let toastMessage = translate("Bonus cancelled successfully!");
       toast.success(toastMessage);
+
+      dispatch(getBonuses(signal, 2));
     } catch (error) {
       let toastMessage = translate(`${error?.message}`);
       const message = toastMessage || translate("Failed to cancel bonus");
