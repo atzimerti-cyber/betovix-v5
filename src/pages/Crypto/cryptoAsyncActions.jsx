@@ -249,7 +249,7 @@ export const cancelWithdrawRequest = (signal, id, onSuccess) => {
 
       if(response.data.Contents === true) {
         toast.success('Withdraw Request Cancelled');
-        onSuccess();
+        if (onSuccess) onSuccess();
       }
       else throw Error("Failed")
 
