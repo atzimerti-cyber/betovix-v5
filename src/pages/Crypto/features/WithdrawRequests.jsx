@@ -30,6 +30,7 @@ const WithdrawRequests = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const count = 10;
+  const [ongoingCancellations, setOngoingCancellations] = useState(new Set());
 
   useEffect(() => {
     const controller = new AbortController();
@@ -42,10 +43,16 @@ const WithdrawRequests = () => {
     };
   }, [currentPage, sortOrder, selectedStatus, dispatch]);
   
-  const refreshData = () => {
+  const refreshData = (reqid) => {
     const controller = new AbortController();
     const signal = controller.signal;
     dispatch(getWithrawalReqs(signal, currentPage, count, sortOrder, selectedStatus));
+    
+    setOngoingCancellations((prev) => {
+      const updated = new Set(prev);
+     updated.delete(reqid); // Remove reqId from the set after response
+     return updated;
+    });
   };
 
   useEffect(() => {
@@ -166,10 +173,24 @@ const WithdrawRequests = () => {
   };
 
   const handleCancelRequest = (reqid) => {
+    if (ongoingCancellations.has(reqid)) return; // Prevent multiple clicks
+  
+    setOngoingCancellations((prev) => new Set(prev).add(reqid)); // Add reqId to the set
+  
     const controller = new AbortController();
     const signal = controller.signal;
-
-    dispatch(cancelWithdrawRequest(signal, reqid, refreshData)); // Dispatch cancel action
+  
+    dispatch(
+      cancelWithdrawRequest(signal, reqid, () => {
+        refreshData(reqid);
+      })
+    ).catch(() => {
+      setOngoingCancellations((prev) => {
+        const updated = new Set(prev);
+        updated.delete(reqid); // Ensure removal on error
+        return updated;
+      });
+    });
   };
 
   // Get unique statuses from withdrawReqs if it's not empty
@@ -304,8 +325,11 @@ const WithdrawRequests = () => {
                         color="danger"
                         onClick={() => handleCancelRequest(req.reqId)}
                         className={classes.CancelButton}
+                        disabled={ongoingCancellations.has(req.reqId)} // Disable button during cancellation
                       >
-                        {translate("Cancel Request")}
+                        {ongoingCancellations.has(req.reqId)
+                          ? translate("Cancelling...")
+                          : translate("Cancel Request")}
                       </MainButton>
                     )}
                   </div>
