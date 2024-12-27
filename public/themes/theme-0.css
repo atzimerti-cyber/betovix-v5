@@ -89,6 +89,38 @@
   --calendar: linear-gradient(222deg, #073c59 0%, #062537 72%);
   --calendar-hover: linear-gradient(307deg, #3cafaa80 0%, #57a7c957 50%);
 
+  --wr-pending: linear-gradient(222deg, #1e5063 0%, #26556dba 50%);
+  --wr-approved: linear-gradient(
+    161deg,
+    #10324b 0%,
+    #1c525d 30%,
+    rgba(59, 195, 191, 0.81) 100%
+  );
+  --wr-not-approved: linear-gradient(
+    161deg,
+    rgba(16, 50, 75, 0.92) 0%,
+    rgba(93, 28, 28, 0.5) 40%,
+    rgba(153, 30, 30, 0.74) 100%
+  );
+  --wr-confirmed: linear-gradient(
+    161deg,
+    #10324b 0%,
+    #1c405d 30%,
+    rgba(141, 239, 75, 0.47) 100%
+  );
+  --wr-payed: linear-gradient(
+    161deg,
+    #10324b 0%,
+    #1c405d 30%,
+    rgba(141, 239, 75, 0.47) 100%
+  );
+  --wr-cancelled: linear-gradient(
+    161deg,
+    rgba(16, 50, 75, 0.92) 0%,
+    rgba(93, 28, 28, 0.5) 40%,
+    rgba(153, 30, 30, 0.74) 100%
+  );
+
   --event-board-bg: #001937e3;
 
   --db-modal-auth-height: 506px;

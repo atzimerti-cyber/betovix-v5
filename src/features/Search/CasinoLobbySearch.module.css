@@ -19,7 +19,7 @@
   border: 1px solid transparent;
 }
 .SearchInput:focus {
-  border: 1px solid #96d0237c;
+  border: 1px solid var(--brand-green-lowop);
 }
 .SearchInput::placeholder {
   color: rgba(194, 240, 255, 0.809);
@@ -40,7 +40,7 @@
   width: 0.75rem;
 }
 .RightIcon svg path {
-  fill: lightblue;
+  fill: var(--brand-green);
 }
 
 .DeleteIcon {

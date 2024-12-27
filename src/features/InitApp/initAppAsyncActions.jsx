@@ -706,7 +706,7 @@ export const getSite = (signal) => {
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.type = "text/css";
-      // link.href = "https://site1.betovix.com/themes/theme-5.css";
+      // link.href = "/themes/theme-6.css";
       link.href = response.data.Contents.SiteTheme;
       document.head.appendChild(link);
 

@@ -133,7 +133,7 @@
   justify-content: space-evenly;
   align-items: flex-start;
   overflow: hidden;
-  text-overflow: ellipsis;    
+  text-overflow: ellipsis;
   max-width: 100%;
 }
 

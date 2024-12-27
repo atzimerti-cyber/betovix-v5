@@ -3,8 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 
-import GoogleIcon from "../../assets/svgs/google.svg?react";
-import SteamIcon from "../../assets/svgs/steam.svg?react";
 import MainInput from "../../features/UI/Inputs/MainInput";
 import MainButton from "../../features/UI/Buttons/MainButton";
 import classes from "./Login.module.css";

@@ -22,13 +22,11 @@
   transition-duration: 0.2s;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   border-radius: var(--rounded-btn, 0.5rem);
-  height: 3rem;
   padding-left: 1rem;
   padding-right: 1rem;
   font-size: 0.875rem;
   line-height: 1.25rem;
   line-height: 1em;
-  min-height: 3rem;
   font-weight: 600;
   text-transform: uppercase;
   text-transform: var(--btn-text-case, uppercase);
@@ -67,12 +65,11 @@
 .Danger.MainButton {
   --tw-border-opacity: 1;
   border-color: hsl(0deg 59% 41%);
-  --tw-bg-opacity: 1;
-  background-color: hsl(0deg 59% 41%);
+  --tw-bg-opacity: 0.9;
+  background-color: var(--cancelled);
   --tw-text-opacity: 1;
   color: hsl(var(--pc) / var(--tw-text-opacity));
-  min-height: 2rem;
-  height: 2rem;
+  padding: 0.5rem 1rem;
 }
 
 .BVixLGreen.MainButton:hover {
@@ -82,10 +79,8 @@
   background-color: var(--brand-color);
 }
 
-.Danger.MainButton:hover {
-  --tw-border-opacity: 1;
-  border-color: hsl(0deg 58.2% 47.84%);
-  --tw-bg-opacity: 1;
+.Danger.MainButton:hover { 
+  border-color: hsl(0deg 58.2% 47.84%); 
   background-color: hsl(0deg 90% 32%);
 }
 
