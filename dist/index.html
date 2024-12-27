@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+    content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="interkassa-verification" content="b33b49148b9dd010475647912c23d313" />
+
+  <title> </title>
+  <meta name="description" content=" " />
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css"> 
+
+  <!-- <meta name="msapplication-TileColor" content="#213241" /> -->
+  <!-- <meta name="theme-color" content="#0e1b26" /> -->
+
+  <link rel="preload" href="https://use.typekit.net/emg0udh.css" as="style" onload="this.rel='stylesheet'" />
+
+  <script type="text/javascript" src="/settings.js"></script>
+  <script type="text/javascript"
+    src="https://e4a2fe78-d6a5-4db4-8b68-4943b8cde3f0.snippet.anjouangaming.org/anj-seal.js"></script>
+
+  <script>
+    function hideGame() {
+      window.location.href = "/casino/lobby";
+      document.getElementById('game').style.display = 'none';
+      document.getElementById('btnBack').style.display = 'none';
+      document.getElementById("gameHeader").style.display = "none";
+      document.getElementById("gameName").style.display = "none";
+      document.getElementById('loadGame').style.display = 'none';
+    }
+  </script>
+  <link rel="preload" as="image" href="/loading.webp">
+
+  <style>
+    /* Snow container */
+    .snow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      /* Prevent interaction */
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    /* Snowflake styles */
+    .snowflake {
+      position: absolute;
+      top: -10px;
+      /* Start slightly above the viewport */
+      font-size: 1rem;
+      /* Default size */
+      color: white;
+      opacity: 0.8;
+      animation: fall linear infinite, drift ease-in-out infinite;
+    }
+
+    /* Create variations with nth-child */
+    .snowflake:nth-child(1) {
+      left: 5%;
+      font-size: 1.5rem;
+      animation-duration: 8s, 3s;
+      animation-delay: 0s, 1s;
+    }
+
+    .snowflake:nth-child(2) {
+      left: 15%;
+      font-size: 1rem;
+      animation-duration: 6s, 4s;
+      animation-delay: 2s, 0s;
+
+      left: 45%;
+      animation-duration: 24s, 3.5s;
+      animation-delay: 2s, 0s;
+
+    }
+
+    .snowflake:nth-child(3) {
+      left: 25%;
+      font-size: 1.2rem;
+      animation-duration: 12s, 3.5s;
+      animation-delay: 1s, 0.5s;
+
+      left: 65%;
+      animation-duration: 17s, 3.5s;
+      animation-delay: 1s, 0.5s;
+    }
+
+    .snowflake:nth-child(4) {
+      left: 35%;
+      font-size: 2rem;
+      animation-duration: 9s, 2.5s;
+      animation-delay: 0s, 2s;
+    }
+
+    .snowflake:nth-child(5) {
+      left: 45%;
+      font-size: 1.8rem;
+      animation-duration: 6.5s, 4s;
+      animation-delay: 0.5s, 1.5s;
+    }
+
+    .snowflake:nth-child(6) {
+      left: 55%;
+      font-size: 1rem;
+      animation-duration: 5s, 3s;
+      animation-delay: 1s, 0s;
+    }
+
+    .snowflake:nth-child(7) {
+      left: 65%;
+      font-size: 1.3rem;
+      animation-duration: 6s, 2.5s;
+      animation-delay: 0s, 1s;
+    }
+
+    .snowflake:nth-child(8) {
+      left: 75%;
+      font-size: 1.4rem;
+      animation-duration: 7.5s, 3s;
+      animation-delay: 1.5s, 0.5s;
+    }
+
+    .snowflake:nth-child(9) {
+      left: 85%;
+      font-size: 1.6rem;
+      animation-duration: 8s, 4s;
+      animation-delay: 0s, 2s;
+    }
+
+    .snowflake:nth-child(10) {
+      left: 95%;
+      font-size: 1.7rem;
+      animation-duration: 7s, 2.5s;
+      animation-delay: 0.5s, 1s;
+    }
+
+    .snowflake:nth-child(11) {
+      left: 1%;
+      font-size: 2.5rem;
+      animation-duration: 11s, 5s;
+      animation-delay: 0s, 1s;
+    }
+
+    .snowflake:nth-child(12) {
+      left: 15%;
+      font-size: 2rem;
+      animation-duration: 9s, 6s;
+      animation-delay: 2s, 0s;
+    }
+
+    .snowflake:nth-child(13) {
+      left: 20%;
+      font-size: 2.2rem;
+      animation-duration: 10s, 5.5s;
+      animation-delay: 1s, 0.5s;
+    }
+
+    .snowflake:nth-child(14) {
+      left: 30%;
+      font-size: 1rem;
+      animation-duration: 12s, 5.5s;
+      animation-delay: 0s, 2s;
+    }
+
+    .snowflake:nth-child(15) {
+      left: 40%;
+      font-size: 2.8rem;
+      animation-duration: 9.5s, 6s;
+      animation-delay: 0.5s, 1.5s;
+    }
+
+    .snowflake:nth-child(16) {
+      left: 50%;
+      font-size: 2rem;
+      animation-duration: 8s, 2s;
+      animation-delay: 1s, 0s;
+    }
+
+    .snowflake:nth-child(17) {
+      left: 60%;
+      font-size: 2.3rem;
+      animation-duration: 9s, 5.5s;
+      animation-delay: 0s, 1s;
+    }
+
+    .snowflake:nth-child(18) {
+      left: 70%;
+      font-size: 2.4rem;
+      animation-duration: 10.5s, 2s;
+      animation-delay: 1.5s, 0.5s;
+    }
+
+    .snowflake:nth-child(19) {
+      left: 80%;
+      font-size: 2.6rem;
+      animation-duration: 11s, 6s;
+      animation-delay: 0s, 2s;
+    }
+
+    .snowflake:nth-child(20) {
+      left: 90%;
+      font-size: 2.7rem;
+      animation-duration: 10s, 4.5s;
+      animation-delay: 0.5s, 1s;
+    }
+
+    /* Falling animation */
+    @keyframes fall {
+      0% {
+        /*transform: translateY(-10px);  Start above the screen */
+        top: -10vh;
+      }
+
+      100% {
+        /*transform: translateY(100vh);  Move to the bottom of the screen */
+        top: 100vh;
+      }
+    }
+
+    /* Horizontal drifting animation */
+    @keyframes drift {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      50% {
+        transform: translateX(50px);
+      }
+    }
+
+    [class*="SignupTextContainer"] button {
+      position: relative !important;
+    }
+
+    /* Static snow pile */
+    [class*="SignupTextContainer"] button::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      /* Position above the button */
+      right: 0;
+
+      width: 89px;
+      /* Adjust to fit the button width */
+      height: 39px;
+      /* Adjust for the height of the snow image */
+      background: url('snowpile.png') no-repeat center;
+      background-size: contain;
+      pointer-events: none; 
+    }
+
+    [class*="BannerContainer"] {
+      position: relative !important;
+    }
+
+    [class*="BannerContainer"]::before {
+      content: '';
+      position: absolute;
+      top: -14px;
+      right: -18px;
+      opacity: 1;
+      transform: translateX(-44px) scaleX(-1);
+      width: 89px;
+      height: 39px;
+      background: url(snowpile.png) no-repeat center;
+      background-size: contain;
+      pointer-events: none;
+      z-index: 99;
+    }
+
+    /*  Spinner  */
+    .Spinner {
+      border: 4px solid rgba(255, 255, 255, 0.093);
+      /* Light white semi-transparent border */
+      border-top: 4px solid rgba(255, 255, 255, 0.708);
+      /* Solid white for the spinning part */
+      border-radius: 50%;
+      width: 36px;
+      /* Adjust size */
+      height: 36px;
+      /* Adjust size */
+      animation: spin 1s linear infinite;
+      /* Smooth spinning animation */
+      margin: 2rem auto 2rem auto;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/index-B019MLjA.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-CxDuUr6h.css">
+</head>
+
+<body>
+  <div class="snow">
+
+    <div class="snowflake">❅</div>
+    <div class="snowflake">❄</div>
+
+    <div class="snowflake">✻</div>
+    <div class="snowflake">❄</div>
+  </div>
+
+  <div id="loadGame" style="position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100vw;
+        height: 100vh;
+        display: none;
+        background: black;
+        z-index: 21474836;">
+    <div class="Spinner"></div>
+  </div>
+  <div id="gameHeader"
+    style="position: fixed;display: none;align-items: center;top:0;height: 45px;background: #123953;width: 100%;z-index:2147483640">
+    <p id="gameName"
+      style="display:none;position:fixed; left:5%;max-width:50%;align-items: center;z-index:2147483647;color:white;font-weight:500;font-size:15px;text-wrap: nowrap;">
+    </p>
+    <button id="btnBack" onclick="hideGame()"
+      style="display:none;position:fixed; right:5%;justify-content: center;align-items: center;height:30px;width:30px;z-index:2147483647;background: rgba(77, 77, 77, 0);border-radius:20px;color:white;font-weight:500;font-size:25px;">✖</button>
+  </div>
+  <iframe id="game" style="position:fixed;
+    padding-top: 45px;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        width:100vw;
+        height: 100vh;
+        display: none;
+        z-index:214748364;
+        " allow="fullscreen"></iframe>
+
+  <div id="root"></div>
+
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-5VMJB2G33G"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-5VMJB2G33G');
+  </script>
+
+
+</body>
+
+</html>

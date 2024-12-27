@@ -1,0 +1,97 @@
+﻿
+<!DOCTYPE html>
+<html ng-app="statistics">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="google-site-verification" content="r149R75WbJEMBp3QdkF-8ZnWSNG7Ay89yS0Oa049ALI" />
+
+	<title>
+		Statistics
+	</title>
+
+	<link rel="stylesheet" href="default.css?v=1677063215.92170.023892756096969" type="text/css" />
+
+	<script>
+		var G_CONFIG = JSON.parse('{"main_version":0.11623568279493,"sportsbook_url":"https:\/\/www.vbet.com\/#","target":true,"bet_available":true,"showLiveMatchesCount":false,"noExternalH2HNavbar":false,"blackFont":false,"logoCenter":false,"sidenavOpen":false,"lngBar":true,"navBar":true,"nonSidenavBg":false,"name":"default","title":"Statistics","partner_id":"900","site_id":"0","partner_tkn":"93f428d0-6591-48da-859d-b6c326db2448","def_lng":"en","spring":true,"languages":{"ar":"\u0627\u0644\u0639\u0631\u0628\u064a\u0629","hy":"\u0540\u0561\u0575\u0565\u0580\u0565\u0576","zh":"\u7e41\u9ad4\u4e2d\u6587","en":"English","fr":"French","de":"Deutsch","fa":"\u0641\u0627\u0631\u0633\u06cc","pt":"Portugu\u00eas","ru":"\u0420\u0443\u0441\u0441\u043a\u0438\u0439","es":"Espa\u00f1ol","tr":"T\u00fcrk\u00e7e"},"onlyExternalH2h":false,"hideExternalSeeMore":false,"skin":"default","defCId":"2969","hideGoogleTools":false,"ga_id":"UA-83539565-1","gtm_id":"GTM-T4R2VJX","gv_id":"","yam_id":"","yam_verify":"","yandexTools":false,"version":0.023892756096969,"translate_Version":0.30190449128947,"url":{"params":{"game":{"alias":"game","value":"integer"},"type":{"alias":"type","value":["0","1"]},"sport":{"alias":"sport","value":"integer"},"competition":{"alias":"competition","value":"integer"}},"middle":"\/sport\/?","friendlyURL":false,"buildingUrl":false}}');
+	</script>
+
+	<link href='/ico/default.ico?v=0.023892756096969' rel="shortcut icon" type="image/x-icon" />
+	<link href='/ico/default.ico?v=0.023892756096969' rel='shortcut icon bookmark' type='image/png'>
+	<link href='/ico/default.ico?v=0.023892756096969' rel='apple-touch-icon' type='image/png'>
+	<!-- <link href="stats-theme.css" rel="stylesheet" /> -->
+	 
+</head>
+<body ng-controller="BaseCtrl">
+	<div ui-view="layout.view" class="layout large-12 columns"></div>
+
+	<script type="text/javascript">
+		function loadScript() {
+			var script = document.createElement('script');
+			script.type = 'text/javascript';
+			script.src = 'main.min.js?v=0.6897828969507516';
+			document.body.appendChild(script);
+
+			var css = document.createElement('link');
+			css.rel = 'stylesheet';
+			css.type = 'text/css';
+			css.href = getParameterByName('styles') ;
+			document.getElementsByTagName('head')[0].appendChild(css);
+		}
+		window.onload = loadScript;
+
+		var timer;
+		window.addEventListener('DOMNodeInserted', function (e) {
+			if (timer) clearTimeout(timer);
+			timer = setTimeout(removeLinks, 100);
+		});
+
+		function getParameterByName(name, url = window.location.href) {
+			name = name.replace(/[\[\]]/g, '\\$&');
+			var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+				results = regex.exec(url);
+			if (!results) return null;
+			if (!results[2]) return '';
+			return decodeURIComponent(results[2].replace(/\+/g, ' '));
+		}
+
+		function removeLinks() {
+
+			var elems = document.getElementsByTagName('a');
+			for (var i = 0; i < elems.length; i++) {
+				var elem = elems[i];
+				var h = elem.getAttribute('ng-href');
+				if (h && h.indexOf('vbet') > -1) {
+					console.log('vbet link found');
+					elem.style.display = 'none';
+					 
+
+				}
+			}
+
+
+			//var target = e.target
+			//	, inner = target.innerHTML //target.getAttribute('ng-href')  || target.href
+			//	;
+
+			//if (inner.indexOf('vbet.com') > -1) {
+			//	// remove all a
+			//	var list = target.children;
+			//	for (var i = 0; i < list.length; i++) {
+			//		var c = list[i];
+			//		var h = c.getAttribute('ng-href');
+			//		if (h.indexOf('vbet') > -1) {
+			//			console.log('vbet link found');
+			//			c.style.display = 'none';
+			//			c.href = '';
+
+			//		}
+			//	}
+
+			//}
+		}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,189 @@
+.promotionsModalTop {
+  display: flex;
+  flex-direction: column;
+  height: 220px;
+  justify-content: flex-end;
+  overflow: hidden;
+  padding: 40px 16px;
+  position: relative;
+  width: 100%;
+  background: linear-gradient(0deg, var(--dark-blue-1), rgb(46 165 255 / 26%));
+}
+
+@media (min-width: 768px) {
+  .promotionsModalTop {
+    height: 300px;
+    padding: 48px 32px;
+  }
+}
+@media (min-width: 480px) {
+  .promotionsModalTop {
+    height: 260px;
+  }
+}
+.promotionsModalBackgroundImage {
+  left: 50%;
+  min-width: 100%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.promotionsModalTitle {
+  color: hsla(0, 0%, 100%, 0.65);
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  line-height: 20px;
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .promotionsModalText {
+    font-size: 32px;
+    line-height: 40px;
+  }
+}
+@media (min-width: 480px) {
+  .promotionsModalText {
+    font-size: 26px;
+    line-height: 32px;
+  }
+}
+.promotionsModalText {
+  color: #fff;
+  display: inline-block;
+  font-family: Geologica, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 26px;
+  margin-top: 20px;
+}
+@media (min-width: 768px) {
+  .promotionsModalContent {
+    padding: 32px 32px 96px;
+  }
+}
+.promotionsModalContent {
+  padding: 32px 16px 80px;
+}
+.promotionsModalContentTitle {
+  color: #fff;
+  font-family: Roboto, sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 30px;
+  margin: 0 0 16px;
+}
+.promotionsModalContentText {
+  color: hsla(0, 0%, 100%, 0.65);
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+}
+.promotionsModalContentTitleTerms {
+  font-size: 16px;
+  line-height: 24px;
+  margin: 32px 0 16px;
+}
+.promotionsModalTerms {
+  counter-reset: list-counter;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  margin: 16px 0;
+  padding: 0 0 0 40px;
+  row-gap: 16px;
+}
+
+.promotionsModalTermsItem {
+  color: hsla(0, 0%, 100%, 0.65);
+  counter-increment: list-counter;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  position: relative;
+}
+.promotionsModalTermsItem:before {
+  align-items: center;
+  background: rgb(0 0 0 / 29%);
+  border-radius: 50%;
+  color: #fff;
+  content: counter(list-counter);
+  display: flex;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  height: 24px;
+  justify-content: center;
+  left: -40px;
+  line-height: 20px;
+  position: absolute;
+  width: 24px;
+}
+
+.promotionsModal {
+  height: 100%;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .promotionsModal {
+    max-height: 800px;
+  }
+}
+
+.ToS {
+  margin-top: 0.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.Title h1 {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: whitesmoke;
+}
+
+.Title h2 {
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--lightcolor-op1);
+}
+
+.Context p {
+  color: whitesmoke;
+}
+
+.Text {
+  color: whitesmoke;
+}
+
+.ParagraphTitle {
+  color: var(--lightcolor-op1);
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.3rem 0;
+}
+
+.ParagraphText {
+  font-size: 0.9rem;
+  font-weight: 400;
+  padding: 0.5rem 0;
+}
+
+@media (min-width: 640px) {
+  .ToS {
+    margin-top: 0.875rem;
+  }
+}
