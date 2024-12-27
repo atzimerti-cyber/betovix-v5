@@ -18,7 +18,7 @@
 
   --placeholder-light: #7d839d;
   --light-blue: #d4d4d4;
-  --light-blue-2: #5a6f9f;
+  --light-blue-2: #1d2433;
   --db-gray-4: #392f2c;
   --db-gray-4: #3a2e2a;
   --mid-blue-1: #4a4a4a;
@@ -78,7 +78,7 @@
 
   --swiper-container-grad: linear-gradient(45deg, #19151c, #10141d 120%);
   --accordion-header: linear-gradient(45deg, #26202b, #191f2d 120%);
-  --accordion-body: #0f121a;
+  --accordion-body: #25202b;
   --accordion-small-header: linear-gradient(45deg, #1e1922, #141924 120%);
   --accordion-small-body: linear-gradient(45deg, #1e1922, #141924 120%);
   --casino-options-bg: radial-gradient(

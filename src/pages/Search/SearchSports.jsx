@@ -91,7 +91,7 @@ const SearchSports = () => {
           )
         ) : (
           <div>
-            <p>
+            <p style={{ color: "var(--brand-green)" }}>
               {" "}
               {translate(`Type 3 or more characters to search for an event`)}.
             </p>

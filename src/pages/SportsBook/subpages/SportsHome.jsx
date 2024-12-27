@@ -5,7 +5,9 @@ import _ from "lodash";
 
 import classes from "./SportsHome.module.css";
 import { sportsbookActions } from "../sportsbookSlice";
-import { sportsHomeActions } from "../subpages/sportsHomeSlice";
+import sportsHomeSlice, {
+  sportsHomeActions,
+} from "../subpages/sportsHomeSlice";
 import { getPregameData, getLiveStreams } from "../sportsbookAsyncActions";
 import SportSelection from "../features/SportSelection";
 import TournamentSearch from "../features/TournamentSearch";
@@ -46,13 +48,14 @@ const SportsHome = () => {
     (state) => state.sportsbook.customDateTournaments
   );
   const customDate = useSelector((state) => state.sportsbook.customDate);
-
   const categories = useSelector((state) => state.sportsHome.categories);
   const sports = useSelector((state) => state.sportsbook.sports);
   const allSports = useSelector((state) => state.app.allSports);
   const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
   const loading = useSelector((state) => state.sportsbook.loading);
+  const openCategoryId = useSelector((state) => state.sportsHome.categoryOpen);
 
+  const [openCat, setOpenCat] = useState(null);
   const [categoriesArr, setCategoriesArr] = useState(null);
   const [loadingCategories, setLoadingCategories] = useState(true);
   const [axiosController, setAxiosController] = useState(null);
@@ -71,6 +74,11 @@ const SportsHome = () => {
       "5D": 8,
     };
   }, []);
+
+  useEffect(() => {
+    setOpenCat(openCategoryId);
+    return () => {};
+  }, [openCategoryId]);
 
   useEffect(() => {
     dispatch(sportsbookActions.setSelectedSport(null));
@@ -210,6 +218,7 @@ const SportsHome = () => {
     const sorted = getSorted(subset);
 
     setCategoriesArr(sorted);
+    // dispatch(sportsHomeActions.setCategoryOpen(sorted[0]?.Id));
   };
 
   const addLiveCategories = (ca) => {
@@ -469,7 +478,6 @@ const SportsHome = () => {
                   marginLeft: "10px",
                 }}
               >
-                {/* {translate(`Search Results`)} */}
                 {getDateOfLastItem(customDateTournaments)}
               </p>
               {customDateTournaments.length > 0 && (
@@ -502,7 +510,8 @@ const SportsHome = () => {
                 <Category
                   key={category.Id}
                   category={category}
-                  initOpen={catIndex === 0}
+                  initOpen={false}
+                  //initOpen={catIndex === 0}
                   slice="sportsHome"
                   includePregame
                   includeLive

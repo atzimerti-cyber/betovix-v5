@@ -5,9 +5,12 @@ import Tournament from "./Tournament";
 import Accordion from "../../../features/UI/Accordion/Accordion";
 import AccordionSmall from "../../../features/UI/Accordion/AccordionSmall";
 import { translate } from "../../../utils/translations";
+import { private_createTypography } from "@mui/material";
 
 const Category = (props) => {
   const [categoryTournaments, setCategoryTournaments] = useState([]);
+
+  const openCategoryId = useSelector((state) => state.sportsHome.categoryOpen);
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const tournamentSearchString = useSelector(
@@ -76,6 +79,7 @@ const Category = (props) => {
   return (
     <div data-category={`Category:${props.category.Id}`}>
       <Accordion
+        catId={props.category.Id}
         title={translate(props.category.Name.International)}
         initOpen={props.initOpen}
         catIcon={`url('/flags/flags/${props.category.Name.International}.png')`}

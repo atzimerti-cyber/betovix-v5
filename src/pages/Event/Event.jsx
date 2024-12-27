@@ -215,9 +215,20 @@ const Event = () => {
         });
       }
     });
+    const allMarketsId = `rand-${Math.random().toString(36).slice(2, 11)}`;
+    groupsObj[allMarketsId] = { Id: allMarketsId, name: "All Markets" };
 
     let groups = Object.values(groupsObj);
     groups.sort((a, b) => a.Id - b.Id); // maybe not needed
+
+    // Move the "All markets" object to the first position
+    const allMarketsObj = groups.find((group) => group.Id === allMarketsId);
+    if (allMarketsObj) {
+      groups = [
+        allMarketsObj,
+        ...groups.filter((group) => group.Id !== allMarketsId),
+      ];
+    }
 
     // Get auto...
     const marketTree =
@@ -311,12 +322,7 @@ const Event = () => {
                       </div>
                     </div>
 
-                    <div
-                      // className={
-                      //     showTab !== 'tab2' ? [classes.BreadcrumbLiveWrapper, classes.Hide].join(' ') : classes.BreadcrumbLiveWrapper
-                      // }
-                      className={classes.BreadcrumbLiveWrapper}
-                    >
+                    <div className={classes.BreadcrumbLiveWrapper}>
                       <BreadcrumbLive
                         event={event}
                         page={event.type === "live" ? "live" : "home"}
