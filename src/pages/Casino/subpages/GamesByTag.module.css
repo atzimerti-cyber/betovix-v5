@@ -97,8 +97,8 @@
   padding: 0 0.2rem 0 0.38rem;
   height: 100%;
   width: 100%;
-  /* background-color: #1c455875; */
   background: linear-gradient(222deg, #82cdd938, #00ff8c14);
+  background: var(--button-grad-op1);
   display: flex;
   align-items: center;
   flex-direction: row;

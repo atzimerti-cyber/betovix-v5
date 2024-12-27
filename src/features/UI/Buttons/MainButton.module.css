@@ -80,8 +80,8 @@
   background-color: var(--brand-color);
 }
 
-.Danger.MainButton:hover { 
-  border-color: hsl(0deg 58.2% 47.84%); 
+.Danger.MainButton:hover {
+  border-color: hsl(0deg 58.2% 47.84%);
   background-color: hsl(0deg 90% 32%);
 }
 
@@ -117,7 +117,6 @@
 .Secondary.MainButton:hover {
   --tw-border-opacity: 1;
   border-color: hsl(var(--sf, var(--s)) / var(--tw-border-opacity));
-  /* background-color: #602389; */
 }
 
 .Transparent.MainButton {
