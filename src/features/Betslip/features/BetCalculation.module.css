@@ -1,48 +1,48 @@
 .BetCalculation {
-    display: flex;
-    color: rgb(255, 255, 255);
-    fill: rgb(255, 207, 82);
-    font-size: 15px;
-    line-height: 1.5;
-    margin: 14px;
-    margin-block-end: 10px;
-    flex-direction: column;
+  display: flex;
+  color: var(--white);
+  fill: var(--yellow-accent-color);
+  font-size: 15px;
+  line-height: 1.5;
+  margin: 14px;
+  margin-block-end: 10px;
+  flex-direction: column;
 }
 
 .BetCalculation * {
-    display: flex;
+  display: flex;
 }
 
 .TotalStake,
 .TotalPayout,
 .TotalBonus {
-    margin-inline: 2px;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+  margin-inline: 2px;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
 }
 
 .TotalBonus {
-    color: rgb(255, 207, 82);
+  color: var(--yellow-accent-color);
 }
 
 .Value {
-    -webkit-box-align: center;
-    align-items: center;
-    color: rgb(255, 207, 82);
+  -webkit-box-align: center;
+  align-items: center;
+  color: var(--yellow-accent-color);
 }
 .Value > svg {
-    flex: 0 0 14px;
-    width: 14px;
-    height: 14px;
-    margin-inline: 0px 8px;
+  flex: 0 0 14px;
+  width: 14px;
+  height: 14px;
+  margin-inline: 0px 8px;
 }
 
 .AmountArea {
-    height: 36px;
-    position: relative;
-    background: var(--sb-search);
-    display: flex;
-    flex: 1 0 36px;
-    margin-block: 0px 10px;
-    align-items: center;
+  height: 36px;
+  position: relative;
+  background: var(--sb-search);
+  display: flex;
+  flex: 1 0 36px;
+  margin-block: 0px 10px;
+  align-items: center;
 }

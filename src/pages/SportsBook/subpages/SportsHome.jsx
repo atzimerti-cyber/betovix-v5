@@ -491,14 +491,19 @@ const SportsHome = () => {
           </>
         ) : (
           <div>
-            <p>{translate(`Νο events are currently available`)}.</p>
+            <p style={{ color: "var(--brand-green)" }}>
+              {translate(`Νο events are currently available`)}.
+            </p>
           </div>
         )
       ) : (
         <div className={classes.TournamentGroup}>
           {selectedSport && !loadingCategories ? (
             categoriesArr.length === 0 ? (
-              <span className={classes.NoGames}>
+              <span
+                className={classes.NoGames}
+                style={{ color: "var(--brand-green)" }}
+              >
                 {translate(`Νο events are currently available`)}.
               </span>
             ) : (

@@ -1,34 +1,35 @@
 .NavItem {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    border-radius: 0.375rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-    white-space: nowrap;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  white-space: nowrap;
 }
 
 .NavItem svg {
-    margin-right: 0.5rem;
-    height: 1.2rem;
-    width: 1.2rem;
-    flex-shrink: 0;
+  margin-right: 0.5rem;
+  height: 1.2rem;
+  width: 1.2rem;
+  flex-shrink: 0;
 }
 
 .NavItem svg path {
-    fill: var(--light-blue);
+  fill: var(--light-blue);
 }
 
 .ActiveItem {
-    background-color: var(--db-gray-4);
+  background-color: var(--db-gray-4);
+  background: var(--button-grad-op1);
 }
 .NavItem:hover {
-    background-color: var(--mid-blue-1);
+  background-color: var(--mid-blue-1);
 }
 
 .ActiveItem svg path {
-    fill: #fff;
+  fill: #fff;
 }

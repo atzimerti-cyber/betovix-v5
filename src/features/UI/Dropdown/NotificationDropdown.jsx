@@ -40,7 +40,7 @@ const NotificationDropdown = (props) => {
           : classes.Dropdown
       }
     >
-      <ArrowIcon className={classes.ArrowIcon} fill="#000" />
+      {/* <ArrowIcon className={classes.ArrowIcon} fill="#000" /> */}
       <div className={classes.DropdownHeader}>
         <h1>Notifications</h1>
         <div className={classes.ToggleButton}>
