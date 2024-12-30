@@ -667,8 +667,8 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        `Site/GetSite?domainName=betovix.storetube.gr`,
-        // `Site/GetSite?domainName=${currentDomain}`,
+        // `Site/GetSite?domainName=betovix.storetube.gr`,
+        `Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
@@ -707,8 +707,8 @@ export const getSite = (signal) => {
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.type = "text/css";
-      link.href = "/themes/theme-6.css";
-      // link.href = response.data.Contents.SiteTheme; ////////////////////////////
+      // link.href = "/themes/theme-6.css";
+      link.href = response.data.Contents.SiteTheme; ////////////////////////////
       document.head.appendChild(link);
 
       // Update all favicon links
