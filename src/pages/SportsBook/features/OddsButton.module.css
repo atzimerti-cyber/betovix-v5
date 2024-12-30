@@ -14,7 +14,7 @@
   position: relative;
   transition: background-color 0.3s ease 0s, opacity 0.3s ease 0s;
   min-height: 2.5rem;
-  border: 1px solid transparent;
+  border: 1px solid var(--odds-button-border);
 }
 
 .OddsLabel {

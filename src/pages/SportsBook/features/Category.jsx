@@ -91,6 +91,7 @@ const Category = (props) => {
               data-tournament={`Tournament:${categoryTournament.Id}`}
             >
               <AccordionSmall
+                catId={categoryTournament.Id}
                 icon={selectedSport.icon}
                 title={translate(categoryTournament.Name.International)}
                 initOpen={tournamentIndex < 0}

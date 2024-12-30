@@ -53,9 +53,7 @@ const SportsHome = () => {
   const allSports = useSelector((state) => state.app.allSports);
   const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
   const loading = useSelector((state) => state.sportsbook.loading);
-  const openCategoryId = useSelector((state) => state.sportsHome.categoryOpen);
 
-  const [openCat, setOpenCat] = useState(null);
   const [categoriesArr, setCategoriesArr] = useState(null);
   const [loadingCategories, setLoadingCategories] = useState(true);
   const [axiosController, setAxiosController] = useState(null);
@@ -76,11 +74,6 @@ const SportsHome = () => {
   }, []);
 
   useEffect(() => {
-    setOpenCat(openCategoryId);
-    return () => {};
-  }, [openCategoryId]);
-
-  useEffect(() => {
     dispatch(sportsbookActions.setSelectedSport(null));
     dispatch(sportsbookActions.setSports(null));
 
@@ -88,7 +81,10 @@ const SportsHome = () => {
     const signal = controller.signal;
     setAxiosController(controller);
 
-    if (!tournamentTimeFilter) {
+    // if (!tournamentTimeFilter) {
+    //   dispatch(sportsbookActions.setTournamentTimeFilter("All"));
+    // }
+    if (tournamentTimeFilter !== "All") {
       dispatch(sportsbookActions.setTournamentTimeFilter("All"));
     }
 

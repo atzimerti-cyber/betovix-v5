@@ -26,7 +26,7 @@ const Search = (props) => {
       data-tooltip-content={props.dataTooltipContent}
     >
       <input
-        id="searchCasino"
+        // id="searchCasino"
         role="search"
         type="search"
         name="search"

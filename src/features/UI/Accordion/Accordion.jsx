@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 import classes from "./Accordion.module.css";
 import AngleDownIcon from "../../../assets/svgs/angle-down.svg?react";
@@ -8,17 +8,42 @@ import { sportsHomeActions } from "../../../pages/SportsBook/subpages/sportsHome
 
 const Accordion = (props) => {
   const dispatch = useDispatch();
+  const ref = useRef(null);
 
   const openCategoryId = useSelector((state) => state.sportsHome.categoryOpen);
+  const tournamentOpenId = useSelector(
+    (state) => state.sportsHome.tournamentOpen
+  );
 
   // const [isOpen, setIsOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(props.initOpen);
 
+  useEffect(() => {
+    if (tournamentOpenId === null && openCategoryId) {
+      setAccordionInViewportTop();
+    }
+    return () => {};
+  }, []);
+
+  const setAccordionInViewportTop = () => {
+    if (ref.current) {
+      setTimeout(() => {
+        ref.current.scrollIntoView({
+          behavior: "instant",
+          block: "center",
+          inline: "nearest",
+        });
+      }, 0);
+    }
+  };
+
   const handleClick = (id) => {
     if (id !== openCategoryId) {
+      setAccordionInViewportTop(); // Scrolls into view
       dispatch(sportsHomeActions.setCategoryOpen(id));
     } else {
       dispatch(sportsHomeActions.setCategoryOpen(null));
+      dispatch(sportsHomeActions.setTournamentOpen(null));
     }
   };
 
@@ -44,6 +69,7 @@ const Accordion = (props) => {
             props.catId ? handleClick(props.catId) : setIsOpen(!isOpen);
           }
         }}
+        ref={ref} // Attach the ref here
       >
         <Ripple type="square" faint />
 
