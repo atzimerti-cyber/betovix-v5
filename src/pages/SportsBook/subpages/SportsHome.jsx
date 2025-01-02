@@ -5,7 +5,9 @@ import _ from "lodash";
 
 import classes from "./SportsHome.module.css";
 import { sportsbookActions } from "../sportsbookSlice";
-import { sportsHomeActions } from "../subpages/sportsHomeSlice";
+import sportsHomeSlice, {
+  sportsHomeActions,
+} from "../subpages/sportsHomeSlice";
 import { getPregameData, getLiveStreams } from "../sportsbookAsyncActions";
 import SportSelection from "../features/SportSelection";
 import TournamentSearch from "../features/TournamentSearch";
@@ -46,7 +48,6 @@ const SportsHome = () => {
     (state) => state.sportsbook.customDateTournaments
   );
   const customDate = useSelector((state) => state.sportsbook.customDate);
-
   const categories = useSelector((state) => state.sportsHome.categories);
   const sports = useSelector((state) => state.sportsbook.sports);
   const allSports = useSelector((state) => state.app.allSports);
@@ -80,7 +81,10 @@ const SportsHome = () => {
     const signal = controller.signal;
     setAxiosController(controller);
 
-    if (!tournamentTimeFilter) {
+    // if (!tournamentTimeFilter) {
+    //   dispatch(sportsbookActions.setTournamentTimeFilter("All"));
+    // }
+    if (tournamentTimeFilter !== "All") {
       dispatch(sportsbookActions.setTournamentTimeFilter("All"));
     }
 
@@ -210,6 +214,7 @@ const SportsHome = () => {
     const sorted = getSorted(subset);
 
     setCategoriesArr(sorted);
+    // dispatch(sportsHomeActions.setCategoryOpen(sorted[0]?.Id));
   };
 
   const addLiveCategories = (ca) => {
@@ -469,7 +474,6 @@ const SportsHome = () => {
                   marginLeft: "10px",
                 }}
               >
-                {/* {translate(`Search Results`)} */}
                 {getDateOfLastItem(customDateTournaments)}
               </p>
               {customDateTournaments.length > 0 && (
@@ -487,14 +491,19 @@ const SportsHome = () => {
           </>
         ) : (
           <div>
-            <p>{translate(`Νο events are currently available`)}.</p>
+            <p style={{ color: "var(--brand-green)" }}>
+              {translate(`Νο events are currently available`)}.
+            </p>
           </div>
         )
       ) : (
         <div className={classes.TournamentGroup}>
           {selectedSport && !loadingCategories ? (
             categoriesArr.length === 0 ? (
-              <span className={classes.NoGames}>
+              <span
+                className={classes.NoGames}
+                style={{ color: "var(--brand-green)" }}
+              >
                 {translate(`Νο events are currently available`)}.
               </span>
             ) : (
@@ -502,7 +511,8 @@ const SportsHome = () => {
                 <Category
                   key={category.Id}
                   category={category}
-                  initOpen={catIndex === 0}
+                  initOpen={false}
+                  //initOpen={catIndex === 0}
                   slice="sportsHome"
                   includePregame
                   includeLive

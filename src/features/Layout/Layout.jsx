@@ -224,7 +224,7 @@ const Layout = () => {
                   : classes.FullPage
               }
             >
-              {user?.Role < 40 && <OperatorView />}
+              {user?.Role < 40 && permissions.AllowToRetail && <OperatorView />}
               <Outlet />
             </div>
           </main>

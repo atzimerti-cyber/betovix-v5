@@ -30,6 +30,7 @@ const WithdrawRequests = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const count = 10;
+  const [ongoingCancellations, setOngoingCancellations] = useState(new Set());
 
   useEffect(() => {
     const controller = new AbortController();
@@ -42,10 +43,16 @@ const WithdrawRequests = () => {
     };
   }, [currentPage, sortOrder, selectedStatus, dispatch]);
   
-  const refreshData = () => {
+  const refreshData = (reqid) => {
     const controller = new AbortController();
     const signal = controller.signal;
     dispatch(getWithrawalReqs(signal, currentPage, count, sortOrder, selectedStatus));
+    
+    setOngoingCancellations((prev) => {
+      const updated = new Set(prev);
+     updated.delete(reqid); // Remove reqId from the set after response
+     return updated;
+    });
   };
 
   useEffect(() => {
@@ -96,34 +103,42 @@ const WithdrawRequests = () => {
   const renderBgColor = (status) => {
     switch (status) {
       case 0:
+        // return {
+        //   background:
+        //     "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #0e5685 100%)",
+        // };
         return {
-          background:
-            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #0e5685 100%)",
+          background: "var(--wr-pending)",
         };
       case 1:
+        // return {
+        //   background:
+        //     "linear-gradient(161deg, #10324b 0%, #1c405d 30%,  #2a9995cf 100%)",
+        //     "linear-gradient(161deg, #10324b 0%, #1c405d 30%,  #2a9995cf 100%)",
+        // };
         return {
-          background:
-            "linear-gradient(161deg, #10324b 0%, #1c405d 30%,  #2a9995cf 100%)",
+          background: "var(--wr-approved)",
         };
       case 2:
         return {
           background:
-            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #71190afa 100%)",
+            // "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #71190afa 100%)",
+            "var(--wr-not-approved)",
         };
       case 3:
         return {
           background:
-            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #000000bd 100%)",
+            // "linear-gradient(161deg,rgba(16, 50, 75, 0.92) 0%,rgba(93, 28, 28, 0.5) 40%,rgba(153, 30, 30, 0.74) 100%)",
+            "var(--wr-cancelled)",
         };
       case 4:
         return {
-          background:
-            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #4fb328a3 100%)",
+          background: "var(--wr-payed)",
         };
       case 5:
         return {
-          background:
-            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, rgb(0, 0, 0) 100%)",
+          background: "var(--wr-confirmed)",
+          // "linear-gradient(161deg, #10324b 0%, #1c405d 30%, rgba(141, 239, 75, 0.47) 100%)",
         };
       default:
         return {
@@ -166,10 +181,24 @@ const WithdrawRequests = () => {
   };
 
   const handleCancelRequest = (reqid) => {
+    if (ongoingCancellations.has(reqid)) return; // Prevent multiple clicks
+  
+    setOngoingCancellations((prev) => new Set(prev).add(reqid)); // Add reqId to the set
+  
     const controller = new AbortController();
     const signal = controller.signal;
-
-    dispatch(cancelWithdrawRequest(signal, reqid, refreshData)); // Dispatch cancel action
+  
+    dispatch(
+      cancelWithdrawRequest(signal, reqid, () => {
+        refreshData(reqid);
+      })
+    ).catch(() => {
+      setOngoingCancellations((prev) => {
+        const updated = new Set(prev);
+        updated.delete(reqid); // Ensure removal on error
+        return updated;
+      });
+    });
   };
 
   // Get unique statuses from withdrawReqs if it's not empty
@@ -304,8 +333,11 @@ const WithdrawRequests = () => {
                         color="danger"
                         onClick={() => handleCancelRequest(req.reqId)}
                         className={classes.CancelButton}
+                        disabled={ongoingCancellations.has(req.reqId)} // Disable button during cancellation
                       >
-                        {translate("Cancel Request")}
+                        {ongoingCancellations.has(req.reqId)
+                          ? translate("Cancelling...")
+                          : translate("Cancel Request")}
                       </MainButton>
                     )}
                   </div>

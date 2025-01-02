@@ -26,7 +26,7 @@
   border-radius: 0;
   display: flex;
   flex-direction: column;
-  background-color: #092233;
+  background-color: var(--dropdown-bg);
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;

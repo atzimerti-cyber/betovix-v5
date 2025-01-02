@@ -1,358 +1,365 @@
 .Slip {
-    /* animation: 0.3s ease 0s 1 normal backwards running GqXly; */
-    background: var(--sb-search);
-    border-radius: 8px;
-    border-inline: 2px solid transparent;
-    display: flex;
-    margin-block-end: 12px;
-    flex-direction: column;
-    /* transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s; */
-    padding-bottom: 6px;
+  background: var(--sb-search);
+  background: var(--accordion-header);
+  border-radius: 8px;
+  border-inline: 2px solid transparent;
+  display: flex;
+  margin-block-end: 12px;
+  flex-direction: column;
+  padding-bottom: 6px;
 }
 
 .SelectionList {
-    padding: 0;
+  padding: 0;
 }
 
 .Selection {
-    animation: 0.3s ease 0s 1 normal backwards running GqXly;
-    background: var(--sb-search);
-    border-radius: 8px;
-    border-inline: 2px solid transparent;
-    display: flex;
-    flex-direction: column;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
-    padding-bottom: 6px;
+  animation: 0.3s ease 0s 1 normal backwards running GqXly;
+  /* background: var(--sb-search); */
+  border-radius: 8px;
+  border-inline: 2px solid transparent;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+  padding-bottom: 6px;
 }
 .Selection.Inactive {
-    opacity: 0.3;
+  opacity: 0.3;
 }
 
 .Header {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    margin-inline: 10px 0px;
-    height: 32px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  margin-inline: 10px 0px;
+  height: 32px;
 }
 
 .TeamVersusGroup {
-    margin-inline: 0px auto;
-    flex: 1 1 0%;
-    display: flex;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
+  margin-inline: 0px auto;
+  flex: 1 1 0%;
+  display: flex;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .TeamVersus {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .TeamVersusWord {
-    opacity: 0.8;
-    white-space: pre;
-    line-height: 26px;
-    color: #fff;
+  opacity: 0.5;
+  white-space: pre;
+  line-height: 0.5rem;
+  color: #fff;
+  align-content: center;
+  padding: 0 0.1rem;
 }
 
 .TeamB {
-    margin-inline: 0px auto;
+  margin-inline: 0px auto;
 }
 
 .TeamText {
-    color: rgb(255, 255, 255);
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    height: 30px;
+  color: rgb(255, 255, 255);
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  height: 30px;
 }
 
 .TeamLogoWrapper {
-    margin-inline: 0px 4px;
+  margin-inline: 0px 4px;
 }
 
 .TeamLogo {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    font-size: 15px;
-    width: 24px;
-    height: 24px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-size: 15px;
+  width: 20px;
 }
 .TeamLogo img {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .TeamName {
-    margin-inline: 0px auto;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  margin-inline: 0px auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .TeamB .TeamText {
-    flex-direction: row-reverse;
+  flex-direction: row-reverse;
 }
 
 .TeamB .TeamLogoWrapper {
-    margin-inline: 4px 0px;
+  margin-inline: 4px 0px;
 }
 
 .DismissButton {
-    appearance: none;
-    background-color: transparent;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-    fill: var(--white);
-    width: 32px;
-    height: 32px;
-    flex: 0 0 32px;
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  fill: var(--white);
+  width: 32px;
+  height: 32px;
+  flex: 0 0 32px;
 }
 .DismissButton svg {
-    width: 10px;
-    height: 10px;
-    fill: var(--white);
-    transition: fill 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+  width: 10px;
+  height: 10px;
+  fill: var(--white);
+  transition: fill 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
 }
 
 .DismissButton:hover svg {
-    fill: rgb(129, 165, 178);
+  fill: rgb(129, 165, 178);
 }
 
 .Separator {
-    background: var(--light-blue);
-    height: 1px;
-    margin-inline: 10px;
+  background: var(--lightcolor-low-op);
+  height: 0.5px;
+  margin-inline: 5px;
 }
 
 .MarketSection {
-    font-size: 14px;
-    display: flex;
-    flex-direction: column;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
 }
 
 .OutcomesWrap {
-    border-radius: 0px;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    display: flex;
-    flex-direction: row;
+  border-radius: 0px;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
 }
 .OutcomeGroup {
-    display: flex;
-    border-radius: 0px;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    flex-direction: column;
-    width: 100%;
+  display: flex;
+  border-radius: 0px;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  flex-direction: column;
+  width: 100%;
 }
 
 .Content {
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum';
-    margin-inline: 10px;
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  margin-inline: 10px;
 }
 
 .Extended {
-    border-radius: unset;
-    background-color: transparent;
+  border-radius: unset;
+  background-color: transparent;
 }
 
 .MarketInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    align-items: flex-start;
-    margin-block-start: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-start;
+  margin-block-start: 2px;
 }
 
 .MarketName {
-    color: var(--lightcolor-op1);
-    font-size: 12px;
-    font-weight: 700;
-    margin: 4px 0px;
+  color: var(--lightcolor-op1);
+  font-size: 12px;
+  font-weight: 600;
+  margin: 3px 0px;
 }
 
 .OutcomeInfo {
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    -webkit-box-align: center;
-    align-items: center;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
 }
 
 .OutcomeName {
-    color: rgb(255, 255, 255);
-    text-transform: capitalize;
-    font-weight: 500;
+  color: rgb(255, 255, 255);
+  text-transform: capitalize;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .OddsDelta {
-    display: flex;
-    align-items: flex-end;
-    flex-wrap: nowrap;
-    gap: 6px;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .Indicator {
-    opacity: 1;
+  opacity: 1;
 }
 
 .IndicatorUp path:last-child,
 .IndicatorDown path:first-child {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 .Odds {
-    color: rgb(248, 214, 72);
-    font-variant-numeric: tabular-nums;
-    font-feature-settings: 'tnum';
+  color: var(--yellow-accent-color);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  font-weight: 500;
 }
 
 .PaymentSection {
-    font-size: 14px;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-
-    display: flex;
-    flex-direction: row;
-    -webkit-box-align: center;
-    align-items: center;
-    margin: 0px 10px;
-    margin-block-start: 12px;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s, opacity 0.2s ease 0.1s;
+  font-size: 14px;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  -webkit-box-align: center;
+  align-items: center;
+  margin: 0px 10px 0px 5px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s,
+    opacity 0.2s ease 0.1s;
 }
 
 .AmountArea {
-    flex: 0 1 152px;
-    height: 30px;
-    position: relative;
-    background: var(--sb-search);
+  flex: 0 1 152px;
+  height: 30px;
+  position: relative;
+  background: var(--sb-search);
+  border-radius: 5px;
 }
 
 .PaymentMarketInfo {
-    display: flex;
-    flex-direction: column;
-    margin-block-start: 8px;
-    align-items: flex-end;
-    margin-inline: 8px 0px;
-    gap: 0px;
-    line-height: 1.2;
+  display: flex;
+  flex-direction: column;
+  margin-block-start: 8px;
+  align-items: flex-end;
+  margin-inline: 8px 0px;
+  gap: 0px;
+  line-height: 1.2;
 }
 
 .AmountLabel {
-    color: var(--lightcolor-op1);
-    font-size: 12px;
-    margin: 0px;
-    margin-bottom: 5px;
-    font-weight: 500;
+  color: var(--lightcolor-op1);
+  font-size: 12px;
+  margin: 0px;
+  margin-bottom: 5px;
+  font-weight: 400;
 }
 
 .AmountTotal {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
 }
 .AmountTotalText {
-    color: rgb(255, 255, 255);
-    font-size: 14px;
+  color: rgb(255, 255, 255);
+  font-size: 13px;
 }
 
 .AmountTotal svg {
-    fill: rgb(255, 207, 82);
-    z-index: 3;
-    margin-inline: 0px 4px;
-    position: static;
-    padding: 0px;
-    width: 14px;
-    height: 14px;
-    margin-block: 0px 1px;
+  fill: rgb(255, 207, 82);
+  z-index: 3;
+  margin-inline: 0px 4px;
+  position: static;
+  padding: 0px;
+  width: 14px;
+  height: 14px;
+  margin-block: 0px 1px;
 }
 
 .AmountArea > svg {
-    fill: rgb(255, 207, 82);
-    padding: 7px;
-    position: absolute;
-    z-index: 3;
-    width: 30px;
-    height: 30px;
-    margin-inline: 0px 4px;
+  fill: rgb(255, 207, 82);
+  padding: 7px;
+  position: absolute;
+  z-index: 3;
+  width: 30px;
+  height: 30px;
+  margin-inline: 0px 4px;
 }
 
 .AmountInput {
-    border: 1px solid rgb(67, 101, 115);
-    border-radius: 5px;
-    padding-inline: 28px 10px;
-    text-overflow: ellipsis;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    color: rgb(255, 255, 255);
+  border: 1px solid rgb(67, 101, 115);
+  border-radius: 5px;
+  padding-inline: 28px 10px;
+  text-overflow: ellipsis;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  color: rgb(255, 255, 255);
 }
 
 .NoAmount.AmountInput {
-    border: 1px solid rgb(255, 168, 82);
+  border: 1px solid rgb(255, 168, 82);
 }
 
 .AmountInput:hover {
-    animation: auto ease 0s 1 normal none running none;
-    border-color: rgb(255, 207, 82);
+  animation: auto ease 0s 1 normal none running none;
+  border-color: rgb(255, 207, 82);
 }
 
 .LiveBadge {
-    margin-inline: 10px 0px;
-    animation: 6s ease 0s infinite normal none running jQMcyq;
-    background: var(--live-badge-purple);
-    border-radius: 2px;
-    color: rgb(255, 255, 255);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    padding: 0px 0.33rem;
-    text-shadow: rgba(41, 39, 33, 0.19) 0px 1px 2px;
-    white-space: nowrap;
+  margin-inline: 10px 0px;
+  animation: 6s ease 0s infinite normal none running jQMcyq;
+  background: var(--live-badge-purple);
+  border-radius: 2px;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0px 0.33rem;
+  text-shadow: rgba(41, 39, 33, 0.19) 0px 1px 2px;
+  white-space: nowrap;
 }
 
 @keyframes jQMcyq {
-    0%,
-    100% {
-        opacity: 0.8;
-    }
+  0%,
+  100% {
+    opacity: 0.8;
+  }
 
-    10%,
-    90% {
-        opacity: 1;
-    }
+  10%,
+  90% {
+    opacity: 1;
+  }
 
-    40%,
-    60% {
-        box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em, rgba(200, 49, 231, 0.8) 0px 0px 0.5em;
-    }
+  40%,
+  60% {
+    box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em,
+      rgba(200, 49, 231, 0.8) 0px 0px 0.5em;
+  }
 }
 
 @keyframes GqXly {
-    0% {
-        opacity: 0;
-        transform: translateY(32px);
-    }
+  0% {
+    opacity: 0;
+    transform: translateY(32px);
+  }
 }
 
 @keyframes epImaF {
-    100% {
-        opacity: 0;
-    }
+  100% {
+    opacity: 0;
+  }
 }

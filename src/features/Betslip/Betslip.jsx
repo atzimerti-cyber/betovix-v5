@@ -25,6 +25,7 @@ import {
 import BetReceipt from "./features/BetReceipt";
 import CoinsIcon from "../../assets/svgs/coins.svg?react";
 import SaveIcon from "../../assets/svgs/save.svg?react";
+import ShareIcon from "../../assets/svgs/share.svg?react";
 import Spinner from "../UI/Spinner/Spinner";
 import { useMediaQuery } from "react-responsive";
 
@@ -420,7 +421,7 @@ const Betslip = memo(function (props) {
             <Spinner />
           ) : (
             <span>
-              <SaveIcon className={classes.CoinsIcon} /> {translate("SHARE")}
+              <ShareIcon className={classes.CoinsIcon} /> {translate("SHARE")}
             </span>
           )}
         </button>

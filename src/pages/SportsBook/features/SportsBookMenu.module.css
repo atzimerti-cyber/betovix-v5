@@ -1,82 +1,83 @@
 .NavItem,
 .ModalItem {
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    border-radius: 0.375rem;
-    padding: 0.5rem 1rem;
-    font-size: 0.875rem;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-    white-space: nowrap;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  border-radius: 0.375rem;
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  white-space: nowrap;
 }
 
 .ModalItem {
-    transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
 }
 
-.ModalItem:hover { 
-    background-color: var(--mid-blue-1);
+.ModalItem:hover {
+  background-color: var(--mid-blue-1);
 }
 
 .NavItem svg,
 .ModalItem svg {
-    margin-right: 0.5rem;
-    height: 1rem;
-    width: 1rem;
-    flex-shrink: 0;
+  margin-right: 0.5rem;
+  height: 1rem;
+  width: 1rem;
+  flex-shrink: 0;
 }
 
 .NavItem svg path,
 .ModalItem svg path {
-    fill: var(--light-blue);
+  fill: var(--light-blue);
 }
 
 .ActiveItem {
-    background-color: var(--db-gray-4);
+  background-color: var(--db-gray-4);
+  background: var(--button-grad-op1);
 }
 
 .NavItem:hover {
-    background-color: var(--mid-blue-1);
+  background-color: var(--mid-blue-1);
 }
 
 .ActiveItem svg path {
-    fill: #fff;
+  fill: #fff;
 }
 
 .LiveBadge {
-    animation: 3s ease 0s infinite normal none running _jQMcyq_dgbon_1;
-    background: var(--live-badge-purple);
-    border-radius: 3px;
-    color: rgb(255, 255, 255);
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    padding: 0px 0.33rem;
-    text-shadow: rgba(41, 39, 33, 0.19) 0px 1px 2px;
-    white-space: nowrap;
-    height: 18px;
-    /* width: 30px; */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 0.5rem;
+  animation: 3s ease 0s infinite normal none running _jQMcyq_dgbon_1;
+  background: var(--live-badge-purple);
+  border-radius: 3px;
+  color: rgb(255, 255, 255);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0px 0.33rem;
+  text-shadow: rgba(41, 39, 33, 0.19) 0px 1px 2px;
+  white-space: nowrap;
+  height: 18px;
+  /* width: 30px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 0.5rem;
 }
 
 @keyframes _jQMcyq_dgbon_1 {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
 
-    0%,
-    100% {
-        opacity: 0.8;
-    }
+  10%,
+  90% {
+    opacity: 1;
+  }
 
-    10%,
-    90% {
-        opacity: 1;
-    }
-
-    40%,
-    60% {
-        box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em, rgba(200, 49, 231, 0.8) 0px 0px 0.5em;
-    }
+  40%,
+  60% {
+    box-shadow: var(--live-badge-purple) 0px 0.2em 1em,
+      var(--live-badge-purple) 0px 0px 0.5em;
+  }
 }

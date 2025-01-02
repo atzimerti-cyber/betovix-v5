@@ -245,30 +245,35 @@ export const getUser = (navigate) => {
           ...response.data.Contents,
         };
 
-        //REWARDS
-        let rewards = [];
-        const params = new URLSearchParams(window.location.search);
-        const isModalAchievementOpen = params.get("modal") === "achievement";
+        const siteSettings = getState().app;
+        const gamificationPermission = siteSettings.permissions;
 
-        if (
-          !isModalAchievementOpen &&
-          response.data.Contents.Rewards &&
-          response.data.Contents.Rewards.length > 0
-        ) {
-          rewards = response.data.Contents.Rewards;
-          dispatch(gamificationActions.setPopupRewards(rewards));
-          const params = new URLSearchParams(location.search);
-          params.set("modal", "achievement");
-          navigate(`${location.pathname}?modal=achievement`, {
-            replace: false,
-          });
+        if (gamificationPermission.AllowGamification) {
+          //REWARDS
+          let rewards = [];
+          const params = new URLSearchParams(window.location.search);
+          const isModalAchievementOpen = params.get("modal") === "achievement";
 
-          const currentState = getState().gamification;
+          if (
+            !isModalAchievementOpen &&
+            response.data.Contents.Rewards &&
+            response.data.Contents.Rewards.length > 0
+          ) {
+            rewards = response.data.Contents.Rewards;
+            dispatch(gamificationActions.setPopupRewards(rewards));
+            const params = new URLSearchParams(location.search);
+            params.set("modal", "achievement");
+            navigate(`${location.pathname}?modal=achievement`, {
+              replace: false,
+            });
 
-          const rew = currentState.availableRewards;
-          const newRew = rew + response.data.Contents.Rewards.length;
+            const currentState = getState().gamification;
 
-         dispatch(gamificationActions.setAvailableRewards(newRew));
+            const rew = currentState.availableRewards;
+            const newRew = rew + response.data.Contents.Rewards.length;
+
+            dispatch(gamificationActions.setAvailableRewards(newRew));
+          }
         }
 
         dispatch(loginActions.setUser(user));

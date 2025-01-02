@@ -9,6 +9,7 @@
   opacity: 0;
   visibility: hidden;
   transition: all 0.3s ease 0s, visibility 0s ease 0.3s;
+  color: var(--white);
 }
 
 .Show.BetslipControl {
@@ -75,6 +76,7 @@
   height: 0px;
   border-left: 7px solid transparent;
   border-right: 7px solid transparent;
+  border-bottom: 7px solid rgb(255, 0, 0);
   border-bottom: 7px solid rgb(36, 54, 61);
   position: absolute;
   top: -6px;
@@ -99,7 +101,7 @@
   padding: 0.75em 1.5em;
   padding-inline-start: 0px;
   transition: all 0.3s ease 0s;
-  border-bottom: 1px solid rgb(41, 61, 69);
+  border-bottom: 1px solid transparent;
 }
 .DropdownItem:first-child {
   border-radius: 3px 3px 0px 0px;
@@ -109,20 +111,20 @@
   border-bottom: 0px;
 }
 .DropdownItem:hover {
-  color: rgb(255, 255, 255);
+  color: var(--yellow-accent-color);
 }
 
 .PlacementSwitch {
-  border-top: 1px solid #455d67;
+  border-top: 1px solid var(--placeholder-light);
   padding: 0.75em 0;
   padding-top: 1.05em;
-  margin-top: 0.3em;
   margin-right: 1.5em;
 }
 
 .PlacementSwitch label {
-  color: rgb(113, 142, 152) !important;
+  font-weight: 400 !important;
+  color: var(--white) !important;
 }
 .PlacementSwitch:hover label {
-  color: rgb(255, 255, 255) !important;
+  color: var(--white) !important;
 }

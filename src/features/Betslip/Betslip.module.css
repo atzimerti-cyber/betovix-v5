@@ -159,12 +159,22 @@
 }
 
 .SaveButton {
-  --tw-bg-opacity: 1;
-  background: hsl(var(--s) / var(--tw-bg-opacity));
+  background: var(--badge-new-purple);
   font-size: 14px;
   margin-block: 0px 5px;
   height: 30px;
 }
+.SaveButton:hover {
+  background: var(--live-badge-purple);
+}
+.SaveButton svg {
+  height: 0.875rem;
+  width: 0.875rem;
+}
+.SaveButton svg path {
+  fill: var(--white);
+}
+
 .BetButton:not(:disabled)::before {
   animation: 3.6s ease 0s infinite normal none running wlstx;
   content: "";
@@ -179,7 +189,6 @@
 }
 
 .BetButton:hover {
-  background: rgb(51, 193, 108);
   background: var(--brand-green);
 }
 
@@ -207,7 +216,7 @@
 
 .CoinsIcon {
   filter: drop-shadow(rgba(41, 39, 33, 0.2) 0px 1px 6px);
-  fill: rgb(255, 207, 82);
+  fill: var(--yellow-accent-color);
   flex: 0 0 16px;
   width: 16px;
   height: 16px;

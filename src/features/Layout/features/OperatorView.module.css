@@ -1,7 +1,5 @@
 .operatorView {
-  /* background: linear-gradient(45deg, #96d02333, #1a4b70 95%); */
-  background: linear-gradient(45deg, #8bc2d741, #0d3f53a1 95%);
-  /* background: var(--db-gray-4); */
+  background: var(--accordion-header);
   border-radius: 10px;
   padding: 14px;
   width: 95%;
@@ -15,7 +13,7 @@
 }
 
 .operatorViewTitle {
-  border-bottom: 1px solid var(--light-blue);
+  border-bottom: 1px solid var(--placeholder-light);
   cursor: default;
   font-size: 16px;
   font-weight: 600;

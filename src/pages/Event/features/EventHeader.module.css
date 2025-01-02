@@ -1,6 +1,7 @@
 .EventHeader {
   background: var(--mid-blue-1);
-    box-sizing: border-box;
+  background: var(--button-grad-op-mid);
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   width: 100%;

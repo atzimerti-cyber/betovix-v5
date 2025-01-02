@@ -1,147 +1,149 @@
 .PageContent {
-    padding: 0px 10px 40px;
-    max-width: 1220px;
-    width: 100%;
-    container-type: inline-size;
+  padding: 0px 10px 40px;
+  max-width: 1220px;
+  width: 100%;
+  container-type: inline-size;
 }
 
 .Event {
-    grid-column: span 2 / span 2;
-    width: 100%;
-    padding-bottom: 0;
+  grid-column: span 2 / span 2;
+  width: 100%;
+  padding-bottom: 0;
 }
 
 .MenuWrapper {
-    border-radius: 60px;
-    background: var(--body-bg);
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    margin-inline: -24px;
-    padding-block: 16px 10px;
-    padding-inline: 24px;
-    position: sticky;
-    top: 0px;
-    z-index: 900;
+  border-radius: 60px;
+  background: var(--body-bg);
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  margin-inline: -24px;
+  padding-block: 16px 10px;
+  padding-inline: 24px;
+  position: sticky;
+  top: 0px;
+  z-index: 900;
 }
 .MenuWrapper > div {
-    margin-left: unset;
-    margin-right: unset;
-    width: 100%;
+  margin-left: unset;
+  margin-right: unset;
+  width: 100%;
 }
 
 .Content {
-    margin-top: 0.625rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
+  margin-top: 0.625rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
 }
 
 .TopArea {
-    margin-block: 0px 16px;
+  margin-block: 0px 16px;
 }
 
 .TopArea > :first-child {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 }
 .TopArea > :last-child {
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 }
 
 .Box {
-    background-color: rgba(var(--db-gray-4), 0.5);
-    background-position: 100% 50%;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    justify-content: center;
-    height: 182px;
-    overflow: hidden;
-    padding: 16px;
-    gap: 16px;
-    background-size: cover;
-    background-repeat: no-repeat;
+  background-color: rgba(var(--db-gray-4), 0.5);
+  background-position: 100% 50%;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  height: 182px;
+  overflow: hidden;
+  padding: 16px;
+  gap: 16px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .OutrightsTitle {
-    color: rgb(255, 255, 255);
-    font-weight: 600;
-    font-size: 32px;
-    letter-spacing: 0.05em;
-    text-align: center;
-    text-shadow: rgba(41, 39, 33, 0.8) 0px 2px 8px;
+  color: rgb(255, 255, 255);
+  font-weight: 600;
+  font-size: 32px;
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-shadow: rgba(41, 39, 33, 0.8) 0px 2px 8px;
 }
 
 .EventArea {
-    display: flex;
-    flex-flow: row-reverse;
-    gap: 16px;
+  display: flex;
+  flex-flow: row-reverse;
+  gap: 16px;
 }
 
 .Main {
-    flex: 1 1 0%;
-    min-width: 0px;
+  flex: 1 1 0%;
+  min-width: 0px;
 }
 
 .FilteredGroupContainer {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    margin-block: 0px 16px;
-    position: relative;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  margin-block: 0px 16px;
+  position: relative;
 }
 
 .FilterGroup {
-    min-width: 0px;
+  min-width: 0px;
 }
 
 .Container {
-    width: 100%;
+  width: 100%;
 }
 
 .OutrightsInfo {
-    min-height: 32px;
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    margin-block-end: 12px;
+  min-height: 32px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  margin-block-end: 12px;
+  color: var(--brand-green);
 }
 .OutrightsInfo svg {
-    margin-right: 4px;
-    width: 20px;
-    height: 20px;
+  fill: var(--brand-green);
+  margin-right: 4px;
+  width: 20px;
+  height: 20px;
 }
 
 /* Media */
 @media (min-width: 640px) {
-    .Content {
-        margin-top: 0.875rem;
-    }
+  .Content {
+    margin-top: 0.875rem;
+  }
 }
 
 @media (min-width: 768px) {
-    .PageContent {
-        z-index: 10;
-    }
+  .PageContent {
+    z-index: 10;
+  }
 }
 
 @container (max-width: 860px) {
-    .TopArea {
-        display: none;
-    }
-    .MenuWrapper {
-        position: static;
-        padding-block: 16px 4px;
-        margin-inline: -16px;
-        padding-inline: 16px;
-    }
-    .Content {
-        margin-top: 0;
-        gap: 0;
-    }
+  .TopArea {
+    display: none;
+  }
+  .MenuWrapper {
+    position: static;
+    padding-block: 16px 4px;
+    margin-inline: -16px;
+    padding-inline: 16px;
+  }
+  .Content {
+    margin-top: 0;
+    gap: 0;
+  }
 }

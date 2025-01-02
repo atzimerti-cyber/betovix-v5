@@ -1,34 +1,36 @@
 .CoinsIcon {
-    fill: rgb(255, 207, 82);
-    padding: 7px;
-    position: absolute;
-    z-index: 3;
-    width: 30px;
-    height: 30px;
-    margin-inline: 0px 4px;
+  fill: var(--yellow-accent-color);
+  padding: 7px;
+  position: absolute;
+  z-index: 3;
+  width: 30px;
+  height: 30px;
+  margin-inline: 0px 4px;
 }
 
 .AmountInput {
-    border: 1px solid rgb(67, 101, 115);
-    border-radius: 5px;
-    padding-inline: 28px 10px;
-    text-overflow: ellipsis;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
-    width: 100%;
-    height: 100%;
-    background: transparent;
-    color: rgb(255, 255, 255);
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 5px;
+  padding-inline: 28px 10px;
+  text-overflow: ellipsis;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  color: var(--white);
 }
 
 .NoAmount.AmountInput {
-    border: 1px solid rgb(255, 168, 82);
+  border: 1px solid var(--cancelled-low-op);
+  color: var(--white);
 }
 
 .AmountInput:hover {
-    animation: auto ease 0s 1 normal none running none;
-    border-color: rgb(255, 207, 82);
+  animation: auto ease 0s 1 normal none running none;
+  border-color: var(--yellow-accent-color);
 }
 
 .AmountInput:focus {
-    border-color: rgb(255, 207, 82);
+  border-color: var(--yellow-accent-color);
+  color: var(--white);
 }

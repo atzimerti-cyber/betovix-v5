@@ -348,8 +348,7 @@
   transform: translateX(-50%);
   height: 40px;
   width: 40px;
-  /* background-color: #0e1b26; */
-  background: linear-gradient(222deg, #215164 0%, #15364a 63%);
+  background: var(--layout-icon-btn);
   color: white;
   border: none;
   border-radius: 50%;
@@ -364,12 +363,11 @@
 }
 
 .BackToTopButton:hover {
-  /* background-color: #bae7ff6c; */
-  background: linear-gradient(222deg, #397f9b 0%, #2d5f7e 63%);
+  background: var(--button-grad-op1);
 }
 
 .BackToTopButton svg {
-  fill: rgba(224, 249, 252, 0.579);
+  fill: var(--brand-green);
   height: 1.5rem;
   width: 1.5rem;
 }

@@ -18,6 +18,7 @@ const initialState = {
     AllowToSlots: true,
     AllowToSports: true,
 
+    AllowToRetail: false,
     AllowGamification: true,
     AllowToCasino: true,
     AllowToVerification: false,
@@ -30,6 +31,7 @@ const initialState = {
     AllowToSlots: true,
     AllowToSports: true,
     AllowToVerification: false,
+    AllowToRetail: false,
   },
   mailToVerify: null,
 };

@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SwiperSlide } from "swiper/react";
 
 import classes from "./SportsBookMenu.module.css";
@@ -14,10 +14,12 @@ import PaperIcon from "../../../assets/svgs/paper.svg?react";
 import SettingsIcon from "../../../assets/svgs/settings.svg?react";
 import StatsIcon from "../../../assets/svgs/bars.svg?react";
 import { translate } from "../../../utils/translations";
+import { sportsHomeActions } from "../subpages/sportsHomeSlice";
 
 const SportsBookMenu = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const selectedOddsFormat = useSelector(
@@ -35,6 +37,11 @@ const SportsBookMenu = () => {
     return `${location.pathname}?${searchParams.toString()}`;
   };
 
+  const handleStateChange = () => {
+    dispatch(sportsHomeActions.setCategoryOpen(null));
+    dispatch(sportsHomeActions.setTournamentOpen(null));
+  };
+
   return (
     <SwiperMenu>
       <SwiperSlide>
@@ -45,6 +52,7 @@ const SportsBookMenu = () => {
               : classes.NavItem
           }
           to={`/sportsbook/home${selectedSportSlug}`}
+          onClick={handleStateChange}
         >
           <HomeIcon />
           {translate("Lobby")}
@@ -58,6 +66,7 @@ const SportsBookMenu = () => {
               : classes.NavItem
           }
           to={`/sportsbook/live${selectedSportSlug}`}
+          onClick={handleStateChange}
         >
           <div className={classes.LiveBadge}>Live</div>
           {translate("Live")}
@@ -71,6 +80,7 @@ const SportsBookMenu = () => {
               : classes.NavItem
           }
           to={`/sportsbook/upcoming${selectedSportSlug}`}
+          onClick={handleStateChange}
         >
           <TimerIcon />
           {translate("Upcoming")}
@@ -84,6 +94,7 @@ const SportsBookMenu = () => {
               : classes.NavItem
           }
           to={`/sportsbook/outrights${selectedSportSlug}`}
+          onClick={handleStateChange}
         >
           <CupIcon />
           {translate("Outrights")}
@@ -97,6 +108,7 @@ const SportsBookMenu = () => {
               : classes.NavItem
           }
           to="/sportsbook/mybets"
+          onClick={handleStateChange}
         >
           <PaperIcon />
           {translate("My Bets")}

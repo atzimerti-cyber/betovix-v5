@@ -158,6 +158,7 @@ const LeftContainer = memo(function () {
 
               {!isMobile && (
                 <Search
+                  id="eventSearchSidebar"
                   placeholder={translate("Search Event")}
                   hide={!fullLeftContainer}
                   dataTooltipId="left-menu-tooltip"

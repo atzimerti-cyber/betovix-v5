@@ -89,7 +89,7 @@
 }
 
 .Side.Pregame .EventTracker {
-  height: 2155px;
+  height: calc(100vh - 180px);
 }
 
 .EventTracker {
@@ -118,8 +118,8 @@
   -webkit-box-pack: center;
   justify-content: center;
   border-radius: 8px;
-  color: rgb(255, 255, 255);
-  fill: rgb(255, 255, 255);
+  color: var(--white);
+  fill: var(--white);
   cursor: pointer;
   background: var(--db-gray-4);
   width: 80px;
