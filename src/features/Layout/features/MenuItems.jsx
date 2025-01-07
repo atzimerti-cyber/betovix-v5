@@ -32,7 +32,7 @@ const MenuItems = (props) => {
     (state) => state.gamification.availableRewards
   );
 
-  const permissions = useSelector((state) => state.app.permissions);
+  const permissions = useSelector((state) => state.login.permissions);
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);

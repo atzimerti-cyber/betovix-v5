@@ -30,7 +30,7 @@ const Profile = () => {
 
   const lang = useSelector((state) => state.app.lang);
 
-  const permissions = useSelector((state) => state.app.permissions);
+  const permissions = useSelector((state) => state.login.permissions);
   const barLoading = useSelector((state) => state.app.barLoading);
   const [selectedTab, setSelectedTab] = useState(tab || "overview");
 

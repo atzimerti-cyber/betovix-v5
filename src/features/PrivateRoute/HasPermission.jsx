@@ -9,7 +9,7 @@ const HasPermission = ({ checkPermissions, children }) => {
   const user = useSelector((state) => state.login.user);
   const permissions = useSelector((state) => state.login.permissions);
 
-  const allowGamification = useSelector((state) => state.app.permissions);
+  const allowGamification = useSelector((state) => state.login.permissions);
 
   const [isAllowed, setIsAllowed] = useState(null);
 

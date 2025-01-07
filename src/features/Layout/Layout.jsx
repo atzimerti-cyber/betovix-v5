@@ -60,7 +60,6 @@ const Layout = () => {
   const showRight = useSelector((state) => state.layout.showRight);
   const user = useSelector((state) => state.login.user);
   const permissions = useSelector((state) => state.login.permissions);
-  const allowGamification = useSelector((state) => state.app.permissions);
   const userDropdownVisible = useSelector(
     (state) => state.layout.userDropdownVisible
   );
@@ -271,7 +270,7 @@ const Layout = () => {
 
       {!isMobile && !showRightContainer && (
         <div className={classes.OverlayButtons}>
-          {user && allowGamification.AllowGamification && hasHero && (
+          {user && permissions.AllowGamification && hasHero && (
             <div
               className={classes.IconButton}
               onClick={() => addParamsToUrl("your-progress")}

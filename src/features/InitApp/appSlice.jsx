@@ -306,9 +306,6 @@ const initialState = {
   siteCurrencies: null,
   registerPromoImg: null,
   registerPromoImgMobile: null,
-  permissions: {
-    AllowGamification: false,
-  },
 };
 
 export const appSlice = createSlice({
@@ -384,9 +381,6 @@ export const appSlice = createSlice({
     },
     setRegisterPromoImgMobile: (state, action) => {
       state.registerPromoImgMobile = action.payload;
-    },
-    setGamificationPermission: (state, action) => {
-      state.permissions.AllowGamification = action.payload;
     },
   },
 });

@@ -442,11 +442,8 @@ export const loadInitData = (isMobile) => {
         dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
       }
 
-      // Rest of menu items
-      const appPermission = getState().app;
-      const allowGamification = appPermission.permissions;
       {
-        allowGamification.AllowGamification &&
+        permissions.AllowGamification &&
           allMenuItems.push({
             category: { id: 5, label: "Arena", visible: true, isNew: true },
             items: [
@@ -826,11 +823,12 @@ export const getSiteSettings = (signal) => {
         siteCurrencies.push(curr);
       });
 
-      let allowGamification;
-      if (response.data.Contents.Site.AllowGamification === "true") {
-        allowGamification = true;
-      } else if (response.data.Contents.Site.AllowGamification === "false") {
-        allowGamification = false;
+      let permissions;
+      if (response.data.Contents.Permissions) {
+        permissions = response.data.Contents.Permissions;
+      } else {
+        const appPermission = getState().login;
+        permissions = appPermission.notLoggedInPermissions;
       }
 
       dispatch(
@@ -839,7 +837,8 @@ export const getSiteSettings = (signal) => {
         )
       );
 
-      dispatch(appActions.setGamificationPermission(allowGamification));
+      dispatch(loginActions.setPermissions(permissions));
+
       dispatch(
         appActions.setRegisterPromoImgMobile(
           response.data.Contents.Site.RegisterPromoImgMobile

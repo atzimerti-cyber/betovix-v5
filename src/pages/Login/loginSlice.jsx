@@ -14,7 +14,7 @@ const initialState = {
 
   permissions: {
     AllowToHistory: false,
-    AllowToJackpots: false,
+    // AllowToJackpots: false,
     AllowToSlots: true,
     AllowToSports: true,
 
@@ -27,7 +27,7 @@ const initialState = {
     AllowGamification: true,
     AllowToCasino: true,
     AllowToHistory: false,
-    AllowToJackpots: false,
+    // AllowToJackpots: false,
     AllowToSlots: true,
     AllowToSports: true,
     AllowToVerification: false,
@@ -76,6 +76,9 @@ export const loginSlice = createSlice({
     },
     setMailToVerify(state, action) {
       state.mailToVerify = action.payload;
+    },
+    setPermissions(state, action) {
+      state.permissions = action.payload;
     },
   },
 });

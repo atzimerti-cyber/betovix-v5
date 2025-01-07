@@ -38,7 +38,7 @@ const ModalRoot = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
-  const permissions = useSelector((state) => state.app.permissions);
+  const permissions = useSelector((state) => state.login.permissions);
   const onCloseModal = useSelector((state) => state.modal.onCloseModal);
   const user = useSelector((state) => state.login.user);
   const query = new URLSearchParams(location.search);

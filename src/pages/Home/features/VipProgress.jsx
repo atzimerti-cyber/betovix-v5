@@ -16,7 +16,7 @@ const VipProgress = () => {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const user = useSelector((state) => state.login.user);
 
-  const permissions = useSelector((state) => state.app.permissions);
+  const permissions = useSelector((state) => state.login.permissions);
 
   const selectedHero = useSelector((state) => state.progress.selectedHero);
   const userCurrentLevel = useSelector((state) => state.progress.currentLevel);
