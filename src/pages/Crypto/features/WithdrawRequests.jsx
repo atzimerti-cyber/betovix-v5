@@ -23,7 +23,7 @@ const WithdrawRequests = () => {
 
   const withdrawReqs = useSelector((state) => state.crypto.withdrawals);
 
-  const [selectedStatus, setSelectedStatus] = useState("0,1,2,3,4,5");
+  const [selectedStatus, setSelectedStatus] = useState("");
   const [sortOrder, setSortOrder] = useState("DateAdded_desc");
   const [amountSortOrder, setAmountSortOrder] = useState("Amount_asc");
   const [dateSortOrder, setDateSortOrder] = useState("DateAdded_desc");
@@ -42,16 +42,16 @@ const WithdrawRequests = () => {
       controller.abort();
     };
   }, [currentPage, sortOrder, selectedStatus, dispatch]);
-  
+
   const refreshData = (reqid) => {
     const controller = new AbortController();
     const signal = controller.signal;
     dispatch(getWithrawalReqs(signal, currentPage, count, sortOrder, selectedStatus));
-    
+
     setOngoingCancellations((prev) => {
       const updated = new Set(prev);
-     updated.delete(reqid); // Remove reqId from the set after response
-     return updated;
+      updated.delete(reqid); // Remove reqId from the set after response
+      return updated;
     });
   };
 
@@ -74,7 +74,7 @@ const WithdrawRequests = () => {
     const selectedValue = event.target.value;
 
     if (selectedValue === "all") {
-      setSelectedStatus("0,1,2,3,4,5"); // Include all statuses in the filter
+      setSelectedStatus(""); // Include all statuses in the filter
     } else {
       setSelectedStatus(selectedValue); // For a single status, use its value directly
     }
@@ -182,12 +182,12 @@ const WithdrawRequests = () => {
 
   const handleCancelRequest = (reqid) => {
     if (ongoingCancellations.has(reqid)) return; // Prevent multiple clicks
-  
+
     setOngoingCancellations((prev) => new Set(prev).add(reqid)); // Add reqId to the set
-  
+
     const controller = new AbortController();
     const signal = controller.signal;
-  
+
     dispatch(
       cancelWithdrawRequest(signal, reqid, () => {
         refreshData(reqid);
@@ -201,11 +201,7 @@ const WithdrawRequests = () => {
     });
   };
 
-  // Get unique statuses from withdrawReqs if it's not empty
-  const uniqueStatuses =
-    withdrawReqs && withdrawReqs.requests.length > 0
-      ? [...new Set(withdrawReqs.requests.map((req) => req.status))].sort()
-      : [];
+  const uniqueStatuses = [0, 1, 2, 3, 4, 5];
 
   return (
     <>
@@ -218,81 +214,75 @@ const WithdrawRequests = () => {
         </div>
       </div>
 
-      <div
-        className={classes.RequestsContainer}
-        style={{
-          justifyContent:
-            withdrawReqs && withdrawReqs.requests.length < 1 && "center",
-        }}
-      >
+      <div className={classes.RequestsContainer}>
+        <div className={classes.FilterContainer}>
+          <div className={classes.Filter}>
+            <label htmlFor="statusFilter">{translate("Status")}:</label>
+            <select
+              id="statusFilter"
+              value={selectedStatus}
+              onChange={handleStatusChange}
+              className={classes.Select}
+            >
+              <option value="">{translate("All")}</option>
+              {uniqueStatuses.map((status) => (
+                <option key={status} value={status}>
+                  {translate(renderReqStatus(status))}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className={classes.Filter}>
+            <div className={classes.FilterSort}>
+              <label htmlFor="amountSort" className={classes.SortLabel}>
+                {translate("Amount")}
+              </label>
+              <button
+                id="amountSort"
+                onClick={toggleAmountSortOrder}
+                className={classes.SortButton}
+              >
+                {amountSortOrder === "Amount_asc" ? (
+                  <>
+                    <UpArrowIcon fill="#ffffff" />
+                    <DownArrowIcon fill="#494949" />
+                  </>
+                ) : (
+                  <>
+                    <UpArrowIcon fill="#494949" />
+                    <DownArrowIcon fill="#ffffff" />
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+          <div className={classes.Filter}>
+            <div className={classes.FilterSort}>
+              <label htmlFor="dateSort" className={classes.SortLabel}>
+                {translate("Date")}
+              </label>
+              <button
+                id="dateSort"
+                onClick={toggleDateSortOrder}
+                className={classes.SortButton}
+              >
+                {dateSortOrder === "DateAdded_asc" ? (
+                  <>
+                    <UpArrowIcon fill="#ffffff" />
+                    <DownArrowIcon fill="#494949" />
+                  </>
+                ) : (
+                  <>
+                    <UpArrowIcon fill="#494949" />
+                    <DownArrowIcon fill="#ffffff" />
+                  </>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
         {withdrawReqs && withdrawReqs.requests.length > 0 ? (
           <>
-            <div className={classes.FilterContainer}>
-              <div className={classes.Filter}>
-                <label htmlFor="statusFilter">{translate("Status")}:</label>
-                <select
-                  id="statusFilter"
-                  value={selectedStatus}
-                  onChange={handleStatusChange}
-                  className={classes.Select}
-                >
-                  <option value="0,1,2,3,4,5">{translate("All")}</option>
-                  {uniqueStatuses.map((status) => (
-                    <option key={status} value={status}>
-                      {translate(renderReqStatus(status))}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <div className={classes.Filter}>
-                <div className={classes.FilterSort}>
-                  <label htmlFor="amountSort" className={classes.SortLabel}>
-                    {translate("Amount")}
-                  </label>
-                  <button
-                    id="amountSort"
-                    onClick={toggleAmountSortOrder}
-                    className={classes.SortButton}
-                  >
-                    {amountSortOrder === "Amount_asc" ? (
-                      <>
-                        <UpArrowIcon fill="#ffffff" />
-                        <DownArrowIcon fill="#494949" />
-                      </>
-                    ) : (
-                      <>
-                        <UpArrowIcon fill="#494949" />
-                        <DownArrowIcon fill="#ffffff" />
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-              <div className={classes.Filter}>
-                <div className={classes.FilterSort}>
-                  <label htmlFor="dateSort" className={classes.SortLabel}>
-                    {translate("Date")}
-                  </label>
-                  <button
-                    id="dateSort"
-                    onClick={toggleDateSortOrder}
-                    className={classes.SortButton}
-                  >
-                    {dateSortOrder === "DateAdded_asc" ? (
-                      <>
-                        <UpArrowIcon fill="#ffffff" />
-                        <DownArrowIcon fill="#494949" />
-                      </>
-                    ) : (
-                      <>
-                        <UpArrowIcon fill="#494949" />
-                        <DownArrowIcon fill="#ffffff" />
-                      </>
-                    )}
-                  </button>
-                </div>
-              </div>
-            </div>
             <div className={classes.Requests}>
               {withdrawReqs.requests.map((req, index) => (
                 <div
