@@ -69,7 +69,10 @@ const Bottombar = () => {
       key={2}
       type="button"
       className={classes.BottomMenuItem}
-      onClick={() => navigate("/sportsbook")}
+      onClick={() => {
+        dispatch(layoutActions.setFullLeftContainer(false));
+        navigate("/sportsbook")
+      }}
     >
       <SportsIcon className={classes.WithFill} />
       <span className={classes.Label}>{translate("Sports")}</span>
@@ -83,7 +86,10 @@ const Bottombar = () => {
           ? [classes.BottomMenuItem, classes.Active].join(" ")
           : classes.BottomMenuItem
       }
-      onClick={() => navigate("/casino/lobby")}
+      onClick={() => {
+        dispatch(layoutActions.setFullLeftContainer(false));
+        navigate("/casino/lobby")
+      }}
     >
       <CasinoIcon className={classes.WithFill} />
       <span className={classes.Label}>{translate("Casino")}</span>
@@ -97,7 +103,10 @@ const Bottombar = () => {
           ? [classes.BottomMenuItem, classes.Active].join(" ")
           : classes.BottomMenuItem
       }
-      onClick={() => navigate("/sportsbook/mybets")}
+      onClick={() => {
+        dispatch(layoutActions.setFullLeftContainer(false));
+        navigate("/sportsbook/mybets")
+      }}
     >
       <Paper2Icon className={classes.WithFill} />
       <span className={classes.Label}>{translate("My Bets")}</span>
@@ -108,6 +117,7 @@ const Bottombar = () => {
       type="button"
       className={classes.BottomMenuItem}
       onClick={() => {
+        dispatch(layoutActions.setFullLeftContainer(false));
         dispatch(layoutActions.setShowRightContainer(true));
         dispatch(layoutActions.setShowRight("betslip"));
       }}
@@ -136,7 +146,10 @@ const Bottombar = () => {
       key={6}
       type="button"
       className={classes.BottomMenuItem}
-      onClick={() => navigate("/search")}
+      onClick={() => {
+        dispatch(layoutActions.setFullLeftContainer(false));
+        navigate("/search")
+      }}
       // onClick={() => addParamsToUrl("search")}
     >
       <SearchIcon className={classes.WithStroke} />
@@ -147,7 +160,10 @@ const Bottombar = () => {
       key={7}
       type="button"
       className={classes.BottomMenuItem}
-      onClick={() => navigate("/searchEvent")}
+      onClick={() => {
+        dispatch(layoutActions.setFullLeftContainer(false));
+        navigate("/searchEvent")
+      }}
     >
       <SearchIcon className={classes.WithStroke} />
       <span className={classes.Label}>{translate("Events")}</span>
@@ -161,7 +177,10 @@ const Bottombar = () => {
           ? [classes.BottomMenuItem, classes.Active].join(" ")
           : classes.BottomMenuItem
       }
-      onClick={() => navigate("/sportsbook/live")}
+      onClick={() => {
+        dispatch(layoutActions.setFullLeftContainer(false));
+        navigate("/sportsbook/live")
+      }}
     >
       <PlayIcon className={classes.WithFill} />
       <span className={classes.Label}>{translate("In Play")}</span>
@@ -175,7 +194,10 @@ const Bottombar = () => {
           ? [classes.BottomMenuItem, classes.Active].join(" ")
           : classes.BottomMenuItem
       }
-      onClick={() => navigate("/leaderboard")}
+      onClick={() => {
+        dispatch(layoutActions.setFullLeftContainer(false));
+        navigate("/leaderboard")
+      }}
     >
       <LeaderIcon className={classes.WithFill} />
       <span className={classes.Label}>{translate("Leaderboard")}</span>
@@ -189,7 +211,10 @@ const Bottombar = () => {
           ? [classes.BottomMenuItem, classes.Active].join(" ")
           : classes.BottomMenuItem
       }
-      onClick={() => navigate("/crypto")}
+      onClick={() => {
+        dispatch(layoutActions.setFullLeftContainer(false));
+        navigate("/crypto")
+      }}
     >
       <PricesIcon className={classes.WithFill} />
       <span className={classes.Label}>{translate("Crypto Prices")}</span>
@@ -200,6 +225,7 @@ const Bottombar = () => {
       type="button"
       className={classes.BottomMenuItem}
       onClick={() => {
+        dispatch(layoutActions.setFullLeftContainer(false));
         dispatch(layoutActions.setShowRight("chat"));
         dispatch(layoutActions.setShowRightContainer(true));
       }}
