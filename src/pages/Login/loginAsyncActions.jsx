@@ -245,7 +245,7 @@ export const getUser = (navigate) => {
           ...response.data.Contents,
         };
 
-        const siteSettings = getState().app;
+        const siteSettings = getState().login;
         const gamificationPermission = siteSettings.permissions;
 
         if (gamificationPermission.AllowGamification) {
