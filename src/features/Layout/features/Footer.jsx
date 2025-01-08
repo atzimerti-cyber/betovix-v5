@@ -37,7 +37,7 @@ const Footer = () => {
   }, []);
 
   useEffect(() => {
-    if (isBetovix && window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0) {
+    if (window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0) {
       window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init();
     }
   }, []);
@@ -72,7 +72,7 @@ const Footer = () => {
           ))}
 
         <div className={classes.LinksLayout}>
-          {isBetovix && <>
+          
           <h2>{translate("License")}</h2>
           <div className={classes.License}>
             <div
@@ -82,8 +82,6 @@ const Footer = () => {
               data-anj-image-type="basic-small"
             ></div>
           </div>
-</>
-}
           <Plus18Icon className={classes.PlusEighteen} />
         </div>
         <div className={classes.LinksLayout}></div>
