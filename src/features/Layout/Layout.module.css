@@ -64,6 +64,12 @@
   height: 100%;
 }
 
+@media (max-width: 768px) {
+  .InnerContainer {
+    height: calc(100% - 52px);
+  }
+}
+
 .CenterContainer {
   position: relative;
   z-index: 10;
