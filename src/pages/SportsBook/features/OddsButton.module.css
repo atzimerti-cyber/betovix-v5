@@ -123,6 +123,13 @@
 
 /* Media */
 @media (max-width: 900px) {
+  .OddsDelta {
+    font-size: 12px;
+    flex: 0 0 20px;
+    flex-direction: row-reverse;
+  }
+}
+@media (max-width: 500px) {
   .OddsButton {
     font-size: 12px;
     flex-direction: column;
@@ -131,10 +138,5 @@
     -webkit-box-pack: justify;
     justify-content: space-between;
     min-height: 58px;
-  }
-  .OddsDelta {
-    font-size: 12px;
-    flex: 0 0 20px;
-    flex-direction: row-reverse;
   }
 }
