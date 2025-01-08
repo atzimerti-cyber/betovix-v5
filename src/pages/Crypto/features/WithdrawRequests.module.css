@@ -72,7 +72,7 @@
 
 .FilterSort {
   display: flex;
-  background: #102f47;
+  background: var(--sb-search);
   height: 2rem;
   width: max-content;
   padding: 0.4rem;
@@ -86,7 +86,7 @@
   padding: 0 0.5rem;
 }
 .Select {
-  background: #102f47;
+  background: var(--sb-search);
   height: 2rem;
   width: 75%;
   padding: 0.4rem;

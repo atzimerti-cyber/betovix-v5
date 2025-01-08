@@ -167,7 +167,7 @@ const Home = () => {
                 )}
 
                 {!user && <RegisterContainers />}
-                {!hasHero && user && <SelectHeroContainer />}
+                {!hasHero && user && permissions.AllowGamification && <SelectHeroContainer />}
               </div>
             )}
           </div>

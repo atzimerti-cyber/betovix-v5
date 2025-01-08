@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import classes from "./Footer.module.css";
@@ -16,6 +16,14 @@ const Footer = () => {
   const lang = useSelector((state) => state.app.lang);
   const footer = useSelector((state) => state.layout.footer);
   const siteSettings = useSelector((state) => state.app.siteSettings);
+  const currentDomain = window.location.hostname;
+  const [isBetovix, setIsBetovix] = useState(false);
+
+   useEffect(() => {
+    if (currentDomain === 'betovix.com') {
+      setIsBetovix(true);
+    }
+  }, [currentDomain]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -29,7 +37,7 @@ const Footer = () => {
   }, []);
 
   useEffect(() => {
-    if (window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0) {
+    if (isBetovix && window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0) {
       window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init();
     }
   }, []);
@@ -64,6 +72,7 @@ const Footer = () => {
           ))}
 
         <div className={classes.LinksLayout}>
+          {isBetovix && <>
           <h2>{translate("License")}</h2>
           <div className={classes.License}>
             <div
@@ -73,6 +82,8 @@ const Footer = () => {
               data-anj-image-type="basic-small"
             ></div>
           </div>
+</>
+}
           <Plus18Icon className={classes.PlusEighteen} />
         </div>
         <div className={classes.LinksLayout}></div>
@@ -1189,6 +1200,8 @@ const Footer = () => {
 
       <div className={classes.InfoContainer}>
         <LogoBig />
+
+        {isBetovix && 
         <span>
           ©{" "}
           {translate(`betovix.com is a brand name of Atlas Solutions LTD. Reg No 15723,
@@ -1202,6 +1215,7 @@ const Footer = () => {
           responsibly`)}
           .
         </span>
+        }
       </div>
     </div>
   );

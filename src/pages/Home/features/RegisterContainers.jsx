@@ -9,6 +9,7 @@ const RegisterContainers = () => {
   const location = useLocation();
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const permissions = useSelector((state) => state.login.permissions);
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);
@@ -35,10 +36,15 @@ const RegisterContainers = () => {
               </div>
             </div>
           </div>
-          <span className={classes.SignUpTextV1}>{translate("Sign up")}</span>
-          &nbsp;{translate("and")}&nbsp;
-          <span className={classes.SignUpTextV1}>{translate("choose")} </span>
-          <span className={classes.SignUpTextV1}>{translate("your hero")}</span>
+          {permissions.AllowGamification &&
+            <>
+              <span className={classes.SignUpTextV1}>{translate("Sign up")}</span>
+              &nbsp;{translate("and")}&nbsp;
+              <span className={classes.SignUpTextV1}>{translate("choose")} </span>
+              <span className={classes.SignUpTextV1}>{translate("your hero")}</span>
+            </>
+
+          }
           <span className={classes.SignUpTextV2}>
             150% {translate("on")}{" "}
             <span style={{ fontWeight: "400", textTransform: "lowercase" }}>
