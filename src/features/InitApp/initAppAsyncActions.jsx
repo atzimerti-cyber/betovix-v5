@@ -409,7 +409,7 @@ export const loadInitData = (isMobile) => {
         //   });
         // });
 
-        casinoMenuItems.push(casinoMinibarMenu);
+        // casinoMenuItems.push(casinoMinibarMenu);
 
          casinoMenuItems.push({
            category: { id: 1, label: "Casino", visible: true },
