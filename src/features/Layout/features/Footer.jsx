@@ -37,14 +37,59 @@ const Footer = () => {
   }, []);
 
   useEffect(() => {
-    if (window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0) {
+    if (siteSettings.AllowFooter && window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0) {
       window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init();
     }
   }, []);
 
   return (
     <div className={classes.Footer}>
-      <div className={classes.LinksContainer}>
+      {siteSettings.AllowFooter && (
+        <div className={classes.LinksContainer}>
+          {footer &&
+            footer.length > 0 &&
+            footer.map((categ, categIndex) => (
+              <div className={classes.LinksLayout} key={categIndex}>
+                <h2>{translate(`${categ.title}`) || categ.title}</h2>
+                {categ?.subcategs.map((subcateg, subcategIndex) => (
+                  <a
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      if (subcateg.target !== "download") {
+                        navigate(`${subcateg.link}`);
+                      }
+                    }}
+                    href={
+                      subcateg.target === "download"
+                        ? subcateg.link || "#"
+                        : undefined
+                    }
+                    download={subcateg.target === "download" ? "" : undefined}
+                    target={subcateg.target === "download" ? "_blank" : "_self"}
+                    key={subcateg.id || `subcateg-${subcategIndex}`}
+                  >
+                    {translate(`${subcateg.name}`) || subcateg.name}
+                  </a>
+                ))}
+              </div>
+            ))}
+
+          <div className={classes.LinksLayout}>
+            <h2>{translate("License")}</h2>
+            <div className={classes.License}>
+              <div
+                id="anj-e4a2fe78-d6a5-4db4-8b68-4943b8cde3f0"
+                data-anj-seal-id="e4a2fe78-d6a5-4db4-8b68-4943b8cde3f0"
+                data-anj-image-size="60"
+                data-anj-image-type="basic-small"
+              ></div>
+            </div>
+            <Plus18Icon className={classes.PlusEighteen} />
+          </div>
+        </div>
+      )}
+
+      {/* <div className={classes.LinksContainer}>
         {footer &&
           footer.length > 0 &&
           footer.map((categ, index) => (
@@ -85,7 +130,7 @@ const Footer = () => {
           <Plus18Icon className={classes.PlusEighteen} />
         </div>
         <div className={classes.LinksLayout}></div>
-      </div>
+      </div> */}
 
       <SocialMedia />
 

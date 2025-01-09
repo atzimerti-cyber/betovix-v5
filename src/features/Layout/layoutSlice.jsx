@@ -72,9 +72,9 @@ export const layoutSlice = createSlice({
     setFooter: (state, action) => {
       state.footer = action.payload;
     },
-    // setTawkToScript: (state, action) => {
-    //   state.tawkToScript = action.payload;
-    // },
+    setTawkToScript: (state, action) => {
+      state.tawkToScript = action.payload;
+    },
     setNotifications: (state, action) => {
       state.notifications = action.payload;
       state.newNotifications = action.payload.filter(

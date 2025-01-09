@@ -8,6 +8,7 @@ const Support = () => {
   // Determine the iframe height based on window width
   const iframeHeight = window.innerWidth <= 670 ? "550px" : "500px";
   const lang = useSelector((state) => state.app.lang);
+  const support = useSelector((state) => state.layout.tawkToScript);
 
   return (
     <div className={classes.PageContent} style={{ padding: "0px 1rem 40px" }}>
@@ -29,7 +30,7 @@ const Support = () => {
         </div>
       </div>
       <iframe
-        src="https://tawk.to/betovix"
+        src={support.Source}
         title="Support Chat"
         style={{
           width: "100%",
@@ -64,7 +65,8 @@ const Support = () => {
           )}{" "}
           <i>
             <u>
-              <a href="mailto:support@betovix.com">support@betovix.com</a>
+              <a href={`mailto:${support.Email}`}>{support.Email}</a>
+               {/* support@betovix.com */}
             </u>
           </i>
         </p>

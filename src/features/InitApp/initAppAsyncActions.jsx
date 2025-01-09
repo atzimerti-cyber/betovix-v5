@@ -170,7 +170,7 @@ export const loadInitData = (isMobile) => {
       dispatch(appActions.setTranslations(responsesNecessary[0].data.Contents));
 
       //Tawk.To
-      //dispatch(tawktoChat());
+      dispatch(tawktoChat());
 
       //Get Progress
       dispatch(heroProgress());
@@ -338,6 +338,11 @@ export const loadInitData = (isMobile) => {
         dispatch(appActions.setSportsMenuItems(sportsMenuItems));
       }
 
+      const currentState1 = getState().app;
+      const siteSettings = currentState1.siteSettings;
+      const type = (siteSettings && siteSettings?.CasinoMenuType ? siteSettings.CasinoMenuType : "casinobetovix");
+      const minitype = (siteSettings && siteSettings?.CasinoMinibarType ? siteSettings.CasinoMinibarType : "Betovix");
+
       // Casino
       // -------------------------------------
       if (permissions.AllowToCasino || permissions.AllowToSlots) {
@@ -350,12 +355,19 @@ export const loadInitData = (isMobile) => {
             }
           ),
           axiosApi.get(
-            `MyCasino/MyMenu?type=casinobetovix&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+            `MyCasino/MyMenu?type=${type}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
             {
               baseURLOverride: config.VITE_CASINO_BASE,
               timeout: 10000,
             }
           ),
+          // axiosApi.get(
+          //   `MyCasino/MyMenu?type=casinominibar&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+          //   {
+          //     baseURLOverride: config.VITE_CASINO_BASE,
+          //     timeout: 10000,
+          //   }
+          // ),
         ];
         const responsesCasino = await Promise.all(requestsCasino);
         responsesCasino.forEach((response) => {
@@ -367,8 +379,8 @@ export const loadInitData = (isMobile) => {
             appActions.setAllCasinoVendors(responsesCasino[0].data.Contents)
           );
 
-        const currentState = getState().app;
-        const casinoIcons = currentState.casinoIcons;
+        const currentstate = getState().app;
+        const casinoIcons = currentstate.casinoIcons;
 
         let casinoWalletMenu = {
           category: { id: 2, label: "Casino Categories", visible: true },
@@ -383,59 +395,75 @@ export const loadInitData = (isMobile) => {
           });
         });
 
-        casinoMenuItems.push({
-          category: { id: 1, label: "Casino", visible: true },
-          items: [
-            {
-              id: 1,
-              label: "Lobby",
-              icon: <HomeIcon />,
-              page: "casino/lobby",
-            },
-            {
-              id: 2,
-              label: "Slots",
-              icon: <SlotsIcon />,
-              page: "casino/slots",
-            },
-            {
-              id: 3,
-              label: "Live Casino",
-              icon: <BlackjackIcon />,
-              page: "casino/live",
-            },
-            {
-              id: 4,
-              label: "Virtual Games",
-              icon: <VirtualGames />,
-              page: "casino/virtualgames",
-            },
-            {
-              id: 5,
-              label: "Game Shows",
-              icon: <GameShows />,
-              page: "casino/gameshows",
-            },
-            {
-              id: 6,
-              label: "Table Games",
-              icon: <TableGames />,
-              page: "casino/tablegames",
-            },
-            {
-              id: 7,
-              label: "Providers",
-              icon: <ProvidersMenu />,
-              page: "casino/providers",
-            },
-            user && {
-              id: 8,
-              label: "Favorites",
-              icon: <HeartIcon />,
-              page: "casino/favorites",
-            },
-          ].filter(Boolean), // This filters out any `false` or `undefined` items
-        });
+        // let casinoMinibarMenu = {
+        //   category: { id: 1, label: "Casino", visible: true },
+        //   items: [],
+        // };
+
+        // responsesCasino[2].data.Contents.Categs[{minitype}].forEach((category) => {
+        //   casinoMinibarMenu.items.push({
+        //     id: category.Categ.Id,
+        //     label: category.Categ.Name,
+        //     icon: casinoIcons[category.Categ.Name] || <NoImageIcon />,
+        //     page: category.Categ.Link,
+        //   });
+        // });
+
+        casinoMenuItems.push(casinoMinibarMenu);
+
+         casinoMenuItems.push({
+           category: { id: 1, label: "Casino", visible: true },
+           items: [
+             {
+               id: 1,
+               label: "Lobby",
+               icon: <HomeIcon />,
+               page: "casino/lobby",
+             },
+             {
+               id: 2,
+               label: "Slots",
+               icon: <SlotsIcon />,
+               page: "casino/slots",
+             },
+             {
+               id: 3,
+               label: "Live Casino",
+               icon: <BlackjackIcon />,
+               page: "casino/live",
+             },
+             {
+               id: 4,
+               label: "Virtual Games",
+               icon: <VirtualGames />,
+               page: "casino/virtualgames",
+             },
+             {
+               id: 5,
+               label: "Game Shows",
+               icon: <GameShows />,
+             page: "casino/gameshows",
+             },
+             {
+               id: 6,
+               label: "Table Games",
+               icon: <TableGames />,
+               page: "casino/tablegames",
+             },
+             {
+               id: 7,
+               label: "Providers",
+               icon: <ProvidersMenu />,
+               page: "casino/providers",
+             },
+             user && {
+               id: 8,
+               label: "Favorites",
+               icon: <HeartIcon />,
+               page: "casino/favorites",
+             },
+           ].filter(Boolean), // This filters out any `false` or `undefined` items
+         });
 
         casinoMenuItems.push(casinoWalletMenu);
 
@@ -664,7 +692,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=betovix.storetube.gr`,
+       // `Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,
@@ -946,7 +974,7 @@ export const tawktoChat = () => {
       if (response.status !== 200)
         throw new Error("Failed to fetch Tawk.to chat");
 
-      dispatch(layoutActions.setTawkToScript(response.data.Contents[0]));
+      dispatch(layoutActions.setTawkToScript(response.data.Contents["Tawk.to"]));
     } catch (error) {
       toast.error(
         error?.message || "An error occurred while fetching site settings"

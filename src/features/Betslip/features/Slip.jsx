@@ -280,7 +280,7 @@ const Slip = (props) => {
       {betType === "Single" && (
         <div className={classes.PaymentSection}>
           <div className={classes.AmountArea} onClick={handleAmountClick}>
-            <AmountArea amountId={parseInt(props.slip.FieldId)} />
+            <AmountArea amountId={props.slip.FieldId} />
           </div>
 
           <div className={classes.PaymentMarketInfo}>
