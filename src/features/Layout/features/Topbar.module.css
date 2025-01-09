@@ -670,3 +670,16 @@
   background-position: center;
   background-repeat: no-repeat;
 }
+
+.SiteLogo {
+  height: calc(var(--db-topbar-height) - 1.7rem);
+  width: 200px;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+@media (max-width: 1024px) {
+  .SiteLogo {
+    width: 65px;
+  }
+}

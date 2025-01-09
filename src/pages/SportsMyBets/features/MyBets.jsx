@@ -13,6 +13,7 @@ import { myBetsActions } from "../myBetsSlice";
 import MyBet from "./MyBet";
 import { layoutActions } from "../../../features/Layout/layoutSlice";
 import logoAnimation from "../../../assets/images/small-logo-animation.gif";
+import config from "../../../config";
 
 const MyBets = (props) => {
   const dispatch = useDispatch();
@@ -99,9 +100,16 @@ const MyBets = (props) => {
     dispatch(layoutActions.setScrollToTop());
   }, [page]);
 
+  const basePath = window.location.origin;
+  const sitename = config.VITE_SITE_NAME ? config.VITE_SITE_NAME + "/" : "";
+
   return user ? (
     ticketsLoading ? (
-      <img src={logoAnimation} className={classes.MoreLoadingAnimation}></img>
+      // <img src={logoAnimation} className={classes.MoreLoadingAnimation}></img>
+      <img
+        src={`${basePath}/${sitename}small-logo-animation.gif`}
+        alt="Loading"
+      />
     ) : (
       <>
         {ticketsTable?.Total === 0 ? (

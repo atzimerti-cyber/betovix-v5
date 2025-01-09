@@ -8,6 +8,7 @@ import logoAnimation from "../../../assets/images/small-logo-animation.gif";
 import MainButton from "../../UI/Buttons/MainButton";
 import { loadMoreSearch } from "../../../pages/Search/searchAsyncActions";
 import { useMediaQuery } from "react-responsive";
+import config from "../../../config";
 
 const CasinoGames = (props) => {
   const dispatch = useDispatch();
@@ -94,6 +95,9 @@ const CasinoGames = (props) => {
     return repeat;
   };
 
+  const basePath = window.location.origin;
+  const sitename = config.VITE_SITE_NAME ? config.VITE_SITE_NAME + "/" : "";
+
   return (
     <div className={classes.ResultsContainer}>
       {(props.collection?.Total > 0 || props.loading) && (
@@ -131,10 +135,15 @@ const CasinoGames = (props) => {
         props.collection?.Total > props.collection?.Data.length && (
           <div className={classes.LoadMore}>
             {moreLoading ? (
+              // <img
+              //   src={logoAnimation}
+              //   className={classes.MoreLoadingAnimation}
+              // ></img>
               <img
-                src={logoAnimation}
+                src={`${basePath}/${sitename}small-logo-animation.gif`}
+                alt="Loading"
                 className={classes.MoreLoadingAnimation}
-              ></img>
+              />
             ) : (
               <MainButton color="primary" onClick={addToGames}>
                 <span>Load More</span>
