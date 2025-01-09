@@ -258,6 +258,7 @@ const Bottombar = () => {
       delete allButtonsObj["mybets"];
       delete allButtonsObj["betslip"];
       delete allButtonsObj["inplay"];
+      delete allButtonsObj["searchEvent"];
     }
     if (!permissions.AllowToCasino && !permissions.AllowToSlots) {
       delete allButtonsObj["search"];
@@ -294,7 +295,7 @@ const Bottombar = () => {
     );
     let firstFiveItems = allButtonsIndexes.slice(0, 5);
     // firstFiveItems.push(9); // Add chat in the end
-    firstFiveItems.push(4); // Add betslip in the end
+    if (permissions.AllowToSports) firstFiveItems.push(4); // Add betslip in the end
 
     setMenuButtonsIndexes(firstFiveItems);
   }, [
