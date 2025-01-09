@@ -361,13 +361,13 @@ export const loadInitData = (isMobile) => {
               timeout: 10000,
             }
           ),
-          // axiosApi.get(
-          //   `MyCasino/MyMenu?type=casinominibar&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-          //   {
-          //     baseURLOverride: config.VITE_CASINO_BASE,
-          //     timeout: 10000,
-          //   }
-          // ),
+           axiosApi.get(
+             `MyCasino/MyMenu?type=casinominibar&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+             {
+               baseURLOverride: config.VITE_CASINO_BASE,
+               timeout: 10000,
+             }
+           ),
         ];
         const responsesCasino = await Promise.all(requestsCasino);
         responsesCasino.forEach((response) => {
@@ -380,7 +380,8 @@ export const loadInitData = (isMobile) => {
           );
 
         const currentstate = getState().app;
-        const casinoIcons = currentstate.casinoIcons;
+        const casinoIcons = currentstate.casinoIcons;       
+        const casinoMenuIcons = currentstate.casinoMenuIcons;
 
         let casinoWalletMenu = {
           category: { id: 2, label: "Casino Categories", visible: true },
@@ -395,79 +396,87 @@ export const loadInitData = (isMobile) => {
           });
         });
 
-        // let casinoMinibarMenu = {
-        //   category: { id: 1, label: "Casino", visible: true },
-        //   items: [],
-        // };
-
-        // responsesCasino[2].data.Contents.Categs[{minitype}].forEach((category) => {
-        //   casinoMinibarMenu.items.push({
-        //     id: category.Categ.Id,
-        //     label: category.Categ.Name,
-        //     icon: casinoIcons[category.Categ.Name] || <NoImageIcon />,
-        //     page: category.Categ.Link,
-        //   });
-        // });
-
-        // casinoMenuItems.push(casinoMinibarMenu);
-
-         casinoMenuItems.push({
+         let casinoMinibarMenu = {
            category: { id: 1, label: "Casino", visible: true },
-           items: [
-             {
-               id: 1,
-               label: "Lobby",
-               icon: <HomeIcon />,
-               page: "casino/lobby",
-             },
-             {
-               id: 2,
-               label: "Slots",
-               icon: <SlotsIcon />,
-               page: "casino/slots",
-             },
-             {
-               id: 3,
-               label: "Live Casino",
-               icon: <BlackjackIcon />,
-               page: "casino/live",
-             },
-             {
-               id: 4,
-               label: "Virtual Games",
-               icon: <VirtualGames />,
-               page: "casino/virtualgames",
-             },
-             {
-               id: 5,
-               label: "Game Shows",
-               icon: <GameShows />,
-             page: "casino/gameshows",
-             },
-             {
-               id: 6,
-               label: "Table Games",
-               icon: <TableGames />,
-               page: "casino/tablegames",
-             },
-             {
-               id: 7,
-               label: "Providers",
-               icon: <ProvidersMenu />,
-               page: "casino/providers",
-             },
-             user && {
-               id: 8,
-               label: "Favorites",
-               icon: <HeartIcon />,
-               page: "casino/favorites",
-             },
-           ].filter(Boolean), // This filters out any `false` or `undefined` items
-         });
+           items: [],
+         };
+
+         responsesCasino[2].data.Contents.Categs.forEach((categoryData) => {
+          if (categoryData.Categ.Name === minitype) {
+            categoryData.Items.forEach((item) => {
+              if (item.Name === "Favorites" && !user) return;       
+
+              casinoMinibarMenu.items.push({
+                id: item.Id,
+                label: item.Name,
+                icon: casinoMenuIcons[item.Name] || <NoImageIcon />,
+                page: item.Link || "#", 
+              });
+            });
+          }
+        });
+
+        casinoMenuItems.push(casinoMinibarMenu);
+
+        //  casinoMenuItems.push({
+        //    category: { id: 1, label: "Casino", visible: true },
+        //    items: [
+        //      {
+        //        id: 1,
+        //        label: "Lobby",
+        //        icon: <HomeIcon />,
+        //        page: "casino/lobby",
+        //      },
+        //      {
+        //        id: 2,
+        //        label: "Slots",
+        //        icon: <SlotsIcon />,
+        //        page: "casino/slots",
+        //      },
+        //      {
+        //        id: 3,
+        //        label: "Live Casino",
+        //        icon: <BlackjackIcon />,
+        //        page: "casino/live",
+        //      },
+        //      {
+        //        id: 4,
+        //        label: "Virtual Games",
+        //        icon: <VirtualGames />,
+        //        page: "casino/virtualgames",
+        //      },
+        //      {
+        //        id: 5,
+        //        label: "Game Shows",
+        //        icon: <GameShows />,
+        //      page: "casino/gameshows",
+        //      },
+        //      {
+        //        id: 6,
+        //        label: "Table Games",
+        //        icon: <TableGames />,
+        //        page: "casino/tablegames",
+        //      },
+        //      {
+        //        id: 7,
+        //        label: "Providers",
+        //        icon: <ProvidersMenu />,
+        //        page: "casino/providers",
+        //      },
+        //      user && {
+        //        id: 8,
+        //        label: "Favorites",
+        //        icon: <HeartIcon />,
+        //        page: "casino/favorites",
+        //      },
+        //    ].filter(Boolean), // This filters out any `false` or `undefined` items
+        //  });
 
         casinoMenuItems.push(casinoWalletMenu);
 
         dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
+        dispatch(appActions.setCasinoMinibarItems(casinoMinibarMenu));
+
       }
 
       {
@@ -692,7 +701,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-       // `Site/GetSite?domainName=betovix.storetube.gr`,
+        //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,

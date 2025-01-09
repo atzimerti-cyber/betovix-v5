@@ -39,7 +39,7 @@ const Footer = () => {
   }, []);
 
   useEffect(() => {
-    if (isFooterAllowed&& window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0) {
+    if (isFooterAllowed && window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0) {
       window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init();
     }
   }, []);

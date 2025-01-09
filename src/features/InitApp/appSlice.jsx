@@ -106,6 +106,14 @@ import CardGames from "../../assets/casinoIcons/cardgames.svg?react";
 import BTG from "../../assets/casinoIcons/btg.svg?react";
 
 import Favorites from "../../assets/svgs/heart.svg?react";
+import HomeIcon from "../../assets/svgs/home.svg?react";
+import SlotsIcon from "../../assets/svgs/slots.svg?react";
+import BlackjackIcon from "../../assets/svgs/blackjack.svg?react";
+import HeartIcon from "../../assets/svgs/heart.svg?react";
+import GameShows from "../../assets/svgs/gameshows.svg?react";
+import VirtualGames from "../../assets/svgs/virtualgames.svg?react";
+import TableGames from "../../assets/svgs/table-games.svg?react";
+import ProvidersMenu from "../../assets/svgs/providers-menu.svg?react";
 
 const initialState = {
   siteId: false,
@@ -160,6 +168,7 @@ const initialState = {
   //////////////////
   casinoMenuItems: [],
   sportsMenuItems: [],
+  casinoMinibarItems: [],
   //////////////////
   selectedOddsFormat: "Decimal",
   oddsFormatOptions: [
@@ -300,6 +309,16 @@ const initialState = {
     "X-mas Specials": <XmasCasinoIcon />,
     Blackjack: <Blackjack />,
   },
+  casinoMenuIcons: {
+    Lobby: <HomeIcon />,
+    Slots: <SlotsIcon />,
+    'Live Casino': <BlackjackIcon />,
+    'Virtual Games': <VirtualGames />,
+    'Game Shows': <GameShows />,
+    'Table Games': <TableGames />,
+    Providers: <ProvidersMenu />,
+    Favorites: <HeartIcon />,
+  },
   sportSettings: null,
   siteSettings: null,
   socialMedia: null,
@@ -335,6 +354,9 @@ export const appSlice = createSlice({
     },
     setCasinoMenuItems: (state, action) => {
       state.casinoMenuItems = action.payload;
+    },
+    setCasinoMinibarItems: (state, action) => {
+      state.casinoMinibarItems = action.payload;
     },
     setSportsMenuItems: (state, action) => {
       state.sportsMenuItems = action.payload;
