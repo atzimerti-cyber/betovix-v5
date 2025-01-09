@@ -9,6 +9,7 @@ import License from "../../../assets/images/license.png";
 import { translate } from "../../../utils/translations";
 import SocialMedia from "./SocialMedia";
 import { getSiteSettings } from "../../InitApp/initAppAsyncActions";
+import config from "../../../config";
 
 const Footer = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,8 @@ const Footer = () => {
   const currentDomain = window.location.hostname;
   const [isBetovix, setIsBetovix] = useState(false);
 
-   useEffect(() => {
-    if (currentDomain === 'betovix.com') {
+  useEffect(() => {
+    if (currentDomain === "betovix.com") {
       setIsBetovix(true);
     }
   }, [currentDomain]);
@@ -41,6 +42,8 @@ const Footer = () => {
       window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init();
     }
   }, []);
+
+  const logoURL = config.VITE_SITE_LOGO ? config.VITE_SITE_LOGO : null;
 
   return (
     <div className={classes.Footer}>
@@ -117,7 +120,6 @@ const Footer = () => {
           ))}
 
         <div className={classes.LinksLayout}>
-          
           <h2>{translate("License")}</h2>
           <div className={classes.License}>
             <div
@@ -1242,12 +1244,18 @@ const Footer = () => {
       </div>
 
       <div className={classes.InfoContainer}>
-        <LogoBig />
+        {/* <LogoBig /> */}
+        <div
+          className={classes.SiteLogo}
+          style={{
+            backgroundImage: `url(${logoURL})`,
+          }}
+        ></div>
 
-        {isBetovix && 
-        <span>
-          ©{" "}
-          {translate(`betovix.com is a brand name of Atlas Solutions LTD. Reg No 15723,
+        {isBetovix && (
+          <span>
+            ©{" "}
+            {translate(`betovix.com is a brand name of Atlas Solutions LTD. Reg No 15723,
           having its registered address at Hamchako, Mutsamudu, Autonomous
           Island of Anjouan, Union of Comoros, Anjouan licensed to conduct
           online gaming operations by the Government of Anjouan. Atlas Solutions
@@ -1256,9 +1264,9 @@ const Footer = () => {
           Atlas Solutions LTD which provides management, payment and support
           services related to the operation of the website. 18+ to play, gamble
           responsibly`)}
-          .
-        </span>
-        }
+            .
+          </span>
+        )}
       </div>
     </div>
   );

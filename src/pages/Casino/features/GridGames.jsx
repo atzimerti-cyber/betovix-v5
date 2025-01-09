@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import classes from "./GridGames.module.css"; 
+import classes from "./GridGames.module.css";
 import logoAnimation from "../../../assets/images/small-logo-animation.gif";
 import CasinoGameCard from "../features/CasinoGameCard";
 import MainButton from "../../../features/UI/Buttons/MainButton";
@@ -9,6 +9,7 @@ import { addToGamesWithFilter, loadMoreSearch } from "../casinoAsyncActions";
 import LoaderPlaceholder from "../../../features/UI/Skeletons/LoaderPlaceholder";
 import { translate } from "../../../utils/translations";
 import { useMediaQuery } from "react-responsive";
+import config from "../../../config";
 
 const GridGames = (props) => {
   const dispatch = useDispatch();
@@ -100,6 +101,9 @@ const GridGames = (props) => {
     return repeat;
   };
 
+  const basePath = window.location.origin;
+  const sitename = config.VITE_SITE_NAME ? config.VITE_SITE_NAME + "/" : "";
+
   return (
     <div className={classes.Games}>
       <div
@@ -169,10 +173,15 @@ const GridGames = (props) => {
         props.collection?.Data.length > 0 && (
           <div className={classes.LoadMore}>
             {moreLoading ? (
+              // <img
+              //   src={logoAnimation}
+              //   className={classes.MoreLoadingAnimation}
+              // ></img>
               <img
-                src={logoAnimation}
+                src={`${basePath}/${sitename}small-logo-animation.gif`}
+                alt="Loading"
                 className={classes.MoreLoadingAnimation}
-              ></img>
+              />
             ) : (
               <MainButton color="primary" onClick={addToGames}>
                 <span>{translate("Load More")}</span>

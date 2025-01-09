@@ -9,6 +9,7 @@ import MainButton from "../../../features/UI/Buttons/MainButton";
 import { loadMoreSearch } from "../../../pages/Search/searchAsyncActions";
 import { translate } from "../../../utils/translations";
 import { useMediaQuery } from "react-responsive";
+import config from "../../../config";
 
 const CasinoGames = (props) => {
   const dispatch = useDispatch();
@@ -106,6 +107,9 @@ const CasinoGames = (props) => {
     return repeat;
   };
 
+  const basePath = window.location.origin;
+  const sitename = config.VITE_SITE_NAME ? config.VITE_SITE_NAME + "/" : "";
+
   return (
     <div className={classes.CasinoGames}>
       <div className={classes.Header}>
@@ -148,10 +152,15 @@ const CasinoGames = (props) => {
       {props.collection?.Total > props.collection?.Data.length && (
         <div className={classes.LoadMore}>
           {moreLoading ? (
+            // <img
+            //   src={logoAnimation}
+            //   className={classes.MoreLoadingAnimation}
+            // ></img>
             <img
-              src={logoAnimation}
+              src={`${basePath}/${sitename}small-logo-animation.gif`}
+              alt="Loading"
               className={classes.MoreLoadingAnimation}
-            ></img>
+            />
           ) : (
             <MainButton color="primary" onClick={addToGames}>
               <span>{translate("Load More")}</span>

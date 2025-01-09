@@ -27,6 +27,7 @@ import MenuItems from "./MenuItems";
 import { addThousandsSeparator } from "../../../utils/custom";
 
 import NoUserImg from "../../../assets/images/nouserimg.png";
+import config from "../../../config";
 
 const Topbar = () => {
   const dispatch = useDispatch();
@@ -119,6 +120,11 @@ const Topbar = () => {
 
   const inCasinoGame = location.pathname.includes("/casino/game/");
 
+  const logoURL = config.VITE_SITE_LOGO ? config.VITE_SITE_LOGO : null;
+  const basePath = window.location.origin;
+  const sitename = config.VITE_SITE_NAME ? config.VITE_SITE_NAME + "/" : "";
+  const smallLogoURL = `${basePath}/${sitename}logo-small.svg`;
+
   return (
     <div className={classes.Topbar}>
       <div className={classes.TopbarLeftWrapper}>
@@ -164,7 +170,13 @@ const Topbar = () => {
           </div>
           {isDesktop ? (
             <MainButton color="transparent" onClick={() => navigate("/")}>
-              <LogoBig />
+              {/* <LogoBig /> */}
+              <div
+                className={classes.SiteLogo}
+                style={{
+                  backgroundImage: `url(${logoURL})`,
+                }}
+              ></div>
             </MainButton>
           ) : (
             <MainButton
@@ -172,7 +184,23 @@ const Topbar = () => {
               onClick={() => navigate("/")}
               noPad={user ? false : true}
             >
-              {user ? <LogoSmall /> : <LogoBig />}
+              {/* {user ? <LogoSmall /> : <LogoBig />} */}
+              {user ? (
+                // <LogoSmall />
+                <div
+                  className={classes.SiteLogo}
+                  style={{
+                    backgroundImage: `url(${smallLogoURL})`,
+                  }}
+                ></div>
+              ) : (
+                <div
+                  className={classes.SiteLogo}
+                  style={{
+                    backgroundImage: `url(${logoURL})`,
+                  }}
+                ></div>
+              )}
             </MainButton>
           )}
         </div>

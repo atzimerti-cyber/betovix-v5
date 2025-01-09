@@ -13,6 +13,7 @@ import FilterBar from "../features/FilterBar";
 import useDebounce from "../../../hooks/useDebounce";
 import GridGames from "../features/GridGames";
 
+import config from "../../../config";
 import { translate } from "../../../utils/translations";
 
 const SlotGames = () => {
@@ -75,6 +76,9 @@ const SlotGames = () => {
     }
   }, [selectedProviders, debSearchString, axiosController, sorting]);
 
+  const basePath = window.location.origin;
+  const sitename = config.VITE_SITE_NAME ? config.VITE_SITE_NAME + "/" : "";
+
   return (
     <div className={classes.SlotGames}>
       <FilterBar
@@ -87,10 +91,15 @@ const SlotGames = () => {
       <>
         {searchLoading ? (
           <div className={classes.LoadingContainer}>
-            <img
+            {/* <img
               src={logoAnimation}
               className={classes.MoreLoadingAnimation}
-            ></img>
+            ></img> */}
+            <img
+              src={`${basePath}/${sitename}small-logo-animation.gif`}
+              alt="Loading"
+              className={classes.MoreLoadingAnimation}
+            />
           </div>
         ) : (
           filteredGames &&
