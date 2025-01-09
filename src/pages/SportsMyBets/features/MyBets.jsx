@@ -12,7 +12,6 @@ import {
 import { myBetsActions } from "../myBetsSlice";
 import MyBet from "./MyBet";
 import { layoutActions } from "../../../features/Layout/layoutSlice";
-import logoAnimation from "../../../assets/images/small-logo-animation.gif";
 import config from "../../../config";
 
 const MyBets = (props) => {
@@ -107,7 +106,7 @@ const MyBets = (props) => {
     ticketsLoading ? (
       // <img src={logoAnimation} className={classes.MoreLoadingAnimation}></img>
       <img
-        src={`${basePath}/${sitename}small-logo-animation.gif`}
+        src={`${basePath}/${sitename}small-logo-animation.svg`}
         alt="Loading"
       />
     ) : (

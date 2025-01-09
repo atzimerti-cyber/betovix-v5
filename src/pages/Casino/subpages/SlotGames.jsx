@@ -7,7 +7,6 @@ import { casinoActions } from "../casinoSlice";
 import { getSlotsVendors, searchCasino } from "../casinoAsyncActions";
 
 import SlotsIcon from "../../../assets/svgs/slots.svg?react";
-import logoAnimation from "../../../assets/images/small-logo-animation.gif";
 
 import FilterBar from "../features/FilterBar";
 import useDebounce from "../../../hooks/useDebounce";
@@ -96,7 +95,7 @@ const SlotGames = () => {
               className={classes.MoreLoadingAnimation}
             ></img> */}
             <img
-              src={`${basePath}/${sitename}small-logo-animation.gif`}
+              src={`${basePath}/${sitename}small-logo-animation.svg`}
               alt="Loading"
               className={classes.MoreLoadingAnimation}
             />

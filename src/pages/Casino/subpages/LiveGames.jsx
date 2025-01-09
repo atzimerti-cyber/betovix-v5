@@ -7,7 +7,6 @@ import { casinoActions } from "../casinoSlice";
 import { getLiveVendors, searchCasino } from "../casinoAsyncActions";
 
 import BlackjackIcon from "../../../assets/svgs/blackjack.svg?react";
-import logoAnimation from "../../../assets/images/small-logo-animation.gif";
 
 import FilterBar from "../features/FilterBar";
 import useDebounce from "../../../hooks/useDebounce";
@@ -96,7 +95,7 @@ const LiveGames = () => {
             className={classes.MoreLoadingAnimation}
           ></img> */}
           <img
-            src={`${basePath}/${sitename}small-logo-animation.gif`}
+            src={`${basePath}/${sitename}small-logo-animation.svg`}
             alt="Loading"
             className={classes.MoreLoadingAnimation}
           />

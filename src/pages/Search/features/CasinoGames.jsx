@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import classes from "./CasinoGames.module.css";
 import CasinoGameCard from "../../Casino/features/CasinoGameCard";
-import LoaderPlaceholder from "../../../features/UI/Skeletons/LoaderPlaceholder";
-import logoAnimation from "../../../assets/images/small-logo-animation.gif";
+import LoaderPlaceholder from "../../../features/UI/Skeletons/LoaderPlaceholder"; 
 import MainButton from "../../../features/UI/Buttons/MainButton";
 import { loadMoreSearch } from "../../../pages/Search/searchAsyncActions";
 import { translate } from "../../../utils/translations";
@@ -157,7 +156,7 @@ const CasinoGames = (props) => {
             //   className={classes.MoreLoadingAnimation}
             // ></img>
             <img
-              src={`${basePath}/${sitename}small-logo-animation.gif`}
+              src={`${basePath}/${sitename}small-logo-animation.svg`}
               alt="Loading"
               className={classes.MoreLoadingAnimation}
             />

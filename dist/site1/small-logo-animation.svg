@@ -1,0 +1,5 @@
+<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 75 37.5' width='75' height='37.5'>
+  <path fill='none' stroke='#FFE200' stroke-width='3.75' stroke-linecap='round' stroke-dasharray='75 96.25' stroke-dashoffset='0' d='M68.75 18.75c0 7.75-6.75 12.5-12.5 12.5-14.5 0-23-25-37.5-25-7 0-12.5 5.5-12.5 12.5s5.75 12.5 12.5 12.5c14.5 0 23-25 37.5-25 6 0 12.5 4.75 12.5 12.5Z'>
+    <animate attributeName='stroke-dashoffset' calcMode='spline' dur='2' values='171.25;-171.25' keySplines='0 0 1 1' repeatCount='indefinite'></animate>
+  </path>
+</svg>

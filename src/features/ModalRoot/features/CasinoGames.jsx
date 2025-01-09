@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import classes from "./CasinoGames.module.css";
 import CasinoGameCard from "./CasinoGameCard";
 import SkeletonGameCardRow from "../../UI/Skeletons/SkeletonGameCardRow";
-import logoAnimation from "../../../assets/images/small-logo-animation.gif";
 import MainButton from "../../UI/Buttons/MainButton";
 import { loadMoreSearch } from "../../../pages/Search/searchAsyncActions";
 import { useMediaQuery } from "react-responsive";
@@ -140,7 +139,7 @@ const CasinoGames = (props) => {
               //   className={classes.MoreLoadingAnimation}
               // ></img>
               <img
-                src={`${basePath}/${sitename}small-logo-animation.gif`}
+                src={`${basePath}/${sitename}small-logo-animation.svg`}
                 alt="Loading"
                 className={classes.MoreLoadingAnimation}
               />

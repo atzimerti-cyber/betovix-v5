@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import classes from "./GridGames.module.css";
-import logoAnimation from "../../../assets/images/small-logo-animation.gif";
 import CasinoGameCard from "../features/CasinoGameCard";
 import MainButton from "../../../features/UI/Buttons/MainButton";
 import { addToGamesWithFilter, loadMoreSearch } from "../casinoAsyncActions";
@@ -178,7 +177,7 @@ const GridGames = (props) => {
               //   className={classes.MoreLoadingAnimation}
               // ></img>
               <img
-                src={`${basePath}/${sitename}small-logo-animation.gif`}
+                src={`${basePath}/${sitename}small-logo-animation.svg`}
                 alt="Loading"
                 className={classes.MoreLoadingAnimation}
               />
