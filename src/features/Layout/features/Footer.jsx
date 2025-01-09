@@ -38,7 +38,7 @@ const Footer = () => {
   }, []);
 
   useEffect(() => {
-    if (siteSettings.AllowFooter && window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0) {
+    if (siteSettings.AllowFooter === 'true' && window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0) {
       window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init();
     }
   }, []);
@@ -47,7 +47,7 @@ const Footer = () => {
 
   return (
     <div className={classes.Footer}>
-      {siteSettings.AllowFooter && (
+      {siteSettings.AllowFooter === 'true' && (
         <div className={classes.LinksContainer}>
           {footer &&
             footer.length > 0 &&
