@@ -106,7 +106,7 @@ const MyBets = (props) => {
     ticketsLoading ? (
       // <img src={logoAnimation} className={classes.MoreLoadingAnimation}></img>
       <img
-        src={`${basePath}/${sitename}small-logo-animation.svg`}
+        src={`${basePath}/${sitename}small-logo-animation.gif`}
         alt="Loading"
       />
     ) : (

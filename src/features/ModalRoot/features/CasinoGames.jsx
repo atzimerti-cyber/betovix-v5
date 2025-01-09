@@ -139,7 +139,7 @@ const CasinoGames = (props) => {
               //   className={classes.MoreLoadingAnimation}
               // ></img>
               <img
-                src={`${basePath}/${sitename}small-logo-animation.svg`}
+                src={`${basePath}/${sitename}small-logo-animation.gif`}
                 alt="Loading"
                 className={classes.MoreLoadingAnimation}
               />
