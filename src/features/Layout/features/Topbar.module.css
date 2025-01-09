@@ -678,8 +678,28 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
-@media (max-width: 1024px) {
+.SiteLogoNoUser {
+  height: calc(var(--db-topbar-height) - 1.7rem);
+  width: 200px;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+@media (max-width: 1023px) {
   .SiteLogo {
     width: 65px;
+  }
+  .SiteLogoNoUser {
+    width: 200px;
+  }
+}
+@media (max-width: 700px) {
+  .SiteLogoNoUser {
+    width: 200px;
+  }
+}
+@media (max-width: 400px) {
+  .SiteLogoNoUser {
+    width: 115px;
   }
 }

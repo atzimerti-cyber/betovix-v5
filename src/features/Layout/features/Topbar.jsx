@@ -195,11 +195,17 @@ const Topbar = () => {
                 ></div>
               ) : (
                 <div
-                  className={classes.SiteLogo}
+                  className={classes.SiteLogoNoUser}
                   style={{
                     backgroundImage: `url(${logoURL})`,
                   }}
                 ></div>
+                // <div
+                //   className={classes.SiteLogo}
+                //   style={{
+                //     backgroundImage: `url(${smallLogoURL})`,
+                //   }}
+                // ></div>
               )}
             </MainButton>
           )}
