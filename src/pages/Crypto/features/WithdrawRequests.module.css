@@ -64,6 +64,7 @@
   column-gap: 0.5rem;
   min-width: fit-content;
   height: 2rem;
+  cursor: pointer;
 }
 .SortButton svg {
   height: 0.8rem;
@@ -176,14 +177,16 @@
 .Pagination button {
   display: flex;
   border-radius: 5px;
-  background: #123751;
+  /* background: #123751; */
+  background: var(--arrow-button);
   height: 1.5rem;
   width: 1.5rem;
   align-items: center;
   justify-content: center;
 }
 .Pagination button:hover {
-  background: #1f5e8a;
+  background: var(--arrow-button);
+  filter: brightness(1.5);
 }
 .Pagination button svg {
   height: 0.5rem;

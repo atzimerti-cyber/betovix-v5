@@ -312,10 +312,10 @@ const initialState = {
   casinoMenuIcons: {
     Lobby: <HomeIcon />,
     Slots: <SlotsIcon />,
-    'Live Casino': <BlackjackIcon />,
-    'Virtual Games': <VirtualGames />,
-    'Game Shows': <GameShows />,
-    'Table Games': <TableGames />,
+    "Live Casino": <BlackjackIcon />,
+    "Virtual Games": <VirtualGames />,
+    "Game Shows": <GameShows />,
+    "Table Games": <TableGames />,
     Providers: <ProvidersMenu />,
     Favorites: <HeartIcon />,
   },
@@ -325,6 +325,7 @@ const initialState = {
   siteCurrencies: null,
   registerPromoImg: null,
   registerPromoImgMobile: null,
+  homeTags: null,
 };
 
 export const appSlice = createSlice({
@@ -403,6 +404,9 @@ export const appSlice = createSlice({
     },
     setRegisterPromoImgMobile: (state, action) => {
       state.registerPromoImgMobile = action.payload;
+    },
+    setHomeTags: (state, action) => {
+      state.homeTags = action.payload;
     },
   },
 });

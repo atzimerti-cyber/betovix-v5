@@ -22,19 +22,11 @@ import { layoutActions } from "../Layout/layoutSlice";
 import config from "../../config";
 
 import NoImageIcon from "../../assets/svgs/no-image.svg?react";
-import HomeIcon from "../../assets/svgs/home.svg?react";
-import SlotsIcon from "../../assets/svgs/slots.svg?react";
-import BlackjackIcon from "../../assets/svgs/blackjack.svg?react";
-import HeartIcon from "../../assets/svgs/heart.svg?react";
 import LeaderIcon from "../../assets/svgs/leader.svg?react";
 import PaperIcon from "../../assets/svgs/paper.svg?react";
 import PricesIcon from "../../assets/svgs/prices.svg?react";
 import LogoSmall1C from "../../assets/svgs/logo-small-oneColor.svg?react";
 import RewardsIcon from "../../assets/svgs/rewards.svg?react";
-import GameShows from "../../assets/svgs/gameshows.svg?react";
-import VirtualGames from "../../assets/svgs/virtualgames.svg?react";
-import TableGames from "../../assets/svgs/table-games.svg?react";
-import ProvidersMenu from "../../assets/svgs/providers-menu.svg?react";
 import PromotionsIcon from "../../assets/svgs/promotions.svg?react";
 import SupportIcon from "../../assets/svgs/livesupportbtn.svg?react";
 
@@ -340,8 +332,14 @@ export const loadInitData = (isMobile) => {
 
       const currentState1 = getState().app;
       const siteSettings = currentState1.siteSettings;
-      const type = (siteSettings && siteSettings?.CasinoMenuType ? siteSettings.CasinoMenuType : "casinobetovix");
-      const minitype = (siteSettings && siteSettings?.CasinoMinibarType ? siteSettings.CasinoMinibarType : "Betovix");
+      const type =
+        siteSettings && siteSettings?.CasinoMenuType
+          ? siteSettings.CasinoMenuType
+          : "casinobetovix";
+      const minitype =
+        siteSettings && siteSettings?.CasinoMinibarType
+          ? siteSettings.CasinoMinibarType
+          : "Betovix";
 
       // Casino
       // -------------------------------------
@@ -361,13 +359,13 @@ export const loadInitData = (isMobile) => {
               timeout: 10000,
             }
           ),
-           axiosApi.get(
-             `MyCasino/MyMenu?type=casinominibar&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-             {
-               baseURLOverride: config.VITE_CASINO_BASE,
-               timeout: 10000,
-             }
-           ),
+          axiosApi.get(
+            `MyCasino/MyMenu?type=casinominibar&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+            {
+              baseURLOverride: config.VITE_CASINO_BASE,
+              timeout: 10000,
+            }
+          ),
         ];
         const responsesCasino = await Promise.all(requestsCasino);
         responsesCasino.forEach((response) => {
@@ -380,7 +378,7 @@ export const loadInitData = (isMobile) => {
           );
 
         const currentstate = getState().app;
-        const casinoIcons = currentstate.casinoIcons;       
+        const casinoIcons = currentstate.casinoIcons;
         const casinoMenuIcons = currentstate.casinoMenuIcons;
 
         let casinoWalletMenu = {
@@ -396,21 +394,21 @@ export const loadInitData = (isMobile) => {
           });
         });
 
-         let casinoMinibarMenu = {
-           category: { id: 1, label: "Casino", visible: true },
-           items: [],
-         };
+        let casinoMinibarMenu = {
+          category: { id: 1, label: "Casino", visible: true },
+          items: [],
+        };
 
-         responsesCasino[2].data.Contents.Categs.forEach((categoryData) => {
+        responsesCasino[2].data.Contents.Categs.forEach((categoryData) => {
           if (categoryData.Categ.Name === minitype) {
             categoryData.Items.forEach((item) => {
-              if (item.Name === "Favorites" && !user) return;       
+              if (item.Name === "Favorites" && !user) return;
 
               casinoMinibarMenu.items.push({
                 id: item.Id,
                 label: item.Name,
                 icon: casinoMenuIcons[item.Name] || <NoImageIcon />,
-                page: item.Link || "#", 
+                page: item.Link || "#",
               });
             });
           }
@@ -476,7 +474,6 @@ export const loadInitData = (isMobile) => {
 
         dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
         dispatch(appActions.setCasinoMinibarItems(casinoMinibarMenu));
-
       }
 
       {
@@ -543,6 +540,7 @@ export const loadInitData = (isMobile) => {
         ],
       });
 
+      //Footer
       const footerResponse = await axiosApi.get(
         `/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
@@ -565,6 +563,18 @@ export const loadInitData = (isMobile) => {
       dispatch(layoutActions.setFooter(footer));
 
       dispatch(appActions.setMenuItems(allMenuItems));
+
+      //Home Page Tags
+      const homeTagsResponse = await axiosApi.get(
+        `/MyCasino/GetLobbyTags?siteid=${config.VITE_SITE_ID}`,
+        {
+          baseURLOverride: config.VITE_CASINO_BASE,
+        }
+      );
+      if (homeTagsResponse.data.Status.StatusCode !== 200) throw Error();
+
+      dispatch(appActions.setHomeTags(homeTagsResponse.data.Contents));
+
       setTimeout(function () {
         dispatch(appActions.setInitDataLoaded(true));
       }, 2000);
@@ -701,8 +711,8 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        // `Site/GetSite?domainName=betovix.storetube.gr`,
-       `Site/GetSite?domainName=${currentDomain}`,
+        //`Site/GetSite?domainName=betovix.storetube.gr`,
+        `Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
@@ -742,7 +752,7 @@ export const getSite = (signal) => {
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.type = "text/css";
-      // link.href = "/themes/theme-6.css";
+      // link.href = "/themes/theme-5.css";
       link.href = response.data.Contents.SiteTheme; ////////////////////////////
       document.head.appendChild(link);
 
@@ -984,7 +994,9 @@ export const tawktoChat = () => {
       if (response.status !== 200)
         throw new Error("Failed to fetch Tawk.to chat");
 
-      dispatch(layoutActions.setTawkToScript(response.data.Contents["Tawk.to"]));
+      dispatch(
+        layoutActions.setTawkToScript(response.data.Contents["Tawk.to"])
+      );
     } catch (error) {
       toast.error(
         error?.message || "An error occurred while fetching site settings"

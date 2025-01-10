@@ -14,7 +14,6 @@ const initialState = {
 
   permissions: {
     AllowToHistory: false,
-    // AllowToJackpots: false,
     AllowToSlots: true,
     AllowToSports: true,
 
@@ -27,7 +26,6 @@ const initialState = {
     AllowGamification: true,
     AllowToCasino: true,
     AllowToHistory: false,
-    // AllowToJackpots: false,
     AllowToSlots: true,
     AllowToSports: true,
     AllowToVerification: false,

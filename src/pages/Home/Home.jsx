@@ -35,15 +35,9 @@ const Home = () => {
   const location = useLocation();
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const tags = useSelector((state) => state.app.homeTags);
 
-  const {
-    slidesPerView,
-    slidesPerGroup,
-    isMobile,
-    isTablet,
-    isDesktop,
-    isBigDesktop,
-  } = useSlidesResponsive();
+  const { isMobile, isTablet } = useSlidesResponsive();
 
   const user = useSelector((state) => state.login.user);
   const permissions = useSelector((state) => state.login.permissions);
@@ -52,32 +46,39 @@ const Home = () => {
 
   const hasLiveEvents = ObjectHasValue(liveState);
 
-  const { isVisible: isCryptoVisible, elementRef: cryptoRef } =
-    useIntersectionObserver(0.3, user);
-  const { isVisible: isBannersVisible, elementRef: bannersRef } =
-    useIntersectionObserver(0.3, user);
-  const { isVisible: isLiveEventsVisible, elementRef: liveEventsRef } =
-    useIntersectionObserver(0.3, user);
-  const { isVisible: isTopEventsVisible, elementRef: topEventsRef } =
-    useIntersectionObserver(0.3, user);
-  const { isVisible: isFavoritesVisible, elementRef: favoritesRef } =
-    useIntersectionObserver(0.3, user);
-  const { isVisible: isRewardsVisible, elementRef: rewardsRef } =
-    useIntersectionObserver(0.3, user);
-  const { isVisible: isCrashGamesVisible, elementRef: crashGamesRef } =
-    useIntersectionObserver();
-  const { isVisible: isGameShowsVisible, elementRef: gameShowsRef } =
-    useIntersectionObserver();
-  const { isVisible: isPragmaticVisible, elementRef: pragmaticRef } =
-    useIntersectionObserver();
-  const { isVisible: isNoLimitVisible, elementRef: noLimitRef } =
-    useIntersectionObserver();
-  const {
-    isVisible: isRecommendedGamesVisible,
-    elementRef: recommendedGamesRef,
-  } = useIntersectionObserver();
-  const { isVisible: isHeroBannersVisible, elementRef: heroBannersRef } =
-    useIntersectionObserver();
+  const [tagVisibility, setTagVisibility] = useState(
+    tags.map(() => true) // Initializing all components to visible (true)
+  );
+
+  // const { isVisible: isCryptoVisible, elementRef: cryptoRef } =
+  //   useIntersectionObserver(0.3, user);
+  // const { isVisible: isBannersVisible, elementRef: bannersRef } =
+  //   useIntersectionObserver(0.3, user);
+  // const { isVisible: isLiveEventsVisible, elementRef: liveEventsRef } =
+  //   useIntersectionObserver(0.3, user);
+  // const { isVisible: isTopEventsVisible, elementRef: topEventsRef } =
+  //   useIntersectionObserver(0.3, user);
+  // const { isVisible: isFavoritesVisible, elementRef: favoritesRef } =
+  //   useIntersectionObserver(0.3, user);
+  // const { isVisible: isRewardsVisible, elementRef: rewardsRef } =
+  //   useIntersectionObserver(0.3, user);
+  // const { isVisible: isCrashGamesVisible, elementRef: crashGamesRef } =
+  //   useIntersectionObserver();
+  // const { isVisible: isGameShowsVisible, elementRef: gameShowsRef } =
+  //   useIntersectionObserver();
+  // const { isVisible: isPragmaticVisible, elementRef: pragmaticRef } =
+  //   useIntersectionObserver();
+  // const { isVisible: isNoLimitVisible, elementRef: noLimitRef } =
+  //   useIntersectionObserver();
+  // const {
+  //   isVisible: isRecommendedGamesVisible,
+  //   elementRef: recommendedGamesRef,
+  // } = useIntersectionObserver();
+  // const { isVisible: isHeroBannersVisible, elementRef: heroBannersRef } =
+  //   useIntersectionObserver();
+
+  // const { isVisible: isTagComponentVisible, elementRef: tagComponentRef } =
+  //   useIntersectionObserver(0.3, user);
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);
@@ -90,64 +91,74 @@ const Home = () => {
   };
 
   // REMOVE COMPONENTS IF NO DATA EXISTS
-  const [showCrypto, setShowCrypto] = useState(true);
-  const handleRemoveCryptoComponent = () => {
-    setShowCrypto(false);
-  };
-  const [showBanners, setShowBanners] = useState(true);
-  const handleRemoveBannersComponent = () => {
-    setShowBanners(false);
-  };
-  const [showFavorites, setShowFavorites] = useState(true);
-  const handleRemoveFavoritesComponent = () => {
-    setShowFavorites(false);
-  };
-  const [showTopEvents, setShowTopEvents] = useState(true);
-  const handleRemoveTopEventsComponent = () => {
-    setShowTopEvents(false);
-  };
-  const [showRewards, setShowRewards] = useState(true);
-  const handleRemoveRewardsComponent = () => {
-    setShowRewards(false);
-  };
-  const [showHeroBanner, setShowHeroBanner] = useState(true);
-  const handleRemoveHeroBannerComponent = () => {
-    setShowHeroBanner(false);
-  };
-  const [showCrashGames, setShowCrashGames] = useState(true);
-  const handleRemoveCrashGamesComponent = () => {
-    setShowCrashGames(false);
-  };
-  const [showRecommendedGames, setShowRecommendedGames] = useState(true);
-  const handleRemoveRecommendedGamesComponent = () => {
-    setShowRecommendedGames(false);
-  };
+  // const [showCrypto, setShowCrypto] = useState(true);
+  // const handleRemoveCryptoComponent = () => {
+  //   setShowCrypto(false);
+  // };
+  // const [showBanners, setShowBanners] = useState(true);
+  // const handleRemoveBannersComponent = () => {
+  //   setShowBanners(false);
+  // };
+  // const [showFavorites, setShowFavorites] = useState(true);
+  // const handleRemoveFavoritesComponent = () => {
+  //   setShowFavorites(false);
+  // };
+  // const [showTopEvents, setShowTopEvents] = useState(true);
+  // const handleRemoveTopEventsComponent = () => {
+  //   setShowTopEvents(false);
+  // };
+  // const [showRewards, setShowRewards] = useState(true);
+  // const handleRemoveRewardsComponent = () => {
+  //   setShowRewards(false);
+  // };
+  // const [showHeroBanner, setShowHeroBanner] = useState(true);
+  // const handleRemoveHeroBannerComponent = () => {
+  //   setShowHeroBanner(false);
+  // };
+  // const [showCrashGames, setShowCrashGames] = useState(true);
+  // const handleRemoveCrashGamesComponent = () => {
+  //   setShowCrashGames(false);
+  // };
+  // const [showRecommendedGames, setShowRecommendedGames] = useState(true);
+  // const handleRemoveRecommendedGamesComponent = () => {
+  //   setShowRecommendedGames(false);
+  // };
 
-  const [showGameShows, setShowGameShows] = useState(true);
-  const handleRemoveGameShowsComponent = () => {
-    setShowGameShows(false);
-  };
-  const [showPragmatic, setShowPragmatic] = useState(true);
-  const handleRemovePragmaticComponent = () => {
-    setShowPragmatic(false);
-  };
-  const [showNoLimit, setShowNoLimit] = useState(true);
-  const handleRemoveNoLimitComponent = () => {
-    setShowNoLimit(false);
+  // const [showGameShows, setShowGameShows] = useState(true);
+  // const handleRemoveGameShowsComponent = () => {
+  //   setShowGameShows(false);
+  // };
+  // const [showPragmatic, setShowPragmatic] = useState(true);
+  // const handleRemovePragmaticComponent = () => {
+  //   setShowPragmatic(false);
+  // };
+  // const [showNoLimit, setShowNoLimit] = useState(true);
+  // const handleRemoveNoLimitComponent = () => {
+  //   setShowNoLimit(false);
+  // };
+
+  // Handle the removal of the tag component
+  const handleRemoveComponent = (index) => {
+    console.log(`Removing tag component at index: ${index}`);
+
+    // Set the specific tag component at `index` to false
+    setTagVisibility((prevVisibility) => {
+      const newVisibility = [...prevVisibility];
+      newVisibility[index] = false; // Set visibility of the component at index to false
+      return newVisibility;
+    });
   };
 
   return (
     <div className={classes.PageContent} style={{ paddingTop: "16px" }}>
       <div className={classes.Home}>
-        {/*PROGRESS IN MOBILE */}
         {isMobile && hasHero && Object.keys(hasHero).length > 0 && (
-          <div className={classes.VipContainer}>
+          <div className={classes.VipContainer} key={1}>
             <VipProgress />
           </div>
         )}
 
-        {/* BANNERS */}
-        {showBanners && (
+        {/* {showBanners && (
           <div ref={bannersRef} style={{ minHeight: "60px" }}>
             {isBannersVisible && (
               <div
@@ -159,7 +170,6 @@ const Home = () => {
               >
                 <Banners onDataNotFound={handleRemoveBannersComponent} />
 
-                {/*PROGRESS IN DESKTOP */}
                 {!isMobile && user && hasHero && (
                   <div className={classes.VipContainer}>
                     <VipProgress />
@@ -167,13 +177,13 @@ const Home = () => {
                 )}
 
                 {!user && <RegisterContainers />}
-                {!hasHero && user && permissions.AllowGamification && <SelectHeroContainer />}
+                {!hasHero && user && permissions.AllowGamification && (
+                  <SelectHeroContainer />
+                )}
               </div>
             )}
           </div>
         )}
-
-        {/* HEROES BANNER */}
         {(!user || !hasHero) &&
           showHeroBanner &&
           permissions.AllowGamification && (
@@ -186,7 +196,6 @@ const Home = () => {
             </div>
           )}
 
-        {/* CRYPTO */}
         {showCrypto && (
           <div style={{ minHeight: "55px" }} ref={cryptoRef}>
             {isCryptoVisible && (
@@ -195,14 +204,12 @@ const Home = () => {
           </div>
         )}
 
-        {/* LIVE EVENTS */}
         {permissions.AllowToSports && (
           <div ref={liveEventsRef} style={{ minHeight: "160px" }}>
             {isLiveEventsVisible && hasLiveEvents && <LiveEvents />}
           </div>
         )}
 
-        {/* RECOMMENDED GAMES (CHANGED TO SLOTS) */}
         {showRecommendedGames &&
           (permissions.AllowToCasino || permissions.AllowToSlots) && (
             <div ref={recommendedGamesRef} style={{ minHeight: "180px" }}>
@@ -214,7 +221,6 @@ const Home = () => {
             </div>
           )}
 
-        {/* TOP EVENTS */}
         {showTopEvents && permissions.AllowToSports && (
           <div ref={topEventsRef} style={{ minHeight: "160px" }}>
             {isTopEventsVisible && (
@@ -223,7 +229,6 @@ const Home = () => {
           </div>
         )}
 
-        {/* GAME SHOWS */}
         {showGameShows &&
           (permissions.AllowToCasino || permissions.AllowToSlots) && (
             <div ref={gameShowsRef} style={{ minHeight: "180px" }}>
@@ -236,7 +241,6 @@ const Home = () => {
               )}
             </div>
           )}
-        {/* PRAGMATIC */}
         {showPragmatic &&
           (permissions.AllowToCasino || permissions.AllowToSlots) && (
             <div ref={pragmaticRef} style={{ minHeight: "180px" }}>
@@ -249,7 +253,6 @@ const Home = () => {
               )}
             </div>
           )}
-        {/* NO LIMIT */}
         {showNoLimit &&
           (permissions.AllowToCasino || permissions.AllowToSlots) && (
             <div ref={noLimitRef} style={{ minHeight: "180px" }}>
@@ -263,7 +266,6 @@ const Home = () => {
             </div>
           )}
 
-        {/* CRASH GAMES */}
         {showCrashGames &&
           (permissions.AllowToCasino || permissions.AllowToSlots) && (
             <div ref={crashGamesRef} style={{ minHeight: "180px" }}>
@@ -273,7 +275,6 @@ const Home = () => {
             </div>
           )}
 
-        {/* FAVORITES */}
         {showFavorites &&
           user &&
           (permissions.AllowToCasino || permissions.AllowToSlots) && (
@@ -286,7 +287,6 @@ const Home = () => {
             </div>
           )}
 
-        {/* REWARDS */}
         {showRewards && user && permissions.AllowGamification && (
           <div ref={rewardsRef} style={{ minHeight: "60px", marginTop: "5px" }}>
             {isRewardsVisible && (
@@ -298,7 +298,150 @@ const Home = () => {
               </div>
             )}
           </div>
-        )}
+        )} */}
+
+        {/* TAGS TEST */}
+        {tags &&
+          tags.map((tag, index) => {
+            const { isVisible, elementRef } = useIntersectionObserver(
+              0.3,
+              user
+            );
+
+            return (
+              tagVisibility[index] && (
+                <>
+                  {(tag.Category === "1" ||
+                    tag.Category === "2" ||
+                    tag.Category === "3") &&
+                    permissions.AllowToCasino && (
+                      <div
+                        key={tag.Tags}
+                        style={{ minHeight: "180px" }}
+                        ref={elementRef}
+                      >
+                        {isVisible && (
+                          <CasinoTagSwiper
+                            title={tag.Name}
+                            tag={tag.Tags}
+                            onDataNotFound={() => handleRemoveComponent(index)}
+                          />
+                        )}
+                      </div>
+                    )}
+
+                  {tag.Category === "4" &&
+                    permissions.AllowToSports &&
+                    tag.Name === "Live Events" &&
+                    hasLiveEvents && (
+                      <div
+                        key={tag.Tags}
+                        style={{ minHeight: "180px" }}
+                        ref={elementRef}
+                      >
+                        <LiveEvents />
+                      </div>
+                    )}
+
+                  {tag.Category === "4" &&
+                    permissions.AllowToSports &&
+                    tag.Name === "Top Events" && (
+                      <div
+                        key={tag.Tags}
+                        style={{ minHeight: "180px" }}
+                        ref={elementRef}
+                      >
+                        <TopEvents
+                          onDataNotFound={() => handleRemoveComponent(index)}
+                        />
+                      </div>
+                    )}
+
+                  {tag.Category === "5" &&
+                    tag.Name === "Hero Banenrs" &&
+                    permissions.AllowGamification &&
+                    (!user || !hasHero) && (
+                      <div
+                        key={tag.Tags}
+                        style={{ minHeight: "180px" }}
+                        ref={elementRef}
+                      >
+                        <GamificationBanner
+                          onDataNotFound={() => handleRemoveComponent(index)}
+                        />
+                      </div>
+                    )}
+
+                  {tag.Category === "5" &&
+                    tag.Name === "Rewards" &&
+                    permissions.AllowGamification &&
+                    user && (
+                      <div
+                        key={tag.Tags}
+                        style={{ minHeight: "180px" }}
+                        ref={elementRef}
+                      >
+                        <div
+                          className={classes.ManualRewards}
+                          onClick={() => addParamsToUrl("your-progress")}
+                        >
+                          <ManualRewards
+                            onDataNotFound={() => handleRemoveComponent(index)}
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                  {tag.Category === "6" && tag.Name === "Banners" && (
+                    <div
+                      key={tag.Tags}
+                      style={{ minHeight: "60px" }}
+                      ref={elementRef}
+                    >
+                      <div
+                        className={
+                          isMobile || isTablet
+                            ? [
+                                classes.BannersContent,
+                                classes.AdjustMargins,
+                              ].join(" ")
+                            : classes.BannersContent
+                        }
+                      >
+                        <Banners
+                          onDataNotFound={() => handleRemoveComponent(index)}
+                        />
+
+                        {/* PROGRESS IN DESKTOP */}
+                        {!isMobile && user && hasHero && (
+                          <div className={classes.VipContainer}>
+                            <VipProgress />
+                          </div>
+                        )}
+
+                        {!user && <RegisterContainers />}
+                        {!hasHero && user && permissions.AllowGamification && (
+                          <SelectHeroContainer />
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {tag.Category === "6" && tag.Name === "Crypto Prices" && (
+                    <div
+                      key={tag.Tags}
+                      style={{ minHeight: "40px" }}
+                      ref={elementRef}
+                    >
+                      <Crypto
+                        onDataNotFound={() => handleRemoveComponent(index)}
+                      />
+                    </div>
+                  )}
+                </>
+              )
+            );
+          })}
       </div>
     </div>
   );
