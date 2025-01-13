@@ -8,6 +8,9 @@ import ErrorIcon from "../../assets/svgs/errorsvg.svg?react";
 const ErrorPage = () => {
   const navigate = useNavigate();
   const lang = useSelector((state) => state.app.lang);
+  const currentDomain = window.location.hostname;
+  const support = useSelector((state) => state.layout.tawkToScript);
+  const supportEmail = support?.Email ? support?.Email : "support@betovix.com";
 
   const [countdown, setCountdown] = useState(10);
 
@@ -46,7 +49,7 @@ const ErrorPage = () => {
               textDecoration: "underline",
             }}
           >
-            betovix.com
+            {currentDomain}
           </a>
         </i>{" "}
         in {countdown} seconds...
@@ -75,7 +78,7 @@ const ErrorPage = () => {
         Contact us at{" "}
         <i>
           <u>
-            <a href="mailto:support@betovix.com">support@betovix.com</a>
+            <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
           </u>
         </i>
       </p>

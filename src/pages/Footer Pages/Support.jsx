@@ -9,6 +9,7 @@ const Support = () => {
   const iframeHeight = window.innerWidth <= 670 ? "550px" : "500px";
   const lang = useSelector((state) => state.app.lang);
   const support = useSelector((state) => state.layout.tawkToScript);
+  const supportEmail = support?.Email ? support?.Email : "support@betovix.com";
 
   return (
     <div className={classes.PageContent} style={{ padding: "0px 1rem 40px" }}>
@@ -65,7 +66,7 @@ const Support = () => {
           )}{" "}
           <i>
             <u>
-              <a href={`mailto:${support.Email}`}>{support.Email}</a>
+              <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
                {/* support@betovix.com */}
             </u>
           </i>
