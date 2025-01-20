@@ -65,6 +65,7 @@ const Event = () => {
   const [previousMatchId, setPreviousMatchId] = useState(0);
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const showStats = useMediaQuery({ query: "(max-width: 1145px)" });
 
   useEffect(() => {
     return () => {
@@ -105,39 +106,41 @@ const Event = () => {
       window.SCAW("setLanguage", `${langCodeToThree(lang.id)}` || "en");
       // window.SCAW("setLanguage", `${lang.id}` || "en");
       window.SCAW("setActiveThemeByName", " ");
-      window.SCAW("setConfiguration", {
-        settings: {
-          position: "bottom",
-          sports: [
-            {
-              header: {
-                score: true,
-                team_names: true,
-                team_logos: true,
+      if (!showStats) {
+        window.SCAW("setConfiguration", {
+          settings: {
+            position: "bottom",
+            sports: [
+              {
+                header: {
+                  score: true,
+                  team_names: true,
+                  team_logos: true,
+                },
+                statistic: {
+                  standings: true,
+                  line_up: true,
+                  previous_games: true,
+                  calendar: true,
+                  news: true,
+                  bet_booster: true,
+                  play2play: true,
+                  h2h: true,
+                  season_tree: true,
+                },
+                other: {
+                  timer: true,
+                },
               },
-              statistic: {
-                standings: true,
-                line_up: true,
-                previous_games: true,
-                calendar: true,
-                news: true,
-                bet_booster: true,
-                play2play: true,
-                h2h: true,
-                season_tree: true,
-              },
-              other: {
-                timer: true,
-              },
-            },
-          ],
-        },
-      });
-      window.SCAW("useClientConfiguration", true);
+            ],
+          },
+        });
+        window.SCAW("useClientConfiguration", true);
+      }
     }
 
     return () => {};
-  }, [event]);
+  }, []);
 
   const langCodeToThree = (iso) => {
     switch (iso) {
