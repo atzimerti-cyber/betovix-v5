@@ -38,7 +38,7 @@ const LiveListSport = (props) => {
 
             {liveListOpenSportId === props.sport.Id && (
                 <div className={classes.TournamentGroup}>
-                    <CategoriesTournaments sport={props.sport} />
+                    <CategoriesTournaments sport={props.sport} includePregame={false} includeLive={true}/>
                 </div>
             )}
         </div>

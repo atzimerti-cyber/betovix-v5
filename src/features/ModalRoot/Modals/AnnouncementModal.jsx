@@ -15,6 +15,8 @@ const AnnouncementModal = () => {
     const siteSettings = useSelector((state) => state.app.siteSettings);
     const [logo, setLogo] = useState(null);
     const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+    const support = useSelector((state) => state.layout.tawkToScript);
+    const supportEmail = support?.Email ? support?.Email : "support@betovix.com";
 
     useEffect(() => {
         if (!siteSettings) {
@@ -101,7 +103,7 @@ const AnnouncementModal = () => {
 
                                 color="dark"
                                 onClick={() => {
-                                    window.location.href = "mailto:support@betovix.com";
+                                    window.location.href = `mailto:${supportEmail}`;
                                 }}
                             >
                                 {translate("Email")}

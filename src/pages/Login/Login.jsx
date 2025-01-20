@@ -83,8 +83,8 @@ const Login = () => {
               className={classes.ImageContainer}
               style={{
                 backgroundImage: mobileImg
-                  ? `url(${registerPromoImg})`
-                  : `url(${registerPromoImgMobile})`,
+                  ? `url(${registerPromoImgMobile})`
+                  : `url(${registerPromoImg})`,
               }}
             ></div>
           </div>

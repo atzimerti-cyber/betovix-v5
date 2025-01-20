@@ -4,7 +4,7 @@
   transition: transform 0.2s linear;
 
   background-color: #0b1f2e;
-  background: linear-gradient(135deg, #081825 40%, #082432 70%);
+  background: linear-gradient(135deg, #081825 40%, #000000a8 70%);
   border-radius: 0.375rem;
 }
 

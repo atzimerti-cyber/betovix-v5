@@ -13,6 +13,8 @@ const ContactUs = () => {
     issue: "",
     details: "",
   });
+  const support = useSelector((state) => state.layout.tawkToScript);
+  const supportEmail = support?.Email ? support?.Email : "support@betovix.com";
 
   const handleChange = (event) => {
     const { id, value } = event.target;
@@ -161,7 +163,7 @@ const ContactUs = () => {
           {translate("or contact us at")}{" "}
           <i>
             <u>
-              <a href="mailto:support@betovix.com">support@betovix.com</a>
+              <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
             </u>
           </i>
         </p>

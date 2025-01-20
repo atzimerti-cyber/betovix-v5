@@ -8,6 +8,9 @@ import MaintenanceIcon from "../../assets/svgs/maintenance.svg?react";
 const MaintenancePage = () => {
   const navigate = useNavigate();
   const lang = useSelector((state) => state.app.lang);
+  const support = useSelector((state) => state.layout.tawkToScript);
+  const supportEmail = support?.Email ? support?.Email : "support@betovix.com";
+  const currentDomain = window.location.hostname;
 
   return (
     <div className={classes.PageContent}>
@@ -20,7 +23,7 @@ const MaintenancePage = () => {
           fontSize: "1.2rem",
         }}
       >
-        You can redirect to betovix.com{" "}
+        You can redirect to {currentDomain}{" "}
         <i>
           <a
             href="/"
@@ -57,7 +60,7 @@ const MaintenancePage = () => {
         You can contact us at{" "}
         <i>
           <u>
-            <a href="mailto:support@betovix.com">support@betovix.com</a>
+            <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
           </u>
         </i>
       </p>
