@@ -711,6 +711,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
+        //`Site/GetSite?domainName=site1.betovix.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -752,7 +753,7 @@ export const getSite = (signal) => {
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.type = "text/css";
-      // link.href = "/themes/theme-5.css";
+      // link.href = "/themes/theme-7.css";
       link.href = response.data.Contents.SiteTheme; ////////////////////////////
       document.head.appendChild(link);
 

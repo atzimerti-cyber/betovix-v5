@@ -100,6 +100,65 @@ const Event = () => {
   }, [eventid]);
 
   useEffect(() => {
+    if (event && event?.type === "live") {
+      window.SCAW("setMatchID", `${event.Info.ExtraInfo.ExternalFixtureId}`);
+      window.SCAW("setLanguage", `${langCodeToThree(lang.id)}` || "en");
+      // window.SCAW("setLanguage", `${lang.id}` || "en");
+      window.SCAW("setActiveThemeByName", " ");
+      window.SCAW("setConfiguration", {
+        settings: {
+          position: "bottom",
+          sports: [
+            {
+              header: {
+                score: true,
+                team_names: true,
+                team_logos: true,
+              },
+              statistic: {
+                standings: true,
+                line_up: true,
+                previous_games: true,
+                calendar: true,
+                news: true,
+                bet_booster: true,
+                play2play: true,
+                h2h: true,
+                season_tree: true,
+              },
+              other: {
+                timer: true,
+              },
+            },
+          ],
+        },
+      });
+      window.SCAW("useClientConfiguration", true);
+    }
+
+    return () => {};
+  }, [event]);
+
+  const langCodeToThree = (iso) => {
+    switch (iso) {
+      case "en":
+        return "eng";
+      case "tr":
+        return "tur";
+      case "de":
+        return "ger";
+      case "ar":
+        return "arb";
+      case "el":
+        return "gre";
+      case "it":
+        return "eng";
+      case "am":
+        return "eng";
+    }
+  };
+
+  useEffect(() => {
     if (!event) return;
 
     let handleResizeMessage = null;
@@ -413,11 +472,12 @@ const Event = () => {
                     style={height ? { height: height + "px" } : null}
                   >
                     {event && event?.type === "live" && (
-                      <iframe
-                        id="FMTracker"
-                        run="iLive.initTracker"
-                        src={`https://widget.feedmaker.live/?event=${event.MatchId}&amp;lang=${lang.id}`}
-                      />
+                      // <iframe
+                      //   id="FMTracker"
+                      //   run="iLive.initTracker"
+                      //   src={`https://widget.feedmaker.live/?event=${event.MatchId}&amp;lang=${lang.id}`}
+                      // />
+                      <sc-animation-component></sc-animation-component>
                     )}
                     {event && event?.type !== "live" && (
                       <iframe
