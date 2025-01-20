@@ -140,7 +140,7 @@ const Event = () => {
     }
 
     return () => {};
-  }, []);
+  }, [event?.Info?.ExtraInfo]);
 
   const langCodeToThree = (iso) => {
     switch (iso) {
