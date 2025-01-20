@@ -85,6 +85,7 @@
   padding-left: 0.1rem;
   padding-right: 0.5rem;
   height: var(--db-topbar-height);
+  padding-top: 5px;
 }
 
 .TopbarLeft > button > svg {
@@ -673,16 +674,14 @@
 }
 
 .SiteLogo {
-  padding: 9px 0;
-  height: 100%;
+  height: 85%;
   width: 200px;
   background-position: left;
   background-repeat: no-repeat;
   background-size: contain;
 }
 .SiteLogoNoUser {
-  padding: 9px 0;
-  height: 100%;
+  height: 85%;
   width: 200px;
   background-position: left;
   background-repeat: no-repeat;

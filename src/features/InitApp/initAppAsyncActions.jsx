@@ -711,7 +711,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        // `Site/GetSite?domainName=site3.betovix.com`,
+        //`Site/GetSite?domainName=site3.betovix.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
