@@ -142,7 +142,7 @@ const CasinoMenu = () => {
     // </div>
     <div className={classes.CasinoMenuSwiper} style={{ width: "100%" }}>
     <SwiperMenu>
-      {minibar.items.map((item) => (
+      {minibar && minibar.items.map((item) => (
         <SwiperSlide key={item.id}>
           <NavLink
             className={({ isActive }) =>

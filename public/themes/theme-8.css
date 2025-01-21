@@ -1,88 +1,86 @@
-/* kafe/kitrino */
+/* SLOTKING */
 :root {
   --white: #fbfbfb;
 
-  --body-bg: #090f1f;
-  --topbar-bg: #181a20;
+  --body-bg: #060f38;
+  --topbar-bg: #030822;
   --sb-search: var(--topbar-bg);
-  --footer: #0e081d;
-  --sidebar-category-group: #0b142cc2;
-  --sidebar-left-menu-item: #262626;
-  --sidebar-casino-active: #feae004e;
-  --sidebar-casino-active-svg: #fad296;
+  --footer: #040b28;
+  --sidebar-category-group: #13193e;
+  --sidebar-left-menu-item: #0a113290;
+  --sidebar-casino-active: #fbe1847d;
+  --sidebar-casino-active-svg: #fbe184;
 
-  --brand-green: #fad296;
-  --brand-green: #505565;
-  --brand-green-lowop: #feae003e;
+  --brand-green: #fbe184;
+  --brand-green-lowop: #fbe1847a;
 
-  --brand-color: #505565;
+  --brand-color: #fbe184;
 
-  --placeholder-light: #8c8c8c;
-  --light-blue: #d4d4d4;
-  --light-blue-2: #646464;
-  --db-gray-4: #7e7e7e;
-  --mid-blue-1: #4a4a4a;
-  --mid-blue: #3a3a3a;
-  --dark-blue-1: #2b2b2b;
-  --dark-blue: #212121;
-  --dark-blue-lowop: #2121218c;
+  --placeholder-light: #d3d2f272;
+  --light-blue: #fbe184;
+  --light-blue-2: #0e1846;
+  --db-gray-4: #131f56;
+  --mid-blue-1: #1c215c;
+  --mid-blue: #1f3968;
+  --dark-blue-1: #030822;
+  --dark-blue: #020824;
+  --dark-blue-lowop: #020824;
 
-  --db-white-hover: hsla(0, 0%, 100%, 0.05);
-  --db-white-hover-light: hsla(0, 0%, 100%, 0.127);
+  --db-white-hover: rgba(251, 251, 251, 0.05);
+  --db-white-hover-light: rgba(251, 251, 251, 0.127);
 
-  --odds-button-border: #c4c4c4;
-  --odds-button: #898989;
-  --odds-button-disabled: #2121218f;
-  --card-odds-button: #c6c6c6c6;
-  --card-odds-button-selected: #2121215d;
-  --card-odds-button-disabled: #4f4f4f30;
+  --odds-button-border: #27305b;
+  --odds-button: #0d1d4e;
+  --odds-button-disabled: #040b295c;
+  --card-odds-button: #fbe184;
+  --card-odds-button-selected: #111e49;
+  --card-odds-button-disabled: #24272e18;
 
-  --badge-new-purple: #acacac;
+  --badge-new-purple: #8c8c8c;
   --live-badge-purple: var(--brand-color);
 
-  --db-like: #cfcfcf;
+  --db-like: #8c8c8c;
   --cancelled: #c13333;
   --cancelled-low-op: #c1333395;
 
-  --yellow-accent-color: #d3d3d3;
+  --yellow-accent-color: #fbe184;
 
-  --lightcolor-low-op: #dbdbdb4a;
-  --lightcolor-op1: #dbdbdb;
-  --darkcolor-op1: #212121;
-  --darkcolor-low-op: #21212158;
+  --lightcolor-low-op: rgba(251, 251, 251, 0.05);
+  --lightcolor-op1: #fbfbfb;
+  --darkcolor-op1: #060f38;
+  --darkcolor-low-op: #060f3858;
 
-  --layout-icon-btn: linear-gradient(222deg, #2f2f2f 0%, #202020 63%);
-  --toast-grad-op1: linear-gradient(50deg, #4b4b4b 0%, #5f5f5f 50%);
-  --casino-play-round: #a3a3a376;
+  --layout-icon-btn: linear-gradient(222deg, #18276d 0%, #0d184a 63%);
+  --toast-grad-op1: linear-gradient(222deg, #18276d 0%, #0d184a 63%);
+  --casino-play-round: #0d164176;
   --casino-play-button: linear-gradient(
     30deg,
-    #6a6a6a 20%,
-    #8b8b8b 75%,
-    #848484 110%
+    #0d1641 20%,
+    #262626 75%,
+    #0d1641 110%
   );
   --casino-play-bonus-button: linear-gradient(
     120deg,
-    #bfbfbf44 0%,
-    #bfbfbf81 75%,
-    #bfbfbf44 110%
+    #0d164144 0%,
+    #26262681 75%,
+    #0d164144 110%
   );
-  --button-grad-op1: linear-gradient(307deg, #dbdbdb5d 0%, #a5a5a557 50%);
-  --button-grad-op-mid: linear-gradient(222deg, #4b4b4bbf 0%, #5f5f5f40 50%);
-  --arrow-button: linear-gradient(159deg, #515151 0%, #2e2e2e 88%);
-  --arrow-button-disabled: linear-gradient(159deg, #51515178 0%, #2e2e2e76 88%);
+  --button-grad-op1: linear-gradient(222deg, #0f2253 0%, #19244c 50%);
+  --button-grad-op-mid: linear-gradient(222deg, #0d1641bf 0%, #101943 50%);
+  --arrow-button: linear-gradient(159deg, #07103d 0%, #0b1a5f 88%);
+  --arrow-button-disabled: linear-gradient(159deg, #0d164178 0%, #060f3876 88%);
 
-  --provider-card-bg: #2e2e2e;
-  --provider-card-bg-lowOp: #5e5e5e4f;
+  --provider-card-bg: #0d1641;
+  --provider-card-bg-lowOp: #0d16414f;
 
   --outer-container-left: #00000015;
+  --dropdown-bg: #0d1641;
 
-  --dropdown-bg: #3f3f3f;
-
-  --swiper-container-grad: linear-gradient(45deg, #bfbfbf33, #2e2e2e 120%);
-  --accordion-header: linear-gradient(222deg, #343434 0%, #3d3d3dba 50%);
-  --accordion-body: linear-gradient(72deg, #34343421 0%, #3d3d3d5e 50%);
-  --accordion-small-header: linear-gradient(222deg, #343434 0%, #3d3d3dba 50%);
-  --accordion-small-body: linear-gradient(72deg, #34343457 0%, #3d3d3d47 50%);
+  --swiper-container-grad: linear-gradient(45deg, #0d164133, #060f38 120%);
+  --accordion-header: linear-gradient(222deg, #0d1b40 0%, #141d40 50%);
+  --accordion-body: linear-gradient(72deg, #141d42ab 0%, #0f1f449e 50%);
+  --accordion-small-header: linear-gradient(222deg, #0d1b3e 0%, #19244c 50%);
+  --accordion-small-body: linear-gradient(72deg, #121b4aab 0%, #161d489e 50%);
   --casino-options-bg: radial-gradient(
       65.95% 124.31% at 100% 100%,
       #2e2e2e 10.17%,
@@ -90,8 +88,8 @@
     ),
     #1c1c1c;
 
-  --calendar: linear-gradient(222deg, #404040 0%, #2a2a2a 72%);
-  --calendar-hover: linear-gradient(307deg, #5252528c 0%, #6666668f 50%);
+  --calendar: linear-gradient(222deg, #11204f 0%, #0a1b4a 72%);
+  --calendar-hover: linear-gradient(307deg, #4457b4 0%, #334da4 50%);
 
   --wr-pending: linear-gradient(222deg, #636363 0%, #6e6e6eba 50%);
   /* --wr-approved: linear-gradient(
@@ -130,7 +128,7 @@
       ); */
   --wr-cancelled: rgba(153, 30, 30, 0.74) 100%;
 
-  --event-board-bg: #2e2e2ee3;
+  --event-board-bg: #030822d4;
 
   --db-modal-auth-height: 506px;
   --db-modal-announcement-height: 480px;
@@ -157,7 +155,7 @@
   --db-scrollbar-thumb-bg: var(--light-blue);
   --db-scrollbar-track-bg: var(--mid-blue-1);
   --db-transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  --db-modal-overlay: #2e2e2ec7;
+  --db-modal-overlay: #060c29a8;
   --db-dropdown-shadow: -10px 6px 30px rgb(0 0 0 / 35%);
   --db-modal-header-height: 38px;
   --db-milestone-card-width: 140px;
@@ -181,7 +179,7 @@
   --pf: 0 0% 47%;
   --pc: 0 0% 100%;
   --s: 0 0% 44%;
-  --s: 39 60% 50%;
+  --s: 46 93% 75%;
 
   --sf: 0 0% 44%;
   --sc: 0 0% 100%;

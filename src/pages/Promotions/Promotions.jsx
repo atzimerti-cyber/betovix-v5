@@ -100,7 +100,7 @@ const Promotions = (props) => {
             ))
           ) : (
             <div className={classes.NoRes}>
-              <span>
+              <span style={{ color: "var(--brand-green)" }}>
                 {translate(`No available promotions at this moment.`)}
               </span>
             </div>

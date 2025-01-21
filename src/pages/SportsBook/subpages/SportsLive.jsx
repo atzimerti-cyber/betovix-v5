@@ -387,11 +387,17 @@ const SportsLive = () => {
               ))
             )
           ) : (
-            <>
+            <div
+            style={{
+              display: "flex",
+              rowGap: "0.3rem",
+              flexDirection: "column",
+            }}
+          >
               <ShimmerIcon className={classes.ShimmerIcon} />
               <ShimmerIcon className={classes.ShimmerIcon} />
               <ShimmerIcon className={classes.ShimmerIcon} />
-            </>
+            </div>
           )}
         </div>
       ) : (

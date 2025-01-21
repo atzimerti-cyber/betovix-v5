@@ -47,7 +47,7 @@ const Home = () => {
   const hasLiveEvents = ObjectHasValue(liveState);
 
   const [tagVisibility, setTagVisibility] = useState(
-    tags.map(() => true) // Initializing all components to visible (true)
+    tags && tags.map(() => true) // Initializing all components to visible (true)
   );
 
   // const { isVisible: isCryptoVisible, elementRef: cryptoRef } =

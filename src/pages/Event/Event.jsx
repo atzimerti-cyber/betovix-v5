@@ -449,7 +449,7 @@ const Event = () => {
             </div>
 
             {!event && !barLoading ? (
-              <span>{translate("Event not found or has ended")}</span>
+              <span style={{color:'var(--brand-green)'}}>{translate("Event not found or has ended")}</span>
             ) : (
               <div className={classes.EventPage}>
                 {/* <h1 className={classes.EventTitle}>
