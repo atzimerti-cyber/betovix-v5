@@ -40,7 +40,8 @@
   border-radius: 4px;
   border-style: none;
   --tw-bg-opacity: 1;
-  background-color: rgb(71 200 122 / var(--tw-bg-opacity));
+  /* background-color: rgb(71 200 122 / var(--tw-bg-opacity)); */
+  background-color: var(--brand-green);
   font-size: 1.1rem;
   line-height: 1.435rem;
   font-weight: 600;
