@@ -1,0 +1,132 @@
+:root {
+  --brand-color: #fbe184;
+  --brand-bright-color: #fbe1847a;
+  --dark-theme-zero: #030822;
+  --dark-theme-one: #060f38;
+  --dark-theme-two: #0e1846;
+  --dark-theme-three: #1c215c;
+  --dark-theme-four: #1f3968;
+  --dark-theme-five: #131f56;
+  --dark-theme-six: #0a113290;
+  --dark-theme-seven: #fbe184;
+
+  --light-theme-one: #fbfbfb;
+  --light-theme-two: #d3d2f272;
+  --light-theme-three: #fbe1847a;
+  --light-theme-four: #fbe184;
+  --light-theme-five: #13193e;
+  --light-theme-six: #040b28;
+
+  --text-color-primary: var(--light-theme-one);
+  --text-color-dark: var(--dark-theme-one);
+  --text-color-light: var(--light-theme-one);
+  --text-color-gray: var(--light-theme-three);
+  --text-color-special: var(--light-theme-four);
+  --text-color-light-opaque: hsla(0, 0%, 98%, 0.4);
+}
+
+.sub-tabs-1 ul li:hover {
+  background: var(--dark-theme-zero);
+}
+
+.crumbs-block-tabs-block-mob-container > div,
+.crumbs-block-tabs-block-mob-container .menu-label {
+  background: none !important;
+}
+
+.h2h-block .h2h-box .main .team-info-box .team-statistics > div > span.icon {
+  background: var(--dark-theme-one);
+}
+
+.bread-crumbs .bc-item:nth-child(even) ul.open li,
+.playoff .playoff-cols .playoff-col .playoff-item:hover,
+.playoff .playoff-cols .playoff-col .playoff-item.hoverPath,
+.playoff .playoff-title div,
+.bread-crumbs .bc-item:nth-child(even),
+.h2h-block
+  .h2h-box
+  .main
+  .comparison
+  .comparison-box
+  .comparison-tab
+  .content
+  .meetings-list
+  .list-item
+  > div.item-line,
+.h2h-block
+  .h2h-box
+  .main
+  .comparison
+  .comparison-box
+  .comparison-tab
+  .content
+  > div.result-history-line:before,
+.bread-crumbs .bc-item:nth-child(even):after,
+.bread-crumbs .bc-item:nth-child(even):before,
+.match-details-block .match-details .match-teams:before,
+.playoff .playoff-title,
+.search-field-layer,
+.search-bar,
+.matches-table .match-table_date-title-style {
+  background: var(--dark-theme-two);
+}
+
+.matches-table .matches-table_scores > div,
+ul.open.f-dropdown,
+table.matches-table tr td.scores > div {
+  border: 1px solid var(--dark-theme-two);
+}
+
+ul.open.f-dropdown li a,
+.left-menu .game-list ul li a {
+  border-bottom: 1px solid var(--dark-theme-two);
+}
+.match-details-block .match-details .match-timeline {
+  background: var(--dark-theme-one);
+}
+
+.match-details-block .match-details .match-events-list .title {
+  border-bottom: 2px solid var(--dark-theme-two);
+}
+
+.left-menu .game-list ul.level-3 li {
+  border-top: 1px solid var(--dark-theme-two);
+}
+
+.game-progress .content svg circle {
+  fill: #b06fcc;
+}
+
+.h2h-block
+  .h2h-box
+  .main
+  .team-info-box
+  .team-statistics
+  > div
+  > span.icon
+  i:after {
+  border: 1px solid #512c58;
+}
+
+.sub-tabs-3 ul.tabs li.tab-title .tabs-select.first-select ul li {
+  background: var(--dark-theme-three);
+}
+
+@media screen and (max-width: 1024px) {
+  .h2h-block
+    .h2h-box
+    .main
+    .team-info-box
+    .latest-games-result
+    > div.title-text {
+    border-bottom: 1px solid var(--dark-theme-two);
+  }
+}
+
+.search-input,
+.search-input::placeholder,
+.left-menu .game-list ul.level-2 li.navigation-search-li input[type="text"],
+.left-menu .game-list ul.level-2 li.navigation-search-li input[type="search"],
+.left-menu .game-list ul.level-2 li.navigation-search-li input::placeholder {
+  color: #fff !important;
+}
