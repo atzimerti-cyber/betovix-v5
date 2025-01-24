@@ -184,43 +184,6 @@ const Cat2Swiper = (props) => {
                           </p>
                         </div>
                       </div>
-                      {/* <div className={classes.ButtonsContainer}>
-                        <div className={classes.FavContainer}>
-                          <HeartIcon
-                            className={item.isFav ? classes.FavoriteIcon : null}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              e.preventDefault();
-                              if (user) {
-                                onToggleFavorite(item);
-                              } else {
-                                toast.warning("Login to access this feature");
-                              }
-                            }}
-                          />
-                        </div>
-                        <Link
-                          to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
-                        >
-                          <div className={classes.PlayBtnContainer}>
-                            <button className={classes.PlayBtn}>
-                              {translate("Play")}
-                            </button>
-                          </div>
-                        </Link>
-                        {bonusBalance > 0 && item.allowBonus && (
-                          <Link
-                            to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
-                          >
-                            <div className={classes.isBonus}>
-                              <button className={classes.bonusContainer}>
-                                <GiftIcon />
-                                {translate("Play With Bonus")}
-                              </button>
-                            </div>
-                          </Link>
-                        )}
-                      </div> */}
                     </div>
                   </div>
                 </SwiperSlide>
