@@ -762,16 +762,7 @@ const Register = () => {
                 noAutoComplete
                 isInvalid={!validChecks.email}
               />
-            </div>
-
-            {/* <div className={classes.Container}>
-                <Switch
-                    id='switch'
-                    active={registerInfo.bonus}
-                    label={translate('Send me bonus and marketing emails')}
-                    onClick={() => updateRegisterInfo('bonus', !registerInfo.bonus)}
-                />
-            </div> */}
+            </div> 
 
             <div className={classes.CheckboxContainer}>
               <input

@@ -531,12 +531,12 @@ export const loadInitData = (isMobile) => {
             icon: <PricesIcon />,
             page: "crypto",
           },
-          {
-            id: 5,
-            label: "Leaderboard",
-            icon: <LeaderIcon />,
-            page: "leaderboard",
-          },
+          // {
+          //   id: 5,
+          //   label: "Leaderboard",
+          //   icon: <LeaderIcon />,
+          //   page: "leaderboard",
+          // },
         ],
       });
 
