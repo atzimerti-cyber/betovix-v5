@@ -21,7 +21,7 @@
   font-variant-east-asian: inherit;
   font-variant-alternates: inherit;
   font-variant-position: inherit;
-  font-weight: inherit;
+  font-weight: 500;
   font-stretch: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -49,6 +49,11 @@
 .TimeSelectionButton.Active {
   background: var(--brand-green);
   color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  fill: black;
+}
+.TimeSelectionButton.Active svg path {
+  fill: black;
 }
 
 .TimeSelectionButton:hover {

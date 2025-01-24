@@ -134,7 +134,29 @@
   animation: none;
 }
 
-.BetButton,
+.BetButton {
+  appearance: none;
+  background: var(--brand-green);
+  border: none;
+  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 4px;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-size: 16px;
+  margin-block: 0px 14px;
+  margin-inline: 14px;
+  overflow: hidden;
+  position: relative;
+  text-shadow: rgba(41, 39, 33, 0.2) 0px 1px 4px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s, outline 0s ease 0s,
+    outline-offset 0s ease 0s;
+  height: 48px;
+}
 .SaveButton {
   appearance: none;
   background: var(--brand-green);

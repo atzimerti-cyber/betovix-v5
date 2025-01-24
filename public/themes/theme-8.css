@@ -12,16 +12,18 @@
   --sidebar-casino-active-svg: #fbe184;
 
   --brand-green: #fbe184;
+  --brand-green: #d9c372;
   --brand-green-lowop: #fbe1847a;
 
   --brand-color: #fbe184;
+  --brand-color: #d9c372;
 
   --placeholder-light: #d3d2f272;
   --light-blue: #fbe184;
   --light-blue-2: #0e1846;
   --db-gray-4: #131f56;
   --mid-blue-1: #1c215c;
-  --mid-blue: #1f3968;
+  --mid-blue: #141f52;
   --dark-blue-1: #030822;
   --dark-blue: #020824;
   --dark-blue-lowop: #020824;
@@ -30,14 +32,15 @@
   --db-white-hover-light: rgba(251, 251, 251, 0.127);
 
   --odds-button-border: #27305b;
-  --odds-button: #0d1d4e;
+  --odds-button: #20336e;
   --odds-button-disabled: #040b295c;
   --card-odds-button: #fbe184;
   --card-odds-button-selected: #111e49;
   --card-odds-button-disabled: #24272e18;
 
-  --badge-new-purple: #8c8c8c;
+  --badge-new-purple: #5642c1;
   --live-badge-purple: var(--brand-color);
+  --live-badge-purple: var(--badge-new-purple);
 
   --db-like: #8c8c8c;
   --cancelled: #c13333;
@@ -52,7 +55,7 @@
 
   --layout-icon-btn: linear-gradient(222deg, #18276d 0%, #0d184a 63%);
   --toast-grad-op1: linear-gradient(222deg, #18276d 0%, #0d184a 63%);
-  --casino-play-round: #0d164176;
+  --casino-play-round: #4163e07d;
   --casino-play-button: linear-gradient(
     30deg,
     #0d1641 20%,
@@ -178,8 +181,9 @@
   --tab-radius: 0.5rem;
   --pf: 0 0% 47%;
   --pc: 0 0% 100%;
-  --s: 0 0% 44%;
+
   --s: 46 93% 75%;
+  --s: 249 60% 41%;
 
   --sf: 0 0% 44%;
   --sc: 0 0% 100%;

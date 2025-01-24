@@ -1,4 +1,4 @@
-/* kafe/kitrino */
+/* PETEKBET */
 :root {
   --white: #fbfbfb;
 
@@ -16,17 +16,17 @@
   --brand-green-lowop: #feae003e;
 
   --brand-color: #bc8515;
-  --brand-color: #fad296;
+  --brand-color: #dcb374;
 
-  --placeholder-light: #8c8c8c;
+  --placeholder-light: #b7acd5;
   --light-blue: #d4d4d4;
   --light-blue-2: #646464;
-  --db-gray-4: #7e7e7e;
+  --db-gray-4: #251256;
   --mid-blue-1: #4a4a4a;
-  --mid-blue: #3a3a3a;
-  --dark-blue-1: #2b2b2b;
-  --dark-blue: #212121;
-  --dark-blue-lowop: #2121218c;
+  --mid-blue: #090417;
+  --dark-blue-1: #120929;
+  --dark-blue: #0d0427;
+  --dark-blue-lowop: #0d0427bd;
 
   --db-white-hover: hsla(0, 0%, 100%, 0.05);
   --db-white-hover-light: hsla(0, 0%, 100%, 0.127);
@@ -52,7 +52,7 @@
   --darkcolor-op1: #212121;
   --darkcolor-low-op: #21212158;
 
-  --layout-icon-btn: linear-gradient(222deg, #2f2f2f 0%, #202020 63%);
+  --layout-icon-btn: linear-gradient(222deg, #1c123a 0%, #2a1f4e 63%);
   --toast-grad-op1: linear-gradient(50deg, #4b4b4b 0%, #5f5f5f 50%);
   --casino-play-round: #a3a3a376;
   --casino-play-button: linear-gradient(
@@ -67,22 +67,22 @@
     #bfbfbf81 75%,
     #bfbfbf44 110%
   );
-  --button-grad-op1: linear-gradient(307deg, #dbdbdb5d 0%, #a5a5a557 50%);
-  --button-grad-op-mid: linear-gradient(222deg, #4b4b4bbf 0%, #5f5f5f40 50%);
-  --arrow-button: linear-gradient(159deg, #515151 0%, #2e2e2e 88%);
-  --arrow-button-disabled: linear-gradient(159deg, #51515178 0%, #2e2e2e76 88%);
+  --button-grad-op1: linear-gradient(307deg, #1c123a 0%, #2b204a 50%);
+  --button-grad-op-mid: linear-gradient(222deg, #1c123a 0%, #1c1335c2 50%);
+  --arrow-button: linear-gradient(159deg, #261b48 0%, #372862 88%);
+  --arrow-button-disabled: linear-gradient(159deg, #261b4878 0%, #37286232 88%);
 
-  --provider-card-bg: #2e2e2e;
-  --provider-card-bg-lowOp: #5e5e5e4f;
+  --provider-card-bg: #1c123a;
+  --provider-card-bg-lowOp: #1c123a9b;
 
   --outer-container-left: #00000015;
 
-  --dropdown-bg: #3f3f3f;
+  --dropdown-bg: #110a25;
 
-  --swiper-container-grad: linear-gradient(45deg, #bfbfbf33, #2e2e2e 120%);
-  --accordion-header: linear-gradient(222deg, #343434 0%, #3d3d3dba 50%);
-  --accordion-body: linear-gradient(72deg, #34343421 0%, #3d3d3d5e 50%);
-  --accordion-small-header: linear-gradient(222deg, #343434 0%, #3d3d3dba 50%);
+  --swiper-container-grad: linear-gradient(45deg, #251845, #191034 120%);
+  --accordion-header: linear-gradient(222deg, #1c103d 0%, #1b153a 50%);
+  --accordion-body: linear-gradient(72deg, #100727 0%, #1c113a75 50%);
+  --accordion-small-header: linear-gradient(222deg, #1c123c 0%, #1e173d 50%);
   --accordion-small-body: linear-gradient(72deg, #34343457 0%, #3d3d3d47 50%);
   --casino-options-bg: radial-gradient(
       65.95% 124.31% at 100% 100%,
@@ -181,7 +181,7 @@
   --tab-radius: 0.5rem;
   --pf: 0 0% 47%;
   --pc: 0 0% 100%;
-  --s: 0 0% 44%;
+
   --s: 39 60% 50%;
 
   --sf: 0 0% 44%;

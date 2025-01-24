@@ -269,7 +269,7 @@ export const getLiveVendorGame = (
 
       let requests = [];
       var game;
-      var gameUrl; 
+      var gameUrl;
 
       if (isBonus === null) {
         isBonus = false;

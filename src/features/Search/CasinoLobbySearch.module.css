@@ -22,7 +22,7 @@
   border: 1px solid var(--brand-green-lowop);
 }
 .SearchInput::placeholder {
-  color: rgba(194, 240, 255, 0.809);
+  color: var(--placeholder-light);
 }
 .RightIcon {
   right: 1rem;
@@ -56,7 +56,7 @@
   width: 100%;
   align-items: center;
   justify-content: center;
-  background-color: rgb(26 56 76);
+  background-color: var(--dark-blue-1);
   z-index: 1000000000;
   overflow: hidden;
   overflow-y: auto;

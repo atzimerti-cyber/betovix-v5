@@ -69,6 +69,7 @@
   min-height: 2rem;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
+  color: rgb(0 0 0 / var(--tw-text-opacity));
   /* width: 100%; */
 }
 
@@ -307,4 +308,13 @@
   text-wrap: wrap;
   color: #ffffff;
   line-height: 1.2rem;
+}
+
+.BackBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 14px;
+  width: 100%;
+  color: white !important;
 }
