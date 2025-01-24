@@ -30,12 +30,12 @@
     !function (e, n) {
       t = document.createElement("script"), d = document.getElementsByTagName
         ("script")[0], t.async = !0, t.setAttribute("s", e),
-      t.src = `${e}/widgetloader.js?ts=${+new Date()}`,
-      d.parentNode.insertBefore(t, d); let i = []; window.SCAW = function () {
-        if (!
-          arguments.length) return i;
-        if (window.__SCAWp) { let e = [...arguments]; try { window.__SCAWp[e[0]].call(null, e[1]) } catch (n) { console.warn(`Error while calling ${e[0]} with argument ${e[1]}.Check documentation.`) } i = [] } i.push([...arguments])
-      }, window.SCAW("_setClientInfo", { clientID: n })
+        t.src = `${e}/widgetloader.js?ts=${+new Date()}`,
+        d.parentNode.insertBefore(t, d); let i = []; window.SCAW = function () {
+          if (!
+            arguments.length) return i;
+          if (window.__SCAWp) { let e = [...arguments]; try { window.__SCAWp[e[0]].call(null, e[1]) } catch (n) { console.warn(`Error while calling ${e[0]} with argument ${e[1]}.Check documentation.`) } i = [] } i.push([...arguments])
+        }, window.SCAW("_setClientInfo", { clientID: n })
     }
       ("https://cdn.awidua.io/animation-white/widget", "18764645");
   </script>
@@ -53,32 +53,26 @@
   <!-- <link rel="preload" as="image" href="/loading.webp"> -->
 
   <style>
-    /* Snow container */
-    .snow {
+    /* .snow {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      pointer-events: none;
-      /* Prevent interaction */
+      pointer-events: none; 
       z-index: 9999;
       overflow: hidden;
     }
-
-    /* Snowflake styles */
+ 
     .snowflake {
       position: absolute;
-      top: -10px;
-      /* Start slightly above the viewport */
-      font-size: 1rem;
-      /* Default size */
+      top: -10px; 
+      font-size: 1rem; 
       color: white;
       opacity: 0.8;
       animation: fall linear infinite, drift ease-in-out infinite;
     }
-
-    /* Create variations with nth-child */
+ 
     .snowflake:nth-child(1) {
       left: 5%;
       font-size: 1.5rem;
@@ -226,7 +220,7 @@
       font-size: 2.7rem;
       animation-duration: 10s, 4.5s;
       animation-delay: 0.5s, 1s;
-    }
+    } */
 
     /* Falling animation */
     @keyframes fall {
@@ -329,14 +323,14 @@
 </head>
 
 <body>
-  <div class="snow">
+  <!-- <div class="snow">
 
     <div class="snowflake">❅</div>
     <div class="snowflake">❄</div>
 
     <div class="snowflake">✻</div>
     <div class="snowflake">❄</div>
-  </div>
+  </div> -->
 
   <div id="loadGame" style="position: fixed;
         top: 0;
