@@ -19,8 +19,8 @@
   --brand-color: #dcb374;
 
   --placeholder-light: #b7acd5;
-  --light-blue: #d4d4d4;
-  --light-blue-2: #646464;
+  --light-blue: #dcb374;
+  --light-blue-2: #fad296;
   --db-gray-4: #251256;
   --mid-blue-1: #4a4a4a;
   --mid-blue: #090417;
@@ -32,14 +32,14 @@
   --db-white-hover-light: hsla(0, 0%, 100%, 0.127);
 
   --odds-button-border: #c4c4c4;
-  --odds-button: #898989;
-  --odds-button-disabled: #2121218f;
+  --odds-button: #53476e;
+  --odds-button-disabled: #53476e83;
   --card-odds-button: #c6c6c6c6;
   --card-odds-button-selected: #2121215d;
   --card-odds-button-disabled: #4f4f4f30;
 
-  --badge-new-purple: #acacac;
-  --live-badge-purple: var(--brand-color);
+  --badge-new-purple: #8121c1;
+  --live-badge-purple: #aa4aeb;
 
   --db-like: #cfcfcf;
   --cancelled: #c13333;
