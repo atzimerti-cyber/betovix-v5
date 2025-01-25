@@ -1,28 +1,28 @@
 :root {
-  --brand-color: #80f803;
-  --brand-bright-color: #80f803;
-  --dark-theme-zero: #0c0f16;
-  --dark-theme-one: #10141d;
-  --dark-theme-two: #1d2433;
-  --dark-theme-three: #252a3a;
-  --dark-theme-four: #373e4a;
-  --dark-theme-five: #212121;
-  --dark-theme-six: #10141d88;
-  --dark-theme-seven: #80f803;
-
-  --light-theme-one: #fbfbfb;
-  --light-theme-two: #7d839d;
-  --light-theme-three: #1f2737;
-  --light-theme-four: #252a3a;
-  --light-theme-five: #373e4a;
-  --light-theme-six: #212121;
-
-  --text-color-primary: var(--light-theme-one);
-  --text-color-dark: var(--dark-theme-one);
-  --text-color-light: var(--light-theme-one);
-  --text-color-gray: var(--light-theme-three);
-  --text-color-special: var(--light-theme-four);
-  --text-color-light-opaque: rgba(251, 251, 251, 0.4);
+    --brand-color: #dcb374;
+    --brand-bright-color: #dcb374;
+    --dark-theme-zero: #070215;
+    --dark-theme-one: #191031;
+    --dark-theme-two: #191031;
+    --dark-theme-three: #0e081d;
+    --dark-theme-four: #251256;
+    --dark-theme-five: #120929;
+    --dark-theme-six: #0d0427bd;
+    --dark-theme-seven: #feae00;
+  
+    --light-theme-one: #fbfbfb;
+    --light-theme-two: #b7acd5;
+    --light-theme-three: #646464;
+    --light-theme-four: #4a4a4a;
+    --light-theme-five: #090417;
+    --light-theme-six: #0d0427;
+  
+    --text-color-primary: var(--light-theme-one);
+    --text-color-dark: var(--dark-theme-one);
+    --text-color-light: var(--light-theme-one);
+    --text-color-gray: var(--light-theme-three);
+    --text-color-special: var(--light-theme-four);
+    --text-color-light-opaque: rgba(251, 251, 251, 0.4);
 }
 
 .sub-tabs-1 ul li:hover {
