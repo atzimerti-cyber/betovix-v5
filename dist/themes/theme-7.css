@@ -3,10 +3,10 @@
   --white: #fbfbfb;
 
   --body-bg: #070215;
-  --topbar-bg: #191031;
+  --topbar-bg: #0d0b24;
   --sb-search: var(--topbar-bg);
   --footer: #0e081d;
-  --sidebar-category-group: #191031af;
+  --sidebar-category-group: #111031af;
   --sidebar-left-menu-item: #262626;
   --sidebar-casino-active: #feae004e;
   --sidebar-casino-active-svg: #fad296;
@@ -18,22 +18,23 @@
   --brand-color: #bc8515;
   --brand-color: #dcb374;
 
-  --placeholder-light: #b7acd5;
+  --placeholder-light: #acc5d5;
   --light-blue: #dcb374;
-  --light-blue-2: #fad296;
-  --db-gray-4: #251256;
-  --mid-blue-1: #4a4a4a;
-  --mid-blue: #090417;
-  --dark-blue-1: #120929;
+  --light-blue-2: #241c36;
+  --db-gray-4: #1d1945;
+  --mid-blue-1: #282945;
+  --mid-blue: #1c153b;
+  --dark-blue-1: #0d0b24;
   --dark-blue: #0d0427;
-  --dark-blue-lowop: #0d0427bd;
+  --dark-blue-lowop: #1a1a33;
 
   --db-white-hover: hsla(0, 0%, 100%, 0.05);
   --db-white-hover-light: hsla(0, 0%, 100%, 0.127);
 
   --odds-button-border: #c4c4c4;
-  --odds-button: #53476e;
+  --odds-button: #48476e;
   --odds-button-disabled: #53476e83;
+  --odds-button-disabled: #6a6a6a42;
   --card-odds-button: #c6c6c6c6;
   --card-odds-button-selected: #2121215d;
   --card-odds-button-disabled: #4f4f4f30;
@@ -54,6 +55,7 @@
 
   --layout-icon-btn: linear-gradient(222deg, #1c123a 0%, #2a1f4e 63%);
   --toast-grad-op1: linear-gradient(50deg, #4b4b4b 0%, #5f5f5f 50%);
+  --toast-grad-op1: var(--accordion-header);
   --casino-play-round: #a3a3a376;
   --casino-play-button: linear-gradient(
     30deg,
@@ -67,9 +69,9 @@
     #bfbfbf81 75%,
     #bfbfbf44 110%
   );
-  --button-grad-op1: linear-gradient(307deg, #1c123a 0%, #2b204a 50%);
-  --button-grad-op-mid: linear-gradient(222deg, #1c123a 0%, #1c1335c2 50%);
-  --arrow-button: linear-gradient(159deg, #261b48 0%, #372862 88%);
+  --button-grad-op1: linear-gradient(307deg, #12123a 0%, #161937 50%);
+  --button-grad-op-mid: linear-gradient(222deg, #12183a 0%, #131435c2 50%);
+  --arrow-button: linear-gradient(159deg, #201b48 0%, #372862 88%);
   --arrow-button-disabled: linear-gradient(159deg, #261b4878 0%, #37286232 88%);
 
   --provider-card-bg: #1c123a;
@@ -79,11 +81,11 @@
 
   --dropdown-bg: #110a25;
 
-  --swiper-container-grad: linear-gradient(45deg, #251845, #191034 120%);
-  --accordion-header: linear-gradient(222deg, #1c103d 0%, #1b153a 50%);
-  --accordion-body: linear-gradient(72deg, #100727 0%, #1c113a75 50%);
-  --accordion-small-header: linear-gradient(222deg, #1c123c 0%, #1e173d 50%);
-  --accordion-small-body: linear-gradient(72deg, #34343457 0%, #3d3d3d47 50%);
+  --swiper-container-grad: linear-gradient(45deg, #1818453a, #10163437 120%);
+  --accordion-header: linear-gradient(222deg, #14103d 0%, #15153a 50%);
+  --accordion-body: linear-gradient(72deg, #0a0727 0%, #11143a75 50%);
+  --accordion-small-header: linear-gradient(222deg, #12133c 0%, #1a173d 50%);
+  --accordion-small-body: linear-gradient(72deg, #171a3d 0%, #0d0c28 50%);
   --casino-options-bg: radial-gradient(
       65.95% 124.31% at 100% 100%,
       #2e2e2e 10.17%,
@@ -91,8 +93,8 @@
     ),
     #1c1c1c;
 
-  --calendar: linear-gradient(222deg, #404040 0%, #2a2a2a 72%);
-  --calendar-hover: linear-gradient(307deg, #5252528c 0%, #6666668f 50%);
+  --calendar: linear-gradient(222deg, #080a1e 0%, #1a1b39 72%);
+  --calendar-hover: linear-gradient(307deg, #212459b4 0%, #383b6fb4 50%);
 
   --wr-pending: linear-gradient(222deg, #636363 0%, #6e6e6eba 50%);
   /* --wr-approved: linear-gradient(
@@ -131,7 +133,7 @@
     ); */
   --wr-cancelled: rgba(153, 30, 30, 0.74) 100%;
 
-  --event-board-bg: #2e2e2ee3;
+  --event-board-bg: #0d0b24e6;
 
   --db-modal-auth-height: 506px;
   --db-modal-announcement-height: 480px;
@@ -158,7 +160,7 @@
   --db-scrollbar-thumb-bg: var(--light-blue);
   --db-scrollbar-track-bg: var(--mid-blue-1);
   --db-transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  --db-modal-overlay: #2e2e2ec7;
+  --db-modal-overlay: #03040db0;
   --db-dropdown-shadow: -10px 6px 30px rgb(0 0 0 / 35%);
   --db-modal-header-height: 38px;
   --db-milestone-card-width: 140px;
@@ -191,6 +193,7 @@
   --ac: 0 0% 100%;
   --n: 0 0% 28%;
   --nf: 0 0% 28%;
+  --nf: 208 24% 15%;
   --nc: 0 0% 100%;
   --b1: 0 0% 15%;
   --bc: 0 0% 100%;
