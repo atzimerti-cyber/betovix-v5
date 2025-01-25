@@ -5,7 +5,7 @@
 
 .Bar {
     position: absolute;
-    background: rgb(51, 193, 108);
+    background: var(--brand-color);
     z-index: 1031;
     top: 0;
     left: 0;
@@ -14,7 +14,7 @@
 }
 
 .Peg {
-    box-shadow: rgb(51, 193, 108) 0 0 10px, rgb(51, 193, 108) 0 0 5px;
+    box-shadow: var(--brand-color) 0 0 10px, var(--brand-color) 0 0 5px;
     display: block;
     position: absolute;
     right: 0;
@@ -32,7 +32,7 @@
     right: 15px;
 }
 .SpinnerIcon {
-    border-color: rgb(51, 193, 108) transparent transparent rgb(51, 193, 108);
+    border-color: var(--brand-color) transparent transparent var(--brand-color);
     width: 18px;
     height: 18px;
     box-sizing: border-box;

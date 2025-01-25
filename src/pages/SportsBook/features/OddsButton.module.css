@@ -64,6 +64,7 @@
 }
 .OddsButton:disabled .OddsLabel {
   color: var(--placeholder-light);
+  opacity: 0.3;
 }
 
 .OddsButton.Selected {
@@ -113,12 +114,14 @@
   background-color: var(--card-odds-button-disabled);
   cursor: default;
   color: aliceblue;
+  opacity: 0.3;
 }
 
 .TempDisabled.OddsButton,
 .TempDisabled.CardButton {
   opacity: 0.6 !important;
   pointer-events: none !important;
+  opacity: 0.3;
 }
 
 /* Media */

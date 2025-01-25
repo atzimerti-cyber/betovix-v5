@@ -1,108 +1,105 @@
-/* fouksia */
+/* kafe/kitrino */
 :root {
-  --footer: #7a1b85;
-  --lightcolor-op1: #c084e5;
-  --db-body-12: #7a1b85;
-  --lightcolor-op1: #b719cf;
-  --brand-green: #9b2bbf;
-  --brand-green-36: #9b2bbf5c;
-  --brand-color: #853299;
-  --db-brand-dark: #3d022a;
-  --db-duelbits-blue: #7a1b85;
-  --topbar-bg: #1d0e26;
-  --topbar-bg2: rgb(14, 34, 51);
-  --db-footer-4: #b719cf;
-  --body-bg: #8e30bc;
-  --sb-search: #123953;
-  --mid-blue: #14374b;
-  --mid-blue-1: #155270;
-  --db-gray-4: #a45fce;
-  --light-blue: #b719cf;
-  --dark-blue-1: rgb(12, 34, 51);
-  --db-gray-7: #8a1b91;
-  --db-gray-10: #c084e5;
-  --db-gray-11: rgba(135, 24, 191, 0.5019607843137255);
-  --placeholder-light: #738fa7;
-  --odds-button-border: #c084e5;
-  --db-gray-14: #8a1b91;
-  --light-blue-2: #8d42a5;
-  --db-gray-667: #803998cf;
-  --db-gray-708: #543a85;
-  --db-gray-800: #725491;
-  --body-bg: #3d022a;
-  --db-green-2: #b088f5;
-  --badge-new-purple: #8121c1;
-  --live-badge-purple: #c831e7;
-  --db-pink-box: #8e30bc;
-  --db-pink-text: #c434e3;
   --white: #fbfbfb;
+
+  --body-bg: #0c0f16;
+  --topbar-bg: #10141d;
+  --sb-search: #1d2433;
+  --footer: #1a161c;
+  --sidebar-category-group: #10141d;
+  --sidebar-left-menu-item: #262626;
+  --sidebar-casino-active: #232b3d;
+  --sidebar-casino-active-svg: var(--brand-green);
+
+  --brand-green: #80f803;
+  --brand-green-lowop: #82f80388;
+
+  --brand-color: #80f803;
+
+  --placeholder-light: #7d839d;
+  --light-blue: #80f803;
+  --light-blue-2: #1d2433;
+  --db-gray-4: #1f2737;
+  --mid-blue-1: #252a3a;
+  --mid-blue: #373e4a;
+  --dark-blue-1: #10141d;
+  --dark-blue: #212121;
+  --dark-blue-lowop: #10141d;
+
   --db-white-hover: hsla(0, 0%, 100%, 0.05);
   --db-white-hover-light: hsla(0, 0%, 100%, 0.127);
-  --db-gold-primary: #ffcf52;
-  --cancelled: #bb3c4b;
-  --db-like: #c13333;
-  --cancelled: #c13333;
-  --cancelled-low-op: #c1333395;
-  --yellow-accent-color: #dfa032;
-  --light-blue: #a421c1;
+
+  --odds-button-border: #d8ffaf33;
+  --odds-button: #0c0f16;
+  --odds-button-disabled: #2121218f;
+  --card-odds-button: #b8bfd4;
+  --card-odds-button-selected: #40536a5d;
+  --card-odds-button-disabled: #4f4f4f30;
+
+  --badge-new-purple: #8121c1;
+  --live-badge-purple: #aa4aeb;
+  --db-like: #cfcfcf;
+  --cancelled: #cfcfcf;
+
+  --yellow-accent-color: #f1bf2b;
+
+  --lightcolor-low-op: #dbdbdb4a;
+  --lightcolor-op1: #dbdbdb;
+  --darkcolor-op1: #212121;
+  --darkcolor-low-op: #0e121c;
+
+  --layout-icon-btn: linear-gradient(222deg, #2f2f2f 0%, #202020 63%);
+  --toast-grad-op1: linear-gradient(50deg, #4b4b4b 0%, #5f5f5f 50%);
+  --casino-play-round: #a3a3a376;
+  --casino-play-button: linear-gradient(
+    30deg,
+    #6a6a6a 20%,
+    #8b8b8b 75%,
+    #848484 110%
+  );
+  --casino-play-bonus-button: linear-gradient(
+    120deg,
+    #bfbfbf44 0%,
+    #bfbfbf44 0%,
+    #bfbfbf81 75%,
+    #bfbfbf44 110%
+  );
+  --button-grad-op1: linear-gradient(45deg, #242531, #1b2230 120%);
+  --button-grad-op-mid: #1d2433;
+
+  --provider-card-bg: #181f2d;
+  --provider-card-bg-lowOp: #181f2d9c;
+
+  --outer-container-left: #10141d94;
+
+  --dropdown-bg: #151923;
+
+  --accordion-header: linear-gradient(45deg, #161d24, #171c29 120%);
+  --swiper-container-grad: var(--accordion-header);
+  --accordion-body: #171d26;
+  --accordion-small-header: linear-gradient(45deg, #242a37, #232934 120%);
+  --accordion-small-body: linear-gradient(45deg, #1d222c, #232935 120%);
+  --casino-options-bg: radial-gradient(
+      65.95% 124.31% at 100% 100%,
+      #2e2e2e 10.17%,
+      #1f1f1f27
+    ),
+    #1c1c1c;
+  --calendar: #15151c;
+  --calendar-hover: #2a2a3b;
+  --event-board-bg: #10141de6;
+
+  --arrow-button: linear-gradient(45deg, #2d2e3c, #1b2230 120%);
+  --arrow-button-disabled: linear-gradient(
+    159deg,
+    #2d2e3c71 0%rgba (27, 34, 48, 0.426) 30 88%
+  );
+
   --db-modal-auth-height: 506px;
   --db-modal-announcement-height: 480px;
   --db-chat-width: 330px;
   --db-left-menu-width: 260px;
   --db-left-menu-width-collapsed: 60px;
-  --yellow-accent-color: #f1bf2b;
-
-  --placeholder-light: #e6a5dd;
-  --lightcolor-low-op: #e64ad8;
-  --lightcolor-op1: #e6a5d8;
-  --darkcolor-op1: #22031a;
-  --darkcolor-low-op: #580000;
-
-  --layout-icon-btn: linear-gradient(222deg, #542161 0%, #4a1536 63%);
-  --toast-grad-op1: linear-gradient(50deg, #801761 0%, #962374 50%);
-  --casino-play-round: #a47d9d76;
-  --casino-play-button: linear-gradient(
-    30deg,
-    #7d1780 20%,
-    #a93880 75%,
-    #a4327e 110%
-  );
-  --casino-play-bonus-button: linear-gradient(
-    120deg,
-    #8dbcc944 0%,
-    #8dbcc981 75%,
-    #8dbcc944 110%
-  );
-  --button-grad-op1: linear-gradient(307deg, #e272ff5d 0%, #c757a7c957 50%);
-  --button-grad-op-mid: linear-gradient(222deg, #bf2645bbf 0%, #a840398140 50%);
-  --odds-button: #8a558a;
-  --odds-button-disabled: #32041d8f;
-  --card-odds-button: #d5a6c6c6;
-  --card-odds-button-selected: #1e03135d;
-  --card-odds-button-disabled: #5f425130;
-  --provider-card-bg: #4c1a38;
-  --provider-card-bg-lowOp: #8e53744f;
-
-  --outer-container-left: #150000;
-  --sidebar-category-group: #450e2f;
-  --sidebar-left-menu-item: #41102b;
-  --sidebar-casino-active: #cf37af52;
-  --sidebar-casino-active-svg: #ff0dba;
-  --dropdown-bg: #6d2348;
-
-  --swiper-container-grad: linear-gradient(45deg, #c0239633, #701a4b 120%);
-  --accordion-header: linear-gradient(222deg, #631e50 0%, #6d2655ba 50%);
-  --accordion-body: linear-gradient(72deg, #631e5021 0%, #70551f57 50%);
-  --accordion-small-header: linear-gradient(222deg, #631e50 0%, #6d2655ba 50%);
-  --accordion-small-body: linear-gradient(72deg, #631e50357 0%, #265566d47 50%);
-  --casino-options-bg: radial-gradient(
-      65.95% 124.31% at 100% 100%,
-      #390d2f 10.17%,
-      #24031327
-    ),
-    #24031324;
-
-  --event-board-bg: #7e0019e3;
 
   --db-minibar-height: 0px;
   --db-minibar-height-mobile: 0px;
@@ -115,6 +112,38 @@
     var(--db-topbar-height-mobile) + var(--db-minibar-height-mobile)
   );
 
+  --wr-pending: linear-gradient(222deg, #1e5063 0%, #26556dba 50%);
+  --wr-approved: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    #1c525d 30%,
+    rgba(59, 195, 191, 0.81) 100%
+  );
+  --wr-not-approved: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    rgba(93, 28, 28, 0.5) 40%,
+    rgba(153, 30, 30, 0.74) 100%
+  );
+  --wr-confirmed: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    #1c405d 30%,
+    rgba(141, 239, 75, 0.47) 100%
+  );
+  --wr-payed: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    #1c405d 30%,
+    rgba(141, 239, 75, 0.47) 100%
+  );
+  --wr-cancelled: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    rgba(93, 28, 28, 0.5) 40%,
+    rgba(153, 30, 30, 0.74) 100%
+  );
+
   --db-bottom-bar-height: 52px;
   --db-bottom-nav-height: 56px;
   --db-sticky-language-height: 0px;
@@ -123,19 +152,19 @@
   --db-scrollbar-thumb-bg: var(--light-blue);
   --db-scrollbar-track-bg: var(--mid-blue-1);
   --db-transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  --db-modal-overlay: #40132ec7;
+  --db-modal-overlay: #0c0f16a9;
   --db-dropdown-shadow: -10px 6px 30px rgb(0 0 0 / 35%);
   --db-modal-header-height: 38px;
   --db-milestone-card-width: 140px;
 
-  --blg: 81 59% 41%;
-  --p: 276 70.796% 44.314%;
-  --b2: 208.8 32.468% 13.588%;
-  --b3: 208.8 32.468% 12.229%;
-  --inc: 198 100% 12%;
-  --suc: 207.5 64.082% 51.961%;
-  --wac: 190.59 80.952% 37.059%;
-  --erc: 198 93.137% 60%;
+  --blg: 0 0% 41%;
+  --p: 0 0% 47%;
+  --b2: 0 0% 23%;
+  --b3: 0 0% 22%;
+  --inc: 0 0% 22%;
+  --suc: 0 0% 20%;
+  --wac: 0 0% 21%;
+  --erc: 0 0% 24%;
   --rounded-box: 1rem;
   --rounded-badge: 1.9rem;
   --animation-btn: 0.25s;
@@ -144,23 +173,27 @@
   --border-btn: 1px;
   --tab-border: 1px;
   --tab-radius: 0.5rem;
-  --pf: 276 70.796% 44.314%;
+  --pf: 0 0% 47%;
   --pc: 0 0% 100%;
+  --s: 10 70.796% 44.314%;
+
+  --s: 89 98% 49%;
   --s: 276 70.796% 44.314%;
-  --sf: 276 70.796% 44.314%;
+
+  --sf: 0 0% 44%;
   --sc: 0 0% 100%;
-  --a: 190.59 80.952% 37.059%;
-  --af: 190.59 80.952% 37.059%;
+  --a: 0 0% 37%;
+  --af: 0 0% 37%;
   --ac: 0 0% 100%;
-  --n: 207.5 32.877% 28.627%;
-  --nf: 207.5 32.877% 28.627%;
+  --n: 0 0% 28%;
+  --nf: 0 0% 28%;
   --nc: 0 0% 100%;
-  --b1: 208.8 32.468% 15.098%;
+  --b1: 0 0% 15%;
   --bc: 0 0% 100%;
-  --in: 198 93.137% 60%;
-  --su: 157.83 64.082% 51.961%;
-  --wa: 42.778 96.429% 56.078%;
-  --er: 0 90.541% 70.98%;
+  --in: 0 0% 60%;
+  --su: 0 0% 51%;
+  --wa: 0 0% 56%;
+  --er: 0 0% 70%;
   --btn-text-case: none;
   --rounded-btn: 0.25rem;
 
@@ -182,7 +215,7 @@
   --tw-shadow: 0 0 transparent;
   --tw-shadow-colored: 0 0 transparent;
 
-  --swiper-theme-color: #8007ff;
+  --swiper-theme-color: #a3a3a3;
   color: hsla(var(--bc) / var(--tw-text-opacity, 1));
 }
 body {
