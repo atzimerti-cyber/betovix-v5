@@ -21,7 +21,6 @@ const Casino = () => {
   const navigate = useNavigate();
   const params = useParams();
 
-
   const lang = useSelector((state) => state.app.lang);
 
   useEffect(() => {
@@ -47,7 +46,7 @@ const Casino = () => {
           <CasinoMenu />
           {params["*"] === "lobby" && <CasinoLobbySearch />}
         </div>
-        
+
         <div className={classes.Content}>{page}</div>
       </div>
     </div>
