@@ -45,14 +45,74 @@ const MarketGroup = (props) => {
 
       const marketTypeId = market.MarketTypeId;
 
+      // const inTree = sportMarketTreeObj[marketTypeId];
+      // let subIndex;
+      // let subName;
+      // let marketIndex;
+      // let allIndex;
+
       const inTree = sportMarketTreeObj[marketTypeId];
-      let subIndex;
-      let subName;
-      let marketIndex;
-      let allIndex;
+      let subIndex = market.MarketSubTypeId
+        ? parseInt(market.MarketSubTypeId)
+        : market.MarketTypeId;
+      let subName = market.MarketName.International;
+      let marketIndex = market.MarketTypeId;
+      let allIndex = 100000 * market.MarketTypeId;
 
       // If not in tree, search for a similar name
-      if (!inTree) {
+      if (selectedMarketCategory.name === "All Markets") {
+        let thisGroup;
+        if (inTree && inTree.groups && inTree.groups.length > 0) {
+          thisGroup = inTree.groups[0];
+        } else if (!thisGroup) {
+        }
+        if (
+          !thisGroup &&
+          keyString &&
+          market.MarketName.International.includes(keyString)
+        ) {
+          subIndex = market.MarketSubTypeId
+            ? parseInt(market.MarketSubTypeId)
+            : market.MarketTypeId;
+          subName = market.MarketName.International;
+          marketIndex = market.MarketTypeId;
+          allIndex = 100000 * market.MarketTypeId;
+        } else if (!thisGroup) {
+        } else {
+          subIndex = inTree.sub.subIndex;
+          subName = inTree.sub.name;
+          marketIndex = inTree.marketIndex;
+          allIndex = thisGroup.allIndex;
+        }
+      }
+      // else if (!inTree) {
+      //   if (keyString && market.MarketName.International.includes(keyString)) {
+      //     subIndex = market.MarketSubTypeId
+      //       ? parseInt(market.MarketSubTypeId)
+      //       : market.MarketTypeId;
+      //     subName = market.MarketName.International;
+      //     marketIndex = market.MarketTypeId;
+      //     allIndex = 100000 * market.MarketTypeId;
+      //   } else if (selectedMarketCategory.Id === 9999) {
+      //     subIndex = market.MarketSubTypeId
+      //       ? parseInt(market.MarketSubTypeId)
+      //       : market.MarketTypeId;
+      //     subName = market.MarketName.International;
+      //     marketIndex = market.MarketTypeId;
+      //     allIndex = 100000 * market.MarketTypeId;
+      //   } else if (selectedMarketCategory.name === "All Markets") {
+      //     /////////////////////
+      //     subIndex = market.MarketSubTypeId /////////////////////
+      //       ? parseInt(market.MarketSubTypeId) /////////////////////
+      //       : market.MarketTypeId; /////////////////////
+      //     subName = market.MarketName.International; /////////////////////
+      //     marketIndex = market.MarketTypeId; /////////////////////
+      //     allIndex = 1000000 * market.MarketTypeId; /////////////////////
+      //   } else {
+      //     return;
+      //   }
+      // }
+      else if (!inTree) {
         if (keyString && market.MarketName.International.includes(keyString)) {
           subIndex = market.MarketSubTypeId
             ? parseInt(market.MarketSubTypeId)
@@ -109,6 +169,37 @@ const MarketGroup = (props) => {
           allIndex = thisGroup.allIndex;
         }
       }
+      // else {
+      //   const thisGroup = inTree.groups.find(
+      //     (g) => g.groupIndex === selectedMarketCategory.Id
+      //   );
+      //   if (
+      //     !thisGroup &&
+      //     keyString &&
+      //     market.MarketName.International.includes(keyString)
+      //   ) {
+      //     subIndex = market.MarketSubTypeId
+      //       ? parseInt(market.MarketSubTypeId)
+      //       : market.MarketTypeId;
+      //     subName = market.MarketName.International;
+      //     marketIndex = market.MarketTypeId;
+      //     allIndex = 100000 * market.MarketTypeId;
+      //   } else if (selectedMarketCategory.name === "All Markets") {
+      //     subIndex = market.MarketSubTypeId
+      //       ? parseInt(market.MarketSubTypeId)
+      //       : market.MarketTypeId;
+      //     subName = market.MarketName.International;
+      //     marketIndex = market.MarketTypeId;
+      //     allIndex = 1000000 * market.MarketTypeId;
+      //   } else if (!thisGroup) {
+      //     return;
+      //   } else {
+      //     subIndex = inTree.sub.subIndex;
+      //     subName = inTree.sub.name;
+      //     marketIndex = inTree.marketIndex;
+      //     allIndex = thisGroup.allIndex;
+      //   }
+      // }
 
       // Markets with similar name (includes a number inside parenthesis) should be grouped together
       let label = market.MarketName.International;
@@ -149,7 +240,6 @@ const MarketGroup = (props) => {
     // Sort the items within each array by obj.MarketTypeId
     for (const allIndex in grouped) {
       if (grouped.hasOwnProperty(allIndex)) {
-        // grouped[allIndex].sort((a, b) => a.MarketTypeId - b.MarketTypeId);
         grouped[allIndex].sort((a, b) =>
           a.MarketName.International.localeCompare(b.MarketName.International)
         );

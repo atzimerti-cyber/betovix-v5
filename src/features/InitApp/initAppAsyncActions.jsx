@@ -286,7 +286,8 @@ export const loadInitData = (isMobile) => {
             const value = topTournament.Value.split(",");
             topTournamentsMenu.items.push({
               id: topTournament.Value,
-              label: `${topTournament.Par2} ${topTournament.Name}`,
+              // label: `${topTournament.Par2} ${topTournament.Name}`,
+              label: `${topTournament.Name}`,
               icon: <img src={topTournament.Icon} alt="-" />,
               page: `sportsbook/tournament/${value[0]}/${value[1]}/${value[2]}`,
             });
@@ -711,7 +712,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=site5.betovix.com`,
+        //`Site/GetSite?domainName=betovix.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
