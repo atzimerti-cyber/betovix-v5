@@ -166,7 +166,7 @@ const LivePhotoCheck = (props) => {
             }}
             className={classes.Button}
             disabled={loading}
-            style={{ backgroundColor: "#749f0f" }}
+            style={{ backgroundColor: "var(--brand-color)" }}
           >
             {loading ? (
               <>{translate("Loading")}...</>
