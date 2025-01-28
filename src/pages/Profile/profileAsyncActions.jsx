@@ -197,10 +197,16 @@ export const getLevelsVerified = (signal) => {
 
       dispatch(
         profileActions.setVerificationLevels({
+          // level1: contents[1] || 0,
+          // level2: contents[2] || 0,
+          // level3: contents[3] || 0,
+          // level4: contents[4] || 0,
+          // level5: contents[5] || 0,
+          // level6: contents[6] || 0,
           level1: contents[1] || 0,
           level2: contents[2] || 0,
-          level3: contents[3] || 0,
-          level4: contents[4] || 0,
+          level3: 2,
+          level4: 2,
           level5: contents[5] || 0,
           level6: contents[6] || 0,
         })

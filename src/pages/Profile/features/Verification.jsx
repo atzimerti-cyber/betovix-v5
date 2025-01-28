@@ -585,25 +585,28 @@ const Verification = () => {
                         )}
                       </div>
                     </div>
-                    <div className={classes.FileForms}>
-                      <button
-                        type="submit"
-                        disabled={disableVerifyButton}
-                        className={
-                          idFiles.frontSide && idFiles.backSide
-                            ? classes.FileSubmitButton
-                            : [classes.FileSubmitButton, classes.Disabled].join(
-                                " "
-                              )
-                        }
-                      >
-                        {disableVerifyButton ? (
-                          <div className={classes.Spinner}></div>
-                        ) : (
-                          translate(`Upload Both Sides`)
-                        )}
-                      </button>
-                    </div>
+                    {level4Status !== 2 && (
+                      <div className={classes.FileForms}>
+                        <button
+                          type="submit"
+                          disabled={disableVerifyButton}
+                          className={
+                            idFiles.frontSide && idFiles.backSide
+                              ? classes.FileSubmitButton
+                              : [
+                                  classes.FileSubmitButton,
+                                  classes.Disabled,
+                                ].join(" ")
+                          }
+                        >
+                          {disableVerifyButton ? (
+                            <div className={classes.Spinner}></div>
+                          ) : (
+                            translate(`Upload Both Sides`)
+                          )}
+                        </button>
+                      </div>
+                    )}
                   </form>
                 </div>
               )}
@@ -675,7 +678,9 @@ const Verification = () => {
                           .
                         </p>
                       </div>
-                      <LivePhotoCheck />
+                      <LivePhotoCheck
+                        idFiles={level3Status !== 2 ? false : idFiles}
+                      />
                     </>
                   )}
                   {level4Status === 3 && (

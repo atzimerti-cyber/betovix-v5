@@ -80,7 +80,51 @@ const LivePhotoCheck = (props) => {
   };
 
   const submitLivePhoto = async (imageSrc) => {
-    if (imageSrc && props.idFiles.frontSide && props.idFiles.backSide) {
+    if (props.idFiles) {
+      if (imageSrc && props.idFiles.frontSide && props.idFiles.backSide) {
+        const controller = new AbortController();
+        const signal = controller.signal;
+
+        // Convert base64 image to a File object
+        const file = await fetch(imageSrc)
+          .then((res) => res.blob())
+          .then(
+            (blob) => new File([blob], "live_photo.jpg", { type: "image/jpeg" })
+          );
+        dispatch(uploadKYCFile(file, 4, signal));
+
+        // Front side
+        if (props.idFiles.frontSide) {
+          const frontSideFormData = props.idFiles.frontSide;
+
+          dispatch(uploadKYCFile(frontSideFormData, 3, signal));
+        }
+        // Back side
+        if (props.idFiles.backSide) {
+          const backSideFormData = props.idFiles.backSide;
+
+          dispatch(uploadKYCFile(backSideFormData, 3, signal));
+        }
+      } else {
+        if (!props.idFiles.frontSide) {
+          toast.error(
+            "Please ensure that you upload SIDE 1 of your identification document"
+          );
+        } else if (!props.idFiles.backSide) {
+          toast.error(
+            "Please ensure that you upload SIDE 2 of your identification document"
+          );
+        } else if (!imageSrc) {
+          toast.error(
+            "Something went wrong with your live photo, please try again"
+          );
+        } else {
+          toast.error(
+            "Submission unsuccessful. Please verify that all required files have been uploaded correctly"
+          );
+        }
+      }
+    } else {
       const controller = new AbortController();
       const signal = controller.signal;
 
@@ -91,37 +135,6 @@ const LivePhotoCheck = (props) => {
           (blob) => new File([blob], "live_photo.jpg", { type: "image/jpeg" })
         );
       dispatch(uploadKYCFile(file, 4, signal));
-
-      // Front side
-      if (props.idFiles.frontSide) {
-        const frontSideFormData = props.idFiles.frontSide;
-
-        dispatch(uploadKYCFile(frontSideFormData, 3, signal));
-      }
-      // Back side
-      if (props.idFiles.backSide) {
-        const backSideFormData = props.idFiles.backSide;
-
-        dispatch(uploadKYCFile(backSideFormData, 3, signal));
-      }
-    } else {
-      if (!props.idFiles.frontSide) {
-        toast.error(
-          "Please ensure that you upload SIDE 1 of your identification document"
-        );
-      } else if (!props.idFiles.backSide) {
-        toast.error(
-          "Please ensure that you upload SIDE 2 of your identification document"
-        );
-      } else if (!imageSrc) {
-        toast.error(
-          "Something went wrong with your live photo, please try again"
-        );
-      } else {
-        toast.error(
-          "Submission unsuccessful. Please verify that all required files have been uploaded correctly"
-        );
-      }
     }
   };
 
@@ -219,8 +232,10 @@ const LivePhotoCheck = (props) => {
                     >
                       {disableVerifyButton ? (
                         <div className={classes.Spinner}></div>
-                      ) : (
+                      ) : props.idFiles ? (
                         translate(`Submit Files`)
+                      ) : (
+                        translate(`Submit Live Photo`)
                       )}
                     </button>
                   </div>
@@ -235,7 +250,9 @@ const LivePhotoCheck = (props) => {
                       className={classes.Button}
                       disabled
                     >
-                      {translate(`Submit Files`)}
+                      {props.idFiles
+                        ? translate(`Submit Files`)
+                        : translate(`Submit Live Photo`)}
                     </button>
                   </div>
                 )}

@@ -269,11 +269,11 @@ const WithdrawPaymentForm = (props) => {
           {Name !== "PaymentType" && Name !== "PaymentMethod" && (
             <p style={{ color: "var(--brand-green)" }}>*</p>
           )}
-          {Name === "Amount" && (
+          {/* {Name === "Amount" && (
             <p style={{ color: "lightblue", fontWeight: "300" }}>
               {translate(`(Minimum amount: €20)`)}
             </p>
-          )}
+          )} */}
         </label>
         {inputElement}
       </div>
