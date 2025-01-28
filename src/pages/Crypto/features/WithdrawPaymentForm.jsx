@@ -22,6 +22,10 @@ const WithdrawPaymentForm = (props) => {
   const limitMessage = useSelector(
     (state) => state.crypto.withdrawLimitMessage
   );
+  const typeMinAmount = useSelector((state) => state.crypto.typeMinAmount);
+  const typeMaxAmount = useSelector((state) => state.crypto.typeMaxAmount);
+  const methodMinAmount = useSelector((state) => state.crypto.methodMinAmount);
+  const methodMaxAmount = useSelector((state) => state.crypto.methodMaxAmount);
 
   const [formData, setFormData] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
@@ -296,6 +300,26 @@ const WithdrawPaymentForm = (props) => {
               }}
             ></div>
           )}
+          <div className={classes.PaymentInfo}>
+            {(methodMinAmount || typeMinAmount) && (
+              <div className={classes.Info}>
+                <p>
+                  {translate(`Minimum amount`)}
+                  {": €"}
+                  {`${methodMinAmount || typeMinAmount}`}
+                </p>
+              </div>
+            )}
+            {(methodMaxAmount || typeMaxAmount) && (
+              <div className={classes.Info}>
+                <p>
+                  {translate(`Maximum amount`)}
+                  {": €"}
+                  {`${methodMaxAmount || typeMaxAmount}`}
+                </p>
+              </div>
+            )}
+          </div>
           <form onSubmit={handleSubmit} className={classes.InputsForm}>
             {props.method.Fields.map((field) => renderInputField(field))}
             <div className={classes.Text}>

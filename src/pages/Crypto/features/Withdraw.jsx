@@ -42,6 +42,12 @@ const Withdraw = () => {
   };
 
   const selectPaymentType = (type) => {
+    if (type.MinAmount) {
+      dispatch(cryptoActions.setTypeMinAmount(type.MinAmount));
+    }
+    if (type.MaxAmount) {
+      dispatch(cryptoActions.setTypeMaxAmount(type.MaxAmount));
+    }
     dispatch(cryptoActions.setSelectedPaymentTypeWithdraw(type));
   };
   const selectPaymentMethod = (type) => {

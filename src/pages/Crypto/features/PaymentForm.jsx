@@ -9,7 +9,6 @@ import { translate } from "../../../utils/translations";
 import config from "../../../config";
 
 import { submitDepositForm } from "../cryptoAsyncActions";
-import Dropdown4 from "../../../features/UI/Dropdown/Dropdown4";
 
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 import ErrorIcon from "../../../assets/svgs/errorpayment.svg?react";
@@ -21,12 +20,16 @@ const PaymentForm = (props) => {
 
   const lang = useSelector((state) => state.app.lang);
 
-  const [formData, setFormData] = useState({});
-  const [disabledButton, setDisabledButton] = useState(true);
-  const depositAddress = useSelector((state) => state.crypto.depositAddress);
   const limitMessage = useSelector(
     (state) => state.crypto.withdrawLimitMessage
   );
+  const typeMinAmount = useSelector((state) => state.crypto.typeMinAmount);
+  const typeMaxAmount = useSelector((state) => state.crypto.typeMaxAmount);
+  const methodMinAmount = useSelector((state) => state.crypto.methodMinAmount);
+  const methodMaxAmount = useSelector((state) => state.crypto.methodMaxAmount);
+
+  const [formData, setFormData] = useState({});
+  const [disabledButton, setDisabledButton] = useState(true);
 
   const debouncedFormData = useDebounce(formData, 300);
 
@@ -50,7 +53,6 @@ const PaymentForm = (props) => {
   useEffect(() => {
     if (props.method && props.method.Fields) {
       const initialData = props.method.Fields.reduce((f, field) => {
-        // Only include fields where Deposit is true
         if (field.Deposit !== false) {
           f[field.Name] = "AF";
           if (field.Name === "Country" && field.DefaultValue) {
@@ -65,7 +67,6 @@ const PaymentForm = (props) => {
             }
           }
         }
-
         return f;
       }, {});
       setFormData(initialData);
@@ -449,11 +450,15 @@ const PaymentForm = (props) => {
           {Name !== "PaymentType" && Name !== "PaymentMethod" && (
             <p style={{ color: "var(--brand-green)" }}>*</p>
           )}
-          {Name === "Amount" && (
+          {/* {Name === "Amount" && (
             <p style={{ color: "lightblue", fontWeight: "300" }}>
-              {translate(`(Minimum amount: €20)`)}
+              {"("}
+              {translate(`Minimum amount`)}
+              {": €"}
+              {`${minAmount}`}
+              {")"}
             </p>
-          )}
+          )} */}
         </label>
         {inputElement}
       </div>
@@ -473,6 +478,26 @@ const PaymentForm = (props) => {
               }}
             ></div>
           )}
+          <div className={classes.PaymentInfo}>
+            {(methodMinAmount || typeMinAmount) && (
+              <div className={classes.Info}>
+                <p>
+                  {translate(`Minimum amount`)}
+                  {": €"}
+                  {`${methodMinAmount || typeMinAmount}`}
+                </p>
+              </div>
+            )}
+            {(methodMaxAmount || typeMaxAmount) && (
+              <div className={classes.Info}>
+                <p>
+                  {translate(`Maximum amount`)}
+                  {": €"}
+                  {`${methodMaxAmount || typeMaxAmount}`}
+                </p>
+              </div>
+            )}
+          </div>
           <form onSubmit={handleSubmit} className={classes.InputsForm}>
             {props.method.Fields.map((field) => renderInputField(field))}
             <div className={classes.Text}>

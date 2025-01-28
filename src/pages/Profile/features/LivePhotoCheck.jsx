@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { translate } from "../../../utils/translations";
 
-const LivePhotoCheck = () => {
+const LivePhotoCheck = (props) => {
   const dispatch = useDispatch();
 
   const webcamRef = useRef(null);
@@ -27,6 +27,10 @@ const LivePhotoCheck = () => {
   const [loading, setLoading] = useState(true);
   const [webcamVisible, setWebcamVisible] = useState(true);
   const [resultVisible, setResultVisible] = useState(false);
+
+  useEffect(() => {
+    loadModels();
+  }, []);
 
   // Load face-api models
   const loadModels = async () => {
@@ -76,7 +80,7 @@ const LivePhotoCheck = () => {
   };
 
   const submitLivePhoto = async (imageSrc) => {
-    if (imageSrc) {
+    if (imageSrc && props.idFiles.frontSide && props.idFiles.backSide) {
       const controller = new AbortController();
       const signal = controller.signal;
 
@@ -86,16 +90,63 @@ const LivePhotoCheck = () => {
         .then(
           (blob) => new File([blob], "live_photo.jpg", { type: "image/jpeg" })
         );
-
       dispatch(uploadKYCFile(file, 4, signal));
+
+      // Front side
+      if (props.idFiles.frontSide) {
+        const frontSideFormData = props.idFiles.frontSide;
+
+        dispatch(uploadKYCFile(frontSideFormData, 3, signal));
+      }
+      // Back side
+      if (props.idFiles.backSide) {
+        const backSideFormData = props.idFiles.backSide;
+
+        dispatch(uploadKYCFile(backSideFormData, 3, signal));
+      }
     } else {
-      toast.error("Submission Failed");
+      if (!props.idFiles.frontSide) {
+        toast.error(
+          "Please ensure that you upload SIDE 1 of your identification document"
+        );
+      } else if (!props.idFiles.backSide) {
+        toast.error(
+          "Please ensure that you upload SIDE 2 of your identification document"
+        );
+      } else if (!imageSrc) {
+        toast.error(
+          "Something went wrong with your live photo, please try again"
+        );
+      } else {
+        toast.error(
+          "Submission unsuccessful. Please verify that all required files have been uploaded correctly"
+        );
+      }
     }
   };
 
-  useEffect(() => {
-    loadModels();
-  }, []);
+  // const submitIDfiles = () => {
+  //   const controller = new AbortController();
+  //   const signal = controller.signal;
+
+  //   // Front side
+  //   if (props.idFiles.frontSide) {
+  //     const frontSideFormData = props.idFiles.frontSide;
+
+  //     dispatch(uploadKYCFile(frontSideFormData, 3, signal));
+  //   } else {
+  //     console.log("Front side of the ID is required.");
+  //   }
+
+  //   // Back side
+  //   if (props.idFiles.backSide) {
+  //     const backSideFormData = props.idFiles.backSide;
+
+  //     dispatch(uploadKYCFile(backSideFormData, 3, signal));
+  //   } else {
+  //     console.log("Back side of the ID is required.");
+  //   }
+  // };
 
   return (
     <div className={classes.Container}>
@@ -169,7 +220,7 @@ const LivePhotoCheck = () => {
                       {disableVerifyButton ? (
                         <div className={classes.Spinner}></div>
                       ) : (
-                        translate(`Submit`)
+                        translate(`Submit Files`)
                       )}
                     </button>
                   </div>
@@ -177,13 +228,14 @@ const LivePhotoCheck = () => {
                   <div className={classes.RetakePhoto}>
                     <button
                       style={{
-                        backgroundColor: "#80808029",
+                        opacity: "0.3",
+                        background: "var(--brand-color)",
                         pointerEvents: "none",
                       }}
                       className={classes.Button}
                       disabled
                     >
-                      {translate(`Submit`)}
+                      {translate(`Submit Files`)}
                     </button>
                   </div>
                 )}

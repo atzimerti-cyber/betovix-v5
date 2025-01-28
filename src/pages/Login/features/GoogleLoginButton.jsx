@@ -1,12 +1,9 @@
-import React from 'react';
-import { GoogleLogin } from '@react-oauth/google';
-import { toast } from 'react-toastify';
-import config from '../../../config';
-import { loginActions } from '../loginSlice';
-import { setAccessToken } from '../../../utils/auth';
-import { logingGoogle } from '../loginAsyncActions';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React from "react";
+import { GoogleLogin } from "@react-oauth/google";
+import { toast } from "react-toastify";
+import { logingGoogle } from "../loginAsyncActions";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 const GoogleLoginButton = () => {
   const dispatch = useDispatch();
@@ -16,13 +13,11 @@ const GoogleLoginButton = () => {
   const onSuccess = (credentialResponse) => {
     const affcode = localStorage.getItem("AffiliateCode");
 
-    const body = { 
+    const body = {
       Token: credentialResponse.credential,
-      ...(affcode && { code: affcode }) 
+      ...(affcode && { code: affcode }),
     };
 
-    console.log("dispatch(logingGoogle(body, navigate, location.pathname));")
-    // Dispatch the login action
     dispatch(logingGoogle(body, navigate, location.pathname));
 
     // Example of what the old fetch method did, if needed:
@@ -50,16 +45,16 @@ const GoogleLoginButton = () => {
   };
 
   const onFailure = () => {
-    toast.error('Login Failed');
+    toast.error("Login Failed");
   };
 
   return (
     <GoogleLogin
       onSuccess={onSuccess}
       onError={onFailure}
-      buttonText="" 
+      buttonText=""
       theme="dark"
-      icon={true} 
+      icon={true}
       uxMode="redirect"
     />
   );

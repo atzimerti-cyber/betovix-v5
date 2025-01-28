@@ -51,6 +51,23 @@
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
 }
+
+.PromoBannerImg {
+  height: 100%;
+  left: 50%;
+  max-height: 407px;
+  min-width: 768px;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  transform: translateX(-50%);
+  z-index: -1;
+  width: 100%;
+  object-position: top;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
 .Title {
   font-size: 2rem;
   font-weight: 700;
@@ -92,7 +109,6 @@
   position: relative;
   width: 100%;
 }
-
 
 .BgImage {
   background-repeat: no-repeat;

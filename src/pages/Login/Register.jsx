@@ -10,7 +10,7 @@ import useDebounce from "../../hooks/useDebounce";
 import Autoheight from "../../features/UI/Autoheight/Autoheight";
 import EyeIcon from "../../assets/svgs/eye.svg?react";
 import Times2Icon from "../../assets/svgs/times2.svg?react";
-import CheckIcon from "../../assets/svgs/check.svg?react"; 
+import CheckIcon from "../../assets/svgs/check.svg?react";
 import { register } from "./loginAsyncActions";
 import { translate } from "../../utils/translations";
 import { affiliateCampaigns } from "./loginAsyncActions";
@@ -19,7 +19,6 @@ import { loginActions } from "../../pages/Login/loginSlice";
 import { Link } from "react-router-dom";
 import config from "../../config";
 import AlternativeMethods from "./features/AlternativeMethods";
-import Arrow2LeftIcon from "../../assets/svgs/arrow2-left.svg?react";
 import AngleLeftIcon from "../../assets/svgs/angle-left.svg?react";
 import { isMoreThan14DaysOld } from "../../utils/custom";
 
@@ -762,7 +761,7 @@ const Register = () => {
                 noAutoComplete
                 isInvalid={!validChecks.email}
               />
-            </div> 
+            </div>
 
             <div className={classes.CheckboxContainer}>
               <input
@@ -817,10 +816,15 @@ const Register = () => {
             </div>
           </div>
         )}
-        <p className={classes.LoginWith}>{translate("or register with")}</p>
-        <GoogleOAuthProvider clientId={config.VITE_GOOGLE_CLIENT_ID}>
-          <AlternativeMethods />
-        </GoogleOAuthProvider>
+
+        {config.VITE_GOOGLE_CLIENT_ID !== "" && (
+          <>
+            <p className={classes.LoginWith}>{translate("or register with")}</p>
+            <GoogleOAuthProvider clientId={config.VITE_GOOGLE_CLIENT_ID}>
+              <AlternativeMethods />
+            </GoogleOAuthProvider>
+          </>
+        )}
         <p
           style={{
             fontSize: "0.75rem",

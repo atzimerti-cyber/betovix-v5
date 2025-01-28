@@ -399,18 +399,26 @@ const Verification = () => {
             className={`${classes.AccordionBase} ${
               !isLevel3Visible ? classes.Closed : ""
             }`}
-            onClick={() => setLevel3Visible(!isLevel3Visible)}
+            onClick={() => {
+              setLevel3Visible(!isLevel3Visible);
+              setLevel4Visible(!isLevel4Visible);
+            }}
           >
             <div className={classes.AccTitle}>
-              <p>{translate("ID")}</p>
+              <p>
+                {translate("ID")}
+                {" / "}
+                {translate("Live photo check")}
+              </p>
               <AngleUpIcon />
             </div>
           </div>
           {isLevel3Visible && (
             <div className={classes.AccordionContent}>
               <p className={classes.AccContentHeader}>
-                {translate("Upload Identification")}
+                &#8226; {translate("Upload ID Photos")}
               </p>
+              {/* <p>{translate("Upload Identification")}.</p> */}
               {level3Status === 0 && (
                 <div className={classes.IDForms}>
                   <form onSubmit={handleIDSubmit} style={{ width: "100%" }}>
@@ -472,7 +480,7 @@ const Verification = () => {
                         )}
                       </div>
                     </div>
-                    <div className={classes.FileForms}>
+                    {/* <div className={classes.FileForms}>
                       <button
                         disabled={disableVerifyButton}
                         type="submit"
@@ -490,7 +498,7 @@ const Verification = () => {
                           translate(`Upload Both Sides`)
                         )}
                       </button>
-                    </div>
+                    </div> */}
                   </form>
                 </div>
               )}
@@ -621,24 +629,101 @@ const Verification = () => {
                   </p>
                 </div>
               )}
+              {isLevel4Visible && (
+                <>
+                  {/* <div className={classes.AccordionContent}> */}
+                  <p
+                    className={classes.AccContentHeader}
+                    style={{ marginTop: "1rem" }}
+                  >
+                    &#8226;{" "}
+                    {translate(
+                      "Take an interactive selfie and ID picture with liveness check"
+                    )}
+                    .
+                  </p>
+                  {level4Status === 0 && <LivePhotoCheck idFiles={idFiles} />}
+                  {level4Status === 1 && (
+                    <p style={{ color: "var(--yellow-accent-color)" }}>
+                      {translate(`Verification Pending`)}.
+                      {translate(`This might take a while`)}
+                      {pendingDots}
+                    </p>
+                  )}
+                  {level4Status === 2 && (
+                    <>
+                      <div
+                        style={{
+                          backgroundColor: "var(--sidebar-left-menu-item)",
+                          display: "flex",
+                          flexDirection: "row",
+                          columnGap: "0.5rem",
+                          width: "100%",
+                          padding: "0.4rem 0.9rem 0rem 0.9rem",
+                        }}
+                      >
+                        <WarningIcon height="20px" width="20px" />
+                        <p
+                          style={{
+                            color: "var(--cancelled)",
+                            textAlign: "start",
+                          }}
+                        >
+                          {translate(`Your request was rejected`)}.
+                          {translate(`Retake a photo for
+                      reevaluation`)}
+                          .
+                        </p>
+                      </div>
+                      <LivePhotoCheck />
+                    </>
+                  )}
+                  {level4Status === 3 && (
+                    <div
+                      style={{
+                        backgroundColor: "var(--sidebar-left-menu-item)",
+                        display: "flex",
+                        flexDirection: "row",
+                        columnGap: "0.5rem",
+                        width: "100%",
+                        padding: "0.4rem 0.9rem 0.4rem 0.9rem",
+                      }}
+                    >
+                      <SuccessIcon height="20px" width="20px" />
+                      <p
+                        style={{
+                          color: "var(--brand-green)",
+                          textAlign: "start",
+                        }}
+                      >
+                        {translate(
+                          `Your live photo check has been successfully verified`
+                        )}
+                        .
+                      </p>
+                    </div>
+                  )}
+                  {/* </div> */}
+                </>
+              )}
             </div>
           )}
         </div>
 
         {/* Level 4 Accordion */}
-        <div className={classes.FormGroup}>
-          <div
+        {/* <div className={classes.FormGroup}> */}
+        {/* <div
             className={`${classes.AccordionBase} ${
               !isLevel4Visible ? classes.Closed : ""
             }`}
-            onClick={() => setLevel4Visible(!isLevel4Visible)}
-          >
-            <div className={classes.AccTitle}>
+             onClick={() => setLevel4Visible(!isLevel4Visible)}
+          > */}
+        {/* <div className={classes.AccTitle}>
               <p>{translate("Live photo check")}</p>
               <AngleUpIcon />
-            </div>
-          </div>
-          {isLevel4Visible && (
+            </div> */}
+        {/* </div> */}
+        {/* {isLevel4Visible && (
             <div className={classes.AccordionContent}>
               <p>
                 {translate(
@@ -708,8 +793,8 @@ const Verification = () => {
                 </div>
               )}
             </div>
-          )}
-        </div>
+          )} */}
+        {/* </div> */}
 
         {/* Level 5 Accordion */}
         <div className={classes.FormGroup}>

@@ -145,11 +145,16 @@ const Login = () => {
             >
               {translate("Login")}
             </MainButton>
-
-            <p className={classes.LoginWith}>{translate("or login with")}</p>
-            <GoogleOAuthProvider clientId={config.VITE_GOOGLE_CLIENT_ID}>
-              <AlternativeMethods />
-            </GoogleOAuthProvider>
+            {config.VITE_GOOGLE_CLIENT_ID !== "" && (
+              <>
+                <p className={classes.LoginWith}>
+                  {translate("or login with")}
+                </p>
+                <GoogleOAuthProvider clientId={config.VITE_GOOGLE_CLIENT_ID}>
+                  <AlternativeMethods />
+                </GoogleOAuthProvider>
+              </>
+            )}
             <MainButton
               color="transparent"
               onClick={() => changeTab("forgot-password")}

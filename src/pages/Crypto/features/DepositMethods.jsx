@@ -23,6 +23,8 @@ const DepositMethods = () => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.delete("stage");
     dispatch(cryptoActions.resetCurrency());
+    dispatch(cryptoActions.setTypeMinAmount(null));
+    dispatch(cryptoActions.setTypeMaxAmount(null));
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
     });
@@ -51,6 +53,12 @@ const DepositMethods = () => {
   };
 
   const selectPaymentMethod = (method) => {
+    if (method.MinAmount) {
+      dispatch(cryptoActions.setMethodMinAmount(method.MinAmount));
+    }
+    if (method.MaxAmount) {
+      dispatch(cryptoActions.setMethodMaxAmount(method.MaxAmount));
+    }
     dispatch(cryptoActions.setSelectedPaymentMethodDeposit(method));
   };
 
@@ -63,11 +71,6 @@ const DepositMethods = () => {
             <span>{translate("Return to Deposit menu")}</span>
           </DsButton>
         </div>
-        {/* <div className={classes.ReturnEquivalent}>
-          <span>$1.00 =&nbsp;</span>
-          <CoinsIcon />
-          <span>1.00</span>
-        </div> */}
       </div>
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
@@ -89,12 +92,6 @@ const DepositMethods = () => {
                         navigateToModal("cashier", "deposit", "deposit");
                       }}
                     >
-                      {/* <img
-                        src={paymentType?.Icon}
-                        crossOrigin="anonymous"
-                        loading="lazy"
-                        alt={paymentType.Name}
-                      /> */}
                       <div
                         className={classes.Image}
                         style={{

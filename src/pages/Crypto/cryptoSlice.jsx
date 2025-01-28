@@ -18,6 +18,11 @@ const initialState = {
   withdrawRequestMessage: null,
   withdrawals: null,
   withdrawLimitMessage: null,
+  ///////PAYMENTS///////
+  typeMinAmount: null,
+  typeMaxAmount: null,
+  methodMinAmount: null,
+  methodMaxAmount: null,
 };
 
 export const cryptoSlice = createSlice({
@@ -93,6 +98,19 @@ export const cryptoSlice = createSlice({
     },
     setWithdrawLimitMessage: (state, action) => {
       state.withdrawLimitMessage = action.payload;
+    },
+    ///////PAYMENTS///////
+    setTypeMinAmount: (state, action) => {
+      state.typeMinAmount = action.payload;
+    },
+    setTypeMaxAmount: (state, action) => {
+      state.typeMaxAmount = action.payload;
+    },
+    setMethodMinAmount: (state, action) => {
+      state.methodMinAmount = action.payload;
+    },
+    setMethodMaxAmount: (state, action) => {
+      state.methodMaxAmount = action.payload;
     },
   },
 });

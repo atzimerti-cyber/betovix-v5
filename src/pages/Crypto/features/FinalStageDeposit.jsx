@@ -38,6 +38,8 @@ const FinalStageDeposit = () => {
       replace: true,
     });
     dispatch(cryptoActions.setDepositAddress(""));
+    dispatch(cryptoActions.setMethodMinAmount(null));
+    dispatch(cryptoActions.setMethodMaxAmount(null));
   };
 
   return (

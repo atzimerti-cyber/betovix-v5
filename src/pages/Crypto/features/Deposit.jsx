@@ -28,6 +28,12 @@ const Deposit = () => {
   }, []);
 
   const selectPaymentType = (type) => {
+    if (type.MinAmount) {
+      dispatch(cryptoActions.setTypeMinAmount(type.MinAmount));
+    }
+    if (type.MaxAmount) {
+      dispatch(cryptoActions.setTypeMaxAmount(type.MaxAmount));
+    }
     dispatch(cryptoActions.setSelectedPaymentTypeDeposit(type));
   };
   const selectPaymentMethod = (type) => {

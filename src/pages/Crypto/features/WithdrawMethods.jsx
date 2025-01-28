@@ -23,6 +23,8 @@ const WithdrawMethods = () => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.delete("stage");
     dispatch(cryptoActions.resetCurrency());
+    dispatch(cryptoActions.setTypeMinAmount(null));
+    dispatch(cryptoActions.setTypeMaxAmount(null));
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
     });
@@ -51,6 +53,12 @@ const WithdrawMethods = () => {
   };
 
   const selectPaymentMethod = (method) => {
+    if (method.MinAmount) {
+      dispatch(cryptoActions.setMethodMinAmount(method.MinAmount));
+    }
+    if (method.MaxAmount) {
+      dispatch(cryptoActions.setMethodMaxAmount(method.MaxAmount));
+    }
     dispatch(cryptoActions.setSelectedPaymentMethodWithdraw(method));
   };
 
@@ -89,7 +97,7 @@ const WithdrawMethods = () => {
                         navigateToModal("cashier", "withdraw", "withdraw");
                       }}
                     >
-                       <div
+                      <div
                         className={classes.Image}
                         style={{
                           backgroundImage: `url("${method.Icon}")`,

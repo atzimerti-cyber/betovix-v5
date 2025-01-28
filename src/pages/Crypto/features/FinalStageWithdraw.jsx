@@ -56,6 +56,8 @@ const FinalStageWithdraw = () => {
     dispatch(cryptoActions.setSelectedPaymentMethodWithdraw(null));
     dispatch(cryptoActions.setWithdrawRequestMessage(null));
     dispatch(cryptoActions.setWithdrawLimitMessage(null));
+    dispatch(cryptoActions.setMethodMinAmount(null));
+    dispatch(cryptoActions.setMethodMaxAmount(null));
   };
 
   return (

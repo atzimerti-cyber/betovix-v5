@@ -17,6 +17,7 @@ const Promotions = (props) => {
 
   const lang = useSelector((state) => state.app.lang);
   const promotions = useSelector((state) => state.promotions.promotions);
+  const promoImg = useSelector((state) => state.app.siteSettings.PromoImg);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -57,7 +58,14 @@ const Promotions = (props) => {
             </p>
           </div>
           <div className={classes.PromoBanner}>
-            <img src={PromoImage} alt="" />
+            {promoImg && promoImg !== "" ? (
+              <div
+                className={classes.PromoBannerImg}
+                style={{ backgroundImage: `url(${promoImg})` }}
+              ></div>
+            ) : (
+              <img src={PromoImage} alt="" />
+            )}
           </div>
         </div>
         <div className={classes.PromotionsBody}>

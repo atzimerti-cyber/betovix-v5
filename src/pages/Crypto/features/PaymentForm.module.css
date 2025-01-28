@@ -1,3 +1,9 @@
+.PaymentInfo {
+  margin-top: 0.3rem;
+  color: var(--brand-green);
+  font-weight: 500;
+  font-size: 11px;
+}
 .PaymentForm {
   padding: 0.5rem;
   width: 100%;
@@ -12,7 +18,7 @@
 }
 
 .InputsForm {
-  margin-top: 0.8rem;
+  margin-top: 0.3rem;
   display: flex;
   flex-direction: row;
   align-items: center;

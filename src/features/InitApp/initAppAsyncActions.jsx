@@ -22,7 +22,6 @@ import { layoutActions } from "../Layout/layoutSlice";
 import config from "../../config";
 
 import NoImageIcon from "../../assets/svgs/no-image.svg?react";
-import LeaderIcon from "../../assets/svgs/leader.svg?react";
 import PaperIcon from "../../assets/svgs/paper.svg?react";
 import PricesIcon from "../../assets/svgs/prices.svg?react";
 import LogoSmall1C from "../../assets/svgs/logo-small-oneColor.svg?react";
@@ -879,6 +878,11 @@ export const getSiteSettings = (signal) => {
       } else {
         const appPermission = getState().login;
         permissions = appPermission.notLoggedInPermissions;
+      }
+
+      if (response.data.Contents.Site.GoogleClientId) {
+        config.VITE_GOOGLE_CLIENT_ID =
+          response.data.Contents.Site.GoogleClientId;
       }
 
       dispatch(
