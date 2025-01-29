@@ -1,6 +1,7 @@
 /* mple/mov */
 :root {
   --white: #fbfbfb;
+  --white-lowop: #fbfbfbc2;
 
   --body-bg: #1a273c;
   --topbar-bg: #243552;
@@ -15,6 +16,7 @@
   --brand-green-lowop: #7291c77a;
 
   --brand-color: #4d6aa3;
+  --text-in-brand: black;
 
   --placeholder-light: #867ba7;
   --light-blue: #ac8bcf;
@@ -42,7 +44,7 @@
   --db-like: #cf8be7;
   --cancelled: #c13333;
   --cancelled-low-op: #c1333395;
-
+  --green: #33c14b;
   --yellow-accent-color: #e7c731;
 
   --lightcolor-low-op: #dbcff44a;
