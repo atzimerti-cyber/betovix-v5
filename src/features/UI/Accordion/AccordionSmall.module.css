@@ -6,8 +6,8 @@
 .AccordionHeader {
   background: var(--accordion-small-header);
   box-sizing: border-box;
-  box-shadow: rgb(25, 38, 43) 0px 1px 2px;
-  color: rgb(255, 255, 255);
+  box-shadow: #0a0a0a94 0px 1px 2px;
+  color: var(--white);
   cursor: pointer;
   pointer-events: auto;
   display: flex;
@@ -23,15 +23,13 @@
   transition: border-radius 0.2s ease 0s;
   user-select: none;
   z-index: 20;
-
   min-height: 40px;
   border-radius: 6px;
-
   gap: 8px;
 }
 
 .HeaderContent {
-  color: rgb(255, 255, 255);
+  color: var(--white);
   display: flex;
   -webkit-box-align: center;
   align-items: center;
@@ -59,7 +57,7 @@
   display: flex;
   -webkit-box-align: center;
   align-items: center;
-  fill: rgb(255, 255, 255);
+  fill: var(--white);
   width: 16px;
   height: 16px;
 }
@@ -69,7 +67,7 @@
 }
 
 .AccordionBase {
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 7px 2px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 1px 7px 2px;
   margin-block: 1rem;
   margin-inline: 0.72rem;
   display: flex;

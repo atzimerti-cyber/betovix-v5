@@ -1,19 +1,19 @@
 .SportSelection {
-    position: relative;
-    height: 45px;
+  position: relative;
+  height: 45px;
 }
 
-.SportSelection::after {
-    background: rgb(42, 65, 74);
-    content: '';
-    position: absolute;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    height: 1px;
-    z-index: 1;
+.SportSelection::after { 
+  background: var(--db-white-hover-light);
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  height: 1px;
+  z-index: 1;
 }
 
 .MenuContent {
-    width: 100%;
+  width: 100%;
 }

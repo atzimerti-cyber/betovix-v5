@@ -34,23 +34,23 @@
   font-size: 0.75rem;
 }
 .DropdownInner > input::placeholder {
-  color: var(--placeholder-light);
+  color: var(--white-lowop);
   opacity: 1;
 }
 .DropdownInner > input::-webkit-input-placeholder {
-  color: var(--placeholder-light);
+  color: var(--white-lowop);
   opacity: 1;
 }
 .DropdownInner > input::-moz-placeholder {
-  color: var(--placeholder-light);
+  color: var(--white-lowop);
   opacity: 1;
 }
 .DropdownInner > input:-ms-input-placeholder {
-  color: var(--placeholder-light);
+  color: var(--white-lowop);
   opacity: 1;
 }
 .DropdownInner > input:-moz-placeholder {
-  color: var(--placeholder-light);
+  color: var(--white-lowop);
   opacity: 1;
 }
 
@@ -108,13 +108,16 @@
   background-color: var(--db-gray-4);
   transition-duration: 0.2s;
 }
+.SearchContainer svg path {
+  fill: var(--brand-green);
+}
 .MenuTitle {
   padding: 0.625rem 0.75rem;
   font-size: 1.15rem;
 }
 
 .ClearLabel {
-  border-color: var(--sb-search);
+  color: var(--white);
   cursor: pointer;
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
@@ -125,7 +128,7 @@
 }
 .ClearLabel.Disabled {
   cursor: auto;
-  color: var(--db-gray-4);
+  color: var(--white-lowop);
 }
 .SelectedCount {
   margin-left: 0.25rem;
@@ -139,7 +142,7 @@
 }
 .ClearLabel.Disabled .SelectedCount {
   cursor: auto;
-  color: var(--db-gray-4);
+  color: var(--white-lowop);
 }
 
 .SearchContainer input {
@@ -229,7 +232,7 @@
 }
 
 .Checkbox path {
-  fill: var(--mid-blue-1);
+  fill: var(--brand-green);
 }
 
 .VendorOption.Active .Checkbox svg path {
@@ -243,6 +246,10 @@
 
 .List {
   overflow-y: auto;
+}
+
+.List svg path {
+  fill: var(--brand-green);
 }
 
 /* Media */

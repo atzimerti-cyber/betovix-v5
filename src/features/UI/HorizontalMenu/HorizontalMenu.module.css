@@ -10,37 +10,22 @@
 .Item {
   display: flex;
   flex-direction: row;
-  animation-timeline: auto;
-  animation-range-start: normal;
-  animation-range-end: normal;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: justify;
-  justify-content: space-between;
-  text-align: left;
-  font-size: 12px;
-  margin-right: 3px;
-  display: flex;
-  flex-direction: row;
   animation: 0.3s ease-out 0.210938s 1 normal backwards running iJJWSU;
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: justify;
   justify-content: space-between;
   text-align: left;
-  border-bottom: 1px solid var(--db-gray-4);
   padding: 0px 10px;
   font-size: 12px;
   margin-right: 3px;
   line-height: 13px;
-  flex: 0 0 auto;
   color: var(--white);
   fill: var(--white);
   height: 45px;
   width: auto;
   margin-inline-end: 3px;
   z-index: 3;
-
   appearance: none;
   background: none;
   border: none;
@@ -65,8 +50,6 @@
   user-select: none;
   white-space: nowrap;
   border-bottom: solid 1px transparent;
-
-  transition: color 0.3s;
 }
 
 .SportIcon {

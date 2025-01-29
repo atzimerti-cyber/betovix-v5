@@ -3,8 +3,8 @@
   background: var(--button-grad-op1);
   border: none;
   border-radius: 6px;
-  color: rgb(228, 248, 255);
-  fill: rgb(228, 248, 255);
+  color: var(--white);
+  fill: var(--white);
   cursor: pointer;
   display: flex;
   -webkit-box-align: center;

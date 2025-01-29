@@ -1,5 +1,6 @@
 :root {
   --white: #fbfbfb;
+  --white-lowop: #fbfbfbc2;
 
   --body-bg: #0d2a3e;
   --topbar-bg: #0e1b26;
@@ -14,6 +15,7 @@
   --brand-green-lowop: #88be2b7a;
 
   --brand-color: #4a9932;
+  --text-in-brand: var(--white);
 
   --placeholder-light: #738fa7;
   --light-blue: #199bcf;
@@ -41,7 +43,7 @@
   --db-like: #c13333;
   --cancelled: #c13333;
   --cancelled-low-op: #c1333395;
-
+  --green: #33c14b;
   --yellow-accent-color: #f1bf2b;
 
   --lightcolor-low-op: #add8e64a;

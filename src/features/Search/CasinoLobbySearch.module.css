@@ -19,10 +19,10 @@
   border: 1px solid transparent;
 }
 .SearchInput:focus {
-  border: 1px solid var(--brand-green-lowop);
+  border: 1px solid var(--brand-green);
 }
 .SearchInput::placeholder {
-  color: var(--placeholder-light);
+  color: var(--white-lowop);
 }
 .RightIcon {
   right: 1rem;

@@ -9,12 +9,15 @@
   display: flex;
 }
 .InputBox svg {
-  fill: var(--placeholder-light);
+  fill: var(--white);
   margin-inline: 14px 8px;
   width: 16px;
   height: 16px;
   position: absolute;
   pointer-events: none;
+}
+.InputBox svg path {
+  fill: var(--white);
 }
 
 .InputBox input {
@@ -34,22 +37,22 @@
 }
 
 .InputBox input::placeholder {
-  color: var(--placeholder-light);
+  color: var(--white-lowop);
   opacity: 1;
 }
 .InputBox input::-webkit-input-placeholder {
-  color: var(--placeholder-light);
+  color: var(--white-lowop);
   opacity: 1;
 }
 .InputBox input::-moz-placeholder {
-  color: var(--placeholder-light);
+  color: var(--white-lowop);
   opacity: 1;
 }
 .InputBox input:-ms-input-placeholder {
-  color: var(--placeholder-light);
+  color: var(--white-lowop);
   opacity: 1;
 }
 .InputBox input:-moz-placeholder {
-  color: var(--placeholder-light);
+  color: var(--white-lowop);
   opacity: 1;
 }

@@ -15,7 +15,7 @@
   -webkit-box-pack: justify;
   justify-content: space-between;
   line-height: 20px;
-  fill: white;
+  fill: var(--white);
   white-space: nowrap;
   padding-inline: 12px;
   padding-block: 8px;
@@ -64,7 +64,7 @@
 }
 
 .Group.IsOpen {
-  border-top-right-radius: 20px;
+  border-top-right-radius: 15px;
   border: 0px solid transparent;
 }
 .Group.IsOpen .DropdownIcon {
@@ -72,11 +72,11 @@
 }
 .Group.IsOpen .Title {
   background: var(--light-blue-2);
-  color: white;
+  color: var(--white);
   font-weight: 600;
 }
 .Group.IsOpen .TitleIcon svg path {
-  fill: white;
+  fill: var(--white);
 }
 
 .TournamentGroup {
@@ -85,4 +85,7 @@
   align-items: stretch;
   flex-direction: column;
   margin-inline: 0px;
+  padding-bottom: 15px;
+  background: var(--light-blue-2);
+  border-radius: 15px;
 }

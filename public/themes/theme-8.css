@@ -1,6 +1,7 @@
 /* SLOTKING */
 :root {
   --white: #fbfbfb;
+  --white-lowop: #fbfbfbc2;
 
   --body-bg: #060f38;
   --topbar-bg: #030822;
@@ -17,6 +18,7 @@
 
   --brand-color: #fbe184;
   --brand-color: #d9c372;
+  --text-in-brand: black;
 
   --placeholder-light: #d3d2f272;
   --light-blue: #fbe184;
@@ -45,7 +47,7 @@
   --db-like: #8c8c8c;
   --cancelled: #c13333;
   --cancelled-low-op: #c1333395;
-
+  --green: #33c14b;
   --yellow-accent-color: #fbe184;
 
   --lightcolor-low-op: rgba(251, 251, 251, 0.05);

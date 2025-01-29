@@ -1,6 +1,7 @@
 /* kafe/kitrino */
 :root {
   --white: #fbfbfb;
+  --white-lowop: #fbfbfbc2;
 
   --body-bg: #0c0f16;
   --topbar-bg: #10141d;
@@ -15,6 +16,7 @@
   --brand-green-lowop: #ff410186;
 
   --brand-color: #ff4001;
+  --text-in-brand: rgb(255, 255, 255);
 
   --placeholder-light: #7d839d;
   --light-blue: #d4d4d4;
@@ -42,7 +44,7 @@
 
   --db-like: #cfcfcf;
   --cancelled: #cfcfcf;
-
+  --green: #33c14b;
   --yellow-accent-color: #f1bf2b;
 
   --lightcolor-low-op: #dbdbdb4a;

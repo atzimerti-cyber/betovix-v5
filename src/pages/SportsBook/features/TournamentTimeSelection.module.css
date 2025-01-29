@@ -9,8 +9,8 @@
   background: var(--button-grad-op1);
   border: none;
   border-radius: 6px;
-  color: rgb(228, 248, 255);
-  fill: rgb(228, 248, 255);
+  color: var(--white);
+  fill: var(--white);
   cursor: pointer;
   display: flex;
   -webkit-box-align: center;
@@ -21,7 +21,7 @@
   font-variant-east-asian: inherit;
   font-variant-alternates: inherit;
   font-variant-position: inherit;
-  font-weight: 500;
+  font-weight: 400;
   font-stretch: inherit;
   font-size: inherit;
   line-height: inherit;
@@ -35,11 +35,18 @@
   overflow: hidden;
   padding: 0px 16px;
   position: relative;
-  transition: all 0.3s ease 0s;
+  transition: all 0.1s ease 0s;
   user-select: none;
   white-space: nowrap;
   border-radius: 0px;
   border-inline-end: 1px solid rgb(38, 58, 66);
+}
+
+.TimeSelectionButton span {
+  color: var(--white);
+}
+.TimeSelectionButton.Active span {
+  color: var(--text-in-brand);
 }
 
 .TimeSelectionButton:last-child {
@@ -55,9 +62,15 @@
 .TimeSelectionButton.Active svg path {
   fill: black;
 }
+.TimeSelectionButton:hover svg path {
+  fill: var(--text-in-brand);
+}
 
 .TimeSelectionButton:hover {
   background: var(--brand-green);
+}
+.TimeSelectionButton:hover span {
+  color: var(--text-in-brand);
 }
 
 .TimeSelectionButton:disabled {

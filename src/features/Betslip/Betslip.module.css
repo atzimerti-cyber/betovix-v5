@@ -138,8 +138,7 @@
   appearance: none;
   background: var(--brand-green);
   border: none;
-  color: rgb(255, 255, 255);
-  color: rgb(0, 0, 0);
+  color: var(--text-in-brand);
   cursor: pointer;
   border-radius: 4px;
   display: flex;

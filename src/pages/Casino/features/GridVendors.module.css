@@ -26,7 +26,7 @@
 }
 
 .Total {
-  background-color: #53748e4f;
+  background-color: var(--db-white-hover-light);
   margin-left: 1rem;
   color: #fffffff5;
   height: 1.5rem;

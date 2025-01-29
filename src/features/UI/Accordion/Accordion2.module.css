@@ -25,6 +25,7 @@
   padding-block: 7px;
   -webkit-box-align: center;
   align-items: center;
+  border-bottom: 1px solid var(--db-white-hover-light);
 }
 
 .TitleIcon {
@@ -67,7 +68,8 @@
 }
 
 .Title:hover {
-  background: var(--placeholder-light);
+  background: var(--light-blue-2);
+  background-color: var(--db-white-hover-light);
 }
 
 .Accordion.Open .Title {

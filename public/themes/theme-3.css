@@ -1,6 +1,7 @@
 /* prasino/kitrino */
 :root {
   --white: #fbfbfb;
+  --white-lowop: #fbfbfbc2;
 
   --body-bg: #1c3a27;
   --topbar-bg: #294c35;
@@ -16,6 +17,7 @@
 
   --brand-color: #4a9932;
 
+  --text-in-brand: black;
   --placeholder-light: #739f75;
   --light-blue: #d4a62e;
   --light-blue-2: #e2b44a;
@@ -42,7 +44,7 @@
   --db-like: #e7b146;
   --cancelled: #c13333;
   --cancelled-low-op: #c1333395;
-
+  --green: #33c14b;
   --yellow-accent-color: #f1df4b;
 
   --lightcolor-low-op: #f5e0944a;

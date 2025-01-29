@@ -1,5 +1,5 @@
 .EventRow {
-  border-block-end: 1px solid rgb(10, 49, 58);
+  border-block-end: 1px solid rgb(0 0 0 / 54%);
   display: flex;
   margin: 0px 10px;
   padding: 10px 0px;
@@ -108,7 +108,7 @@
 }
 
 .ScoreGroup {
-  color: rgb(51, 193, 108);
+  color: var(--green);
   display: flex;
 }
 
@@ -123,7 +123,7 @@
 }
 
 .ServerIndicator {
-  background: rgb(62, 235, 131);
+  background: var(--green);
   border-radius: 50%;
   margin: 10px 0px;
   transition: transform 0.4s cubic-bezier(0.5, -0.5, 0.5, 1.5) 0s;
@@ -134,7 +134,7 @@
 
 /* Outcome */
 .Outcome {
-  color: rgb(255, 255, 255);
+  color: var(--white);
   display: flex;
   flex-direction: column;
   -webkit-box-pack: justify;
@@ -155,7 +155,7 @@
   animation: 6s ease 0s infinite normal none running jQMcyq;
   background: var(--live-badge-purple);
   border-radius: 2px;
-  color: rgb(255, 255, 255);
+  color: var(--white);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -164,7 +164,7 @@
   text-shadow: rgba(41, 39, 33, 0.19) 0px 1px 2px;
   white-space: nowrap;
 }
- 
+
 @keyframes jQMcyq {
   0%,
   100% {

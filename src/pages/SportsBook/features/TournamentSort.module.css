@@ -1,52 +1,54 @@
 .DropdownWrapper {
-    display: flex;
-    -webkit-box-align: center;
-    align-items: center;
-    position: relative;
-    z-index: 90;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  position: relative;
+  z-index: 90;
 }
 .DropdownWrapper button svg:first-child {
-    width: 18px;
-    height: 18px;
-    margin-inline: -2px 8px;
+  width: 18px;
+  height: 18px;
+  margin-inline: -2px 8px;
 }
 .DropdownWrapper button svg:last-child {
-    width: 18px;
-    height: 18px;
-    margin-inline: 4px 0px;
-    transition: transform 0.2s ease 0s;
+  width: 18px;
+  height: 18px;
+  margin-inline: 4px 0px;
+  transition: transform 0.2s ease 0s;
 }
 .DropdownWrapper.Show button svg:last-child {
-    transform: scaleY(-1);
+  transform: scaleY(-1);
 }
 
 .DropdownMenu {
-    white-space: nowrap;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow-y: auto;
+  white-space: nowrap;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
 }
 
 .DropdownItem {
-    padding-inline-start: 1.5em;
-    cursor: pointer;
-    padding: 0.75em 1.5em;
-    transition: all 0.3s ease 0s;
-    border-bottom: 1px solid rgb(41, 61, 69);
-    color: #fff;
+  padding-inline-start: 1.5em;
+  cursor: pointer;
+  padding: 0.75em 0.7em;
+  transition: all 0.3s ease 0s;
+  border-bottom: 1px solid rgb(41, 61, 69);
+  color: var(--white);
 }
 .DropdownItem:first-child {
-    border-radius: 3px 3px 0px 0px;
+  border-radius: 3px 3px 0px 0px;
 }
 .DropdownItem:last-child {
-    border-radius: 0px 0px 3px 3px;
-    border-bottom: 0px !important;
+  border-radius: 0px 0px 3px 3px;
+  border-bottom: 0px !important;
 }
 .DropdownItem:hover {
-    background-color: var(--brand-green);
+  background-color: var(--brand-green);
+  color: var(--text-in-brand);
 }
 .DropdownItem.Active {
-    background-color: var(--brand-green);
+  background-color: var(--brand-green);
+  color: var(--text-in-brand);
 }

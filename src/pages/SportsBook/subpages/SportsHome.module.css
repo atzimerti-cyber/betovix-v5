@@ -54,6 +54,7 @@
   width: 100%;
   display: block;
   text-align: center;
+  color: var(--brand-green);
 }
 
 @container (min-width: 860px) {

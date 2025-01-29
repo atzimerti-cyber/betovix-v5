@@ -15,6 +15,9 @@
   width: 1.5rem;
   z-index: 1;
 }
+.Dropdown svg path {
+  fill: var(--dropdown-bg);
+}
 
 .DropdownMenu {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.26666666666666666);

@@ -1,6 +1,7 @@
 /* bet500.io */
 :root {
   --white: #fbfbfb;
+  --white-lowop: #fbfbfbc2;
 
   --body-bg: #0c0f16;
   --topbar-bg: #10141d;
@@ -16,6 +17,7 @@
 
   --brand-color: #80f803;
 
+  --text-in-brand: black;
   --placeholder-light: #7d839d;
   --light-blue: #80f803;
   --light-blue-2: #1d2433;
@@ -32,15 +34,15 @@
   --odds-button-border: #d8ffaf33;
   --odds-button: #0c0f16;
   --odds-button-disabled: #2121218f;
-  --card-odds-button: #b8bfd4;
-  --card-odds-button-selected: #40536a5d;
+  --card-odds-button: #b2b6c3;
+  --card-odds-button-selected: var(--brand-green);
   --card-odds-button-disabled: #4f4f4f30;
 
   --badge-new-purple: #8121c1;
   --live-badge-purple: #aa4aeb;
   --db-like: #cfcfcf;
-  --cancelled: #cfcfcf;
-
+  --cancelled: #c50d00de;
+  --green: #33c14b;
   --yellow-accent-color: #f1bf2b;
 
   --lightcolor-low-op: #dbdbdb4a;

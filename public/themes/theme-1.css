@@ -1,6 +1,7 @@
 /* mov/ kitrino */
 :root {
   --white: #fbfbfb;
+  --white-lowop: #fbfbfbc2;
 
   --body-bg: #200c36;
   --topbar-bg: #291a3e;
@@ -15,6 +16,7 @@
   --brand-green-lowop: #b06fcc7a;
 
   --brand-color: #9857a8;
+  --text-in-brand: black;
 
   --placeholder-light: #a783bf;
   --light-blue: #d4a62e;
@@ -42,7 +44,7 @@
   --db-like: #e74646;
   --cancelled: #c13333;
   --cancelled-low-op: #c1333395;
-
+  --green: #33c14b;
   --yellow-accent-color: #f1df4b;
 
   --lightcolor-low-op: #f5e0944a;
