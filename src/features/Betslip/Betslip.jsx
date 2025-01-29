@@ -133,7 +133,8 @@ const Betslip = memo(function (props) {
 
       points.push(point);
 
-      if (!isLive) notLiveSlips.push(point);
+     // if (!isLive)
+         notLiveSlips.push(point);
     });
     const pointsStr = JSON.stringify(notLiveSlips);
 
@@ -142,12 +143,13 @@ const Betslip = memo(function (props) {
 
       dispatch(getTicketUpdates(payload));
     };
+    timerIdRef.current = setInterval(pollingCallback, 5000);
 
-    if (notLiveSlips.length > 0) {
-      timerIdRef.current = setInterval(pollingCallback, 5000);
-    } else {
-      clearInterval(timerIdRef.current);
-    }
+    // if (notLiveSlips.length > 0) {
+    //   timerIdRef.current = setInterval(pollingCallback, 5000);
+    // } else {
+    //   clearInterval(timerIdRef.current);
+    // }
 
     // Reset amounts
     if (slips.length === 0) dispatch(betslipActions.setAmounts({}));
