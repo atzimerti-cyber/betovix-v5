@@ -11,6 +11,7 @@ const initialState = {
   selectedAccount: null,
   recoverId: null,
   usernameSent: false,
+  tfaToken: null,
 
   permissions: {
     AllowToHistory: false,
@@ -77,6 +78,9 @@ export const loginSlice = createSlice({
     },
     setPermissions(state, action) {
       state.permissions = action.payload;
+    },
+    setTFAtoken(state, action) {
+        state.tfaToken = action.payload;
     },
   },
 });

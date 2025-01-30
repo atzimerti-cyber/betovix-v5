@@ -86,6 +86,18 @@ export const login = (loginInfo, navigate, locationPathname) => {
         }
       }
 
+      if(response.data.Contents?.Status === 301) {
+        navigate(`${locationPathname}?modal=tfa`, {
+          replace: true,
+        });
+        dispatch(loginActions.setTFAtoken(response.data.Contents.Token));
+
+        let message = response.data.Contents?.Username;
+
+        if (!message) message = "Redirecting to TFA";
+        throw Error(message);
+      }
+
       setAccessToken(response.data.Contents.Token);
 
       const response2 = await axiosApi.get(
@@ -116,6 +128,47 @@ export const login = (loginInfo, navigate, locationPathname) => {
       const message = error?.message || "Invalid Login";
       toast.error(message);
       dispatch(loginActions.setLoginLoading(false));
+    }
+  };
+};
+
+export const verifyTfa = (
+  signal,
+  code,
+  token,
+  navigate,
+  locationPathname
+) => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+      const response = await axiosApi.get(
+        `login/Authenticate3?Data=${token}&OTP=${code}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+      if (response.data.Status.StatusCode === 200) {
+        toast.success("Account verified successfully");
+        setAccessToken(response.data.Contents.Token);
+
+        const response2 = await axiosApi.get(
+          `login/State/?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+          {
+            baseURLOverride: config.VITE_WALLET_API_BASE,
+          }
+        );
+        if (response2.data.Status.StatusCode !== 200)
+          throw Error(response2.data.Contents);
+
+        dispatch(loginActions.setUser(response2.data.Contents));
+        navigate(locationPathname, { replace: true });
+      } else {
+        toast.error(response.data.Contents);
+      }
+    } catch (error) {
+      toast.error("An error has occurred!");
     }
   };
 };

@@ -29,6 +29,7 @@ import TransactionsModal from "./Modals/TransactionsModal";
 import NotificationsModal from "./Modals/NotificationsModal";
 import CasinoGameOptionsModal from "./Modals/CasinoGameOptionsModal";
 import PleaseVerify from "./Modals/PleaseVerify";
+import TfaModal from './Modals/TfaModal';
 import PromoCodeModal from "./Modals/PromoCodeModal";
 import NotificationPopUp from "./Modals/NotificationPopUp";
 import CalendarModal from "./Modals/CalendarModal";
@@ -91,6 +92,8 @@ const ModalRoot = () => {
   else if (modal === "announcement") modalPage = <AnnouncementModal />;
   else if (modal === "promotion") modalPage = <PromotionModal />;
   else if (modal === "transactions") modalPage = <TransactionsModal />;
+  else if (modal === "tfa") modalPage = <TfaModal />;
+
   else if (modal === "bonus") {
     if (user) modalPage = <BonusModal />;
     else
