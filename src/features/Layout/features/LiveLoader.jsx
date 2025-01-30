@@ -32,6 +32,17 @@ const LiveLoader = () => {
 
   const liveStateRef = useRef(liveState);
   const incompleteDataRef = useRef(incompleteDataEvents);
+  const eventLiveRef = useRef(null);
+  const event = useSelector((state) => state.event.event);
+  const changedMarkets = useSelector((state) => state.event.changedMarkets);
+
+  useEffect(() => {
+      if (event) {
+          eventLiveRef.current = event;
+      } else {
+          eventLiveRef.current = null;
+      }
+  }, [event?.MatchId, changedMarkets]);
 
   // Connection. Reruns on change permissions for sports
   useEffect(() => {
@@ -42,7 +53,7 @@ const LiveLoader = () => {
     return () => {
       if (liveConnectionStored) {
         liveConnectionStored.off("onOddsUpdates");
-        liveConnectionStored.off("onOddsUpdate");
+        // liveConnectionStored.off("onOddsUpdate");
         liveConnectionStored.off("onProgramUpdates");
         liveConnectionStored.off("onMetaInfos");
         liveConnectionStored.off("onHeadersList");
@@ -117,32 +128,32 @@ const LiveLoader = () => {
         });
       }
     });
-    liveConnection.on("onOddsUpdate", (message) => {
-      const decompressedString = lzString.decompressFromUTF16(message);
-      const updateObj = JSON.parse(decompressedString);
+    // liveConnection.on("onOddsUpdate", (message) => {
+    //   const decompressedString = lzString.decompressFromUTF16(message);
+    //   const updateObj = JSON.parse(decompressedString);
 
-      if (updateObj.length) {
-        const foundEvent = liveStateRef.current[updateObj.Id];
-        if (foundEvent) {
-          const updatedMarkets = getUpdatedMarkets(
-            updateObj,
-            foundEvent.Markets
-          );
-          dispatch(
-            liveActions.updateEventMarkets({
-              matchId: updateObj.Id,
-              markets: updatedMarkets,
-            })
-          );
-          dispatch(
-            betslipActions.updateLiveSlipOdds({
-              matchId: updateObj.Id,
-              markets: updatedMarkets,
-            })
-          );
-        }
-      }
-    });
+    //   if (updateObj.length) {
+    //     const foundEvent = liveStateRef.current[updateObj.Id];
+    //     if (foundEvent) {
+    //       const updatedMarkets = getUpdatedMarkets(
+    //         updateObj,
+    //         foundEvent.Markets
+    //       );
+    //       dispatch(
+    //         liveActions.updateEventMarkets({
+    //           matchId: updateObj.Id,
+    //           markets: updatedMarkets,
+    //         })
+    //       );
+    //       dispatch(
+    //         betslipActions.updateLiveSlipOdds({
+    //           matchId: updateObj.Id,
+    //           markets: updatedMarkets,
+    //         })
+    //       );
+    //     }
+    //   }
+    // });
     liveConnection.on("onProgramUpdates", (message) => {
       const decompressedString = lzString.decompressFromUTF16(message);
       const updateObj = JSON.parse(decompressedString);
@@ -223,6 +234,11 @@ const LiveLoader = () => {
             dispatch(liveActions.addEvent(processedEvent));
           else dispatch(liveActions.addIncomplete(processedEvent));
         }
+
+        if (eventLiveRef?.current && eventLiveRef.current?.type === 'live' && eventLiveRef?.current.MatchId === matchId) {
+          dispatch(eventActions.updateLiveEventHeader(headerItem));
+      }
+
       });
     });
     // liveConnection.on('onOddsChangeFull', (message) => {

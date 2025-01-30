@@ -40,6 +40,7 @@ const Event = () => {
     (state) => state.event.selectedMarketCategoryIndex
   );
   const changedMarkets = useSelector((state) => state.event.changedMarkets);
+  const eventLiveRef = useRef(null);
 
   const event = useSelector((state) => state.event.event);
   const barLoading = useSelector((state) => state.app.barLoading);
@@ -85,6 +86,14 @@ const Event = () => {
       }
     };
   }, []);
+  
+  useEffect(() => {
+    if (event) {
+        eventLiveRef.current = event;
+    } else {
+        eventLiveRef.current = null;
+    }
+}, [event?.MatchId, changedMarkets]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -191,16 +200,16 @@ const Event = () => {
   }, [isMobile, event?.MatchId]);
 
   const handleOnOddsUpdate = (message) => {
-    if (!event) return;
-    if (event.type !== "live") return;
+    if (!eventLiveRef.current) return;
+    if (eventLiveRef.current.type !== "live") return;
 
     const decompressedString = lzString.decompressFromUTF16(message);
     const updateObj = JSON.parse(decompressedString);
 
     if (!updateObj) return;
 
-    if (updateObj.Id === event.MatchId) {
-      const updatedMarkets = getUpdatedMarkets(updateObj, event.Markets);
+    if (updateObj.Id === eventLiveRef.current.MatchId) {
+      const updatedMarkets = getUpdatedMarkets(updateObj, eventLiveRef.current.Markets);
       dispatch(eventActions.updateLiveMarkets(updatedMarkets));
       dispatch(
         betslipActions.updateLiveSlipOdds({
@@ -212,14 +221,14 @@ const Event = () => {
   };
 
   const handleOnHeadersUpdate = (message) => {
-    if (!event) return;
+    if (!eventLiveRef.current) return;
 
     const decompressedString = lzString.decompressFromUTF16(message);
     const updateObj = JSON.parse(decompressedString);
 
     if (!updateObj) return;
 
-    const found = updateObj.find((e) => e.MatchId == event.MatchId);
+    const found = updateObj.find((e) => e.MatchId == eventLiveRef.current.MatchId);
     if (found) {
       dispatch(eventActions.updateLiveEventHeader(found));
     }
@@ -247,12 +256,12 @@ const Event = () => {
       });
 
     liveConnection.on("onOddsUpdate", handleOnOddsUpdate);
-    liveConnection.on("onHeadersList", handleOnHeadersUpdate);
+    // liveConnection.on("onHeadersList", handleOnHeadersUpdate);
 
     return () => {
       if (liveConnection) {
         liveConnection.off("onOddsUpdate", handleOnOddsUpdate);
-        liveConnection.off("onHeadersList", handleOnHeadersUpdate);
+        // liveConnection.off("onHeadersList", handleOnHeadersUpdate);
       }
     };
   }, [event?.MatchId, liveConnection?.state]);
