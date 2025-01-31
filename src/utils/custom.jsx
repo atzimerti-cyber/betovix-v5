@@ -183,7 +183,7 @@ export function getSportMarketTreeObj(sportMarketTree) {
         const market = sub.childs[m];
 
         if (!market) continue;
-        if (!market.childs || market.childs.length === 0) continue;
+        // if (!market.childs || market.childs.length === 0) continue;
 
         const marketTypeId = market.data.Id;
 
