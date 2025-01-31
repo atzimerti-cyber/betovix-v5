@@ -6,12 +6,14 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import CloseButton from "../../UI/Buttons/CloseButton";
 import BellIcon from "../../../assets/svgs/bell.svg?react";
+import { formatDate } from "../../../utils/custom";
 
 const NotificationPopUp = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
 
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang);
 
   const notification = useSelector(
@@ -60,8 +62,9 @@ const NotificationPopUp = (props) => {
               <p className={classes.Message}>{notification.message}</p>
               <p className={classes.Date}>
                 {notification.date
-                  ? formatUserFriendlyDate(`${notification.date}`)
-                  : " "}
+                  ? formatDate(notification.date, "datetime")
+                  : // ? formatUserFriendlyDate(`${notification.date}`)
+                    " "}
               </p>
             </>
           )}

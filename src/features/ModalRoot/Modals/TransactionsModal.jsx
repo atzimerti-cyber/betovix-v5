@@ -9,11 +9,14 @@ import ModalHeader from "../features/ModalHeader";
 import TransactionsIcon from "../../../assets/svgs/trans-icon.svg?react";
 import AngleLeftIcon from "../../../assets/svgs/angle-left.svg?react";
 import AngleRightIcon from "../../../assets/svgs/angle-right.svg?react";
+import { formatDate } from "../../../utils/custom";
 
 const TransactionsModal = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const dispatch = useDispatch();
+
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const user = useSelector((state) => state.login.user);
 
@@ -268,19 +271,19 @@ const TransactionsModal = () => {
     }
   };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleString("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      fractionalSecondDigits: 2,
-      hour12: false,
-    });
-  };
+  // const formatDate = (dateString) => {
+  //   const date = new Date(dateString);
+  //   return date.toLocaleString("en-US", {
+  //     year: "numeric",
+  //     month: "2-digit",
+  //     day: "2-digit",
+  //     hour: "2-digit",
+  //     minute: "2-digit",
+  //     second: "2-digit",
+  //     fractionalSecondDigits: 2,
+  //     hour12: false,
+  //   });
+  // };
 
   return (
     <div className={classes.TransactionsModal}>
@@ -353,7 +356,7 @@ const TransactionsModal = () => {
                           </b>
                           #{transaction.Data.Id}
                         </p>
-                        <p>{formatDate(transaction.Data.DateAdded)}</p>
+                        <p>{formatDate(transaction.Data.DateAdded, 'datetime')}</p>
                         <p style={{ fontSize: "0.8rem", color: "lightblue" }}>
                           <i>
                             {transaction.Account.Username} ({transaction.Account.AccountId})

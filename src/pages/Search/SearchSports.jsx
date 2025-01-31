@@ -16,6 +16,8 @@ import topEventsSlice from "../../features/TopEvents/TopEventsSlice";
 const SearchSports = () => {
   const dispatch = useDispatch();
 
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
+
   const loading = useSelector((state) => state.search.loading);
   const moreLoading = useSelector((state) => state.search.moreLoading);
 

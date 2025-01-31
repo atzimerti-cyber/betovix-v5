@@ -37,6 +37,7 @@ const Betslip = memo(function (props) {
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const slips = useSelector((state) => state.betslip.slips);
   const amounts = useSelector((state) => state.betslip.amounts);
@@ -133,8 +134,8 @@ const Betslip = memo(function (props) {
 
       points.push(point);
 
-     // if (!isLive)
-         notLiveSlips.push(point);
+      // if (!isLive)
+      notLiveSlips.push(point);
     });
     const pointsStr = JSON.stringify(notLiveSlips);
 
@@ -224,6 +225,7 @@ const Betslip = memo(function (props) {
     savingBetLoading,
     isBonus,
     lang,
+    timezone,
   ]);
 
   const onChangeTab = (tab) => {

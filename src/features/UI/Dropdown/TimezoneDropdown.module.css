@@ -1,0 +1,225 @@
+.Dropdown {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.DropdownButton {
+  flex-grow: 1;
+  resize: none;
+  height: 60px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  /* background-color: var(--db-white-hover-light); */
+  border-radius: 7px;
+  border: none;
+  cursor: pointer;
+}
+.DropdownButton > svg {
+  fill: var(--color-100);
+}
+
+.Show.Dropdown .DropdownButton {
+  border-radius: 0 0 5px 5px;
+}
+
+.Dropdown.Disabled .DropdownButton {
+  background-color: var(--disabled);
+  pointer-events: none;
+}
+
+.Label {
+  flex-grow: 1;
+  resize: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 0 0 10px;
+  color: var(--white);
+  border-radius: 0.125rem;
+  background: transparent;
+  line-height: 1rem;
+  font-size: 13px;
+}
+
+.Label img {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.Label span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.DownArrow {
+  width: 12px;
+  height: 12px;
+  margin-right: 10px;
+}
+
+.DropdownContent {
+  right: 0;
+  position: absolute;
+  z-index: 1000;
+  width: 100%;
+  opacity: 0;
+  pointer-events: none;
+  top: 100%;
+  top: -200px;
+  transition: opacity 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  box-shadow: 0px -6px 13px 6px rgb(0 0 0 / 75%);
+}
+
+.Show.Dropdown .DropdownContent {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.DropdownContent ul {
+  width: 102%;
+  flex-wrap: nowrap;
+  overflow-x: hidden;
+  background-color: var(--dropdown-bg);
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--white);
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+  height: 200px;
+}
+
+.DropdownContent ul li {
+  position: relative;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.Option {
+  width: 100%;
+  display: flex;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  gap: 10px;
+  padding: 0 10px;
+  color: currentColor;
+  user-select: none;
+  align-items: center;
+  cursor: pointer;
+  height: 40px;
+}
+.Option:not(.Active):hover {
+  background-color: hsla(0, 0%, 100%, 0.3);
+}
+.Short .Option {
+  height: 25px;
+}
+
+.Option img {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+.Option span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.DropdownContent ul > div {
+  border-radius: 0;
+  border-top-left-radius: var(--border-radius);
+}
+ul.Short .Option {
+  padding: 5px 10px;
+}
+
+.Option.Active {
+  background-color: hsla(0, 0%, 100%, 0.3);
+  background-color: var(--db-white-hover-light);
+}
+.Option.Active::before {
+  content: "";
+  width: 2px;
+  height: 100%;
+  background-color: var(--accent-color);
+  position: absolute;
+  left: 0;
+}
+
+.NoOptions {
+  display: flex;
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  height: 2.5rem;
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  gap: 10px;
+  padding: 10px 12px;
+  color: var(--white);
+  user-select: none;
+  align-items: center;
+  font-weight: 400;
+}
+
+.Placeholder {
+  color: var(--white-lowop);
+}
+
+/* .SearchContainer {
+  border-color: var(--gray-500);
+  border-width: 1px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--input-color);
+  transition-duration: 0.2s;
+}
+
+.SearchContainer input {
+  background-color: var(--gray-500);
+  padding-left: 40px !important;
+  flex-grow: 1;
+  resize: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 10px;
+  color: var(--color-100);
+
+  border-radius: 0 !important;
+  border: 0 !important;
+  height: unset !important;
+} */
+
+.LeftIcon {
+  left: 0.75rem !important;
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%) rotate(0) skewX(0) skewY(0) scaleX(1) scaleY(1);
+}
+.LeftIcon svg {
+  left: 0.75rem !important;
+  height: 0.75rem !important;
+  width: 0.75rem !important;
+}
+.LeftIcon > svg path {
+  fill: var(--color-200);
+}
+
+.Scrollable {
+  width: 100%;
+  max-height: 18rem;
+}
+
+@media (min-width: 640px) {
+  .Label {
+    gap: 10px;
+  }
+}

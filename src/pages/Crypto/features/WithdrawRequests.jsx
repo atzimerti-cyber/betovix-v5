@@ -13,6 +13,7 @@ import AngleLeftIcon from "../../../assets/svgs/angle-left.svg?react";
 import AngleRightIcon from "../../../assets/svgs/angle-right.svg?react";
 import UpArrowIcon from "../../../assets/svgs/up.svg?react";
 import DownArrowIcon from "../../../assets/svgs/down.svg?react";
+import { formatDate } from "../../../utils/custom";
 
 const WithdrawRequests = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,9 @@ const WithdrawRequests = () => {
   const refreshData = (reqid) => {
     const controller = new AbortController();
     const signal = controller.signal;
-    dispatch(getWithrawalReqs(signal, currentPage, count, sortOrder, selectedStatus));
+    dispatch(
+      getWithrawalReqs(signal, currentPage, count, sortOrder, selectedStatus)
+    );
 
     setOngoingCancellations((prev) => {
       const updated = new Set(prev);
@@ -166,19 +169,19 @@ const WithdrawRequests = () => {
     }
   };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleString("en-US", {
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-      hour: "2-digit",
-      minute: "2-digit",
-      second: "2-digit",
-      fractionalSecondDigits: 2,
-      hour12: false,
-    });
-  };
+  // const formatDate = (dateString) => {
+  //   const date = new Date(dateString);
+  //   return date.toLocaleString("en-US", {
+  //     year: "numeric",
+  //     month: "2-digit",
+  //     day: "2-digit",
+  //     hour: "2-digit",
+  //     minute: "2-digit",
+  //     second: "2-digit",
+  //     fractionalSecondDigits: 2,
+  //     hour12: false,
+  //   });
+  // };
 
   const handleCancelRequest = (reqid) => {
     if (ongoingCancellations.has(reqid)) return; // Prevent multiple clicks
@@ -297,7 +300,7 @@ const WithdrawRequests = () => {
                       </b>
                       #{req.reqId}
                     </p>
-                    <p>{formatDate(req.dateAdded)}</p>
+                    <p>{formatDate(req.dateAdded, "datetime")}</p>
                     <p style={{ fontSize: "0.8rem", color: "lightblue" }}>
                       <i>
                         {translate(`Account Id`)}

@@ -10,6 +10,9 @@ import { getSite, getSiteSettings, loadInitData } from "./initAppAsyncActions";
 import { getUser } from "../../pages/Login/loginAsyncActions";
 import { affiliateCampaigns } from "../../pages/Login/loginAsyncActions";
 import { isMoreThan14DaysOld } from "../../utils/custom";
+import { storageGetTimezone, storageSetTimezone } from "../../utils/storage";
+
+import { useTimezoneSelect, allTimezones } from "react-timezone-select";
 
 import { appActions } from "./appSlice";
 import { setLang, getLang } from "../../utils/storage";
@@ -33,6 +36,24 @@ const InitApp = () => {
   const timerIdRef = useRef(null);
 
   const [isLoaded, setIsLoaded] = useState(false);
+
+  const { parseTimezone } = useTimezoneSelect({
+    labelStyle: "original",
+    timezones: allTimezones,
+  });
+
+  const isValidTimezone = (obj) => {
+    return (
+      typeof obj === "object" &&
+      obj !== null &&
+      typeof obj.value === "string" &&
+      typeof obj.label === "string" &&
+      // /^\(GMT[+-]\d{1,2}:\d{2}/.test(obj.label) &&
+      typeof obj.offset === "number" &&
+      typeof obj.abbrev === "string" &&
+      typeof obj.altName === "string"
+    );
+  };
 
   //Affiliate Code
   useEffect(() => {
@@ -103,6 +124,17 @@ const InitApp = () => {
   useEffect(() => {
     if (siteSettingsSuccess) {
       dispatch(loadInitData(isMobile));
+
+      // Set timezone
+      let storedTimezone = storageGetTimezone();
+
+      if (!storedTimezone || !isValidTimezone(storedTimezone)) {
+        storedTimezone = parseTimezone(
+          Intl.DateTimeFormat().resolvedOptions().timeZone
+        );
+        storageSetTimezone(storedTimezone);
+      }
+      dispatch(appActions.setTimezone(storedTimezone));
     }
   }, [siteSettingsSuccess]);
 

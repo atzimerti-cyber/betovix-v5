@@ -8,7 +8,7 @@ import AngleDown2Icon from "../../../assets/svgs/angle-down2.svg?react";
 import Warning4Icon from "../../../assets/svgs/warning4.svg?react";
 import DisabledIcon from "../../../assets/svgs/disabled.svg?react";
 import SuccessIcon from "../../../assets/svgs/success.svg?react";
-import { addThousandsSeparator, formatDateTime2 } from "../../../utils/custom";
+import { addThousandsSeparator, formatDateTime2, formatDate } from "../../../utils/custom";
 import { translate } from "../../../utils/translations";
 import { cashout } from "../myBetsAsyncActions";
 import MyBetDetails from "./MyBetDetails";
@@ -19,7 +19,10 @@ import GiftIcon from "../../../assets/svgs/gift.svg?react";
 
 const MyBet = (props) => {
   const dispatch = useDispatch();
+
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+
   const timeoutRef = useRef(null);
   const timeoutShowCashoutRef = useRef(null);
 
@@ -212,7 +215,8 @@ const MyBet = (props) => {
                   {translate("Bet Placed at")}
                 </span>
                 <span className={classes.TicketContainerValue}>
-                  {formatDateTime2(props.item.Placement)}
+                  {/* {formatDateTime2(props.item.Placement)} */}
+                  {formatDate(props.item.Placement, "datetime")}
                 </span>
               </div>
               <div className={classes.TicketContainer}>

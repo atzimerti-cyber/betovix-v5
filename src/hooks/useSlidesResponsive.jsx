@@ -70,10 +70,10 @@ const useSlidesResponsive = (categ) => {
       }
     } else if (isVeryBigDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        slidesPerView = 4;
+        slidesPerView = 5;
         slidesPerGroup = 3;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-        slidesPerView = 6;
+        slidesPerView = 7;
         slidesPerGroup = 4;
       } else {
         slidesPerView = 7;

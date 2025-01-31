@@ -13,6 +13,7 @@ import { ticketActions } from "./ticketSlice";
 const Ticket = () => {
   const dispatch = useDispatch();
 
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const ticketSettings = useSelector((state) => state.ticket.ticketSettings);
   const initTicket = useSelector((state) => state.ticket.initTicket);

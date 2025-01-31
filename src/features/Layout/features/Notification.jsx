@@ -6,10 +6,13 @@ import { disableInstantTransitions } from "framer-motion";
 import { layoutActions } from "../layoutSlice";
 import { useNavigate } from "react-router-dom";
 import { viewUserNotification } from "../../InitApp/initAppAsyncActions";
+import { formatDate } from "../../../utils/custom";
 
 const Notification = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang);
 
   const openNotifPopUp = (modal, notif) => {
@@ -70,8 +73,9 @@ const Notification = (props) => {
             <div className={classes.RightPart}>
               <div className={classes.Date}>
                 {props.notification.date
-                  ? formatUserFriendlyDate(`${props.notification.date}`)
-                  : " "}
+                  ? formatDate(props.notification.date, "datetime")
+                  : // ? formatUserFriendlyDate(`${props.notification.date}`)
+                    " "}
               </div>
               {!props.notification.viewed && (
                 <span className={classes.NewNotif}></span>

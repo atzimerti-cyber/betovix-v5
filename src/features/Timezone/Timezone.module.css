@@ -1,0 +1,27 @@
+.Timezone {
+  font-size: 12px;
+  width: 100%;
+  box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 29%);
+}
+
+.Timezone > div > div:first-child {
+  height: 40px;
+  background-color: var(--sidebar-category-group);
+}
+.Timezone > div > div:first-child > div {
+  /* line-height: 1; */
+  width: 100%;
+}
+
+.Timezone > div > div:last-child {
+  width: 100%;
+}
+
+.Timezone > div > div:last-child li span {
+  font-weight: 400;
+  font-size: 12px;
+}
+.Timezone > div > div:last-child li > div {
+  height: 1.75rem;
+  padding: 0.3rem 0.5rem;
+}

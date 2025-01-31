@@ -4,10 +4,13 @@ import { Link, useNavigate } from "react-router-dom";
 import classes from "./EventHeader.module.css";
 import { translateNameWithLang, translate } from "../../../utils/translations";
 import TeamBigLogo from "../../../features/TeamLogo/TeamBigLogo";
+import { useSelector } from "react-redux";
+import { formatDate } from "../../../utils/custom";
 
 const EventHeader = (props) => {
   const navigate = useNavigate();
 
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
@@ -40,7 +43,8 @@ const EventHeader = (props) => {
             className={classes.DateContainer}
             style={{ pointerEvents: "none" }}
           >
-            {formatUserFriendlyDate(`${selectedEvent.DateOfMatch}`)}
+            {formatDate(selectedEvent.DateOfMatch, 'datetime')}
+            {/* {formatUserFriendlyDate(`${selectedEvent.DateOfMatch}`)} */}
           </div>
         ) : null}
       </div>

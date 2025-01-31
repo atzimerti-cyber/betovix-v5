@@ -11,6 +11,7 @@ import { translate, translateNameWithLang } from "../../../utils/translations";
 import FlashingScore from "../../SportsBook/features/FlashingScore";
 
 const Board = (props) => {
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const sportsStatusParams = useSelector(
     (state) => state.sportsbook.sportsStatusParams

@@ -1,3 +1,8 @@
+import { format, formatInTimeZone, toDate } from "date-fns-tz";
+import el from "date-fns/locale/el";
+import enGB from "date-fns/locale/en-GB";
+import { storageGetTimezone, getLang } from "./storage";
+
 export function formatNumberMax(value, dp) {
   if (isNaN(value)) return value;
   return +parseFloat(value).toFixed(dp);
@@ -338,4 +343,67 @@ export function isMoreThan14DaysOld(storedDate) {
 
   // If no date is stored, return false
   return false;
+}
+
+export function formatDate(d, type, divider = "-") {
+  if (!type) return d;
+
+  if (!d || isNaN(new Date(d).getTime())) {
+    d = formatDateInOriginalTimeZone(new Date());
+  } else {
+    d = formatDateInOriginalTimeZone(d);
+  }
+
+  let newTimezone = "Europe/Athens";
+  const newTimezoneObj = storageGetTimezone();
+  if (newTimezoneObj) {
+    newTimezone = newTimezoneObj.value;
+  }
+
+  const locales = {
+    en: enGB,
+    el: el,
+  };
+  const currentLang = getLang().id;
+  const locale = locales[currentLang] || locales["en"];
+
+  let formatted;
+  if (type === "date") {
+    formatted = formatInTimeZone(d, newTimezone, "EEE, MMM dd", { locale });
+  } else if (type === "fullDate") {
+    formatted = formatInTimeZone(d, newTimezone, "LLLL dd, yyyy", { locale });
+  } else if (type === "time") {
+    formatted = formatInTimeZone(d, newTimezone, "HH:mm");
+  } else if (type === "datetime") {
+    formatted = formatInTimeZone(d, newTimezone, "dd MMM, HH:mm", { locale });
+  } else if (type === "datetimeWithSeconds") {
+    formatted = formatInTimeZone(d, newTimezone, "dd MMM, HH:mm:ss", {
+      locale,
+    });
+  } else if (type === "dayDate") {
+    const weekday = formatInTimeZone(d, newTimezone, "EEE", { locale });
+    const date = formatInTimeZone(d, newTimezone, "dd / MM", { locale });
+    formatted = { weekday, date };
+  } else if (type === "dateToString") {
+    formatted = formatInTimeZone(
+      d,
+      newTimezone,
+      `dd${divider}MM${divider}yyyy`
+    );
+  } else if (type === "dateTimeToString") {
+    formatted = formatInTimeZone(
+      d,
+      newTimezone,
+      `dd${divider}MM${divider}yyyy HH:mm:ss`
+    );
+  }
+
+  return formatted;
+}
+
+export function formatDateInOriginalTimeZone(datetime) {
+  const originalTimezone = "Europe/Athens";
+  const zonedDate = toDate(datetime, { timeZone: originalTimezone });
+
+  return zonedDate;
 }

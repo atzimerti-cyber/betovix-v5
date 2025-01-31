@@ -326,6 +326,7 @@ const initialState = {
   registerPromoImg: null,
   registerPromoImgMobile: null,
   homeTags: null,
+  timezone: null,
 };
 
 export const appSlice = createSlice({
@@ -407,6 +408,9 @@ export const appSlice = createSlice({
     },
     setHomeTags: (state, action) => {
       state.homeTags = action.payload;
+    },
+    setTimezone: (state, action) => {
+      state.timezone = action.payload;
     },
   },
 });

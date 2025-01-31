@@ -340,11 +340,11 @@
   }
 }
 .LangDropdown {
-  height: 3.5rem;
+  /* height: 3.5rem; */
   border-radius: 500px;
   padding-left: 0.75rem;
   padding-right: 0.75rem;
-  min-height: 2rem;
+  /* min-height: 2rem; */
   font-size: 0.755rem;
   gap: 0.5rem;
   border-color: transparent;

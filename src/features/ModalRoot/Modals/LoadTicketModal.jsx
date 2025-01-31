@@ -1,32 +1,37 @@
-import classes from './LoadTicketModal.module.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getTicket } from '../modalAsyncActions';
-import CloseButton from '../../UI/Buttons/CloseButton';
-import { translate } from '../../../utils/translations';
+import classes from "./LoadTicketModal.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getTicket } from "../modalAsyncActions";
+import CloseButton from "../../UI/Buttons/CloseButton";
+import { translate } from "../../../utils/translations";
 
 const LoadTicketModal = () => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-    const location = useLocation();
-    const ticket = useSelector((state) => state.modal.ticketToPrint);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
 
-    const [id, setId] = useState('');
+  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
+  const ticket = useSelector((state) => state.modal.ticketToPrint);
 
-    const addParamsToUrl = (modal, tab) => {
-        const searchParams = new URLSearchParams(location.search);
-        searchParams.set('modal', modal);
-        if (tab) searchParams.set('tab', tab);
-      
-        navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
-    };
+  const [id, setId] = useState("");
 
-    useEffect(() => {
-        if (ticket && ticket !== null) {
-            addParamsToUrl('ticket-receipt')
-        }
-    }, [ticket]);
+  const addParamsToUrl = (modal, tab) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", modal);
+    if (tab) searchParams.set("tab", tab);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+  };
+
+  useEffect(() => {
+    if (ticket && ticket !== null) {
+      addParamsToUrl("ticket-receipt");
+    }
+  }, [ticket]);
 
   const handleInputChange = (e) => {
     setId(e.target.value);
@@ -41,39 +46,44 @@ const LoadTicketModal = () => {
     dispatch(getTicket(signal, id));
   };
 
-    return (
-        <div className={classes.LoadTicket}>
-            <div className={classes.ModalContent}>
-                <header>
-                    <span className={classes.Center}>
-                        <h1>{translate("Load Ticket")}</h1>
-                    </span>
-                    <span className={classes.Right}>
-                        <CloseButton timesIcon color='transparent' onClick={() => navigate(location.pathname)} />
-                    </span>
-                </header>
+  return (
+    <div className={classes.LoadTicket}>
+      <div className={classes.ModalContent}>
+        <header>
+          <span className={classes.Center}>
+            <h1>{translate("Load Ticket")}</h1>
+          </span>
+          <span className={classes.Right}>
+            <CloseButton
+              timesIcon
+              color="transparent"
+              onClick={() => navigate(location.pathname)}
+            />
+          </span>
+        </header>
 
-                <div className={classes.LoadTicketContent}>
-                    <div className={classes.LoadBetslipWrapper}>
-                        <div className={classes.LoadBetslipContent}>
-                            <p>
-                                {translate('Insert the ticket ID')}
-                            </p>
-                            <form className={classes.LoadBetslipFormWrapper} onSubmit={handleSubmit}>
-                                <input
-                                    type="text"
-                                    placeholder={translate('ID...')}
-                                    value={id}
-                                    onChange={handleInputChange}
-                                />
-                                <button type="submit">{translate('Load')}</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
+        <div className={classes.LoadTicketContent}>
+          <div className={classes.LoadBetslipWrapper}>
+            <div className={classes.LoadBetslipContent}>
+              <p>{translate("Insert the ticket ID")}</p>
+              <form
+                className={classes.LoadBetslipFormWrapper}
+                onSubmit={handleSubmit}
+              >
+                <input
+                  type="text"
+                  placeholder={translate("ID...")}
+                  value={id}
+                  onChange={handleInputChange}
+                />
+                <button type="submit">{translate("Load")}</button>
+              </form>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default LoadTicketModal;

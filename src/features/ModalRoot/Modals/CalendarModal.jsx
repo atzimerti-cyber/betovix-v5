@@ -17,6 +17,7 @@ const CalendarModal = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const [date, setDate] = useState(null);
   const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
 

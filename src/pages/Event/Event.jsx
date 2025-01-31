@@ -20,6 +20,7 @@ import BarLoading from "../../features/UI/BarLoading/BarLoading";
 import { appActions } from "../../features/InitApp/appSlice";
 import lzString from "lz-string";
 import { getUpdatedMarkets } from "../../utils/liveUpdates";
+import { formatDate } from "../../utils/custom";
 import { translate, translateNameWithLang } from "../../utils/translations";
 import { betslipActions } from "../../features/Betslip/betslipSlice";
 import { layoutActions } from "../../features/Layout/layoutSlice";
@@ -32,6 +33,7 @@ const Event = () => {
   const navigate = useNavigate();
   const { sportname, sportid, eventid } = useParams();
 
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const liveConnection = useSelector((state) => state.live.liveConnection);
   const selectedMarketCategory = useSelector(
     (state) => state.event.selectedMarketCategory
@@ -86,14 +88,14 @@ const Event = () => {
       }
     };
   }, []);
-  
+
   useEffect(() => {
     if (event) {
-        eventLiveRef.current = event;
+      eventLiveRef.current = event;
     } else {
-        eventLiveRef.current = null;
+      eventLiveRef.current = null;
     }
-}, [event?.MatchId, changedMarkets]);
+  }, [event?.MatchId, changedMarkets]);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -209,7 +211,10 @@ const Event = () => {
     if (!updateObj) return;
 
     if (updateObj.Id === eventLiveRef.current.MatchId) {
-      const updatedMarkets = getUpdatedMarkets(updateObj, eventLiveRef.current.Markets);
+      const updatedMarkets = getUpdatedMarkets(
+        updateObj,
+        eventLiveRef.current.Markets
+      );
       dispatch(eventActions.updateLiveMarkets(updatedMarkets));
       dispatch(
         betslipActions.updateLiveSlipOdds({
@@ -228,7 +233,9 @@ const Event = () => {
 
     if (!updateObj) return;
 
-    const found = updateObj.find((e) => e.MatchId == eventLiveRef.current.MatchId);
+    const found = updateObj.find(
+      (e) => e.MatchId == eventLiveRef.current.MatchId
+    );
     if (found) {
       dispatch(eventActions.updateLiveEventHeader(found));
     }
@@ -458,7 +465,9 @@ const Event = () => {
             </div>
 
             {!event && !barLoading ? (
-              <span style={{color:'var(--brand-green)'}}>{translate("Event not found or has ended")}</span>
+              <span style={{ color: "var(--brand-green)" }}>
+                {translate("Event not found or has ended")}
+              </span>
             ) : (
               <div className={classes.EventPage}>
                 {/* <h1 className={classes.EventTitle}>

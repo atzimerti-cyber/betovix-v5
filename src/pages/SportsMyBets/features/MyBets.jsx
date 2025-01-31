@@ -19,6 +19,7 @@ const MyBets = (props) => {
   const navigate = useNavigate();
   const timerIdRef = useRef(null);
 
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const user = useSelector((state) => state.login.user);
 

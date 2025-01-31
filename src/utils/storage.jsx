@@ -17,6 +17,18 @@ export function setLang(lang) {
   localStorage.setItem("lang", langStr);
 }
 
+// Timezone
+export function storageGetTimezone() {
+  let timezone = localStorage.getItem("TIMEZONE");
+  if (timezone) timezone = JSON.parse(timezone);
+
+  return timezone;
+}
+export function storageSetTimezone(timezone) {
+  const timezoneStr = JSON.stringify(timezone);
+  localStorage.setItem("TIMEZONE", timezoneStr);
+}
+
 // Odds format
 export function storageGetOddsFormat() {
   let oddsFormat = localStorage.getItem("oddsFormat");

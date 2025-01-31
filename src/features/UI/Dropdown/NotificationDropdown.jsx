@@ -13,6 +13,7 @@ const NotificationDropdown = (props) => {
   const navigate = useNavigate();
   const dropdownRef = useRef();
 
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang);
   const notifications = useSelector((state) => state.layout.notifications);
 

@@ -15,6 +15,7 @@ const NotificationsModal = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang);
 
   const isMobile = useMediaQuery({ query: "(max-width: 1023px)" });

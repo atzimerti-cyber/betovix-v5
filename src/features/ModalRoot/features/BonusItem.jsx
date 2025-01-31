@@ -9,7 +9,7 @@ import RewardsCategory from "../features/RewardsCategory";
 import ReturnIcon from "../../../assets/svgs/return.svg?react";
 
 import { translate } from "../../../utils/translations";
-import { formatDateTime, getTimeUntil } from "../../../utils/custom";
+import { formatDate, getTimeUntil } from "../../../utils/custom";
 
 import classes from "./BonusItem.module.css"; // Assuming you have some CSS for the BonusItem
 
@@ -106,14 +106,14 @@ const BonusItem = ({ bonus, handleTabClick }) => {
             <div className={classes.bonusDate}>
               {bonus.StartedAt && (
                 <div className={classes.startingDate}>
-                  {formatDateTime(bonus.StartedAt)}
+                  {formatDate(bonus.StartedAt, "datetime")}
                 </div>
               )}
               {bonus.ExpiresAt && (
                 <>
                   <div>-</div>
                   <div className={classes.endingDate}>
-                    {formatDateTime(bonus.ExpiresAt)}
+                    {formatDate(bonus.ExpiresAt, "datetime")}
                   </div>
                 </>
               )}

@@ -21,11 +21,14 @@ import { translate } from "../../../utils/translations";
 import StatsIcon from "../../../assets/svgs/bars.svg?react";
 import TicketIcon from "../../../assets/svgs/ticketReceipt.svg?react";
 import LoadIcon from "../../../assets/svgs/loadIcon.svg?react";
+import Timezone from "../../Timezone/Timezone";
 
 const LeftContainer = memo(function () {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
   const pathname = location.pathname.substring(1);
@@ -398,12 +401,23 @@ const LeftContainer = memo(function () {
           }
         })}
         {fullLeftContainer ? (
-          <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
+          // <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
+          <div
+            className={classes.LangDropdown}
+            style={{ padding: "0.3rem 0.5rem", justifyContent: "flex-start" }}
+          >
             <DropdownLang fullLabel={true} openTo="top" />
           </div>
-        ) : (
-          <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
-            <DropdownLang topbar openTo="side" />
+        ) : // <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
+        //   <DropdownLang topbar openTo="side" />
+        // </div>
+        null}
+        {fullLeftContainer && (
+          <div
+            className={classes.LangDropdown}
+            style={{ padding: "0.3rem 0.5rem", justifyContent: "flex-end" }}
+          >
+            <Timezone />
           </div>
         )}
       </div>

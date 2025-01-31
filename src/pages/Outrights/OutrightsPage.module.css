@@ -67,10 +67,10 @@
 }
 
 .OutrightsTitle {
-  color: rgb(255, 255, 255);
-  font-weight: 600;
-  font-size: 32px;
-  letter-spacing: 0.05em;
+  color: white;
+  font-weight: 900;
+  font-size: 45px;
+  letter-spacing: 0.04em;
   text-align: center;
   text-shadow: rgba(41, 39, 33, 0.8) 0px 2px 8px;
 }

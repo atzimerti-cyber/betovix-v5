@@ -7,7 +7,7 @@ import PlayIcon from "../../../assets/svgs/play.svg?react";
 import Market from "./Market";
 import { sportsbookActions } from "../sportsbookSlice";
 import TeamLogo from "../../../features/TeamLogo/TeamLogo";
-import { formatTimeString } from "../../../utils/custom";
+import { formatTimeString, formatDate } from "../../../utils/custom";
 import FlashingScore from "./FlashingScore";
 import { translate, translateNameWithLang } from "../../../utils/translations";
 

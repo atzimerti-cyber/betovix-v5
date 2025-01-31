@@ -2,7 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import classes from "./EventRow.module.css";
-import { formatDateTime, getTimeUntil } from "../../../utils/custom";
+import {
+  formatDateTime,
+  getTimeUntil,
+  formatDate,
+} from "../../../utils/custom";
 import BarsIcon from "../../../assets/svgs/bars.svg?react";
 import PlayIcon from "../../../assets/svgs/play.svg?react";
 import Market from "./Market";
@@ -14,6 +18,7 @@ import { translateNameWithLang } from "../../../utils/translations";
 const EventRow = (props) => {
   const dispatch = useDispatch();
 
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
   const getMarket = () => {
@@ -57,7 +62,8 @@ const EventRow = (props) => {
         <div className={classes.RowTop}>
           <div className={classes.EventTime}>
             <div className={classes.Time}>
-              <span>{formatDateTime(props.event.Info.DateOfMatch)}</span>
+              {/* <span>{formatDateTime(props.event.Info.DateOfMatch)}</span> */}
+              <span>{formatDate(props.event.Info.DateOfMatch, "datetime")}</span>
               <span> - {getTimeUntil(props.event.Info.DateOfMatch)}</span>
             </div>
           </div>

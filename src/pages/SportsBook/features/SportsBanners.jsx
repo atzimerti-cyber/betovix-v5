@@ -10,8 +10,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 import { translate } from "../../../utils/translations.jsx";
+import { formatDate } from "../../../utils/custom.jsx";
 
 const SportsBanners = (props) => {
+  const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const [loadedImages, setLoadedImages] = useState([]);
 
   const updateLoadedImages = (index) => {
@@ -84,7 +86,10 @@ const SportsBanners = (props) => {
                       </i>
                     </div>
                     <div className={classes.EventDate}>
-                      <p>{dateFormatter(banner.event?.Info.DateOfMatch)}</p>
+                      {/* <p>{dateFormatter(banner.event?.Info.DateOfMatch)}</p> */}
+                      <p>
+                        {formatDate(banner.event?.Info.DateOfMatch, "datetime")}
+                      </p>
                     </div>
                     <Link
                       to={`/event/${banner.event?.Info.SportName?.International.toLowerCase().replace(
