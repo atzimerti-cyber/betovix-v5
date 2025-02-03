@@ -125,6 +125,7 @@ const PaymentForm = (props) => {
         ? debouncedFormData.WalletAddress
         : debouncedFormData.Address,
       CustomerPostCode: debouncedFormData.PostCode,
+      CustomerIdCode: debouncedFormData.IDCode,
     };
     console.log(debouncedFormData);
     console.log(depositDTO);
