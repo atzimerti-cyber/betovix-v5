@@ -711,9 +711,9 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        `Site/GetSite?domainName=betovix.com`,
+        //`Site/GetSite?domainName=betovix.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
-        //`Site/GetSite?domainName=${currentDomain}`,
+        `Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,

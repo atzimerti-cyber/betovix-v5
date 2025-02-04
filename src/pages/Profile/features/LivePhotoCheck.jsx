@@ -3,6 +3,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Webcam from "react-webcam";
 import * as faceapi from "face-api.js";
+import * as tf from "@tensorflow/tfjs";
 
 import classes from "./LivePhotoCheck.module.css";
 
@@ -29,8 +30,15 @@ const LivePhotoCheck = (props) => {
   const [resultVisible, setResultVisible] = useState(false);
 
   useEffect(() => {
+    ensureWebGLBackend();
     loadModels();
   }, []);
+
+  const ensureWebGLBackend = async () => {
+    await tf.setBackend("webgl"); // Force WebGL backend
+    await tf.ready(); // Ensure TensorFlow.js is initialized
+    console.log("TensorFlow.js is ready with backend:", tf.getBackend());
+  };
 
   // Load face-api models
   const loadModels = async () => {
