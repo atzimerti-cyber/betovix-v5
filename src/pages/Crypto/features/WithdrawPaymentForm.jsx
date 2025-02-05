@@ -117,6 +117,8 @@ const WithdrawPaymentForm = (props) => {
       CardNumber: debouncedFormData.CardNumber
         ? debouncedFormData.CardNumber.replace(/\s+/g, "")
         : debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
+      CustomerIdCode: debouncedFormData.IDCode,
+      CustomerIBAN: debouncedFormData.Iban,
     };
     console.log(debouncedFormData);
     console.log(withdrawDTO);
