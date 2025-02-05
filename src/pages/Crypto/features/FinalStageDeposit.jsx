@@ -40,6 +40,7 @@ const FinalStageDeposit = () => {
     dispatch(cryptoActions.setDepositAddress(""));
     dispatch(cryptoActions.setMethodMinAmount(null));
     dispatch(cryptoActions.setMethodMaxAmount(null));
+    dispatch(cryptoActions.setWithdrawLimitMessage(null));
   };
 
   return (
@@ -77,7 +78,7 @@ const FinalStageDeposit = () => {
           </div>
         </div>
       </div>
-      {paymentType && paymentMethod && (
+      {paymentType && paymentMethod && !depositAddress && (
         <div className={classes.PaymentFormContainer}>
           <PaymentForm
             type={paymentType?.Name}
@@ -89,28 +90,46 @@ const FinalStageDeposit = () => {
       )}
       {paymentType && depositAddress !== "" && (
         <div className={classes.DepositAddressContainer}>
-          <div className={classes.BtcAddressContainer}>
-            <label htmlFor="container">
-              {translate("Your")} {translate("deposit address")}
-            </label>
-            <CopyToClipboardCont text={depositAddress} />
-          </div>
-          <div className={classes.QrContainer}>
-            <div className={classes.QrWrapper}>
-              {depositAddress ? (
-                <QRCode
-                  size={150}
-                  style={{ height: "auto", maxWidth: "100%", width: "100%" }}
-                  value={depositAddress}
-                  viewBox={`0 0 150 150`}
-                />
-              ) : (
-                <div className={classes.LoadingAddress}>
-                  <SpinnerIcon className={classes.Spinner} />
-                </div>
-              )}
+          {paymentType.Provider === "CoinPayments" && (
+            <div className={classes.BtcAddressContainer}>
+              <label htmlFor="container">
+                {translate("Your")} {translate("deposit address")}
+              </label>
+              <CopyToClipboardCont text={depositAddress} />
             </div>
-          </div>
+          )}
+          {paymentType.Provider === "PayNora" && (
+            <>
+              <div className={classes.BtcAddressContainer}>
+                <label htmlFor="container">{translate("Account Name")}:</label>
+                <CopyToClipboardCont text={depositAddress.AccountName} />
+              </div>
+              <div className={classes.BtcAddressContainer}>
+                <label htmlFor="container">IBAN Code:</label>
+                <CopyToClipboardCont text={depositAddress.IbanCode} />
+              </div>
+            </>
+          )}
+
+          {paymentType.Provider === "CoinPayments" && (
+            <div className={classes.QrContainer}>
+              <div className={classes.QrWrapper}>
+                {depositAddress ? (
+                  <QRCode
+                    size={150}
+                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                    value={depositAddress}
+                    viewBox={`0 0 150 150`}
+                  />
+                ) : (
+                  <div className={classes.LoadingAddress}>
+                    <SpinnerIcon className={classes.Spinner} />
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           <div className={classes.Message}>
             <WarningIcon height="15px" />
             <span>

@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   border-color: transparent;
-  background-color: var(--dark-blue-1);
+  background-color: var(--dark-blue);
   transition-duration: 0.2s;
   border-width: 1px;
   border-style: none;

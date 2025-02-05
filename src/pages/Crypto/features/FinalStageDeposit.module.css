@@ -123,6 +123,13 @@
 .BtcAddressContainer {
   width: 100%;
   color: white;
+  margin: 0.3rem;
+}
+
+.BtcAddressContainer > label {
+  color: white;
+  font-weight: 600; 
+  padding-left: 0.2rem;
 }
 .QrContainer {
   margin: 1rem;

@@ -144,6 +144,8 @@ export const submitDepositForm = (signal, depositDTO) => {
         dispatch(
           cryptoActions.setDepositAddress(response.data.Contents.WalletAddress)
         );
+      } else if (depositDTO.PaymentProvider === "PayNora") {
+        dispatch(cryptoActions.setDepositAddress(response.data.Contents));
       }
     } catch (error) {
       const message = error?.message ? error.message : error;
@@ -229,7 +231,7 @@ export const cancelWithdrawRequest = (signal, id, onSuccess) => {
   return async (dispatch) => {
     try {
       const lang = getLang();
-      
+
       const response = await axiosApi.post(
         `/Payments/PostData?action=WithdrawRequestsCancel&lang=${lang.id}`,
 
@@ -246,13 +248,10 @@ export const cancelWithdrawRequest = (signal, id, onSuccess) => {
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
         throw Error("Failed");
 
-
-      if(response.data.Contents === true) {
-        toast.success('Withdraw Request Cancelled');
+      if (response.data.Contents === true) {
+        toast.success("Withdraw Request Cancelled");
         if (onSuccess) onSuccess();
-      }
-      else throw Error("Failed")
-
+      } else throw Error("Failed");
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(message);
