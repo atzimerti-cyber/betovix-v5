@@ -1,5 +1,5 @@
 // Lang
-export function getLang() {
+export function getLang(dl) {
   let lang = localStorage.getItem("lang");
   if (lang) lang = JSON.parse(lang);
   // lang = {
@@ -7,7 +7,9 @@ export function getLang() {
   //   label: "English",
   //   flag: "https://cdn.jsdelivr.net/npm/flag-icons@6.6.6/flags/4x3/gb.svg",
   // };
-  else lang = { id: "en" };
+  else if (dl) {
+    lang = dl;
+  } else lang = { id: "en" };
 
   return lang;
 }

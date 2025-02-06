@@ -561,7 +561,7 @@ const Settings = () => {
               }}
             >
               <p className={classes.Text}>
-                {translate("I want to receive  marketing emails.")}
+                {translate("I want to receive marketing emails")}.
               </p>
               <label className={classes.Switch}>
                 <input

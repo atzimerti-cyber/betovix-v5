@@ -122,7 +122,7 @@ const Overview = () => {
         <DecorationDiv color="primary">
           <>
             <p className={classes.TotalName}>
-              {translate("Wagared in Active Tickets")}
+              {translate("Wagered in Active Tickets")}
             </p>
             <p className={classes.TotalBits}>
               <CoinsIcon />

@@ -2,7 +2,6 @@ import { useRef, useCallback, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classes from "./NotificationDropdown.module.css";
 import useClickOutside from "../../../hooks/useClickOutside";
-import ArrowIcon from "../../../assets/svgs/notif-arrow.svg?react";
 import Notification from "../../Layout/features/Notification";
 import { getUserNotifications } from "../../InitApp/initAppAsyncActions";
 import { translate } from "../../../utils/translations";
@@ -41,11 +40,10 @@ const NotificationDropdown = (props) => {
           : classes.Dropdown
       }
     >
-      {/* <ArrowIcon className={classes.ArrowIcon} fill="#000" /> */}
       <div className={classes.DropdownHeader}>
-        <h1>Notifications</h1>
+        <h1>{translate("Notifications")}</h1>
         <div className={classes.ToggleButton}>
-          <p>Only show unread</p>
+          <p>{translate("Only show unread")}</p>
           <label className={classes.Switch}>
             <input
               type="checkbox"

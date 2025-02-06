@@ -89,7 +89,9 @@ export const loadInitData = (isMobile) => {
           window.history.replaceState(null, "", newUrl); // Update the browser's URL without reloading
         }
       } else {
-        lang = getLang();
+        const alState = getState().app;
+        const defaultLang = alState.defaultLang;
+        lang = getLang(defaultLang);
         dispatch(appActions.setLang(lang));
         searchParams.set("lang", lang.id); // Update the searchParams object
         const newUrl = `${location.pathname}?${searchParams.toString()}`; // Construct the new URL
@@ -711,7 +713,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=betovix.com`,
+        //`Site/GetSite?domainName=petekbet.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -865,6 +867,8 @@ export const getSiteSettings = (signal) => {
         });
       });
 
+      let defaultLang = { id: `${response.data.Contents.Site.DefaultLang}` };
+
       let siteCurrencies = [];
       const currStr = response.data.Contents.Site.AllowedCurrencies;
       const currencies = currStr.split(",");
@@ -900,6 +904,7 @@ export const getSiteSettings = (signal) => {
       );
       dispatch(appActions.setSiteSettings(response.data.Contents["Site"]));
       dispatch(appActions.setAvailableLangs(languages));
+      dispatch(appActions.setDefaultLang(defaultLang));
       dispatch(appActions.setSiteCurrencies(siteCurrencies));
       dispatch(
         appActions.setSocialMedia(response.data.Contents["Social Media"])

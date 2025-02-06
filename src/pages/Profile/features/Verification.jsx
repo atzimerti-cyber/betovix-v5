@@ -205,8 +205,8 @@ const Verification = () => {
           <p className={classes.Title}>{translate("Email Verification")}</p>
           <p className={classes.Text}>
             {translate(
-              "A verified email address is required to access some parts of the website."
-            )}
+              "A verified email address is required to access some parts of the website"
+            )}.
           </p>
 
           <form
