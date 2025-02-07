@@ -120,8 +120,7 @@ const Topbar = () => {
 
   const inCasinoGame = location.pathname.includes("/casino/game/");
 
-  //const logoURL = config.VITE_SITE_LOGO ? config.VITE_SITE_LOGO : null;
-  const logoURL = "https://petekbet.com/taketheluck/logo-big.png";
+  const logoURL = config.VITE_SITE_LOGO ? config.VITE_SITE_LOGO : null;
   const basePath = window.location.origin;
   const sitename = config.VITE_SITE_NAME ? config.VITE_SITE_NAME + "/" : "";
   const smallLogoURL = `${basePath}/${sitename}logo-small.svg`;
