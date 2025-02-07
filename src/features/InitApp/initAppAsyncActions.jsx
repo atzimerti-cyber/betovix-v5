@@ -889,6 +889,12 @@ export const getSiteSettings = (signal) => {
           response.data.Contents.Site.GoogleClientId;
       }
 
+      if (response.data.Contents.Site.LoginUrl) {
+        config.VITE_LOGIN_URL = response.data.Contents.Site.LoginUrl;
+      } else {
+        config.VITE_LOGIN_URL = config.VITE_WALLET_API_BASE;
+      }
+
       dispatch(
         appActions.setRegisterPromoImg(
           response.data.Contents.Site.RegisterPromoImg

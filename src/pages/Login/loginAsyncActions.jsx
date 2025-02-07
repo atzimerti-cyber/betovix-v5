@@ -66,7 +66,8 @@ export const login = (loginInfo, navigate, locationPathname) => {
         `login/Authenticate2?siteId=${config.VITE_SITE_ID}`,
         loginInfo,
         {
-          baseURLOverride: config.VITE_WALLET_API_BASE,
+          // baseURLOverride: config.VITE_WALLET_API_BASE,
+          baseURLOverride: config.VITE_LOGIN_URL,
         }
       );
       if (response.data.Status.StatusCode !== 200) {
@@ -86,7 +87,7 @@ export const login = (loginInfo, navigate, locationPathname) => {
         }
       }
 
-      if(response.data.Contents?.Status === 301) {
+      if (response.data.Contents?.Status === 301) {
         navigate(`${locationPathname}?modal=tfa`, {
           replace: true,
         });
@@ -132,13 +133,7 @@ export const login = (loginInfo, navigate, locationPathname) => {
   };
 };
 
-export const verifyTfa = (
-  signal,
-  code,
-  token,
-  navigate,
-  locationPathname
-) => {
+export const verifyTfa = (signal, code, token, navigate, locationPathname) => {
   return async (dispatch) => {
     try {
       const lang = getLang();
