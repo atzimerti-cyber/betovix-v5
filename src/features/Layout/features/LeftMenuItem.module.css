@@ -7,9 +7,9 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.855rem;
+  font-size: 0.85rem;
   line-height: 1.1rem;
-  font-weight: 600;
+  font-weight: 400;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
   padding: 0.75rem 1rem;
@@ -76,6 +76,14 @@
   background-color: var(--db-white-hover);
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
+  font-weight: 500;
+}
+
+.LeftMenuItem:hover a {
+  font-weight: 500;
+}
+.LeftMenuItem.Active a {
+  font-weight: 500;
 }
 
 .LeftMenuItem.Active {

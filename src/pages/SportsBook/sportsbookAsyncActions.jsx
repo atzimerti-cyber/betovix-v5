@@ -125,9 +125,11 @@ export const getTournamentEvents = (tournamentId, ids, slice, signal) => {
       const isOutright = slice === "sportsOutrights" ? true : false;
 
       const response = await axiosApi.post(
-        `Pregame/PostData?action=events_per_league&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        //`Pregame/PostData?action=events_per_league&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        `Pregame/PostData?action=marketsTreeEventsTable&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
-          data: `{"ProviderId":1,"Value":"${ids}","H24":false,"IsOutright":${isOutright}}`,
+          // data: `{"ProviderId":1,"Value":"${ids}","H24":false,"IsOutright":${isOutright}}`,
+          data: `{"ProviderId":1,"tournId":"${ids}","filter":"All","groupName":null,"subGroupName":null}`,
         },
         {
           signal: signal,
@@ -145,35 +147,40 @@ export const getTournamentEvents = (tournamentId, ids, slice, signal) => {
         dispatch(
           sportsHomeActions.addTournamentEvents({
             tournamentId: tournamentId,
-            events: response.data.Contents,
+            //events: response.data.Contents,
+            events: response.data.Contents.Events,
           })
         );
       else if (slice === "sportsUpcoming")
         dispatch(
           sportsUpcomingActions.addTournamentEvents({
             tournamentId: tournamentId,
-            events: response.data.Contents,
+            //events: response.data.Contents,
+            events: response.data.Contents.Events,
           })
         );
       else if (slice === "sportsLive")
         dispatch(
           sportsLiveActions.addTournamentEvents({
             tournamentId: tournamentId,
-            events: response.data.Contents,
+            //events: response.data.Contents,
+            events: response.data.Contents.Events,
           })
         );
       else if (slice === "sportsOutrights")
         dispatch(
           sportsOutrightsActions.addTournamentEvents({
             tournamentId: tournamentId,
-            events: response.data.Contents,
+            //events: response.data.Contents,
+            events: response.data.Contents.Events,
           })
         );
       else
         dispatch(
           sportsbookActions.addTournamentEvents({
             tournamentId: tournamentId,
-            events: response.data.Contents,
+            //events: response.data.Contents,
+            events: response.data.Contents.Events,
           })
         );
       dispatch(

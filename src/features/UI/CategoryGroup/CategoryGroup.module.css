@@ -10,8 +10,9 @@
   border-top-left-radius: 5px;
   border-bottom-left-radius: 5px;
   box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 29%);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.35rem;
   background-color: var(--sidebar-category-group);
+  height: 2.5rem;
 }
 .CategoryGroup.Closed:hover {
   background-color: var(--db-white-hover-light);
@@ -30,12 +31,12 @@
   border-bottom-right-radius: 10px;
 }
 .Title {
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   line-height: 1.25rem;
   cursor: pointer;
   position: relative;
   display: flex;
-  height: 2.75rem;
+  height: 2.5rem;
   align-items: center;
   justify-content: space-between;
   padding-left: 1rem;
@@ -68,11 +69,28 @@
 .Closed ul {
   grid-row-start: 2;
   overflow: hidden;
-  max-height: 0;
   padding-left: 1rem;
   padding-right: 1rem;
   cursor: unset;
-  transition: padding 0.4s ease-in-out, background-color 0.2s ease-in-out;
+  transform-origin: top;
+  transform: scaleY(0); /* Instantly hidden */
+  transition: none; /* Prevent transition on closing */
+}
+
+.CategoryGroup ul {
+  background-color: transparent;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  transform-origin: top;
+  transform: scaleY(1);
+  transition: transform 0.3s ease-in-out; /* Only animates when opening */
+}
+
+.CategoryGroup.Closed ul {
+  transform: scaleY(0);
+  transition: none; /* Removes animation when closing */
 }
 
 .Label {
@@ -120,7 +138,8 @@
 @media (min-width: 768px) {
   .Title {
     height: 2.5rem;
-    font-size: 0.95rem;
+    font-size: 0.875rem;
     line-height: 1.25rem;
+    font-weight: 600;
   }
 }

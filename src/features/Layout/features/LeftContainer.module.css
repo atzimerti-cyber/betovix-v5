@@ -67,12 +67,12 @@
 
 .SideMenuSubButtonContainer button {
   height: 3.5rem;
-  /* width: 100%; */
-  border-radius: 500px;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
+  border-radius: 7px;
+  padding-left: 0.35rem;
+  padding-right: 0.35rem;
   min-height: 2rem;
   font-size: 0.755rem;
+  font-weight: 400;
   gap: 0.5rem;
   border-color: transparent;
   background-color: initial;
@@ -236,14 +236,13 @@
 }
 
 /* MenuItems */
-.List {
+/* .List {
   background-color: transparent;
-  /* background-color: var(--dark-blue-1); */
   padding: 0;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-}
+} */
 
 .List li:first-child,
 .List li:first-child a {

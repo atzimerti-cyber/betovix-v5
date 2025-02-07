@@ -38,7 +38,7 @@
   --odds-button-disabled: #53476e83;
   --odds-button-disabled: #6a6a6a42;
   --card-odds-button: #c6c6c6c6;
-  --card-odds-button-selected: #2121215d;
+  --card-odds-button-selected: var(--brand-green);
   --card-odds-button-disabled: #4f4f4f30;
 
   --badge-new-purple: #8121c1;
