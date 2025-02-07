@@ -9,7 +9,7 @@
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  background-color: var(--dark-blue-1);
+  background-color: var(--dropdown-bg);
   opacity: 0;
   animation: slide 0.2s ease-out forwards;
   width: calc(100% - 30px);

@@ -43,7 +43,7 @@ const BigSwiper2 = (props) => {
       const signal = controller.signal;
 
       const response = await axiosApi.get(
-        `MyCasino/GetGame?id=${gameId}&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+        `MyCasino/GetGame?id=${gameId}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_CASINO_BASE,

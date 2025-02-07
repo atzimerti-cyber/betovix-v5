@@ -15,7 +15,7 @@
   letter-spacing: 0.025em;
   --tw-text-opacity: 1;
   color: #0a0a38;
-  font-weight: 600;
+  font-weight: 400;
   box-sizing: border-box;
 }
 .FloatingBadge {
@@ -30,11 +30,18 @@ a {
   border-radius: 10px;
 }
 .LogOutBtn {
-  background: #0000006b;
+  background: var(--brand-green);
+}
+.LogOutBtn span {
+  color: var(--text-in-brand) !important;
+}
+.LogOutBtn > svg path {
+  fill: var(--text-in-brand) !important;
 }
 .LogOutBtn:hover {
-  background: #870404 !important;
+  background-color: var(--brand-color) !important;
 }
-.LogOutBtn:hover > svg {
-  fill: white !important;
+
+.LogOutBtn:hover > svg path {
+  fill: var(--text-in-brand) !important;
 }

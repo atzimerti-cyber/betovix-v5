@@ -324,7 +324,7 @@
   animation: 6s ease 0s infinite normal none running jQMcyq;
   background: var(--live-badge-purple);
   border-radius: 2px;
-  color: rgb(255, 255, 255);
+  color: var(--white);
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -346,8 +346,8 @@
 
   40%,
   60% {
-    box-shadow: rgba(200, 49, 231, 0.3) 0px 0.25em 1em,
-      rgba(200, 49, 231, 0.8) 0px 0px 0.5em;
+    box-shadow: var(--badge-new-purple) 0px 0.25em 1em,
+      var(--live-badge-purple) 0px 0px 0.5em;
   }
 }
 

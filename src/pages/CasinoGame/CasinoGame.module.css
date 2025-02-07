@@ -63,7 +63,7 @@
   -webkit-box-pack: center;
   justify-content: center;
   flex-direction: column;
-  background-color: rgba(20, 31, 35, 0.97);
+  background-color: #00000069;
   position: absolute;
   inset: 0px;
 }

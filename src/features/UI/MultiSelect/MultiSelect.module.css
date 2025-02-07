@@ -255,7 +255,7 @@
 /* Media */
 @media (min-width: 640px) {
   .DropdownInner input {
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     line-height: 1.25rem;
   }
 }

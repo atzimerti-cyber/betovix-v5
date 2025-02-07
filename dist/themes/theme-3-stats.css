@@ -1,28 +1,28 @@
 :root {
-  --brand-color: #4a9932;
-  --brand-bright-color: #739f75;
-
-  --dark-theme-zero: #14291c;
-  --dark-theme-one: #1c3a27;
-  --dark-theme-two: #294c35;
-  --dark-theme-three: #1f4633;
-  --dark-theme-four: #3a614a;
-  --dark-theme-five: #275540;
-  --dark-theme-six: #f2d05252;
+  --brand-color: #e0ba0d;
+  --brand-bright-color: #e0ba0d;
+  --dark-theme-zero: #031301;
+  --dark-theme-one: #153505;
+  --dark-theme-two: #305a1b;
+  --dark-theme-three: #041a01;
+  --dark-theme-four: #275540;
+  --dark-theme-five: #1d3710a1;
+  --dark-theme-six: #e0ba0d;
   --dark-theme-seven: #f6d700;
-  --light-theme-one: #f2f2f2;
-  --light-theme-two: #e0e0e0;
-  --light-theme-three: #d4d4d4;
-  --light-theme-four: #bababa;
-  --light-theme-five: #a1a1a1;
-  --light-theme-six: #8c8c8c;
+
+  --light-theme-one: #fbfbfb;
+  --light-theme-two: #d1ff817a;
+  --light-theme-three: #102009;
+  --light-theme-four: #274523;
+  --light-theme-five: #071102;
+  --light-theme-six: #17320a;
 
   --text-color-primary: var(--light-theme-one);
   --text-color-dark: var(--dark-theme-one);
   --text-color-light: var(--light-theme-one);
   --text-color-gray: var(--light-theme-three);
   --text-color-special: var(--light-theme-four);
-  --text-color-light-opaque: hsla(0, 0%, 95%, 0.4);
+  --text-color-light-opaque: rgba(251, 251, 251, 0.4);
 }
 
 .sub-tabs-1 ul li:hover {

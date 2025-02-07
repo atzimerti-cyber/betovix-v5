@@ -28,6 +28,9 @@ const Login = () => {
   const registerPromoImgMobile = useSelector(
     (state) => state.app.registerPromoImgMobile
   );
+  const cookiesSettings = useSelector(
+    (state) => state.app.siteSettings.Cookies
+  );
 
   const [loading, setLoading] = useState(false);
 
@@ -161,19 +164,27 @@ const Login = () => {
             >
               {translate("Forgot your password?")}
             </MainButton>
-            <label
-              htmlFor="terms"
-              className={classes.CheckboxLabel}
-              style={{ fontWeight: "300", marginLeft: "0rem" }}
-            >
-              {translate(
-                "By accessing this site I attest that I have read and agree with the"
-              )}{" "}
-              <Link to="/terms-and-conditions" target="_blank" rel="noreferrer">
-                <b>{translate("Terms and Conditions")}</b>.
-              </Link>
-              *
-            </label>
+
+            {cookiesSettings && (
+              <label
+                htmlFor="terms"
+                className={classes.CheckboxLabel}
+                style={{ fontWeight: "300", marginLeft: "0rem" }}
+              >
+                {translate(
+                  "By accessing this site I attest that I have read and agree with the"
+                )}{" "}
+                <Link
+                  to="/pages/terms-of-service"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <b>{translate("Terms and Conditions")}</b>.
+                </Link>
+                *
+              </label>
+            )}
+
             <p
               style={{
                 fontSize: "0.75rem",

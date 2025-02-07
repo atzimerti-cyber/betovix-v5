@@ -36,7 +36,7 @@
   margin-left: -0.625rem;
   margin-right: -0.625rem;
   display: block;
-  flex-grow: 1; 
+  flex-grow: 1;
   padding: 0.5rem;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .DropdownInner {
-  cursor: pointer; 
+  cursor: pointer;
   background: var(--button-grad-op-mid);
   border-width: 1px;
   /* border-radius: 0.375rem; */
@@ -106,7 +106,7 @@
   background-color: var(--mid-blue);
 }
 .DropdownItem.Active:hover {
-  background-color: #405363;
+  background-color: var(--db-white-hover-light);
 }
 
 .FilterBar > div {

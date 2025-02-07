@@ -11,7 +11,7 @@ export const getWallet = (signal) => {
       const lang = getLang();
 
       const response = await axiosApi.post(
-        `/Payments/PostData?action=GetPaymentMethods&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+        `/Payments/PostData?action=GetPaymentMethods&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {},
         {
           signal: signal,
@@ -91,7 +91,7 @@ export const getDepositAddress = (signal, provider, network) => {
       const lang = getLang();
 
       const response = await axiosApi.post(
-        `/Payments/PostData?action=HandlePaymentMethod&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+        `/Payments/PostData?action=HandlePaymentMethod&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
           data: `{ "Name":"${coin.Provider}", "curr": "${network.label}" }`,
         },

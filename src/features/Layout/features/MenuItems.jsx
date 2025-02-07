@@ -2,8 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import StarIcon from "../../../assets/svgs/star.svg?react";
-import TransactionIcon from "../../../assets/svgs/transaction.svg?react";
-import VaultIcon from "../../../assets/svgs/vault.svg?react";
 import BellIcon from "../../../assets/svgs/bell.svg?react";
 import LiveSupportIcon from "../../../assets/svgs/live-support.svg?react";
 import PaperIcon from "../../../assets/svgs/paper2.svg?react";
@@ -14,7 +12,6 @@ import { loginActions } from "../../../pages/Login/loginSlice";
 import classes from "./MenuItems.module.css";
 import { translate } from "../../../utils/translations";
 import { useMediaQuery } from "react-responsive";
-import { useState } from "react";
 
 const MenuItems = (props) => {
   const navigate = useNavigate();

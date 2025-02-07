@@ -11,7 +11,7 @@ export const getCasinoFavs = (signal) => {
       const lang = getLang();
 
       const response = await axiosApi.get(
-        `MyCasino/LoadFavoriteGame?lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+        `MyCasino/LoadFavoriteGame?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_CASINO_BASE,
@@ -39,7 +39,7 @@ export const addCasinoFav = (gameId) => {
     try {
       const lang = getLang();
       const response = await axiosApi.post(
-        `MyCasino/PostData?action=saveFavorite&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+        `MyCasino/PostData?action=saveFavorite&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         { data: `{"GameId":${gameId}}` },
         {
           baseURLOverride: config.VITE_CASINO_BASE,
@@ -75,7 +75,7 @@ export const removeCasinoFav = (gameId) => {
     try {
       const lang = getLang();
       const response = await axiosApi.post(
-        `MyCasino/PostData?action=deleteFavorite&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+        `MyCasino/PostData?action=deleteFavorite&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         { data: `{"GameId":${gameId}}` },
         {
           baseURLOverride: config.VITE_CASINO_BASE,

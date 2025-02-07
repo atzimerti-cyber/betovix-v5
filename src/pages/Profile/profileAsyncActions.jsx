@@ -13,7 +13,7 @@ export const getOverview = (signal) => {
       const lang = getLang();
 
       const response = await axiosApi.post(
-        `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+        `MyCasino/PostData?action=getGamesWithFilter&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
           data: `{"Page":1,"PageItems":24,"Tag":"slot","Search":""}`,
         },
@@ -93,7 +93,7 @@ export const getLevels = (signal) => {
       const lang = getLang();
 
       const response = await axiosApi.post(
-        `/Payments/PostData?action=GetPaymentMethods&lang=${lang.label}&siteid=${config.VITE_SITE_ID}`,
+        `/Payments/PostData?action=GetPaymentMethods&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
           data: `{"Id":""}`,
         },

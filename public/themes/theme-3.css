@@ -3,49 +3,47 @@
   --white: #fbfbfb;
   --white-lowop: #fbfbfbc2;
 
-  --body-bg: #1c3a27;
-  --body-bg: #14291c;
-  --topbar-bg: #294c35;
-  --sb-search: #3a614a;
-  --footer: #14291c;
-  --footer: #1c3a27;
-  --sidebar-category-group: #294c35de;
+  --body-bg: #031301;
+  --topbar-bg: #153505;
+  --sb-search: #1d3710;
+  --footer: #041a01;
+  --sidebar-category-group: #1d3710a1;
   --sidebar-left-menu-item: #275540;
   --sidebar-casino-active: #f2d05252;
   --sidebar-casino-active-svg: #f6d700;
 
-  --brand-green: #dfc100;
+  --brand-green: #edce09;
   --brand-green-lowop: #77a5277a;
   --text-in-brand: black;
 
-  --brand-color: #b3a23c;
+  --brand-color: #e0ba0d;
 
   --text-in-brand: black;
   --placeholder-light: #eafdeb;
   --light-blue: #f7d541;
-  --light-blue-2: #e2b44a;
+  --light-blue-2: #2a4a1a;
   --db-gray-4: #77a5277a;
   --mid-blue-1: #446c2f;
-  --mid-blue: #b3a23c;
-  --dark-blue-1: #0f1c14;
+  --mid-blue: #102009;
+  --dark-blue-1: #071102;
   --dark-blue: #274523;
-  --dark-blue-lowop: #11220ed9;
+  --dark-blue-lowop: #17320a;
 
   --db-white-hover: hsla(0, 0%, 100%, 0.082);
   --db-white-hover-light: hsla(0, 0%, 100%, 0.127);
 
   --odds-button-border: transparent;
-  --odds-button: #4b6443;
+  --odds-button: #436b2f;
   --odds-button-disabled: #000000c0;
-  --card-odds-button: #bbcaabc6;
+  --card-odds-button: #ebffe4;
   --card-odds-button-selected: #e3c425;
   --card-odds-button-disabled: #5f705f30;
 
-  --badge-new-purple: #88be2b;
-  --live-badge-purple: #e7c731;
+  --badge-new-purple: #b66e00;
+  --live-badge-purple: #f39d1c;
 
-  --db-like: #e7b146;
-  --cancelled: #c13333;
+  --db-like: #f3bc4f;
+  --cancelled: #ff9494;
   --cancelled-low-op: #c1333395;
   --green: #33c14b;
   --yellow-accent-color: #f1df4b;
@@ -53,7 +51,7 @@
   --lightcolor-low-op: #f5e0944a;
   --lightcolor-op1: #f5e094;
   --darkcolor-op1: #274523;
-  --darkcolor-low-op: #27452358;
+  --darkcolor-low-op: #142312;
 
   --layout-icon-btn: linear-gradient(222deg, #36593c 0%, #29472e 63%);
   --toast-grad-op1: linear-gradient(50deg, #4a634e 0%, #567a5f 50%);
@@ -70,24 +68,27 @@
     #dbcc8181 75%,
     #dbcc4444 110%
   );
-  --button-grad-op1: linear-gradient(307deg, #f5e0945d 0%, #c6b75757 50%);
-  --button-grad-op1: linear-gradient(307deg, #37521c 0%, #2c501a 50%);
-  --button-grad-op-mid: linear-gradient(222deg, #37521cb9 0% #37661fb7 50%);
-  --arrow-button: linear-gradient(307deg, #37be2b96 0%, #50bd1d86 50%);
-  --arrow-button-disabled: linear-gradient(307deg, #45eb360e 0%, #65c5380c 50%);
 
-  --provider-card-bg: #3758408a;
-  --provider-card-bg-lowOp: #37584056;
+  --button-grad-op1: linear-gradient(307deg, #254117 0%, #2a471b 50%);
+  --button-grad-op-mid: linear-gradient(307deg, #213310 0%, #1c370f 50%);
+  --arrow-button: #3b8019;
+  --arrow-button-disabled: #128c0425;
+
+  --provider-card-bg: #1a3308;
+  --provider-card-bg-lowOp: #1a3308b6;
 
   --outer-container-left: #00000015;
 
-  --dropdown-bg: #476146;
+  --dropdown-bg: #051a01;
+
+  --calendar: #253c16;
+  --calendar-hover: linear-gradient(307deg, #4b792dbd 0%, #4a8324a9 50%);
 
   --swiper-container-grad: linear-gradient(45deg, #f2cf5209, #3758402a 120%);
-  --accordion-header: linear-gradient(222deg, #264731 0%, #264731 50%);
-  --accordion-body: linear-gradient(72deg, #203428 0%, #203428 50%);
-  --accordion-small-header: linear-gradient(222deg, #2f4a38 0%, #2f4a38 50%);
-  --accordion-small-body: linear-gradient(72deg, #2c4235 0%, #2c4235 50%);
+  --accordion-header: linear-gradient(222deg, #223418 0%, #223418 50%);
+  --accordion-body: linear-gradient(72deg, #13230f 0%, #142410 50%);
+  --accordion-small-header: linear-gradient(222deg, #2d4720 0%, #2d4720 50%);
+  --accordion-small-body: linear-gradient(72deg, #1f3116 0%, #1f3116 50%);
   --casino-options-bg: radial-gradient(
       65.95% 124.31% at 100% 100%,
       #325839 10.17%,
@@ -95,7 +96,7 @@
     ),
     #203a2a;
 
-  --event-board-bg: #325839e3;
+  --event-board-bg: #212e1adb;
 
   --db-modal-auth-height: 506px;
   --db-modal-announcement-height: 480px;
@@ -122,7 +123,7 @@
   --db-scrollbar-thumb-bg: var(--light-blue);
   --db-scrollbar-track-bg: var(--mid-blue-1);
   --db-transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-  --db-modal-overlay: #325839c7;
+  --db-modal-overlay: #101c12c7;
   --db-dropdown-shadow: -10px 6px 30px rgb(0 0 0 / 35%);
   --db-modal-header-height: 38px;
   --db-milestone-card-width: 140px;
@@ -145,7 +146,7 @@
   --tab-radius: 0.5rem;
   --pf: 148.08 58.197% 47.843%;
   --pc: 0 0% 100%;
-  --s: 52 100% 44%;
+  --s: 100 62% 35%;
   --sf: 276 70.796% 47.314%;
   --sc: 0 0% 100%;
   --a: 90.59 80.952% 37.059%;

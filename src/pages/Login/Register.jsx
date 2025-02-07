@@ -36,10 +36,19 @@ const Register = () => {
   const registerPromoImgMobile = useSelector(
     (state) => state.app.registerPromoImgMobile
   );
+  const cookiesSettings = useSelector(
+    (state) => state.app.siteSettings.Cookies
+  );
   const settings = useSelector((state) => state.app.settings);
   const loginLoading = useSelector((state) => state.login.loginLoading);
   const [isOver18, setIsOver18] = useState(false);
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+
+  useEffect(() => {
+    if (!cookiesSettings) {
+      setIsTermsAccepted(true);
+    }
+  }, [cookiesSettings]);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -515,7 +524,7 @@ const Register = () => {
               className={classes.ReturnBtn}
               style={{
                 width: "100%",
-                background: "rgb(20 55 75 / 33%)",
+                background: "#ffffff0d",
                 borderRadius: "8px",
                 paddingInline: "10px",
               }}
@@ -776,30 +785,32 @@ const Register = () => {
                 {translate("Yes, I'm over 18")}*
               </label>
             </div>
-            <div className={classes.CheckboxContainer}>
-              <input
-                checked={isTermsAccepted}
-                onChange={(e) => setIsTermsAccepted(e.target.checked)}
-                type="checkbox"
-                id="terms"
-                name="terms"
-                className={classes.CheckboxInput}
-              />
-              <label htmlFor="terms" className={classes.CheckboxLabel}>
-                {/* {translate("I've read and agree to the Terms and Conditions *")} */}
-                {translate(
-                  "By accessing this site I attest that I have read and agree with the"
-                )}{" "}
-                <Link
-                  to="/terms-and-conditions"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <b>{translate("Terms and Conditions")}</b>.
-                </Link>
-                *
-              </label>
-            </div>
+
+            {cookiesSettings ? (
+              <div className={classes.CheckboxContainer}>
+                <input
+                  checked={isTermsAccepted}
+                  onChange={(e) => setIsTermsAccepted(e.target.checked)}
+                  type="checkbox"
+                  id="terms"
+                  name="terms"
+                  className={classes.CheckboxInput}
+                />
+                <label htmlFor="terms" className={classes.CheckboxLabel}>
+                  {translate(
+                    "By accessing this site I attest that I have read and agree with the"
+                  )}{" "}
+                  <Link
+                    to="/pages/terms-of-service"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <b>{translate("Terms and Conditions")}</b>.
+                  </Link>
+                  *
+                </label>
+              </div>
+            ) : null}
 
             <div className={classes.BigBtn}>
               <MainButton

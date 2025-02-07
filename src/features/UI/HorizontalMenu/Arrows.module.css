@@ -31,7 +31,7 @@
   user-select: none;
   white-space: nowrap;
 
-  fill: rgb(113, 142, 152);
+  fill: var(--white);
   position: absolute;
   top: 0px;
   z-index: 10;
@@ -44,7 +44,6 @@
   left: -10px;
 
   bottom: 0px;
-  border-bottom: 1px solid rgb(32, 49, 56);
 }
 
 .RightArrow.MenuArrowButton {
@@ -52,11 +51,10 @@
   right: -10px;
 
   bottom: 0px;
-  border-bottom: 1px solid rgb(32, 49, 56);
 }
 
 .MenuArrowButton:hover {
-  fill: #fff;
+  fill: var(--white);
 }
 
 .MenuArrowButton svg {

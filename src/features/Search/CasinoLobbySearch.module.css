@@ -17,6 +17,7 @@
   padding: 0.6rem 0.9rem;
   color: white;
   border: 1px solid transparent;
+  font-size: 0.8rem;
 }
 .SearchInput:focus {
   border: 1px solid var(--brand-green);

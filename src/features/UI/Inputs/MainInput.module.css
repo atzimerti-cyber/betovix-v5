@@ -45,11 +45,11 @@
 .RightIcon svg {
   height: 0.75rem;
   width: 0.75rem;
+  fill: var(--lightcolor-op1);
 }
 .RightIcon svg path {
   fill: var(--lightcolor-op1);
 }
-
 .DeleteIcon {
   cursor: pointer;
   z-index: 10;
