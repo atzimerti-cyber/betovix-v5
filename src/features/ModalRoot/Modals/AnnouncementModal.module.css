@@ -19,6 +19,10 @@
   border-radius: 10px;
   max-height: 93vh;
 }
+.emptySpace {
+  height: 20px;
+  text-align: center;
+}
 .Right {
   display: flex;
   align-items: center;

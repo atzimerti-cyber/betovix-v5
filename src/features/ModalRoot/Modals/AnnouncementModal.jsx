@@ -17,6 +17,7 @@ const AnnouncementModal = () => {
     const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
     const support = useSelector((state) => state.layout.tawkToScript);
     const supportEmail = support?.Email ? support?.Email : "support@betovix.com";
+    const cookiesSettings = useSelector((state) => state.app.siteSettings.Cookies);
 
     useEffect(() => {
         if (!siteSettings) {
@@ -112,18 +113,27 @@ const AnnouncementModal = () => {
                         </div>
                        
                     </div>
-                    <div className={classes.InformationSection}>
-                        <p>
-                        {translate("Bet responsibly and stay in control. For more information")},{" "}
-                            <span
-                                style={{ color: "var(--light-blue)", textDecoration: "underline", cursor: "pointer" }}
-                                onClick={() => navigate("/rpg")}
-                            >
-                                {translate("visit our Responsible Gaming Policy")}
-                            </span>{" "}
-                            {translate("to keep gaming fun and safe for everyone")}.
-                        </p>
+                    {cookiesSettings === 'true' ? (
+                        <div className={classes.InformationSection}>
+                            <p>
+                                {translate("Bet responsibly and stay in control. For more information")},{" "}
+                                <span
+                                    style={{ color: "var(--light-blue)", textDecoration: "underline", cursor: "pointer" }}
+                                    onClick={() => navigate("/rpg")}
+                                >
+                                    {translate("visit our Responsible Gaming Policy")}
+                                </span>{" "}
+                                {translate("to keep gaming fun and safe for everyone")}.
+                            </p>
+                        </div>
+                    ) : (
+                        <div className={classes.InformationSection}> 
+                        <p className={classes.emptySpace}>
+                        {translate("Bet responsibly and stay in control to keep gaming fun and safe for everyone")}.
+                        
+                    </p>
                     </div>
+                    )}
                 </div>
                 
             </div>

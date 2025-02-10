@@ -16,7 +16,7 @@ const Cookies = () => {
   // Check localStorage when the component mounts
   useEffect(() => {
     const isAccepted = localStorage.getItem("cookiesAccepted");
-    if (!isAccepted && cookiesSettings) {
+    if (!isAccepted && cookiesSettings === 'true') {
       setIsVisible(true); // Show the modal if not accepted
     }
   }, []);
