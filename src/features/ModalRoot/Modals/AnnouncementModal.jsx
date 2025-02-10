@@ -119,7 +119,7 @@ const AnnouncementModal = () => {
                                 {translate("Bet responsibly and stay in control. For more information")},{" "}
                                 <span
                                     style={{ color: "var(--light-blue)", textDecoration: "underline", cursor: "pointer" }}
-                                    onClick={() => navigate("/rpg")}
+                                    onClick={() => navigate("/pages/rpg")}
                                 >
                                     {translate("visit our Responsible Gaming Policy")}
                                 </span>{" "}

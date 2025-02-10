@@ -1,1 +1,0 @@
-const t="_PageContent_1jl5t_1",a="_ToS_1jl5t_21",e="_Title_1jl5t_35",_="_Context_1jl5t_59",o="_Text_1jl5t_67",n="_ParagraphTitle_1jl5t_75",T="_ParagraphText_1jl5t_89",l={PageContent:t,ToS:a,Title:e,Context:_,Text:o,ParagraphTitle:n,ParagraphText:T};export{l as c};
