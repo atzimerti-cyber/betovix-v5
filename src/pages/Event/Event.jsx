@@ -502,7 +502,7 @@ const Event = () => {
                     )}
                     {event && event?.type !== "live" && (
                       <iframe
-                        src={`/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}/external/page/h2h/${event.Info?.HomeTeamId}/${event.Info?.AwayTeamId}`}
+                        src={`https://pick777.net/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}/external/page/h2h/${event.Info?.HomeTeamId}/${event.Info?.AwayTeamId}`}
                         style={{
                           width: "100%",
                           height: "100%",
