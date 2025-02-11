@@ -118,7 +118,11 @@ const WithdrawPaymentForm = (props) => {
         ? debouncedFormData.CardNumber.replace(/\s+/g, "")
         : debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
       CustomerIdCode: debouncedFormData.IDCode,
-      CustomerIBAN: debouncedFormData.Iban,
+      CustomerIBAN: debouncedFormData.IBAN,
+      CustomerGambBankId: debouncedFormData.Bank,
+      CustomerBirthDate: debouncedFormData.DateOfBirth,
+      CustomerIdentityExpDate: debouncedFormData.IdentityExpiredDate,
+      CustomerIdentityReceiveDate: debouncedFormData.IdentityIssueDate,
     };
     console.log(debouncedFormData);
     console.log(withdrawDTO);
@@ -153,6 +157,18 @@ const WithdrawPaymentForm = (props) => {
               `Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`
             )}
             style={{ paddingLeft: "2rem" }}
+          />
+        </div>
+      );
+    } else if (Type == "DateTime") {
+      inputElement = (
+        <div className={classes.InputWrapper}>
+          <input
+            className={classes.Input}
+            type="date"
+            name={Name}
+            value={formData[Name] || ""}
+            onChange={handleChange}
           />
         </div>
       );
@@ -246,8 +262,14 @@ const WithdrawPaymentForm = (props) => {
         >
           {ListValues.map((item, index) => {
             const key = Object.keys(item)[0];
+            const value = Object.values(item)[0];
             return (
-              <option className={classes.SelectOptions} key={index} value={key}>
+              <option
+                className={classes.SelectOptions}
+                key={index}
+                value={value}
+              >
+                {/* <option className={classes.SelectOptions} key={index} value={key}> */}
                 {key}
               </option>
             );

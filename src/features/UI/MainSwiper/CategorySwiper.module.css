@@ -1,0 +1,58 @@
+.SlideContainer {
+  height: 100%;
+  width: 100%;
+  transition: transform 0.2s linear;
+  border-radius: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  aspect-ratio: 7/4;
+  overflow: hidden;
+}
+
+/* SERVICE LINKS */
+.SlideServiceLinks {
+  height: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 93%;
+  transition: transform 0.15s linear;
+  will-change: background-size, transform;
+}
+.SlideServiceLinks:hover {
+  transform: scale(1.05);
+}
+
+/* HOME LINKS */
+.SlideHomeLinksVertical {
+  height: 100%;
+  aspect-ratio: 450/533;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 95%;
+  transition: transform 0.15s linear;
+  will-change: background-size, transform;
+}
+.SlideHomeLinksVertical:hover {
+  transform: scale(1.05);
+}
+
+/* SERVICE LINKS */
+.SlideServiceLinksHorizontal {
+  height: 100%;
+  aspect-ratio: 831/416;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  transition: transform 0.15s linear;
+  will-change: background-size, transform;
+}
+.SlideServiceLinksHorizontal:hover {
+  transform: scale(1.03);
+}

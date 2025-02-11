@@ -146,6 +146,8 @@ export const submitDepositForm = (signal, depositDTO) => {
         );
       } else if (depositDTO.PaymentProvider === "PayNora") {
         dispatch(cryptoActions.setDepositAddress(response.data.Contents));
+      } else if (depositDTO.PaymentProvider === "GambPayTransfer") {
+        window.location.href = response.data.Contents.url;
       }
     } catch (error) {
       const message = error?.message ? error.message : error;

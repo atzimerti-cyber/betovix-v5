@@ -163,6 +163,21 @@ const PaymentForm = (props) => {
           />
         </div>
       );
+    } else if (Type == "DateTime") {
+      inputElement = (
+        <div className={classes.InputWrapper}>
+          <input
+            className={classes.Input}
+            type="date"
+            name={Name}
+            value={formData[Name] || ""}
+            onChange={handleChange}
+            placeholder={translate(
+              `Enter ${Name.replace(/([a-z])([A-Z])/g, "$1 $2")}`
+            )}
+          />
+        </div>
+      );
     } else if (Type === "string" && ListValues.length === 0) {
       if (Name === "Country") {
         inputElement = (
