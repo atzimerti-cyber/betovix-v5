@@ -165,7 +165,7 @@ const Login = () => {
               {translate("Forgot your password?")}
             </MainButton>
 
-            {cookiesSettings && (
+            {cookiesSettings === 'true' && (
               <label
                 htmlFor="terms"
                 className={classes.CheckboxLabel}

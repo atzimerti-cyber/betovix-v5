@@ -45,7 +45,7 @@ const Register = () => {
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
 
   useEffect(() => {
-    if (!cookiesSettings) {
+    if (cookiesSettings === 'false') {
       setIsTermsAccepted(true);
     }
   }, [cookiesSettings]);
@@ -786,7 +786,7 @@ const Register = () => {
               </label>
             </div>
 
-            {cookiesSettings ? (
+            {cookiesSettings === 'true' ? (
               <div className={classes.CheckboxContainer}>
                 <input
                   checked={isTermsAccepted}
