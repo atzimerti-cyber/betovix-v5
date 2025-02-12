@@ -21,7 +21,6 @@ import BarLoading from "../../features/UI/BarLoading/BarLoading";
 
 import { translate } from "../../utils/translations";
 
-import LogoSmall from "../../assets/svgs/logo-small.svg?react";
 import HeartIcon from "../../assets/svgs/heart.svg?react";
 import ExpandOutlineIcon from "../../assets/svgs/expand-outline.svg?react";
 import FullscreenOutlineIcon from "../../assets/svgs/fullscreen-outline.svg?react";
@@ -292,7 +291,6 @@ const CasinoGame = (props) => {
                   <span>{translate("Back")}</span>
                 </MainButton>
               </div>
-              <LogoSmall />
               <div className={classes.RightSection}>
                 <MainButton
                   color="transparent"

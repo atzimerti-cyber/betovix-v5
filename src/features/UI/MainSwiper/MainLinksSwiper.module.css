@@ -1,0 +1,36 @@
+.MainLinks > div > div > div > div {
+  max-width: 400px;
+}
+
+.Slide {
+  padding: 0.2rem;
+  transition: transform 0.2s ease-in-out;
+}
+.Slide:hover {
+  transform: scale(1.025);
+}
+
+.SlideMainLinks {
+  height: 100%;
+  aspect-ratio: 831/416;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 93%;
+  transition: transform 0.15s linear;
+  will-change: background-size, transform;
+}
+.SlideMainLinks:hover {
+  transform: scale(1.01);
+}
+
+@media (min-width: 500px) {
+  .MainLinks > div > div > div > div {
+    max-width: 400px;
+  }
+}
+@media (min-width: 768px) {
+  .MainLinks > div > div > div > div {
+    max-width: 420px;
+  }
+}

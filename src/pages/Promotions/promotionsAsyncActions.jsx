@@ -39,3 +39,52 @@ export const getPromotion = (signal) => {
     }
   };
 };
+
+export const getSiteLinks = (signal, category) => {
+  return async (dispatch, getState) => {
+    try {
+      const lang = getLang();
+
+      const response = await axiosApi.get(
+        `/SiteLinks/GetSiteLinks?siteid=${config.VITE_SITE_ID}&lang=${lang.id}&category=${category}`,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
+        throw Error(response.data.Contents);
+
+      // const currentLinks = getState().promotions.siteLinks || [];
+
+      // const categoryIndex = currentLinks.findIndex(
+      //   (item) => item.category === category
+      // );
+
+      // let updatedLinks = [...currentLinks];
+
+      // if (categoryIndex !== -1) {
+      //   updatedLinks[categoryIndex].items = response.data.Contents;
+      // } else {
+      //   updatedLinks.push({
+      //     categoryName: category,
+      //     items: response.data.Contents,
+      //   });
+      // }
+
+      if (category === "ServiceLinks") {
+        dispatch(promotionsActions.setServiceLinks(response.data.Contents));
+      } else if (category === "MainLinks") {
+        dispatch(promotionsActions.setMainLinks(response.data.Contents));
+      } else if (category === "GameLinks") {
+        dispatch(promotionsActions.setGameLinks(response.data.Contents));
+      }
+
+      // dispatch(promotionsActions.setSiteLinks(updatedLinks));
+    } catch (error) {
+      const message = error?.message ? error.message : error;
+      if (!error?.code === "ERR_CANCELED") toast.error(message);
+    }
+  };
+};

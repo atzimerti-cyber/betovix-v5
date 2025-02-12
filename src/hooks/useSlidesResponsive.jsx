@@ -420,67 +420,68 @@ const useSlidesResponsive = (categ) => {
         slidesPerGroup = 3;
       }
     }
-  } else if (categ == "service-links") {
-    if (isSmallMobile) {
-      slidesPerView = 1.9;
-      slidesPerGroup = 2;
-    } else if (isMobile) {
-      slidesPerView = 2.5;
-      slidesPerGroup = 3;
-    } else if (isTablet) {
-      slidesPerView = 4.5;
-      slidesPerGroup = 3;
-    } else if (isDesktop) {
-      slidesPerView = 5.3;
-      slidesPerGroup = 4;
-    } else if (isBigDesktop) {
-      slidesPerView = 6.2;
-      slidesPerGroup = 5;
-    } else {
-      slidesPerView = 7;
-      slidesPerGroup = 6;
-    }
-  } else if (categ == "home-links-vertical") {
-    if (isSmallMobile) {
-      slidesPerView = 1.9;
-      slidesPerGroup = 2;
-    } else if (isMobile) {
-      slidesPerView = 2.5;
-      slidesPerGroup = 3;
-    } else if (isTablet) {
-      slidesPerView = 4.5;
-      slidesPerGroup = 3;
-    } else if (isDesktop) {
-      slidesPerView = 5.3;
-      slidesPerGroup = 4;
-    } else if (isBigDesktop) {
-      slidesPerView = 6.2;
-      slidesPerGroup = 5;
-    } else {
-      slidesPerView = 5;
-      slidesPerGroup = 4;
-    }
-  } else if (categ == "home-links-horizontal") {
-    if (isSmallMobile) {
-      slidesPerView = 1;
-      slidesPerGroup = 2;
-    } else if (isMobile) {
-      slidesPerView = 1;
-      slidesPerGroup = 3;
-    } else if (isTablet) {
-      slidesPerView = 2;
-      slidesPerGroup = 3;
-    } else if (isDesktop) {
-      slidesPerView = 3;
-      slidesPerGroup = 4;
-    } else if (isBigDesktop) {
-      slidesPerView = 3;
-      slidesPerGroup = 5;
-    } else {
-      slidesPerView = 3;
-      slidesPerGroup = 4;
-    }
   }
+  //  else if (categ == "service-links") {
+  //   if (isSmallMobile) {
+  //     slidesPerView = 1.9;
+  //     slidesPerGroup = 2;
+  //   } else if (isMobile) {
+  //     slidesPerView = 2.5;
+  //     slidesPerGroup = 3;
+  //   } else if (isTablet) {
+  //     slidesPerView = 4.5;
+  //     slidesPerGroup = 3;
+  //   } else if (isDesktop) {
+  //     slidesPerView = 5.3;
+  //     slidesPerGroup = 4;
+  //   } else if (isBigDesktop) {
+  //     slidesPerView = 6.2;
+  //     slidesPerGroup = 5;
+  //   } else {
+  //     slidesPerView = 7;
+  //     slidesPerGroup = 6;
+  //   }
+  // } else if (categ == "home-links-vertical") {
+  //   if (isSmallMobile) {
+  //     slidesPerView = 1.9;
+  //     slidesPerGroup = 2;
+  //   } else if (isMobile) {
+  //     slidesPerView = 2.5;
+  //     slidesPerGroup = 3;
+  //   } else if (isTablet) {
+  //     slidesPerView = 4.5;
+  //     slidesPerGroup = 3;
+  //   } else if (isDesktop) {
+  //     slidesPerView = 5.3;
+  //     slidesPerGroup = 4;
+  //   } else if (isBigDesktop) {
+  //     slidesPerView = 6.2;
+  //     slidesPerGroup = 5;
+  //   } else {
+  //     slidesPerView = 5;
+  //     slidesPerGroup = 4;
+  //   }
+  // } else if (categ == "home-links-horizontal") {
+  //   if (isSmallMobile) {
+  //     slidesPerView = 1;
+  //     slidesPerGroup = 2;
+  //   } else if (isMobile) {
+  //     slidesPerView = 1;
+  //     slidesPerGroup = 3;
+  //   } else if (isTablet) {
+  //     slidesPerView = 2;
+  //     slidesPerGroup = 3;
+  //   } else if (isDesktop) {
+  //     slidesPerView = 3;
+  //     slidesPerGroup = 4;
+  //   } else if (isBigDesktop) {
+  //     slidesPerView = 3;
+  //     slidesPerGroup = 5;
+  //   } else {
+  //     slidesPerView = 3;
+  //     slidesPerGroup = 4;
+  //   }
+  // }
 
   return {
     slidesPerView,

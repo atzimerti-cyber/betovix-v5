@@ -81,7 +81,7 @@
 }
 
 .MainSwiperWrapper .MainSwiper > div > div {
-  width: 150px;
+  /* width: 150px; */
 }
 
 .WithPagination .MainSwiper {

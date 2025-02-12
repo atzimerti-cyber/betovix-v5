@@ -120,12 +120,17 @@ const WithdrawPaymentForm = (props) => {
       CustomerIdCode: debouncedFormData.IDCode,
       CustomerIBAN: debouncedFormData.IBAN,
       CustomerGambBankId: debouncedFormData.Bank,
-      CustomerBirthDate: debouncedFormData.DateOfBirth,
-      CustomerIdentityExpDate: debouncedFormData.IdentityExpiredDate,
-      CustomerIdentityReceiveDate: debouncedFormData.IdentityIssueDate,
+      CustomerBirthDate: formatDate(debouncedFormData.DateOfBirth),
+      CustomerIdentityExpDate: formatDate(
+        debouncedFormData.IdentityExpiredDate
+      ),
+      CustomerIdentityReceiveDate: formatDate(
+        debouncedFormData.IdentityIssueDate
+      ),
     };
-    console.log(debouncedFormData);
-    console.log(withdrawDTO);
+
+    console.log("DFD:", debouncedFormData);
+    console.log("DTO:", withdrawDTO);
 
     const controller = new AbortController();
     const signal = controller.signal;
@@ -310,6 +315,12 @@ const WithdrawPaymentForm = (props) => {
       .replace(/(.{4})/g, "$1 ")
       .trim();
   }
+
+  const formatDate = (value) => {
+    if (!value) return undefined;
+    const [year, month, day] = value.split("-");
+    return `${day}/${month}/${year}`;
+  };
 
   return (
     <div className={classes.PaymentForm}>

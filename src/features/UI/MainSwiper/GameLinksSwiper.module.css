@@ -1,0 +1,36 @@
+.GameLinks > div > div > div > div {
+  max-width: 145px;
+}
+
+.Slide {
+  padding: 0.2rem;
+  transition: transform 0.2s ease-in-out; /* Smooth transition */
+}
+.Slide:hover {
+  transform: scale(1.025);
+}
+
+.SlideGameLinks {
+  height: 100%;
+  aspect-ratio: 650/1290;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 93%;
+  transition: transform 0.15s linear;
+  will-change: background-size, transform;
+}
+.SlideGameLinks:hover {
+  transform: scale(1.01);
+}
+
+@media (min-width: 500px) {
+  .GameLinks > div > div > div > div {
+    max-width: 150px;
+  }
+}
+@media (min-width: 768px) {
+  .GameLinks > div > div > div > div {
+    max-width: 205px;
+  }
+}

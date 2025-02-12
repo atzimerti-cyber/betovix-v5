@@ -15,12 +15,11 @@ import RegisterContainers from "./features/RegisterContainers";
 import SelectHeroContainer from "./features/SelectHeroContainer";
 import Crypto from "../../features/CryptoPriceSwiper/Crypto";
 import ManualRewards from "../UserGamification.jsx/features/ManualRewards";
-import CasinoFavorites from "../../features/CasinoFavorites/CasinoFavorites";
-import CrashGames from "../../features/CrashGames/CrashGames";
 import CasinoTagSwiper from "../../features/CasinoTag/CasinoTagSwiper";
-import RecommendedGames from "../../features/RecommendedGames/RecommendedGames";
 import GamificationBanner from "../UserGamification.jsx/GamificationBanner/GamificationBanner";
-import CategorySwiper from "../../features/UI/MainSwiper/CategorySwiper";
+import ServiceLinksSwiper from "../../features/UI/MainSwiper/ServiceLinksSwiper";
+import MainLinksSwiper from "../../features/UI/MainSwiper/MainLinksSwiper";
+import GameLinksSwiper from "../../features/UI/MainSwiper/GameLinksSwiper";
 
 function ObjectHasValue(obj) {
   for (let key in obj) {
@@ -221,18 +220,26 @@ const Home = () => {
                     </div>
                   )}
 
-                  {tag.Category === "77" && (
-                    <div
-                      key={index}
-                      style={{ minHeight: "180px" }}
-                      ref={elementRef}
-                    >
-                      <CategorySwiper
-                        style={{ minHeight: "180px" }}
-                        category={tag.Tag}
-                        onDataNotFound={() => handleRemoveComponent(index)}
-                      />
-                    </div>
+                  {tag.Category === "7" && (
+                    <>
+                      {tag.Tags === "ServiceLinks" && (
+                        <ServiceLinksSwiper
+                          onDataNotFound={() => handleRemoveComponent(index)}
+                        />
+                      )}
+
+                      {tag.Tags === "MainLinks" && (
+                        <MainLinksSwiper
+                          onDataNotFound={() => handleRemoveComponent(index)}
+                        />
+                      )}
+
+                      {tag.Tags === "GameLinks" && (
+                        <GameLinksSwiper
+                          onDataNotFound={() => handleRemoveComponent(index)}
+                        />
+                      )}
+                    </>
                   )}
                 </>
               )

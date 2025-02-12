@@ -1,0 +1,39 @@
+.ServiceLinks > div > div > div > div {
+  max-width: 120px;
+  max-height: 300px;
+}
+
+.Slide {
+  padding: 0.2rem;
+  transition: transform 0.2s ease-in-out; /* Smooth transition */
+}
+.Slide:hover {
+  transform: scale(1.025);
+}
+
+.SlideServiceLinks {
+  height: 100%;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 93%;
+  transition: transform 0.15s linear;
+  will-change: background-size, transform;
+}
+.SlideServiceLinks:hover {
+  transform: scale(1.01);
+}
+
+@media (min-width: 500px) {
+  .ServiceLinks > div > div > div > div {
+    max-width: 130px;
+    max-height: 300px;
+  }
+}
+@media (min-width: 768px) {
+  .ServiceLinks > div > div > div > div {
+    max-width: 150px;
+    max-height: 300px;
+  }
+}
