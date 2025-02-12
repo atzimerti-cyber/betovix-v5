@@ -76,6 +76,7 @@
   color: var(--white);
   background: #00000085;
   border-radius: 10px;
+  display: var(--display-signup-cont);
 }
 
 @container (min-width: 1033px) {
