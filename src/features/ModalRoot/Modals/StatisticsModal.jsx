@@ -37,7 +37,7 @@ const StatisticsModal = () => {
                         title="Stats"
                     /> */}
           <iframe
-            src={`/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}`}
+            src={`https://pick777.net/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}`}
             style={{ width: "100%", height: "100%", border: "none" }}
             title="Stats"
           />

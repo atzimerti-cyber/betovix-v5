@@ -39,7 +39,7 @@ const Stats = (props) => {
         >
             {props.showStatsFor.Info.DateOfMatch ? (
                  <iframe
-                 src={`/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}/external/page/h2h/${
+                 src={`https://pick777.net/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}/external/page/h2h/${
                     props.showStatsFor.Info.HomeTeamId
                  }/${props.showStatsFor.Info.AwayTeamId}`}
                  style={{ width: '100%', height: '100%', border: 'none' }}
