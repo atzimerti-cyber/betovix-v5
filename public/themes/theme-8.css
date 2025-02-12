@@ -50,7 +50,7 @@
   --green: #33c14b;
   --yellow-accent-color: #fbe184;
 
-  --lightcolor-low-op: rgba(251, 251, 251, 0.05);
+  --lightcolor-low-op: rgba(251, 251, 251, 0.253);
   --lightcolor-op1: #fbfbfb;
   --darkcolor-op1: #060f38;
   --darkcolor-low-op: #060f3858;
@@ -224,6 +224,7 @@
 
   --swiper-theme-color: #a3a3a3;
   color: hsla(var(--bc) / var(--tw-text-opacity, 1));
+  --display-signup-cont: none;
 }
 body {
   background-color: var(--body-bg);

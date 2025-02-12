@@ -226,6 +226,8 @@
 
   --swiper-theme-color: #a3a3a3;
   color: hsla(var(--bc) / var(--tw-text-opacity, 1));
+  --display-signup-cont: none;
+
 }
 body {
   background-color: var(--body-bg);
