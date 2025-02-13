@@ -713,7 +713,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=petekbet.com`,
+        // `Site/GetSite?domainName=slotking365.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -893,6 +893,12 @@ export const getSiteSettings = (signal) => {
         config.VITE_LOGIN_URL = response.data.Contents.Site.LoginUrl;
       } else {
         config.VITE_LOGIN_URL = config.VITE_WALLET_API_BASE;
+      }
+
+      if (response.data.Contents.Site["Strong Password"] === "false") {
+        dispatch(loginActions.setStrongPassword(false));
+      } else {
+        dispatch(loginActions.setStrongPassword(true));
       }
 
       dispatch(

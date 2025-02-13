@@ -193,6 +193,7 @@ const Cat3Swiper = (props) => {
               onTask={props.task}
               icon={false}
               thIcon={false}
+              noHeader
             >
               {items ? (
                 items.length === 0 ? (
