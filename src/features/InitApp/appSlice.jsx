@@ -308,6 +308,7 @@ const initialState = {
     "No Limit": <NoLimit />,
     "X-mas Specials": <XmasCasinoIcon />,
     Blackjack: <Blackjack />,
+    "Peter & Sons": <Peterandsons />,
   },
   casinoMenuIcons: {
     Lobby: <HomeIcon />,
