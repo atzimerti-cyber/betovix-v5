@@ -895,6 +895,16 @@ export const getSiteSettings = (signal) => {
         config.VITE_LOGIN_URL = config.VITE_WALLET_API_BASE;
       }
 
+      if (response.data.Contents.Site.CustomerCssUrl !== "") {
+        const customercss = response.data.Contents.Site.CustomerCssUrl;
+        const link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = customercss;
+        link.type = "text/css";
+        link.crossOrigin = "anonymous";
+        document.head.appendChild(link);
+      }
+
       if (response.data.Contents.Site["Strong Password"] === "false") {
         dispatch(loginActions.setStrongPassword(false));
       } else {
