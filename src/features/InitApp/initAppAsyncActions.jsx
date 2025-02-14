@@ -543,6 +543,9 @@ export const loadInitData = (isMobile) => {
       });
 
       //Footer
+      const ss = getState().app.siteSettings;
+      const footerType = ss && ss.FooterType ? ss.FooterType : "FOOTER";
+
       const footerResponse = await axiosApi.get(
         `/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
@@ -551,8 +554,13 @@ export const loadInitData = (isMobile) => {
       );
       if (footerResponse.data.Status.StatusCode !== 200) throw Error();
 
+      const footers = footerResponse.data.Contents;
+      const foundFooter = footers?.Categs.find(
+        (f) => f.Categ.Name === footerType
+      );
+
       const footer =
-        footerResponse.data.Contents.Categs[5]?.SubCategs?.map((categ) => ({
+        foundFooter.SubCategs?.map((categ) => ({
           title: categ.SubCateg?.Name || "Untitled",
           subcategs:
             categ?.Items?.map((subcateg) => ({
@@ -713,7 +721,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=slotking365.com`,
+        //`Site/GetSite?domainName=betovix.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -897,12 +905,9 @@ export const getSiteSettings = (signal) => {
 
       if (response.data.Contents.Site.CustomerCssUrl !== "") {
         const customercss = response.data.Contents.Site.CustomerCssUrl;
-        const link = document.createElement("link");
-        link.rel = "stylesheet";
-        link.href = customercss;
-        link.type = "text/css";
-        link.crossOrigin = "anonymous";
-        document.head.appendChild(link);
+        const rules = document.createElement("style");
+        rules.innerHTML = customercss;
+        document.head.appendChild(rules);
       }
 
       if (response.data.Contents.Site["Strong Password"] === "false") {
