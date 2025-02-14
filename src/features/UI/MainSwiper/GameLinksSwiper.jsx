@@ -37,7 +37,7 @@ const GameLinksSwiper = ({ onDataNotFound }) => {
 
   return (
     gameLinks && (
-      <div className={classes.GameLinks}>
+      <div className={classes.GameLinks} id="gameLinks">
         <MainSwiper
           slidesPerView="auto"
           slidesPerGroup={1}

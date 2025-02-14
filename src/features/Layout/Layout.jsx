@@ -169,6 +169,7 @@ const Layout = () => {
         <ScriptInjector scriptStrings={[tawktoScript]} targetRef={tawkToRef} />
       </div> */}
       <ToastContainer
+        id="toast"
         className={classes.MyToast}
         closeButton={ToastCloseButton}
         autoClose={5000}
@@ -183,10 +184,11 @@ const Layout = () => {
       <LiveLoader />
       <Topbar />
 
-      <div className={classes.Content}>
+      <div className={classes.Content} id="content">
         {!isMobile && <LiveListContainer />}
 
         <motion.div
+          id="outerContainerLeft"
           className={classes.OuterContainerLeft}
           key={fullLeftContainer ? 1 : 0}
           initial={{ width: fullLeftContainer ? 60 : 260 }}
@@ -195,6 +197,7 @@ const Layout = () => {
         >
           <AnimatePresence>
             <motion.div
+              id="innerContainerLeft"
               className={classes.InnerContainer}
               key={fullLeftContainer ? 1 : 0}
               initial={{ y: 30, opacity: 0 }}
@@ -214,9 +217,14 @@ const Layout = () => {
           </AnimatePresence>
         </motion.div>
 
-        <div className={classes.CenterContainer} ref={centerContainerRef}>
+        <div
+          className={classes.CenterContainer}
+          ref={centerContainerRef}
+          id="center-container"
+        >
           <main>
             <div
+              id="fullPage"
               className={
                 pageNotAuthorized
                   ? [classes.FullPage, classes.NotAuthorized].join(" ")

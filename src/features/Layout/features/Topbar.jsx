@@ -126,8 +126,8 @@ const Topbar = () => {
   const smallLogoURL = `${basePath}/${sitename}logo-small.svg`;
 
   return (
-    <div className={classes.Topbar}>
-      <div className={classes.TopbarLeftWrapper}>
+    <div className={classes.Topbar} id="topbar">
+      <div className={classes.TopbarLeftWrapper} id="topbarLeft">
         <div className={classes.TopbarLeft}>
           <div className={classes.HeaderHamburger}>
             {!showingLiveEvent && (
@@ -212,7 +212,7 @@ const Topbar = () => {
         </div>
       </div>
 
-      <div className={classes.TopbarCenterWrapper}>
+      <div className={classes.TopbarCenterWrapper} id="topbarCenter">
         {user && (
           <>
             <MainButton
@@ -283,7 +283,7 @@ const Topbar = () => {
         )}
       </div>
 
-      <div className={classes.TopbarRightWrapper}>
+      <div className={classes.TopbarRightWrapper} id="topbarRight">
         <div
           className={
             user

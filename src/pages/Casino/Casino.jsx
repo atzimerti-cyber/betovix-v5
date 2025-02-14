@@ -41,8 +41,8 @@ const Casino = () => {
 
   return (
     <div className={classes.PageContent}>
-      <div className={classes.Casino}>
-        <div className={classes.CasinoHeader}>
+      <div className={classes.Casino} id="casinoPage">
+        <div className={classes.CasinoHeader} id="casinoMenu">
           <CasinoMenu />
           {params["*"] === "lobby" && <CasinoLobbySearch />}
         </div>

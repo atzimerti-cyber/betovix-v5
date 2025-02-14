@@ -49,6 +49,7 @@ const Accordion = (props) => {
 
   return (
     <section
+      data-accordion="sportsAccordionBig"
       className={
         openCategoryId && props.catId
           ? props.catId === openCategoryId

@@ -86,7 +86,7 @@ const BigSwiper2 = (props) => {
 
   return (
     props.items && (
-      <div className={classes.MainSwiperWrapper}>
+      <div className={classes.MainSwiperWrapper} id="casinoBanners">
         {props.casinoBannerPromo && !user && (
           <div className={classes.PromoContainer}>
             <RegisterContainers />

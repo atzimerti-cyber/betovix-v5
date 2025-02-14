@@ -426,14 +426,16 @@ const SportsHome = () => {
 
   return (
     <>
-      <SportSelection
-        items={sports}
-        selectedSport={selectedSport}
-        onSelectSport={(sport) => {
-          dispatch(sportsbookActions.setSelectedSport(sport));
-          navigate(`/sportsbook/home/${sport.slug}`);
-        }}
-      />
+      <div id="sportsSelectionMenu">
+        <SportSelection
+          items={sports}
+          selectedSport={selectedSport}
+          onSelectSport={(sport) => {
+            dispatch(sportsbookActions.setSelectedSport(sport));
+            navigate(`/sportsbook/home/${sport.slug}`);
+          }}
+        />
+      </div>
 
       <div className={classes.TopRowWrapper}>
         {customDateTournaments !== null ? (

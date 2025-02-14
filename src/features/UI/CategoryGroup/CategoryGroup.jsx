@@ -16,6 +16,7 @@ const CategoryGroup = (props) => {
 
   return (
     <div
+      id={`categoryGroup${props.category.id}`}
       className={elClasses.join(" ")}
       onClick={() => setIsVisible(!isVisible)}
     >

@@ -50,6 +50,7 @@ const VendorSwiper = (props) => {
   return (
     <div
       className={classes.VendorsSwiper}
+      id="casinoVendors"
       onMouseLeave={dragState.current.dragStop}
     >
       {/* <MainSwiper */}
@@ -73,9 +74,7 @@ const VendorSwiper = (props) => {
                   className={classes.ScrollItem}
                   onClick={() => handleVendorClick(item.Data.Name)}
                 >
-                  <div
-                    className={classes.SlideContainer}
-                  >
+                  <div className={classes.SlideContainer}>
                     <article className={classes.Card}>
                       <div
                         className={classes.ImageContainer}

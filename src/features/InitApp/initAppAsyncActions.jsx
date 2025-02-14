@@ -384,7 +384,7 @@ export const loadInitData = (isMobile) => {
         const casinoMenuIcons = currentstate.casinoMenuIcons;
 
         let casinoWalletMenu = {
-          category: { id: 2, label: "Casino Categories", visible: true },
+          category: { id: 5, label: "Casino Categories", visible: true },
           items: [],
         };
         responsesCasino[1].data.Contents.Categs.forEach((category) => {
@@ -397,7 +397,7 @@ export const loadInitData = (isMobile) => {
         });
 
         let casinoMinibarMenu = {
-          category: { id: 1, label: "Casino", visible: true },
+          category: { id: 6, label: "Casino", visible: true },
           items: [],
         };
 
@@ -481,7 +481,7 @@ export const loadInitData = (isMobile) => {
       {
         permissions.AllowGamification &&
           allMenuItems.push({
-            category: { id: 5, label: "Arena", visible: true, isNew: true },
+            category: { id: 7, label: "Arena", visible: true, isNew: true },
             items: [
               {
                 id: 1,
@@ -506,7 +506,7 @@ export const loadInitData = (isMobile) => {
       }
 
       allMenuItems.push({
-        category: { id: 6, label: "More", visible: false },
+        category: { id: 8, label: "More", visible: false },
         items: [
           {
             id: 1,
@@ -713,7 +713,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        // `Site/GetSite?domainName=slotking365.com`,
+        //`Site/GetSite?domainName=slotking365.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
