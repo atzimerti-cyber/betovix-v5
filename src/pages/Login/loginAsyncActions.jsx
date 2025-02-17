@@ -341,7 +341,7 @@ export const sentRecoveryUsername = (username) => {
     const lang = getLang();
     try {
       const response = await axiosApi.get(
-        `/MyAccount/RecoverPassword?username=${username}&lang=en`,
+        `/MyAccount/RecoverPassword?username=${username}&lang=${lang.id}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -439,7 +439,7 @@ export const resendEmail = (data) => {
     dispatch(loginActions.setUpdateLoading(true));
     try {
       const response = await axiosApi.get(
-        `MailTemplates/ResendAccVerificationEmail?data=${data}`,
+        `MailTemplates/ResendAccVerificationEmail?data=${data}&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
