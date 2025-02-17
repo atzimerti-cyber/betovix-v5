@@ -120,7 +120,7 @@ export const submitDepositForm = (signal, depositDTO) => {
   return async (dispatch, getState) => {
     try {
       const response = await axiosApi.post(
-        `/Payments/DepositRequest`,
+        `/Payments/DepositRequest?siteid=${config.VITE_SITE_ID}`,
 
         depositDTO,
 
@@ -159,7 +159,7 @@ export const submitWithdrawForm = (signal, withrawDTO) => {
   return async (dispatch, getState) => {
     try {
       const response = await axiosApi.post(
-        `/Payments/WithdrawRequest`,
+        `/Payments/WithdrawRequest?siteid=${config.VITE_SITE_ID}`,
 
         withrawDTO,
 
