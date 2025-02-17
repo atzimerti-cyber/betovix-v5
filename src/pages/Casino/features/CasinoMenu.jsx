@@ -4,15 +4,6 @@ import { SwiperSlide } from "swiper/react";
 
 import classes from "./CasinoMenu.module.css";
 import SwiperMenu from "../../../features/UI/MainSwiper/SwiperMenu";
-import HomeIcon from "../../../assets/svgs/home.svg?react";
-import SlotsIcon from "../../../assets/svgs/slots.svg?react";
-import BlackjackIcon from "../../../assets/svgs/blackjack.svg?react";
-import HeartIcon from "../../../assets/svgs/heart.svg?react";
-
-import GameShows from "../../../assets/svgs/gameshows.svg?react";
-import VirtualGames from "../../../assets/svgs/virtualgames.svg?react";
-import TableGames from "../../../assets/svgs/table-games.svg?react";
-import ProvidersIcon from "../../../assets/svgs/providers-menu.svg?react";
 import { translate } from "../../../utils/translations";
 
 const CasinoMenu = () => {
@@ -141,24 +132,25 @@ const CasinoMenu = () => {
     // </div>
     // </div>
     <div className={classes.CasinoMenuSwiper} style={{ width: "100%" }}>
-    <SwiperMenu>
-      {minibar && minibar.items.map((item) => (
-        <SwiperSlide key={item.id}>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? [classes.NavItem, classes.ActiveItem].join(" ")
-                : classes.NavItem
-            }
-            to={"/" + item.page || "#"} // Default to "#" if no page link is provided
-          >
-            {item.icon} {/* Render the icon or fallback */}
-            {translate(item.label)} {/* Translate the label */}
-          </NavLink>
-        </SwiperSlide>
-      ))}
-    </SwiperMenu>
-  </div>
+      <SwiperMenu>
+        {minibar &&
+          minibar.items.map((item) => (
+            <SwiperSlide key={item.id}>
+              <NavLink
+                className={({ isActive }) =>
+                  isActive
+                    ? [classes.NavItem, classes.ActiveItem].join(" ")
+                    : classes.NavItem
+                }
+                to={"/" + item.page || "#"} // Default to "#" if no page link is provided
+              >
+                {item.icon} {/* Render the icon or fallback */}
+                {translate(item.label)} {/* Translate the label */}
+              </NavLink>
+            </SwiperSlide>
+          ))}
+      </SwiperMenu>
+    </div>
   );
 };
 

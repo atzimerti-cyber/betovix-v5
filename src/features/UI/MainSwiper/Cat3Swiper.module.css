@@ -9,7 +9,6 @@
   height: 100%;
   width: 100%;
   transition: transform 0.2s linear;
-  /* background: linear-gradient(180deg, #27465b 40%, transparent 90%); */
   border-radius: 1.5rem;
   display: flex;
   flex-direction: row;
@@ -18,6 +17,7 @@
   position: relative;
   aspect-ratio: 1;
   overflow: hidden;
+  margin-bottom: 0.45rem;
 }
 .BackgroundContainer {
   width: 100%;
@@ -306,8 +306,13 @@
 }
 .SwiperTitleDesk span {
   color: aliceblue;
-  font-size: 2rem;
+  font-size: 25px;
   font-weight: 700;
+  line-height: 1.7;
+}
+.SwiperTitleDesk svg {
+  height: 2.3rem;
+  width: 2.3rem;
 }
 .SwiperImage img {
   z-index: 2;

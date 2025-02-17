@@ -44,6 +44,7 @@ const AccordionSmall = (props) => {
 
   return (
     <section
+      data-accordion="sportsAccordionSmall"
       className={
         tournamentOpenId && props.catId
           ? props.catId === tournamentOpenId

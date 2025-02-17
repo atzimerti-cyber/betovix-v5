@@ -41,11 +41,13 @@ const Register = () => {
   );
   const settings = useSelector((state) => state.app.settings);
   const loginLoading = useSelector((state) => state.login.loginLoading);
+  const strongPassword = useSelector((state) => state.login.strongPassword);
+
   const [isOver18, setIsOver18] = useState(false);
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
 
   useEffect(() => {
-    if (cookiesSettings === 'false') {
+    if (cookiesSettings === "false") {
       setIsTermsAccepted(true);
     }
   }, [cookiesSettings]);
@@ -135,7 +137,7 @@ const Register = () => {
   useEffect(() => {
     if (!debPassword) return;
 
-    const validMinSize = debPassword.length >= settings.passwordMinLength;
+    let validMinSize = debPassword.length >= settings.passwordMinLength;
 
     const hasUppercase = /[A-Z]/.test(debPassword);
     const hasLowercase = /[a-z]/.test(debPassword);
@@ -146,7 +148,13 @@ const Register = () => {
     const specialCharRegex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
     const validSpecial = specialCharRegex.test(debPassword);
 
-    const isValid = validMinSize && validCases && validNumbers && validSpecial;
+    let isValid;
+    if (strongPassword) {
+      isValid = validMinSize && validCases && validNumbers && validSpecial;
+    } else if (!strongPassword || strongPassword === "false") {
+      isValid = debPassword.length >= 3;
+      validMinSize = debPassword.length >= 3;
+    }
 
     // Functional update to avoid stale state
     setValidChecks((prevValidChecks) => ({
@@ -372,82 +380,117 @@ const Register = () => {
                   />
                 }
               />
-              <div className={classes.FormValidationMessage}>
-                <Autoheight show={!validChecks.password.valid}>
-                  {translate(
-                    "Password must include a special character, upper and lower case, and a number"
-                  )}
-                </Autoheight>
-                <Autoheight show={debPassword && debPassword.length > 0}>
-                  <div className={classes.PasswordCheckContainer}>
-                    <div
-                      className={
-                        validChecks.password.minSize
-                          ? [classes.PasswordMessage, classes.IsValid].join(" ")
-                          : classes.PasswordMessage
-                      }
-                    >
-                      {validChecks.password.minSize ? (
-                        <CheckIcon />
-                      ) : (
-                        <Times2Icon />
-                      )}
-                      <div className={classes.PasswordText}>
-                        {translate("Min.")} {settings.passwordMinLength}{" "}
-                        {translate("character")}
+              {strongPassword ? (
+                <div className={classes.FormValidationMessage}>
+                  <Autoheight show={!validChecks.password.valid}>
+                    {translate(
+                      "Password must include a special character, upper and lower case, and a number"
+                    )}
+                  </Autoheight>
+                  <Autoheight show={debPassword && debPassword.length > 0}>
+                    <div className={classes.PasswordCheckContainer}>
+                      <div
+                        className={
+                          validChecks.password.minSize
+                            ? [classes.PasswordMessage, classes.IsValid].join(
+                                " "
+                              )
+                            : classes.PasswordMessage
+                        }
+                      >
+                        {validChecks.password.minSize ? (
+                          <CheckIcon />
+                        ) : (
+                          <Times2Icon />
+                        )}
+                        <div className={classes.PasswordText}>
+                          {translate("Min.")} {settings.passwordMinLength}{" "}
+                          {translate("character")}
+                        </div>
+                      </div>
+                      <div
+                        className={
+                          validChecks.password.special
+                            ? [classes.PasswordMessage, classes.IsValid].join(
+                                " "
+                              )
+                            : classes.PasswordMessage
+                        }
+                      >
+                        {validChecks.password.special ? (
+                          <CheckIcon />
+                        ) : (
+                          <Times2Icon />
+                        )}
+                        <div className={classes.PasswordText}>
+                          {translate("1 Special Character")}
+                        </div>
+                      </div>
+                      <div
+                        className={
+                          validChecks.password.cases
+                            ? [classes.PasswordMessage, classes.IsValid].join(
+                                " "
+                              )
+                            : classes.PasswordMessage
+                        }
+                      >
+                        {validChecks.password.cases ? (
+                          <CheckIcon />
+                        ) : (
+                          <Times2Icon />
+                        )}
+                        <div className={classes.PasswordText}>
+                          {translate("Upper and Lowercase")}
+                        </div>
+                      </div>
+                      <div
+                        className={
+                          validChecks.password.numbers
+                            ? [classes.PasswordMessage, classes.IsValid].join(
+                                " "
+                              )
+                            : classes.PasswordMessage
+                        }
+                      >
+                        {validChecks.password.numbers ? (
+                          <CheckIcon />
+                        ) : (
+                          <Times2Icon />
+                        )}
+                        <div className={classes.PasswordText}>
+                          {translate("1 Number")}
+                        </div>
                       </div>
                     </div>
-                    <div
-                      className={
-                        validChecks.password.special
-                          ? [classes.PasswordMessage, classes.IsValid].join(" ")
-                          : classes.PasswordMessage
-                      }
-                    >
-                      {validChecks.password.special ? (
-                        <CheckIcon />
-                      ) : (
-                        <Times2Icon />
-                      )}
-                      <div className={classes.PasswordText}>
-                        {translate("1 Special Character")}
+                  </Autoheight>
+                </div>
+              ) : (
+                <div className={classes.FormValidationMessage}>
+                  <Autoheight show={debPassword && debPassword.length > 0}>
+                    <div className={classes.PasswordCheckContainer}>
+                      <div
+                        className={
+                          validChecks.password.minSize
+                            ? [classes.PasswordMessage, classes.IsValid].join(
+                                " "
+                              )
+                            : classes.PasswordMessage
+                        }
+                      >
+                        {validChecks.password.minSize ? (
+                          <CheckIcon />
+                        ) : (
+                          <Times2Icon />
+                        )}
+                        <div className={classes.PasswordText}>
+                          {translate("Minimum 3 characters.")}
+                        </div>
                       </div>
                     </div>
-                    <div
-                      className={
-                        validChecks.password.cases
-                          ? [classes.PasswordMessage, classes.IsValid].join(" ")
-                          : classes.PasswordMessage
-                      }
-                    >
-                      {validChecks.password.cases ? (
-                        <CheckIcon />
-                      ) : (
-                        <Times2Icon />
-                      )}
-                      <div className={classes.PasswordText}>
-                        {translate("Upper and Lowercase")}
-                      </div>
-                    </div>
-                    <div
-                      className={
-                        validChecks.password.numbers
-                          ? [classes.PasswordMessage, classes.IsValid].join(" ")
-                          : classes.PasswordMessage
-                      }
-                    >
-                      {validChecks.password.numbers ? (
-                        <CheckIcon />
-                      ) : (
-                        <Times2Icon />
-                      )}
-                      <div className={classes.PasswordText}>
-                        {translate("1 Number")}
-                      </div>
-                    </div>
-                  </div>
-                </Autoheight>
-              </div>
+                  </Autoheight>
+                </div>
+              )}
             </div>
 
             <label htmlFor="verify-password">
@@ -786,7 +829,7 @@ const Register = () => {
               </label>
             </div>
 
-            {cookiesSettings === 'true' ? (
+            {cookiesSettings === "true" ? (
               <div className={classes.CheckboxContainer}>
                 <input
                   checked={isTermsAccepted}

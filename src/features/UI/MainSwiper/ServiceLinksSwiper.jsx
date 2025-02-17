@@ -34,7 +34,7 @@ const ServiceLinksSwiper = () => {
 
   return (
     serviceLinks && (
-      <div className={classes.ServiceLinks}>
+      <div className={classes.ServiceLinks} id="serviceLinks">
         <MainSwiper
           slidesPerView="auto"
           slidesPerGroup={1}

@@ -47,7 +47,7 @@ const Footer = () => {
   const logoURL = config.VITE_SITE_LOGO ? config.VITE_SITE_LOGO : null;
 
   return (
-    <div className={classes.Footer}>
+    <div className={classes.Footer} id="footer">
       {isFooterAllowed && (
         <div className={classes.LinksContainer}>
           {footer &&

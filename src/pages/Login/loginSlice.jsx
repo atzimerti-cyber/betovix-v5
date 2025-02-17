@@ -33,6 +33,7 @@ const initialState = {
     AllowToRetail: false,
   },
   mailToVerify: null,
+  strongPassword: true,
 };
 
 export const loginSlice = createSlice({
@@ -80,7 +81,10 @@ export const loginSlice = createSlice({
       state.permissions = action.payload;
     },
     setTFAtoken(state, action) {
-        state.tfaToken = action.payload;
+      state.tfaToken = action.payload;
+    },
+    setStrongPassword(state, action) {
+      state.strongPassword = action.payload;
     },
   },
 });

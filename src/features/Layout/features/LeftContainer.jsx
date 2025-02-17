@@ -161,7 +161,6 @@ const LeftContainer = memo(function () {
 
               {!isMobile && (
                 <Search
-                  id="eventSearchSidebar"
                   placeholder={translate("Search Event")}
                   hide={!fullLeftContainer}
                   dataTooltipId="left-menu-tooltip"
@@ -174,7 +173,7 @@ const LeftContainer = memo(function () {
                 />
               )}
 
-              <div className={classes.SideMenuContainer}>
+              <div className={classes.SideMenuContainer} id="sideMenuContainer">
                 <div className={classes.SideMenuSubButtonContainer}>
                   <>
                     {/* <div className={classes.LangDropdown}>
@@ -317,7 +316,6 @@ const LeftContainer = memo(function () {
               <div className={classes.SideMenuDivider}></div>
               {!isMobile && (
                 <Search
-                  id="casinoSearchSidebar"
                   placeholder={translate("Search Casino")}
                   hide={!fullLeftContainer}
                   dataTooltipId="left-menu-tooltip"
@@ -403,6 +401,7 @@ const LeftContainer = memo(function () {
         {fullLeftContainer ? (
           // <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
           <div
+            id="language"
             className={classes.LangDropdown}
             style={{ padding: "0.3rem 0.5rem", justifyContent: "flex-start" }}
           >
@@ -414,6 +413,7 @@ const LeftContainer = memo(function () {
         null}
         {fullLeftContainer && (
           <div
+            id="timezone"
             className={classes.LangDropdown}
             style={{ padding: "0.3rem 0.5rem", justifyContent: "flex-end" }}
           >
