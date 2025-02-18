@@ -439,7 +439,7 @@ export const resendEmail = (data) => {
     dispatch(loginActions.setUpdateLoading(true));
     try {
       const response = await axiosApi.get(
-        `MailTemplates/ResendAccVerificationEmail?data=${data}&siteid=${config.VITE_SITE_ID}`,
+        `MyAccount/ResendAccVerificationEmail?data=${data}&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
