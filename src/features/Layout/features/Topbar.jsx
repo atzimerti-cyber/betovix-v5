@@ -405,18 +405,24 @@ const Topbar = () => {
             </>
           ) : (
             <>
+              {/* <div id="loginButton"> */}
               <MainButton
+                id="loginButton"
                 color="transparent"
                 onClick={() => addParamsToUrl("auth", "login")}
               >
                 {translate("LOGIN")}
               </MainButton>
+              {/* </div>
+              <div id="registerButton"> */}
               <MainButton
+                id="registerButton"
                 color="secondary"
                 onClick={() => addParamsToUrl("auth", "register")}
               >
                 {translate("REGISTER")}
               </MainButton>
+              {/* </div> */}
             </>
           )}
         </div>

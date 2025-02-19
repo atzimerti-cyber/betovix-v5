@@ -66,9 +66,9 @@
 
 @media (max-width: 768px) {
   .InnerContainer {
-    height: calc(100% - var(--db-bottom-bar-height));
+    /* height: calc(100% - var(--db-bottom-bar-height)); */
   }
-} 
+}
 
 .CenterContainer {
   position: relative;
@@ -107,6 +107,9 @@
   /* min-height: calc(-4em + 100vh); */
   min-height: max-content;
 }
+:global(.IsMobile.IsMenuOpen) :local(.FullPage) {
+  filter: blur(2px);
+}
 
 .NotAuthorized.FullPage {
   min-height: unset;
@@ -117,24 +120,32 @@
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  position: relative;
+  position: absolute;
+  z-index: 100000;
+  background: var(--outer-container-left);
+  width: 85% !important;
+  /* position: relative; */
 }
 
 :global(.IsMobile) :local(.OuterContainerLeft) {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-  position: fixed;
-  width: 100% !important;
+  /* position: fixed; */
+  width: 0% !important;
+  /* width: 85% !important; */
   padding-bottom: 0;
   --tw-translate-y: 100%;
+}
+:global(.IsMobile.IsMenuOpen) :local(.CenterContainer main) {
+  pointer-events: none;
 }
 
 .ChatOuter > div,
 .BetslipOuter > div {
   position: fixed;
   top: 0;
-  z-index: 2000;
+  z-index: 9999999;
   height: 100%;
   width: 100%;
 }

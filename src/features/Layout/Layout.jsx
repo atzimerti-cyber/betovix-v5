@@ -7,7 +7,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Topbar from "./features/Topbar";
-import Minibar from "./features/Minibar";
 
 import classes from "./Layout.module.css";
 import Footer from "./features/Footer";
@@ -33,7 +32,6 @@ import Stats from "./features/Stats";
 import Ticket from "../Ticket/Ticket";
 import OperatorView from "./features/OperatorView";
 import LiveLoader from "./features/LiveLoader";
-import VipProgress from "../../pages/Home/features/VipProgress";
 
 // import ScriptInjector from "../../utils/scriptinjector";
 
@@ -200,16 +198,16 @@ const Layout = () => {
               id="innerContainerLeft"
               className={classes.InnerContainer}
               key={fullLeftContainer ? 1 : 0}
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+              initial={{ x: -30, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
               exit={{
-                y: 30,
+                x: -30,
                 opacity: 0,
                 transition: { duration: 0.2, delay: 0 },
               }}
               transition={{
-                duration: isFirstRender ? 0 : 0.2,
-                delay: isFirstRender ? 0 : 0.2,
+                duration: isFirstRender ? 0 : 0.15,
+                delay: isFirstRender ? 0 : 0.1,
               }}
             >
               <LeftContainer />
@@ -221,6 +219,11 @@ const Layout = () => {
           className={classes.CenterContainer}
           ref={centerContainerRef}
           id="center-container"
+          onClick={
+            isMobile && fullLeftContainer
+              ? () => dispatch(layoutActions.setFullLeftContainer(false))
+              : null
+          }
         >
           <main>
             <div
@@ -380,7 +383,7 @@ const Layout = () => {
         </button>
       )}
 
-      {isMobile && <Bottombar />}
+      {isMobile && !fullLeftContainer && <Bottombar />}
       <Cookies />
       <ModalRoot />
       <Ticket />

@@ -56,6 +56,7 @@ const Bottombar = () => {
 
   const allButtons = [
     <button
+      id="menuButton"
       key={1}
       type="button"
       className={classes.BottomMenuItem}
@@ -66,12 +67,13 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="sportsButton"
       key={2}
       type="button"
       className={classes.BottomMenuItem}
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/sportsbook")
+        navigate("/sportsbook");
       }}
     >
       <SportsIcon className={classes.WithFill} />
@@ -79,6 +81,7 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="casinoButton"
       key={3}
       type="button"
       className={
@@ -88,7 +91,7 @@ const Bottombar = () => {
       }
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/casino/lobby")
+        navigate("/casino/lobby");
       }}
     >
       <CasinoIcon className={classes.WithFill} />
@@ -96,6 +99,7 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="myBetsButton"
       key={4}
       type="button"
       className={
@@ -105,7 +109,7 @@ const Bottombar = () => {
       }
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/sportsbook/mybets")
+        navigate("/sportsbook/mybets");
       }}
     >
       <Paper2Icon className={classes.WithFill} />
@@ -113,6 +117,7 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="betslipButton"
       key={5}
       type="button"
       className={classes.BottomMenuItem}
@@ -143,12 +148,13 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="searchCasinoButton"
       key={6}
       type="button"
       className={classes.BottomMenuItem}
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/search")
+        navigate("/search");
       }}
       // onClick={() => addParamsToUrl("search")}
     >
@@ -157,12 +163,13 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="searchSportButton"
       key={7}
       type="button"
       className={classes.BottomMenuItem}
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/searchEvent")
+        navigate("/searchEvent");
       }}
     >
       <SearchIcon className={classes.WithStroke} />
@@ -170,6 +177,7 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="inplayButton"
       key={8}
       type="button"
       className={
@@ -179,7 +187,7 @@ const Bottombar = () => {
       }
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/sportsbook/live")
+        navigate("/sportsbook/live");
       }}
     >
       <PlayIcon className={classes.WithFill} />
@@ -187,6 +195,7 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="leaderboardButton"
       key={9}
       type="button"
       className={
@@ -196,7 +205,7 @@ const Bottombar = () => {
       }
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/leaderboard")
+        navigate("/leaderboard");
       }}
     >
       <LeaderIcon className={classes.WithFill} />
@@ -204,6 +213,7 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="cryptoButton"
       key={10}
       type="button"
       className={
@@ -213,7 +223,7 @@ const Bottombar = () => {
       }
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/crypto")
+        navigate("/crypto");
       }}
     >
       <PricesIcon className={classes.WithFill} />
@@ -221,6 +231,7 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="chatButton"
       key={11}
       type="button"
       className={classes.BottomMenuItem}
@@ -307,7 +318,7 @@ const Bottombar = () => {
   ]);
 
   return (
-    <div className={classes.Bottombar}>
+    <div className={classes.Bottombar} id="bottomBar">
       {allButtons.map((menuButton, index) => {
         if (!menuButtonsIndexes.includes(index)) return null;
         return menuButton;

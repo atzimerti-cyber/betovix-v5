@@ -721,7 +721,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=betovix.com`,
+        //`Site/GetSite?domainName=slotking365.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -763,7 +763,7 @@ export const getSite = (signal) => {
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.type = "text/css";
-      //link.href = "/themes/theme-3.css";
+      //link.href = "/themes/theme-9.css";
       link.href = response.data.Contents.SiteTheme; ////////////////////
       document.head.appendChild(link);
 
@@ -907,8 +907,19 @@ export const getSiteSettings = (signal) => {
         const customercss = response.data.Contents.Site.CustomerCssUrl;
         const rules = document.createElement("style");
         rules.innerHTML = customercss;
+
         document.head.appendChild(rules);
       }
+
+      // if (response.data.Contents.Site.CustomerCssUrl !== "") {
+      //   const customercss = "/customer.css";
+      //   const link = document.createElement("link");
+
+      //   link.rel = "stylesheet";
+      //   link.href = customercss;
+
+      //   document.head.appendChild(link);
+      // }
 
       if (response.data.Contents.Site["Strong Password"] === "false") {
         dispatch(loginActions.setStrongPassword(false));
