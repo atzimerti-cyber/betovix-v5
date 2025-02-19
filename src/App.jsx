@@ -14,6 +14,7 @@ import PageFallback from "./features/UI/PageFallback/PageFallback";
 // Lazy load the other components
 const Home = React.lazy(() => import("./pages/Home/Home"));
 const Casino = React.lazy(() => import("./pages/Casino/Casino"));
+const TrackEvents = React.lazy(() => import("./pages/TrackEvents/TrackEvents"));
 const CasinoGame = React.lazy(() => import("./pages/CasinoGame/CasinoGame"));
 const SportsBook = React.lazy(() => import("./pages/SportsBook/SportsBook"));
 const SportsMyBets = React.lazy(() =>
@@ -88,6 +89,16 @@ function App() {
                     checkPermissions={["AllowToCasino", "AllowToSlots"]}
                   >
                     <Casino />
+                  </HasPermission>
+                </Suspense>
+              ),
+            },
+            {
+              path: "/track-events/*",
+              element: (
+                <Suspense fallback={<PageFallback />}>
+                  <HasPermission checkPermissions={["AllowToSIS"]}>
+                    <TrackEvents />
                   </HasPermission>
                 </Suspense>
               ),

@@ -1,0 +1,52 @@
+.InteractiveButton {
+  display: flex;
+  height: 2.4rem;
+  width: 87%;
+  font-size: 0.875rem;
+  line-height: 1em;
+  font-weight: 600;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.4rem 1rem 0.4rem 0.6rem;
+  color: var(--white);
+  max-width: max-content;
+  border-radius: 999px;
+}
+
+/* .InteractiveButton.Yellow {
+  background: #af8b0291;
+} */
+.InteractiveButton.Active,
+.InteractiveButton.Active:hover {
+  background: var(--track-events-color);
+}
+
+.ImgWrapper {
+  height: 100%;
+  width: 40px;
+  position: relative;
+}
+.ImgWrapper img {
+  height: 25px;
+  width: 38px;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.Gif {
+  opacity: 0;
+  height: 25px;
+  width: 38px;
+}
+.InteractiveButton:hover {
+  background: var(--db-white-hover-light);
+}
+.InteractiveButton:hover .Gif {
+  opacity: 1;
+}
+.InteractiveButton:hover .StaticImg {
+  opacity: 0;
+}

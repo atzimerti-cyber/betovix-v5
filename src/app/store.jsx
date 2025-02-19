@@ -31,6 +31,7 @@ import recommendedGamesSlice from "../features/RecommendedGames/recommendedGames
 import progressSlice from "../pages/Home/features/ProgressSlice";
 import promotionsSlice from "../pages/Promotions/promotionsSlice";
 import pagesSlice from "../pages/Footer Pages/pagesSlice";
+import TrackEventsSlice from "../pages/TrackEvents/TrackEventsSlice";
 
 export const store = configureStore({
   reducer: {
@@ -65,6 +66,7 @@ export const store = configureStore({
     progress: progressSlice.reducer,
     promotions: promotionsSlice.reducer,
     pages: pagesSlice.reducer,
+    trackEvents: TrackEventsSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

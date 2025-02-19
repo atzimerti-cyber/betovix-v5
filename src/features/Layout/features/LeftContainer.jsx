@@ -11,6 +11,8 @@ import LiveSupportIcon from "../../../assets/svgs/live-support.svg?react";
 import DropdownLang from "../../UI/Dropdown/DropdownLang";
 import CasinoIcon from "../../../assets/svgs/casino.svg?react";
 import SportsIcon from "../../../assets/svgs/sports.svg?react";
+import StaticHorse from "../../../assets/images/static-h.png?react";
+import GifHorse from "../../../assets/images/horse.gif?react";
 import { layoutActions } from "../layoutSlice";
 import Search from "../../Search/Search";
 import LeftMenuItem from "./LeftMenuItem";
@@ -22,6 +24,7 @@ import StatsIcon from "../../../assets/svgs/bars.svg?react";
 import TicketIcon from "../../../assets/svgs/ticketReceipt.svg?react";
 import LoadIcon from "../../../assets/svgs/loadIcon.svg?react";
 import Timezone from "../../Timezone/Timezone";
+import InteractiveButton from "../../UI/Buttons/InteractiveButton";
 
 const LeftContainer = memo(function () {
   const dispatch = useDispatch();
@@ -98,7 +101,10 @@ const LeftContainer = memo(function () {
           />
         )}
 
-        <div className={classes.SideMenuAllButtonsContainer}>
+        <div
+          className={classes.SideMenuAllButtonsContainer}
+          style={{ marginTop: "0.5rem" }}
+        >
           <div className={classes.SideMenuButtonContainer}>
             {permissions.AllowToSports && (
               <MainButton
@@ -151,7 +157,25 @@ const LeftContainer = memo(function () {
             />
           )}
         </div>
-
+        {permissions.AllowToSIS && (
+          <div className={classes.SideMenuAllButtonsContainer}>
+            <div className={classes.TrackMenuButtonContainer}>
+              <InteractiveButton
+                active={pathnameNoParams.includes("track-events")}
+                onClick={() => navigate("/track-events")}
+                dataTooltipId="left-menu-tooltip"
+                dataTooltipContent={translate("Track Events")}
+                image={StaticHorse}
+                gif={GifHorse}
+                color="yellow"
+              >
+                <span>
+                  {fullLeftContainer ? translate("Animal Track Events") : ""}
+                </span>
+              </InteractiveButton>
+            </div>
+          </div>
+        )}
         {/* SportsMenu */}
         {pathnameNoParams !== "/casino" &&
           pathnameNoParams !== "/search" &&
