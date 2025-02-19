@@ -14,6 +14,8 @@ import Paper2Icon from "../../../assets/svgs/mybets.svg?react";
 import PlayIcon from "../../../assets/svgs/play.svg?react";
 import LeaderIcon from "../../../assets/svgs/leader.svg?react";
 import PricesIcon from "../../../assets/svgs/prices.svg?react";
+import Crash from "../../../assets/casinoIcons/crash.svg?react";
+import BlackjackIcon from "../../../assets/svgs/blackjack.svg?react";
 import classes from "./Bottombar.module.css";
 import { layoutActions } from "../layoutSlice";
 import useBasePath from "../../../hooks/useBasePath";
@@ -117,7 +119,7 @@ const Bottombar = () => {
     </button>,
 
     <button
-      id="betslipButton"
+      id="betslip"
       key={5}
       type="button"
       className={classes.BottomMenuItem}
@@ -159,7 +161,7 @@ const Bottombar = () => {
       // onClick={() => addParamsToUrl("search")}
     >
       <SearchIcon className={classes.WithStroke} />
-      <span className={classes.Label}>{translate("Search")}</span>
+      <span className={classes.Label}>{translate("Search Casino")}</span>
     </button>,
 
     <button
@@ -195,44 +197,36 @@ const Bottombar = () => {
     </button>,
 
     <button
-      id="leaderboardButton"
+      id="liveCasino"
       key={9}
       type="button"
-      className={
-        location.pathname.includes("/leaderboard")
-          ? [classes.BottomMenuItem, classes.Active].join(" ")
-          : classes.BottomMenuItem
-      }
+      className={classes.BottomMenuItem}
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/leaderboard");
+        navigate("/casino/live");
       }}
     >
-      <LeaderIcon className={classes.WithFill} />
-      <span className={classes.Label}>{translate("Leaderboard")}</span>
+      <BlackjackIcon className={classes.WithFill} />
+      <span className={classes.Label}>{translate("Live")}</span>
     </button>,
 
     <button
-      id="cryptoButton"
+      id="crashGames"
       key={10}
       type="button"
-      className={
-        location.pathname.includes("/crypto")
-          ? [classes.BottomMenuItem, classes.Active].join(" ")
-          : classes.BottomMenuItem
-      }
+      className={classes.BottomMenuItem}
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/crypto");
+        navigate("/casino/menu?tag=crash");
       }}
     >
-      <PricesIcon className={classes.WithFill} />
-      <span className={classes.Label}>{translate("Crypto Prices")}</span>
+      <Crash className={classes.WithFill} />
+      <span className={classes.Label}>{translate("Crash")}</span>
     </button>,
 
     <button
       id="chatButton"
-      key={11}
+      key={13}
       type="button"
       className={classes.BottomMenuItem}
       onClick={() => {
@@ -244,6 +238,42 @@ const Bottombar = () => {
       <Chat2Icon className={classes.WithFill} />
       <span className={classes.Label}>{translate("Chat")}</span>
     </button>,
+
+    // <button
+    //   id="leaderboardButton"
+    //   key={9}
+    //   type="button"
+    //   className={
+    //     location.pathname.includes("/leaderboard")
+    //       ? [classes.BottomMenuItem, classes.Active].join(" ")
+    //       : classes.BottomMenuItem
+    //   }
+    //   onClick={() => {
+    //     dispatch(layoutActions.setFullLeftContainer(false));
+    //     navigate("/leaderboard");
+    //   }}
+    // >
+    //   <LeaderIcon className={classes.WithFill} />
+    //   <span className={classes.Label}>{translate("Leaderboard")}</span>
+    // </button>,
+
+    // <button
+    //   id="cryptoButton"
+    //   key={10}
+    //   type="button"
+    //   className={
+    //     location.pathname.includes("/crypto")
+    //       ? [classes.BottomMenuItem, classes.Active].join(" ")
+    //       : classes.BottomMenuItem
+    //   }
+    //   onClick={() => {
+    //     dispatch(layoutActions.setFullLeftContainer(false));
+    //     navigate("/crypto");
+    //   }}
+    // >
+    //   <PricesIcon className={classes.WithFill} />
+    //   <span className={classes.Label}>{translate("Crypto Prices")}</span>
+    // </button>,
   ];
 
   useEffect(() => {
@@ -258,9 +288,11 @@ const Bottombar = () => {
       search: 5,
       searchEvent: 6,
       inplay: 7,
-      leader: 8,
-      crypto: 9,
+      liveCasino: 8,
+      crashGames: 9,
       chat: 10,
+      crypto: 11,
+      leader: 12,
     };
 
     // Remove buttons depending on the perimissions
@@ -274,6 +306,8 @@ const Bottombar = () => {
     if (!permissions.AllowToCasino && !permissions.AllowToSlots) {
       delete allButtonsObj["search"];
       delete allButtonsObj["casino"];
+      delete allButtonsObj["liveCasino"];
+      delete allButtonsObj["crashGames"];
     }
 
     // Remove buttons depending on the route
@@ -301,12 +335,23 @@ const Bottombar = () => {
       delete allButtonsObj["chat"];
     }
 
+    if (!user) {
+      delete allButtonsObj["mybets"];
+    }
+
     const allButtonsIndexes = Object.values(allButtonsObj).sort(
       (a, b) => a - b
     );
     let firstFiveItems = allButtonsIndexes.slice(0, 5);
+    // if (basepath.includes("casino")) {
+    //   let sportsIndex = firstFiveItems.indexOf(1);
+    //   if (sportsIndex !== -1) {
+    //     firstFiveItems.splice(sportsIndex, 1);
+    //     firstFiveItems.push(1);
+    //   }
+    // }
     // firstFiveItems.push(9); // Add chat in the end
-    if (permissions.AllowToSports) firstFiveItems.push(4); // Add betslip in the end
+    //if (permissions.AllowToSports) firstFiveItems.push(4); // Add betslip in the end
 
     setMenuButtonsIndexes(firstFiveItems);
   }, [

@@ -6,6 +6,7 @@
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0 0.3rem;
+  padding-bottom: 5rem;
 }
 .SideMenuScroll.Closed {
   padding: 0;
@@ -352,6 +353,10 @@
 
 /* Media */
 @media (min-width: 768px) {
+  .SideMenuScroll {
+    padding: 0 0.3rem;
+    padding-bottom: 0;
+  }
   .SideMenuAllButtonsContainer {
     margin: 0rem 0.5rem 0.5rem 0.5rem;
     display: flex;
