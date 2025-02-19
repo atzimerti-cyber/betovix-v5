@@ -21,6 +21,8 @@ export const getTrackEvent = (signal, gameid, gamename) => {
       if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
         throw new Error("Failed to fetch event search data");
       }
+
+      dispatch(trackEventsActions.setUrl(response.data.Contents));
     } catch (error) {
       const message = error?.message ? error.message : error.toString();
       if (error?.code !== "ERR_CANCELED") {

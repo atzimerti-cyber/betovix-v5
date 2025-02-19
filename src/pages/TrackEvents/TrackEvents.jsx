@@ -1,11 +1,14 @@
 import { useRef, useEffect } from "react";
 import { getTrackEvent } from "./trackEventsAsyncActions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Frame from "./features/Frame";
 import { layoutActions } from "../../features/Layout/layoutSlice";
 
 const TrackEvents = (props) => {
   const dispatch = useDispatch();
+
+  const url = useSelector((state) => state.trackEvents.url);
+
   useEffect(() => {
     const controller = new AbortController();
     const signal = controller.signal;
@@ -18,11 +21,7 @@ const TrackEvents = (props) => {
     };
   }, []);
 
-  return (
-    <>
-      <Frame name={"SIS Track Racing"} />
-    </>
-  );
+  return <>{url && <Frame name={"SIS Track Racing"} url={url} />}</>;
 };
 
 export default TrackEvents;
