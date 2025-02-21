@@ -341,7 +341,7 @@ export const sentRecoveryUsername = (username) => {
     const lang = getLang();
     try {
       const response = await axiosApi.get(
-        `/MyAccount/RecoverPassword?username=${username}&lang=${lang.id}`,
+        `/MyAccount/RecoverPassword?username=${username}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
