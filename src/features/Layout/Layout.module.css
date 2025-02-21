@@ -29,8 +29,8 @@
 .IconButton {
   position: relative;
   display: flex;
-  height: 60px;
-  width: 60px;
+  height: 55px;
+  width: 55px;
   cursor: pointer;
   align-items: center;
   justify-content: center;
@@ -152,7 +152,7 @@
 
 /* Toast */
 .MyToast {
-  z-index: 1000000 !important;
+  z-index: 2147483640 !important;
 }
 
 .MyToast > div {

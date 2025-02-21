@@ -27,6 +27,7 @@ import MenuItems from "./MenuItems";
 import { addThousandsSeparator } from "../../../utils/custom";
 
 import NoUserImg from "../../../assets/images/nouserimg.png";
+import NoUserSvg from "../../../assets/images/nouserimg.svg?react";
 import config from "../../../config";
 
 const Topbar = () => {
@@ -321,12 +322,17 @@ const Topbar = () => {
                   <MainButton color="transparent">
                     <div
                       className={classes.UserImage}
-                      style={{
-                        backgroundImage: `url(${
-                          user.Avatar ? user.Avatar : NoUserImg
-                        })`,
-                      }}
-                    ></div>
+                      style={
+                        {
+                          // backgroundImage: `url(${
+                          //   user.Avatar ? user.Avatar : NoUserImg
+                          // })`,
+                        }
+                      }
+                    >
+                      <NoUserSvg />
+                    </div>
+
                     {/* <UserIcon /> */}
                     <span>{user?.Username}</span>
                   </MainButton>

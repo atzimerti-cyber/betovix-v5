@@ -70,7 +70,7 @@ const DropdownLang = (props) => {
                 )} */}
         {props.fullLabel && (
           <>
-            <div className={classes.LangItem} style={{ marginRight: "1rem" }}>
+            <div className={classes.LangItem} style={{ marginRight: "0.5rem" }}>
               <img
                 src={`https://cdnwallet.modulesports.com/assets/images/flags/${lang.id}.svg`}
                 // src={lang.flag}
@@ -80,6 +80,7 @@ const DropdownLang = (props) => {
               />
             </div>
             <span style={{ color: "white" }}>{getLangName(lang.id)}</span>
+            <CaretDownIcon />
           </>
         )}
         {props.topbar && (
@@ -93,7 +94,6 @@ const DropdownLang = (props) => {
             />
           </div>
         )}
-        <CaretDownIcon />
       </MainButton>
 
       {props.topbar && (

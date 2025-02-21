@@ -235,8 +235,9 @@ const Home = () => {
                         />
                       )}
 
-                      {tag.Tags === "GameLinks" && (
+                      {tag.Tags.includes("Game") && (
                         <GameLinksSwiper
+                          tag={tag.Tags}
                           onDataNotFound={() => handleRemoveComponent(index)}
                         />
                       )}

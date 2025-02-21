@@ -9,12 +9,12 @@ import useSlidesResponsive from "../../hooks/useSlidesResponsive";
 import { translate } from "../../utils/translations";
 
 const CasinoTagSwiper = ({ onDataNotFound, tag, title }) => {
+  const dispatch = useDispatch();
   // const games = useSelector((state) => state.casinoTag.casinobytag);
   const games = useSelector(
     (state) => state.casinoTag.casinobytag[tag] || null
   );
   const slidesPerView = useSlidesResponsive().slidesPerView;
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const controller = new AbortController();
@@ -38,7 +38,6 @@ const CasinoTagSwiper = ({ onDataNotFound, tag, title }) => {
     <SwiperWithOverlay
       title={translate(title)}
       icon={<NewIcon />}
-      // link='/casino/new-games'
       items={games?.Contents}
       slidesPerView={slidesPerView}
     />

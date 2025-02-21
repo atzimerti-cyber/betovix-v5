@@ -6,8 +6,9 @@ import { SwiperSlide } from "swiper/react";
 import MainSwiper from "./MainSwiper";
 import classes from "./GameLinksSwiper.module.css";
 import { getSiteLinks } from "../../../pages/Promotions/promotionsAsyncActions";
+import GameLinksSwiperByCateg from "./GameLinksSwiperByCateg";
 
-const GameLinksSwiper = ({ onDataNotFound }) => {
+const GameLinksSwiper = ({ onDataNotFound, tag }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -15,20 +16,23 @@ const GameLinksSwiper = ({ onDataNotFound }) => {
   const lang = useSelector((state) => state.app.lang);
   const user = useSelector((state) => state.login.user);
 
-  const gameLinks = useSelector((state) => state.promotions.gameLinks);
+  // const gameLinks = useSelector((state) => state.promotions.gameLinks);
+  const gameLinks = useSelector(
+    (state) => state.promotions.gameLinks[tag] || null
+  );
 
   useEffect(() => {
-    const controller = new AbortController();
-    const signal = controller.signal;
+    if (tag) {
+      dispatch(getSiteLinks(null, tag));
+    }
+    // const controller = new AbortController();
+    // const signal = controller.signal;
 
-    dispatch(getSiteLinks(signal, "GameLinks"));
+    // dispatch(getSiteLinks(signal, "GameLinks"));
 
-    return () => {
-      controller.abort();
-    };
-  }, []);
+    return () => {};
+  }, [tag]);
 
-  //Remove Component if no favs found
   useEffect(() => {
     if (gameLinks !== null && gameLinks.length === 0) {
       onDataNotFound();
@@ -36,37 +40,39 @@ const GameLinksSwiper = ({ onDataNotFound }) => {
   }, [gameLinks, onDataNotFound]);
 
   return (
-    gameLinks && (
-      <div className={classes.GameLinks} id="gameLinks">
-        <MainSwiper
-          slidesPerView="auto"
-          slidesPerGroup={1}
-          spaceBetween={13}
-          noHeader
-        >
-          {gameLinks.map((link, index) => (
-            <SwiperSlide
-              key={index}
-              className={classes.Slide}
-              onClick={() => {
-                link.Target === "_self" || link.Target === ""
-                  ? navigate(link.Link)
-                  : window.open(
-                      link.Link.replace("{domain}", currentDomain),
-                      `${link.Target}`
-                    );
-              }}
-            >
-              {/* <div
-                className={classes.SlideGameLinks}
-                style={{ backgroundImage: `url("${link.Image}")` }}
-              ></div> */}
-              <img src={link.Image} />
-            </SwiperSlide>
-          ))}
-        </MainSwiper>
-      </div>
-    )
+    <GameLinksSwiperByCateg items={gameLinks} />
+    // gameLinks &&
+    // (
+    //   <div className={classes.GameLinks} id="gameLinks">
+    //     <MainSwiper
+    //       slidesPerView="auto"
+    //       slidesPerGroup={1}
+    //       spaceBetween={13}
+    //       noHeader
+    //     >
+    //       {gameLinks.map((link, index) => (
+    //         <SwiperSlide
+    //           key={index}
+    //           className={classes.Slide}
+    //           onClick={() => {
+    //             link.Target === "_self" || link.Target === ""
+    //               ? navigate(link.Link)
+    //               : window.open(
+    //                   link.Link.replace("{domain}", currentDomain),
+    //                   `${link.Target}`
+    //                 );
+    //           }}
+    //         >
+    //           {/* <div
+    //             className={classes.SlideGameLinks}
+    //             style={{ backgroundImage: `url("${link.Image}")` }}
+    //           ></div> */}
+    //           <img src={link.Image} />
+    //         </SwiperSlide>
+    //       ))}
+    //     </MainSwiper>
+    //   </div>
+    // )
   );
 };
 
