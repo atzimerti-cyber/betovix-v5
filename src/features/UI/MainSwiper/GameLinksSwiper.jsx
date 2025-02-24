@@ -40,7 +40,7 @@ const GameLinksSwiper = ({ onDataNotFound, tag }) => {
   }, [gameLinks, onDataNotFound]);
 
   return (
-    <GameLinksSwiperByCateg items={gameLinks} />
+    <GameLinksSwiperByCateg items={gameLinks} tag={tag} />
     // gameLinks &&
     // (
     //   <div className={classes.GameLinks} id="gameLinks">

@@ -5,7 +5,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import DsButton from "../../../features/UI/Buttons/DsButton";
 import classes from "./DepositMethods.module.css";
 import AngleLeft2Icon from "../../../assets/svgs/angle-left2.svg?react";
-import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 import { cryptoActions } from "../cryptoSlice";
 import { translate } from "../../../utils/translations";
 import MainButton from "../../../features/UI/Buttons/MainButton";
@@ -19,6 +18,16 @@ const DepositMethods = () => {
     (state) => state.crypto.selectedPaymentTypeDeposit
   );
 
+  useEffect(() => {
+    if (
+      !paymentType ||
+      paymentType.length === 0 ||
+      Object.keys(paymentType).length === 0
+    ) {
+      navigateToDeposit();
+    }
+  }, [paymentType]);
+
   const navigateToDeposit = () => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.delete("stage");
@@ -29,16 +38,6 @@ const DepositMethods = () => {
       replace: true,
     });
   };
-
-  useEffect(() => {
-    if (
-      !paymentType ||
-      paymentType.length === 0 ||
-      Object.keys(paymentType).length === 0
-    ) {
-      navigateToDeposit();
-    }
-  }, [paymentType]);
 
   const navigateToModal = (modal, tab, stage) => {
     const searchParams = new URLSearchParams(location.search);

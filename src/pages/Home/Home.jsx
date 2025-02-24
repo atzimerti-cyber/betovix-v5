@@ -194,7 +194,6 @@ const Home = () => {
                           onDataNotFound={() => handleRemoveComponent(index)}
                         />
 
-                        {/* PROGRESS IN DESKTOP */}
                         {!isMobile && user && hasHero && (
                           <div className={classes.VipContainer}>
                             <VipProgress />

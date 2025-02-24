@@ -35,6 +35,7 @@ export const GetPaymentMethods = (signal, type) => {
   return async (dispatch) => {
     try {
       const lang = getLang();
+      dispatch(cryptoActions.setPaymentsLoading(true));
 
       const response = await axiosApi.get(
         `Payments/GetPaymentMethods?type=${type}`,
@@ -53,7 +54,9 @@ export const GetPaymentMethods = (signal, type) => {
       } else if (type === 2) {
         dispatch(cryptoActions.setWithrawPaymentTypes(types));
       }
+      dispatch(cryptoActions.setPaymentsLoading(false));
     } catch (error) {
+      dispatch(cryptoActions.setPaymentsLoading(false));
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(message);
     }

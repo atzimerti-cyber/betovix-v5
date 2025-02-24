@@ -19,6 +19,16 @@ const WithdrawMethods = () => {
     (state) => state.crypto.selectedPaymentTypeWithdraw
   );
 
+  useEffect(() => {
+    if (
+      !paymentType ||
+      paymentType.length === 0 ||
+      Object.keys(paymentType).length === 0
+    ) {
+      navigateToWithdraw();
+    }
+  }, [paymentType]);
+
   const navigateToWithdraw = () => {
     const searchParams = new URLSearchParams(location.search);
     searchParams.delete("stage");
@@ -29,16 +39,6 @@ const WithdrawMethods = () => {
       replace: true,
     });
   };
-
-  useEffect(() => {
-    if (
-      !paymentType ||
-      paymentType.length === 0 ||
-      Object.keys(paymentType).length === 0
-    ) {
-      navigateToWithdraw();
-    }
-  }, [paymentType]);
 
   const navigateToModal = (modal, tab, stage) => {
     const searchParams = new URLSearchParams(location.search);

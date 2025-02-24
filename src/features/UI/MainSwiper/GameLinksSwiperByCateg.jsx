@@ -24,7 +24,7 @@ const GameLinksSwiperByCateg = (props) => {
   return (
     items &&
     items.length > 0 && (
-      <div className={classes.GameLinks} id="gameLinks">
+      <div className={classes.GameLinks} id={props.tag}>
         <MainSwiper
           slidesPerView="auto"
           slidesPerGroup={1}

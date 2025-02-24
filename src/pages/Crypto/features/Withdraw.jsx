@@ -1,15 +1,18 @@
-import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import classes from "./Withdraw.module.css";
+
 import { cryptoActions } from "../cryptoSlice";
-import MainButton from "../../../features/UI/Buttons/MainButton";
-import allCrypto from "../../../assets/svgs/withdrawreq.svg";
-import { translate } from "../../../utils/translations";
+
 import WithdrawMethods from "./WithdrawMethods";
 import FinalStageWithdraw from "./FinalStageWithdraw";
 import WithdrawRequests from "./WithdrawRequests";
+
+import allCrypto from "../../../assets/svgs/withdrawreq.svg";
+import MainButton from "../../../features/UI/Buttons/MainButton";
+
+import { translate } from "../../../utils/translations";
 
 const Withdraw = () => {
   const dispatch = useDispatch();

@@ -39,6 +39,7 @@ const FinalStageDeposit = () => {
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
     });
+    dispatch(cryptoActions.setSelectedPaymentMethodDeposit(null));
     dispatch(cryptoActions.setDepositAddress(""));
     dispatch(cryptoActions.setMethodMinAmount(null));
     dispatch(cryptoActions.setMethodMaxAmount(null));

@@ -1,12 +1,14 @@
-import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import classes from "./Deposit.module.css";
+
 import { cryptoActions } from "../cryptoSlice";
 import DepositMethods from "./DepositMethods";
 import FinalStageDeposit from "./FinalStageDeposit";
+
 import MainButton from "../../../features/UI/Buttons/MainButton";
+
 import { translate } from "../../../utils/translations";
 
 const Deposit = () => {
@@ -24,10 +26,6 @@ const Deposit = () => {
   else if (stage === "methods") elClasses.push(classes.Methods);
   else if (stage === "deposit") elClasses.push(classes.Deposit);
 
-  useEffect(() => {
-    return () => dispatch(cryptoActions.setSelectedCurrency(null));
-  }, []);
-
   const selectPaymentType = (type) => {
     if (type.MinAmount) {
       dispatch(cryptoActions.setTypeMinAmount(type.MinAmount));
@@ -37,6 +35,7 @@ const Deposit = () => {
     }
     dispatch(cryptoActions.setSelectedPaymentTypeDeposit(type));
   };
+
   const selectPaymentMethod = (type) => {
     dispatch(cryptoActions.setSelectedPaymentMethodDeposit(type.Methods[0]));
   };
