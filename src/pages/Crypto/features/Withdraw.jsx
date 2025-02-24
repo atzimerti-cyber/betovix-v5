@@ -13,6 +13,7 @@ import allCrypto from "../../../assets/svgs/withdrawreq.svg";
 import MainButton from "../../../features/UI/Buttons/MainButton";
 
 import { translate } from "../../../utils/translations";
+import { useEffect } from "react";
 
 const Withdraw = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,17 @@ const Withdraw = () => {
   else if (stage === "methods") elClasses.push(classes.Methods);
   else if (stage === "withdraw") elClasses.push(classes.Withdraw);
   else if (stage === "requests") elClasses.push(classes.Requests);
+
+  useEffect(() => {
+    if (!paymentTypes) return;
+
+    if (paymentTypes.length === 1) {
+      selectPaymentType(paymentTypes[0]);
+      navigateToModal("cashier", "withdraw", "methods");
+    }
+
+    return () => dispatch(cryptoActions.resetCurrency());
+  }, [paymentTypes]);
 
   const navigateToModal = (modal, tab, stage) => {
     const searchParams = new URLSearchParams(location.search);
@@ -61,31 +73,35 @@ const Withdraw = () => {
     <div className={elClasses.join(" ")}>
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
-          <div
-            className={classes.PaymentButtonContainer}
-            style={{
-              border: "1px solid var(--card-odds-button)",
-              backgroundColor: "var(--card-odds-button)",
-            }}
-          >
-            <MainButton
-              color="transparent"
-              onClick={() => {
-                navigateToModal("cashier", "withdraw", "requests");
+          {paymentTypes && paymentTypes.length > 1 && (
+            <div
+              className={classes.PaymentButtonContainer}
+              style={{
+                border: "1px solid var(--card-odds-button)",
+                backgroundColor: "var(--card-odds-button)",
               }}
             >
-              <img
-                className={classes.AllCrypto}
-                src={allCrypto}
-                loading="lazy"
-                alt="All crypto"
-              />
-              <h2 style={{ color: "var(--darkcolor-op1)" }}>
-                {translate("Withdrawal Requests")}
-              </h2>
-            </MainButton>
-          </div>
+              <MainButton
+                color="transparent"
+                onClick={() => {
+                  navigateToModal("cashier", "withdraw", "requests");
+                }}
+              >
+                <img
+                  className={classes.AllCrypto}
+                  src={allCrypto}
+                  loading="lazy"
+                  alt="All crypto"
+                />
+                <h2 style={{ color: "var(--darkcolor-op1)" }}>
+                  {translate("Withdrawal Requests")}
+                </h2>
+              </MainButton>
+            </div>
+          )}
+
           {paymentTypes &&
+            paymentTypes.length > 1 &&
             paymentTypes.map((paymentType, index) => (
               <div
                 key={index}

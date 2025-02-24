@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -25,6 +26,17 @@ const Deposit = () => {
   if (stage === "crypto") elClasses.push(classes.Crypto);
   else if (stage === "methods") elClasses.push(classes.Methods);
   else if (stage === "deposit") elClasses.push(classes.Deposit);
+
+  useEffect(() => {
+    if (!paymentTypes) return;
+
+    if (paymentTypes.length === 1) {
+      selectPaymentType(paymentTypes[0]);
+      navigateToModal("cashier", "deposit", "methods");
+    }
+
+    return () => dispatch(cryptoActions.resetCurrency());
+  }, [paymentTypes]);
 
   const selectPaymentType = (type) => {
     if (type.MinAmount) {
@@ -57,6 +69,7 @@ const Deposit = () => {
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
           {paymentTypes &&
+            paymentTypes.length > 1 &&
             paymentTypes.map((paymentType, index) => (
               <div
                 key={index}
