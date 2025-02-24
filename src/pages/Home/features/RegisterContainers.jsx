@@ -1,8 +1,9 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import classes from "./RegisterContainers.module.css"; 
+import classes from "./RegisterContainers.module.css";
 import { translate } from "../../../utils/translations";
+import { siteCurrency } from "../../../utils/custom";
 
 const RegisterContainers = () => {
   const navigate = useNavigate();
@@ -10,6 +11,7 @@ const RegisterContainers = () => {
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const permissions = useSelector((state) => state.login.permissions);
+  const currency = useSelector((state) => state.app.siteCurrency);
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);
@@ -36,15 +38,20 @@ const RegisterContainers = () => {
               </div>
             </div>
           </div>
-          {permissions.AllowGamification &&
+          {permissions.AllowGamification && (
             <>
-              <span className={classes.SignUpTextV1}>{translate("Sign up")}</span>
+              <span className={classes.SignUpTextV1}>
+                {translate("Sign up")}
+              </span>
               &nbsp;{translate("and")}&nbsp;
-              <span className={classes.SignUpTextV1}>{translate("choose")} </span>
-              <span className={classes.SignUpTextV1}>{translate("your hero")}</span>
+              <span className={classes.SignUpTextV1}>
+                {translate("choose")}{" "}
+              </span>
+              <span className={classes.SignUpTextV1}>
+                {translate("your hero")}
+              </span>
             </>
-
-          }
+          )}
           <span className={classes.SignUpTextV2}>
             150% {translate("on")}{" "}
             <span style={{ fontWeight: "400", textTransform: "lowercase" }}>
@@ -53,7 +60,7 @@ const RegisterContainers = () => {
             <span style={{ fontWeight: "400" }}>{translate("deposit")} </span>
           </span>
           <span className={classes.SignUpTextV1}>
-            {translate("up to")} 200€
+            {translate("up to")} 200 {siteCurrency(currency, "symbol")}
           </span>
           <button
             className={classes.RegisterButton}

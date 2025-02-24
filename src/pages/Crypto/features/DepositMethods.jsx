@@ -98,7 +98,7 @@ const DepositMethods = () => {
                           backgroundImage: `url("${method.Icon}")`,
                         }}
                       ></div>
-                      <h2>{method.Name}</h2>
+                      <h2>{translate(`${method.Name}`)}</h2>
                     </MainButton>
                   </div>
                 )

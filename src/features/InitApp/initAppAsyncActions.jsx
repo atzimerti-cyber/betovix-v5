@@ -721,7 +721,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=slotking365.com`,
+        //`Site/GetSite?domainName=betovix.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -845,7 +845,9 @@ export const getSite = (signal) => {
         updateMaskIcon(customMaskPath, maskColor);
       }
 
+      dispatch(appActions.setSiteCurrency(response.data.Contents.Currency));
       dispatch(appActions.setSiteId(true));
+      dispatch(getCurrencies());
     } catch (error) {
       dispatch(appActions.setSiteId(false));
     }
@@ -877,12 +879,12 @@ export const getSiteSettings = (signal) => {
 
       let defaultLang = { id: `${response.data.Contents.Site.DefaultLang}` };
 
-      let siteCurrencies = [];
-      const currStr = response.data.Contents.Site.AllowedCurrencies;
-      const currencies = currStr.split(",");
-      currencies.map((curr) => {
-        siteCurrencies.push(curr);
-      });
+      // let siteCurrencies = [];
+      // const currStr = response.data.Contents.Site.AllowedCurrencies;
+      // const currencies = currStr.split(",");
+      // currencies.map((curr) => {
+      //   siteCurrencies.push(curr);
+      // });
 
       let permissions;
       if (response.data.Contents.Permissions) {
@@ -901,6 +903,13 @@ export const getSiteSettings = (signal) => {
         config.VITE_LOGIN_URL = response.data.Contents.Site.LoginUrl;
       } else {
         config.VITE_LOGIN_URL = config.VITE_WALLET_API_BASE;
+      }
+
+      if (response.data.Contents.Site?.noReferrer === "true") {
+        let metaTag = document.createElement("meta");
+        metaTag.name = "referrer";
+        metaTag.content = "no-referrer";
+        document.head.appendChild(metaTag);
       }
 
       if (response.data.Contents.Site.CustomerCssUrl !== "") {
@@ -943,7 +952,7 @@ export const getSiteSettings = (signal) => {
       dispatch(appActions.setSiteSettings(response.data.Contents["Site"]));
       dispatch(appActions.setAvailableLangs(languages));
       dispatch(appActions.setDefaultLang(defaultLang));
-      dispatch(appActions.setSiteCurrencies(siteCurrencies));
+      // dispatch(appActions.setSiteCurrencies(siteCurrencies));
       dispatch(
         appActions.setSocialMedia(response.data.Contents["Social Media"])
       );
@@ -1050,6 +1059,30 @@ export const tawktoChat = () => {
       toast.error(
         error?.message || "An error occurred while fetching site settings"
       );
+    }
+  };
+};
+
+export const getCurrencies = () => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+      const response = await axiosApi.get(`Currency/Currencies`, {
+        baseURLOverride: config.VITE_WALLET_API_BASE,
+      });
+
+      if (response.status !== 200) throw new Error();
+
+      let currencies = {};
+      let currenciesArr = response.data.Contents;
+
+      currenciesArr.map((c) => {
+        currencies[c.Code] = c;
+      });
+
+      dispatch(appActions.setSiteCurrencies(currencies));
+    } catch (error) {
+      console.error(error?.message);
     }
   };
 };

@@ -140,6 +140,9 @@
 :global(.IsMobile.IsMenuOpen) :local(.CenterContainer main) {
   pointer-events: none;
 }
+:global(.IsMobile.IsMenuOpen) :local(.CenterContainer main) {
+  pointer-events: none;
+}
 
 .ChatOuter > div,
 .BetslipOuter > div {

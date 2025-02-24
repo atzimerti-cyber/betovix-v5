@@ -11,6 +11,7 @@ import ErrorIcon from "../../../assets/svgs/errorpayment.svg?react";
 import { translate } from "../../../utils/translations";
 import { cryptoActions } from "../cryptoSlice";
 import { getWithrawalReqs } from "../cryptoAsyncActions";
+import { siteCurrency } from "../../../utils/custom";
 
 const FinalStageWithdraw = () => {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ const FinalStageWithdraw = () => {
   const withdrawRequestState = useSelector(
     (state) => state.crypto.withdrawRequestMessage
   );
+  const currency = useSelector((state) => state.app.siteCurrency);
 
   const navigateToWithdraw = () => {
     const searchParams = new URLSearchParams(location.search);
@@ -133,7 +135,7 @@ const FinalStageWithdraw = () => {
             >
               <CoinsIcon height="10px" />
               <span>1.00 =&nbsp;</span>
-              <span>1.00&#8364;</span>
+              <span>1.00{siteCurrency(currency)}</span>
             </div>
           </div>
         </div>

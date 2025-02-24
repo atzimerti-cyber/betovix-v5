@@ -7,6 +7,7 @@ import { cryptoActions } from "../cryptoSlice";
 import DepositMethods from "./DepositMethods";
 import FinalStageDeposit from "./FinalStageDeposit";
 import MainButton from "../../../features/UI/Buttons/MainButton";
+import { translate } from "../../../utils/translations";
 
 const Deposit = () => {
   const dispatch = useDispatch();
@@ -87,7 +88,7 @@ const Deposit = () => {
                       backgroundImage: `url("${paymentType.Icon}")`,
                     }}
                   ></div>
-                  <h2>{paymentType.Name}</h2>
+                  <h2>{translate(`${paymentType.Name}`)}</h2>
                 </MainButton>
               </div>
             ))}

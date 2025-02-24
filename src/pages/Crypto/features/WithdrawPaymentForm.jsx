@@ -12,6 +12,7 @@ import { submitWithdrawForm } from "../cryptoAsyncActions";
 import CreditCard from "../../../assets/svgs/credit-card.svg?react";
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 import ErrorIcon from "../../../assets/svgs/errorpayment.svg?react";
+import { siteCurrency } from "../../../utils/custom";
 
 const WithdrawPaymentForm = (props) => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const WithdrawPaymentForm = (props) => {
   const typeMaxAmount = useSelector((state) => state.crypto.typeMaxAmount);
   const methodMinAmount = useSelector((state) => state.crypto.methodMinAmount);
   const methodMaxAmount = useSelector((state) => state.crypto.methodMaxAmount);
+  const currency = useSelector((state) => state.app.siteCurrency);
 
   const [formData, setFormData] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
@@ -340,7 +342,8 @@ const WithdrawPaymentForm = (props) => {
               <div className={classes.Info}>
                 <p>
                   {translate(`Minimum amount`)}
-                  {": €"}
+                  {": "}
+                  {siteCurrency(currency)}
                   {`${methodMinAmount || typeMinAmount}`}
                 </p>
               </div>
@@ -349,7 +352,8 @@ const WithdrawPaymentForm = (props) => {
               <div className={classes.Info}>
                 <p>
                   {translate(`Maximum amount`)}
-                  {": €"}
+                  {": "}
+                  {siteCurrency(currency)}
                   {`${methodMaxAmount || typeMaxAmount}`}
                 </p>
               </div>

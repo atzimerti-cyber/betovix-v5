@@ -34,6 +34,8 @@ const Bottombar = () => {
   const initDataLoaded = useSelector((state) => state.app.initDataLoaded);
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const permissions = useSelector((state) => state.login.permissions);
+  // const fixedMenu = useSelector((state) => state.app.siteSettings.FixedMenu);
+  const fixedMenu = "true";
 
   const getMultiplier = () => {
     let totalMultiplier = 1;
@@ -279,81 +281,83 @@ const Bottombar = () => {
   useEffect(() => {
     if (!initDataLoaded) return;
 
-    let allButtonsObj = {
-      menu: 0,
-      sports: 1,
-      casino: 2,
-      mybets: 3,
-      betslip: 4,
-      search: 5,
-      searchEvent: 6,
-      inplay: 7,
-      liveCasino: 8,
-      crashGames: 9,
-      chat: 10,
-      crypto: 11,
-      leader: 12,
-    };
+    if (fixedMenu === "false" || !fixedMenu) {
+      let allButtonsObj = {
+        menu: 0,
+        sports: 1,
+        casino: 2,
+        mybets: 3,
+        betslip: 4,
+        search: 5,
+        searchEvent: 6,
+        inplay: 7,
+        liveCasino: 8,
+        crashGames: 9,
+        chat: 10,
+        crypto: 11,
+        leader: 12,
+      };
 
-    // Remove buttons depending on the perimissions
-    if (!permissions.AllowToSports) {
-      delete allButtonsObj["sports"];
-      delete allButtonsObj["mybets"];
-      delete allButtonsObj["betslip"];
-      delete allButtonsObj["inplay"];
-      delete allButtonsObj["searchEvent"];
+      // Remove buttons depending on the perimissions
+      if (!permissions.AllowToSports) {
+        delete allButtonsObj["sports"];
+        delete allButtonsObj["mybets"];
+        delete allButtonsObj["betslip"];
+        delete allButtonsObj["inplay"];
+        delete allButtonsObj["searchEvent"];
+      }
+      if (!permissions.AllowToCasino && !permissions.AllowToSlots) {
+        delete allButtonsObj["search"];
+        delete allButtonsObj["casino"];
+        delete allButtonsObj["liveCasino"];
+        delete allButtonsObj["crashGames"];
+      }
+
+      // Remove buttons depending on the route
+      // if (slips.length > 0) delete allButtonsObj['mybets'];
+      // else delete allButtonsObj['betslip'];
+
+      if (basepath.includes("sportsbook") || basepath.includes("event")) {
+        delete allButtonsObj["search"];
+        delete allButtonsObj["sports"];
+        delete allButtonsObj["crypto"];
+        delete allButtonsObj["betslip"];
+      } else if (basepath.includes("casino/game")) {
+        delete allButtonsObj["mybets"];
+        delete allButtonsObj["searchEvent"];
+        delete allButtonsObj["betslip"];
+        delete allButtonsObj["inplay"];
+      } else if (basepath.includes("casino")) {
+        delete allButtonsObj["mybets"];
+        delete allButtonsObj["searchEvent"];
+        delete allButtonsObj["betslip"];
+        delete allButtonsObj["inplay"];
+        delete allButtonsObj["casino"];
+        delete allButtonsObj["leader"];
+        delete allButtonsObj["crypto"];
+        delete allButtonsObj["chat"];
+      }
+
+      if (!user) {
+        delete allButtonsObj["mybets"];
+      }
+
+      const allButtonsIndexes = Object.values(allButtonsObj).sort(
+        (a, b) => a - b
+      );
+      let firstFiveItems = allButtonsIndexes.slice(0, 5);
+      setMenuButtonsIndexes(firstFiveItems);
+    } else if (fixedMenu === "true") {
+      let buttonsObj = {
+        menu: 0,
+        sports: 1,
+        casino: 2,
+        liveCasino: 8,
+        chat: 10,
+      };
+      const buttonsObjIndexes = Object.values(buttonsObj).sort((a, b) => a - b);
+      setMenuButtonsIndexes(buttonsObjIndexes);
     }
-    if (!permissions.AllowToCasino && !permissions.AllowToSlots) {
-      delete allButtonsObj["search"];
-      delete allButtonsObj["casino"];
-      delete allButtonsObj["liveCasino"];
-      delete allButtonsObj["crashGames"];
-    }
-
-    // Remove buttons depending on the route
-    // if (slips.length > 0) delete allButtonsObj['mybets'];
-    // else delete allButtonsObj['betslip'];
-
-    if (basepath.includes("sportsbook") || basepath.includes("event")) {
-      delete allButtonsObj["search"];
-      delete allButtonsObj["sports"];
-      delete allButtonsObj["crypto"];
-      delete allButtonsObj["betslip"];
-    } else if (basepath.includes("casino/game")) {
-      delete allButtonsObj["mybets"];
-      delete allButtonsObj["searchEvent"];
-      delete allButtonsObj["betslip"];
-      delete allButtonsObj["inplay"];
-    } else if (basepath.includes("casino")) {
-      delete allButtonsObj["mybets"];
-      delete allButtonsObj["searchEvent"];
-      delete allButtonsObj["betslip"];
-      delete allButtonsObj["inplay"];
-      delete allButtonsObj["casino"];
-      delete allButtonsObj["leader"];
-      delete allButtonsObj["crypto"];
-      delete allButtonsObj["chat"];
-    }
-
-    if (!user) {
-      delete allButtonsObj["mybets"];
-    }
-
-    const allButtonsIndexes = Object.values(allButtonsObj).sort(
-      (a, b) => a - b
-    );
-    let firstFiveItems = allButtonsIndexes.slice(0, 5);
-    // if (basepath.includes("casino")) {
-    //   let sportsIndex = firstFiveItems.indexOf(1);
-    //   if (sportsIndex !== -1) {
-    //     firstFiveItems.splice(sportsIndex, 1);
-    //     firstFiveItems.push(1);
-    //   }
-    // }
-    // firstFiveItems.push(9); // Add chat in the end
-    //if (permissions.AllowToSports) firstFiveItems.push(4); // Add betslip in the end
-
-    setMenuButtonsIndexes(firstFiveItems);
   }, [
     location.pathname,
     slips.length,

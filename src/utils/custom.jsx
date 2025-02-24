@@ -2,6 +2,7 @@ import { format, formatInTimeZone, toDate } from "date-fns-tz";
 import el from "date-fns/locale/el";
 import enGB from "date-fns/locale/en-GB";
 import { storageGetTimezone, getLang } from "./storage";
+import { useSelector } from "react-redux";
 
 export function formatNumberMax(value, dp) {
   if (isNaN(value)) return value;
@@ -406,4 +407,9 @@ export function formatDateInOriginalTimeZone(datetime) {
   const zonedDate = toDate(datetime, { timeZone: originalTimezone });
 
   return zonedDate;
+}
+
+export function siteCurrency(siteCurr) {
+  const currencies = useSelector((state) => state.app.siteCurrencies);
+  return currencies?.[siteCurr]?.Symbol || null;
 }

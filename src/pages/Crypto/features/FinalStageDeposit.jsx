@@ -12,6 +12,7 @@ import CopyToClipboardCont from "../../../features/CopyToClipboard/CopyToClipboa
 import SpinnerIcon from "../../../assets/svgs/spinner.svg?react";
 import WarningIcon from "../../../assets/svgs/warning-yellow.svg?react";
 import { cryptoActions } from "../cryptoSlice";
+import { siteCurrency } from "../../../utils/custom";
 
 const FinalStageDeposit = () => {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const FinalStageDeposit = () => {
   const paymentMethod = useSelector(
     (state) => state.crypto.selectedPaymentMethodDeposit
   );
+  const currency = useSelector((state) => state.app.siteCurrency);
 
   const navigateToDeposit = () => {
     const searchParams = new URLSearchParams(location.search);
@@ -73,7 +75,7 @@ const FinalStageDeposit = () => {
               alignItems: "center",
             }}
           >
-            <span>1.00&#8364; =</span> <CoinsIcon />
+            <span>1.00{siteCurrency(currency)} =</span> <CoinsIcon />
             <span>1.00</span>
           </div>
         </div>
@@ -105,7 +107,7 @@ const FinalStageDeposit = () => {
                 <CopyToClipboardCont text={depositAddress.AccountName} />
               </div>
               <div className={classes.BtcAddressContainer}>
-                <label htmlFor="container">IBAN Code:</label>
+                <label htmlFor="container">{translate("IBAN Code")}:</label>
                 <CopyToClipboardCont text={depositAddress.IbanCode} />
               </div>
             </>

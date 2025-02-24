@@ -113,7 +113,7 @@ const Withdraw = () => {
                       backgroundImage: `url("${paymentType.Icon}")`,
                     }}
                   ></div>
-                  <h2>{paymentType.Name}</h2>
+                  <h2>{translate(`${paymentType.Name}`)}</h2>
                 </MainButton>
               </div>
             ))}
