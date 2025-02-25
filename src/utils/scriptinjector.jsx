@@ -22,6 +22,7 @@ function ScriptInjector({ scriptStrings }) {
 
           // Copy the src attribute if present
           if (scriptTag.src) {
+            newScript.async = true; 
             newScript.src = scriptTag.src;
           }
 
@@ -35,7 +36,7 @@ function ScriptInjector({ scriptStrings }) {
           //   targetRef.current.appendChild(newScript);
           // }
 
-          document.body.appendChild(scriptTag);
+          document.body.appendChild(newScript);
         }
       });
     }
