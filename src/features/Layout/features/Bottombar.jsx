@@ -133,7 +133,7 @@ const Bottombar = () => {
     >
       <BetslipIcon className={classes.WithFill} />
 
-      {getMultiplier() > 1 && (
+      {/* {getMultiplier() > 1 && (
         <motion.div
           key={slips.length}
           className={classes.OddsBubble}
@@ -143,7 +143,7 @@ const Bottombar = () => {
         >
           @{getMultiplier()}
         </motion.div>
-      )}
+      )} */}
 
       <span className={classes.Label}>{translate("Betslip")}</span>
       {slips.length > 0 && (
@@ -353,6 +353,7 @@ const Bottombar = () => {
         sports: 1,
         casino: 2,
         liveCasino: 8,
+        betslip: 4,
         chat: 10,
       };
       const buttonsObjIndexes = Object.values(buttonsObj).sort((a, b) => a - b);
