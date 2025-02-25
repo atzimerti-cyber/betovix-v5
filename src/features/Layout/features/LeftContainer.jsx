@@ -57,6 +57,50 @@ const LeftContainer = memo(function () {
     elClasses.push(classes.Closed);
   }
 
+  const casinoButton = () => {
+    return (
+      (permissions.AllowToCasino || permissions.AllowToSlots) && (
+        <MainButton
+          active2={pathnameNoParams.includes("/casino")}
+          onClick={() => navigate("/casino/lobby")}
+          dataTooltipId="left-menu-tooltip"
+          dataTooltipContent={translate("Casino")}
+        >
+          <CasinoIcon
+            className={
+              pathnameNoParams.includes("casino") ? classes.Active2Svg : null
+            }
+          />
+          <span>{fullLeftContainer ? translate("Casino") : ""}</span>
+        </MainButton>
+      )
+    );
+  };
+  const sportsButton = () => {
+    return (
+      permissions.AllowToSports && (
+        <MainButton
+          active={
+            pathnameNoParams.includes("/sportsbook") ||
+            pathnameNoParams.includes("/event")
+          }
+          onClick={() => navigate("/sportsbook/home/football")}
+          dataTooltipId="left-menu-tooltip"
+          dataTooltipContent={translate("Sports")}
+        >
+          <SportsIcon
+            className={
+              pathnameNoParams.includes("sportsbook") ||
+              pathnameNoParams.includes("/event")
+                ? classes.ActiveSvg
+                : null
+            }
+          />
+          <span>{fullLeftContainer ? translate("Sports") : ""}</span>
+        </MainButton>
+      )
+    );
+  };
   const casinoMenu = () => {
     return (
       pathnameNoParams !== "/sportsbook" &&
@@ -310,14 +354,24 @@ const LeftContainer = memo(function () {
           style={{ marginTop: "0.5rem" }}
         >
           <div className={classes.SideMenuButtonContainer}>
+            {casinoOriented && casinoOriented === "true" ? (
+              <>
+                {casinoButton()}
+                {sportsButton()}
+              </>
+            ) : (
+              <>
+                {sportsButton()}
+                {casinoButton()}
+              </>
+            )}
             {/* SPORTS BUTTON */}
-            {permissions.AllowToSports && (
+            {/* {permissions.AllowToSports && (
               <MainButton
                 active={
                   pathnameNoParams.includes("/sportsbook") ||
                   pathnameNoParams.includes("/event")
                 }
-                // onClick={() => navigate(`/${lang.id}/sportsbook/home/football`)}
                 onClick={() => navigate("/sportsbook/home/football")}
                 dataTooltipId="left-menu-tooltip"
                 dataTooltipContent={translate("Sports")}
@@ -332,10 +386,10 @@ const LeftContainer = memo(function () {
                 />
                 <span>{fullLeftContainer ? translate("Sports") : ""}</span>
               </MainButton>
-            )}
+            )} */}
 
             {/* CASINO BUTTON */}
-            {(permissions.AllowToCasino || permissions.AllowToSlots) && (
+            {/* {(permissions.AllowToCasino || permissions.AllowToSlots) && (
               <MainButton
                 active2={pathnameNoParams.includes("/casino")}
                 onClick={() => navigate("/casino/lobby")}
@@ -351,7 +405,7 @@ const LeftContainer = memo(function () {
                 />
                 <span>{fullLeftContainer ? translate("Casino") : ""}</span>
               </MainButton>
-            )}
+            )} */}
           </div>
 
           {isMobile && (

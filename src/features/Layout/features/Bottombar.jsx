@@ -353,6 +353,7 @@ const Bottombar = () => {
         sports: 1,
         casino: 2,
         liveCasino: 8,
+        betslip: 4,
         chat: 10,
       };
       const buttonsObjIndexes = Object.values(buttonsObj).sort((a, b) => a - b);
