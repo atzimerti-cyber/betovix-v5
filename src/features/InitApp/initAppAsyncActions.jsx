@@ -952,34 +952,10 @@ export const getSiteSettings = (signal) => {
       dispatch(appActions.setSiteSettings(response.data.Contents["Site"]));
       dispatch(appActions.setAvailableLangs(languages));
       dispatch(appActions.setDefaultLang(defaultLang));
-      // dispatch(appActions.setSiteCurrencies(siteCurrencies));
       dispatch(
         appActions.setSocialMedia(response.data.Contents["Social Media"])
       );
       dispatch(appActions.setSiteSettingsSuccess(true));
-
-      // if (
-      //   response.data.Contents["Site"] &&
-      //   response.data.Contents["Site"]["Default Theme"]
-      // ) {
-      //   const defaultTheme = response.data.Contents["Site"]["Default Theme"];
-      //   const themeHref = `public/themes/${defaultTheme}.css`;
-
-      //   const existingLink = document.querySelector(
-      //     `link[href="${themeHref}"]`
-      //   );
-
-      //   if (!existingLink && defaultTheme !== "default") {
-      //     const link = document.createElement("link");
-      //     link.rel = "stylesheet";
-      //     link.type = "text/css";
-      //     link.href = themeHref;
-
-      //     document.head.appendChild(link);
-
-      //     console.log(`Applied theme: ${defaultTheme}`);
-      //   }
-      // }
     } catch (error) {
       dispatch(appActions.setSiteSettingsSuccess(false));
     }

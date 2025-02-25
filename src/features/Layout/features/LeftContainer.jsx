@@ -33,21 +33,22 @@ const LeftContainer = memo(function () {
 
   const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-
-  const pathname = location.pathname.substring(1);
-  const pathnameNoParams = useBasePath();
-
   const permissions = useSelector((state) => state.login.permissions);
   const menuItems = useSelector((state) => state.app.menuItems);
-
   const casinoMenuItems = useSelector((state) => state.app.casinoMenuItems);
   const sportsMenuItems = useSelector((state) => state.app.sportsMenuItems);
-
   const user = useSelector((state) => state.login.user);
   const searchString = useSelector((state) => state.search.searchString);
   const fullLeftContainer = useSelector(
     (state) => state.layout.fullLeftContainer
   );
+  const casinoOriented = useSelector(
+    (state) => state.app.siteSettings?.casinoOriented
+  );
+
+  const pathname = location.pathname.substring(1);
+  const pathnameNoParams = useBasePath();
+
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   let elClasses = [classes.SideMenuScroll];
@@ -55,6 +56,209 @@ const LeftContainer = memo(function () {
   if (!fullLeftContainer) {
     elClasses.push(classes.Closed);
   }
+
+  const casinoMenu = () => {
+    return (
+      pathnameNoParams !== "/sportsbook" &&
+      pathnameNoParams !== "/sportsbook/tournament" &&
+      pathnameNoParams !== "/sportsbook/outrights" &&
+      pathnameNoParams !== "/searchEvent" &&
+      (permissions.AllowToCasino || permissions.AllowToSlots) && (
+        <>
+          <div className={classes.SideMenuDivider}></div>
+          {!isMobile && (
+            <Search
+              placeholder={translate("Search Casino")}
+              hide={!fullLeftContainer}
+              dataTooltipId="left-menu-tooltip"
+              dataTooltipContent={translate("Search Casino")}
+              value={searchString}
+              onChange={(value) => {
+                dispatch(searchActions.setSearchString(value));
+                if (value !== "") navigate("/search");
+              }}
+            />
+          )}
+          {casinoMenuItems.map((casinoMenuItem, index) => {
+            if (casinoMenuItem.category) {
+              if (fullLeftContainer) {
+                return (
+                  <CategoryGroup
+                    key={`_${casinoMenuItem.category.id}`}
+                    category={casinoMenuItem.category}
+                    hide={fullLeftContainer}
+                  >
+                    {getItems(
+                      casinoMenuItem,
+                      casinoMenuItem.category.id,
+                      casinoMenuItem.category.id
+                    )}
+                  </CategoryGroup>
+                );
+              } else {
+                return (
+                  <div
+                    className={classes.Grouped}
+                    key={casinoMenuItem.category.id}
+                  >
+                    <div className={classes.SideMenuDivider}></div>
+                    {getItems(
+                      casinoMenuItem,
+                      casinoMenuItem.category.id,
+                      casinoMenuItem.category.id
+                    )}
+                  </div>
+                );
+              }
+            } else {
+              return getItems(casinoMenuItem, index, 0);
+            }
+          })}
+        </>
+      )
+    );
+  };
+  const sportsMenu = () => {
+    return (
+      pathnameNoParams !== "/casino" &&
+      pathnameNoParams !== "/search" &&
+      permissions.AllowToSports && (
+        <>
+          <div className={classes.SideMenuDivider}></div>
+
+          {!isMobile && (
+            <Search
+              placeholder={translate("Search Event")}
+              hide={!fullLeftContainer}
+              dataTooltipId="left-menu-tooltip"
+              dataTooltipContent={translate("Search Event")}
+              value={searchString}
+              onChange={(value) => {
+                dispatch(searchActions.setSearchString(value));
+                if (value !== "") navigate("/searchEvent");
+              }}
+            />
+          )}
+
+          <div className={classes.SideMenuContainer} id="sideMenuContainer">
+            <div className={classes.SideMenuSubButtonContainer}>
+              <>
+                {permissions.AllowToSports && (
+                  <>
+                    <MainButton
+                      active={pathnameNoParams.includes("?modal=statistics")}
+                      onClick={() => navigate("?modal=statistics")}
+                      dataTooltipId="left-menu-tooltip"
+                      dataTooltipContent={translate("Stats")}
+                    >
+                      <StatsIcon
+                        className={
+                          pathnameNoParams.includes("?modal=statistics")
+                            ? classes.ActiveSvg
+                            : null
+                        }
+                      />
+                      <span>
+                        {fullLeftContainer ? translate("Statistics") : ""}
+                      </span>
+                    </MainButton>
+
+                    <MainButton
+                      active={pathnameNoParams.includes("?modal=load-booked")}
+                      onClick={() => navigate("?modal=load-booked")}
+                      dataTooltipId="left-menu-tooltip"
+                      dataTooltipContent={translate("Load Booked")}
+                    >
+                      <LoadIcon
+                        className={
+                          pathnameNoParams.includes("?modal=load-booked")
+                            ? classes.ActiveSvg
+                            : null
+                        }
+                      />
+                      <span>
+                        {fullLeftContainer ? translate("Load Booked") : ""}
+                      </span>
+                    </MainButton>
+
+                    {/* <MainButton
+                        active={pathnameNoParams.includes(
+                          "?modal=load-ticket"
+                        )}
+                        onClick={() => navigate("?modal=load-ticket")}
+                        dataTooltipId="left-menu-tooltip"
+                        dataTooltipContent={translate("Print Ticket")}
+                      >
+                        <TicketIcon
+                          className={
+                            pathnameNoParams.includes("?modal=load-ticket")
+                              ? classes.ActiveSvg
+                              : null
+                          }
+                        />
+                        <span>
+                          {fullLeftContainer ? translate("Print Ticket") : ""}
+                        </span>
+                      </MainButton> */}
+
+                    <MainButton
+                      active={pathnameNoParams.includes("?modal=promo-code")}
+                      onClick={() => navigate("?modal=promo-code")}
+                      dataTooltipId="left-menu-tooltip"
+                      dataTooltipContent={translate("Promo Code")}
+                    >
+                      <TicketIcon
+                        className={
+                          pathnameNoParams.includes("?modal=promo-code")
+                            ? classes.ActiveSvg
+                            : null
+                        }
+                      />
+                      <span>
+                        {fullLeftContainer ? translate("Promo Code") : ""}
+                      </span>
+                    </MainButton>
+                  </>
+                )}
+              </>
+            </div>
+          </div>
+          {sportsMenuItems.map((menuItem, index) => {
+            if (menuItem.category) {
+              if (fullLeftContainer) {
+                return (
+                  <CategoryGroup
+                    key={menuItem.category.id}
+                    category={menuItem.category}
+                    hide={fullLeftContainer}
+                  >
+                    {getItems(
+                      menuItem,
+                      menuItem.category.id,
+                      menuItem.category.id
+                    )}
+                  </CategoryGroup>
+                );
+              } else {
+                return (
+                  <div className={classes.Grouped} key={menuItem.category.id}>
+                    <div className={classes.SideMenuDivider}></div>
+                    {getItems(
+                      menuItem,
+                      menuItem.category.id,
+                      menuItem.category.id
+                    )}
+                  </div>
+                );
+              }
+            } else {
+              return getItems(menuItem, index, 0);
+            }
+          })}
+        </>
+      )
+    );
+  };
 
   const getItems = (menuItem, index, categoryId) => {
     const showEmphasis =
@@ -106,6 +310,7 @@ const LeftContainer = memo(function () {
           style={{ marginTop: "0.5rem" }}
         >
           <div className={classes.SideMenuButtonContainer}>
+            {/* SPORTS BUTTON */}
             {permissions.AllowToSports && (
               <MainButton
                 active={
@@ -129,6 +334,7 @@ const LeftContainer = memo(function () {
               </MainButton>
             )}
 
+            {/* CASINO BUTTON */}
             {(permissions.AllowToCasino || permissions.AllowToSlots) && (
               <MainButton
                 active2={pathnameNoParams.includes("/casino")}
@@ -157,6 +363,8 @@ const LeftContainer = memo(function () {
             />
           )}
         </div>
+
+        {/* TRACK EVENTS BUTTON */}
         {permissions.AllowToSIS && (
           <div className={classes.SideMenuAllButtonsContainer}>
             <div className={classes.TrackMenuButtonContainer}>
@@ -176,8 +384,21 @@ const LeftContainer = memo(function () {
             </div>
           </div>
         )}
-        {/* SportsMenu */}
-        {pathnameNoParams !== "/casino" &&
+
+        {casinoOriented && casinoOriented === "true" ? (
+          <>
+            {casinoMenu()}
+            {sportsMenu()}
+          </>
+        ) : (
+          <>
+            {sportsMenu()}
+            {casinoMenu()}
+          </>
+        )}
+
+        {/* SPORTSBOOK MENU */}
+        {/* {pathnameNoParams !== "/casino" &&
           pathnameNoParams !== "/search" &&
           permissions.AllowToSports && (
             <>
@@ -200,9 +421,6 @@ const LeftContainer = memo(function () {
               <div className={classes.SideMenuContainer} id="sideMenuContainer">
                 <div className={classes.SideMenuSubButtonContainer}>
                   <>
-                    {/* <div className={classes.LangDropdown}>
-                      <DropdownLang topbar />
-                    </div> */}
                     {permissions.AllowToSports && (
                       <>
                         <MainButton
@@ -243,9 +461,9 @@ const LeftContainer = memo(function () {
                           <span>
                             {fullLeftContainer ? translate("Load Booked") : ""}
                           </span>
-                        </MainButton>
+                        </MainButton> */}
 
-                        {/* <MainButton
+        {/* <MainButton
                           active={pathnameNoParams.includes(
                             "?modal=load-ticket"
                           )}
@@ -264,7 +482,7 @@ const LeftContainer = memo(function () {
                             {fullLeftContainer ? translate("Print Ticket") : ""}
                           </span>
                         </MainButton> */}
-
+        {/* 
                         <MainButton
                           active={pathnameNoParams.includes(
                             "?modal=promo-code"
@@ -288,10 +506,7 @@ const LeftContainer = memo(function () {
                     )}
                   </>
                 </div>
-
-                {/* {isMobile && <CloseButton timesIcon onClick={() => dispatch(layoutActions.setFullLeftContainer(false))} />} */}
               </div>
-              {/* SportsMenuItems */}
               {sportsMenuItems.map((menuItem, index) => {
                 if (menuItem.category) {
                   if (fullLeftContainer) {
@@ -328,10 +543,10 @@ const LeftContainer = memo(function () {
                 }
               })}
             </>
-          )}
+          )} */}
 
-        {/* CasinoMenu */}
-        {pathnameNoParams !== "/sportsbook" &&
+        {/* CASINO MENU */}
+        {/* {pathnameNoParams !== "/sportsbook" &&
           pathnameNoParams !== "/sportsbook/tournament" &&
           pathnameNoParams !== "/sportsbook/outrights" &&
           pathnameNoParams !== "/searchEvent" &&
@@ -351,7 +566,6 @@ const LeftContainer = memo(function () {
                   }}
                 />
               )}
-              {/* casinoMenuItems */}
               {casinoMenuItems.map((casinoMenuItem, index) => {
                 if (casinoMenuItem.category) {
                   if (fullLeftContainer) {
@@ -388,8 +602,9 @@ const LeftContainer = memo(function () {
                 }
               })}
             </>
-          )}
+          )} */}
 
+        {/* REST OF MENU ITEMS */}
         {menuItems.map((menuItem, index) => {
           if (menuItem.category) {
             if (fullLeftContainer) {
@@ -422,8 +637,9 @@ const LeftContainer = memo(function () {
             return getItems(menuItem, index, 0);
           }
         })}
-        {fullLeftContainer ? (
-          // <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
+
+        {/* LANGUAGE DROPDOWN */}
+        {fullLeftContainer && (
           <div
             id="language"
             className={classes.LangDropdown}
@@ -431,10 +647,9 @@ const LeftContainer = memo(function () {
           >
             <DropdownLang fullLabel={true} openTo="top" />
           </div>
-        ) : // <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
-        //   <DropdownLang topbar openTo="side" />
-        // </div>
-        null}
+        )}
+
+        {/* TIMEZONE DROPDOWN */}
         {fullLeftContainer && (
           <div
             id="timezone"
