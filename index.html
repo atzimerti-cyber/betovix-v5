@@ -52,7 +52,20 @@
   </script>
   <link rel="preload" href="public/promos.css" as="style" onload="this.rel='stylesheet'" />
   <!-- <link rel="preload" as="image" href="/loading.webp"> -->
+  <style>
+    #comm100-container > div > div {
+      right: 1%;
+      bottom: 15%;
+      z-index: 99;
+    }
 
+    @media(max-width: 768px) {
+      #comm100-container > div > div {
+      right: 1%;
+      bottom: 10%;
+    }
+    }
+  </style>
   <style>
     /* .snow {
       position: absolute;
