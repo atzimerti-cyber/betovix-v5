@@ -505,6 +505,9 @@ export const loadInitData = (isMobile) => {
           });
       }
 
+      const layout = getState().layout;
+      const support = layout.tawkToScript;
+
       allMenuItems.push({
         category: { id: 8, label: "More", visible: false },
         items: [
@@ -514,7 +517,7 @@ export const loadInitData = (isMobile) => {
             icon: <PromotionsIcon />,
             page: "promotions",
           },
-          {
+          support?.Source && {
             id: 2,
             label: "Live Support",
             icon: <SupportIcon />,
@@ -539,7 +542,7 @@ export const loadInitData = (isMobile) => {
           //   icon: <LeaderIcon />,
           //   page: "leaderboard",
           // },
-        ],
+        ].filter(Boolean),
       });
 
       //Footer

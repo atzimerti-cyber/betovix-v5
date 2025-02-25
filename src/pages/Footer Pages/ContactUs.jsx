@@ -14,7 +14,7 @@ const ContactUs = () => {
     details: "",
   });
   const support = useSelector((state) => state.layout.tawkToScript);
-  const supportEmail = support?.Email ? support?.Email : "support@betovix.com";
+  const supportEmail = support?.Email ? support?.Email : "";
 
   const handleChange = (event) => {
     const { id, value } = event.target;
@@ -142,32 +142,34 @@ const ContactUs = () => {
           </button>
         </div>
       </form>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "center",
-          paddingLeft: "1rem",
-        }}
-      >
-        <p
+      {supportEmail && supportEmail !== "" &&
+        <div
           style={{
-            fontSize: "1rem",
-            fontWeight: "300",
-            color: "white",
-            textAlign: "start",
-            margin: "0.3rem",
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            alignItems: "center",
+            paddingLeft: "1rem",
           }}
         >
-          {translate("or contact us at")}{" "}
-          <i>
-            <u>
-              <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
-            </u>
-          </i>
-        </p>
-      </div>
+          <p
+            style={{
+              fontSize: "1rem",
+              fontWeight: "300",
+              color: "white",
+              textAlign: "start",
+              margin: "0.3rem",
+            }}
+          >
+            {translate("or contact us at")}{" "}
+            <i>
+              <u>
+                <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
+              </u>
+            </i>
+          </p>
+        </div>
+      }
     </div>
   );
 };

@@ -16,7 +16,7 @@ const AnnouncementModal = () => {
     const [logo, setLogo] = useState(null);
     const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
     const support = useSelector((state) => state.layout.tawkToScript);
-    const supportEmail = support?.Email ? support?.Email : "support@betovix.com";
+    const supportEmail = support?.Email ? support?.Email : "";
     const cookiesSettings = useSelector((state) => state.app.siteSettings.Cookies);
 
     useEffect(() => {
@@ -88,29 +88,33 @@ const AnnouncementModal = () => {
                        
                     </div>
                     <div className={classes.ContactSection}>
-                        <div className={classes.ButtonWrapper}>
-                            <MainButton
-                                color="dark"
-                                onClick={() => navigate("/support")}
-                            >
-                                {translate("Live Chat")}                     
-                                <SupportIcon />
+                        {support && support.Source &&
+                            <div className={classes.ButtonWrapper}>
+                                <MainButton
+                                    color="dark"
+                                    onClick={() => navigate("/support")}
+                                >
+                                    {translate("Live Chat")}
+                                    <SupportIcon />
 
-                            </MainButton>
+                                </MainButton>
 
-                        </div>
-                        <div className={classes.ButtonWrapper}>
-                            <MainButton
+                            </div>
+                        }
+                        {supportEmail && supportEmail !== "" &&
+                            <div className={classes.ButtonWrapper}>
+                                <MainButton
 
-                                color="dark"
-                                onClick={() => {
-                                    window.location.href = `mailto:${supportEmail}`;
-                                }}
-                            >
-                                {translate("Email")}
-                                <EmailIcon />
-                            </MainButton>
-                        </div>
+                                    color="dark"
+                                    onClick={() => {
+                                        window.location.href = `mailto:${supportEmail}`;
+                                    }}
+                                >
+                                    {translate("Email")}
+                                    <EmailIcon />
+                                </MainButton>
+                            </div>
+                        }
                        
                     </div>
                     {cookiesSettings === 'true' ? (

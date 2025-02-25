@@ -9,7 +9,7 @@ const Support = () => {
   const iframeHeight = window.innerWidth <= 670 ? "550px" : "500px";
   const lang = useSelector((state) => state.app.lang);
   const support = useSelector((state) => state.layout.tawkToScript);
-  const supportEmail = support?.Email ? support?.Email : "support@betovix.com";
+  const supportEmail = support?.Email ? support?.Email : "";
 
   return (
     <div className={classes.PageContent} style={{ padding: "0px 1rem 40px" }}>
@@ -42,36 +42,37 @@ const Support = () => {
         }}
         scrolling="no"
       ></iframe>
-
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          flexWrap: "wrap",
-          alignItems: "center",
-        }}
-      >
-        <InfoIcon />
-        <p
+      {supportEmail && supportEmail !== "" &&
+        <div
           style={{
-            fontSize: "1rem",
-            fontWeight: "300",
-            color: "white",
-            textAlign: "start",
-            margin: "0.3rem",
+            display: "flex",
+            flexDirection: "row",
+            flexWrap: "wrap",
+            alignItems: "center",
           }}
         >
-          {translate(
-            "If our live chat is not working for you, please contact us at"
-          )}{" "}
-          <i>
-            <u>
-              <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
-               {/* support@betovix.com */}
-            </u>
-          </i>
-        </p>
-      </div>
+          <InfoIcon />
+          <p
+            style={{
+              fontSize: "1rem",
+              fontWeight: "300",
+              color: "white",
+              textAlign: "start",
+              margin: "0.3rem",
+            }}
+          >
+            {translate(
+              "If our live chat is not working for you, please contact us at"
+            )}{" "}
+            <i>
+              <u>
+                <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
+                {/* support@betovix.com */}
+              </u>
+            </i>
+          </p>
+        </div>
+      }
     </div>
   );
 };

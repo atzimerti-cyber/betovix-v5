@@ -1,14 +1,19 @@
 import { useEffect, useRef } from "react";
 
-function ScriptInjector({ scriptStrings, targetRef }) {
+function ScriptInjector({ scriptStrings }) {
   useEffect(() => {
     function injectScripts() {
       scriptStrings.forEach((scriptString) => {
         // Create a temporary div to parse the script string
         const tempDiv = document.createElement("div");
         tempDiv.innerHTML = scriptString;
+       // document.body.appendChild(tempDiv);
 
         // Extract the script tag from the tempDiv
+        const divTag = tempDiv.querySelector("div");
+        if(divTag) {
+          document.body.appendChild(divTag);
+        }
         const scriptTag = tempDiv.querySelector("script");
 
         if (scriptTag) {
@@ -26,15 +31,17 @@ function ScriptInjector({ scriptStrings, targetRef }) {
           }
 
           // Append the script to the targetRef (which points to the TawkTo div)
-          if (targetRef.current) {
-            targetRef.current.appendChild(newScript);
-          }
+          // if (targetRef.current) {
+          //   targetRef.current.appendChild(newScript);
+          // }
+
+          document.body.appendChild(scriptTag);
         }
       });
     }
 
     injectScripts();
-  }, [scriptStrings, targetRef]);
+  }, []);
 
   return null;
 }
