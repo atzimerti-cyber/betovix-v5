@@ -152,7 +152,7 @@ export const loadInitData = (isMobile) => {
         axiosApi.get(
           `Translation/MyTranslations?type=Sportsbook&lang=${lang.id}`,
           {
-            baseURLOverride: config.VITE_SPORTS_API_BASE,
+            baseURLOverride: config.VITE_WALLET_API_BASE,
           }
         ),
       ];
@@ -703,7 +703,7 @@ export const getTranslations = (lang) => {
       const response = await axiosApi.get(
         `Translation/MyTranslations?type=Sportsbook&lang=${lang.id}`,
         {
-          baseURLOverride: config.VITE_SPORTS_API_BASE,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
         }
       );
 
