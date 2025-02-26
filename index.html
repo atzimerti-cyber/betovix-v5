@@ -52,7 +52,20 @@
   </script>
   <link rel="preload" href="public/promos.css" as="style" onload="this.rel='stylesheet'" />
   <!-- <link rel="preload" as="image" href="/loading.webp"> -->
+  <style>
+    #comm100-container > div > div {
+      right: 1% !important;
+      bottom: 100px!important;
+      z-index: 99!important;
+    }
 
+    @media(max-width: 768px) {
+      #comm100-container > div > div {
+      right: 1%!important;
+      bottom: 80px!important;
+    }
+    }
+  </style>
   <style>
     /* .snow {
       position: absolute;
@@ -372,7 +385,6 @@
 
     gtag('config', 'G-5VMJB2G33G');
   </script>
-
 
 </body>
 

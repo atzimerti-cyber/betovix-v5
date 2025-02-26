@@ -152,7 +152,7 @@ export const loadInitData = (isMobile) => {
         axiosApi.get(
           `Translation/MyTranslations?type=Sportsbook&lang=${lang.id}`,
           {
-            baseURLOverride: config.VITE_SPORTS_API_BASE,
+            baseURLOverride: config.VITE_WALLET_API_BASE,
           }
         ),
       ];
@@ -505,6 +505,9 @@ export const loadInitData = (isMobile) => {
           });
       }
 
+      const layout = getState().layout;
+      const support = layout.tawkToScript;
+
       allMenuItems.push({
         category: { id: 8, label: "More", visible: false },
         items: [
@@ -514,7 +517,7 @@ export const loadInitData = (isMobile) => {
             icon: <PromotionsIcon />,
             page: "promotions",
           },
-          {
+          support?.Source && {
             id: 2,
             label: "Live Support",
             icon: <SupportIcon />,
@@ -539,7 +542,7 @@ export const loadInitData = (isMobile) => {
           //   icon: <LeaderIcon />,
           //   page: "leaderboard",
           // },
-        ],
+        ].filter(Boolean),
       });
 
       //Footer
@@ -700,7 +703,7 @@ export const getTranslations = (lang) => {
       const response = await axiosApi.get(
         `Translation/MyTranslations?type=Sportsbook&lang=${lang.id}`,
         {
-          baseURLOverride: config.VITE_SPORTS_API_BASE,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
         }
       );
 

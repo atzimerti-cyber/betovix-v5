@@ -18,7 +18,7 @@ const initialState = {
   showLiveListContainer: false,
   availableBonus: 0,
   footer: {},
-  // tawkToScript: null,
+  tawkToScript: null,
   notifications: null,
   newNotifications: null,
   selectedNotification: null,
