@@ -154,8 +154,9 @@ const Betslip = memo(function (props) {
 
     // Reset amounts
     if (slips.length === 0) dispatch(betslipActions.setAmounts({}));
-    else if (betType === "System" && slips.length < 2)
-      dispatch(betslipActions.setAmounts({}));
+    // else if (betType === "System" && slips.length < 2) {
+    //   dispatch(betslipActions.setAmounts({}));
+    // }
   }, [slips?.length, slipUpdated]);
 
   const betButton = useMemo(() => {
@@ -237,16 +238,17 @@ const Betslip = memo(function (props) {
   };
 
   useEffect(() => {
-    if (slips?.length === 1) onChangeTab("Single");
+    if (slips?.length === 1 && betType !== "Single") onChangeTab("Single");
     if (slips?.length > 1) {
       const matchIds = slips.map((slip) => slip.MatchId);
       const uniqueMatchIds = new Set(matchIds);
 
-      if (uniqueMatchIds.size === matchIds.length) {
-        //console.log("All MatchId values are unique");
+      if (uniqueMatchIds.size === matchIds.length && betType !== "Multiple") {
         onChangeTab("Multiple");
-      } else {
-        // console.log("There are duplicate MatchId values");
+      } else if (
+        uniqueMatchIds.size !== matchIds.length &&
+        betType !== "System"
+      ) {
         onChangeTab("System");
       }
     }
