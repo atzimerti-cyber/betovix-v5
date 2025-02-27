@@ -103,21 +103,17 @@ const Bottombar = () => {
     </button>,
 
     <button
-      id="myBetsButton"
-      key={4}
+      id="liveCasino"
+      key={9}
       type="button"
-      className={
-        location.pathname.includes("/sportsbook/mybets")
-          ? [classes.BottomMenuItem, classes.Active].join(" ")
-          : classes.BottomMenuItem
-      }
+      className={classes.BottomMenuItem}
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/sportsbook/mybets");
+        navigate("/casino/live");
       }}
     >
-      <Paper2Icon className={classes.WithFill} />
-      <span className={classes.Label}>{translate("My Bets")}</span>
+      <BlackjackIcon className={classes.WithFill} />
+      <span className={classes.Label}>{translate("Live")}</span>
     </button>,
 
     <button
@@ -149,6 +145,24 @@ const Bottombar = () => {
       {slips.length > 0 && (
         <div className={classes.SlipsNum}>{slips.length}</div>
       )}
+    </button>,
+
+    <button
+      id="myBetsButton"
+      key={4}
+      type="button"
+      className={
+        location.pathname.includes("/sportsbook/mybets")
+          ? [classes.BottomMenuItem, classes.Active].join(" ")
+          : classes.BottomMenuItem
+      }
+      onClick={() => {
+        dispatch(layoutActions.setFullLeftContainer(false));
+        navigate("/sportsbook/mybets");
+      }}
+    >
+      <Paper2Icon className={classes.WithFill} />
+      <span className={classes.Label}>{translate("My Bets")}</span>
     </button>,
 
     <button
@@ -196,20 +210,6 @@ const Bottombar = () => {
     >
       <PlayIcon className={classes.WithFill} />
       <span className={classes.Label}>{translate("In Play")}</span>
-    </button>,
-
-    <button
-      id="liveCasino"
-      key={9}
-      type="button"
-      className={classes.BottomMenuItem}
-      onClick={() => {
-        dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/casino/live");
-      }}
-    >
-      <BlackjackIcon className={classes.WithFill} />
-      <span className={classes.Label}>{translate("Live")}</span>
     </button>,
 
     <button
@@ -352,12 +352,12 @@ const Bottombar = () => {
         menu: 0,
         sports: 1,
         casino: 2,
-        liveCasino: 8,
+        liveCasino: 3,
         betslip: 4,
-        chat: 10,
       };
-      const buttonsObjIndexes = Object.values(buttonsObj).sort((a, b) => a - b);
-      setMenuButtonsIndexes(buttonsObjIndexes);
+      // const buttonsObjIndexes = Object.values(buttonsObj).sort((a, b) => a - b);
+      // setMenuButtonsIndexes(buttonsObjIndexes);
+      setMenuButtonsIndexes(Object.values(buttonsObj));
     }
   }, [
     location.pathname,
