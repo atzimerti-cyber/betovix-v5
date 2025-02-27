@@ -34,6 +34,7 @@ const initialState = {
   },
   mailToVerify: null,
   strongPassword: true,
+  idRequired: false,
 };
 
 export const loginSlice = createSlice({
@@ -85,6 +86,9 @@ export const loginSlice = createSlice({
     },
     setStrongPassword(state, action) {
       state.strongPassword = action.payload;
+    },
+    setIDRequired(state, action) {
+      state.idRequired = action.payload;
     },
   },
 });

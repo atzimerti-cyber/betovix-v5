@@ -95,7 +95,7 @@
 }
 
 .Required {
-  color: var(--light-blue);
+  color: var(--brand-color);
   font-size: 0.9rem;
   margin-inline: 0.25ch;
   transition: color 0.3s;

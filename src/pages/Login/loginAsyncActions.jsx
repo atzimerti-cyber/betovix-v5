@@ -188,6 +188,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
         response2 = await axiosApi.post(
           `MyAccount/Register/?lang=en&siteid=${config.VITE_SITE_ID}`,
           {
+            TCNumber: registerInfo.idCode === true ? null : registerInfo.idCode,
             Code: registerInfo.code,
             Email: registerInfo.email,
             Password: registerInfo.password,

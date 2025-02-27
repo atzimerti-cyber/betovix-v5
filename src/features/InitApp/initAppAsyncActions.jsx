@@ -562,15 +562,35 @@ export const loadInitData = (isMobile) => {
         (f) => f.Categ.Name === footerType
       );
 
+      // const footer =
+      //   foundFooter.SubCategs?.map((categ) => ({
+      //     title: categ.SubCateg?.Name || "Untitled",
+      //     subcategs:
+      //       categ?.Items?.map((subcateg) => {
+      //         if (subcateg?.Name === "Support" && !support?.Source) {
+      //           return;
+      //         } else {
+      //           return {
+      //             name: subcateg?.Name || "Unnamed",
+      //             link: subcateg?.Link || "#",
+      //             target: subcateg?.Target || "",
+      //           };
+      //         }
+      //       }) || [],
+      //   })) || [];
+
       const footer =
         foundFooter.SubCategs?.map((categ) => ({
           title: categ.SubCateg?.Name || "Untitled",
           subcategs:
-            categ?.Items?.map((subcateg) => ({
-              name: subcateg?.Name || "Unnamed",
-              link: subcateg?.Link || "#",
-              target: subcateg?.Target || "",
-            })) || [],
+            categ?.Items?.filter(
+              (subcateg) => !(subcateg?.Name === "Support" && !support?.Source)
+            ) // Skip "Support" if `support?.Source` is falsy
+              ?.map((subcateg) => ({
+                name: subcateg?.Name || "Unnamed",
+                link: subcateg?.Link || "#",
+                target: subcateg?.Target || "",
+              })) || [],
         })) || [];
 
       dispatch(layoutActions.setFooter(footer));
@@ -937,6 +957,12 @@ export const getSiteSettings = (signal) => {
         dispatch(loginActions.setStrongPassword(false));
       } else {
         dispatch(loginActions.setStrongPassword(true));
+      }
+
+      if (response.data.Contents.Site.IDRequired === "true") {
+        dispatch(loginActions.setIDRequired(true));
+      } else {
+        dispatch(loginActions.setIDRequired(false));
       }
 
       dispatch(

@@ -85,7 +85,7 @@
   padding-left: 0.1rem;
   padding-right: 0.5rem;
   height: var(--db-topbar-height);
-  padding-top: 5px;
+  padding: 5px 0;
 }
 
 .TopbarLeft > button > svg {
