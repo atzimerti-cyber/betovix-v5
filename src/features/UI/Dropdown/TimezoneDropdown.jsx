@@ -91,20 +91,8 @@ const Dropdown = (props) => {
   };
 
   const dropdownContent = (
-    // <CustomScroll heightRelativeToParent="100%">
     <div className={classes.Scrollable}>
       <ul className={props.short ? classes.Short : null}>
-        {/* {props.withSearch && (
-            <div className={classes.SearchContainer}>
-              <span className={classes.LeftIcon}>{<SearchIcon />}</span>
-              <input
-                type="textBox"
-                value={searchStr}
-                placeholder="Search"
-                onChange={(e) => filterOptions(e.target.value)}
-              />
-            </div>
-          )} */}
         {filteredOptions && filteredOptions.length > 0 ? (
           filteredOptions.map((option) => {
             const unique = props.unique || "id";
@@ -143,7 +131,6 @@ const Dropdown = (props) => {
         )}
       </ul>
     </div>
-    // </CustomScroll>
   );
 
   return (

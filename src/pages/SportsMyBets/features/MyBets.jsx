@@ -109,6 +109,7 @@ const MyBets = (props) => {
       <img
         src={`${basePath}/${sitename}small-logo-animation.gif`}
         alt="Loading"
+        style={{ height: "35px" }}
       />
     ) : (
       <>

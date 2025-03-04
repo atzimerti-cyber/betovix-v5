@@ -5,6 +5,7 @@ const initialState = {
   cryptoSwiper: null,
   selectedCurrency: null,
   selectedNetwork: null,
+  paymentsLoading: false,
   depositAddress: "",
   qrCodeImage: "",
   //////////DEPOSIT//////////////
@@ -38,8 +39,6 @@ export const cryptoSlice = createSlice({
       //state.crypto = null;
     },
     resetCurrency: (state) => {
-      state.selectedCurrency = null;
-      state.selectedNetwork = null;
       state.depositAddress = "";
     },
     resetPayments: (state) => {
@@ -63,6 +62,9 @@ export const cryptoSlice = createSlice({
     },
     setSelectedNetwork: (state, action) => {
       state.selectedNetwork = action.payload;
+    },
+    setPaymentsLoading: (state, action) => {
+      state.paymentsLoading = action.payload;
     },
     setDepositAddress: (state, action) => {
       state.depositAddress = action.payload;

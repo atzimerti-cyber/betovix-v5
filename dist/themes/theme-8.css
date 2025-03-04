@@ -5,12 +5,13 @@
 
   --body-bg: #060f38;
   --topbar-bg: #030822;
-  --sb-search: var(--topbar-bg);
+  --sb-search: #162258;
   --footer: #040b28;
   --sidebar-category-group: #13193e;
   --sidebar-left-menu-item: #0a113290;
   --sidebar-casino-active: #fbe1847d;
   --sidebar-casino-active-svg: #fbe184;
+  --track-events-color: #af8b0291;
 
   --brand-green: #fbe184;
   --brand-green: #d9c372;
@@ -78,7 +79,7 @@
   --provider-card-bg: #0d1641;
   --provider-card-bg-lowOp: #0d16414f;
 
-  --outer-container-left: #00000015;
+  --outer-container-left: #060f34;
   --dropdown-bg: #0d1641;
 
   --swiper-container-grad: linear-gradient(45deg, #0d164133, #060f38 120%);

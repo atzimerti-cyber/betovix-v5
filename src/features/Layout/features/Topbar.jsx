@@ -27,6 +27,7 @@ import MenuItems from "./MenuItems";
 import { addThousandsSeparator } from "../../../utils/custom";
 
 import NoUserImg from "../../../assets/images/nouserimg.png";
+import NoUserSvg from "../../../assets/images/nouserimg.svg?react";
 import config from "../../../config";
 
 const Topbar = () => {
@@ -126,8 +127,8 @@ const Topbar = () => {
   const smallLogoURL = `${basePath}/${sitename}logo-small.svg`;
 
   return (
-    <div className={classes.Topbar}>
-      <div className={classes.TopbarLeftWrapper}>
+    <div className={classes.Topbar} id="topbar">
+      <div className={classes.TopbarLeftWrapper} id="topbarLeft">
         <div className={classes.TopbarLeft}>
           <div className={classes.HeaderHamburger}>
             {!showingLiveEvent && (
@@ -212,7 +213,7 @@ const Topbar = () => {
         </div>
       </div>
 
-      <div className={classes.TopbarCenterWrapper}>
+      <div className={classes.TopbarCenterWrapper} id="topbarCenter">
         {user && (
           <>
             <MainButton
@@ -283,7 +284,7 @@ const Topbar = () => {
         )}
       </div>
 
-      <div className={classes.TopbarRightWrapper}>
+      <div className={classes.TopbarRightWrapper} id="topbarRight">
         <div
           className={
             user
@@ -321,12 +322,17 @@ const Topbar = () => {
                   <MainButton color="transparent">
                     <div
                       className={classes.UserImage}
-                      style={{
-                        backgroundImage: `url(${
-                          user.Avatar ? user.Avatar : NoUserImg
-                        })`,
-                      }}
-                    ></div>
+                      style={
+                        {
+                          // backgroundImage: `url(${
+                          //   user.Avatar ? user.Avatar : NoUserImg
+                          // })`,
+                        }
+                      }
+                    >
+                      <NoUserSvg />
+                    </div>
+
                     {/* <UserIcon /> */}
                     <span>{user?.Username}</span>
                   </MainButton>
@@ -405,18 +411,24 @@ const Topbar = () => {
             </>
           ) : (
             <>
+              {/* <div id="loginButton"> */}
               <MainButton
+                id="loginButton"
                 color="transparent"
                 onClick={() => addParamsToUrl("auth", "login")}
               >
                 {translate("LOGIN")}
               </MainButton>
+              {/* </div>
+              <div id="registerButton"> */}
               <MainButton
+                id="registerButton"
                 color="secondary"
                 onClick={() => addParamsToUrl("auth", "register")}
               >
                 {translate("REGISTER")}
               </MainButton>
+              {/* </div> */}
             </>
           )}
         </div>

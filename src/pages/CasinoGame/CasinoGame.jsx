@@ -334,6 +334,7 @@ const CasinoGame = (props) => {
                   <iframe
                     className={classes.GameIframe}
                     src={casinoGame.url}
+                    referrerpolicy="no-referrer"
                     allow="autoplay; clipboard-write; fullscreen"
                     allowFullScreen
                     width="100%"

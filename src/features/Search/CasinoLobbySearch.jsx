@@ -72,7 +72,11 @@ const CasinoLobbySearch = (props) => {
 
   return (
     <>
-      <div className={classes.LobbySearch} ref={searchRef}>
+      <div
+        className={classes.LobbySearch}
+        ref={searchRef}
+        id="casinoLobbySearch"
+      >
         <div className={classes.SearchContainer}>
           <input
             className={classes.SearchInput}

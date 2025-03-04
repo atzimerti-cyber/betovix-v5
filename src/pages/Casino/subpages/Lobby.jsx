@@ -142,28 +142,33 @@ const Lobby = () => {
         return (
           <React.Fragment key={tag.Tags}>
             {tag && tag.Category === "1" && (
-              <SwiperWithOverlay
-                title={`${translate(tag.Name)}`}
-                icon={""}
-                thIcon={tag.Icon}
-                tag={tag.Tags}
-                max={20}
-                slidesPerView={slidesPerView}
-                clickOnTitle={true}
-              />
+              <div id={`category1swiper${index}`}>
+                <SwiperWithOverlay
+                  title={`${translate(tag.Name)}`}
+                  icon={""}
+                  thIcon={tag.Icon}
+                  tag={tag.Tags}
+                  max={20}
+                  slidesPerView={slidesPerView}
+                  clickOnTitle={true}
+                />
+              </div>
             )}
             {tag && tag.Category === "2" && (
-              <Cat2Swiper
-                title={`${translate(tag.Name)}`}
-                icon={""}
-                thIcon={tag.Icon}
-                tag={tag.Tags}
-                max={20}
-              />
+              <div id={`category2swiper${index}`}>
+                <Cat2Swiper
+                  title={`${translate(tag.Name)}`}
+                  icon={""}
+                  thIcon={tag.Icon}
+                  tag={tag.Tags}
+                  max={20}
+                />
+              </div>
             )}
             {tag && tag.Category === "3" && (
               <>
                 <Cat3Swiper
+                  id={index}
                   title={`${translate(tag.Name)}`}
                   icon={""}
                   thIcon={!notGridSwiper && tag.Icon}

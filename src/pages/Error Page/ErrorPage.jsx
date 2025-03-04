@@ -10,7 +10,7 @@ const ErrorPage = () => {
   const lang = useSelector((state) => state.app.lang);
   const currentDomain = window.location.hostname;
   const support = useSelector((state) => state.layout.tawkToScript);
-  const supportEmail = support?.Email ? support?.Email : "support@betovix.com";
+  const supportEmail = support?.Email ? support?.Email : "";
 
   const [countdown, setCountdown] = useState(10);
 
@@ -66,22 +66,24 @@ const ErrorPage = () => {
       >
         We’re sorry for the inconvenience.
       </p>
-      <p
-        style={{
-          fontSize: "0.85rem",
-          fontWeight: "400",
-          color: "lightblue",
-          textAlign: "start",
-          margin: "0.3rem",
-        }}
-      >
-        Contact us at{" "}
-        <i>
-          <u>
-            <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
-          </u>
-        </i>
-      </p>
+      {supportEmail && supportEmail !== "" &&
+        <p
+          style={{
+            fontSize: "0.85rem",
+            fontWeight: "400",
+            color: "lightblue",
+            textAlign: "start",
+            margin: "0.3rem",
+          }}
+        >
+          Contact us at{" "}
+          <i>
+            <u>
+              <a href={`mailto:${supportEmail}`}>{supportEmail}</a>
+            </u>
+          </i>
+        </p>
+      }
       <ErrorIcon className={classes.ErrorSvg} />
     </div>
   );

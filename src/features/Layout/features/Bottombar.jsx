@@ -14,6 +14,8 @@ import Paper2Icon from "../../../assets/svgs/mybets.svg?react";
 import PlayIcon from "../../../assets/svgs/play.svg?react";
 import LeaderIcon from "../../../assets/svgs/leader.svg?react";
 import PricesIcon from "../../../assets/svgs/prices.svg?react";
+import Crash from "../../../assets/casinoIcons/crash.svg?react";
+import BlackjackIcon from "../../../assets/svgs/blackjack.svg?react";
 import classes from "./Bottombar.module.css";
 import { layoutActions } from "../layoutSlice";
 import useBasePath from "../../../hooks/useBasePath";
@@ -32,6 +34,8 @@ const Bottombar = () => {
   const initDataLoaded = useSelector((state) => state.app.initDataLoaded);
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const permissions = useSelector((state) => state.login.permissions);
+  // const fixedMenu = useSelector((state) => state.app.siteSettings.FixedMenu);
+  const fixedMenu = "true";
 
   const getMultiplier = () => {
     let totalMultiplier = 1;
@@ -56,6 +60,7 @@ const Bottombar = () => {
 
   const allButtons = [
     <button
+      id="menuButton"
       key={1}
       type="button"
       className={classes.BottomMenuItem}
@@ -66,12 +71,13 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="sportsButton"
       key={2}
       type="button"
       className={classes.BottomMenuItem}
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/sportsbook")
+        navigate("/sportsbook");
       }}
     >
       <SportsIcon className={classes.WithFill} />
@@ -79,6 +85,7 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="casinoButton"
       key={3}
       type="button"
       className={
@@ -88,7 +95,7 @@ const Bottombar = () => {
       }
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/casino/lobby")
+        navigate("/casino/lobby");
       }}
     >
       <CasinoIcon className={classes.WithFill} />
@@ -96,23 +103,21 @@ const Bottombar = () => {
     </button>,
 
     <button
-      key={4}
+      id="liveCasino"
+      key={9}
       type="button"
-      className={
-        location.pathname.includes("/sportsbook/mybets")
-          ? [classes.BottomMenuItem, classes.Active].join(" ")
-          : classes.BottomMenuItem
-      }
+      className={classes.BottomMenuItem}
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/sportsbook/mybets")
+        navigate("/casino/live");
       }}
     >
-      <Paper2Icon className={classes.WithFill} />
-      <span className={classes.Label}>{translate("My Bets")}</span>
+      <BlackjackIcon className={classes.WithFill} />
+      <span className={classes.Label}>{translate("Live")}</span>
     </button>,
 
     <button
+      id="betslip"
       key={5}
       type="button"
       className={classes.BottomMenuItem}
@@ -124,7 +129,7 @@ const Bottombar = () => {
     >
       <BetslipIcon className={classes.WithFill} />
 
-      {getMultiplier() > 1 && (
+      {/* {getMultiplier() > 1 && (
         <motion.div
           key={slips.length}
           className={classes.OddsBubble}
@@ -134,7 +139,7 @@ const Bottombar = () => {
         >
           @{getMultiplier()}
         </motion.div>
-      )}
+      )} */}
 
       <span className={classes.Label}>{translate("Betslip")}</span>
       {slips.length > 0 && (
@@ -143,26 +148,46 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="myBetsButton"
+      key={4}
+      type="button"
+      className={
+        location.pathname.includes("/sportsbook/mybets")
+          ? [classes.BottomMenuItem, classes.Active].join(" ")
+          : classes.BottomMenuItem
+      }
+      onClick={() => {
+        dispatch(layoutActions.setFullLeftContainer(false));
+        navigate("/sportsbook/mybets");
+      }}
+    >
+      <Paper2Icon className={classes.WithFill} />
+      <span className={classes.Label}>{translate("My Bets")}</span>
+    </button>,
+
+    <button
+      id="searchCasinoButton"
       key={6}
       type="button"
       className={classes.BottomMenuItem}
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/search")
+        navigate("/search");
       }}
       // onClick={() => addParamsToUrl("search")}
     >
       <SearchIcon className={classes.WithStroke} />
-      <span className={classes.Label}>{translate("Search")}</span>
+      <span className={classes.Label}>{translate("Search Casino")}</span>
     </button>,
 
     <button
+      id="searchSportButton"
       key={7}
       type="button"
       className={classes.BottomMenuItem}
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/searchEvent")
+        navigate("/searchEvent");
       }}
     >
       <SearchIcon className={classes.WithStroke} />
@@ -170,6 +195,7 @@ const Bottombar = () => {
     </button>,
 
     <button
+      id="inplayButton"
       key={8}
       type="button"
       className={
@@ -179,7 +205,7 @@ const Bottombar = () => {
       }
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/sportsbook/live")
+        navigate("/sportsbook/live");
       }}
     >
       <PlayIcon className={classes.WithFill} />
@@ -187,41 +213,22 @@ const Bottombar = () => {
     </button>,
 
     <button
-      key={9}
-      type="button"
-      className={
-        location.pathname.includes("/leaderboard")
-          ? [classes.BottomMenuItem, classes.Active].join(" ")
-          : classes.BottomMenuItem
-      }
-      onClick={() => {
-        dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/leaderboard")
-      }}
-    >
-      <LeaderIcon className={classes.WithFill} />
-      <span className={classes.Label}>{translate("Leaderboard")}</span>
-    </button>,
-
-    <button
+      id="crashGames"
       key={10}
       type="button"
-      className={
-        location.pathname.includes("/crypto")
-          ? [classes.BottomMenuItem, classes.Active].join(" ")
-          : classes.BottomMenuItem
-      }
+      className={classes.BottomMenuItem}
       onClick={() => {
         dispatch(layoutActions.setFullLeftContainer(false));
-        navigate("/crypto")
+        navigate("/casino/menu?tag=crash");
       }}
     >
-      <PricesIcon className={classes.WithFill} />
-      <span className={classes.Label}>{translate("Crypto Prices")}</span>
+      <Crash className={classes.WithFill} />
+      <span className={classes.Label}>{translate("Crash")}</span>
     </button>,
 
     <button
-      key={11}
+      id="chatButton"
+      key={13}
       type="button"
       className={classes.BottomMenuItem}
       onClick={() => {
@@ -233,71 +240,125 @@ const Bottombar = () => {
       <Chat2Icon className={classes.WithFill} />
       <span className={classes.Label}>{translate("Chat")}</span>
     </button>,
+
+    // <button
+    //   id="leaderboardButton"
+    //   key={9}
+    //   type="button"
+    //   className={
+    //     location.pathname.includes("/leaderboard")
+    //       ? [classes.BottomMenuItem, classes.Active].join(" ")
+    //       : classes.BottomMenuItem
+    //   }
+    //   onClick={() => {
+    //     dispatch(layoutActions.setFullLeftContainer(false));
+    //     navigate("/leaderboard");
+    //   }}
+    // >
+    //   <LeaderIcon className={classes.WithFill} />
+    //   <span className={classes.Label}>{translate("Leaderboard")}</span>
+    // </button>,
+
+    // <button
+    //   id="cryptoButton"
+    //   key={10}
+    //   type="button"
+    //   className={
+    //     location.pathname.includes("/crypto")
+    //       ? [classes.BottomMenuItem, classes.Active].join(" ")
+    //       : classes.BottomMenuItem
+    //   }
+    //   onClick={() => {
+    //     dispatch(layoutActions.setFullLeftContainer(false));
+    //     navigate("/crypto");
+    //   }}
+    // >
+    //   <PricesIcon className={classes.WithFill} />
+    //   <span className={classes.Label}>{translate("Crypto Prices")}</span>
+    // </button>,
   ];
 
   useEffect(() => {
     if (!initDataLoaded) return;
 
-    let allButtonsObj = {
-      menu: 0,
-      sports: 1,
-      casino: 2,
-      mybets: 3,
-      betslip: 4,
-      search: 5,
-      searchEvent: 6,
-      inplay: 7,
-      leader: 8,
-      crypto: 9,
-      chat: 10,
-    };
+    if (fixedMenu === "false" || !fixedMenu) {
+      let allButtonsObj = {
+        menu: 0,
+        sports: 1,
+        casino: 2,
+        mybets: 3,
+        betslip: 4,
+        search: 5,
+        searchEvent: 6,
+        inplay: 7,
+        liveCasino: 8,
+        crashGames: 9,
+        chat: 10,
+        crypto: 11,
+        leader: 12,
+      };
 
-    // Remove buttons depending on the perimissions
-    if (!permissions.AllowToSports) {
-      delete allButtonsObj["sports"];
-      delete allButtonsObj["mybets"];
-      delete allButtonsObj["betslip"];
-      delete allButtonsObj["inplay"];
-      delete allButtonsObj["searchEvent"];
+      // Remove buttons depending on the perimissions
+      if (!permissions.AllowToSports) {
+        delete allButtonsObj["sports"];
+        delete allButtonsObj["mybets"];
+        delete allButtonsObj["betslip"];
+        delete allButtonsObj["inplay"];
+        delete allButtonsObj["searchEvent"];
+      }
+      if (!permissions.AllowToCasino && !permissions.AllowToSlots) {
+        delete allButtonsObj["search"];
+        delete allButtonsObj["casino"];
+        delete allButtonsObj["liveCasino"];
+        delete allButtonsObj["crashGames"];
+      }
+
+      // Remove buttons depending on the route
+      // if (slips.length > 0) delete allButtonsObj['mybets'];
+      // else delete allButtonsObj['betslip'];
+
+      if (basepath.includes("sportsbook") || basepath.includes("event")) {
+        delete allButtonsObj["search"];
+        delete allButtonsObj["sports"];
+        delete allButtonsObj["crypto"];
+        delete allButtonsObj["betslip"];
+      } else if (basepath.includes("casino/game")) {
+        delete allButtonsObj["mybets"];
+        delete allButtonsObj["searchEvent"];
+        delete allButtonsObj["betslip"];
+        delete allButtonsObj["inplay"];
+      } else if (basepath.includes("casino")) {
+        delete allButtonsObj["mybets"];
+        delete allButtonsObj["searchEvent"];
+        delete allButtonsObj["betslip"];
+        delete allButtonsObj["inplay"];
+        delete allButtonsObj["casino"];
+        delete allButtonsObj["leader"];
+        delete allButtonsObj["crypto"];
+        delete allButtonsObj["chat"];
+      }
+
+      if (!user) {
+        delete allButtonsObj["mybets"];
+      }
+
+      const allButtonsIndexes = Object.values(allButtonsObj).sort(
+        (a, b) => a - b
+      );
+      let firstFiveItems = allButtonsIndexes.slice(0, 5);
+      setMenuButtonsIndexes(firstFiveItems);
+    } else if (fixedMenu === "true") {
+      let buttonsObj = {
+        menu: 0,
+        sports: 1,
+        casino: 2,
+        liveCasino: 3,
+        betslip: 4,
+      };
+      // const buttonsObjIndexes = Object.values(buttonsObj).sort((a, b) => a - b);
+      // setMenuButtonsIndexes(buttonsObjIndexes);
+      setMenuButtonsIndexes(Object.values(buttonsObj));
     }
-    if (!permissions.AllowToCasino && !permissions.AllowToSlots) {
-      delete allButtonsObj["search"];
-      delete allButtonsObj["casino"];
-    }
-
-    // Remove buttons depending on the route
-    // if (slips.length > 0) delete allButtonsObj['mybets'];
-    // else delete allButtonsObj['betslip'];
-
-    if (basepath.includes("sportsbook") || basepath.includes("event")) {
-      delete allButtonsObj["search"];
-      delete allButtonsObj["sports"];
-      delete allButtonsObj["crypto"];
-      delete allButtonsObj["betslip"];
-    } else if (basepath.includes("casino/game")) {
-      delete allButtonsObj["mybets"];
-      delete allButtonsObj["searchEvent"];
-      delete allButtonsObj["betslip"];
-      delete allButtonsObj["inplay"];
-    } else if (basepath.includes("casino")) {
-      delete allButtonsObj["mybets"];
-      delete allButtonsObj["searchEvent"];
-      delete allButtonsObj["betslip"];
-      delete allButtonsObj["inplay"];
-      delete allButtonsObj["casino"];
-      delete allButtonsObj["leader"];
-      delete allButtonsObj["crypto"];
-      delete allButtonsObj["chat"];
-    }
-
-    const allButtonsIndexes = Object.values(allButtonsObj).sort(
-      (a, b) => a - b
-    );
-    let firstFiveItems = allButtonsIndexes.slice(0, 5);
-    // firstFiveItems.push(9); // Add chat in the end
-    if (permissions.AllowToSports) firstFiveItems.push(4); // Add betslip in the end
-
-    setMenuButtonsIndexes(firstFiveItems);
   }, [
     location.pathname,
     slips.length,
@@ -307,7 +368,7 @@ const Bottombar = () => {
   ]);
 
   return (
-    <div className={classes.Bottombar}>
+    <div className={classes.Bottombar} id="bottomBar">
       {allButtons.map((menuButton, index) => {
         if (!menuButtonsIndexes.includes(index)) return null;
         return menuButton;

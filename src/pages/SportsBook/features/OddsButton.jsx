@@ -219,6 +219,7 @@ const OddsButton = (props) => {
     </button>
   ) : (
     <button
+      data-odds-button="oddsButton"
       data-field={
         props.marketField ? `Field:${props.marketField.FieldId}` : `Field:0`
       }

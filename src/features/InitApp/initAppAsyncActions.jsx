@@ -152,7 +152,7 @@ export const loadInitData = (isMobile) => {
         axiosApi.get(
           `Translation/MyTranslations?type=Sportsbook&lang=${lang.id}`,
           {
-            baseURLOverride: config.VITE_SPORTS_API_BASE,
+            baseURLOverride: config.VITE_WALLET_API_BASE,
           }
         ),
       ];
@@ -384,7 +384,7 @@ export const loadInitData = (isMobile) => {
         const casinoMenuIcons = currentstate.casinoMenuIcons;
 
         let casinoWalletMenu = {
-          category: { id: 2, label: "Casino Categories", visible: true },
+          category: { id: 5, label: "Casino Categories", visible: true },
           items: [],
         };
         responsesCasino[1].data.Contents.Categs.forEach((category) => {
@@ -397,7 +397,7 @@ export const loadInitData = (isMobile) => {
         });
 
         let casinoMinibarMenu = {
-          category: { id: 1, label: "Casino", visible: true },
+          category: { id: 6, label: "Casino", visible: true },
           items: [],
         };
 
@@ -481,7 +481,7 @@ export const loadInitData = (isMobile) => {
       {
         permissions.AllowGamification &&
           allMenuItems.push({
-            category: { id: 5, label: "Arena", visible: true, isNew: true },
+            category: { id: 7, label: "Arena", visible: true, isNew: true },
             items: [
               {
                 id: 1,
@@ -505,8 +505,11 @@ export const loadInitData = (isMobile) => {
           });
       }
 
+      const layout = getState().layout;
+      const support = layout.tawkToScript;
+
       allMenuItems.push({
-        category: { id: 6, label: "More", visible: false },
+        category: { id: 8, label: "More", visible: false },
         items: [
           {
             id: 1,
@@ -514,7 +517,7 @@ export const loadInitData = (isMobile) => {
             icon: <PromotionsIcon />,
             page: "promotions",
           },
-          {
+          support?.Source && {
             id: 2,
             label: "Live Support",
             icon: <SupportIcon />,
@@ -539,10 +542,13 @@ export const loadInitData = (isMobile) => {
           //   icon: <LeaderIcon />,
           //   page: "leaderboard",
           // },
-        ],
+        ].filter(Boolean),
       });
 
       //Footer
+      const ss = getState().app.siteSettings;
+      const footerType = ss && ss.FooterType ? ss.FooterType : "FOOTER";
+
       const footerResponse = await axiosApi.get(
         `/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
@@ -551,15 +557,40 @@ export const loadInitData = (isMobile) => {
       );
       if (footerResponse.data.Status.StatusCode !== 200) throw Error();
 
+      const footers = footerResponse.data.Contents;
+      const foundFooter = footers?.Categs.find(
+        (f) => f.Categ.Name === footerType
+      );
+
+      // const footer =
+      //   foundFooter.SubCategs?.map((categ) => ({
+      //     title: categ.SubCateg?.Name || "Untitled",
+      //     subcategs:
+      //       categ?.Items?.map((subcateg) => {
+      //         if (subcateg?.Name === "Support" && !support?.Source) {
+      //           return;
+      //         } else {
+      //           return {
+      //             name: subcateg?.Name || "Unnamed",
+      //             link: subcateg?.Link || "#",
+      //             target: subcateg?.Target || "",
+      //           };
+      //         }
+      //       }) || [],
+      //   })) || [];
+
       const footer =
-        footerResponse.data.Contents.Categs[5]?.SubCategs?.map((categ) => ({
+        foundFooter.SubCategs?.map((categ) => ({
           title: categ.SubCateg?.Name || "Untitled",
           subcategs:
-            categ?.Items?.map((subcateg) => ({
-              name: subcateg?.Name || "Unnamed",
-              link: subcateg?.Link || "#",
-              target: subcateg?.Target || "",
-            })) || [],
+            categ?.Items?.filter(
+              (subcateg) => !(subcateg?.Name === "Support" && !support?.Source)
+            ) // Skip "Support" if `support?.Source` is falsy
+              ?.map((subcateg) => ({
+                name: subcateg?.Name || "Unnamed",
+                link: subcateg?.Link || "#",
+                target: subcateg?.Target || "",
+              })) || [],
         })) || [];
 
       dispatch(layoutActions.setFooter(footer));
@@ -692,7 +723,7 @@ export const getTranslations = (lang) => {
       const response = await axiosApi.get(
         `Translation/MyTranslations?type=Sportsbook&lang=${lang.id}`,
         {
-          baseURLOverride: config.VITE_SPORTS_API_BASE,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
         }
       );
 
@@ -713,9 +744,15 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
+<<<<<<< HEAD
         `Site/GetSite?domainName=petekbet.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         //`Site/GetSite?domainName=${currentDomain}`,
+=======
+        //`Site/GetSite?domainName=betovix.com`,
+        // `Site/GetSite?domainName=betovix.storetube.gr`,
+        `Site/GetSite?domainName=${currentDomain}`,
+>>>>>>> 459df8674b7e303bb16423a881f31df1bd36de88
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
@@ -755,7 +792,7 @@ export const getSite = (signal) => {
       const link = document.createElement("link");
       link.rel = "stylesheet";
       link.type = "text/css";
-      //link.href = "/themes/theme-3.css";
+      //link.href = "/themes/theme-9.css";
       link.href = response.data.Contents.SiteTheme; ////////////////////
       document.head.appendChild(link);
 
@@ -837,7 +874,9 @@ export const getSite = (signal) => {
         updateMaskIcon(customMaskPath, maskColor);
       }
 
+      dispatch(appActions.setSiteCurrency(response.data.Contents.Currency));
       dispatch(appActions.setSiteId(true));
+      dispatch(getCurrencies());
     } catch (error) {
       dispatch(appActions.setSiteId(false));
     }
@@ -869,12 +908,12 @@ export const getSiteSettings = (signal) => {
 
       let defaultLang = { id: `${response.data.Contents.Site.DefaultLang}` };
 
-      let siteCurrencies = [];
-      const currStr = response.data.Contents.Site.AllowedCurrencies;
-      const currencies = currStr.split(",");
-      currencies.map((curr) => {
-        siteCurrencies.push(curr);
-      });
+      // let siteCurrencies = [];
+      // const currStr = response.data.Contents.Site.AllowedCurrencies;
+      // const currencies = currStr.split(",");
+      // currencies.map((curr) => {
+      //   siteCurrencies.push(curr);
+      // });
 
       let permissions;
       if (response.data.Contents.Permissions) {
@@ -895,6 +934,43 @@ export const getSiteSettings = (signal) => {
         config.VITE_LOGIN_URL = config.VITE_WALLET_API_BASE;
       }
 
+      if (response.data.Contents.Site?.noReferrer === "true") {
+        let metaTag = document.createElement("meta");
+        metaTag.name = "referrer";
+        metaTag.content = "no-referrer";
+        document.head.appendChild(metaTag);
+      }
+
+      if (response.data.Contents.Site.CustomerCssUrl !== "") {
+        const customercss = response.data.Contents.Site.CustomerCssUrl;
+        const rules = document.createElement("style");
+        rules.innerHTML = customercss;
+
+        document.head.appendChild(rules);
+      }
+
+      // if (response.data.Contents.Site.CustomerCssUrl !== "") {
+      //   const customercss = "/customer.css";
+      //   const link = document.createElement("link");
+
+      //   link.rel = "stylesheet";
+      //   link.href = customercss;
+
+      //   document.head.appendChild(link);
+      // }
+
+      if (response.data.Contents.Site["Strong Password"] === "false") {
+        dispatch(loginActions.setStrongPassword(false));
+      } else {
+        dispatch(loginActions.setStrongPassword(true));
+      }
+
+      if (response.data.Contents.Site.IDRequired === "true") {
+        dispatch(loginActions.setIDRequired(true));
+      } else {
+        dispatch(loginActions.setIDRequired(false));
+      }
+
       dispatch(
         appActions.setRegisterPromoImg(
           response.data.Contents.Site.RegisterPromoImg
@@ -911,34 +987,10 @@ export const getSiteSettings = (signal) => {
       dispatch(appActions.setSiteSettings(response.data.Contents["Site"]));
       dispatch(appActions.setAvailableLangs(languages));
       dispatch(appActions.setDefaultLang(defaultLang));
-      dispatch(appActions.setSiteCurrencies(siteCurrencies));
       dispatch(
         appActions.setSocialMedia(response.data.Contents["Social Media"])
       );
       dispatch(appActions.setSiteSettingsSuccess(true));
-
-      // if (
-      //   response.data.Contents["Site"] &&
-      //   response.data.Contents["Site"]["Default Theme"]
-      // ) {
-      //   const defaultTheme = response.data.Contents["Site"]["Default Theme"];
-      //   const themeHref = `public/themes/${defaultTheme}.css`;
-
-      //   const existingLink = document.querySelector(
-      //     `link[href="${themeHref}"]`
-      //   );
-
-      //   if (!existingLink && defaultTheme !== "default") {
-      //     const link = document.createElement("link");
-      //     link.rel = "stylesheet";
-      //     link.type = "text/css";
-      //     link.href = themeHref;
-
-      //     document.head.appendChild(link);
-
-      //     console.log(`Applied theme: ${defaultTheme}`);
-      //   }
-      // }
     } catch (error) {
       dispatch(appActions.setSiteSettingsSuccess(false));
     }
@@ -1018,6 +1070,30 @@ export const tawktoChat = () => {
       toast.error(
         error?.message || "An error occurred while fetching site settings"
       );
+    }
+  };
+};
+
+export const getCurrencies = () => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+      const response = await axiosApi.get(`Currency/Currencies`, {
+        baseURLOverride: config.VITE_WALLET_API_BASE,
+      });
+
+      if (response.status !== 200) throw new Error();
+
+      let currencies = {};
+      let currenciesArr = response.data.Contents;
+
+      currenciesArr.map((c) => {
+        currencies[c.Code] = c;
+      });
+
+      dispatch(appActions.setSiteCurrencies(currencies));
+    } catch (error) {
+      console.error(error?.message);
     }
   };
 };

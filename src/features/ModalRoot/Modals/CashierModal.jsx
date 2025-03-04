@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
+import { motion, AnimatePresence } from "framer-motion";
+
 import classes from "./CashierModal.module.css";
 import WalletIcon from "../../../assets/svgs/wallet.svg?react";
 import ModalHeader from "../features/ModalHeader";
@@ -22,6 +24,7 @@ const CashierModal = (props) => {
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const user = useSelector((state) => state.login.user);
+  const loading = useSelector((state) => state.crypto.paymentsLoading);
 
   const [selectedTab, setSelectedTab] = useState(props.tab);
 
@@ -85,29 +88,43 @@ const CashierModal = (props) => {
       </div>
 
       <div className={classes.TabContentHiddenBox}>
-        <div className={contentInnerClasses.join(" ")}>
-          <div
-            className={
-              selectedTab === "deposit"
-                ? [classes.TabContent, classes.Active].join(" ")
-                : classes.TabContent
-            }
-          >
-            {selectedTab === "deposit" && <Deposit />}
-          </div>
-          <div
-            className={
-              selectedTab === "withdraw"
-                ? [classes.TabContent, classes.Active].join(" ")
-                : classes.TabContent
-            }
-          >
-            {selectedTab === "withdraw" && <Withdraw />}
-          </div>
-          {/* <div className={selectedTab === 'buy-crypto' ? [classes.TabContent, classes.Active].join(' ') : classes.TabContent}>
+        {loading ? (
+          <AnimatePresence>
+            <motion.div
+              className={classes.Overlay}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <div className={classes.Spinner}></div>
+            </motion.div>
+          </AnimatePresence>
+        ) : (
+          <div className={contentInnerClasses.join(" ")}>
+            <div
+              className={
+                selectedTab === "deposit"
+                  ? [classes.TabContent, classes.Active].join(" ")
+                  : classes.TabContent
+              }
+            >
+              {selectedTab === "deposit" && <Deposit />}
+            </div>
+            <div
+              className={
+                selectedTab === "withdraw"
+                  ? [classes.TabContent, classes.Active].join(" ")
+                  : classes.TabContent
+              }
+            >
+              {selectedTab === "withdraw" && <Withdraw />}
+            </div>
+            {/* <div className={selectedTab === 'buy-crypto' ? [classes.TabContent, classes.Active].join(' ') : classes.TabContent}>
                         {selectedTab === 'buy-crypto' && <BuyCrypto />}
                     </div> */}
-        </div>
+          </div>
+        )}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 import classes from "./UserDrawer.module.css";
@@ -15,6 +15,15 @@ const UserDrawer = () => {
 
   const user = useSelector((state) => state.login.user);
   const inCasinoGame = location.pathname.includes("/casino/game/");
+  const fullLeftContainer = useSelector(
+    (state) => state.layout.fullLeftContainer
+  );
+
+  useEffect(() => {
+    if (fullLeftContainer) {
+      dispatch(layoutActions.setFullLeftContainer(false));
+    }
+  }, []);
 
   return (
     <motion.div
@@ -33,9 +42,9 @@ const UserDrawer = () => {
         ></div>
         <div className={classes.UserInfo}>
           <h2>{user?.Username}</h2>
-          <p style={{display:'flex', alignItems: 'center', gap: '0.2rem'}}>
+          <p style={{ display: "flex", alignItems: "center", gap: "0.2rem" }}>
             <CoinsIcon />
-            {inCasinoGame ? 'In Play' : user?.Wallet?.Balance}
+            {inCasinoGame ? "In Play" : user?.Wallet?.Balance}
           </p>
         </div>
 

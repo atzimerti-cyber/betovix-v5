@@ -11,6 +11,7 @@
   --sidebar-left-menu-item: #262626;
   --sidebar-casino-active: #bfbfbf52;
   --sidebar-casino-active-svg: var(--brand-green);
+  --track-events-color: #af8b0291;
 
   --brand-green: #ff4001;
   --brand-green-lowop: #ff410186;
@@ -74,7 +75,7 @@
   --provider-card-bg: #1a161c;
   --provider-card-bg-lowOp: #1a161c;
 
-  --outer-container-left: #10141d94;
+  --outer-container-left: #040508;
 
   --dropdown-bg: #151923;
 

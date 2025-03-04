@@ -6,6 +6,8 @@ import DsButton from "../../../features/UI/Buttons/DsButton";
 import classes from "./WithdrawMethods.module.css";
 import AngleLeft2Icon from "../../../assets/svgs/angle-left2.svg?react";
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
+
+import allCrypto from "../../../assets/svgs/withdrawreq.svg";
 import { cryptoActions } from "../cryptoSlice";
 import { translate } from "../../../utils/translations";
 import MainButton from "../../../features/UI/Buttons/MainButton";
@@ -15,9 +17,22 @@ const WithdrawMethods = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const paymentTypes = useSelector(
+    (state) => state.crypto.WithdrawPaymentTypes
+  );
   const paymentType = useSelector(
     (state) => state.crypto.selectedPaymentTypeWithdraw
   );
+
+  useEffect(() => {
+    if (
+      !paymentType ||
+      paymentType.length === 0 ||
+      Object.keys(paymentType).length === 0
+    ) {
+      navigateToWithdraw();
+    }
+  }, [paymentType]);
 
   const navigateToWithdraw = () => {
     const searchParams = new URLSearchParams(location.search);
@@ -29,16 +44,6 @@ const WithdrawMethods = () => {
       replace: true,
     });
   };
-
-  useEffect(() => {
-    if (
-      !paymentType ||
-      paymentType.length === 0 ||
-      Object.keys(paymentType).length === 0
-    ) {
-      navigateToWithdraw();
-    }
-  }, [paymentType]);
 
   const navigateToModal = (modal, tab, stage) => {
     const searchParams = new URLSearchParams(location.search);
@@ -64,21 +69,51 @@ const WithdrawMethods = () => {
 
   return (
     <>
-      <div className={classes.ReturnContainer}>
-        <div className={classes.ReturnButtonWrapper}>
-          <DsButton color="transparent" onClick={navigateToWithdraw}>
-            <AngleLeft2Icon />
-            <span>{translate("Return to Withdraw menu")}</span>
-          </DsButton>
+      {paymentTypes && paymentTypes.length > 1 && (
+        <div className={classes.ReturnContainer}>
+          <div className={classes.ReturnButtonWrapper}>
+            <DsButton color="transparent" onClick={navigateToWithdraw}>
+              <AngleLeft2Icon />
+              <span>{translate("Return to Withdraw menu")}</span>
+            </DsButton>
+          </div>
+
+          <div className={classes.ReturnEquivalent}>
+            <span>$1.00 =&nbsp;</span>
+            <CoinsIcon />
+            <span>1.00</span>
+          </div>
         </div>
-        <div className={classes.ReturnEquivalent}>
-          <span>$1.00 =&nbsp;</span>
-          <CoinsIcon />
-          <span>1.00</span>
-        </div>
-      </div>
+      )}
+
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
+          {paymentTypes && paymentTypes.length === 1 && (
+            <div
+              className={classes.PaymentButtonContainer}
+              style={{
+                border: "1px solid var(--card-odds-button)",
+                background: "var(--card-odds-button)",
+              }}
+            >
+              <MainButton
+                color="transparent"
+                onClick={() => {
+                  navigateToModal("cashier", "withdraw", "requests");
+                }}
+              >
+                <img
+                  className={classes.AllCrypto}
+                  src={allCrypto}
+                  loading="lazy"
+                  alt="All crypto"
+                />
+                <h2 style={{ color: "var(--darkcolor-op1)" }}>
+                  {translate("Withdrawal Requests")}
+                </h2>
+              </MainButton>
+            </div>
+          )}
           {paymentType &&
             paymentType?.Methods.map(
               (method, index) =>
@@ -103,7 +138,7 @@ const WithdrawMethods = () => {
                           backgroundImage: `url("${method.Icon}")`,
                         }}
                       ></div>
-                      <h2>{method.Name}</h2>
+                      <h2>{translate(`${method.Name}`)}</h2>
                     </MainButton>
                   </div>
                 )

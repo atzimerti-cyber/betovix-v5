@@ -9,8 +9,13 @@
 //     VITE_SITE_ID: 0,
 //     VITE_HOME_URL: 'https://betovix.storetube.gr',
 
+<<<<<<< HEAD
 //     VITE_WALLET_STORETUBE: 'https://storetube.gr:61009/api',
 //     VITE_STORETUBE: 'https://storetube.gr:60019/api',
+=======
+//     VITE_WALLET_STORETUBE: 'https://modulesports.com:61009/api',
+//     VITE_STORETUBE: 'https://modulesports.com:60019/api',
+>>>>>>> 459df8674b7e303bb16423a881f31df1bd36de88
 //     VITE_CASINO_STORETUBE_BASE: 'https://casinoapi.storetube.gr:61020/api',
 
 //     VITE_GAMIFICATION_STORETUBE: 'https://gamificationapi.storetube.gr:61113/api',

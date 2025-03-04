@@ -400,7 +400,7 @@ const useSlidesResponsive = (categ) => {
           slidesPerGroup = 3;
         }
       } else {
-        slidesPerView = 6;
+        slidesPerView = 7;
         slidesPerGroup = 3;
       }
     } else {
@@ -416,7 +416,7 @@ const useSlidesResponsive = (categ) => {
           slidesPerGroup = 3;
         }
       } else {
-        slidesPerView = 7;
+        slidesPerView = 8;
         slidesPerGroup = 3;
       }
     }

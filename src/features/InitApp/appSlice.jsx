@@ -308,6 +308,7 @@ const initialState = {
     "No Limit": <NoLimit />,
     "X-mas Specials": <XmasCasinoIcon />,
     Blackjack: <Blackjack />,
+    "Peter & Sons": <Peterandsons />,
   },
   casinoMenuIcons: {
     Lobby: <HomeIcon />,
@@ -328,6 +329,7 @@ const initialState = {
   homeTags: null,
   timezone: null,
   defaultLang: null,
+  siteCurrency: "",
 };
 
 export const appSlice = createSlice({
@@ -415,6 +417,9 @@ export const appSlice = createSlice({
     },
     setDefaultLang: (state, action) => {
       state.defaultLang = action.payload;
+    },
+    setSiteCurrency: (state, action) => {
+      state.siteCurrency = action.payload;
     },
   },
 });

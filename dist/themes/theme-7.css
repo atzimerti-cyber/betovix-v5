@@ -11,6 +11,7 @@
   --sidebar-left-menu-item: #262626;
   --sidebar-casino-active: #feae004e;
   --sidebar-casino-active-svg: #fad296;
+  --track-events-color: #af8b0291;
 
   --brand-green: #fad296;
   --brand-green: #feae00;
@@ -79,7 +80,7 @@
   --provider-card-bg: #1c123a;
   --provider-card-bg-lowOp: #1c123a9b;
 
-  --outer-container-left: #00000015;
+  --outer-container-left: #070215;
 
   --dropdown-bg: #110a25;
 
@@ -227,7 +228,6 @@
   --swiper-theme-color: #a3a3a3;
   color: hsla(var(--bc) / var(--tw-text-opacity, 1));
   --display-signup-cont: none;
-
 }
 body {
   background-color: var(--body-bg);

@@ -5,7 +5,8 @@ const initialState = {
   siteLinks: null,
   serviceLinks: null,
   mainLinks: null,
-  gameLinks: null,
+  // gameLinks: null,
+  gameLinks: {},
 };
 
 export const promotionsSlice = createSlice({
@@ -27,8 +28,12 @@ export const promotionsSlice = createSlice({
     setMainLinks: (state, action) => {
       state.mainLinks = action.payload;
     },
+    // setGameLinks: (state, action) => {
+    //   state.gameLinks = action.payload;
+    // },
     setGameLinks: (state, action) => {
-      state.gameLinks = action.payload;
+      const { category, contents } = action.payload;
+      state.gameLinks[category] = contents;
     },
   },
 });

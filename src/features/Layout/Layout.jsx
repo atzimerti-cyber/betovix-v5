@@ -7,7 +7,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import Topbar from "./features/Topbar";
-import Minibar from "./features/Minibar";
 
 import classes from "./Layout.module.css";
 import Footer from "./features/Footer";
@@ -33,15 +32,13 @@ import Stats from "./features/Stats";
 import Ticket from "../Ticket/Ticket";
 import OperatorView from "./features/OperatorView";
 import LiveLoader from "./features/LiveLoader";
-import VipProgress from "../../pages/Home/features/VipProgress";
-
-// import ScriptInjector from "../../utils/scriptinjector";
+import ScriptInjector from "../../utils/scriptinjector";
 
 const Layout = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
-  // const tawkToRef = useRef(null);
+ //const tawkToRef = useRef(null);
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
@@ -69,6 +66,7 @@ const Layout = () => {
   const pageNotAuthorized = useSelector(
     (state) => state.layout.pageNotAuthorized
   );
+  const support = useSelector((state) => state.layout.tawkToScript);
 
   const [isFirstRender, setIsFirstRender] = useState(true);
 
@@ -165,10 +163,17 @@ const Layout = () => {
 
   return (
     <div id="layout" className={layoutClasses.join(" ")}>
+      {support && support['Embeded Script'] &&
+        <div className={classes.TawkTo}>
+          <ScriptInjector scriptStrings={[support['Embeded Script']]} />
+        </div>
+        
+      } 
       {/* <div ref={tawkToRef} className={classes.TawkTo}>
         <ScriptInjector scriptStrings={[tawktoScript]} targetRef={tawkToRef} />
       </div> */}
       <ToastContainer
+        id="toast"
         className={classes.MyToast}
         closeButton={ToastCloseButton}
         autoClose={5000}
@@ -183,10 +188,11 @@ const Layout = () => {
       <LiveLoader />
       <Topbar />
 
-      <div className={classes.Content}>
+      <div className={classes.Content} id="content">
         {!isMobile && <LiveListContainer />}
 
         <motion.div
+          id="outerContainerLeft"
           className={classes.OuterContainerLeft}
           key={fullLeftContainer ? 1 : 0}
           initial={{ width: fullLeftContainer ? 60 : 260 }}
@@ -195,18 +201,19 @@ const Layout = () => {
         >
           <AnimatePresence>
             <motion.div
+              id="innerContainerLeft"
               className={classes.InnerContainer}
               key={fullLeftContainer ? 1 : 0}
-              initial={{ y: 30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
+              initial={{ x: -30, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
               exit={{
-                y: 30,
+                x: -30,
                 opacity: 0,
                 transition: { duration: 0.2, delay: 0 },
               }}
               transition={{
-                duration: isFirstRender ? 0 : 0.2,
-                delay: isFirstRender ? 0 : 0.2,
+                duration: isFirstRender ? 0 : 0.15,
+                delay: isFirstRender ? 0 : 0.1,
               }}
             >
               <LeftContainer />
@@ -214,9 +221,19 @@ const Layout = () => {
           </AnimatePresence>
         </motion.div>
 
-        <div className={classes.CenterContainer} ref={centerContainerRef}>
+        <div
+          className={classes.CenterContainer}
+          ref={centerContainerRef}
+          id="center-container"
+          onClick={
+            isMobile && fullLeftContainer
+              ? () => dispatch(layoutActions.setFullLeftContainer(false))
+              : null
+          }
+        >
           <main>
             <div
+              id="fullPage"
               className={
                 pageNotAuthorized
                   ? [classes.FullPage, classes.NotAuthorized].join(" ")
@@ -313,12 +330,14 @@ const Layout = () => {
           >
             <ChatIcon />
           </div> */}
-          <div
-            className={classes.IconButton}
-            onClick={() => navigate("/support")}
-          >
-            <SupportIcon />
-          </div>
+          {support && support.Source &&
+            <div
+              className={classes.IconButton}
+              onClick={() => navigate("/support")}
+            >
+              <SupportIcon />
+            </div>
+          }
         </div>
       )}
 
@@ -372,7 +391,7 @@ const Layout = () => {
         </button>
       )}
 
-      {isMobile && <Bottombar />}
+      {isMobile && !fullLeftContainer && <Bottombar />}
       <Cookies />
       <ModalRoot />
       <Ticket />

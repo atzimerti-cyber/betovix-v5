@@ -23,6 +23,9 @@ const WithdrawRequests = () => {
   const user = useSelector((state) => state.login.user);
 
   const withdrawReqs = useSelector((state) => state.crypto.withdrawals);
+  const paymentTypes = useSelector(
+    (state) => state.crypto.WithdrawPaymentTypes
+  );
 
   const [selectedStatus, setSelectedStatus] = useState("");
   const [sortOrder, setSortOrder] = useState("DateAdded_desc");
@@ -67,19 +70,28 @@ const WithdrawRequests = () => {
 
   const navigateToWithdraw = () => {
     const searchParams = new URLSearchParams(location.search);
-    searchParams.delete("stage");
-    navigate(`${location.pathname}?${searchParams.toString()}`, {
-      replace: true,
-    });
+    if (paymentTypes.length > 1) {
+      searchParams.delete("stage");
+      navigate(`${location.pathname}?${searchParams.toString()}`, {
+        replace: true,
+      });
+    } else {
+      searchParams.set("modal", "cashier");
+      searchParams.set("tab", "withdraw");
+      searchParams.set("stage", "methods");
+      navigate(`${location.pathname}?${searchParams.toString()}`, {
+        replace: true,
+      });
+    }
   };
 
   const handleStatusChange = (event) => {
     const selectedValue = event.target.value;
 
     if (selectedValue === "all") {
-      setSelectedStatus(""); // Include all statuses in the filter
+      setSelectedStatus("");
     } else {
-      setSelectedStatus(selectedValue); // For a single status, use its value directly
+      setSelectedStatus(selectedValue);
     }
   };
 
@@ -106,33 +118,20 @@ const WithdrawRequests = () => {
   const renderBgColor = (status) => {
     switch (status) {
       case 0:
-        // return {
-        //   background:
-        //     "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #0e5685 100%)",
-        // };
         return {
           background: "var(--wr-pending)",
         };
       case 1:
-        // return {
-        //   background:
-        //     "linear-gradient(161deg, #10324b 0%, #1c405d 30%,  #2a9995cf 100%)",
-        //     "linear-gradient(161deg, #10324b 0%, #1c405d 30%,  #2a9995cf 100%)",
-        // };
         return {
           background: "var(--wr-approved)",
         };
       case 2:
         return {
-          background:
-            // "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #71190afa 100%)",
-            "var(--wr-not-approved)",
+          background: "var(--wr-not-approved)",
         };
       case 3:
         return {
-          background:
-            // "linear-gradient(161deg,rgba(16, 50, 75, 0.92) 0%,rgba(93, 28, 28, 0.5) 40%,rgba(153, 30, 30, 0.74) 100%)",
-            "var(--wr-cancelled)",
+          background: "var(--wr-cancelled)",
         };
       case 4:
         return {
@@ -141,7 +140,6 @@ const WithdrawRequests = () => {
       case 5:
         return {
           background: "var(--wr-confirmed)",
-          // "linear-gradient(161deg, #10324b 0%, #1c405d 30%, rgba(141, 239, 75, 0.47) 100%)",
         };
       default:
         return {
@@ -168,20 +166,6 @@ const WithdrawRequests = () => {
         return " ";
     }
   };
-
-  // const formatDate = (dateString) => {
-  //   const date = new Date(dateString);
-  //   return date.toLocaleString("en-US", {
-  //     year: "numeric",
-  //     month: "2-digit",
-  //     day: "2-digit",
-  //     hour: "2-digit",
-  //     minute: "2-digit",
-  //     second: "2-digit",
-  //     fractionalSecondDigits: 2,
-  //     hour12: false,
-  //   });
-  // };
 
   const handleCancelRequest = (reqid) => {
     if (ongoingCancellations.has(reqid)) return; // Prevent multiple clicks

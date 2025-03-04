@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useDebounce from "../../../hooks/useDebounce";
+import { siteCurrency } from "../../../utils/custom";
 
 import classes from "./PaymentForm.module.css";
 
@@ -27,6 +28,7 @@ const PaymentForm = (props) => {
   const typeMaxAmount = useSelector((state) => state.crypto.typeMaxAmount);
   const methodMinAmount = useSelector((state) => state.crypto.methodMinAmount);
   const methodMaxAmount = useSelector((state) => state.crypto.methodMaxAmount);
+  const currency = useSelector((state) => state.app.siteCurrency);
 
   const [formData, setFormData] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
@@ -499,7 +501,8 @@ const PaymentForm = (props) => {
               <div className={classes.Info}>
                 <p>
                   {translate(`Minimum amount`)}
-                  {": €"}
+                  {": "}
+                  {siteCurrency(currency)}
                   {`${methodMinAmount || typeMinAmount}`}
                 </p>
               </div>
@@ -508,7 +511,8 @@ const PaymentForm = (props) => {
               <div className={classes.Info}>
                 <p>
                   {translate(`Maximum amount`)}
-                  {": €"}
+                  {": "}
+                  {siteCurrency(currency)}
                   {`${methodMaxAmount || typeMaxAmount}`}
                 </p>
               </div>

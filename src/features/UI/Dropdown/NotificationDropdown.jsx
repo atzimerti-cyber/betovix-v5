@@ -44,8 +44,9 @@ const NotificationDropdown = (props) => {
         <h1>{translate("Notifications")}</h1>
         <div className={classes.ToggleButton}>
           <p>{translate("Only show unread")}</p>
-          <label className={classes.Switch}>
+          <label htmlFor="checkbox" className={classes.Switch}>
             <input
+              id="checkbox"
               type="checkbox"
               checked={unreadOnly}
               onChange={handleToggle}

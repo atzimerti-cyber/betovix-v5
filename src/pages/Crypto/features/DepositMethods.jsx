@@ -5,7 +5,6 @@ import { useNavigate, useLocation } from "react-router-dom";
 import DsButton from "../../../features/UI/Buttons/DsButton";
 import classes from "./DepositMethods.module.css";
 import AngleLeft2Icon from "../../../assets/svgs/angle-left2.svg?react";
-import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 import { cryptoActions } from "../cryptoSlice";
 import { translate } from "../../../utils/translations";
 import MainButton from "../../../features/UI/Buttons/MainButton";
@@ -15,9 +14,20 @@ const DepositMethods = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const paymentTypes = useSelector((state) => state.crypto.DepositPaymentTypes);
   const paymentType = useSelector(
     (state) => state.crypto.selectedPaymentTypeDeposit
   );
+
+  useEffect(() => {
+    if (
+      !paymentType ||
+      paymentType.length === 0 ||
+      Object.keys(paymentType).length === 0
+    ) {
+      navigateToDeposit();
+    }
+  }, [paymentType]);
 
   const navigateToDeposit = () => {
     const searchParams = new URLSearchParams(location.search);
@@ -29,16 +39,6 @@ const DepositMethods = () => {
       replace: true,
     });
   };
-
-  useEffect(() => {
-    if (
-      !paymentType ||
-      paymentType.length === 0 ||
-      Object.keys(paymentType).length === 0
-    ) {
-      navigateToDeposit();
-    }
-  }, [paymentType]);
 
   const navigateToModal = (modal, tab, stage) => {
     const searchParams = new URLSearchParams(location.search);
@@ -64,14 +64,17 @@ const DepositMethods = () => {
 
   return (
     <>
-      <div className={classes.ReturnContainer}>
-        <div className={classes.ReturnButtonWrapper}>
-          <DsButton color="transparent" onClick={navigateToDeposit}>
-            <AngleLeft2Icon />
-            <span>{translate("Return to Deposit menu")}</span>
-          </DsButton>
+      {paymentTypes && paymentTypes.length > 1 && (
+        <div className={classes.ReturnContainer}>
+          <div className={classes.ReturnButtonWrapper}>
+            <DsButton color="transparent" onClick={navigateToDeposit}>
+              <AngleLeft2Icon />
+              <span>{translate("Return to Deposit Menu")}</span>
+            </DsButton>
+          </div>
         </div>
-      </div>
+      )}
+
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
           {paymentType &&
@@ -98,7 +101,7 @@ const DepositMethods = () => {
                           backgroundImage: `url("${method.Icon}")`,
                         }}
                       ></div>
-                      <h2>{method.Name}</h2>
+                      <h2>{translate(`${method.Name}`)}</h2>
                     </MainButton>
                   </div>
                 )

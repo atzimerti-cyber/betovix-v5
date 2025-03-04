@@ -140,6 +140,7 @@ const Cat3Swiper = (props) => {
     <>
       {items && items.length > 0 && (
         <div
+          id={`category3swiper${props.id}`}
           className={classes.Cat3Container}
           style={{
             ...(notGridSwiper ? { flexDirection: "column" } : {}),
@@ -193,6 +194,7 @@ const Cat3Swiper = (props) => {
               onTask={props.task}
               icon={false}
               thIcon={false}
+              noHeader
             >
               {items ? (
                 items.length === 0 ? (

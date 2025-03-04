@@ -1,12 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
 import classes from "./Deposit.module.css";
+
 import { cryptoActions } from "../cryptoSlice";
 import DepositMethods from "./DepositMethods";
 import FinalStageDeposit from "./FinalStageDeposit";
+
 import MainButton from "../../../features/UI/Buttons/MainButton";
+
+import { translate } from "../../../utils/translations";
 
 const Deposit = () => {
   const dispatch = useDispatch();
@@ -24,8 +28,15 @@ const Deposit = () => {
   else if (stage === "deposit") elClasses.push(classes.Deposit);
 
   useEffect(() => {
-    return () => dispatch(cryptoActions.setSelectedCurrency(null));
-  }, []);
+    if (!paymentTypes) return;
+
+    if (paymentTypes.length === 1) {
+      selectPaymentType(paymentTypes[0]);
+      navigateToModal("cashier", "deposit", "methods");
+    }
+
+    return () => dispatch(cryptoActions.resetCurrency());
+  }, [paymentTypes]);
 
   const selectPaymentType = (type) => {
     if (type.MinAmount) {
@@ -36,6 +47,7 @@ const Deposit = () => {
     }
     dispatch(cryptoActions.setSelectedPaymentTypeDeposit(type));
   };
+
   const selectPaymentMethod = (type) => {
     dispatch(cryptoActions.setSelectedPaymentMethodDeposit(type.Methods[0]));
   };
@@ -57,6 +69,7 @@ const Deposit = () => {
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
           {paymentTypes &&
+            paymentTypes.length > 1 &&
             paymentTypes.map((paymentType, index) => (
               <div
                 key={index}
@@ -87,7 +100,7 @@ const Deposit = () => {
                       backgroundImage: `url("${paymentType.Icon}")`,
                     }}
                   ></div>
-                  <h2>{paymentType.Name}</h2>
+                  <h2>{translate(`${paymentType.Name}`)}</h2>
                 </MainButton>
               </div>
             ))}

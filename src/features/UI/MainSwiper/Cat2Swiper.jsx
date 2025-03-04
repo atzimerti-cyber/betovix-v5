@@ -146,6 +146,7 @@ const Cat2Swiper = (props) => {
               return (
                 <SwiperSlide key={item.Data.Id}>
                   <div
+                    // id={`category2slide${index}`}
                     className={classes.SlideContainer}
                     style={
                       bonusBalance > 0

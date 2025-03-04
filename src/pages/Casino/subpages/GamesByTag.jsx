@@ -81,7 +81,7 @@ const GamesByTag = () => {
           {items?.Data ? (
             <GridGames
               collection={items}
-              icon={casinoIcons[label] || <NoImageIcon />}
+              icon={casinoIcons[label] || null}
               // icon={<TagIcon />}
               title={label}
               loading={false}

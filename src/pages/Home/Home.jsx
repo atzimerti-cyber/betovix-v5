@@ -74,7 +74,7 @@ const Home = () => {
 
   return (
     <div className={classes.PageContent} style={{ paddingTop: "16px" }}>
-      <div className={classes.Home}>
+      <div className={classes.Home} id="homePage">
         {isMobile && hasHero && Object.keys(hasHero).length > 0 && (
           <div className={classes.VipContainer} key={999}>
             <VipProgress />
@@ -180,6 +180,7 @@ const Home = () => {
                       ref={elementRef}
                     >
                       <div
+                        id="homeBanners"
                         className={
                           isMobile || isTablet
                             ? [
@@ -193,7 +194,6 @@ const Home = () => {
                           onDataNotFound={() => handleRemoveComponent(index)}
                         />
 
-                        {/* PROGRESS IN DESKTOP */}
                         {!isMobile && user && hasHero && (
                           <div className={classes.VipContainer}>
                             <VipProgress />
@@ -234,8 +234,9 @@ const Home = () => {
                         />
                       )}
 
-                      {tag.Tags === "GameLinks" && (
+                      {tag.Tags.includes("Game") && (
                         <GameLinksSwiper
+                          tag={tag.Tags}
                           onDataNotFound={() => handleRemoveComponent(index)}
                         />
                       )}

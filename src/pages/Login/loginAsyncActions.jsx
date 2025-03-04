@@ -188,6 +188,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
         response2 = await axiosApi.post(
           `MyAccount/Register/?lang=en&siteid=${config.VITE_SITE_ID}`,
           {
+            TCNumber: registerInfo.idCode === true ? null : registerInfo.idCode,
             Code: registerInfo.code,
             Email: registerInfo.email,
             Password: registerInfo.password,
@@ -341,7 +342,7 @@ export const sentRecoveryUsername = (username) => {
     const lang = getLang();
     try {
       const response = await axiosApi.get(
-        `/MyAccount/RecoverPassword?username=${username}&lang=en`,
+        `/MyAccount/RecoverPassword?username=${username}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -439,7 +440,7 @@ export const resendEmail = (data) => {
     dispatch(loginActions.setUpdateLoading(true));
     try {
       const response = await axiosApi.get(
-        `MailTemplates/ResendAccVerificationEmail?data=${data}`,
+        `MyAccount/ResendAccVerificationEmail?data=${data}&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }

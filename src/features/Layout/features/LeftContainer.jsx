@@ -11,6 +11,8 @@ import LiveSupportIcon from "../../../assets/svgs/live-support.svg?react";
 import DropdownLang from "../../UI/Dropdown/DropdownLang";
 import CasinoIcon from "../../../assets/svgs/casino.svg?react";
 import SportsIcon from "../../../assets/svgs/sports.svg?react";
+import StaticHorse from "../../../assets/images/static-h.png?react";
+import GifHorse from "../../../assets/images/horse.gif?react";
 import { layoutActions } from "../layoutSlice";
 import Search from "../../Search/Search";
 import LeftMenuItem from "./LeftMenuItem";
@@ -22,6 +24,7 @@ import StatsIcon from "../../../assets/svgs/bars.svg?react";
 import TicketIcon from "../../../assets/svgs/ticketReceipt.svg?react";
 import LoadIcon from "../../../assets/svgs/loadIcon.svg?react";
 import Timezone from "../../Timezone/Timezone";
+import InteractiveButton from "../../UI/Buttons/InteractiveButton";
 
 const LeftContainer = memo(function () {
   const dispatch = useDispatch();
@@ -30,21 +33,22 @@ const LeftContainer = memo(function () {
 
   const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-
-  const pathname = location.pathname.substring(1);
-  const pathnameNoParams = useBasePath();
-
   const permissions = useSelector((state) => state.login.permissions);
   const menuItems = useSelector((state) => state.app.menuItems);
-
   const casinoMenuItems = useSelector((state) => state.app.casinoMenuItems);
   const sportsMenuItems = useSelector((state) => state.app.sportsMenuItems);
-
   const user = useSelector((state) => state.login.user);
   const searchString = useSelector((state) => state.search.searchString);
   const fullLeftContainer = useSelector(
     (state) => state.layout.fullLeftContainer
   );
+  const casinoOriented = useSelector(
+    (state) => state.app.siteSettings?.casinoOriented
+  );
+
+  const pathname = location.pathname.substring(1);
+  const pathnameNoParams = useBasePath();
+
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   let elClasses = [classes.SideMenuScroll];
@@ -52,6 +56,253 @@ const LeftContainer = memo(function () {
   if (!fullLeftContainer) {
     elClasses.push(classes.Closed);
   }
+
+  const casinoButton = () => {
+    return (
+      (permissions.AllowToCasino || permissions.AllowToSlots) && (
+        <MainButton
+          active2={pathnameNoParams.includes("/casino")}
+          onClick={() => navigate("/casino/lobby")}
+          dataTooltipId="left-menu-tooltip"
+          dataTooltipContent={translate("Casino")}
+        >
+          <CasinoIcon
+            className={
+              pathnameNoParams.includes("casino") ? classes.Active2Svg : null
+            }
+          />
+          <span>{fullLeftContainer ? translate("Casino") : ""}</span>
+        </MainButton>
+      )
+    );
+  };
+  const sportsButton = () => {
+    return (
+      permissions.AllowToSports && (
+        <MainButton
+          active={
+            pathnameNoParams.includes("/sportsbook") ||
+            pathnameNoParams.includes("/event")
+          }
+          onClick={() => navigate("/sportsbook/home/football")}
+          dataTooltipId="left-menu-tooltip"
+          dataTooltipContent={translate("Sports")}
+        >
+          <SportsIcon
+            className={
+              pathnameNoParams.includes("sportsbook") ||
+              pathnameNoParams.includes("/event")
+                ? classes.ActiveSvg
+                : null
+            }
+          />
+          <span>{fullLeftContainer ? translate("Sports") : ""}</span>
+        </MainButton>
+      )
+    );
+  };
+  const casinoMenu = () => {
+    return (
+      pathnameNoParams !== "/sportsbook" &&
+      pathnameNoParams !== "/sportsbook/tournament" &&
+      pathnameNoParams !== "/sportsbook/outrights" &&
+      pathnameNoParams !== "/searchEvent" &&
+      (permissions.AllowToCasino || permissions.AllowToSlots) && (
+        <>
+          <div className={classes.SideMenuDivider}></div>
+          {!isMobile && (
+            <Search
+              placeholder={translate("Search Casino")}
+              hide={!fullLeftContainer}
+              dataTooltipId="left-menu-tooltip"
+              dataTooltipContent={translate("Search Casino")}
+              value={searchString}
+              onChange={(value) => {
+                dispatch(searchActions.setSearchString(value));
+                if (value !== "") navigate("/search");
+              }}
+            />
+          )}
+          {casinoMenuItems.map((casinoMenuItem, index) => {
+            if (casinoMenuItem.category) {
+              if (fullLeftContainer) {
+                return (
+                  <CategoryGroup
+                    key={`_${casinoMenuItem.category.id}`}
+                    category={casinoMenuItem.category}
+                    hide={fullLeftContainer}
+                  >
+                    {getItems(
+                      casinoMenuItem,
+                      casinoMenuItem.category.id,
+                      casinoMenuItem.category.id
+                    )}
+                  </CategoryGroup>
+                );
+              } else {
+                return (
+                  <div
+                    className={classes.Grouped}
+                    key={casinoMenuItem.category.id}
+                  >
+                    <div className={classes.SideMenuDivider}></div>
+                    {getItems(
+                      casinoMenuItem,
+                      casinoMenuItem.category.id,
+                      casinoMenuItem.category.id
+                    )}
+                  </div>
+                );
+              }
+            } else {
+              return getItems(casinoMenuItem, index, 0);
+            }
+          })}
+        </>
+      )
+    );
+  };
+  const sportsMenu = () => {
+    return (
+      pathnameNoParams !== "/casino" &&
+      pathnameNoParams !== "/search" &&
+      permissions.AllowToSports && (
+        <>
+          <div className={classes.SideMenuDivider}></div>
+
+          {!isMobile && (
+            <Search
+              placeholder={translate("Search Event")}
+              hide={!fullLeftContainer}
+              dataTooltipId="left-menu-tooltip"
+              dataTooltipContent={translate("Search Event")}
+              value={searchString}
+              onChange={(value) => {
+                dispatch(searchActions.setSearchString(value));
+                if (value !== "") navigate("/searchEvent");
+              }}
+            />
+          )}
+
+          <div className={classes.SideMenuContainer} id="sideMenuContainer">
+            <div className={classes.SideMenuSubButtonContainer}>
+              <>
+                {permissions.AllowToSports && (
+                  <>
+                    <MainButton
+                      active={pathnameNoParams.includes("?modal=statistics")}
+                      onClick={() => navigate("?modal=statistics")}
+                      dataTooltipId="left-menu-tooltip"
+                      dataTooltipContent={translate("Stats")}
+                    >
+                      <StatsIcon
+                        className={
+                          pathnameNoParams.includes("?modal=statistics")
+                            ? classes.ActiveSvg
+                            : null
+                        }
+                      />
+                      <span>
+                        {fullLeftContainer ? translate("Statistics") : ""}
+                      </span>
+                    </MainButton>
+
+                    <MainButton
+                      active={pathnameNoParams.includes("?modal=load-booked")}
+                      onClick={() => navigate("?modal=load-booked")}
+                      dataTooltipId="left-menu-tooltip"
+                      dataTooltipContent={translate("Load Booked")}
+                    >
+                      <LoadIcon
+                        className={
+                          pathnameNoParams.includes("?modal=load-booked")
+                            ? classes.ActiveSvg
+                            : null
+                        }
+                      />
+                      <span>
+                        {fullLeftContainer ? translate("Load Booked") : ""}
+                      </span>
+                    </MainButton>
+
+                    {/* <MainButton
+                        active={pathnameNoParams.includes(
+                          "?modal=load-ticket"
+                        )}
+                        onClick={() => navigate("?modal=load-ticket")}
+                        dataTooltipId="left-menu-tooltip"
+                        dataTooltipContent={translate("Print Ticket")}
+                      >
+                        <TicketIcon
+                          className={
+                            pathnameNoParams.includes("?modal=load-ticket")
+                              ? classes.ActiveSvg
+                              : null
+                          }
+                        />
+                        <span>
+                          {fullLeftContainer ? translate("Print Ticket") : ""}
+                        </span>
+                      </MainButton> */}
+
+                    <MainButton
+                      active={pathnameNoParams.includes("?modal=promo-code")}
+                      onClick={() => navigate("?modal=promo-code")}
+                      dataTooltipId="left-menu-tooltip"
+                      dataTooltipContent={translate("Promo Code")}
+                    >
+                      <TicketIcon
+                        className={
+                          pathnameNoParams.includes("?modal=promo-code")
+                            ? classes.ActiveSvg
+                            : null
+                        }
+                      />
+                      <span>
+                        {fullLeftContainer ? translate("Promo Code") : ""}
+                      </span>
+                    </MainButton>
+                  </>
+                )}
+              </>
+            </div>
+          </div>
+          {sportsMenuItems.map((menuItem, index) => {
+            if (menuItem.category) {
+              if (fullLeftContainer) {
+                return (
+                  <CategoryGroup
+                    key={menuItem.category.id}
+                    category={menuItem.category}
+                    hide={fullLeftContainer}
+                  >
+                    {getItems(
+                      menuItem,
+                      menuItem.category.id,
+                      menuItem.category.id
+                    )}
+                  </CategoryGroup>
+                );
+              } else {
+                return (
+                  <div className={classes.Grouped} key={menuItem.category.id}>
+                    <div className={classes.SideMenuDivider}></div>
+                    {getItems(
+                      menuItem,
+                      menuItem.category.id,
+                      menuItem.category.id
+                    )}
+                  </div>
+                );
+              }
+            } else {
+              return getItems(menuItem, index, 0);
+            }
+          })}
+        </>
+      )
+    );
+  };
 
   const getItems = (menuItem, index, categoryId) => {
     const showEmphasis =
@@ -98,15 +349,29 @@ const LeftContainer = memo(function () {
           />
         )}
 
-        <div className={classes.SideMenuAllButtonsContainer}>
+        <div
+          className={classes.SideMenuAllButtonsContainer}
+          style={{ marginTop: "0.5rem" }}
+        >
           <div className={classes.SideMenuButtonContainer}>
-            {permissions.AllowToSports && (
+            {casinoOriented && casinoOriented === "true" ? (
+              <>
+                {casinoButton()}
+                {sportsButton()}
+              </>
+            ) : (
+              <>
+                {sportsButton()}
+                {casinoButton()}
+              </>
+            )}
+            {/* SPORTS BUTTON */}
+            {/* {permissions.AllowToSports && (
               <MainButton
                 active={
                   pathnameNoParams.includes("/sportsbook") ||
                   pathnameNoParams.includes("/event")
                 }
-                // onClick={() => navigate(`/${lang.id}/sportsbook/home/football`)}
                 onClick={() => navigate("/sportsbook/home/football")}
                 dataTooltipId="left-menu-tooltip"
                 dataTooltipContent={translate("Sports")}
@@ -121,9 +386,10 @@ const LeftContainer = memo(function () {
                 />
                 <span>{fullLeftContainer ? translate("Sports") : ""}</span>
               </MainButton>
-            )}
+            )} */}
 
-            {(permissions.AllowToCasino || permissions.AllowToSlots) && (
+            {/* CASINO BUTTON */}
+            {/* {(permissions.AllowToCasino || permissions.AllowToSlots) && (
               <MainButton
                 active2={pathnameNoParams.includes("/casino")}
                 onClick={() => navigate("/casino/lobby")}
@@ -139,7 +405,7 @@ const LeftContainer = memo(function () {
                 />
                 <span>{fullLeftContainer ? translate("Casino") : ""}</span>
               </MainButton>
-            )}
+            )} */}
           </div>
 
           {isMobile && (
@@ -152,8 +418,41 @@ const LeftContainer = memo(function () {
           )}
         </div>
 
-        {/* SportsMenu */}
-        {pathnameNoParams !== "/casino" &&
+        {/* TRACK EVENTS BUTTON */}
+        {permissions.AllowToSIS && (
+          <div className={classes.SideMenuAllButtonsContainer}>
+            <div className={classes.TrackMenuButtonContainer}>
+              <InteractiveButton
+                active={pathnameNoParams.includes("track-events")}
+                onClick={() => navigate("/track-events")}
+                dataTooltipId="left-menu-tooltip"
+                dataTooltipContent={translate("Track Events")}
+                image={StaticHorse}
+                gif={GifHorse}
+                color="yellow"
+              >
+                <span>
+                  {fullLeftContainer ? translate("Animal Track Events") : ""}
+                </span>
+              </InteractiveButton>
+            </div>
+          </div>
+        )}
+
+        {casinoOriented && casinoOriented === "true" ? (
+          <>
+            {casinoMenu()}
+            {sportsMenu()}
+          </>
+        ) : (
+          <>
+            {sportsMenu()}
+            {casinoMenu()}
+          </>
+        )}
+
+        {/* SPORTSBOOK MENU */}
+        {/* {pathnameNoParams !== "/casino" &&
           pathnameNoParams !== "/search" &&
           permissions.AllowToSports && (
             <>
@@ -161,7 +460,6 @@ const LeftContainer = memo(function () {
 
               {!isMobile && (
                 <Search
-                  id="eventSearchSidebar"
                   placeholder={translate("Search Event")}
                   hide={!fullLeftContainer}
                   dataTooltipId="left-menu-tooltip"
@@ -174,12 +472,9 @@ const LeftContainer = memo(function () {
                 />
               )}
 
-              <div className={classes.SideMenuContainer}>
+              <div className={classes.SideMenuContainer} id="sideMenuContainer">
                 <div className={classes.SideMenuSubButtonContainer}>
                   <>
-                    {/* <div className={classes.LangDropdown}>
-                      <DropdownLang topbar />
-                    </div> */}
                     {permissions.AllowToSports && (
                       <>
                         <MainButton
@@ -220,9 +515,9 @@ const LeftContainer = memo(function () {
                           <span>
                             {fullLeftContainer ? translate("Load Booked") : ""}
                           </span>
-                        </MainButton>
+                        </MainButton> */}
 
-                        {/* <MainButton
+        {/* <MainButton
                           active={pathnameNoParams.includes(
                             "?modal=load-ticket"
                           )}
@@ -241,7 +536,7 @@ const LeftContainer = memo(function () {
                             {fullLeftContainer ? translate("Print Ticket") : ""}
                           </span>
                         </MainButton> */}
-
+        {/* 
                         <MainButton
                           active={pathnameNoParams.includes(
                             "?modal=promo-code"
@@ -265,10 +560,7 @@ const LeftContainer = memo(function () {
                     )}
                   </>
                 </div>
-
-                {/* {isMobile && <CloseButton timesIcon onClick={() => dispatch(layoutActions.setFullLeftContainer(false))} />} */}
               </div>
-              {/* SportsMenuItems */}
               {sportsMenuItems.map((menuItem, index) => {
                 if (menuItem.category) {
                   if (fullLeftContainer) {
@@ -305,10 +597,10 @@ const LeftContainer = memo(function () {
                 }
               })}
             </>
-          )}
+          )} */}
 
-        {/* CasinoMenu */}
-        {pathnameNoParams !== "/sportsbook" &&
+        {/* CASINO MENU */}
+        {/* {pathnameNoParams !== "/sportsbook" &&
           pathnameNoParams !== "/sportsbook/tournament" &&
           pathnameNoParams !== "/sportsbook/outrights" &&
           pathnameNoParams !== "/searchEvent" &&
@@ -317,7 +609,6 @@ const LeftContainer = memo(function () {
               <div className={classes.SideMenuDivider}></div>
               {!isMobile && (
                 <Search
-                  id="casinoSearchSidebar"
                   placeholder={translate("Search Casino")}
                   hide={!fullLeftContainer}
                   dataTooltipId="left-menu-tooltip"
@@ -329,7 +620,6 @@ const LeftContainer = memo(function () {
                   }}
                 />
               )}
-              {/* casinoMenuItems */}
               {casinoMenuItems.map((casinoMenuItem, index) => {
                 if (casinoMenuItem.category) {
                   if (fullLeftContainer) {
@@ -366,8 +656,9 @@ const LeftContainer = memo(function () {
                 }
               })}
             </>
-          )}
+          )} */}
 
+        {/* REST OF MENU ITEMS */}
         {menuItems.map((menuItem, index) => {
           if (menuItem.category) {
             if (fullLeftContainer) {
@@ -400,20 +691,22 @@ const LeftContainer = memo(function () {
             return getItems(menuItem, index, 0);
           }
         })}
-        {fullLeftContainer ? (
-          // <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
+
+        {/* LANGUAGE DROPDOWN */}
+        {fullLeftContainer && (
           <div
+            id="language"
             className={classes.LangDropdown}
             style={{ padding: "0.3rem 0.5rem", justifyContent: "flex-start" }}
           >
             <DropdownLang fullLabel={true} openTo="top" />
           </div>
-        ) : // <div className={classes.LangDropdown} style={{ margin: "1rem" }}>
-        //   <DropdownLang topbar openTo="side" />
-        // </div>
-        null}
+        )}
+
+        {/* TIMEZONE DROPDOWN */}
         {fullLeftContainer && (
           <div
+            id="timezone"
             className={classes.LangDropdown}
             style={{ padding: "0.3rem 0.5rem", justifyContent: "flex-end" }}
           >

@@ -29,15 +29,14 @@ const Promotions = (props) => {
 
   const addParamsToUrl = (modal, link) => {
     const searchParams = new URLSearchParams(location.search);
-    const linkParams = new URLSearchParams(link);
+    // const linkParams = new URLSearchParams(link);
 
-    // Get values for "pageId" and "slug" from the linkParams
-    const pageId = linkParams.get("pageId");
-    const slug = linkParams.get("slug");
+    // const pageId = linkParams.get("pageId");
+    // const slug = linkParams.get("slug");
 
     searchParams.set("modal", modal);
-    if (pageId) searchParams.set("pageId", pageId);
-    if (slug) searchParams.set("slug", slug);
+    // if (pageId) searchParams.set("pageId", pageId);
+    if (link) searchParams.set("slug", link);
 
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,

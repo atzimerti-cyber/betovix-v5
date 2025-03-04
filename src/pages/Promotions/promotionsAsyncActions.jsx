@@ -77,8 +77,15 @@ export const getSiteLinks = (signal, category) => {
         dispatch(promotionsActions.setServiceLinks(response.data.Contents));
       } else if (category === "MainLinks") {
         dispatch(promotionsActions.setMainLinks(response.data.Contents));
-      } else if (category === "GameLinks") {
-        dispatch(promotionsActions.setGameLinks(response.data.Contents));
+        // } else if (category === "GameLinks") {
+        //   dispatch(promotionsActions.setGameLinks(response.data.Contents));
+      } else if (category.includes("Game")) {
+        dispatch(
+          promotionsActions.setGameLinks({
+            category,
+            contents: response.data.Contents,
+          })
+        );
       }
 
       // dispatch(promotionsActions.setSiteLinks(updatedLinks));
