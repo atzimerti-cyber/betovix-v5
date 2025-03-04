@@ -1,0 +1,16 @@
+[data-homelinks] div > div > div > div {
+    max-width: 350px !important;
+     
+}
+
+@media (max-width: 500px) {
+    [data-homelinks]  div > div > div > div {
+      max-width: 10px !important;
+    }
+  }
+  @media (max-width: 768px) {
+    [data-homelinks]  div > div > div > div {
+      max-width: 20px !important;
+    }
+  }
+  
