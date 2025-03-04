@@ -29,7 +29,7 @@ window.SETTINGS ={
 //     VITE_SITE_ID: 0,
 //     VITE_HOME_URL: 'https://betovix.storetube.gr',
 
-//     VITE_WALLET_STORETUBE: 'https://modulesports.com:61009/api',
+//     VITE_WALLET_STORETUBE: 'https://modulesports.com:60019/api',
 //     VITE_STORETUBE: 'https://modulesports.com:60019/api',
 //     VITE_CASINO_STORETUBE_BASE: 'https://casinoapi.storetube.gr:61020/api',
 
