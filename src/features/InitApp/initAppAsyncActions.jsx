@@ -613,6 +613,7 @@ export const loadInitData = (isMobile) => {
       }, 2000);
     } catch (error) {
       toast.error(error?.message);
+      dispatch(loginActions.logout()); //////////////////////////////////////////////////////
       dispatch(appActions.setInitDataLoaded(true));
     }
   };
@@ -744,8 +745,8 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=betovix.com`,
-        // `Site/GetSite?domainName=betovix.storetube.gr`,
+        // `Site/GetSite?domainName=slotking365.com`,
+        //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,

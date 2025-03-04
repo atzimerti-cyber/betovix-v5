@@ -84,7 +84,8 @@ const FinalStageDeposit = () => {
       {paymentType && paymentMethod && !depositAddress && (
         <div className={classes.PaymentFormContainer}>
           <PaymentForm
-            type={paymentType?.Name}
+            type={paymentType.Provider === "CoinPayments" && "Crypto"}
+            // type={paymentType?.Name}
             method={paymentMethod}
             provider={paymentType.Provider}
             icon={paymentMethod?.Icon}

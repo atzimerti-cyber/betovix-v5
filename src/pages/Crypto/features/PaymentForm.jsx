@@ -29,6 +29,7 @@ const PaymentForm = (props) => {
   const methodMinAmount = useSelector((state) => state.crypto.methodMinAmount);
   const methodMaxAmount = useSelector((state) => state.crypto.methodMaxAmount);
   const currency = useSelector((state) => state.app.siteCurrency);
+  const buttonLoading = useSelector((state) => state.crypto.buttonLoading);
 
   const [formData, setFormData] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
@@ -534,17 +535,20 @@ const PaymentForm = (props) => {
               </span>
             </div>
 
-            <button
-              type="submit"
-              className={
-                disabledButton
-                  ? [classes.SubmitButton, classes.Disabled].join(" ")
-                  : classes.SubmitButton
-              }
-              disabled={disabledButton}
-            >
-              {props.type === "Crypto" ? "Get Deposit Address" : "Submit"}
-            </button>
+            {buttonLoading ? null : (
+              <button
+                type="submit"
+                className={
+                  disabledButton
+                    ? [classes.SubmitButton, classes.Disabled].join(" ")
+                    : classes.SubmitButton
+                }
+                disabled={disabledButton}
+              >
+                {props.type === "Crypto" ? "Get Deposit Address" : "Submit"}
+              </button>
+            )}
+
             {limitMessage && limitMessage !== "" && (
               <div className={classes.Message}>
                 <ErrorIcon />

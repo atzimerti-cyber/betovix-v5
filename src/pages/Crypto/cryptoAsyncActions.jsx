@@ -122,6 +122,7 @@ export const getDepositAddress = (signal, provider, network) => {
 export const submitDepositForm = (signal, depositDTO) => {
   return async (dispatch, getState) => {
     try {
+      dispatch(cryptoActions.setButtonLoading(true));
       const response = await axiosApi.post(
         `/Payments/DepositRequest?siteid=${config.VITE_SITE_ID}`,
 
@@ -135,6 +136,7 @@ export const submitDepositForm = (signal, depositDTO) => {
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
         dispatch(cryptoActions.setWithdrawLimitMessage(response.data.Contents));
+        dispatch(cryptoActions.setButtonLoading(false));
         return;
       }
 
@@ -152,7 +154,10 @@ export const submitDepositForm = (signal, depositDTO) => {
       } else if (depositDTO.PaymentProvider === "GambPayTransfer") {
         window.location.href = response.data.Contents.url;
       }
+
+      dispatch(cryptoActions.setButtonLoading(false));
     } catch (error) {
+      dispatch(cryptoActions.setButtonLoading(false));
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(message);
     }

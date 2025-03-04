@@ -6,6 +6,7 @@ const initialState = {
   selectedCurrency: null,
   selectedNetwork: null,
   paymentsLoading: false,
+  buttonLoading: false,
   depositAddress: "",
   qrCodeImage: "",
   //////////DEPOSIT//////////////
@@ -65,6 +66,9 @@ export const cryptoSlice = createSlice({
     },
     setPaymentsLoading: (state, action) => {
       state.paymentsLoading = action.payload;
+    },
+    setButtonLoading: (state, action) => {
+      state.buttonLoading = action.payload;
     },
     setDepositAddress: (state, action) => {
       state.depositAddress = action.payload;
