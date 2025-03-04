@@ -748,6 +748,7 @@ export const getSite = (signal) => {
         // `Site/GetSite?domainName=slotking365.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
+>>>>>>> 459df8674b7e303bb16423a881f31df1bd36de88
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,

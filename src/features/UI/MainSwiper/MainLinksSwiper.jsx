@@ -30,7 +30,11 @@ const MainLinksSwiper = () => {
 
   return (
     mainLinks && (
+<<<<<<< HEAD
+      <div className={classes.MainLinks} data-homelinks="">
+=======
       <div className={classes.MainLinks} id="mainLinks">
+>>>>>>> 459df8674b7e303bb16423a881f31df1bd36de88
         <MainSwiper
           slidesPerView="auto"
           slidesPerGroup={1}
