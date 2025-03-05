@@ -6,6 +6,7 @@ import CloseButton from "../../UI/Buttons/CloseButton";
 import BonusIcon from "../../../assets/svgs/gift-box.svg?react";
 import BonusItem from "../features/BonusItem";
 import NoBonusItem from "../features/NoBonusItem";
+import NumberBadge from "../../UI/Badges/NumberBudge";
 
 import { modalActions } from "../modalSlice";
 import { translate } from "../../../utils/translations";
@@ -17,6 +18,7 @@ const BonusModal = () => {
   const navigate = useNavigate();
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const available = useSelector((state) => state.layout.availableBonus);
 
   const bonuses = useSelector((state) => state.modal.bonuses) || [];
   const [activeTab, setActiveTab] = useState("Available");
@@ -80,6 +82,9 @@ const BonusModal = () => {
                 onClick={() => handleTabClick("Available", 1)}
               >
                 {translate("Available")}
+                {available > 0 && (
+                <NumberBadge number={available} floating justifyRight />
+              )}
               </div>
               <div
                 className={activeTab === "Active" ? classes.active : ""}

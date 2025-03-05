@@ -330,6 +330,7 @@ const initialState = {
   timezone: null,
   defaultLang: null,
   siteCurrency: "",
+  siteLicence: "",
 };
 
 export const appSlice = createSlice({
@@ -420,6 +421,9 @@ export const appSlice = createSlice({
     },
     setSiteCurrency: (state, action) => {
       state.siteCurrency = action.payload;
+    },
+    setLicence: (state, action) => {
+      state.siteLicence = action.payload;
     },
   },
 });

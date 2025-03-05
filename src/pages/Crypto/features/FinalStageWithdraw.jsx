@@ -156,7 +156,7 @@ const FinalStageWithdraw = () => {
         <div className={classes.Message}>
           <SuccessIcon />
           <span>
-            Withdrawal request was successfull!
+          {translate(`Withdrawal request was successfull`)}!
             <p
               onClick={() => navigateToWithdrawalReqs()}
               className={classes.GoToReqs}
