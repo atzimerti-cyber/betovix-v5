@@ -144,14 +144,21 @@ export const changePassword = (signal, payload) => {
   };
 };
 
-export const changeUsername = (signal, payload) => {
+export const changeUsername = (signal, oldUsername, newUsername, password) => {
   return async (dispatch) => {
     try {
       const lang = getLang();
 
+      const payload = {
+        OldUsername: `${oldUsername}`,
+        NewUsername: `${newUsername}`,
+        Password: `${password}`,
+        SiteId: config.VITE_SITE_ID,
+      };
+
       const response = await axiosApi.post(
-        `/MyAffiliate/ChangeUsername/&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-        {},
+        `/MyAccount/ChangeUsername`,
+        payload,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_STORETUBE,
@@ -159,11 +166,10 @@ export const changeUsername = (signal, payload) => {
       );
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
-        throw new Error(
-          response.data.Status.Message || "Failed to change password"
-        );
+        throw new Error(response.data.Status.Message || response.data.Contents);
       }
 
+      toast(response.data.Contents);
       return { success: true, data: response.data };
     } catch (error) {
       const message =

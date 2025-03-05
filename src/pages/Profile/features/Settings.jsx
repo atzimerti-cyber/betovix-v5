@@ -72,16 +72,17 @@ const Settings = () => {
   //-----------------SAVE NEW USERNAME------------------//
   const saveUsernameChanges = async () => {
     setloadingUsername(true);
-    const payload = {
-      Username: displayName,
-      Password: password,
-    };
+    // const payload = {
+    //   Username: displayName,
+    //   Password: password,
+    // };
 
-    console.log(payload);
     const controller = new AbortController();
     const signal = controller.signal;
 
-    const result = await dispatch(changeUsername(signal, payload));
+    const result = await dispatch(
+      changeUsername(signal, user.Username, displayName, password)
+    );
 
     if (result.success) {
       setloadingUsername(false);
