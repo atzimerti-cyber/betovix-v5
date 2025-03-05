@@ -30,6 +30,7 @@ const MenuItems = (props) => {
   );
 
   const permissions = useSelector((state) => state.login.permissions);
+  const support = useSelector((state) => state.layout.tawkToScript);
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);
@@ -106,6 +107,7 @@ const MenuItems = (props) => {
           <span>{translate("My Transactions")}</span>
         </a>
       </li>
+      {support?.Source && 
       <li>
         <a
           onClick={() => {
@@ -117,6 +119,7 @@ const MenuItems = (props) => {
           <span>{translate("Live Support")}</span>
         </a>
       </li>
+      }
       <li>
         <a
           onClick={() => {

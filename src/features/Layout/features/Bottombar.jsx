@@ -34,8 +34,8 @@ const Bottombar = () => {
   const initDataLoaded = useSelector((state) => state.app.initDataLoaded);
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const permissions = useSelector((state) => state.login.permissions);
-  // const fixedMenu = useSelector((state) => state.app.siteSettings.FixedMenu);
-  const fixedMenu = "true";
+  const fixedMenu = useSelector((state) => state.app.siteSettings.FixedMenu);
+  // const fixedMenu = "true";
 
   const getMultiplier = () => {
     let totalMultiplier = 1;
