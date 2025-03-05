@@ -73,9 +73,23 @@ const WithdrawPaymentForm = (props) => {
     const { name, value } = e.target;
     let updatedValue = value;
 
+    const field = props.method.Fields.find((field) => field.Name === name);
+    let maxLength = 16; // Default max length for card numbers
+  
+    if (field?.Regex) {
+      const match = field.Regex.match(/\{(\d+),(\d+)\}/); // Extract min/max from regex like {12,19}
+      if (match) {
+        maxLength = parseInt(match[2], 10); // Use the max length from regex
+      }
+    }
+
     // Format CardNumber input
     if (name === "CardNumber") {
-      updatedValue = formatCardNumber(value);
+      updatedValue = value.replace(/\D/g, ""); // Remove non-numeric characters
+
+      if (updatedValue.length > maxLength) return;
+  
+      updatedValue = formatCardNumber(updatedValue); // Apply formatting
     }
 
     setFormData((prevData) => ({

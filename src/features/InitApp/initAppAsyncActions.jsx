@@ -944,6 +944,30 @@ export const getSiteSettings = (signal) => {
         document.head.appendChild(rules);
       }
 
+      if (response.data.Contents.Site?.LicenceActive === 'true') {
+        const license = {
+          SealId: response.data.Contents.Site.SealId,
+          Id: response.data.Contents.Site.Id,
+          Name: response.data.Contents.Site.Name,
+          Init: response.data.Contents.Site.Init,
+          Url: response.data.Contents.Site.Url,
+          LicenceActive: response.data.Contents.Site.LicenceActive,
+        }
+        dispatch(appActions.setLicence(license));
+
+        if (response.data.Contents.Site?.Url && response.data.Contents.Site?.Url !== "") {
+
+          const licence = response.data.Contents.Site;
+          const script = document.createElement("script");
+          script.type = "text/javascript";
+          script.src = licence.Url;
+
+          document.head.appendChild(script);
+        }
+
+      }
+
+      
       // if (response.data.Contents.Site.CustomerCssUrl !== "") {
       //   const customercss = "/customer.css";
       //   const link = document.createElement("link");

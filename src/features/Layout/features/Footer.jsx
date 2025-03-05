@@ -17,6 +17,7 @@ const Footer = () => {
   const lang = useSelector((state) => state.app.lang);
   const footer = useSelector((state) => state.layout.footer);
   const siteSettings = useSelector((state) => state.app.siteSettings);
+  const licence = useSelector((state) => state.app.siteLicence);
   const currentDomain = window.location.hostname;
   const [isBetovix, setIsBetovix] = useState(false);
   const isFooterAllowed = siteSettings.AllowFooter === "true";
@@ -39,10 +40,10 @@ const Footer = () => {
   }, []);
 
   useEffect(() => {
-    if (isFooterAllowed && window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0) {
-      window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init();
+    if (isFooterAllowed && licence && licence !== "" && window[licence.Init]) {
+        window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init(); 
     }
-  }, []);
+}, [licence]);
 
   const logoURL = config.VITE_SITE_LOGO ? config.VITE_SITE_LOGO : null;
 
@@ -78,18 +79,24 @@ const Footer = () => {
               </div>
             ))}
 
-          <div className={classes.LinksLayout}>
-            <h2>{translate("License")}</h2>
-            <div className={classes.License}>
-              <div
-                id="anj-e4a2fe78-d6a5-4db4-8b68-4943b8cde3f0"
-                data-anj-seal-id="e4a2fe78-d6a5-4db4-8b68-4943b8cde3f0"
-                data-anj-image-size="60"
-                data-anj-image-type="basic-small"
-              ></div>
+          {licence && licence !== "" &&
+            <div className={classes.LinksLayout}>
+              <h2>{translate("License")}</h2>
+              <div className={classes.License}>
+                {licence.Name === 'Anjouan' && 
+                  <div
+                    id={licence.Id}
+                    data-anj-seal-id={licence.SealId}
+                    data-anj-image-size="60"
+                    data-anj-image-type="basic-small"
+                  ></div>
+                }
+                
+              </div>
+              <Plus18Icon className={classes.PlusEighteen} />
             </div>
-            <Plus18Icon className={classes.PlusEighteen} />
-          </div>
+          }
+
         </div>
       )}
 
