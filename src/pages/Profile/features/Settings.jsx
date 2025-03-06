@@ -27,6 +27,7 @@ const Settings = () => {
   const user = useSelector((state) => state.login.user);
   const username = useSelector((state) => state.login.user?.Username);
   const isSubscribed = useSelector((state) => state.profile.marketingEmails);
+  const showSpinner = useSelector((state) => state.profile.markEmLoading);
 
   // const [isSubscribed, setIsSubscribed] = useState(false);
   const [displayName, setDisplayName] = useState(user?.Username);
@@ -564,14 +565,18 @@ const Settings = () => {
               <p className={classes.Text}>
                 {translate("I want to receive marketing emails")}.
               </p>
-              <label className={classes.Switch}>
-                <input
-                  type="checkbox"
-                  checked={isSubscribed}
-                  onChange={() => handleToggle(isSubscribed)}
-                />
-                <span className={classes.SliderRound}></span>
-              </label>
+              {showSpinner ? (
+                <p>spinner</p>
+              ) : (
+                <label className={classes.Switch}>
+                  <input
+                    type="checkbox"
+                    checked={isSubscribed}
+                    onChange={() => handleToggle(isSubscribed)}
+                  />
+                  <span className={classes.SliderRound}></span>
+                </label>
+              )}
             </div>
           </div>
           <div className={classes.FormGroup}>

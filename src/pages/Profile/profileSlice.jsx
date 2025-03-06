@@ -1,10 +1,12 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
+import _ from "lodash";
 
 const initialState = {
   topGames: null,
   verificationLevels: {},
   disableVerifyButton: false,
   marketingEmails: false,
+  markEmLoading: false,
 };
 
 export const profileSlice = createSlice({
@@ -24,7 +26,14 @@ export const profileSlice = createSlice({
       state.disableVerifyButton = action.payload;
     },
     setMarketingEmails: (state, action) => {
-      state.marketingEmails = action.payload;
+      const currentState = current(state)?.marketingEmails;
+      // To prevent unnecessary recalculations when the user is set
+      if (!_.isEqual(action.payload, currentState)) {
+        state.marketingEmails = action.payload;
+      }
+    },
+    setMarkEmLoading: (state, action) => {
+      state.markEmLoading = action.payload;
     },
   },
 });

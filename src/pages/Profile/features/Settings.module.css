@@ -281,7 +281,7 @@
   right: 0;
   bottom: 0;
   background-color: #848484;
-  transition: 0.3s;
+  transition: 0.05s;
 }
 
 .SliderRound:before {
@@ -292,7 +292,7 @@
   left: 0px;
   bottom: 0px;
   background-color: white;
-  transition: 0.5s;
+  transition: 0.1s;
 }
 
 input:checked + .SliderRound {

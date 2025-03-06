@@ -56,9 +56,7 @@ export const subscribeToEmails = (signal, state) => {
         dispatch(profileActions.setMarketingEmails(false));
       }
     } catch (error) {
-      const message =
-        translate("Something went wrong. Please try again later") ||
-        translate("Error occurred");
+      const message = translate("Error occurred");
       toast.error(message);
     }
   };

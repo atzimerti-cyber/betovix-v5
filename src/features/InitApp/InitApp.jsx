@@ -16,11 +16,14 @@ import { useTimezoneSelect, allTimezones } from "react-timezone-select";
 
 import { appActions } from "./appSlice";
 import { setLang, getLang } from "../../utils/storage";
+import useBasePath from "../../hooks/useBasePath";
+import { sportsHomeActions } from "../../pages/SportsBook/subpages/sportsHomeSlice";
 
 const InitApp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const pathnameNoParams = useBasePath();
 
   const lang = useSelector((state) => state.app.lang);
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
@@ -80,30 +83,22 @@ const InitApp = () => {
   useEffect(() => {
     if (Object.keys(lang).length > 0) {
       const searchParams = new URLSearchParams(location.search);
-      searchParams.set("lang", lang.id); // Add or update the "lang" parameter
+      searchParams.set("lang", lang.id);
 
-      // Construct the new path with the updated query string
       const newPath = `${location.pathname}?${searchParams.toString()}`;
 
-      // Prevent unnecessary navigation if the path is already correct
       if (newPath !== `${location.pathname}${location.search}`) {
         navigate(newPath, { replace: true });
       }
     }
+    //Clear out open sports category and tournament
+    if (
+      !(pathnameNoParams === "/sportsbook" || pathnameNoParams === "/event")
+    ) {
+      dispatch(sportsHomeActions.setCategoryOpen(null));
+      dispatch(sportsHomeActions.setTournamentOpen(null));
+    }
   }, [location.pathname, location.search, lang.id, navigate]);
-
-  // useEffect(() => {
-  //   setIsLoaded(true);
-  // }, []);
-
-  // useEffect(() => {
-  //   const controller = new AbortController();
-  //   dispatch(getSiteSettings(controller.signal));
-
-  //   return () => {
-  //     controller.abort();
-  //   };
-  // }, [userAccountId]);
 
   //  1.Get site
   useEffect(() => {
@@ -138,14 +133,12 @@ const InitApp = () => {
     }
   }, [siteSettingsSuccess]);
 
-  // For loading initial data. Loads on change log in
   useEffect(() => {
     if (!initDataLoaded) return;
 
     dispatch(loadInitData(isMobile));
   }, [userAccountId]);
 
-  // For setting timer for getting user. Loads on change log in
   useEffect(() => {
     // Get user every 5 seconds...
     clearInterval(timerIdRef.current);
@@ -159,7 +152,6 @@ const InitApp = () => {
     };
   }, [userAccountId]);
 
-  //return initDataLoaded ? <Outlet /> : <Preloader />;
   if (isLoaded && initDataLoaded) return <Outlet />;
   if (isLoaded) return <Preloader />;
   return null;

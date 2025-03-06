@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { setAccessToken } from "../../utils/auth";
 import config from "../../config";
 import { translate } from "../../utils/translations";
+import { profileActions } from "../Profile/profileSlice";
 
 export const logingGoogle = (loginInfo, navigate, locationPathname) => {
   return async (dispatch) => {
@@ -326,6 +327,9 @@ export const getUser = (navigate) => {
         }
 
         dispatch(loginActions.setUser(user));
+        dispatch(
+          profileActions.setMarketingEmails(user.MyPermissions.AllowToSendPromo)
+        );
         dispatch(layoutActions.setAvailableBonus(user));
         dispatch(layoutActions.setAvailableBonusBalance(user));
       }

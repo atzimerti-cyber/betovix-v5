@@ -745,7 +745,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        // `Site/GetSite?domainName=slotking365.com`,
+        //`Site/GetSite?domainName=betovix.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -944,7 +944,7 @@ export const getSiteSettings = (signal) => {
         document.head.appendChild(rules);
       }
 
-      if (response.data.Contents.Site?.LicenceActive === 'true') {
+      if (response.data.Contents.Site?.LicenceActive === "true") {
         const license = {
           SealId: response.data.Contents.Site.SealId,
           Id: response.data.Contents.Site.Id,
@@ -952,11 +952,13 @@ export const getSiteSettings = (signal) => {
           Init: response.data.Contents.Site.Init,
           Url: response.data.Contents.Site.Url,
           LicenceActive: response.data.Contents.Site.LicenceActive,
-        }
+        };
         dispatch(appActions.setLicence(license));
 
-        if (response.data.Contents.Site?.Url && response.data.Contents.Site?.Url !== "") {
-
+        if (
+          response.data.Contents.Site?.Url &&
+          response.data.Contents.Site?.Url !== ""
+        ) {
           const licence = response.data.Contents.Site;
           const script = document.createElement("script");
           script.type = "text/javascript";
@@ -964,10 +966,8 @@ export const getSiteSettings = (signal) => {
 
           document.head.appendChild(script);
         }
-
       }
 
-      
       // if (response.data.Contents.Site.CustomerCssUrl !== "") {
       //   const customercss = "/customer.css";
       //   const link = document.createElement("link");
