@@ -188,6 +188,9 @@
   }
 }
 
+.Context {
+  overflow: auto;
+}
 .Context table {
   color: var(--white);
   width: 100%;
