@@ -417,7 +417,7 @@ const Topbar = () => {
                 color="transparent"
                 onClick={() => addParamsToUrl("auth", "login")}
               >
-                {translate("LOGIN")}
+                {translate("Login")}
               </MainButton>
               {/* </div>
               <div id="registerButton"> */}
@@ -426,7 +426,7 @@ const Topbar = () => {
                 color="secondary"
                 onClick={() => addParamsToUrl("auth", "register")}
               >
-                {translate("REGISTER")}
+                {translate("Register")}
               </MainButton>
               {/* </div> */}
             </>

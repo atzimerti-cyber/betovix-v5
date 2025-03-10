@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+// import PhoneInput from "react-phone-input-2";
+import PhoneInput from "react-phone-number-input";
+
+import classes from "./Login.module.css";
 
 import MainInput from "../../features/UI/Inputs/MainInput";
 import MainButton from "../../features/UI/Buttons/MainButton";
-import classes from "./Login.module.css";
 import useDebounce from "../../hooks/useDebounce";
 import Autoheight from "../../features/UI/Autoheight/Autoheight";
 import EyeIcon from "../../assets/svgs/eye.svg?react";
@@ -83,12 +86,21 @@ const Register = () => {
     verifyPassword: null,
     code: null,
     country: "AF",
-    idCode: null,
+    idCode: idRequired ? null : "true",
+    firstName: idRequired ? null : "true",
+    lastName: idRequired ? null : "true",
+    birthDate: idRequired ? null : "true",
+    phoneNumber: idRequired ? null : "true",
   });
+
   const debDisplayName = useDebounce(registerInfo.displayName);
   const debEmail = useDebounce(registerInfo.email);
   const debPassword = useDebounce(registerInfo.password);
   const debVerifyPassword = useDebounce(registerInfo.verifyPassword);
+  const debFirstName = useDebounce(registerInfo.firstName);
+  const debLastName = useDebounce(registerInfo.lastName);
+  const debBirthDate = useDebounce(registerInfo.birthDate);
+  const debPhoneNumber = useDebounce(registerInfo.phoneNumber);
   const debIDCode = useDebounce(registerInfo.idCode);
   const debCode = useDebounce(registerInfo.code);
 
@@ -106,6 +118,10 @@ const Register = () => {
     verifyPassword: null,
     code: true,
     idCode: true,
+    firstName: true,
+    lastName: true,
+    birthDate: true,
+    phoneNumber: true,
   });
 
   const [isRegisterDisabled, setIsRegisterDisabled] = useState(true);
@@ -126,6 +142,62 @@ const Register = () => {
       setValidChecks({ ...validChecks, displayName: false });
     else setValidChecks({ ...validChecks, displayName: true });
   }, [debDisplayName]);
+
+  useEffect(() => {
+    if (idRequired && !debFirstName) return;
+
+    if (idRequired) {
+      if (debFirstName.trim().length > 0)
+        setValidChecks({ ...validChecks, firstName: true });
+      else setValidChecks({ ...validChecks, firstName: false });
+    }
+    // else {
+    //   setRegisterInfo({ ...registerInfo, firstName: true });
+    //   setValidChecks({ ...validChecks, firstName: true });
+    // }
+  }, [debFirstName]);
+
+  useEffect(() => {
+    if (idRequired && !debLastName) return;
+
+    if (idRequired) {
+      if (debLastName.trim().length > 0)
+        setValidChecks({ ...validChecks, lastName: true });
+      else setValidChecks({ ...validChecks, lastName: false });
+    }
+    // else {
+    //   setRegisterInfo({ ...registerInfo, lastName: true });
+    //   setValidChecks({ ...validChecks, lastName: true });
+    // }
+  }, [debLastName]);
+
+  useEffect(() => {
+    if (idRequired && !debBirthDate) return;
+
+    if (idRequired) {
+      if (debBirthDate.trim().length > 0)
+        setValidChecks({ ...validChecks, birthDate: true });
+      else setValidChecks({ ...validChecks, birthDate: false });
+    }
+    // else {
+    //   setRegisterInfo({ ...registerInfo, birthDate: true });
+    //   setValidChecks({ ...validChecks, birthDate: true });
+    // }
+  }, [debBirthDate]);
+
+  useEffect(() => {
+    if (idRequired && !debPhoneNumber) return;
+
+    if (idRequired) {
+      if (debPhoneNumber.trim().length > 0)
+        setValidChecks({ ...validChecks, phoneNumber: true });
+      else setValidChecks({ ...validChecks, phoneNumber: false });
+    }
+    // else {
+    //   setRegisterInfo({ ...registerInfo, phoneNumber: true });
+    //   setValidChecks({ ...validChecks, phoneNumber: true });
+    // }
+  }, [debPhoneNumber]);
 
   useEffect(() => {
     if (!debEmail) return;
@@ -150,10 +222,11 @@ const Register = () => {
       } else {
         setValidChecks({ ...validChecks, idCode: false });
       }
-    } else {
-      setRegisterInfo({ ...registerInfo, idCode: true });
-      setValidChecks({ ...validChecks, idCode: true });
     }
+    // else {
+    //   setRegisterInfo({ ...registerInfo, idCode: true });
+    //   setValidChecks({ ...validChecks, idCode: true });
+    // }
   }, [debIDCode]);
 
   useEffect(() => {
@@ -210,11 +283,19 @@ const Register = () => {
       registerInfo.verifyPassword &&
       registerInfo.country &&
       registerInfo.idCode &&
+      registerInfo.firstName &&
+      registerInfo.lastName &&
+      registerInfo.phoneNumber &&
+      registerInfo.birthDate &&
       validChecks.displayName &&
       validChecks.email &&
       validChecks.password.valid &&
       validChecks.verifyPassword &&
       validChecks.idCode &&
+      validChecks.firstName &&
+      validChecks.lastName &&
+      validChecks.phoneNumber &&
+      validChecks.birthDate &&
       isOver18 &&
       isTermsAccepted
     )
@@ -227,11 +308,19 @@ const Register = () => {
     registerInfo.password,
     registerInfo.verifyPassword,
     registerInfo.idCode,
+    registerInfo.firstName,
+    registerInfo.lastName,
+    registerInfo.phoneNumber,
+    registerInfo.birthDate,
     validChecks.displayName,
     validChecks.email,
     validChecks.password.valid,
     validChecks.verifyPassword,
     validChecks.idCode,
+    validChecks.firstName,
+    validChecks.lastName,
+    validChecks.phoneNumber,
+    validChecks.birthDate,
     isOver18,
     isTermsAccepted,
   ]);
@@ -524,7 +613,7 @@ const Register = () => {
                     : classes.Required
                 }
               >
-                ∗
+                *
               </span>
             </label>
             <div className={classes.InputOuter}>
@@ -607,6 +696,98 @@ const Register = () => {
                 <AngleLeftIcon height="10px" width="20px" />
                 {translate("Back")}
               </button>
+            </div>
+
+            <label
+              htmlFor="firstName"
+              style={idRequired ? {} : { display: "none" }}
+            >
+              {translate("First Name")}
+              <span className={classes.Required}>*</span>
+            </label>
+            <div
+              className={classes.InputOuter}
+              style={idRequired ? {} : { display: "none" }}
+            >
+              <MainInput
+                role="textbox"
+                type="text"
+                id="firstName"
+                name="firstName"
+                placeholder={translate("Enter your first name")}
+                value={registerInfo.firstName}
+                onChange={(value) => updateRegisterInfo("firstName", value)}
+                noAutoComplete
+                isInvalid={!validChecks.firstName}
+              />
+            </div>
+
+            <label
+              htmlFor="lastName"
+              style={idRequired ? {} : { display: "none" }}
+            >
+              {translate("Last Name")}
+              <span className={classes.Required}>*</span>
+            </label>
+            <div
+              className={classes.InputOuter}
+              style={idRequired ? {} : { display: "none" }}
+            >
+              <MainInput
+                role="textbox"
+                type="text"
+                id="lastName"
+                name="lastName"
+                placeholder={translate("Enter your first name")}
+                value={registerInfo.lastName}
+                onChange={(value) => updateRegisterInfo("lastName", value)}
+                noAutoComplete
+                isInvalid={!validChecks.lastName}
+              />
+            </div>
+
+            <label
+              htmlFor="birthDate"
+              style={idRequired ? {} : { display: "none" }}
+            >
+              {translate("Date of Birth")}
+              <span className={classes.Required}>*</span>
+            </label>
+            <div
+              className={classes.InputOuter}
+              style={idRequired ? {} : { display: "none" }}
+            >
+              <MainInput
+                type="date"
+                id="birthDate"
+                name="birthDate"
+                value={registerInfo.birthDate}
+                onChange={(value) => updateRegisterInfo("birthDate", value)}
+                noAutoComplete
+                isInvalid={!validChecks.birthDate}
+              />
+            </div>
+
+            <label
+              htmlFor="phoneNumber"
+              style={idRequired ? {} : { display: "none" }}
+            >
+              {translate("Phone Number")}
+              <span className={classes.Required}>*</span>
+            </label>
+            <div
+              className={classes.InputOuter}
+              style={idRequired ? {} : { display: "none" }}
+            >
+              <div className={classes.RegPhoneNum}>
+                <PhoneInput
+                  className={classes.RegPhone}
+                  international
+                  defaultCountry="TR"
+                  value={registerInfo.phoneNumber}
+                  onChange={(value) => updateRegisterInfo("phoneNumber", value)}
+                />
+              </div>
             </div>
 
             <label

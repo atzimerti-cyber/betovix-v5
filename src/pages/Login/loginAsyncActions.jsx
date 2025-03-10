@@ -189,13 +189,24 @@ export const register = (registerInfo, navigate, locationPathname) => {
         response2 = await axiosApi.post(
           `MyAccount/Register/?lang=en&siteid=${config.VITE_SITE_ID}`,
           {
-            TCNumber: registerInfo.idCode === true ? null : registerInfo.idCode,
+            TCNumber:
+              registerInfo.idCode === "true" ? null : registerInfo.idCode,
             Code: registerInfo.code,
             Email: registerInfo.email,
             Password: registerInfo.password,
             Country: registerInfo.country,
             SiteId: config.VITE_SITE_ID,
             Username: registerInfo.displayName,
+            FirstName:
+              registerInfo.firstName === "true" ? null : registerInfo.firstName,
+            LastName:
+              registerInfo.lastName === "true" ? null : registerInfo.lastName,
+            Phone:
+              registerInfo.phoneNumber &&
+              registerInfo.phoneNumber !== "true" &&
+              registerInfo.phoneNumber.replace(/\+/g, ""),
+            BirthDate:
+              registerInfo.birthDate === "true" ? null : registerInfo.birthDate,
           },
           {
             baseURLOverride: config.VITE_WALLET_API_BASE,
