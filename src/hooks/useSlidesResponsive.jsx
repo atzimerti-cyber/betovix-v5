@@ -70,13 +70,13 @@ const useSlidesResponsive = (categ) => {
       }
     } else if (isVeryBigDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        slidesPerView = 5;
+        slidesPerView = 6.2;
         slidesPerGroup = 3;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
-        slidesPerView = 7;
+        slidesPerView = 7.8;
         slidesPerGroup = 4;
       } else {
-        slidesPerView = 7;
+        slidesPerView = 8.8;
         slidesPerGroup = 5;
       }
     } else {
@@ -361,14 +361,14 @@ const useSlidesResponsive = (categ) => {
         slidesPerGroup = 2;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
         if (isRightContainerOpen) {
-          slidesPerView = 4;
+          slidesPerView = 5;
           slidesPerGroup = 2;
         } else {
-          slidesPerView = 3;
+          slidesPerView = 5;
           slidesPerGroup = 2;
         }
       } else {
-        slidesPerView = 4;
+        slidesPerView = 6;
         slidesPerGroup = 2;
       }
     } else if (isBigDesktop) {
@@ -389,14 +389,14 @@ const useSlidesResponsive = (categ) => {
       }
     } else if (isVeryBigDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        slidesPerView = 3;
+        slidesPerView = 5;
         slidesPerGroup = 2;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
         if (isRightContainerOpen) {
-          slidesPerView = 4;
+          slidesPerView = 6;
           slidesPerGroup = 3;
         } else {
-          slidesPerView = 4;
+          slidesPerView = 6;
           slidesPerGroup = 3;
         }
       } else {
