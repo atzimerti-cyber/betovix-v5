@@ -48,8 +48,8 @@ const DropdownLang = (props) => {
         return "Ελληνικά";
       case "it":
         return "Italiano";
-      // case "sa":
-      //   return "عربي";
+      case "bg":
+        return "български";
       case "am":
         return "Amharic";
     }
