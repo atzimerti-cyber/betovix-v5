@@ -745,7 +745,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=betovix.com`,
+        //`Site/GetSite?domainName=slotking111.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -1006,6 +1006,9 @@ export const getSiteSettings = (signal) => {
       dispatch(appActions.setSiteSettings(response.data.Contents["Site"]));
       dispatch(appActions.setAvailableLangs(languages));
       dispatch(appActions.setDefaultLang(defaultLang));
+      dispatch(
+        appActions.setDefaultCountry(response.data.Contents.Site.DefaultCountry)
+      );
       dispatch(
         appActions.setSocialMedia(response.data.Contents["Social Media"])
       );
