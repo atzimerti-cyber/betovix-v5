@@ -345,7 +345,7 @@ const Register = () => {
     password: null,
     verifyPassword: null,
     code: null,
-    country: siteCountry,
+    country: null,
     idCode: idRequired ? null : "true",
     firstName: idRequired ? null : "true",
     lastName: idRequired ? null : "true",
@@ -1083,10 +1083,11 @@ const Register = () => {
                 id="country"
                 name="country"
                 className={classes.InputOuterCountrySelect}
-                value={siteCountry}
-                onChange={(e) =>
-                  setRegisterInfo({ ...registerInfo, country: e.target.value })
-                }
+                value={registerInfo.country}
+                // onChange={(e) =>
+                //   setRegisterInfo({ ...registerInfo, country: e.target.value })
+                // }
+                onChange={(e) => updateRegisterInfo("country", e.target.value)}
               >
                 <option value="AF">Afghanistan</option>
                 <option value="AL">Albania</option>
