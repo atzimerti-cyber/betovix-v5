@@ -310,6 +310,7 @@ const Register = () => {
         (country) => country.name === defaultCountry
       )?.code;
       setSiteCountry(countryCode);
+      setRegisterInfo({ ...registerInfo, ["country"]: countryCode });
     } else {
       setSiteCountry("AF");
     }
@@ -344,7 +345,7 @@ const Register = () => {
     password: null,
     verifyPassword: null,
     code: null,
-    country: "",
+    country: siteCountry,
     idCode: idRequired ? null : "true",
     firstName: idRequired ? null : "true",
     lastName: idRequired ? null : "true",
