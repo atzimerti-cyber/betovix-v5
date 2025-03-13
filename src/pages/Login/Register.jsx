@@ -23,7 +23,7 @@ import { Link } from "react-router-dom";
 import config from "../../config";
 import AlternativeMethods from "./features/AlternativeMethods";
 import AngleLeftIcon from "../../assets/svgs/angle-left.svg?react";
-import { isMoreThan14DaysOld } from "../../utils/custom";
+import { isMoreThan14DaysOld, siteCurrency } from "../../utils/custom";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -51,6 +51,38 @@ const Register = () => {
   const [isOver18, setIsOver18] = useState(false);
   const [siteCountry, setSiteCountry] = useState("");
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+  const [registerInfo, setRegisterInfo] = useState({
+    displayName: null,
+    email: null,
+    password: null,
+    verifyPassword: null,
+    code: null,
+    country: "",
+    idCode: idRequired ? null : "true",
+    firstName: idRequired ? null : "true",
+    lastName: idRequired ? null : "true",
+    birthDate: idRequired ? null : "true",
+    phoneNumber: idRequired ? null : "true",
+  });
+  const [validChecks, setValidChecks] = useState({
+    displayName: true,
+    email: true,
+    password: {
+      valid: true,
+      show: false,
+      minSize: true,
+      numbers: true,
+      special: true,
+      cases: true,
+    },
+    verifyPassword: null,
+    code: true,
+    idCode: true,
+    firstName: true,
+    lastName: true,
+    birthDate: true,
+    phoneNumber: true,
+  });
 
   const countries = [
     { name: "Afghanistan", code: "AF" },
@@ -309,12 +341,20 @@ const Register = () => {
       const countryCode = countries.find(
         (country) => country.name === defaultCountry
       )?.code;
-      setSiteCountry(countryCode);
-      setRegisterInfo({ ...registerInfo, ["country"]: countryCode });
-    } else {
-      setSiteCountry("AF");
+      if (countryCode) {
+        setSiteCountry(countryCode);
+      }
     }
-  }, []);
+  }, [defaultCountry]); // Ensure it runs when `defaultCountry` is available
+
+  useEffect(() => {
+    if (siteCountry) {
+      setRegisterInfo((prevInfo) => ({
+        ...prevInfo,
+        country: siteCountry,
+      }));
+    }
+  }, [siteCountry]); // Ensure registerInfo updates after siteCountry is set
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -339,20 +379,6 @@ const Register = () => {
     }
   }, []);
 
-  const [registerInfo, setRegisterInfo] = useState({
-    displayName: null,
-    email: null,
-    password: null,
-    verifyPassword: null,
-    code: null,
-    country: null,
-    idCode: idRequired ? null : "true",
-    firstName: idRequired ? null : "true",
-    lastName: idRequired ? null : "true",
-    birthDate: idRequired ? null : "true",
-    phoneNumber: idRequired ? null : "true",
-  });
-
   const debDisplayName = useDebounce(registerInfo.displayName);
   const debEmail = useDebounce(registerInfo.email);
   const debPassword = useDebounce(registerInfo.password);
@@ -363,26 +389,6 @@ const Register = () => {
   const debPhoneNumber = useDebounce(registerInfo.phoneNumber);
   const debIDCode = useDebounce(registerInfo.idCode);
   const debCode = useDebounce(registerInfo.code);
-
-  const [validChecks, setValidChecks] = useState({
-    displayName: true,
-    email: true,
-    password: {
-      valid: true,
-      show: false,
-      minSize: true,
-      numbers: true,
-      special: true,
-      cases: true,
-    },
-    verifyPassword: null,
-    code: true,
-    idCode: true,
-    firstName: true,
-    lastName: true,
-    birthDate: true,
-    phoneNumber: true,
-  });
 
   const [isRegisterDisabled, setIsRegisterDisabled] = useState(true);
 
@@ -411,10 +417,6 @@ const Register = () => {
         setValidChecks({ ...validChecks, firstName: true });
       else setValidChecks({ ...validChecks, firstName: false });
     }
-    // else {
-    //   setRegisterInfo({ ...registerInfo, firstName: true });
-    //   setValidChecks({ ...validChecks, firstName: true });
-    // }
   }, [debFirstName]);
 
   useEffect(() => {
@@ -425,10 +427,6 @@ const Register = () => {
         setValidChecks({ ...validChecks, lastName: true });
       else setValidChecks({ ...validChecks, lastName: false });
     }
-    // else {
-    //   setRegisterInfo({ ...registerInfo, lastName: true });
-    //   setValidChecks({ ...validChecks, lastName: true });
-    // }
   }, [debLastName]);
 
   useEffect(() => {
@@ -439,10 +437,6 @@ const Register = () => {
         setValidChecks({ ...validChecks, birthDate: true });
       else setValidChecks({ ...validChecks, birthDate: false });
     }
-    // else {
-    //   setRegisterInfo({ ...registerInfo, birthDate: true });
-    //   setValidChecks({ ...validChecks, birthDate: true });
-    // }
   }, [debBirthDate]);
 
   useEffect(() => {
@@ -472,7 +466,6 @@ const Register = () => {
 
   useEffect(() => {
     if (idRequired && !debIDCode) return;
-
     if (idRequired) {
       const hasNumber = /\d/.test(debIDCode);
       const hasNonSpaceChar = debIDCode.replace(/\s/g, "").length > 0;
@@ -483,10 +476,6 @@ const Register = () => {
         setValidChecks({ ...validChecks, idCode: false });
       }
     }
-    // else {
-    //   setRegisterInfo({ ...registerInfo, idCode: true });
-    //   setValidChecks({ ...validChecks, idCode: true });
-    // }
   }, [debIDCode]);
 
   useEffect(() => {
@@ -562,25 +551,27 @@ const Register = () => {
       setIsRegisterDisabled(false);
     else setIsRegisterDisabled(true);
   }, [
-    registerInfo.displayName,
-    registerInfo.email,
-    registerInfo.country,
-    registerInfo.password,
-    registerInfo.verifyPassword,
-    registerInfo.idCode,
-    registerInfo.firstName,
-    registerInfo.lastName,
-    registerInfo.phoneNumber,
-    registerInfo.birthDate,
-    validChecks.displayName,
-    validChecks.email,
-    validChecks.password.valid,
-    validChecks.verifyPassword,
-    validChecks.idCode,
-    validChecks.firstName,
-    validChecks.lastName,
-    validChecks.phoneNumber,
-    validChecks.birthDate,
+    // registerInfo.displayName,
+    // registerInfo.email,
+    // registerInfo.country,
+    // registerInfo.password,
+    // registerInfo.verifyPassword,
+    // registerInfo.idCode,
+    // registerInfo.firstName,
+    // registerInfo.lastName,
+    // registerInfo.phoneNumber,
+    // registerInfo.birthDate,
+    // validChecks.displayName,
+    // validChecks.email,
+    // validChecks.password.valid,
+    // validChecks.verifyPassword,
+    // validChecks.idCode,
+    // validChecks.firstName,
+    // validChecks.lastName,
+    // validChecks.phoneNumber,
+    // validChecks.birthDate,
+    registerInfo,
+    validChecks,
     isOver18,
     isTermsAccepted,
   ]);

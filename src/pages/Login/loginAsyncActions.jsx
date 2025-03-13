@@ -213,7 +213,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
           }
         );
         if (response2.data.Status.StatusCode !== 200) {
-          toast.error(response2.data.Contents);
+          toast.error(translate(response2.data.Contents));
         } else {
           let toastMessage1 = translate(`Success`);
           let toastMessage2 = translate(
@@ -231,7 +231,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
       dispatch(loginActions.setLoginLoading(false));
     } catch (error) {
       dispatch(loginActions.setLoginLoading(false));
-      toast.error("An error has occurred");
+      toast.error(translate("An error has occurred"));
     }
   };
 };
