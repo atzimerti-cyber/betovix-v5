@@ -57,10 +57,10 @@
   background: var(--brand-green);
   color: rgb(255, 255, 255);
   color: rgb(0, 0, 0);
-  fill: black;
+  fill: var(--text-in-brand);
 }
 .TimeSelectionButton.Active svg path {
-  fill: black;
+  fill: var(--text-in-brand);
 }
 .TimeSelectionButton:hover svg path {
   fill: var(--text-in-brand);

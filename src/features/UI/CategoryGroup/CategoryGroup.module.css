@@ -131,7 +131,7 @@
   40%,
   60% {
     box-shadow: rgba(150, 208, 35, 0.1) 0px 0.25em 1em,
-      rgba(150, 208, 35, 1) 0px 0px 0.5em;
+      var(--brand-green) 0px 0px 0.5em;
   }
 }
 
