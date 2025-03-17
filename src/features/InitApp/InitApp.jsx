@@ -14,8 +14,7 @@ import { storageGetTimezone, storageSetTimezone } from "../../utils/storage";
 
 import { useTimezoneSelect, allTimezones } from "react-timezone-select";
 
-import { appActions } from "./appSlice";
-import { setLang, getLang } from "../../utils/storage";
+import appSlice, { appActions } from "./appSlice";
 import useBasePath from "../../hooks/useBasePath";
 import { sportsHomeActions } from "../../pages/SportsBook/subpages/sportsHomeSlice";
 
@@ -24,6 +23,7 @@ const InitApp = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const pathnameNoParams = useBasePath();
+  const prevPathnameRef = useRef(`${location.pathname}${location.search}`);
 
   const lang = useSelector((state) => state.app.lang);
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
@@ -79,7 +79,7 @@ const InitApp = () => {
     }
   }, []);
 
-  //Lang in url
+  //Lang in url and sports accordion control
   useEffect(() => {
     if (Object.keys(lang).length > 0) {
       const searchParams = new URLSearchParams(location.search);
@@ -91,6 +91,7 @@ const InitApp = () => {
         navigate(newPath, { replace: true });
       }
     }
+
     //Clear out open sports category and tournament
     if (
       !(pathnameNoParams === "/sportsbook" || pathnameNoParams === "/event")
@@ -99,6 +100,31 @@ const InitApp = () => {
       dispatch(sportsHomeActions.setTournamentOpen(null));
     }
   }, [location.pathname, location.search, lang.id, navigate]);
+
+  //previous path state
+  useEffect(() => {
+    const removeLangParam = (url) => {
+      const urlObj = new URL(window.location.origin + url);
+      urlObj.searchParams.delete("lang");
+      return urlObj.pathname + urlObj.search;
+    };
+
+    const previousUrl = prevPathnameRef.current
+      ? removeLangParam(prevPathnameRef.current)
+      : null;
+    const currentUrl = removeLangParam(
+      `${location.pathname}${location.search}`
+    );
+
+    console.log("previousUrl", previousUrl);
+    console.log("currentUrl", currentUrl);
+
+    if (previousUrl !== currentUrl) {
+      dispatch(appActions.setPrevPage(prevPathnameRef.current));
+      prevPathnameRef.current = `${location.pathname}${location.search}`;
+      // prevPathnameRef.current = currentUrl;
+    }
+  }, [location.pathname, location.search]);
 
   //  1.Get site
   useEffect(() => {

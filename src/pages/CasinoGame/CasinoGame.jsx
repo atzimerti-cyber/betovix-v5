@@ -32,9 +32,11 @@ const CasinoGame = (props) => {
   const navigate = useNavigate();
 
   const lang = useSelector((state) => state.app.lang);
+  const prevPage = useSelector((state) => state.app.prevPage);
   const { type, providername, id, brandgameid, name } = useParams();
 
   const gameContentRef = useRef(null);
+  const prevLocation = useRef(null);
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
@@ -242,40 +244,37 @@ const CasinoGame = (props) => {
     }
   };
 
+  // const handleBack = () => {
+  //   //navigate("/casino/lobby");
+  //   let stepsBack = -1;
+  //   const maxSteps = -window.history.length;
+  //   const checkAndNavigate = () => {
+  //     if (stepsBack < maxSteps) {
+  //       console.log("No valid URL found in history");
+  //       navigate("/casino/lobby");
+  //       return;
+  //     }
+
+  //     window.history.go(stepsBack);
+  //     setTimeout(() => {
+  //       const currentURL = window.location.href;
+
+  //       if (!currentURL.includes("modal")) {
+  //         return;
+  //       } else {
+  //         checkAndNavigate();
+  //       }
+  //     }, 100);
+  //   };
+  //   checkAndNavigate();
+  // };
+
   const handleBack = () => {
-    //navigate("/casino/lobby");
-
-    let stepsBack = -1; // Start by going one step back
-    const maxSteps = -window.history.length; // Maximum steps we can go back
-
-    const checkAndNavigate = () => {
-      if (stepsBack < maxSteps) {
-        // If we have reached the beginning of history
-        console.log("No valid URL found in history");
-        navigate("/casino/lobby"); // Fallback to a default route
-        return;
-      }
-
-      // Go back one step in history
-      window.history.go(stepsBack);
-
-      // Check after a short delay to allow history state to update
-      setTimeout(() => {
-        const currentURL = window.location.href;
-
-        if (!currentURL.includes("modal")) {
-          // Found a valid URL, stop here
-
-          return;
-        } else {
-          // Keep going back
-          //stepsBack--;
-          checkAndNavigate();
-        }
-      }, 100);
-    };
-
-    checkAndNavigate();
+    if (prevPage) {
+      navigate(prevPage);
+    } else {
+      navigate("/casino");
+    }
   };
 
   return (
@@ -286,7 +285,7 @@ const CasinoGame = (props) => {
           <div className={classes.CasinoGame}>
             <div className={classes.Header}>
               <div className={classes.LeftSection}>
-                <MainButton color="transparent" onClick={() => handleBack()}>
+                <MainButton color="transparent" onClick={handleBack}>
                   <Arrow2LeftIcon />
                   <span>{translate("Back")}</span>
                 </MainButton>

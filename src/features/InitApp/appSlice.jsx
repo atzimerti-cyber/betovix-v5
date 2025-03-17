@@ -332,6 +332,7 @@ const initialState = {
   defaultLang: null,
   siteCurrency: "",
   siteLicence: "",
+  prevPage: null,
 };
 
 export const appSlice = createSlice({
@@ -428,6 +429,9 @@ export const appSlice = createSlice({
     },
     setLicence: (state, action) => {
       state.siteLicence = action.payload;
+    },
+    setPrevPage: (state, action) => {
+      state.prevPage = action.payload;
     },
   },
 });
