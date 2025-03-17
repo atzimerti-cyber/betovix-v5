@@ -46,7 +46,7 @@ const PaymentForm = (props) => {
 
     const allFieldsValid = props.method.Fields.every((field) => {
       if (!field.Regex || !debouncedFormData[field.Name]) return true; // Skip if no regex or field is empty
-      const regex = eval(field.Regex);
+      const regex = eval(`/${field.Regex}/`);
       return regex.test(debouncedFormData[field.Name]);
     });
 

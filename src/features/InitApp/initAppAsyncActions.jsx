@@ -34,6 +34,7 @@ import {
   heroProgress,
 } from "../../pages/UserGamification.jsx/gamificationAsyncActions";
 import { translate } from "../../utils/translations";
+import ScriptHeadInjector from "../../utils/scriptHeadInjector";
 
 export const loadInitData = (isMobile) => {
   return async (dispatch, getState) => {
@@ -988,6 +989,10 @@ export const getSiteSettings = (signal) => {
         dispatch(loginActions.setIDRequired(true));
       } else {
         dispatch(loginActions.setIDRequired(false));
+      }
+
+      if (response.data.Contents.Site.GoogleTag !== "") {
+        ScriptHeadInjector(response.data.Contents.Site.GoogleTag);
       }
 
       dispatch(

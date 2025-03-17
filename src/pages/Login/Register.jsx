@@ -467,16 +467,21 @@ const Register = () => {
   useEffect(() => {
     if (idRequired && !debIDCode) return;
     if (idRequired) {
-      const hasNumber = /\d/.test(debIDCode);
-      const hasNonSpaceChar = debIDCode.replace(/\s/g, "").length > 0;
+      let validID;
+      if (registerInfo.country === "TR") {
+        validID = /^[1-9]\d{9}[02468]$/.test(debIDCode);
+      } else {
+        validID =
+          /\d/.test(debIDCode) && debIDCode.replace(/\s/g, "").length > 0;
+      }
 
-      if (debIDCode.length > 0 && hasNumber && hasNonSpaceChar) {
+      if (debIDCode.length > 0 && validID) {
         setValidChecks({ ...validChecks, idCode: true });
       } else {
         setValidChecks({ ...validChecks, idCode: false });
       }
     }
-  }, [debIDCode]);
+  }, [debIDCode, registerInfo.country]);
 
   useEffect(() => {
     if (!debPassword) return;
