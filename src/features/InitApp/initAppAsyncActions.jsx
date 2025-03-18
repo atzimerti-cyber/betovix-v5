@@ -748,7 +748,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=slotking111.com`,
+        //`Site/GetSite?domainName=bet500.io`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -882,7 +882,7 @@ export const getSite = (signal) => {
 };
 
 export const getSiteSettings = (signal) => {
-  return async (dispatch) => {
+  return async (dispatch, navigate) => {
     try {
       const response = await axiosApi.get(
         `Site/GetSiteSettings?SiteId=${config.VITE_SITE_ID}`,
@@ -914,6 +914,14 @@ export const getSiteSettings = (signal) => {
       // });
 
       let permissions;
+
+      if (
+        response.data.Contents.Site.LandPage &&
+        response.data.Contents.Site.LandPage !== ""
+      ) {
+        navigate(response.data.Contents.Site.LandPage);
+      }
+
       if (response.data.Contents.Permissions) {
         permissions = response.data.Contents.Permissions;
       } else {
