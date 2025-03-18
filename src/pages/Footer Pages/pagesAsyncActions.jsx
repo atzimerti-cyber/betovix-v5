@@ -3,6 +3,7 @@ import axiosApi from "../../axios-api";
 import { getLang } from "../../utils/storage";
 import { pagesActions } from "./pagesSlice";
 import config from "../../config";
+import { translate } from "../../utils/translations";
 
 export const getPage = (signal, slug) => {
   return async (dispatch) => {
@@ -23,11 +24,10 @@ export const getPage = (signal, slug) => {
       )
         throw Error();
       dispatch(pagesActions.setPage(response.data.Contents));
-
     } catch (error) {
-      if (!error?.code === "ERR_CANCELED") toast.error(error?.message);
+      if (!error?.code === "ERR_CANCELED")
+        toast.error(translate(error?.message));
       dispatch(pagesActions.setPage([]));
-
     }
   };
 };
@@ -52,16 +52,18 @@ export const contactForm = (form) => {
         response?.status === 200 && response?.data?.Status?.StatusCode === 200;
 
       if (!isSuccessful) {
-        throw new Error("Unsuccessful response");
+        throw new Error();
       }
 
       // Show success toast on successful submission
       toast.success(
-        "Form successfully submitted! Please await our response by email."
+        translate(
+          "Form successfully submitted! Please await our response by email."
+        )
       );
     } catch (error) {
       // Show error toast for failures
-      toast.error("Something went wrong. Please try again.");
+      toast.error(translate("Something went wrong. Please try again."));
     }
   };
 };

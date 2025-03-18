@@ -6,6 +6,7 @@ import { casinoActions } from "./casinoSlice";
 import { getLang } from "../../utils/storage";
 import { appActions } from "../../features/InitApp/appSlice";
 import config from "../../config";
+import { translate } from "../../utils/translations";
 
 export const getCasino = (signal) => {
   return async (dispatch) => {
@@ -40,13 +41,13 @@ export const getCasino = (signal) => {
       dispatch(casinoActions.setCasinoBanners(responses[0].data.Contents));
       dispatch(casinoActions.setCasinoVendors(responses[1].data.Contents));
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (error?.code === "ERR_CANCELED") {
-        // Handle request cancellation (e.g., user navigated away)
         console.log("Request was cancelled", message);
       } else if (error?.code === "ECONNABORTED") {
-        // Handle timeout error specifically
-        toast.error("Request timed out, please try again.");
+        toast.error(translate("Request timed out, please try again."));
       } else {
         toast.error(message);
       }
@@ -69,7 +70,7 @@ export const addFavoriteCasino = (gameId) => {
 
       dispatch(casinoActions.addFavorite(gameId));
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(translate(error?.message));
     }
   };
 };
@@ -89,7 +90,7 @@ export const removeFavoriteCasino = (gameId) => {
 
       dispatch(casinoActions.removeFavorite(gameId));
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(translate(error?.message));
     }
   };
 };
@@ -129,8 +130,8 @@ export const getVendorGame = (
         responses.forEach((response) => {
           if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents
-              ? response.data.Contents
-              : "Error Loading Game";
+              ? translate(response.data.Contents)
+              : translate("Error Loading Game");
             toast.error(message);
             throw Error();
           }
@@ -150,8 +151,8 @@ export const getVendorGame = (
         responses.forEach((response) => {
           if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents
-              ? response.data.Contents
-              : "Error Loading Game";
+              ? translate(response.data.Contents)
+              : translate("Error Loading Game");
             toast.error(message);
             throw Error();
           }
@@ -176,8 +177,8 @@ export const getVendorGame = (
         responses.forEach((response) => {
           if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents
-              ? response.data.Contents
-              : "Error Loading Game";
+              ? translate(response.data.Contents)
+              : translate("Error Loading Game");
             toast.error(message);
             throw Error();
           }
@@ -196,8 +197,8 @@ export const getVendorGame = (
         responses.forEach((response) => {
           if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents
-              ? response.data.Contents
-              : "Error Loading Game";
+              ? translate(response.data.Contents)
+              : translate("Error Loading Game");
             toast.error(message);
             throw Error();
           }
@@ -216,8 +217,8 @@ export const getVendorGame = (
         responses.forEach((response) => {
           if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents
-              ? response.data.Contents
-              : "Error Loading Game";
+              ? translate(response.data.Contents)
+              : translate("Error Loading Game");
             toast.error(message);
             throw Error();
           }
@@ -235,8 +236,8 @@ export const getVendorGame = (
         responses.forEach((response) => {
           if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents
-              ? response.data.Contents
-              : "Error Loading Game";
+              ? translate(response.data.Contents)
+              : translate("Error Loading Game");
             toast.error(message);
             throw Error();
           }
@@ -247,7 +248,8 @@ export const getVendorGame = (
       dispatch(casinoActions.setCasinoGame({ game: game, url: gameUrl }));
       dispatch(appActions.setBarLoading(false));
     } catch (error) {
-      if (!error?.code === "ERR_CANCELED") toast.error(error?.message);
+      if (!error?.code === "ERR_CANCELED")
+        toast.error(translate(error?.message));
       dispatch(appActions.setBarLoading(false));
     }
   };
@@ -287,8 +289,8 @@ export const getLiveVendorGame = (
         responses.forEach((response) => {
           if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents
-              ? response.data.Contents
-              : "Error Loading Game";
+              ? translate(response.data.Contents)
+              : translate("Error Loading Game");
             toast.error(message);
             throw Error();
           }
@@ -307,8 +309,8 @@ export const getLiveVendorGame = (
         responses.forEach((response) => {
           if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents
-              ? response.data.Contents
-              : "Error Loading Game";
+              ? translate(response.data.Contents)
+              : translate("Error Loading Game");
             toast.error(message);
             throw Error();
           }
@@ -326,8 +328,8 @@ export const getLiveVendorGame = (
         responses.forEach((response) => {
           if (response.data.Status.StatusCode !== 200) {
             const message = response.data.Contents
-              ? response.data.Contents
-              : "Error Loading Game";
+              ? translate(response.data.Contents)
+              : translate("Error Loading Game");
             toast.error(message);
             throw Error();
           }
@@ -338,7 +340,8 @@ export const getLiveVendorGame = (
       dispatch(casinoActions.setCasinoGame({ game: game, url: gameUrl }));
       dispatch(appActions.setBarLoading(false));
     } catch (error) {
-      if (!error?.code === "ERR_CANCELED") toast.error(error?.message);
+      if (!error?.code === "ERR_CANCELED")
+        toast.error(translate(error?.message));
       dispatch(appActions.setBarLoading(false));
     }
   };
@@ -361,7 +364,9 @@ export const getAllVendors = (signal) => {
       //console.log("Vendors(getAllVendors)", response.data.Contents);
       dispatch(casinoActions.setCasinoVendors(response.data.Contents));
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (!error?.code === "ERR_CANCELED") toast.error(message);
     }
   };
@@ -388,7 +393,9 @@ export const getSlotsVendors = (signal) => {
 
       dispatch(casinoActions.setCasinoVendors(filteredVendors));
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (!error?.code === "ERR_CANCELED") toast.error(message);
     }
   };
@@ -415,7 +422,9 @@ export const getLiveVendors = (signal) => {
 
       dispatch(casinoActions.setCasinoVendors(filteredVendors));
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (!error?.code === "ERR_CANCELED") toast.error(message);
     }
   };
@@ -459,7 +468,9 @@ export const getFavoritesPage = (signal) => {
         })
       );
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (!error?.code === "ERR_CANCELED") toast.error(message);
     }
   };
@@ -488,7 +499,9 @@ export const getGamesWithFilter = (filter, property, signal) => {
       dispatch(casinoActions.setFilteredGames(updatedFilteredGames));
       dispatch(casinoActions.setSearchLoading(false));
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (!error?.code === "ERR_CANCELED") toast.error(message);
       dispatch(casinoActions.setSearchLoading(false));
     }
@@ -526,7 +539,9 @@ export const addToGamesWithFilter = (property, signal) => {
       );
       dispatch(casinoActions.setMoreLoading(false));
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (!error?.code === "ERR_CANCELED") toast.error(message);
       dispatch(casinoActions.setMoreLoading(false));
     }
@@ -619,7 +634,9 @@ export const getCasinoTags = (signal) => {
 
       dispatch(casinoActions.setCasinoTags(response.data.Contents));
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (!error?.code === "ERR_CANCELED") toast.error(message);
     }
   };
@@ -646,7 +663,9 @@ export const getCasinoByTags = (signal, tag, count) => {
         })
       );
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (!error?.code === "ERR_CANCELED") toast.error(message);
     }
   };
@@ -705,7 +724,9 @@ export const searchCasino = (
       dispatch(casinoActions.setSlotGames(allGames));
       dispatch(casinoActions.setSearchLoading(false));
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (!error?.code === "ERR_CANCELED") toast.error(message);
       dispatch(casinoActions.setSearchLoading(false));
     }
@@ -772,7 +793,9 @@ export const loadMoreSearch = (signal, pageItems, tags, searchStr, order) => {
 
       dispatch(casinoActions.setMoreLoading(false));
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (!error?.code === "ERR_CANCELED") toast.error(message);
       dispatch(casinoActions.setMoreLoading(false));
     }

@@ -4,6 +4,7 @@ import { getLang } from "../../utils/storage";
 import axiosApi from "../../axios-api";
 import { cryptoActions } from "./cryptoSlice";
 import config from "../../config";
+import { translate } from "../../utils/translations";
 
 export const getWallet = (signal) => {
   return async (dispatch) => {
@@ -20,13 +21,13 @@ export const getWallet = (signal) => {
       );
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
-        throw Error("Failed to fetch crypto");
+        throw Error(translate("Failed to fetch crypto"));
 
       const crypto = response.data.Contents;
       dispatch(cryptoActions.setCrypto(crypto));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -46,7 +47,7 @@ export const GetPaymentMethods = (signal, type) => {
       );
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
-        throw Error("Failed to fetch crypto");
+        throw Error(translate("Failed to fetch crypto"));
 
       const types = response.data.Contents;
       if (type === 1) {
@@ -58,7 +59,7 @@ export const GetPaymentMethods = (signal, type) => {
     } catch (error) {
       dispatch(cryptoActions.setPaymentsLoading(false));
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -74,13 +75,13 @@ export const getCrypto = (signal) => {
       });
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
-        throw Error("Failed to fetch crypto");
+        throw Error(translate("Failed to fetch crypto"));
 
       const crypto = response.data.Contents;
       dispatch(cryptoActions.setCryptoSwiper(crypto));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -105,7 +106,7 @@ export const getDepositAddress = (signal, provider, network) => {
       );
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
-        throw Error("Failed to fetch Deposit Address");
+        throw Error(translate("Failed to fetch Deposit Address"));
 
       const depositAddress = response.data.Contents.WalletAddress;
       const qrImage = response.data.Contents.QrCodeImage;
@@ -114,7 +115,7 @@ export const getDepositAddress = (signal, provider, network) => {
       dispatch(cryptoActions.setQRCodeImage(qrImage));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -159,7 +160,7 @@ export const submitDepositForm = (signal, depositDTO) => {
     } catch (error) {
       dispatch(cryptoActions.setButtonLoading(false));
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -186,7 +187,7 @@ export const submitWithdrawForm = (signal, withrawDTO) => {
       dispatch(cryptoActions.setWithdrawRequestMessage(response.data.Contents));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -210,7 +211,7 @@ export const getWithrawalReqs = (signal, page, count, sort, status) => {
       );
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
-        throw Error("Failed");
+        throw Error();
 
       let withdrawReqs = response.data.Contents.Rows.map((req) => ({
         reqId: req.Data.Id,
@@ -232,7 +233,7 @@ export const getWithrawalReqs = (signal, page, count, sort, status) => {
       dispatch(cryptoActions.setWithdrawals(result));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -256,15 +257,15 @@ export const cancelWithdrawRequest = (signal, id, onSuccess) => {
       );
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
-        throw Error("Failed");
+        throw Error();
 
       if (response.data.Contents === true) {
-        toast.success("Withdraw Request Cancelled");
+        toast.success(translate("Withdraw Request Cancelled"));
         if (onSuccess) onSuccess();
-      } else throw Error("Failed");
+      } else throw Error();
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };

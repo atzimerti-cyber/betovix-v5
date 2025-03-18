@@ -613,7 +613,7 @@ export const loadInitData = (isMobile) => {
         dispatch(appActions.setInitDataLoaded(true));
       }, 2000);
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(translate(error?.message));
       dispatch(loginActions.logout()); //////////////////////////////////////////////////////
       dispatch(appActions.setInitDataLoaded(true));
     }
@@ -673,7 +673,9 @@ export const fetchChildDetails = (accountId) => {
         throw new Error("Failed to fetch child accounts");
       }
     } catch (error) {
-      toast.error(error.message || translate("Error fetching child details"));
+      toast.error(
+        translate(error.message) || translate("Error fetching child details")
+      );
     }
   };
 };
@@ -1049,7 +1051,7 @@ export const getUserNotifications = () => {
       dispatch(layoutActions.setNotifications(notifications));
     } catch (error) {
       toast.error(
-        error?.message ||
+        translate(error?.message) ||
           translate("An error occurred while fetching notifications.")
       );
     }
@@ -1095,7 +1097,8 @@ export const tawktoChat = () => {
       );
     } catch (error) {
       toast.error(
-        error?.message || "An error occurred while fetching site settings"
+        translate(error?.message) ||
+          "An error occurred while fetching site settings"
       );
     }
   };

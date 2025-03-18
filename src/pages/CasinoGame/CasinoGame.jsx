@@ -233,12 +233,12 @@ const CasinoGame = (props) => {
       if (isFav) {
         dispatch(removeCasinoFav(id)).then(() => {
           setIsFav(false);
-          toast.success("Removed from favorites.");
+          toast.success(translate("Removed from favorites") + ".");
         });
       } else {
         dispatch(addCasinoFav(id)).then(() => {
           setIsFav(true);
-          toast.success("Added to favorites.");
+          toast.success(translate("Added to favorites") + ".");
         });
       }
     }
@@ -297,7 +297,7 @@ const CasinoGame = (props) => {
                     if (user) {
                       onToggleFavorite(id);
                     } else {
-                      toast.warning("Login to access this feature");
+                      toast.warning(translate("Login to access this feature"));
                     }
                   }}
                 >

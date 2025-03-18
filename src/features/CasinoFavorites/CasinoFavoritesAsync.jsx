@@ -65,7 +65,6 @@ export const addCasinoFav = (gameId) => {
         translate(`${error.message}`) ||
         translate("An unexpected error occurred");
       toast.error(errorMessage);
-      console.error("Error in addCasinoFav:", errorMessage);
     }
   };
 };

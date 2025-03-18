@@ -85,7 +85,7 @@ const LiveGames = () => {
         searchString={searchString}
         onChangeSearch={(value) => setSearchString(value)}
         onChangeProviders={(value) => setSelectedProviders(value)}
-        placeholder={`${translate("Search for live casino")}...`}
+        placeholder={`${translate("Search in live casino")}...`}
       />
 
       {searchLoading ? (

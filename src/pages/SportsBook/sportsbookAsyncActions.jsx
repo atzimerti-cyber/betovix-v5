@@ -10,6 +10,7 @@ import { getLang } from "../../utils/storage";
 import NoImageIcon from "../../assets/svgs/no-image.svg?react";
 import { childsNotExist } from "../../utils/custom";
 import config from "../../config";
+import { translate } from "../../utils/translations";
 
 export const initSportsbook = (signal) => {
   return async (dispatch) => {
@@ -51,7 +52,7 @@ export const initSportsbook = (signal) => {
       dispatch(sportsbookActions.setSportBanners(sportsBanners));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -105,7 +106,7 @@ export const getPregameData = (sportIcons, signal, isOutrights = false) => {
       dispatch(sportsbookActions.setSports(sortedSports));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -197,7 +198,7 @@ export const getTournamentEvents = (tournamentId, ids, slice, signal) => {
         })
       );
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -239,7 +240,7 @@ export const getSportMarketTree = (sportId, signal) => {
       }
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -270,7 +271,7 @@ export const getTournament = (sportId, categoryId, tournamentId, signal) => {
       dispatch(sportsbookActions.setSelectedTournament(tournament));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -293,7 +294,7 @@ export const getLiveStreams = (signal) => {
       dispatch(sportsbookActions.setLiveStreams(response.data));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -342,7 +343,7 @@ export const getCustomDateEvents = (signal, payload) => {
     } catch (error) {
       dispatch(sportsbookActions.setLoading(false));
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };

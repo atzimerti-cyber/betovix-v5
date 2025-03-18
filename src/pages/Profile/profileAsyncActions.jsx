@@ -28,7 +28,7 @@ export const getOverview = (signal) => {
       dispatch(profileActions.setTopGames(response.data.Contents));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -47,7 +47,9 @@ export const subscribeToEmails = (signal, state) => {
       );
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
-        throw new Error("Something went wrong. Please try again later");
+        throw new Error(
+          translate("Something went wrong. Please try again later")
+        );
       }
 
       if (state === true) {
@@ -57,7 +59,7 @@ export const subscribeToEmails = (signal, state) => {
       }
     } catch (error) {
       const message = translate("Error occurred");
-      toast.error(message);
+      toast.error(translate(message));
     }
   };
 };
@@ -80,7 +82,7 @@ export const getHeroes = (signal) => {
       dispatch(profileActions.setHeroes(heroes));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -109,7 +111,7 @@ export const getLevels = (signal) => {
       dispatch(profileActions.setHeroes(levels));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -136,8 +138,8 @@ export const changePassword = (signal, payload) => {
         throw Error("Failed to change password");
     } catch (error) {
       const message = error?.message ? error.message : error;
-      toast.error(message);
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      toast.error(translate(message));
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -167,14 +169,13 @@ export const changeUsername = (signal, oldUsername, newUsername, password) => {
         throw new Error(response.data.Status.Message || response.data.Contents);
       }
 
-      toast(response.data.Contents);
       return { success: true, data: response.data };
     } catch (error) {
       const message =
         error?.response?.data?.Status?.Message ||
         error?.message ||
         "Error occurred";
-      return { success: false, error: message };
+      return { success: false, error: translate(message) };
     }
   };
 };
@@ -238,14 +239,14 @@ export const submitPersonalInfo = (personalInfo, signal) => {
       }
 
       dispatch(getLevelsVerified(signal));
-      toast.success("Verification Request Successful");
+      toast.success(translate("Verification Request Successful"));
       return { success: true }; // Return success if needed
     } catch (error) {
       const message =
         error?.response?.data?.Status?.Message ||
         error?.message ||
         "Error occurred";
-      return { success: false, error: message };
+      return { success: false, error: translate(message) };
     }
   };
 };
@@ -273,7 +274,7 @@ export const uploadKYCFile = (file, level, signal) => {
       }
 
       dispatch(getLevelsVerified(signal));
-      toast.success("Upload Successful");
+      toast.success(translate("Upload Successful"));
       dispatch(profileActions.setDisableVerifyButton(false));
       return { success: true };
     } catch (error) {
@@ -282,7 +283,7 @@ export const uploadKYCFile = (file, level, signal) => {
         error?.response?.data?.Status?.Message ||
         error?.message ||
         "Error occurred";
-      toast.error(message + ".");
+      toast.error(translate(message) + ".");
       return { success: false, error: message };
     }
   };

@@ -208,7 +208,9 @@ const SwiperWithOverlay = (props) => {
                                       onToggleFavorite(item);
                                     } else {
                                       toast.warning(
-                                        "Login to access this feature"
+                                        translate(
+                                          "Login to access this feature"
+                                        )
                                       );
                                     }
                                   }}

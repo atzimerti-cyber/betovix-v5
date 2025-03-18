@@ -28,7 +28,7 @@ const CasinoGameCard = (props) => {
 
   const onToggleFavorite = () => {
     if (!user) {
-      toast.warning("Login to access this feature");
+      toast.warning(translate("Login to access this feature"));
       return;
     }
 

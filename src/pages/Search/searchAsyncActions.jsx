@@ -3,6 +3,7 @@ import axiosApi from "../../axios-api";
 import { getLang } from "../../utils/storage";
 import { searchActions } from "./searchSlice";
 import config from "../../config";
+import { translate } from "../../utils/translations";
 
 ////////////////////////////         SEARCH SPORTS EVENTS       ///////////////////////////////////////////////////////
 
@@ -35,7 +36,7 @@ export const getEventSearch = (signal, providerId, value) => {
     } catch (error) {
       const message = error?.message ? error.message : error.toString();
       if (error?.code !== "ERR_CANCELED") {
-        toast.error(message);
+        toast.error(translate(message));
       }
       dispatch(searchActions.setLoading(false));
     }
@@ -104,7 +105,7 @@ export const searchCasino = (
       dispatch(searchActions.setLoading(false));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
       dispatch(searchActions.setLoading(false));
     }
   };
@@ -164,7 +165,7 @@ export const loadMoreSearch = (signal, pageItems, tags, searchStr, order) => {
       dispatch(searchActions.setMoreLoading(false));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
       dispatch(searchActions.setMoreLoading(false));
     }
   };

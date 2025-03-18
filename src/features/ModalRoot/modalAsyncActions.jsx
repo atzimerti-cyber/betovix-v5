@@ -24,12 +24,12 @@ export const getBonuses = (signal, status) => {
       );
 
       if (response.data.Status.StatusCode !== 200)
-        throw new Error("Failed to fetch bonuses");
+        throw new Error(translate("Failed to fetch bonuses"));
       dispatch(modalActions.setBonuses(response.data.Contents));
       dispatch(modalActions.setLoading(false));
     } catch (error) {
       let toastMessage = translate(`${error?.message}`);
-      const message = toastMessage || "Error fetching bonuses";
+      const message = toastMessage || translate("Error fetching bonuses");
       if (error?.code !== "ERR_CANCELED") {
         toast.error(message);
       }
@@ -55,13 +55,13 @@ export const getTransactionList = (signal, filter) => {
       );
 
       if (response.data.Status.StatusCode !== 200)
-        throw new Error("Failed to fetch transactions");
+        throw new Error(translate("Failed to fetch transactions"));
 
       dispatch(modalActions.setTransactions(response.data.Contents));
       dispatch(modalActions.setLoading(false));
     } catch (error) {
       let toastMessage = translate(`${error?.message}`);
-      const message = toastMessage || "Error fetching transactions";
+      const message = toastMessage || translate("Error fetching transactions");
       if (error?.code !== "ERR_CANCELED") {
         toast.error(message);
       }
@@ -85,7 +85,7 @@ export const claimBonus = (signal, bonusId, callback) => {
       );
 
       if (response.data.Status.StatusCode !== 200)
-        throw new Error("Failed to claim bonus");
+        throw new Error(translate("Failed to claim bonus"));
       dispatch(modalActions.setLoading(false));
 
       let toastMessage = translate("Bonus claimed successfully!");
@@ -116,7 +116,7 @@ export const cancelBonus = (signal, bonusId) => {
       );
 
       if (response.data.Status.StatusCode !== 200)
-        throw new Error("Failed to cancel bonus");
+        throw new Error(translate("Failed to cancel bonus"));
       dispatch(modalActions.setLoading(false));
 
       let toastMessage = translate("Bonus cancelled successfully!");
@@ -148,11 +148,11 @@ export const getTicket = (signal, id) => {
       );
 
       if (response.data.Status.StatusCode !== 200)
-        throw new Error("Failed to fetch ticket");
+        throw new Error(translate("Failed to fetch ticket"));
       dispatch(modalActions.setTicket(response.data.Contents));
       dispatch(modalActions.setLoading(false));
     } catch (error) {
-      const message = error?.message || "Error fetching ticket";
+      const message = error?.message || translate("Error fetching ticket");
       if (error?.code !== "ERR_CANCELED") toast.error(message);
       dispatch(modalActions.setLoading(false));
     }
@@ -173,11 +173,13 @@ export const getPromoPageById = (signal, id) => {
       );
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
-        throw Error(response.data.Contents);
+        throw Error(translate(response.data.Contents));
 
       dispatch(modalActions.setPromoPage(response.data.Contents));
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (!error?.code === "ERR_CANCELED") toast.error(message);
     }
   };
@@ -201,7 +203,9 @@ export const getPromoPageBySlug = (signal, slug) => {
 
       dispatch(modalActions.setPromoPage(response.data.Contents));
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
       if (!error?.code === "ERR_CANCELED") toast.error(message);
     }
   };

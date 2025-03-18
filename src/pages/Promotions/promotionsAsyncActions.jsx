@@ -4,6 +4,8 @@ import { getLang } from "../../utils/storage";
 import axiosApi from "../../axios-api";
 import config from "../../config";
 import { promotionsActions } from "./promotionsSlice";
+import { trackEventsActions } from "../TrackEvents/TrackEventsSlice";
+import { translate } from "../../utils/translations";
 
 export const getPromotion = (signal) => {
   return async (dispatch, getState) => {
@@ -35,7 +37,7 @@ export const getPromotion = (signal) => {
       dispatch(promotionsActions.setPromotions(promotions));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -91,7 +93,7 @@ export const getSiteLinks = (signal, category) => {
       // dispatch(promotionsActions.setSiteLinks(updatedLinks));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };

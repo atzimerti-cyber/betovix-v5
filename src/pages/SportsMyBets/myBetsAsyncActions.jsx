@@ -4,6 +4,7 @@ import axiosApi from "../../axios-api";
 import { myBetsActions } from "./myBetsSlice";
 import { getLang } from "../../utils/storage";
 import config from "../../config";
+import { translate } from "../../utils/translations";
 
 export const getTicketCashouts = (type, page, signal, isActive) => {
   return async (dispatch) => {
@@ -37,7 +38,7 @@ export const getTicketCashouts = (type, page, signal, isActive) => {
       if (isActive) dispatch(getTicketCashoutsUpdates(page, signal));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -67,7 +68,7 @@ export const getTicketCashoutsUpdates = (page, signal) => {
       dispatch(myBetsActions.setTicketCashouts(response.data.Contents));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -104,11 +105,16 @@ export const cashout = (ticketId, cashoutAmount, signal) => {
         response.data.Contents.info &&
         response.data.Contents.info.BreakReason
       ) {
-        toast.error(response.data.Contents.info.BreakReason + ". Try again!");
+        toast.error(
+          translate(response.data.Contents.info.BreakReason) +
+            "." +
+            translate("Try again") +
+            "!"
+        );
         dispatch(getTicketCashoutsUpdates(1, 1, 1, signal));
         dispatch(myBetsActions.deleteCashedOutResult(ticketId));
       } else {
-        toast.success("Cashout successful!");
+        toast.success(translate("Cashout successful!"));
         dispatch(
           myBetsActions.updateCashedOutResult({
             ticketId: ticketId,
@@ -118,7 +124,7 @@ export const cashout = (ticketId, cashoutAmount, signal) => {
       }
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
       dispatch(myBetsActions.deleteCashedOutResult(ticketId));
     }
   };

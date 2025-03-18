@@ -38,7 +38,7 @@ const Layout = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
- //const tawkToRef = useRef(null);
+  //const tawkToRef = useRef(null);
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
@@ -163,12 +163,11 @@ const Layout = () => {
 
   return (
     <div id="layout" className={layoutClasses.join(" ")}>
-      {support && support['Embeded Script'] &&
+      {support && support["Embeded Script"] && (
         <div className={classes.TawkTo}>
-          <ScriptInjector scriptStrings={[support['Embeded Script']]} />
+          <ScriptInjector scriptStrings={[support["Embeded Script"]]} />
         </div>
-        
-      } 
+      )}
       {/* <div ref={tawkToRef} className={classes.TawkTo}>
         <ScriptInjector scriptStrings={[tawktoScript]} targetRef={tawkToRef} />
       </div> */}
@@ -330,14 +329,14 @@ const Layout = () => {
           >
             <ChatIcon />
           </div> */}
-          {support && support.Source &&
+          {support && support.Source && (
             <div
               className={classes.IconButton}
               onClick={() => navigate("/support")}
             >
               <SupportIcon />
             </div>
-          }
+          )}
         </div>
       )}
 

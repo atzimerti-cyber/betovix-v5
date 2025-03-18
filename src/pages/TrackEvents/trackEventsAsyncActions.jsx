@@ -4,6 +4,7 @@ import { getLang } from "../../utils/storage";
 import { trackEventsActions } from "./TrackEventsSlice";
 import config from "../../config";
 import { useSelector } from "react-redux";
+import { translate } from "../../utils/translations";
 
 export const getTrackEvent = (signal, gameid, gamename) => {
   return async (dispatch) => {
@@ -26,7 +27,7 @@ export const getTrackEvent = (signal, gameid, gamename) => {
     } catch (error) {
       const message = error?.message ? error.message : error.toString();
       if (error?.code !== "ERR_CANCELED") {
-        toast.error(message);
+        toast.error(translate(message));
       }
     }
   };

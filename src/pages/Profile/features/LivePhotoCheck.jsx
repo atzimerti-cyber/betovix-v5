@@ -116,19 +116,27 @@ const LivePhotoCheck = (props) => {
       } else {
         if (!props.idFiles.frontSide) {
           toast.error(
-            "Please ensure that you upload SIDE 1 of your identification document"
+            translate(
+              "Please ensure that you upload SIDE 1 of your identification document"
+            )
           );
         } else if (!props.idFiles.backSide) {
           toast.error(
-            "Please ensure that you upload SIDE 2 of your identification document"
+            translate(
+              "Please ensure that you upload SIDE 2 of your identification document"
+            )
           );
         } else if (!imageSrc) {
           toast.error(
-            "Something went wrong with your live photo, please try again"
+            translate(
+              "Something went wrong with your live photo, please try again"
+            )
           );
         } else {
           toast.error(
-            "Submission unsuccessful. Please verify that all required files have been uploaded correctly"
+            translate(
+              "Submission unsuccessful. Please verify that all required files have been uploaded correctly"
+            )
           );
         }
       }

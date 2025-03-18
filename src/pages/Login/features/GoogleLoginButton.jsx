@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { logingGoogle } from "../loginAsyncActions";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { translate } from "../../../utils/translations";
 
 const GoogleLoginButton = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ const GoogleLoginButton = () => {
   };
 
   const onFailure = () => {
-    toast.error("Login Failed");
+    toast.error(translate("Login Failed"));
   };
 
   return (

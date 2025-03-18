@@ -11,6 +11,7 @@ import {
   childsNotExist,
 } from "../../utils/custom";
 import config from "../../config";
+import { translate } from "../../utils/translations";
 
 export const getEvent = (sportId, eventId, signal) => {
   return async (dispatch, getState) => {
@@ -112,7 +113,7 @@ export const getEvent = (sportId, eventId, signal) => {
       dispatch(appActions.setBarLoading(false));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
       dispatch(appActions.setBarLoading(false));
     }
   };
@@ -280,7 +281,7 @@ export const getBreadcrumbData = (
       }
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -315,7 +316,7 @@ export const getTournamentEvents = (
       dispatch(eventActions.setTournamentevents(response.data.Contents.Events));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };
@@ -364,7 +365,7 @@ export const getOutrightEvents = (
       }
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };

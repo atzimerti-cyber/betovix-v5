@@ -76,7 +76,7 @@ const AmountArea = memo(function (props) {
         const finalMaxBet = maxBet.maxbet < 0 ? 0 : maxBet.maxbet;
         thisAmount = finalMaxBet;
         toast.error(
-          translate(`Maximum stake for you at the moment is ${finalMaxBet}`)
+          translate(`Maximum stake for you at the moment is`) + `${finalMaxBet}`
         );
       }
       if (thisAmount === ".00") thisAmount = "0.00";

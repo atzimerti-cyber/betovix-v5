@@ -42,7 +42,7 @@ const MultiSelect = (props) => {
     if (selectedOptions.includes(option.label)) {
       so = selectedOptions.filter((o) => o !== option.label);
     } else if (props.max && selectedOptions.length > props.max - 1) {
-      if (props.maxMessage) toast.warning(props.maxMessage);
+      if (props.maxMessage) toast.warning(translate(props.maxMessage));
 
       return;
     } else {

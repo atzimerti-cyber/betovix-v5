@@ -13,7 +13,6 @@ import { profileActions } from "../Profile/profileSlice";
 
 export const logingGoogle = (loginInfo, navigate, locationPathname) => {
   return async (dispatch) => {
-    console.log(" dispatch(loginActions.setLoginLoading(true));");
     dispatch(loginActions.setLoginLoading(true));
 
     try {
@@ -53,7 +52,7 @@ export const logingGoogle = (loginInfo, navigate, locationPathname) => {
       dispatch(loginActions.setLoginLoading(false));
       navigate(locationPathname, { replace: true });
     } catch (error) {
-      toast.error(error?.message);
+      toast.error(translate(error?.message));
       dispatch(loginActions.setLoginLoading(false));
     }
   };
@@ -74,7 +73,6 @@ export const login = (loginInfo, navigate, locationPathname) => {
       if (response.data.Status.StatusCode !== 200) {
         if (response.data.Status.StatusCode === 409) {
           let toastMessage = translate("Your account needs to be verified.");
-          // toast.error(toastMessage);
           dispatch(loginActions.setMailToVerify(response.data.Contents?.Item3));
           navigate(`${locationPathname}?modal=verify`, {
             replace: false,
@@ -128,7 +126,7 @@ export const login = (loginInfo, navigate, locationPathname) => {
       navigate(locationPathname, { replace: true });
     } catch (error) {
       const message = error?.message || "Invalid Login";
-      toast.error(message);
+      toast.error(translate(message));
       dispatch(loginActions.setLoginLoading(false));
     }
   };
@@ -146,7 +144,7 @@ export const verifyTfa = (signal, code, token, navigate, locationPathname) => {
         }
       );
       if (response.data.Status.StatusCode === 200) {
-        toast.success("Account verified successfully");
+        toast.success(translate("Account verified successfully"));
         setAccessToken(response.data.Contents.Token);
 
         const response2 = await axiosApi.get(
@@ -161,10 +159,10 @@ export const verifyTfa = (signal, code, token, navigate, locationPathname) => {
         dispatch(loginActions.setUser(response2.data.Contents));
         navigate(locationPathname, { replace: true });
       } else {
-        toast.error(response.data.Contents);
+        toast.error(translate(response.data.Contents));
       }
     } catch (error) {
-      toast.error("An error has occurred!");
+      toast.error(translate("An error has occurred!"));
     }
   };
 };
@@ -183,7 +181,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
       );
 
       if (response1.data.Contents == true) {
-        toast.error("Username already exists.");
+        toast.error(translate("Username already exists."));
         dispatch(loginActions.setLoginLoading(false));
       } else if (response1.data.Contents == false) {
         response2 = await axiosApi.post(
@@ -246,7 +244,7 @@ export const verify = (code, navigate) => {
         }
       );
       if (response.data.Status.StatusCode === 200) {
-        toast.success(response.data.Contents);
+        toast.success(translate(response.data.Contents));
         setAccessToken(response.data.Contents.Token);
 
         const response2 = await axiosApi.get(
@@ -265,12 +263,12 @@ export const verify = (code, navigate) => {
         dispatch(loginActions.setUser(user));
         navigate(`/`, { replace: true });
       } else {
-        toast.error(response.data.Contents);
+        toast.error(translate(response.data.Contents));
         navigate(``, { replace: true });
         dispatch(loginActions.setLoginLoading(false));
       }
     } catch (error) {
-      toast.error("An error has occurred");
+      toast.error(translate("An error has occurred"));
     }
   };
 };
@@ -285,7 +283,7 @@ export const affiliateCampaigns = (code) => {
         }
       );
     } catch (error) {
-      toast.error("An error has occurred");
+      toast.error(translate("An error has occurred"));
     }
   };
 };
@@ -346,7 +344,6 @@ export const getUser = (navigate) => {
       }
     } catch (error) {
       null;
-      //toast.error(error?.message);
     }
   };
 };
@@ -367,14 +364,14 @@ export const sentRecoveryUsername = (username) => {
       }, 1000);
 
       if (response.data.Status.StatusCode === 200) {
-        toast.success(response.data.Contents);
+        toast.success(translate(response.data.Contents));
         dispatch(loginActions.setUsernameSentCorrectly(true));
       } else {
-        toast.error("Please ensure your username is correct");
+        toast.error(translate("Please ensure your username is correct"));
         dispatch(loginActions.setUsernameSentCorrectly(false));
       }
     } catch (error) {
-      toast.error("An error has occurred");
+      toast.error(translate("An error has occurred"));
       dispatch(loginActions.setUsernameSentCorrectly(false));
       dispatch(loginActions.setUpdateLoading(false));
     }
@@ -398,14 +395,14 @@ export const verifyCode = (code) => {
       }, 1000);
 
       if (response.data.Status.StatusCode === 200) {
-        toast.success("Verification Successful!");
+        toast.success(translate("Verification Successful!"));
         dispatch(loginActions.setRecoverAccountId(response.data.Contents));
       } else {
-        toast.error("Invalid Code");
+        toast.error(translate("Invalid Code"));
         dispatch(loginActions.setRecoverAccountId(null));
       }
     } catch (error) {
-      toast.error("An error has occurred");
+      toast.error(translate("An error has occurred"));
       dispatch(loginActions.setRecoverAccountId(null));
       dispatch(loginActions.setUpdateLoading(false));
     }
@@ -433,7 +430,7 @@ export const updatePassword = (info, id, navigate, locationPathname) => {
       }, 1000);
 
       if (response.data.Status.StatusCode !== 200) {
-        toast.error(response.data.Contents);
+        toast.error(translate(response.data.Contents));
       } else {
         let toastMessage1 = translate(`Update Successful!`);
         toast.success(`${toastMessage1}.`);
