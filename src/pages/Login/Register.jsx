@@ -994,7 +994,7 @@ const Register = () => {
                 type="text"
                 id="lastName"
                 name="lastName"
-                placeholder={translate("Enter your first name")}
+                placeholder={translate("Enter your last name")}
                 value={registerInfo.lastName}
                 onChange={(value) => updateRegisterInfo("lastName", value)}
                 noAutoComplete
