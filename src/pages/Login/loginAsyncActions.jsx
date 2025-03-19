@@ -181,7 +181,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
       );
 
       if (response1.data.Contents == true) {
-        toast.error(translate("Username already exists."));
+        toast.error(translate("Username already exists") + ".");
         dispatch(loginActions.setLoginLoading(false));
       } else if (response1.data.Contents == false) {
         response2 = await axiosApi.post(
@@ -395,7 +395,7 @@ export const verifyCode = (code) => {
       }, 1000);
 
       if (response.data.Status.StatusCode === 200) {
-        toast.success(translate("Verification Successful!"));
+        toast.success(translate("Verification Successful") + "!");
         dispatch(loginActions.setRecoverAccountId(response.data.Contents));
       } else {
         toast.error(translate("Invalid Code"));

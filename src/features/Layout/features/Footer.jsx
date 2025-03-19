@@ -16,6 +16,7 @@ const Footer = () => {
   const navigate = useNavigate();
   const lang = useSelector((state) => state.app.lang);
   const footer = useSelector((state) => state.layout.footer);
+  const seoPage = useSelector((state) => state.app.seoHTMLPage);
   const siteSettings = useSelector((state) => state.app.siteSettings);
   const licence = useSelector((state) => state.app.siteLicence);
   const currentDomain = window.location.hostname;
@@ -41,11 +42,19 @@ const Footer = () => {
 
   useEffect(() => {
     if (isFooterAllowed && licence && licence !== "" && window[licence.Init]) {
-        window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init(); 
+      window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init();
     }
-}, [licence]);
+  }, [licence]);
 
   const logoURL = config.VITE_SITE_LOGO ? config.VITE_SITE_LOGO : null;
+
+  const seoPagePath = (lang) => {
+    if (lang.id) {
+      return `/aboutus-${lang.id}.html`;
+    } else {
+      return `/aboutus-en.html`;
+    }
+  };
 
   return (
     <div className={classes.Footer} id="footer">
@@ -79,24 +88,22 @@ const Footer = () => {
               </div>
             ))}
 
-          {licence && licence !== "" &&
+          {licence && licence !== "" && (
             <div className={classes.LinksLayout}>
               <h2>{translate("License")}</h2>
               <div className={classes.License}>
-                {licence.Name === 'Anjouan' && 
+                {licence.Name === "Anjouan" && (
                   <div
                     id={licence.Id}
                     data-anj-seal-id={licence.SealId}
                     data-anj-image-size="60"
                     data-anj-image-type="basic-small"
                   ></div>
-                }
-                
+                )}
               </div>
               <Plus18Icon className={classes.PlusEighteen} />
             </div>
-          }
-
+          )}
         </div>
       )}
 
@@ -143,6 +150,18 @@ const Footer = () => {
       </div> */}
 
       <SocialMedia />
+
+      {seoPage && (
+        <div className={classes.Section}>
+          <div
+            onClick={() => {
+              window.location.href = `${seoPagePath(lang)}`;
+            }}
+          >
+            <span className={classes.Title}>{translate("About Us")}</span>
+          </div>
+        </div>
+      )}
 
       <div className={classes.CurrenciesContainer}>
         <div className={classes.CurrencyItem}>

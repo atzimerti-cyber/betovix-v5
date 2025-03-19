@@ -333,6 +333,7 @@ const initialState = {
   siteCurrency: "",
   siteLicence: "",
   prevPage: null,
+  seoHTMLPage: false,
 };
 
 export const appSlice = createSlice({
@@ -432,6 +433,9 @@ export const appSlice = createSlice({
     },
     setPrevPage: (state, action) => {
       state.prevPage = action.payload;
+    },
+    setSeoHTMLPage: (state, action) => {
+      state.seoHTMLPage = action.payload;
     },
   },
 });

@@ -613,9 +613,9 @@ export const loadInitData = (isMobile) => {
         dispatch(appActions.setInitDataLoaded(true));
       }, 2000);
     } catch (error) {
-      toast.error(translate(error?.message));
       dispatch(loginActions.logout()); //////////////////////////////////////////////////////
       dispatch(appActions.setInitDataLoaded(true));
+      toast.error(translate(error?.message));
     }
   };
 };
@@ -748,7 +748,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=bet500.io`,
+        //`Site/GetSite?domainName=betovix.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -1003,6 +1003,10 @@ export const getSiteSettings = (signal) => {
 
       if (response.data.Contents.Site.GoogleTag !== "") {
         ScriptHeadInjector(response.data.Contents.Site.GoogleTag);
+      }
+
+      if (response.data.Contents.Site.SeoHTMLPage === "true") {
+        dispatch(appActions.setSeoHTMLPage(true));
       }
 
       dispatch(

@@ -1,0 +1,95 @@
+/* styles.css */
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: radial-gradient(
+      65.95% 180.31% at 100% 100%,
+      #032944 10.17%,
+      #03131427
+    ),
+    #0a1324;
+  margin: 0;
+  padding: 0;
+  color: white;
+  height: 100%;
+  width: 100%;
+}
+
+header {
+  background-color: transparent;
+  color: white;
+  text-align: center;
+  padding: 15px 10px;
+}
+header h1 {
+  font-size: 1.5rem;
+}
+
+nav ul {
+  color: white;
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  color: white;
+  display: inline;
+  margin: 0 10px;
+}
+
+nav ul li a {
+  font-size: 0.9rem;
+  color: white;
+  text-decoration: none;
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0.5rem 1rem 0.5rem;
+}
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 0.5rem 1rem 0rem;
+}
+
+.leftSection h2,
+.rightSection h2 {
+  margin: 0.5rem 0;
+  font-size: 1.3rem;
+}
+.leftSection p,
+.rightSection p {
+  width: 50dvw;
+  min-width: 300px;
+  margin: 0.1rem 0;
+  font-size: 1rem;
+}
+.image {
+  max-width: 300px;
+}
+.footer {
+  padding: 5px;
+}
+.footer p {
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+a:link {
+  color: white; /* Default color */
+}
+
+a:visited {
+  color: rgb(150, 216, 240); /* Color after clicking */
+}
+
+a:hover {
+  color: lightblue; /* Hover color */
+}
+
+a:active {
+  color: rgb(0, 242, 255); /* When actively clicking */
+}

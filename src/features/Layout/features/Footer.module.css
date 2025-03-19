@@ -192,3 +192,24 @@
   background-repeat: no-repeat;
   background-size: contain;
 }
+
+.Section {
+  width: 100%;
+  margin: 1rem 0;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+}
+.Title:hover {
+  text-decoration: underline;
+  text-decoration-color: var(--white);
+}
+.Title {
+  margin-bottom: 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
