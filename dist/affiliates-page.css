@@ -1,0 +1,243 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat");
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Montserrat", sans-serif;
+  background: radial-gradient(
+      65.95% 180.31% at 100% 100%,
+      #032944 10.17%,
+      #03131427
+    ),
+    #0a1324;
+  margin: 0 6px 0 0;
+  padding: 0;
+  color: white;
+  height: 100%;
+  width: 100%;
+  padding-top: 70px;
+}
+
+.header {
+  background: #081321;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 15px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000; /* Ensures it stays above other elements */
+}
+
+.logo {
+  height: 30px;
+  padding-left: 5px;
+}
+
+.pagemenu ul {
+  color: white;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.pagemenu ul li {
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+}
+
+.pagemenu ul li a {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+}
+
+.pagemenu ul li a:hover {
+  color: greenyellow;
+}
+.headerButton {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  font-weight: 600;
+  padding: 10px 20px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.headerButton:hover {
+  color: black;
+  background-color: yellowgreen;
+  border: 1px solid yellowgreen;
+  cursor: pointer;
+}
+.burger-menu {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 900px) {
+  .pagemenu ul {
+    display: none; /* Hide the main menu on small screens */
+  }
+
+  .burger-menu {
+    display: block; /* Show burger menu */
+  }
+}
+
+/* Modal Styling */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content {
+  background-color: #1c1c1cdb;
+  padding: 20px;
+  width: 80%;
+  max-width: 300px;
+  margin: 100px auto;
+  text-align: center;
+  border-radius: 8px;
+  position: relative;
+}
+
+.modal-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal-content ul li {
+  margin: 15px 0;
+}
+
+.modal-content ul li a {
+  color: white;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.modal-content ul li a:hover {
+  color: greenyellow;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: white;
+}
+
+.slider-container {
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+  transition: opacity 1s;
+}
+
+.slider img {
+  width: 100%;
+  height: auto;
+}
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgb(0 0 0 / 0%);
+  color: white;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.prev {
+  left: 10px;
+}
+.next {
+  right: 10px;
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0.5rem 1rem 0.5rem;
+}
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  margin: 0.5rem 1rem 0rem;
+}
+
+.leftSection h2,
+.rightSection h2 {
+  margin: 0.5rem 0;
+  font-size: 1.3rem;
+}
+.leftSection p,
+.rightSection p {
+  width: 50dvw;
+  min-width: 300px;
+  margin: 0.1rem 0;
+  font-size: 1rem;
+}
+.image {
+  max-width: 300px;
+}
+.footer {
+  padding: 5px;
+}
+.footer p {
+  font-size: 0.7rem;
+  text-align: center;
+}
+
+a:link {
+  color: white;
+}
+
+a:visited {
+  color: white;
+}
+
+a:hover {
+  color: white;
+}
+
+a:active {
+  color: white;
+}
