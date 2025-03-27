@@ -101,7 +101,7 @@ const PaymentForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    let cur = "";
+    let cur = null;
     let net = undefined;
     if (debouncedFormData.Network) {
       cur = Object.values(debouncedFormData.Network)[0];
