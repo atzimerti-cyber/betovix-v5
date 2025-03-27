@@ -748,7 +748,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=betovix.com`,
+        //`Site/GetSite?domainName=slotking111.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -927,6 +927,13 @@ export const getSiteSettings = (signal) => {
       } else {
         const appPermission = getState().login;
         permissions = appPermission.notLoggedInPermissions;
+      }
+
+      if (response.data.Contents.Site.MetaDesc !== "") {
+        const metaTag = document.createElement("meta");
+        metaTag.name = "description";
+        metaTag.content = response.data.Contents.Site.MetaDesc;
+        document.head.appendChild(metaTag);
       }
 
       if (response.data.Contents.Site.GoogleClientId) {
