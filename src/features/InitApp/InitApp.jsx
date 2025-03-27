@@ -116,9 +116,6 @@ const InitApp = () => {
       `${location.pathname}${location.search}`
     );
 
-    console.log("previousUrl", previousUrl);
-    console.log("currentUrl", currentUrl);
-
     if (previousUrl !== currentUrl) {
       dispatch(appActions.setPrevPage(prevPathnameRef.current));
       prevPathnameRef.current = `${location.pathname}${location.search}`;

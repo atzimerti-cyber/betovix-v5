@@ -146,6 +146,7 @@ export const submitDepositForm = (signal, depositDTO) => {
         depositDTO.PaymentProvider === "Chapa"
       ) {
         window.location.href = response.data.Contents;
+        //window.open(response.data.Contents, "_blank");
       } else if (depositDTO.PaymentProvider === "CoinPayments") {
         dispatch(
           cryptoActions.setDepositAddress(response.data.Contents.WalletAddress)
