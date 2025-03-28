@@ -33,6 +33,7 @@ const Profile = () => {
   const permissions = useSelector((state) => state.login.permissions);
   const barLoading = useSelector((state) => state.app.barLoading);
   const [selectedTab, setSelectedTab] = useState(tab || "overview");
+  const siteSettings = useSelector((state) => state.app.siteSettings);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -74,7 +75,7 @@ const Profile = () => {
                   icon: <Settings2Icon />,
                   active: selectedTab === "settings",
                 },
-                {
+                siteSettings?.AllowKYC && siteSettings.AllowKYC == 'true' && {
                   id: "verification",
                   label: translate("Verification"),
                   icon: <CheckFilledIcon />,
