@@ -11,10 +11,13 @@ import { translate } from "../../utils/translations";
 import { searchCasino } from "../../pages/Search/searchAsyncActions";
 import useDebounce from "../../hooks/useDebounce";
 import LobbySearchResults from "../../pages/Casino/features/LobbySearchResults";
+import { modalActions } from "../ModalRoot/modalSlice";
+import zIndex from "@mui/material/styles/zIndex";
 
 const CasinoLobbySearch = (props) => {
   const dispatch = useDispatch();
   const casinoResults = useSelector((state) => state.search.casinoResults);
+  const inLobbySearch = useSelector((state) => state.modal.inLobbySearch);
   const sorting = useSelector((state) => state.casino.sorting);
   const [value, setValue] = useState("");
   // const [results, setResults] = useState("");
@@ -59,12 +62,17 @@ const CasinoLobbySearch = (props) => {
   const handleClickOutside = (event) => {
     if (searchRef.current && !searchRef.current.contains(event.target)) {
       dispatch(searchActions.setCasinoResults(null));
+      dispatch(modalActions.setInLobbySearch(false));
       setValue("");
     }
+    // dispatch(modalActions.setInLobbySearch(false));
+    // dispatch(searchActions.setCasinoResults(null));
+    // setValue("");
   };
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
+    dispatch(modalActions.setInLobbySearch(false));
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -72,12 +80,16 @@ const CasinoLobbySearch = (props) => {
 
   return (
     <>
-      <div
-        className={classes.LobbySearch}
-        ref={searchRef}
-        id="casinoLobbySearch"
-      >
-        <div className={classes.SearchContainer}>
+      <div className={classes.LobbySearch} id="casinoLobbySearch">
+        {inLobbySearch && <div className={classes.BgOverlay}></div>}
+
+        <div
+          className={classes.SearchContainer}
+          style={{
+            zIndex: inLobbySearch && "999999999",
+          }}
+          ref={searchRef}
+        >
           <input
             className={classes.SearchInput}
             name="search"
@@ -85,6 +97,9 @@ const CasinoLobbySearch = (props) => {
             placeholder={translate("Search your game")}
             value={value}
             onChange={(e) => handleInputChange(e.target.value)}
+            onFocus={() => {
+              dispatch(modalActions.setInLobbySearch(true));
+            }}
           />
 
           {value !== "" ? (

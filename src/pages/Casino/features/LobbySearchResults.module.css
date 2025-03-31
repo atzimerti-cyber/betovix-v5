@@ -7,9 +7,9 @@
 .CategoryTitle {
   margin-top: 0.75rem;
   margin-bottom: 0.5rem;
-  font-size: 1rem;
+  font-size: 0.85rem;
   line-height: 1rem;
-  font-weight: 400;
+  font-weight: 500;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
   display: flex;
@@ -22,7 +22,7 @@
   display: flex;
   column-gap: 0.2rem;
   align-items: center;
-  font-size: 0.8rem;
+  font-size: 0.72rem;
 }
 .ViewAll svg {
   height: 0.6rem;
@@ -117,9 +117,10 @@
   gap: 0.3rem;
   align-items: center;
   background: var(--button-grad-op1);
-  height: 5rem;
-  width: 5rem;
+  height: 4.2rem;
+  width: 4.2rem;
   border-radius: 50%;
   color: var(--white);
   cursor: pointer;
+  font-size: 0.75rem;
 }
