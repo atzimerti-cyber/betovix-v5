@@ -28,6 +28,7 @@ const Settings = () => {
   const username = useSelector((state) => state.login.user?.Username);
   const isSubscribed = useSelector((state) => state.profile.marketingEmails);
   const showSpinner = useSelector((state) => state.profile.markEmLoading);
+  const changeUsername = useSelector((state) => state.app.changeUsername);
 
   // const [isSubscribed, setIsSubscribed] = useState(false);
   const [displayName, setDisplayName] = useState(user?.Username);
@@ -241,17 +242,19 @@ const Settings = () => {
                   onChange={(value) => setDisplayName(value)}
                   readonly={editUsername ? false : true}
                 />
-                <button
-                  className={classes.EditBtn}
-                  onClick={() => {
-                    setEditUsername((prevState) => !prevState);
-                    setDisplayName(username);
-                    setPassword(null);
-                    setError(null);
-                  }}
-                >
-                  {editUsername ? <ReturnIcon /> : <EditIcon />}
-                </button>
+                {changeUsername && (
+                  <button
+                    className={classes.EditBtn}
+                    onClick={() => {
+                      setEditUsername((prevState) => !prevState);
+                      setDisplayName(username);
+                      setPassword(null);
+                      setError(null);
+                    }}
+                  >
+                    {editUsername ? <ReturnIcon /> : <EditIcon />}
+                  </button>
+                )}
               </div>
               {editUsername && (
                 <>

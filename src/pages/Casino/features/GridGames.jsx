@@ -51,51 +51,51 @@ const GridGames = (props) => {
   };
 
   const responsiveGrid = () => {
-    let repeat = 5;
+    let repeat = 4;
     if (isSmallMobile) {
       repeat = 2;
     } else if (isMobile) {
       repeat = 3;
     } else if (isTablet) {
-      repeat = 5;
+      repeat = 4;
     } else if (isDesktop) {
+      if (isRightContainerOpen && isLeftContainerOpen) {
+        repeat = 3;
+      } else if (isRightContainerOpen || isLeftContainerOpen) {
+        if (isRightContainerOpen) {
+          repeat = 4;
+        } else {
+          repeat = 3;
+        }
+      } else {
+        repeat = 4;
+      }
+    } else if (isBigDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
         repeat = 4;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
         if (isRightContainerOpen) {
-          repeat = 6;
+          repeat = 4;
         } else {
           repeat = 4;
         }
       } else {
-        repeat = 6;
-      }
-    } else if (isBigDesktop) {
-      if (isRightContainerOpen && isLeftContainerOpen) {
-        repeat = 6;
-      } else if (isRightContainerOpen || isLeftContainerOpen) {
-        if (isRightContainerOpen) {
-          repeat = 7;
-        } else {
-          repeat = 6;
-        }
-      } else {
-        repeat = 7;
+        repeat = 4;
       }
     } else if (isVeryBigDesktop) {
       if (isRightContainerOpen && isLeftContainerOpen) {
-        repeat = 5;
+        repeat = 4;
       } else if (isRightContainerOpen || isLeftContainerOpen) {
         if (isRightContainerOpen) {
-          repeat = 6;
+          repeat = 4;
         } else {
-          repeat = 6;
+          repeat = 4;
         }
       } else {
-        repeat = 8;
+        repeat = 5;
       }
     } else {
-      repeat = 8;
+      repeat = 6;
     }
     return repeat;
   };

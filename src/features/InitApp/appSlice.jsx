@@ -334,6 +334,7 @@ const initialState = {
   siteLicence: "",
   prevPage: null,
   seoHTMLPage: false,
+  changeUsername: true,
 };
 
 export const appSlice = createSlice({
@@ -436,6 +437,9 @@ export const appSlice = createSlice({
     },
     setSeoHTMLPage: (state, action) => {
       state.seoHTMLPage = action.payload;
+    },
+    setChangeUsername: (state, action) => {
+      state.changeUsername = action.payload;
     },
   },
 });

@@ -1016,6 +1016,10 @@ export const getSiteSettings = (signal) => {
         dispatch(appActions.setSeoHTMLPage(true));
       }
 
+      if (response.data.Contents.Site.ChangeUsername === "false") {
+        dispatch(appActions.setChangeUsername(false));
+      }
+
       dispatch(
         appActions.setRegisterPromoImg(
           response.data.Contents.Site.RegisterPromoImg
