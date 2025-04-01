@@ -94,19 +94,26 @@
   -webkit-box-pack: center;
   justify-content: center;
   font-size: 15px;
-  width: 28px;
-  height: 28px;
+  width: 35px;
+  height: 35px;
 }
 .TeamLogo {
   object-fit: fill;
-  width: 20px;
-  height: 20px;
+  width: 35px;
+  height: 35px;
+}
+.TeamLogoWrapper > div {
+  width: 35px;
+  height: 35px;
+}
+.TeamLogoWrapper > div img {
+  width: 35px;
+  height: 35px;
 }
 .TeamName {
   font-size: 14px;
   text-align: center;
   word-break: break-word;
-  line-height: 1;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
