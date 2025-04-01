@@ -214,4 +214,5 @@
 
   --swiper-theme-color: #007aff;
   color: hsla(var(--bc) / var(--tw-text-opacity, 1));
+  --display-signup-cont: none;
 }
