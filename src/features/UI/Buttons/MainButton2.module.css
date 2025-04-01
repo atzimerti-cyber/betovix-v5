@@ -1,28 +1,29 @@
 .MainButton {
-    display: block;
-    height: 2.25rem;
-    width: 100%;
-    cursor: pointer;
-    border-radius: 0.375rem;
-    border-style: none;
-    background-color: var(--brand-green);
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
-    font-size: 0.75rem;
-    line-height: 1rem;
+  display: block;
+  height: 2.25rem;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 0.375rem;
+  border-style: none;
+  background-color: var(--brand-green);
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .MainButton.Disabled {
-    pointer-events: none;
-    background-color: #2f5f58;
-    cursor: default;
-    color: var(--light-blue);
+  opacity: 0.4;
+  pointer-events: none;
+  background-color: #fcbe03;
+  cursor: default;
+  color: var(--text-in-brand);
 }
 
 @media (min-width: 768px) {
-    .MainButton {
-        font-size: 0.875rem;
-        line-height: 1.25rem;
-        height: 39px;
-    }
+  .MainButton {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    height: 39px;
+  }
 }

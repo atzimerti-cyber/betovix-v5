@@ -112,6 +112,10 @@
   background-color: hsl(var(--s) / var(--tw-bg-opacity));
   --tw-text-opacity: 1;
   color: hsl(var(--sc) / var(--tw-text-opacity));
+  color: var(--text-in-brand) !important;
+}
+.Secondary.MainButton svg g g g {
+  fill: var(--text-in-brand) !important;
 }
 
 .Secondary.MainButton:hover {
