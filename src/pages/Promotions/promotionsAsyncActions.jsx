@@ -97,3 +97,25 @@ export const getSiteLinks = (signal, category) => {
     }
   };
 };
+export const redeemPromoCode = (signal, code) => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+
+      const response = await axiosApi.get(
+        `/PromoCoupon/ReedeemPromoCode?code=${code}&siteid=${config.VITE_SITE_ID}&lang=${lang.id}`,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
+        throw Error(response.data.Contents);
+
+    } catch (error) {
+      const message = error?.message ? error.message : error;
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+    }
+  };
+};
