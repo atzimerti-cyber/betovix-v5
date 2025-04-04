@@ -116,6 +116,8 @@ const WithdrawPaymentForm = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setDisabledButton(true);
+    
     const withdrawDTO = {
       Currency:
         debouncedFormData.Currency ||

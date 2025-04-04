@@ -7,13 +7,14 @@ import classes from "./WithdrawRequests.module.css";
 import AngleLeft2Icon from "../../../assets/svgs/angle-left2.svg?react";
 import NoReqs from "../../../assets/svgs/no-withdraw-reqs.svg?react";
 import { translate } from "../../../utils/translations";
-import { getWithrawalReqs, cancelWithdrawRequest } from "../cryptoAsyncActions";
+import { getWithrawalReqs, cancelWithdrawRequest, getTrxRequest } from "../cryptoAsyncActions";
 import MainButton from "../../../features/UI/Buttons/MainButton";
 import AngleLeftIcon from "../../../assets/svgs/angle-left.svg?react";
 import AngleRightIcon from "../../../assets/svgs/angle-right.svg?react";
 import UpArrowIcon from "../../../assets/svgs/up.svg?react";
 import DownArrowIcon from "../../../assets/svgs/down.svg?react";
 import { formatDate } from "../../../utils/custom";
+import ShowTrxId from "./ShowTrxId";
 
 const WithdrawRequests = () => {
   const dispatch = useDispatch();
@@ -35,6 +36,9 @@ const WithdrawRequests = () => {
   const [totalPages, setTotalPages] = useState(1);
   const count = 10;
   const [ongoingCancellations, setOngoingCancellations] = useState(new Set());
+  const [ongoingTrx, setOngoingTrx] = useState(new Set());
+  const [showTrxModal, setShowTrxModal] = useState(false);
+  const [requestId, setRequestId] = useState(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -188,10 +192,45 @@ const WithdrawRequests = () => {
     });
   };
 
+  const handleTrxRequest = (reqid) => {
+    if (ongoingTrx.has(reqid)) return; // Prevent multiple clicks
+
+    setOngoingTrx((prev) => new Set(prev).add(reqid)); // Add reqId to the set
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    dispatch(
+      getTrxRequest(signal, reqid, () => {
+        setShowTrxModal(true);
+        setRequestId(reqid);
+
+        setOngoingTrx((prev) => {
+          const updated = new Set(prev);
+          updated.delete(reqid); // Ensure removal on error
+          return updated;
+        });
+      })
+    ).catch(() => {
+      setOngoingTrx((prev) => {
+        const updated = new Set(prev);
+        updated.delete(reqid); // Ensure removal on error
+        return updated;
+      });
+    });
+  };
+
   const uniqueStatuses = [0, 1, 2, 3, 4, 5];
 
   return (
     <>
+    {showTrxModal && (
+      <ShowTrxId
+        onClose={() => setShowTrxModal(false)}
+        requestId={requestId}
+      />
+    )}
+
       <div className={classes.ReturnContainer}>
         <div className={classes.ReturnButtonWrapper}>
           <DsButton color="transparent" onClick={navigateToWithdraw}>
@@ -315,6 +354,17 @@ const WithdrawRequests = () => {
                         {ongoingCancellations.has(req.reqId)
                           ? translate("Cancelling...")
                           : translate("Cancel Request")}
+                      </MainButton>
+                    )}
+                    {req.status === 4 && req.provider === "CoinPayments" && ( // Show Cancel button only if status is Pending
+                      <MainButton
+                        color="primary"
+                        size="small"
+                        onClick={() => handleTrxRequest(req.reqId)}
+                        className={classes.TrxButton}
+                        loading={ongoingTrx.has(req.reqId)} // Disable button during cancellation
+                      >
+                        {translate("Get TrxId")}
                       </MainButton>
                     )}
                   </div>

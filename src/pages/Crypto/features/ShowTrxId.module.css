@@ -1,0 +1,102 @@
+.ModalRoot {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  z-index: 2000;
+}
+
+.Overlay {
+  position: fixed;
+  right: 0;
+  left: 0;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  /* background-color: hsla(0, 0%, 0%, 0.3); */
+  z-index: 10000;
+}
+
+.Close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
+}
+
+.Content {
+  position: fixed;
+  width: 700px;
+  max-width: 90%;
+  max-height: calc(100dvh - 130px);
+  border-radius: 7px;
+  /* border: 1px solid var(--gray-400); */
+  z-index: 2;
+  color: #000;
+  display: flex;    
+  background: var(--body-bg);
+  flex-direction: column;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.CloseButton {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: auto;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+}
+.CloseButton svg {
+  fill: var(--color-100);
+}
+
+.Header {
+  flex: 0 0 32px;
+  background-color: var(--dark-blue-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 7px 7px 0 0;
+}
+
+.Title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.Title svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--secondary-color);
+}
+.Header h2 {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+.SpanLink {
+  color: var(--brand-green);
+}
+.ContentInner {
+  background-color: var(--dark-blue-1);
+  color: #fff;
+  font-weight: 600;
+  padding: 15px 10px;
+  border-radius: 0 0 7px 7px;
+  overflow: hidden;
+}

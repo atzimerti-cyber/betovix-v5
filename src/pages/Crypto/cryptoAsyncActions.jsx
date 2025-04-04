@@ -165,6 +165,7 @@ export const submitDepositForm = (signal, depositDTO) => {
     }
   };
 };
+
 export const submitWithdrawForm = (signal, withrawDTO) => {
   return async (dispatch, getState) => {
     try {
@@ -199,7 +200,7 @@ export const getWithrawalReqs = (signal, page, count, sort, status) => {
       const lang = getLang();
 
       const response = await axiosApi.post(
-        `/Payments/PostData?action=WithdrawRequestsTable&lang=${lang.id}`,
+        `/Payments/PostData?action=WithdrawRequestsTable&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
 
         {
           data: `{"page":${page},"count":${count},"sort":"${sort}","filter":{"Status":"${status}"}}`,
@@ -224,6 +225,7 @@ export const getWithrawalReqs = (signal, page, count, sort, status) => {
         dateUpdated: req.Data.DateUpdated,
         note: req.Data.Note,
         status: req.Data.Status,
+        provider: req.Data.Provider,
       }));
 
       const total = response.data.Contents.Total;
@@ -245,7 +247,7 @@ export const cancelWithdrawRequest = (signal, id, onSuccess) => {
       const lang = getLang();
 
       const response = await axiosApi.post(
-        `/Payments/PostData?action=WithdrawRequestsCancel&lang=${lang.id}`,
+        `/Payments/PostData?action=WithdrawRequestsCancel&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
 
         {
           data: id,
@@ -267,6 +269,34 @@ export const cancelWithdrawRequest = (signal, id, onSuccess) => {
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+    }
+  };
+};
+
+export const getTrxRequest = (signal, id, onSuccess) => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+
+      const response = await axiosApi.get(
+        `/Payments/GetTransactionHash?requestId=${id}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, 
+        {
+        signal: signal,
+        baseURLOverride: config.VITE_WALLET_STORETUBE,
+       }
+    );
+
+      if (response.data.Status.StatusCode !== 200)
+        throw Error(response.data.Contents);
+      
+      dispatch(cryptoActions.setTrxId(response.data.Contents.TxHash));
+      dispatch(cryptoActions.setTrxLink(response.data.Contents.Explorer));
+
+      if (onSuccess) onSuccess();
+      
+    } catch (error) {
+      const message = error?.message ? error.message : error;
+      toast.error(translate(message));
     }
   };
 };

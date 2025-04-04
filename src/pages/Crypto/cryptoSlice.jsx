@@ -25,6 +25,8 @@ const initialState = {
   typeMaxAmount: null,
   methodMinAmount: null,
   methodMaxAmount: null,
+  TrxId: null,
+  TrxLink: null,
 };
 
 export const cryptoSlice = createSlice({
@@ -117,6 +119,12 @@ export const cryptoSlice = createSlice({
     },
     setMethodMaxAmount: (state, action) => {
       state.methodMaxAmount = action.payload;
+    },
+    setTrxId: (state, action) => {
+      state.TrxId = action.payload;
+    },
+    setTrxLink: (state, action) => {
+      state.TrxLink = action.payload;
     },
   },
 });
