@@ -22,7 +22,9 @@
 .License img:hover {
   filter: none;
 }
-
+.License a {
+  overflow: visible!important;
+}
 .LinksContainer {
   margin-left: auto;
   margin-right: auto;

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import classes from "./Footer.module.css";
 import LogoBig from "../../../assets/svgs/logo-big.svg?react";
 import Plus18Icon from "../../../assets/svgs/plus-18.svg?react";
-import License from "../../../assets/images/license.png";
+import LicenseAnj from "../../../assets/images/license.png";
 import { translate } from "../../../utils/translations";
 import SocialMedia from "./SocialMedia";
 import { getSiteSettings } from "../../InitApp/initAppAsyncActions";
@@ -41,7 +41,7 @@ const Footer = () => {
   }, []);
 
   useEffect(() => {
-    if (isFooterAllowed && licence && licence !== "" && window[licence.Init]) {
+    if (isFooterAllowed && licence && licence !== "" && !licence.LicenceLink && window[licence.Init]) {
       window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init();
     }
   }, [licence]);
@@ -90,16 +90,25 @@ const Footer = () => {
 
           {licence && licence !== "" && (
             <div className={classes.LinksLayout}>
+
               <h2>{translate("License")}</h2>
+
               <div className={classes.License}>
                 {licence.Name === "Anjouan" && (
-                  <div
-                    id={licence.Id}
-                    data-anj-seal-id={licence.SealId}
-                    data-anj-image-size="60"
-                    data-anj-image-type="basic-small"
-                  ></div>
+                  licence.LicenceLink ? (
+                    <a href={licence.LicenceLink} target="_blank" rel="noopener noreferrer">
+                      <img src={LicenseAnj} alt="License" />
+                    </a>
+                  ) : (
+                    <div
+                      id={licence.Id}
+                      data-anj-seal-id={licence.SealId}
+                      data-anj-image-size="60"
+                      data-anj-image-type="basic-small"
+                    ></div>
+                  )
                 )}
+
               </div>
               <Plus18Icon className={classes.PlusEighteen} />
             </div>

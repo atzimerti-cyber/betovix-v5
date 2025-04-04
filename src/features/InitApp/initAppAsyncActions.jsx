@@ -748,7 +748,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=slotking111.com`,
+        //`Site/GetSite?domainName=betovix.com`,
         //`Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {
@@ -970,6 +970,7 @@ export const getSiteSettings = (signal) => {
           Init: response.data.Contents.Site.Init,
           Url: response.data.Contents.Site.Url,
           LicenceActive: response.data.Contents.Site.LicenceActive,
+          LicenceLink : response.data.Contents.Site.LicenceLink,
         };
         dispatch(appActions.setLicence(license));
 
