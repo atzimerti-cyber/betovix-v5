@@ -92,15 +92,26 @@ const WithdrawPaymentForm = (props) => {
       updatedValue = formatCardNumber(updatedValue); // Apply formatting
     }
 
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]:
-        name === "Amount"
-          ? parseFloat(updatedValue) || undefined
-          : updatedValue === ""
-          ? undefined
-          : updatedValue,
-    }));
+    if (name === "Network") {
+      setFormData((prevData) => {
+        var result = "";
+        const selectedOption = e.target.selectedOptions[0];
+        const data = selectedOption.getAttribute("data");
+        result = JSON.parse(data);
+        return { ...prevData, [name]: result };
+      });
+    }
+    if (name !== "Network") {
+      setFormData((prevData) => ({
+        ...prevData,
+        [name]:
+          name === "Amount"
+            ? parseFloat(updatedValue) || undefined
+            : updatedValue === ""
+              ? undefined
+              : updatedValue,
+      }));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -109,9 +120,9 @@ const WithdrawPaymentForm = (props) => {
       Currency:
         debouncedFormData.Currency ||
         (debouncedFormData.Network &&
-          Object.values(debouncedFormData.Network).join(", ")),
+          Object.values(debouncedFormData.Network)[0]),
       Network: debouncedFormData.Network
-        ? Object.keys(debouncedFormData.Network).join(", ")
+        ? Object.keys(debouncedFormData.Network)[0]
         : debouncedFormData.BankCode && debouncedFormData.BankCode,
       Amount: debouncedFormData.Amount,
       PaymentType: debouncedFormData.PaymentType,
@@ -279,9 +290,22 @@ const WithdrawPaymentForm = (props) => {
           id={Name}
           className={classes.Select}
           onChange={handleChange}
-          value={formData[Name]}
+          value={typeof formData[Name] === "object" ? Object.keys(formData[Name])[0] : formData[Name]}
         >
           {ListValues.map((item, index) => {
+            const key = Object.keys(item)[0];
+            return (
+              <option
+                className={classes.SelectOptions}
+                key={index}
+                value={key}
+                data={JSON.stringify(item)}
+              >
+                {key}
+              </option>
+            );
+          })}
+          {/* {ListValues.map((item, index) => {
             const key = Object.keys(item)[0];
             const value = Object.values(item)[0];
             return (
@@ -290,11 +314,10 @@ const WithdrawPaymentForm = (props) => {
                 key={index}
                 value={value}
               >
-                {/* <option className={classes.SelectOptions} key={index} value={key}> */}
                 {key}
               </option>
             );
-          })}
+          })} */}
         </select>
       );
     } else {

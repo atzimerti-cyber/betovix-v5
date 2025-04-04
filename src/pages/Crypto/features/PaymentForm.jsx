@@ -696,7 +696,7 @@ const PaymentForm = (props) => {
           id={Name}
           className={classes.Select}
           onChange={handleChange}
-          value={formData[Name]}
+          value={typeof formData[Name] === "object" ? Object.keys(formData[Name])[0] : formData[Name]}
         >
           {ListValues.map((item, index) => {
             const key = Object.keys(item)[0];
