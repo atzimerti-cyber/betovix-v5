@@ -22,7 +22,8 @@ const ShowTrxId = (props) => {
             <div className={classes.Header}>
               <div className={classes.Title}>
                 <CoinsIcon />
-                <h2>{translate('Transaction Id')}</h2>
+                <h2>{translate('Request')}</h2>
+                <i>#{props.requestId ? props.requestId : ''}</i>
               </div>
               <div className={classes.CloseButton}>
                 <CloseButton timesIcon color='transparent' onClick={props.onClose} />
@@ -31,12 +32,11 @@ const ShowTrxId = (props) => {
             </div>
 
             <div className={classes.ContentInner}>
-              <div><span>{translate('Request Id')}: <i>#{props.requestId ? props.requestId : ''}</i></span></div>
-              <div><span className={classes.TrxSpan}>{translate('Trx Id')}: <i> <CopyToClipboardCont text={TrxId} /></i></span></div>
+              <div><span className={classes.TrxSpan}>{translate('Transaction Id')}: <i> <CopyToClipboardCont text={TrxId} /></i></span></div>
             {TrxLink && TrxLink !== null && (
-              <div>
-                <span className={classes.SpanLink}>{translate('See your transaction details here')}: {" "}  
-              <a href={TrxLink} target="_blank" rel="noopener noreferrer"> {TrxLink}</a>
+              <div className={classes.TrxLink}>
+                <span>{translate('See your transaction details here')}: {" "}  
+                <a className={classes.SpanLink} href={TrxLink} target="_blank" rel="noopener noreferrer"> {TrxLink}</a>
               </span>
               </div>
             )}
