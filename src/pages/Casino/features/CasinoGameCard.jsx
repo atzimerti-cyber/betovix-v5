@@ -77,7 +77,7 @@ const CasinoGameCard = (props) => {
           <div
             style={{
               backgroundImage:
-                props.game.Data.ImageUrl3 !== null &&
+                props.game.Data.ImageUrl !== null &&
                 `url(${props.game.Data.ImageUrl.replace(/ /g, "%20")})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
