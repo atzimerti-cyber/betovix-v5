@@ -17,8 +17,10 @@ const MainButton = (props) => {
 
   if (props.size === "small") elClasses.push(classes.Small);
 
+  if (props.shimmer) elClasses.push(classes.Shimmer);
   if (props.active) elClasses.push(classes.Active);
   if (props.active2) elClasses.push(classes.Active2);
+  if (props.active3) elClasses.push(classes.Active3);
   if (props.disabled) elClasses.push(classes.Disabled);
   if (props.loading) {
     elClasses.push(classes.Loading);
@@ -59,6 +61,11 @@ const MainButton = (props) => {
       disabled={disabled}
     >
       {loading ? <Spinner /> : children}
+      {/* {props.newBadge && (
+        <div className={classes.NewBadge} id="newBadge">
+          NEW
+        </div>
+      )} */}
     </button>
   );
 };

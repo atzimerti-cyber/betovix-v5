@@ -165,6 +165,9 @@
 .Active2.MainButton {
   background-color: var(--sidebar-casino-active);
 }
+.Active3.MainButton {
+  background-color: var(--sidebar-horse-active);
+}
 
 .MainButton.Disabled {
   pointer-events: none;
@@ -179,4 +182,50 @@
 .MainButton.noPadding {
   padding-left: 0;
   padding-right: 0;
+}
+
+@keyframes shimmerDiagonal {
+  0% {
+    transform: translate(-100%, -100%) rotate(45deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  50% {
+    transform: translate(100%, 100%) rotate(45deg);
+    opacity: 0.3;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    transform: translate(100%, 100%) rotate(45deg);
+    opacity: 0;
+  }
+}
+
+.MainButton.Shimmer::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 200%;
+  width: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.3) 50%,
+    transparent 60%
+  );
+  transform: translate(-100%, -100%) rotate(45deg);
+  animation: shimmerDiagonal 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.MainButton.Shimmer {
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
 }

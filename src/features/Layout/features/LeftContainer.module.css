@@ -187,6 +187,9 @@
 .SideMenuButtonContainer button .Active2Svg path {
   fill: var(--sidebar-casino-active-svg) !important;
 }
+.SideMenuButtonContainer button .Active3Svg path {
+  fill: var(--sidebar-horse-active-svg) !important;
+}
 
 .SideMenuButtonContainer button span {
   display: flex;
@@ -396,4 +399,48 @@
   align-content: center;
   align-items: center;
   justify-content: center;
+}
+
+.Closed.SideMenuScroll .NewBadge {
+  display: none;
+}
+
+.NewBadge {
+  position: absolute;
+  top: -11%;
+  transform: translateX(185%);
+  animation: 6s ease 0s infinite normal none running _jQMcyq_dgbon_1;
+  background: var(--live-badge-purple);
+  border-radius: 3px;
+  color: rgb(255, 255, 255);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 0px 0.30rem;
+  text-shadow: rgba(41, 39, 33, 1) 0px 1px 2px;
+  white-space: nowrap;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 0.5rem;
+  z-index: 100;
+}
+
+@keyframes _jQMcyq_dgbon_1 {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  10%,
+  90% {
+    opacity: 1;
+  }
+
+  40%,
+  60% {
+    box-shadow: rgba(150, 208, 35, 0.1) 0px 0.25em 1em,
+      var(--live-badge-purple) 0px 0px 0.5em;
+  }
 }

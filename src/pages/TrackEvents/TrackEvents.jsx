@@ -3,9 +3,11 @@ import { getTrackEvent } from "./trackEventsAsyncActions";
 import { useDispatch, useSelector } from "react-redux";
 import Frame from "./features/Frame";
 import { layoutActions } from "../../features/Layout/layoutSlice";
+import { useNavigate } from "react-router-dom";
 
 const TrackEvents = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const url = useSelector((state) => state.trackEvents.url);
 
@@ -21,7 +23,16 @@ const TrackEvents = (props) => {
     };
   }, []);
 
-  return <>{url && <Frame name={"SIS Track Racing"} url={url} />}</>;
+  useEffect(() => {
+    if (url) {
+      window.open(url);
+      navigate("/");
+    }
+
+    return () => {};
+  }, [url]);
+
+  return <>{/* {url && <Frame name={"SIS Track Racing"} url={url} />} */}</>;
 };
 
 export default TrackEvents;
