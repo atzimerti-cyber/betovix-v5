@@ -1,6 +1,6 @@
 import { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import classes from "../../CasinoGame/CasinoGame.module.css";
+import classes from "./Frame.module.css";
 import MainButton from "../../../features/UI/Buttons/MainButton";
 import Arrow2LeftIcon from "../../../assets/svgs/arrow2-left.svg?react";
 import FullscreenOutlineIcon from "../../../assets/svgs/fullscreen-outline.svg?react";
@@ -208,11 +208,11 @@ const Frame = (props) => {
                 </div>
               )}
             </div>
-            <div className={classes.GameControls}>
+            {/* <div className={classes.GameControls}>
               <div className={classes.GameNameWrapper}>
                 <h3 className={classes.GameName}>{props.Arrow2LeftIconname}</h3>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       )}

@@ -9,7 +9,9 @@
   --sidebar-category-group: #0e2f45;
   --sidebar-left-menu-item: #102b41;
   --sidebar-casino-active: #af37cf52;
+  --sidebar-horse-active: rgba(154, 211, 234, 0.3);
   --sidebar-casino-active-svg: #ba0dff;
+  --sidebar-horse-active-svg: rgb(154, 211, 234);
   --track-events-color: #af8b0291;
 
   --brand-green: #88be2b;

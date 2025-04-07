@@ -1,27 +1,28 @@
 .RippleContainer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    overflow: hidden;
-    border-radius: 9999px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow: hidden;
+  border-radius: 9999px;
+  z-index: 9;
 }
 .RippleContainer.Square {
-    border-radius: 4px 4px 0px 0px;
+  border-radius: 4px 4px 0px 0px;
 }
 
 .RippleContainer span {
-    transform: scale(0);
-    border-radius: 100%;
-    position: absolute;
-    opacity: 0.75;
-    animation-name: ripple;
+  transform: scale(0);
+  border-radius: 100%;
+  position: absolute;
+  opacity: 0.75;
+  animation-name: ripple;
 }
 
 @keyframes ripple {
-    to {
-        opacity: 0;
-        transform: scale(2);
-    }
+  to {
+    opacity: 0;
+    transform: scale(2);
+  }
 }

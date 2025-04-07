@@ -27,7 +27,7 @@
   position: relative;
   transition: border-radius 0.2s ease 0s;
   user-select: none;
-  z-index: 20;
+  z-index: 9;
   gap: 8px;
 }
 

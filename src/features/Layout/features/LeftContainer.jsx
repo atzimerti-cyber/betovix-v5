@@ -11,6 +11,7 @@ import LiveSupportIcon from "../../../assets/svgs/live-support.svg?react";
 import DropdownLang from "../../UI/Dropdown/DropdownLang";
 import CasinoIcon from "../../../assets/svgs/casino.svg?react";
 import SportsIcon from "../../../assets/svgs/sports.svg?react";
+import HorseIcon from "../../../assets/svgs/horse-head.svg?react";
 import StaticHorse from "../../../assets/images/static-h.png?react";
 import GifHorse from "../../../assets/images/horse.gif?react";
 import { layoutActions } from "../layoutSlice";
@@ -421,8 +422,11 @@ const LeftContainer = memo(function () {
         {/* TRACK EVENTS BUTTON */}
         {permissions.AllowToSIS && (
           <div className={classes.SideMenuAllButtonsContainer}>
-            <div className={classes.TrackMenuButtonContainer}>
-              <InteractiveButton
+            <div
+              className={classes.SideMenuButtonContainer}
+              style={{ marginBottom: "3px" }}
+            >
+              {/* <InteractiveButton
                 active={pathnameNoParams.includes("track-events")}
                 onClick={() => navigate("/track-events")}
                 dataTooltipId="left-menu-tooltip"
@@ -432,9 +436,29 @@ const LeftContainer = memo(function () {
                 color="yellow"
               >
                 <span>
-                  {fullLeftContainer ? translate("Animal Track Events") : ""}
+                  {fullLeftContainer ? translate("Horse Racing") : ""}
                 </span>
-              </InteractiveButton>
+              </InteractiveButton> */}
+
+              <MainButton
+                active3={pathnameNoParams.includes("track-events")}
+                onClick={() => navigate("/track-events")}
+                dataTooltipId="left-menu-tooltip"
+                dataTooltipContent={translate("Track Events")}
+                shimmer
+              >
+                <HorseIcon
+                  className={
+                    pathnameNoParams.includes("track-events")
+                      ? classes.Active3Svg
+                      : null
+                  }
+                />
+                <span>
+                  {fullLeftContainer ? translate("Horse Racing") : ""}
+                </span>
+              </MainButton>
+              <div className={classes.NewBadge}>NEW</div>
             </div>
           </div>
         )}
