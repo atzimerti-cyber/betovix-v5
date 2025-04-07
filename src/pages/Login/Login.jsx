@@ -31,6 +31,7 @@ const Login = () => {
   const cookiesSettings = useSelector(
     (state) => state.app.siteSettings.Cookies
   );
+  const promoSlug = useSelector((state) => state.modal.promoCodeSlug);
 
   const [loading, setLoading] = useState(false);
 
@@ -70,6 +71,14 @@ const Login = () => {
 
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
+    });
+  };
+
+  const handleLoginSuccess = () => {
+    dispatch(login(loginInfo, navigate, location.pathname)).then((result) => {
+      if (result && result.success && promoSlug) {
+        navigate(`${location.pathname}?modal=promo-code&slug=${promoSlug}`, { replace: true });
+      }
     });
   };
 
@@ -142,9 +151,7 @@ const Login = () => {
               loading={loginLoading}
               color="primary"
               disabled={isLoginDisabled}
-              onClick={() => {
-                dispatch(login(loginInfo, navigate, location.pathname));
-              }}
+              onClick={handleLoginSuccess}
             >
               {translate("Login")}
             </MainButton>

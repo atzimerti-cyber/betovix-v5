@@ -1,11 +1,17 @@
 import classes from "./PromoCodeModal.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { redeemPromoCode } from "../../../pages/Promotions/promotionsAsyncActions";
 import CloseButton from "../../UI/Buttons/CloseButton";
 import { translate } from "../../../utils/translations";
 import { toast } from "react-toastify";
+import { getPromoCodePage } from "../modalAsyncActions";
+import { modalActions } from '../modalSlice';
+import MainButton from "../../UI/Buttons/MainButton";
+import LogoutIcon from "../../../assets/svgs/logout.svg?react";
+import InfoIcon from "../../../assets/svgs/info.svg?react";
+import CopyIcon from "../../../assets/svgs/copy3.svg?react";
 
 const PromoCodeModal = () => {
   const navigate = useNavigate();
@@ -13,10 +19,33 @@ const PromoCodeModal = () => {
   const location = useLocation();
 
   const [code, setCode] = useState('');
+  const [disabled, setCodeDisabled] = useState(false);
   const [loading, setLoading] = useState(false);
+  const user = useSelector((state) => state.login.user);
+  const promoSlug = useSelector((state) => state.modal.promoCodeSlug);
+  const promoCodePage = useSelector((state) => state.modal.promoCodePage);
+  const [infoRequested, setInfoRequested] = useState(false);
 
   const handleInputChange = (e) => {
     setCode(e.target.value);
+    setInfoRequested(false);
+
+    if (!e.target.value.trim()) setInfoRequested(false);
+  };
+
+  const copyId = () => {
+    if (code) {
+      navigator.clipboard
+        .writeText(code)
+        .then(() => {
+          let toastMessage = translate("Code copied to clipboard");
+          toast.success(toastMessage);
+        })
+        .catch((err) => {
+          let toastMessage = translate("Code can not be copied");
+          toast.error(toastMessage);
+        });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -29,24 +58,87 @@ const PromoCodeModal = () => {
 
     // setLoading(true);
 
-    const controller = new AbortController(); 
+    const controller = new AbortController();
     const signal = controller.signal;
 
     dispatch(
       redeemPromoCode(signal, code, () => {
-          setLoading(false);
-          navigate(location.pathname);
+        setLoading(false);
+        navigate(location.pathname);
       })
     );
   };
 
+
+  const handleInfoClick = () => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    if (!code.trim()) {
+      toast.error(translate("Please enter a promo code"));
+      return;
+    }
+
+    setInfoRequested(true);
+
+    dispatch(getPromoCodePage(signal, code));
+
+    return () => dispatch(modalActions.setPromoCodePage(null));
+  };
+
+  useEffect(() => {
+    return () => {
+      dispatch(modalActions.setPromoCodeSlug(null));
+      dispatch(modalActions.setPromoCodePage(null));
+      setCode('');
+      setCodeDisabled(false);
+      setInfoRequested(false);
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const searchParams = new URLSearchParams(location.search);
+    const slug = searchParams.get("slug");
+
+    if (slug && user) {
+      setInfoRequested(true);
+      dispatch(getPromoCodePage(signal, slug));
+    }
+
+    dispatch(modalActions.setPromoCodeSlug(slug));
+
+    return () => dispatch(modalActions.setPromoCodePage(null));
+
+  }, []);
+
+  const addParamsToUrl = (modal, tab) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", modal);
+    if (tab) searchParams.set("tab", tab);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+  };
+
+  useEffect(() => {
+    if (promoSlug) {
+      setCode(promoSlug);
+      setCodeDisabled(true);
+    }
+  }, [promoSlug]);
 
   return (
     <div className={classes.LoadTicket}>
       <div className={classes.ModalContent}>
         <header>
           <span className={classes.Center}>
-            <h1>{translate("Promo Code")}</h1>
+            <h1>
+              {translate("Promo Code")}
+            </h1>
           </span>
           <span className={classes.Right}>
             <CloseButton
@@ -57,23 +149,60 @@ const PromoCodeModal = () => {
           </span>
         </header>
 
+        {code && disabled && <div className={classes.HeaderCodeWrapper}><i className={classes.HeaderCode}>* {code} *</i><CopyIcon onClick={copyId} /></div>}
+
         <div className={classes.LoadTicketContent}>
           <div className={classes.LoadBetslipWrapper}>
-            <div className={classes.LoadBetslipContent}>
-              <p>{translate("Insert your promo code here")}:</p>
-              <form className={classes.LoadBetslipFormWrapper} onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  placeholder={translate("Promo Code...")}
-                  value={code}
-                  onChange={handleInputChange}
-                  disabled={loading}
-                />
-                <button type="submit" disabled={loading}>
-                  {loading ? translate("Loading...") : translate("Redeem")}
-                </button>
-              </form>
-            </div>
+            {user ? (
+              <div className={classes.LoadBetslipContent}>
+                {!disabled && (<p>{translate("Insert your promo code")}:</p>)}
+                <form className={classes.LoadBetslipFormWrapper} onSubmit={handleSubmit}>
+                  <input
+                    type="text"
+                    placeholder={translate("Promo Code...")}
+                    value={code}
+                    onChange={handleInputChange}
+                    disabled={disabled || loading}
+                  />
+                  <button type="submit" disabled={loading}>
+                    {loading ? translate("Loading...") : translate("Redeem")}
+                  </button>
+                </form>
+
+                {!infoRequested && (
+                  <div className={classes.InfoWrapper}>
+                    <p>{translate("Get more information about the promo code")}</p> {" "}  <i onClick={handleInfoClick} className={classes.InfoButton}>{translate("here")}</i>
+                  </div>
+                )}
+
+                {promoCodePage && promoCodePage.Content && infoRequested ? (
+                  <div
+                    dangerouslySetInnerHTML={{ __html: promoCodePage.Content }}
+                  ></div>
+                ) : (
+                  <>
+                    {infoRequested && (<div className={classes.NoPageContent}>
+                      <InfoIcon />
+                      {translate("No Available Information")}
+                    </div>
+                    )}
+                  </>
+                )}
+              </div>
+            ) : (
+              <div className={classes.LoadBetslipContent}>
+                <div className={classes.LoginContent}>
+                  <div className={classes.LoginIcon}><LogoutIcon /></div>
+                  <i>{translate("Please login first to redeem your promo code")}</i>
+                </div>
+                <MainButton
+                  color="secondary"
+                  onClick={() => addParamsToUrl("auth", "login")}
+                >
+                  {translate("Login")}
+                </MainButton>
+              </div>
+            )}
           </div>
         </div>
       </div>

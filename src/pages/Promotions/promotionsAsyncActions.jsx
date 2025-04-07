@@ -115,7 +115,7 @@ export const redeemPromoCode = (signal, code) => {
 
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+      if (error?.code !== "ERR_CANCELED") toast.error(translate(message));
     }
   };
 };

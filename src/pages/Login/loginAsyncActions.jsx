@@ -57,7 +57,7 @@ export const logingGoogle = (loginInfo, navigate, locationPathname) => {
     }
   };
 };
-export const login = (loginInfo, navigate, locationPathname) => {
+export const login = (loginInfo, navigate, locationPathname, onSuccess) => {
   return async (dispatch) => {
     dispatch(loginActions.setLoginLoading(true));
 
@@ -124,10 +124,16 @@ export const login = (loginInfo, navigate, locationPathname) => {
 
       dispatch(loginActions.setLoginLoading(false));
       navigate(locationPathname, { replace: true });
+
+      if(onSuccess) onSuccess();
+
+      return { success: true };
     } catch (error) {
       const message = error?.message || "Invalid Login";
       toast.error(translate(message));
       dispatch(loginActions.setLoginLoading(false));
+
+      return { success: false };
     }
   };
 };

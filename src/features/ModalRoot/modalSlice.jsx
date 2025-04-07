@@ -10,6 +10,8 @@ const initialState = {
   promoPage: null,
   transactions: null,
   inLobbySearch: false,
+  promoCodeSlug: null,
+  promoCodePage: null,
 };
 
 export const modalSlice = createSlice({
@@ -25,6 +27,8 @@ export const modalSlice = createSlice({
       state.onCloseModal = null;
       state.promoPage = null;
       state.transactions = null;
+      state.promoCodeSlug = null;
+      state.promoCodePage = null;
     },
     setLevels: (state, action) => {
       state.levels = action.payload;
@@ -49,6 +53,12 @@ export const modalSlice = createSlice({
     },
     setPromoPage(state, action) {
       state.promoPage = action.payload;
+    },
+    setPromoCodePage(state, action) {
+      state.promoCodePage = action.payload;
+    },
+    setPromoCodeSlug(state, action) {
+      state.promoCodeSlug = action.payload;
     },
     setInLobbySearch: (state, action) => {
       state.inLobbySearch = action.payload;
