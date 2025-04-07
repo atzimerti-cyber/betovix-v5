@@ -106,6 +106,9 @@ const InitApp = () => {
     const removeLangParam = (url) => {
       const urlObj = new URL(window.location.origin + url);
       urlObj.searchParams.delete("lang");
+      urlObj.searchParams.delete("modal");
+      urlObj.searchParams.delete("tab");
+      urlObj.searchParams.delete("isBonus");
       return urlObj.pathname + urlObj.search;
     };
 
