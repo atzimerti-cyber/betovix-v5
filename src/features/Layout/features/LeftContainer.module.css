@@ -413,13 +413,13 @@
   background: var(--live-badge-purple);
   border-radius: 3px;
   color: rgb(255, 255, 255);
-  font-size: 11px;
+  font-size: 9px;
   font-weight: 600;
   letter-spacing: 0.02em;
-  padding: 0px 0.30rem;
+  padding: 0px 0.3rem;
   text-shadow: rgba(41, 39, 33, 1) 0px 1px 2px;
   white-space: nowrap;
-  height: 16px;
+  height: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
