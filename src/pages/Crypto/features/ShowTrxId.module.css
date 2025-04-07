@@ -16,6 +16,8 @@
   justify-content: center;
   /* background-color: hsla(0, 0%, 0%, 0.3); */
   z-index: 10000;
+  backdrop-filter: blur(3px);
+  background-color: rgb(0 0 0 / 13%);
 }
 
 .Close {
@@ -62,18 +64,20 @@
 
 .Header {
   flex: 0 0 32px;
-  background-color: var(--dark-blue-1);
-  display: flex;
+  background-color: var(--mid-blue);
+      display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
   border-radius: 7px 7px 0 0;
+  border-bottom: 1px solid var(--body-bg);
 }
 
 .Title {
   display: flex;
   align-items: center;
   gap: 10px;
+  font-style: italic;
 }
 
 .Title svg {
@@ -81,7 +85,7 @@
   height: 14px;
   fill: var(--secondary-color);
 }
-.Header h2 {
+.Header h2, .Header i {
   display: flex;
   align-items: center;
   font-size: 1rem;
@@ -91,10 +95,19 @@
 }
 .SpanLink {
   color: var(--brand-green);
+  text-decoration: underline;
 }
+
+.TrxLink {
+  margin-top: 15px;
+}
+.TrxLink span{
+  font-weight: 400;
+}
+
 .ContentInner {
-  background-color: var(--dark-blue-1);
-  color: #fff;
+  background-color: var(--mid-blue);
+      color: #fff;
   font-weight: 600;
   padding: 15px 10px;
   border-radius: 0 0 7px 7px;

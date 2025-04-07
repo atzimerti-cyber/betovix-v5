@@ -65,14 +65,14 @@ const LoadTicketModal = () => {
         <div className={classes.LoadTicketContent}>
           <div className={classes.LoadBetslipWrapper}>
             <div className={classes.LoadBetslipContent}>
-              <p>{translate("Insert the ticket ID")}</p>
+              <p>{translate("Insert the ticket code")}</p>
               <form
                 className={classes.LoadBetslipFormWrapper}
                 onSubmit={handleSubmit}
               >
                 <input
                   type="text"
-                  placeholder={translate("ID...")}
+                  placeholder={translate("Code...")}
                   value={id}
                   onChange={handleInputChange}
                 />

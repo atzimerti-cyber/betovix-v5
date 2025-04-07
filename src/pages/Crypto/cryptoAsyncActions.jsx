@@ -279,24 +279,28 @@ export const getTrxRequest = (signal, id, onSuccess) => {
       const lang = getLang();
 
       const response = await axiosApi.get(
-        `/Payments/GetTransactionHash?requestId=${id}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`, 
+        `/Payments/GetTransactionHash?requestId=${id}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
-        signal: signal,
-        baseURLOverride: config.VITE_WALLET_STORETUBE,
-       }
-    );
+          signal,
+          baseURLOverride: config.VITE_WALLET_STORETUBE,
+        }
+      );
 
-      if (response.data.Status.StatusCode !== 200)
-        throw Error(response.data.Contents);
-      
-      dispatch(cryptoActions.setTrxId(response.data.Contents.TxHash));
-      dispatch(cryptoActions.setTrxLink(response.data.Contents.Explorer));
+      const statusCode = response?.data?.Status?.StatusCode;
+      const contents = response?.data?.Contents;
 
-      if (onSuccess) onSuccess();
-      
+      if (statusCode !== 200) throw new Error(contents);
+
+      dispatch(cryptoActions.setTrxId(contents?.TxHash));
+      dispatch(cryptoActions.setTrxLink(contents?.Explorer));
+
+      if (onSuccess) onSuccess(true);
+
     } catch (error) {
-      const message = error?.message ? error.message : error;
+      const message = error?.message || error;
       toast.error(translate(message));
+
+      if (onSuccess) onSuccess(false);
     }
   };
 };

@@ -201,22 +201,23 @@ const WithdrawRequests = () => {
     const signal = controller.signal;
 
     dispatch(
-      getTrxRequest(signal, reqid, () => {
-        setShowTrxModal(true);
-        setRequestId(reqid);
-
-        setOngoingTrx((prev) => {
-          const updated = new Set(prev);
-          updated.delete(reqid); // Ensure removal on error
-          return updated;
-        });
+      getTrxRequest(signal, reqid, (success) => {
+        if (success) {
+          setShowTrxModal(true);
+          setRequestId(reqid);
+        }
+        handleRequestDelete(reqid);
       })
     ).catch(() => {
-      setOngoingTrx((prev) => {
-        const updated = new Set(prev);
-        updated.delete(reqid); // Ensure removal on error
-        return updated;
-      });
+      handleRequestDelete(reqid);
+    });
+  };
+
+  const handleRequestDelete = (reqid) => {
+    setOngoingTrx((prev) => {
+      const updated = new Set(prev);
+      updated.delete(reqid); // Ensure removal on error
+      return updated;
     });
   };
 
