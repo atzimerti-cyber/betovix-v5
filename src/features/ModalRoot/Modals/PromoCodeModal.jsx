@@ -24,6 +24,8 @@ const PromoCodeModal = () => {
   const user = useSelector((state) => state.login.user);
   const promoSlug = useSelector((state) => state.modal.promoCodeSlug);
   const promoCodePage = useSelector((state) => state.modal.promoCodePage);
+  const promoCode = useSelector((state) => state.modal.promoCode);
+
   const [infoRequested, setInfoRequested] = useState(false);
 
   const handleInputChange = (e) => {
@@ -56,19 +58,23 @@ const PromoCodeModal = () => {
       return;
     }
 
-    // setLoading(true);
+   setLoading(true);
 
     const controller = new AbortController();
     const signal = controller.signal;
 
     dispatch(
-      redeemPromoCode(signal, code, () => {
+      redeemPromoCode(signal, code, (success) => {
+        if (success) {
+          addParamsToUrl("bonus");
+        }
         setLoading(false);
-        navigate(location.pathname);
       })
-    );
-  };
+    ).catch(() => {
+      setLoading(false);
+    });
 
+  };
 
   const handleInfoClick = () => {
     const controller = new AbortController();
@@ -88,11 +94,14 @@ const PromoCodeModal = () => {
 
   useEffect(() => {
     return () => {
-      dispatch(modalActions.setPromoCodeSlug(null));
-      dispatch(modalActions.setPromoCodePage(null));
-      setCode('');
-      setCodeDisabled(false);
-      setInfoRequested(false);
+  
+        dispatch(modalActions.setPromoCodeSlug(null));
+        dispatch(modalActions.setPromoCode(null));
+        dispatch(modalActions.setPromoCodePage(null));
+        setCode('');
+        setCodeDisabled(false);
+        setInfoRequested(false);
+      
     };
   }, [dispatch]);
 
@@ -102,17 +111,19 @@ const PromoCodeModal = () => {
 
     const searchParams = new URLSearchParams(location.search);
     const slug = searchParams.get("slug");
+    const code1 = searchParams.get("code");
 
-    if (slug && user) {
+    if (slug && code1 && user) {
       setInfoRequested(true);
       dispatch(getPromoCodePage(signal, slug));
     }
 
     dispatch(modalActions.setPromoCodeSlug(slug));
+    dispatch(modalActions.setPromoCode(code1));
 
     return () => dispatch(modalActions.setPromoCodePage(null));
 
-  }, []);
+  }, [location.search, dispatch]);
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);
@@ -125,12 +136,21 @@ const PromoCodeModal = () => {
   };
 
   useEffect(() => {
-    if (promoSlug) {
-      setCode(promoSlug);
+    if (promoCode) {
+      setCode(promoCode);
       setCodeDisabled(true);
     }
-  }, [promoSlug]);
+  }, [promoCode]);
 
+  const resetPromoState = () => {
+    dispatch(modalActions.setPromoCodeSlug(null));
+    dispatch(modalActions.setPromoCode(null));
+    dispatch(modalActions.setPromoCodePage(null));
+    setCode('');
+    setCodeDisabled(false);
+    setInfoRequested(false);
+  };
+  
   return (
     <div className={classes.LoadTicket}>
       <div className={classes.ModalContent}>
@@ -144,7 +164,10 @@ const PromoCodeModal = () => {
             <CloseButton
               timesIcon
               color="transparent"
-              onClick={() => navigate(location.pathname)}
+              onClick={() => {
+                resetPromoState();
+                navigate(location.pathname);
+              }}
             />
           </span>
         </header>

@@ -12,6 +12,7 @@ const initialState = {
   inLobbySearch: false,
   promoCodeSlug: null,
   promoCodePage: null,
+  promoCode: null,
 };
 
 export const modalSlice = createSlice({
@@ -29,6 +30,7 @@ export const modalSlice = createSlice({
       state.transactions = null;
       state.promoCodeSlug = null;
       state.promoCodePage = null;
+      state.promoCode = null;
     },
     setLevels: (state, action) => {
       state.levels = action.payload;
@@ -59,6 +61,9 @@ export const modalSlice = createSlice({
     },
     setPromoCodeSlug(state, action) {
       state.promoCodeSlug = action.payload;
+    },
+    setPromoCode(state, action) {
+      state.promoCode = action.payload;
     },
     setInLobbySearch: (state, action) => {
       state.inLobbySearch = action.payload;

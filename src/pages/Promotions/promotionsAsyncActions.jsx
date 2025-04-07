@@ -97,7 +97,8 @@ export const getSiteLinks = (signal, category) => {
     }
   };
 };
-export const redeemPromoCode = (signal, code) => {
+
+export const redeemPromoCode = (signal, code, onSuccess) => {
   return async (dispatch) => {
     try {
       const lang = getLang();
@@ -113,9 +114,17 @@ export const redeemPromoCode = (signal, code) => {
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
         throw Error(response.data.Contents);
 
+      let toastMessage = translate("Promo Code redeemed successfully!");
+      toast.success(toastMessage);
+
+      if (onSuccess) onSuccess(true);
+
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (error?.code !== "ERR_CANCELED") toast.error(translate(message));
+
+      if (onSuccess) onSuccess(false);
+
     }
   };
 };

@@ -31,9 +31,12 @@ const Login = () => {
   const cookiesSettings = useSelector(
     (state) => state.app.siteSettings.Cookies
   );
-  const promoSlug = useSelector((state) => state.modal.promoCodeSlug);
+  // const promoSlug = useSelector((state) => state.modal.promoCodeSlug);
+  // const promoCode = useSelector((state) => state.modal.promoCode);
 
   const [loading, setLoading] = useState(false);
+  const [promoSlug, setSlug] = useState('');
+  const [promoCode, setCode] = useState('');
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -74,10 +77,22 @@ const Login = () => {
     });
   };
 
+  useEffect(() => {
+      const searchParams = new URLSearchParams(location.search);
+      const slug = searchParams.get("slug");
+      const code1 = searchParams.get("code");
+  
+      if (slug && code1) {
+        setSlug(slug);
+        setCode(code1)
+      }
+  
+    }, []);
+
   const handleLoginSuccess = () => {
     dispatch(login(loginInfo, navigate, location.pathname)).then((result) => {
-      if (result && result.success && promoSlug) {
-        navigate(`${location.pathname}?modal=promo-code&slug=${promoSlug}`, { replace: true });
+      if (result && result.success && promoSlug && promoCode) {
+        navigate(`${location.pathname}?modal=promo-code&slug=${promoSlug}&code=${promoCode}`, { replace: true });
       }
     });
   };
