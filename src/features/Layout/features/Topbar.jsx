@@ -173,6 +173,7 @@ const Topbar = () => {
             <MainButton color="transparent" onClick={() => navigate("/")}>
               {/* <LogoBig /> */}
               <div
+                id="SiteLogo"
                 className={classes.SiteLogo}
                 style={{
                   backgroundImage: `url(${logoURL})`,
@@ -196,6 +197,7 @@ const Topbar = () => {
                 ></div>
               ) : (
                 <div
+                  id="SiteLogoNoUser"
                   className={classes.SiteLogoNoUser}
                   style={{
                     backgroundImage: `url(${logoURL})`,

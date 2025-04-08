@@ -46,7 +46,7 @@ const Promotions = (props) => {
   return (
     <div className={classes.PageContent}>
       <div className={classes.PromotionsContainer}>
-        <div className={classes.PromotionsHeader}>
+        <div className={classes.PromotionsHeader} id="PromotionsHeader">
           <div className={classes.Title}>
             <span>{translate(`Promotions`)}</span>
             <p>
@@ -71,7 +71,7 @@ const Promotions = (props) => {
           {promotions && promotions.length > 0 ? (
             promotions.map((promo, index) => (
               <div className={classes.Promo} key={index}>
-                <div className={classes.PromoCard} key={index}>
+                <div className={classes.PromoCard} key={index} id="PromoCard">
                   <div
                     className={classes.BgImage}
                     style={{ backgroundImage: `url(${promo.image})` }}

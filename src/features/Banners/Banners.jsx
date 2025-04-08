@@ -52,7 +52,11 @@ const Banners = ({ onDataNotFound }) => {
 
           return (
             <SwiperSlide key={banner.Id}>
-              <Link to={link} className={classes.ImageContainer}>
+              <Link
+                to={link}
+                className={classes.ImageContainer}
+                id="bannerImgContainer"
+              >
                 <div
                   className={
                     user
