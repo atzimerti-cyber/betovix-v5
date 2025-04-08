@@ -199,21 +199,23 @@ const PromoCodeModal = () => {
             {user ? (
               <div className={classes.LoadBetslipContent}>
                 {!disabled && <p>{translate("Insert your promo code")}:</p>}
-                {/* <form
-                  className={classes.LoadBetslipFormWrapper}
-                  onSubmit={handleSubmit}
-                >
-                  <input
-                    type="text"
-                    placeholder={translate("Promo Code...")}
-                    value={code}
-                    onChange={handleInputChange}
-                    disabled={disabled || loading}
-                  />
-                  <button type="submit" disabled={loading}>
-                    {loading ? translate("Loading...") : translate("Redeem")}
-                  </button>
-                </form> */}
+                {!promoCode && (
+                  <form
+                    className={classes.LoadBetslipFormWrapper}
+                    onSubmit={handleSubmit}
+                  >
+                    <input
+                      type="text"
+                      placeholder={translate("Promo Code...")}
+                      value={code}
+                      onChange={handleInputChange}
+                      disabled={disabled || loading}
+                    />
+                    <button type="submit" disabled={loading}>
+                      {loading ? translate("Loading...") : translate("Redeem")}
+                    </button>
+                  </form>
+                )}
 
                 {!infoRequested && (
                   <div className={classes.InfoWrapper}>
