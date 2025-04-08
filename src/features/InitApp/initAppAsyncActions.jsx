@@ -791,7 +791,7 @@ export const getSite = (signal) => {
       link.rel = "stylesheet";
       link.type = "text/css";
       //link.href = "/themes/theme-12.css";
-      link.href = response.data.Contents.SiteTheme; ////////////////////
+      link.href = response.data.Contents.SiteTheme; /////////////////////
       document.head.appendChild(link);
 
       // Update all favicon links
