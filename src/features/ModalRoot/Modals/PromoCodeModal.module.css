@@ -251,7 +251,7 @@
 }
 
 .LoadBetslipFormWrapper button:hover {
-  filter: brightness(1.15);
+  filter: brightness(1.14);
 }
 
 .LoadBetslipFormWrapper button:hover::before {
