@@ -214,6 +214,35 @@ export const getPromoCodePage = (signal, slug) => {
   };
 };
 
+export const getPromoCodePageByCode = (signal, code) => {
+  return async (dispatch, getState) => {
+    try {
+      const lang = getLang();
+
+      const response = await axiosApi.get(
+        `/PromoCoupon/GetPageByPromocode?promoCode=${code}&siteid=${config.VITE_SITE_ID}&lang=${lang.id}`,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
+        throw Error(response.data.Contents);
+
+      dispatch(modalActions.setPromoCodePage(response.data.Contents));
+    } catch (error) {
+      const message = error?.message
+        ? translate(error.message)
+        : translate(error);
+      if (!error?.code === "ERR_CANCELED") toast.error(message);
+      
+      dispatch(modalActions.setPromoCodePage(null));
+
+    }
+  };
+};
+
 export const getPromoPageBySlug = (signal, slug) => {
   return async (dispatch, getState) => {
     try {

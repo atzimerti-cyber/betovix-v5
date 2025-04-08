@@ -6,7 +6,7 @@ import { redeemPromoCode } from "../../../pages/Promotions/promotionsAsyncAction
 import CloseButton from "../../UI/Buttons/CloseButton";
 import { translate } from "../../../utils/translations";
 import { toast } from "react-toastify";
-import { getPromoCodePage } from "../modalAsyncActions";
+import { getPromoCodePage, getPromoCodePageByCode } from "../modalAsyncActions";
 import { modalActions } from "../modalSlice";
 import MainButton from "../../UI/Buttons/MainButton";
 import LogoutIcon from "../../../assets/svgs/logout.svg?react";
@@ -86,7 +86,7 @@ const PromoCodeModal = () => {
 
     setInfoRequested(true);
 
-    dispatch(getPromoCodePage(signal, code));
+    dispatch(getPromoCodePageByCode(signal, code));
 
     return () => dispatch(modalActions.setPromoCodePage(null));
   };
