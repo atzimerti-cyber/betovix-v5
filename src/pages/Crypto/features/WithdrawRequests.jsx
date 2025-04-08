@@ -7,7 +7,11 @@ import classes from "./WithdrawRequests.module.css";
 import AngleLeft2Icon from "../../../assets/svgs/angle-left2.svg?react";
 import NoReqs from "../../../assets/svgs/no-withdraw-reqs.svg?react";
 import { translate } from "../../../utils/translations";
-import { getWithrawalReqs, cancelWithdrawRequest, getTrxRequest } from "../cryptoAsyncActions";
+import {
+  getWithrawalReqs,
+  cancelWithdrawRequest,
+  getTrxRequest,
+} from "../cryptoAsyncActions";
 import MainButton from "../../../features/UI/Buttons/MainButton";
 import AngleLeftIcon from "../../../assets/svgs/angle-left.svg?react";
 import AngleRightIcon from "../../../assets/svgs/angle-right.svg?react";
@@ -225,12 +229,12 @@ const WithdrawRequests = () => {
 
   return (
     <>
-    {showTrxModal && (
-      <ShowTrxId
-        onClose={() => setShowTrxModal(false)}
-        requestId={requestId}
-      />
-    )}
+      {showTrxModal && (
+        <ShowTrxId
+          onClose={() => setShowTrxModal(false)}
+          requestId={requestId}
+        />
+      )}
 
       <div className={classes.ReturnContainer}>
         <div className={classes.ReturnButtonWrapper}>
@@ -338,7 +342,7 @@ const WithdrawRequests = () => {
                       {translate(`Amount`)}
                       {": "}
                       <b> {req.amount} </b>
-                      <b> {req.currency}</b>
+                      {/* <b> {req.currency}</b> */}
                     </p>
                   </div>
                   <div className={classes.Right}>
@@ -357,17 +361,18 @@ const WithdrawRequests = () => {
                           : translate("Cancel Request")}
                       </MainButton>
                     )}
-                    {req.status === 4 && req.provider === "CoinPayments" && ( // Show Cancel button only if status is Pending
-                      <MainButton
-                        color="primary"
-                        size="small"
-                        onClick={() => handleTrxRequest(req.reqId)}
-                        className={classes.TrxButton}
-                        loading={ongoingTrx.has(req.reqId)} // Disable button during cancellation
-                      >
-                        {translate("Get TrxId")}
-                      </MainButton>
-                    )}
+                    {req.status === 4 &&
+                      req.provider === "CoinPayments" && ( // Show Cancel button only if status is Pending
+                        <MainButton
+                          color="primary"
+                          size="small"
+                          onClick={() => handleTrxRequest(req.reqId)}
+                          className={classes.TrxButton}
+                          loading={ongoingTrx.has(req.reqId)} // Disable button during cancellation
+                        >
+                          {translate("Get TrxId")}
+                        </MainButton>
+                      )}
                   </div>
                 </div>
               ))}
