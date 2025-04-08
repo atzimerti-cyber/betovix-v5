@@ -970,7 +970,7 @@ export const getSiteSettings = (signal) => {
           Init: response.data.Contents.Site.Init,
           Url: response.data.Contents.Site.Url,
           LicenceActive: response.data.Contents.Site.LicenceActive,
-          LicenceLink : response.data.Contents.Site.LicenceLink,
+          LicenceLink: response.data.Contents.Site.LicenceLink,
         };
         dispatch(appActions.setLicence(license));
 
