@@ -16,7 +16,6 @@ const TrackEvents = (props) => {
     const signal = controller.signal;
 
     dispatch(getTrackEvent(signal, "sis_racing", "SIS Lobby"));
-    dispatch(layoutActions.setFullLeftContainer(false));
 
     return () => {
       controller.abort();

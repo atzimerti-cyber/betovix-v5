@@ -1,18 +1,18 @@
 .CategoryGroup {
   background-color: var(--sidebar-category-group);
   margin-bottom: 0.25rem;
-  border-top-right-radius: 10px;
-  border-bottom-right-radius: 10px;
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 10px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
 }
 .CategoryGroup.Closed {
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
-  box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 29%);
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+  box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 6%);
   margin-bottom: 0.35rem;
   background-color: var(--sidebar-category-group);
-  height: 2.5rem;
+  height: 2.8rem;
 }
 .CategoryGroup.Closed:hover {
   background-color: var(--db-white-hover-light);
@@ -36,7 +36,7 @@
   cursor: pointer;
   position: relative;
   display: flex;
-  height: 2.5rem;
+  height: 2.8rem;
   align-items: center;
   justify-content: space-between;
   padding-left: 1rem;
@@ -137,7 +137,7 @@
 
 @media (min-width: 768px) {
   .Title {
-    height: 2.5rem;
+    height: 2.8rem;
     font-size: 0.875rem;
     line-height: 1.25rem;
     font-weight: 600;
