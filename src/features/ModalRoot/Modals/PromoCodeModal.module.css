@@ -274,3 +274,10 @@
   height: calc(95dvh - 230px);
   overflow: auto;
 }
+
+.ButtonsWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}

@@ -108,7 +108,7 @@ const PromoCodeModal = () => {
 
     const searchParams = new URLSearchParams(location.search);
     const slug = searchParams.get("slug");
-    const code1 = searchParams.get("code");
+    const code1 = searchParams.get("promocode");
 
     if (slug && code1 && user) {
       setInfoRequested(true);
@@ -254,12 +254,23 @@ const PromoCodeModal = () => {
                     {translate("Please login first to redeem your promo code")}
                   </i>
                 </div>
-                <MainButton
-                  color="secondary"
-                  onClick={() => addParamsToUrl("auth", "login")}
-                >
-                  {translate("Login")}
-                </MainButton>
+                <div className={classes.ButtonsWrapper}>
+                  <MainButton
+                    color="secondary"
+                    onClick={() => addParamsToUrl("auth", "login")}
+                  >
+                    {translate("Login")}
+                  </MainButton>
+                  <MainButton
+                    color="primary"
+                    onClick={() => {
+                      addParamsToUrl("auth", "register");
+                      dispatch(modalActions.setPromoCodePage(null));
+                    }}
+                  >
+                    {translate("Register")}
+                  </MainButton>
+                </div>
               </div>
             )}
           </div>

@@ -17,6 +17,7 @@ import { useTimezoneSelect, allTimezones } from "react-timezone-select";
 import appSlice, { appActions } from "./appSlice";
 import useBasePath from "../../hooks/useBasePath";
 import { sportsHomeActions } from "../../pages/SportsBook/subpages/sportsHomeSlice";
+import { mod } from "@tensorflow/tfjs";
 
 const InitApp = () => {
   const dispatch = useDispatch();
@@ -62,6 +63,8 @@ const InitApp = () => {
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
     let value = searchParams.get("code");
+    let modal = searchParams.get("modal");
+    if (modal === "promo-code") return;
     if (!value) {
       value = localStorage.getItem("AffiliateCode");
       const date = localStorage.getItem("AffiliateCodeDate");
