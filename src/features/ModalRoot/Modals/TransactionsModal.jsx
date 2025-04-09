@@ -230,6 +230,20 @@ const TransactionsModal = () => {
         return translate("Voucher");
       case 12:
         return translate("Interkassa");
+      case 13:
+        return translate("GambPay");
+      case 14:
+        return translate("PayNora");
+      case 15:
+        return translate("GambPays Bank Transfer");
+      case 16:
+        return translate("GambPays Credit Card");
+      case 17:
+        return translate("PaPaRa");
+      case 18:
+        return translate("PayFix");
+      case 19:
+        return translate("PayCo");
       default:
         return " ";
     }
