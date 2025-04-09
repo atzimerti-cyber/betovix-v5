@@ -103,7 +103,9 @@
   cursor: pointer;
 }
 .IconContainer > svg {
-  fill: var(--brand-color);
+  fill: var(--brand-green);
+  height: 1rem;
+  width: 1rem;
 }
 
 .ExtraMarkets {

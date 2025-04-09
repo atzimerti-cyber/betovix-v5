@@ -8,7 +8,11 @@ import AngleDown2Icon from "../../../assets/svgs/angle-down2.svg?react";
 import Warning4Icon from "../../../assets/svgs/warning4.svg?react";
 import DisabledIcon from "../../../assets/svgs/disabled.svg?react";
 import SuccessIcon from "../../../assets/svgs/success.svg?react";
-import { addThousandsSeparator, formatDateTime2, formatDate } from "../../../utils/custom";
+import {
+  addThousandsSeparator,
+  formatDateTime2,
+  formatDate,
+} from "../../../utils/custom";
 import { translate } from "../../../utils/translations";
 import { cashout } from "../myBetsAsyncActions";
 import MyBetDetails from "./MyBetDetails";
@@ -60,7 +64,7 @@ const MyBet = (props) => {
   const onCopy = useCallback(() => {
     clearTimeout(timeoutRef.current);
 
-    navigator.clipboard.writeText(props.item.TicketId);
+    navigator.clipboard.writeText(props.item.TicketCode);
     setCopied(true);
 
     timeoutRef.current = setTimeout(() => {
@@ -209,7 +213,9 @@ const MyBet = (props) => {
                                     )} */}
                 </div>
               )}
-
+              <span className={classes.TicketContainerValue}>
+                ID #{props.item.TicketId}
+              </span>
               <div className={classes.TicketContainer}>
                 <span className={classes.TicketContainerLabel}>
                   {translate("Bet Placed at")}
@@ -221,10 +227,12 @@ const MyBet = (props) => {
               </div>
               <div className={classes.TicketContainer}>
                 <span className={classes.TicketContainerLabel}>
-                  {translate("Ticket ID")}
+                  {/* {translate("Ticket ID")} */}
+                  {translate("Ticket Code")}
                 </span>
                 <span className={classes.TicketContainerValue}>
-                  {props.item.TicketId}
+                  {props.item.TicketCode}
+                  {/* {props.item.TicketId} */}
                 </span>
               </div>
             </div>

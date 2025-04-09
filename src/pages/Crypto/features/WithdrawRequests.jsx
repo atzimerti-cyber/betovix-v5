@@ -19,6 +19,7 @@ import UpArrowIcon from "../../../assets/svgs/up.svg?react";
 import DownArrowIcon from "../../../assets/svgs/down.svg?react";
 import { formatDate } from "../../../utils/custom";
 import ShowTrxId from "./ShowTrxId";
+import RequestDetails from "./RequestDetails";
 
 const WithdrawRequests = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const WithdrawRequests = () => {
   const [ongoingCancellations, setOngoingCancellations] = useState(new Set());
   const [ongoingTrx, setOngoingTrx] = useState(new Set());
   const [showTrxModal, setShowTrxModal] = useState(false);
+  const [showReqDetailsModal, setShowReqDetailsModal] = useState(false);
   const [requestId, setRequestId] = useState(null);
 
   useEffect(() => {
@@ -176,9 +178,9 @@ const WithdrawRequests = () => {
   };
 
   const handleCancelRequest = (reqid) => {
-    if (ongoingCancellations.has(reqid)) return; // Prevent multiple clicks
+    if (ongoingCancellations.has(reqid)) return;
 
-    setOngoingCancellations((prev) => new Set(prev).add(reqid)); // Add reqId to the set
+    setOngoingCancellations((prev) => new Set(prev).add(reqid));
 
     const controller = new AbortController();
     const signal = controller.signal;
@@ -190,16 +192,16 @@ const WithdrawRequests = () => {
     ).catch(() => {
       setOngoingCancellations((prev) => {
         const updated = new Set(prev);
-        updated.delete(reqid); // Ensure removal on error
+        updated.delete(reqid);
         return updated;
       });
     });
   };
 
   const handleTrxRequest = (reqid) => {
-    if (ongoingTrx.has(reqid)) return; // Prevent multiple clicks
+    if (ongoingTrx.has(reqid)) return;
 
-    setOngoingTrx((prev) => new Set(prev).add(reqid)); // Add reqId to the set
+    setOngoingTrx((prev) => new Set(prev).add(reqid));
 
     const controller = new AbortController();
     const signal = controller.signal;
@@ -215,6 +217,12 @@ const WithdrawRequests = () => {
     ).catch(() => {
       handleRequestDelete(reqid);
     });
+  };
+
+  const handleRequestDetails = (req) => {
+    if (!req) return;
+    setRequestId(req);
+    setShowReqDetailsModal(true);
   };
 
   const handleRequestDelete = (reqid) => {
@@ -233,6 +241,13 @@ const WithdrawRequests = () => {
         <ShowTrxId
           onClose={() => setShowTrxModal(false)}
           requestId={requestId}
+        />
+      )}
+
+      {showReqDetailsModal && (
+        <RequestDetails
+          onClose={() => setShowReqDetailsModal(false)}
+          req={requestId}
         />
       )}
 
@@ -321,58 +336,67 @@ const WithdrawRequests = () => {
                   style={renderBgColor(req.status)}
                   key={index}
                 >
-                  <div className={classes.Left}>
-                    <p>
-                      <b>
-                        {translate(`Request Id`)} {": "}
-                      </b>
-                      #{req.reqId}
-                    </p>
-                    <p>{formatDate(req.dateAdded, "datetime")}</p>
-                    <p style={{ fontSize: "0.8rem", color: "lightblue" }}>
-                      <i>
-                        {translate(`Account Id`)}
+                  <div
+                    className={classes.Left}
+                    onClick={() => handleRequestDetails(req)}
+                  >
+                    <i>
+                      {" "}
+                      <p
+                        style={{
+                          fontSize: "12px",
+                        }}
+                      >
+                        {formatDate(req.dateAdded, "datetime")}
+                      </p>
+                    </i>
+                    <b>
+                      <p>
+                        {translate(`Amount`)}
                         {": "}
-                        {req.accountid}
-                      </i>
-                    </p>
+                        {req.amount}
+                      </p>
+                    </b>
                   </div>
-                  <div className={classes.Center}>
-                    <p>
-                      {translate(`Amount`)}
-                      {": "}
-                      <b> {req.amount} </b>
-                      {/* <b> {req.currency}</b> */}
-                    </p>
-                  </div>
-                  <div className={classes.Right}>
+                  <div
+                    className={classes.Center}
+                    onClick={() => handleRequestDetails(req)}
+                  >
                     <p>
                       <b>{renderReqStatus(req.status)}</b>
                     </p>
-                    {req.status === 0 && ( // Show Cancel button only if status is Pending
+                  </div>
+                  <div
+                    className={classes.Right}
+                    onClick={
+                      req.status === 0 || req.provider === "CoinPayments"
+                        ? undefined
+                        : () => handleRequestDetails(req)
+                    }
+                  >
+                    {req.status === 0 && (
                       <MainButton
                         color="danger"
                         onClick={() => handleCancelRequest(req.reqId)}
                         className={classes.CancelButton}
-                        disabled={ongoingCancellations.has(req.reqId)} // Disable button during cancellation
+                        disabled={ongoingCancellations.has(req.reqId)}
                       >
                         {ongoingCancellations.has(req.reqId)
                           ? translate("Cancelling...")
                           : translate("Cancel Request")}
                       </MainButton>
                     )}
-                    {req.status === 4 &&
-                      req.provider === "CoinPayments" && ( // Show Cancel button only if status is Pending
+                    {req.status === 4 && req.provider === "CoinPayments" && (
+                      <div className={classes.TrxBtn}>
                         <MainButton
                           color="primary"
-                          size="small"
                           onClick={() => handleTrxRequest(req.reqId)}
-                          className={classes.TrxButton}
-                          loading={ongoingTrx.has(req.reqId)} // Disable button during cancellation
+                          loading={ongoingTrx.has(req.reqId)}
                         >
                           {translate("Get TrxId")}
                         </MainButton>
-                      )}
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}

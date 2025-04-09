@@ -226,6 +226,7 @@ export const getWithrawalReqs = (signal, page, count, sort, status) => {
         note: req.Data.Note,
         status: req.Data.Status,
         provider: req.Data.Provider,
+        crAddress: req.Data?.Address,
       }));
 
       const total = response.data.Contents.Total;
@@ -295,7 +296,6 @@ export const getTrxRequest = (signal, id, onSuccess) => {
       dispatch(cryptoActions.setTrxLink(contents?.Explorer));
 
       if (onSuccess) onSuccess(true);
-
     } catch (error) {
       const message = error?.message || error;
       toast.error(translate(message));

@@ -67,7 +67,7 @@
   flex-grow: 1;
   align-items: center;
   justify-content: flex-start;
-  padding: 0 0.5rem 0.5rem 0.5rem;
+  padding: 0 0.3rem 0.5rem 0.1rem;
 }
 
 .SideMenuSubButtonContainer button {
@@ -76,7 +76,7 @@
   padding-left: 0.35rem;
   padding-right: 0.35rem;
   min-height: 2rem;
-  font-size: 0.755rem;
+  font-size: 0.73rem;
   font-weight: 400;
   gap: 0.5rem;
   border-color: transparent;

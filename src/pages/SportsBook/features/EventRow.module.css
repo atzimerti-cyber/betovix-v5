@@ -61,6 +61,11 @@
   gap: 8px;
   cursor: pointer;
 }
+.IconContainer svg {
+  height: 1rem;
+  width: 1rem;
+  fill: var(--brand-green);
+}
 
 .ExtraMarkets {
   white-space: nowrap;

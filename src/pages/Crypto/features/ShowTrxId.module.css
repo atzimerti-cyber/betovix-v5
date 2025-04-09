@@ -39,7 +39,7 @@
   /* border: 1px solid var(--gray-400); */
   z-index: 2;
   color: #000;
-  display: flex;    
+  display: flex;
   background: var(--body-bg);
   flex-direction: column;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
@@ -59,13 +59,13 @@
   z-index: 1;
 }
 .CloseButton svg {
-  fill: var(--color-100);
+  fill: var(--white);
 }
 
 .Header {
   flex: 0 0 32px;
   background-color: var(--mid-blue);
-      display: flex;
+  display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
@@ -85,7 +85,8 @@
   height: 14px;
   fill: var(--secondary-color);
 }
-.Header h2, .Header i {
+.Header h2,
+.Header i {
   display: flex;
   align-items: center;
   font-size: 1rem;
@@ -101,13 +102,13 @@
 .TrxLink {
   margin-top: 15px;
 }
-.TrxLink span{
+.TrxLink span {
   font-weight: 400;
 }
 
 .ContentInner {
   background-color: var(--mid-blue);
-      color: #fff;
+  color: #fff;
   font-weight: 600;
   padding: 15px 10px;
   border-radius: 0 0 7px 7px;

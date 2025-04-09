@@ -42,13 +42,11 @@ const TransactionsModal = () => {
         AccountId: user.AccountId,
         DateAdded: dateQuery,
         Kind: "( (Kind=1 OR Kind=3 OR Kind=5 OR Kind=7)  OR (Kind=2 OR Kind=4 OR Kind=6 OR Kind=8) )",
-        WalletTypeId: 1
-      }
-    }
+        WalletTypeId: 1,
+      },
+    };
 
-    dispatch(
-      getTransactionList(signal, filter)
-    );
+    dispatch(getTransactionList(signal, filter));
     return () => {
       controller.abort();
     };
@@ -64,6 +62,7 @@ const TransactionsModal = () => {
   const handlePeriodChange = (event) => {
     const selectedValue = event.target.value;
     setSelectedPeriod(selectedValue);
+    setCurrentPage(1);
   };
 
   const handleCustomDateChange = (field, value) => {
@@ -74,42 +73,46 @@ const TransactionsModal = () => {
     const currentDate = new Date();
     let fromDate = "";
     let toDate = "";
-  
+
     // Function to format date in 'YYYY-MM-DD HH:MM:SS' format
     const formatDateForQuery = (date) => {
       const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
-      const day = String(date.getDate()).padStart(2, '0');
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      const seconds = String(date.getSeconds()).padStart(2, '0');
-      
+      const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+      const day = String(date.getDate()).padStart(2, "0");
+      const hours = String(date.getHours()).padStart(2, "0");
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      const seconds = String(date.getSeconds()).padStart(2, "0");
+
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     };
-  
+
     switch (selectedPeriod) {
       case "today":
         // Set fromDate to start of today (00:00:00)
         const startOfDay = new Date(currentDate.setHours(0, 0, 0, 0));
         fromDate = formatDateForQuery(startOfDay);
-  
+
         // Set toDate to end of today (23:59:59)
         const endOfDay = new Date(currentDate.setHours(23, 59, 59, 999));
         toDate = formatDateForQuery(endOfDay);
         break;
-  
+
       case "1week":
-        const oneWeekAgo = new Date(currentDate.setDate(currentDate.getDate() - 7));
+        const oneWeekAgo = new Date(
+          currentDate.setDate(currentDate.getDate() - 7)
+        );
         fromDate = formatDateForQuery(oneWeekAgo);
         toDate = formatDateForQuery(new Date()); // Current date
         break;
-  
+
       case "30days":
-        const thirtyDaysAgo = new Date(currentDate.setDate(currentDate.getDate() - 30));
+        const thirtyDaysAgo = new Date(
+          currentDate.setDate(currentDate.getDate() - 30)
+        );
         fromDate = formatDateForQuery(thirtyDaysAgo);
         toDate = formatDateForQuery(new Date()); // Current date
         break;
-  
+
       case "custom":
         if (customPeriod.from && customPeriod.to) {
           fromDate = formatDateForQuery(new Date(customPeriod.from));
@@ -118,11 +121,11 @@ const TransactionsModal = () => {
           return ""; // Return an empty filter query or a fallback value
         }
         break;
-  
+
       default:
         break;
     }
-  
+
     // Return the query formatted correctly for SQL
     return ` (DateAdded BETWEEN '${fromDate}' AND '${toDate}') `;
   };
@@ -288,7 +291,10 @@ const TransactionsModal = () => {
   return (
     <div className={classes.TransactionsModal}>
       <div className={classes.ModalContent}>
-        <ModalHeader icon={<TransactionsIcon />} title={translate("My Transactions")} />
+        <ModalHeader
+          icon={<TransactionsIcon />}
+          title={translate("My Transactions")}
+        />
 
         <div className={classes.TransactionsContent}>
           <div
@@ -298,48 +304,58 @@ const TransactionsModal = () => {
                 transactions && transactions.Rows?.length < 1 && "center",
             }}
           >
-          <div className={classes.FilterContainer}>
-            <div className={classes.Filter}>
-              <div>
-              <label htmlFor="dateFilter"><i>{translate("Search Period")}:</i></label>
-              <select
-                id="dateFilter"
-                value={selectedPeriod}
-                onChange={handlePeriodChange}
-                className={classes.Select}
-              >
-                <option value="today">{translate("Today")}</option>
-                <option value="1week">{translate("Last 1 Week")}</option>
-                <option value="30days">{translate("Last 30 Days")}</option>
-                <option value="custom">{translate("Custom")}</option>
-              </select>
-              </div>
-              {selectedPeriod === "custom" && (
-                <div className={classes.CustomPeriod}>
-                  <div>
-                  <label htmlFor="fromFilter"><i>{translate("From")}:</i></label>
-                    
-                    <input
-                      id="fromFilter"
-                      type="date"
-                      value={customPeriod.from}
-                      onChange={(e) => handleCustomDateChange("from", e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="toFilter"><i>{translate("To")}:</i></label>
-                    
-                    <input
-                      id="toFilter"
-                      type="date"
-                      value={customPeriod.to}
-                      onChange={(e) => handleCustomDateChange("to", e.target.value)}
-                    />
-                  </div>
+            <div className={classes.FilterContainer}>
+              <div className={classes.Filter}>
+                <div>
+                  <label htmlFor="dateFilter">
+                    <i>{translate("Search Period")}:</i>
+                  </label>
+                  <select
+                    id="dateFilter"
+                    value={selectedPeriod}
+                    onChange={handlePeriodChange}
+                    className={classes.Select}
+                  >
+                    <option value="today">{translate("Today")}</option>
+                    <option value="1week">{translate("Last 1 Week")}</option>
+                    <option value="30days">{translate("Last 30 Days")}</option>
+                    <option value="custom">{translate("Custom")}</option>
+                  </select>
                 </div>
-              )}
+                {selectedPeriod === "custom" && (
+                  <div className={classes.CustomPeriod}>
+                    <div>
+                      <label htmlFor="fromFilter">
+                        <i>{translate("From")}:</i>
+                      </label>
+
+                      <input
+                        id="fromFilter"
+                        type="date"
+                        value={customPeriod.from}
+                        onChange={(e) =>
+                          handleCustomDateChange("from", e.target.value)
+                        }
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="toFilter">
+                        <i>{translate("To")}:</i>
+                      </label>
+
+                      <input
+                        id="toFilter"
+                        type="date"
+                        value={customPeriod.to}
+                        onChange={(e) =>
+                          handleCustomDateChange("to", e.target.value)
+                        }
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
             {transactions && transactions.Rows.length > 0 ? (
               <>
                 <div className={classes.Transactions}>
@@ -356,10 +372,13 @@ const TransactionsModal = () => {
                           </b>
                           #{transaction.Data.Id}
                         </p>
-                        <p>{formatDate(transaction.Data.DateAdded, 'datetime')}</p>
+                        <p>
+                          {formatDate(transaction.Data.DateAdded, "datetime")}
+                        </p>
                         <p style={{ fontSize: "0.8rem", color: "lightblue" }}>
                           <i>
-                            {transaction.Account.Username} ({transaction.Account.AccountId})
+                            {transaction.Account.Username} (
+                            {transaction.Account.AccountId})
                           </i>
                         </p>
                       </div>
@@ -378,7 +397,7 @@ const TransactionsModal = () => {
                       <div className={classes.Right}>
                         <p>
                           <b>{renderTransactionType(transaction.Data.Type)}</b>
-                        </p> 
+                        </p>
                         <p>
                           <b>{renderTransactionKind(transaction.Data.Kind)}</b>
                         </p>
@@ -395,7 +414,8 @@ const TransactionsModal = () => {
                     <AngleLeftIcon />
                   </button>
                   <span>
-                    {translate("Page")} {currentPage} {translate("of")} {totalPages}
+                    {translate("Page")} {currentPage} {translate("of")}{" "}
+                    {totalPages}
                   </span>
                   <button
                     disabled={currentPage === totalPages}

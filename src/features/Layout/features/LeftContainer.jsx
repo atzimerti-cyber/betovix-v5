@@ -23,7 +23,7 @@ import useBasePath from "../../../hooks/useBasePath";
 import { searchActions } from "../../../pages/Search/searchSlice";
 import { translate } from "../../../utils/translations";
 import StatsIcon from "../../../assets/svgs/bars.svg?react";
-import TicketIcon from "../../../assets/svgs/ticketReceipt.svg?react";
+import TicketIcon from "../../../assets/svgs/betslip.svg?react";
 import LoadIcon from "../../../assets/svgs/loadIcon.svg?react";
 import Timezone from "../../Timezone/Timezone";
 import InteractiveButton from "../../UI/Buttons/InteractiveButton";
@@ -213,7 +213,7 @@ const LeftContainer = memo(function () {
                       active={pathnameNoParams.includes("?modal=load-booked")}
                       onClick={() => navigate("?modal=load-booked")}
                       dataTooltipId="left-menu-tooltip"
-                      dataTooltipContent={translate("Load Booked")}
+                      dataTooltipContent={translate("Load Betslip")}
                     >
                       <LoadIcon
                         className={
@@ -223,7 +223,25 @@ const LeftContainer = memo(function () {
                         }
                       />
                       <span>
-                        {fullLeftContainer ? translate("Load Booked") : ""}
+                        {fullLeftContainer ? translate("Load Betslip") : ""}
+                      </span>
+                    </MainButton>
+
+                    <MainButton
+                      active={pathnameNoParams.includes("?modal=load-ticket")}
+                      onClick={() => navigate("?modal=load-ticket")}
+                      dataTooltipId="left-menu-tooltip"
+                      dataTooltipContent={translate("View Ticket")}
+                    >
+                      <TicketIcon
+                        className={
+                          pathnameNoParams.includes("?modal=load-ticket")
+                            ? classes.ActiveSvg
+                            : null
+                        }
+                      />
+                      <span>
+                        {fullLeftContainer ? translate("View Ticket") : ""}
                       </span>
                     </MainButton>
 

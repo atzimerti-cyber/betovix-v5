@@ -37,7 +37,7 @@ const LoadBooked = ({ isModal = false }) => {
   return (
     <div className={classes.LoadBetslipWrapper}>
       <div className={classes.LoadBetslipContent}>
-        <p>{translate("Insert the code to load the bet")}</p>
+        <p>{translate("Enter your code to load the betslip")}</p>
         <form
           className={classes.LoadBetslipFormWrapper}
           onSubmit={handleSubmit}
