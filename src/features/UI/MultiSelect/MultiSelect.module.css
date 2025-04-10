@@ -98,14 +98,14 @@
   background-color: var(--brand-green);
   border-radius: 5px;
   padding: 0.1rem 0.7rem;
+  font-weight: 500;
 }
 .SearchContainer {
   border-color: var(--sb-search);
-  border-width: 1px;
   position: relative;
   display: flex;
   align-items: center;
-  background-color: var(--db-gray-4);
+  background-color: var(--sb-search);
   transition-duration: 0.2s;
 }
 .SearchContainer svg path {
@@ -122,8 +122,8 @@
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
   padding-right: 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.7rem;
+  font-weight: 500;
   line-height: 0.75rem;
 }
 .ClearLabel.Disabled {
@@ -155,9 +155,7 @@
   padding: 0.75rem;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-.SearchContainer input:hover {
-  background-color: var(--db-gray-4);
+  font-weight: 400;
 }
 
 .SearchContainer input[type="search"]::-webkit-search-decoration,
@@ -212,7 +210,8 @@
   cursor: pointer;
   gap: 0.75rem;
   padding: 0.625rem 0.75rem;
-
+  font-weight: 400;
+  font-size: 13px;
   outline: 2px solid transparent;
   outline-offset: 2px;
   transition-property: color, background-color, border-color,
@@ -226,9 +225,8 @@
   --tw-bg-opacity: 0.1;
 }
 .VendorOption.Active {
-  border-right-width: 2px;
+  border-right-width: 3px;
   border-color: var(--brand-green);
-  background-color: var(--mid-blue);
 }
 
 .Checkbox path {
@@ -251,7 +249,6 @@
 .List svg path {
   fill: var(--brand-green);
 }
-
 /* Media */
 @media (min-width: 640px) {
   .DropdownInner input {

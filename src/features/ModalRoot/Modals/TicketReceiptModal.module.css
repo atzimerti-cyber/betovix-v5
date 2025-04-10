@@ -1,253 +1,252 @@
 .TicketReceipt {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: calc(100% - 20px);
-    --tw-translate-y: -0.5rem;
-    --tw-scale-x: 0.9;
-    --tw-scale-y: 0.9;
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
-        scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    background-color: var(--dark-blue-1);
-    opacity: 0;
-    animation: slide 0.2s ease-out forwards;
-color: #fff;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(100% - 20px);
+  --tw-translate-y: -0.5rem;
+  --tw-scale-x: 0.9;
+  --tw-scale-y: 0.9;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y))
+    rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
+    scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  background-color: var(--dark-blue-1);
+  opacity: 0;
+  animation: slide 0.2s ease-out forwards;
+  color: #fff;
 }
 
 @keyframes slide {
-    100% {
-        transform: translateY(0) scale(1);
-        opacity: 1;
-    }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
 }
 
 .ModalContent {
-    max-height: 100dvh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 0.625rem;
+  max-height: 100dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0.625rem;
 }
 
 .TicketReceipt header {
-    display: grid;
-    height: var(--db-modal-header-height);
-    padding-bottom: 1rem;
-    grid-template-columns: auto 1fr auto;
+  display: grid;
+  height: var(--db-modal-header-height);
+  padding-bottom: 1rem;
+  grid-template-columns: auto 1fr auto;
 }
 
 .Center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    grid-column: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  grid-column: 2;
 }
 
 .Center h1 {
-    display: flex;
-    align-items: center;
-    font-size: 1rem;
-    font-weight: 700;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .Right {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    grid-column: 3;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  grid-column: 3;
 }
 .ModalContent .Right button svg {
-    padding: 0.375rem !important;
-    height: 1.5rem !important;
-    width: 1.5rem !important;
+  padding: 0.375rem !important;
+  height: 1.5rem !important;
+  width: 1.5rem !important;
 }
 
 .TicketReceiptContent {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 @media (min-width: 768px) {
-    .ModalContent {
-        padding: 1rem;
-    }
+  .ModalContent {
+    padding: 1rem;
+  }
 }
-
 
 .printOddsGeneratedFile {
-		color: var(--white);
-	
+  color: var(--white);
 }
 .printOddsGeneratedFile > div {
-    padding: 20px;
-
+  padding: 20px;
 }
-.printOddsGeneratedFile table{
-		overflow-x: scroll;
+.printOddsGeneratedFile table {
+  overflow-x: scroll;
 }
 
 .printOddsGeneratedFile table .teamspace {
-        font-weight: 700;
-        text-transform: uppercase;
-        white-space: nowrap;
-        padding: 0 5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  white-space: nowrap;
+  padding: 0 5px;
 }
 
 .printOddsGeneratedFile table .teamspace.hometeam {
-        text-align: right;
+  text-align: right;
 }
 
 .printOddsGeneratedFile table .teamspace.awayteam {
-    text-align: left;
+  text-align: left;
 }
 
 .divToBePrinted {
-	color: #fff;
+  color: #fff;
+  overflow: auto;
 }
 
 .bodyPrint {
-	width: 7.8cm;
-	margin: 0 auto;
-	margin: auto;
-	font-size: 11px;
-	line-height: 12px;
-	font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-weight: bold;
+  width: 7.8cm;
+  margin: 0 auto;
+  margin: auto;
+  font-size: 11px;
+  line-height: 12px;
+  font-family: "Source Sans Pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: bold;
 }
 
 .barcode {
-    justify-content: center;
-    display: flex;
+  justify-content: center;
+  display: flex;
 }
-.bodyPrint	div.info {
-		padding: 5px 10px;
-		margin: 10px 0px 0 0px;
-		font-size: 12px;
-		line-height: 14px;
-		text-transform: uppercase;
-		text-align: center;
-		border: 1px solid var(--lightcolor-op1);
-		overflow: auto;
-	}
+.bodyPrint div.info {
+  padding: 5px 10px;
+  margin: 10px 0px 0 0px;
+  font-size: 12px;
+  line-height: 14px;
+  text-transform: uppercase;
+  text-align: center;
+  border: 1px solid var(--lightcolor-op1);
+  overflow: auto;
+}
 
-    .bodyPrint	.left {
-		float: left;
-		text-align: left;
-	}
+.bodyPrint .left {
+  float: left;
+  text-align: left;
+}
 
-    .bodyPrint	.right {
-		float: right;
-		text-align: right;
-	}
+.bodyPrint .right {
+  float: right;
+  text-align: right;
+}
 
-    .bodyPrint	.row {
-		display: block;
-		border-bottom: 1px solid var(--lightcolor-op1);
-	}
+.bodyPrint .row {
+  display: block;
+  border-bottom: 1px solid var(--lightcolor-op1);
+}
 
-    .bodyPrint	.fullWidth {
-		display: block;
-	}
+.bodyPrint .fullWidth {
+  display: block;
+}
 
-    .bodyPrint	.fullWidth.champName {
-		border-bottom: 1px solid black;
-		line-height: 20px;
-		font-size: 14px;
-		font-family: "Share Tech Mono", monospace;
-		text-align: center;
-	}
+.bodyPrint .fullWidth.champName {
+  border-bottom: 1px solid black;
+  line-height: 20px;
+  font-size: 14px;
+  font-family: "Share Tech Mono", monospace;
+  text-align: center;
+}
 
-    .bodyPrint	.matchCodes {
-		font-family: Helvetica;
-		font-size: 12px;
-		font-weight: normal;
-	}
+.bodyPrint .matchCodes {
+  font-family: Helvetica;
+  font-size: 12px;
+  font-weight: normal;
+}
 
-    .bodyPrint	.matchName {
-		font-family: Helvetica;
-		font-size: 12px;
-		height: 15px;
-		line-height: 15px;
-	}
+.bodyPrint .matchName {
+  font-family: Helvetica;
+  font-size: 12px;
+  height: 15px;
+  line-height: 15px;
+}
 
-    .bodyPrint	.fullWidth.matchInfos {
-		font-family: Helvetica;
-		font-size: 12px;
-		font-weight: normal;
-	}
+.bodyPrint .fullWidth.matchInfos {
+  font-family: Helvetica;
+  font-size: 12px;
+  font-weight: normal;
+}
 
-    .bodyPrint	.oneThird {
-		width: 33.333%;
-		display: inline-block;
-	}
+.bodyPrint .oneThird {
+  width: 33.333%;
+  display: inline-block;
+}
 
-    .bodyPrint	.twoThirds {
-		width: 66.66%;
-		display: inline-block;
-	}
+.bodyPrint .twoThirds {
+  width: 66.66%;
+  display: inline-block;
+}
 
-    .bodyPrint	div.disclaimer {
-		padding: 5px 10px;
-		margin: 0px 5px 0px 5px;
-		font-size: 12px;
-		line-height: 20px;
-		text-transform: uppercase;
-		text-align: center;
-		overflow: auto;
-	}
+.bodyPrint div.disclaimer {
+  padding: 5px 10px;
+  margin: 0px 5px 0px 5px;
+  font-size: 12px;
+  line-height: 20px;
+  text-transform: uppercase;
+  text-align: center;
+  overflow: auto;
+}
 
-    .bodyPrint	div.half {
-		width: 49%;
-		display: inline-block;
-	}
+.bodyPrint div.half {
+  width: 49%;
+  display: inline-block;
+}
 
-    .bodyPrint	div.title .half {
-		text-align: left;
-	}
+.bodyPrint div.title .half {
+  text-align: left;
+}
 
-    .bodyPrint	.evento {
-		font-size: 13px;
-	}
+.bodyPrint .evento {
+  font-size: 13px;
+}
 
-    .bodyPrint	div.footer {
-		padding: 5px 10px;
-		margin: 0px 5px;
-		font-size: 12px;
-		line-height: 15px;
-		text-transform: uppercase;
-		text-align: center;
-		overflow: auto;
-	}
-    .bodyPrint div.topinfo {
-        padding: 5px 10px;
-        margin: 0 5px;
-        text-align: center;
-        font-size: 10px;
-        line-height: 13px;
-    }
-    .divToBePrinted {
-        background: var(--sb-search);
-    }
-        .footerPrintOdds {
-            background: var(--dark-theme-two);
-            padding: 10px 20px;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-pack: end;
-            -ms-flex-pack: end;
-            justify-content: flex-end;
-        }
-    
-        .footerPrintOdds > div {
-            --tw-bg-opacity: 1;
-            background: hsl(var(--s) / var(--tw-bg-opacity));
-            color: rgb(255, 255, 255);
-            font-weight: 500;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            -webkit-transition: .2s;
-            transition: .2s;
-        }
+.bodyPrint div.footer {
+  padding: 5px 10px;
+  margin: 0px 5px;
+  font-size: 12px;
+  line-height: 15px;
+  text-transform: uppercase;
+  text-align: center;
+  overflow: auto;
+}
+.bodyPrint div.topinfo {
+  padding: 5px 10px;
+  margin: 0 5px;
+  text-align: center;
+  font-size: 10px;
+  line-height: 13px;
+}
+.divToBePrinted {
+  background: var(--sb-search);
+}
+.footerPrintOdds {
+  background: var(--dark-theme-two);
+  padding: 10px 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+.footerPrintOdds > div {
+  --tw-bg-opacity: 1;
+  background: hsl(var(--s) / var(--tw-bg-opacity));
+  color: rgb(255, 255, 255);
+  font-weight: 500;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}

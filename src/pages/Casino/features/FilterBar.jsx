@@ -24,6 +24,7 @@ const FilterBar = (props) => {
   const selectedProviders = useSelector(
     (state) => state.search.searchSelectedProviders
   );
+  const prevPage = useSelector((state) => state.app.prevPage);
 
   const [showSortingDD, setShowSortingDD] = useState(false);
   const [providersOptions, setProvidersOptions] = useState([]);
@@ -71,10 +72,19 @@ const FilterBar = (props) => {
     };
   }, [dispatch]);
 
+  const handleBack = () => {
+    if (prevPage.includes(`/casino/game`)) {
+      navigate(-3);
+    } else {
+      navigate(-1);
+    }
+  };
+
   return (
     <div className={classes.FilterBar}>
       <div className={classes.NavigateSection}>
-        <button className={classes.BackBtn} onClick={() => navigate(-1)}>
+        <button className={classes.BackBtn} onClick={handleBack}>
+          {/* <button className={classes.BackBtn} onClick={() => navigate(-1)}> */}
           <Arrow2LeftIcon />
           {translate(`Back`)}
         </button>

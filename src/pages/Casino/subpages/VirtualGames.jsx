@@ -28,6 +28,7 @@ const VirtualGames = () => {
 
   const casinoByTags = useSelector((state) => state.casino.casinoByTags);
   const barLoading = useSelector((state) => state.app.barLoading);
+  const prevPage = useSelector((state) => state.app.prevPage);
 
   const [items, setItems] = useState({ Data: null });
 
@@ -60,12 +61,21 @@ const VirtualGames = () => {
     }
   }, [casinoByTags]);
 
+  const handleBack = () => {
+    if (prevPage.includes(`/casino/game`)) {
+      navigate(-3);
+    } else {
+      navigate(-1);
+    }
+  };
+
   return (
     <>
       <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
       <div className={classes.PromotionsHeader}>
         <div className={classes.GoBackBtn}>
-          <button className={classes.BackBtn} onClick={() => navigate(-1)}>
+          <button className={classes.BackBtn} onClick={handleBack}>
+            {/* <button className={classes.BackBtn} onClick={() => navigate(-1)}> */}
             <Arrow2LeftIcon />
             {translate(`Back`)}
           </button>

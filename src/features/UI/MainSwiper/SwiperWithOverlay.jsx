@@ -27,6 +27,7 @@ const SwiperWithOverlay = (props) => {
   const isTouchScreen = useTouchScreen(); // Detect if the device has a touchscreen
 
   const lang = useSelector((state) => state.app.lang);
+  const isLocked = false;
 
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
@@ -174,6 +175,9 @@ const SwiperWithOverlay = (props) => {
                   >
                     <>
                       <article className={classes.Card}>
+                        {isLocked && (
+                          <div className={classes.NotAvailable}></div>
+                        )}
                         <div className={classes.ImageContainer}>
                           <div
                             style={{
@@ -193,7 +197,8 @@ const SwiperWithOverlay = (props) => {
                         {item.isNew && (
                           <div className={classes.NewLabel}>NEW</div>
                         )}
-                        {!isTouchScreen && (
+                        {/* {!isTouchScreen && !item.Data.isLocked && ( */}
+                        {!isTouchScreen && !isLocked && (
                           <div className={classes.OverlayContainer}>
                             <div className={classes.InfoContainer}>
                               <div className={classes.FavContainer}>
