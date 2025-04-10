@@ -12,7 +12,9 @@ import { casinoActions } from "../../../pages/Casino/casinoSlice";
 import HeartIcon from "../../../assets/svgs/heart.svg?react";
 import PlayButton from "../../../assets/svgs/playbutton.svg?react";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
+import LockedIcon from "../../../assets/svgs/locked-region.svg?react";
 import { toast } from "react-toastify";
+import { translate } from "../../../utils/translations";
 
 const CasinoGameCard = (props) => {
   const dispatch = useDispatch();
@@ -65,12 +67,22 @@ const CasinoGameCard = (props) => {
       <div
         className={classes.SlideContainer}
         onClick={() => {
-          if (isTouchScreen) {
-            openGameModal(props.game);
-          }
+          !props.game.isLocked && isTouchScreen && openGameModal(props.game);
         }}
+        style={props.game.isLocked ? { pointerEvents: "none" } : {}}
       >
-        <article className={classes.Card}>
+        <article
+          className={classes.Card}
+          style={props.game.isLocked ? { pointerEvents: "none" } : {}}
+        >
+          {props.game.isLocked && (
+            <div className={classes.NotAvailable}>
+              <div className={classes.IconWrapper}>
+                <LockedIcon />
+              </div>
+              <p>{translate("Not available in your region")}</p>
+            </div>
+          )}
           <div className={classes.ImageContainer}>
             <div
               style={{
@@ -87,7 +99,7 @@ const CasinoGameCard = (props) => {
           {props.game.isNew && (
             <div className={classes.NewLabel}>{translate("NEW")}</div>
           )}
-          {!isTouchScreen && (
+          {!isTouchScreen && !props.game.isLocked && (
             <div className={classes.OverlayContainer}>
               <div className={classes.InfoContainer}>
                 {user && (
