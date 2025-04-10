@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import classes from "./CasinoGameCard.module.css";
-import LoaderPlaceholder from "../../../features/UI/Skeletons/LoaderPlaceholder";
 import HeartIcon from "../../../assets/svgs/heart.svg?react";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
+import LockedIcon from "../../../assets/svgs/locked-region.svg?react";
 import { removeFavoriteCasino, addFavoriteCasino } from "../casinoAsyncActions";
 import { translate } from "../../../utils/translations";
 import { casinoActions } from "../casinoSlice";
@@ -18,11 +18,10 @@ const CasinoGameCard = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  // const [isLoaded, setIsLoaded] = useState(false);
   const [isFavorite, setIsFavorite] = useState(props.game.isFav);
 
-  const isTouchScreen = useTouchScreen(); // Detect if the device has a touchscreen
-  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const isTouchScreen = useTouchScreen();
+  const lang = useSelector((state) => state.app.lang);
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
 
@@ -64,15 +63,22 @@ const CasinoGameCard = (props) => {
     <div
       className={classes.SlideContainer}
       onClick={() => {
-        if (isTouchScreen) {
-          openGameModal(props.game);
-        }
+        !props.game.isLocked && isTouchScreen && openGameModal(props.game);
       }}
+      style={props.game.isLocked ? { pointerEvents: "none" } : {}}
     >
-      {/* <Link
-        to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}?isBonus=false`}
-      > */}
-      <article className={classes.Card}>
+      <article
+        className={classes.Card}
+        style={props.game.isLocked ? { pointerEvents: "none" } : {}}
+      >
+        {props.game.isLocked && (
+          <div className={classes.NotAvailable}>
+            <div className={classes.IconWrapper}>
+              <LockedIcon />
+            </div>
+            <p>{translate("Not available in your region")}</p>
+          </div>
+        )}
         <div className={classes.ImageContainer}>
           <div
             style={{
@@ -89,33 +95,16 @@ const CasinoGameCard = (props) => {
         {props.game.isNew && (
           <div className={classes.NewLabel}>{translate("NEW")}</div>
         )}
-        {!isTouchScreen && (
+        {!isTouchScreen && !props.game.isLocked && (
           <div className={classes.OverlayContainer}>
             <div className={classes.InfoContainer}>
               <div className={classes.FavContainer}>
-                {/* <HeartIcon
-                  className={props.game.isFav ? classes.FavoriteIcon : null}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                    if (user) {
-                      onToggleFavorite(props.game);
-                    } else {
-                      toast.warning("Login to access this feature");
-                    }
-                  }}
-                /> */}
                 <HeartIcon
                   className={isFavorite ? classes.FavoriteIcon : null}
                   onClick={(e) => {
                     e.stopPropagation();
                     e.preventDefault();
                     onToggleFavorite();
-                    // if (user) {
-                    //   onToggleFavorite(props.game);
-                    // } else {
-                    //   toast.warning("Login to access this feature");
-                    // }
                   }}
                 />
               </div>
@@ -149,30 +138,11 @@ const CasinoGameCard = (props) => {
           </div>
         )}
       </article>
-      {/* </Link> */}
       <div className={classes.BackgroundContainer}>
         <div>
           <p className={classes.SmallGameName}>{props.game.Data.Name}</p>
         </div>
       </div>
-      {/* <div className={classes.BackgroundContainer}>
-        <div>
-          <p className={classes.BgGameName}>{props.game.Data.Name}</p> 
-          <p className={classes.BgVendor}>{props.game.Data.VendorName}</p>
-        </div>
-        <HeartIcon
-          className={isFavorite ? classes.FavoriteIcon : null} 
-          onClick={(e) => {
-            e.stopPropagation();
-            e.preventDefault();
-            if (user) {
-              onToggleFavorite(props.game);
-            } else {
-              toast.warning("Login to access this feature");
-            }
-          }}
-        />
-      </div> */}
     </div>
   );
 };

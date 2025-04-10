@@ -8,9 +8,9 @@ import { translate } from "../../../utils/translations";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
 import BackIcon from "../../../assets/svgs/times3.svg?react";
 import axiosApi from "../../../axios-api";
-import { modalActions } from "../modalSlice";
 import config from "../../../config";
 import { getLang } from "../../../utils/storage";
+import LockedIcon from "../../../assets/svgs/locked-region.svg?react";
 
 const CasinoGameOptionsModal = (props) => {
   const navigate = useNavigate();
@@ -109,17 +109,35 @@ const CasinoGameOptionsModal = (props) => {
           <div className={classes.GameVendor}>
             {translate(`${game.Data.VendorName}`)}
           </div>
-          <Link
-            to={`/casino/game/${gameType}/${game.Data.ProviderName}/${game.Data.Id}/${game.Data.BrandGameId}/${game.Data.Name}?isBonus=false`}
-            style={{ width: "100%" }}
-          >
-            <div className={classes.PlayBtnContainer}>
-              <button className={classes.PlayBtn}>
-                <span>{translate("Play")}</span>
-              </button>
+          {game.isLocked ? (
+            <div
+              className={classes.PlayBtnContainer}
+              style={{
+                pointerEvents: "none",
+                flexDirection: "column",
+                color: "var(--white)",
+                opacity: "0.7",
+              }}
+            >
+              <LockedIcon />
+              <span style={{ textAlign: "center" }}>
+                {translate("Not available in your region")}
+              </span>
             </div>
-          </Link>
-          {bonusBalance > 0 && game.allowBonus && (
+          ) : (
+            <Link
+              to={`/casino/game/${gameType}/${game.Data.ProviderName}/${game.Data.Id}/${game.Data.BrandGameId}/${game.Data.Name}?isBonus=false`}
+              style={{ width: "100%" }}
+            >
+              <div className={classes.PlayBtnContainer}>
+                <button className={classes.PlayBtn}>
+                  <span>{translate("Play")}</span>
+                </button>
+              </div>
+            </Link>
+          )}
+
+          {bonusBalance > 0 && game.allowBonus && !game.isLocked && (
             <Link
               style={{ width: "100%" }}
               to={`/casino/game/${gameType}/${game.Data.ProviderName}/${game.Data.Id}/${game.Data.BrandGameId}/${game.Data.Name}?isBonus=true`}
@@ -162,18 +180,35 @@ const CasinoGameOptionsModal = (props) => {
             <div className={classes.GameVendor}>
               {translate(`${bannerGame.providerName}`)}
             </div>
-            <Link
-              to={`/casino/game/${gameType}/${bannerGame.providerName}/${bannerGame.gameid}/${bannerGame.brandGameId}/${bannerGame.gameName}?isBonus=false`}
-              style={{ width: "100%" }}
-            >
-              <div className={classes.PlayBtnContainer}>
-                <button className={classes.PlayBtn}>
-                  <span>{translate("Play Game")}</span>
-                </button>
+            {game.isLocked ? (
+              <div
+                className={classes.PlayBtnContainer}
+                style={{
+                  pointerEvents: "none",
+                  flexDirection: "column",
+                  color: "var(--white)",
+                  opacity: "0.7",
+                }}
+              >
+                <LockedIcon />
+                <span style={{ textAlign: "center" }}>
+                  {translate("Not available in your region")}
+                </span>
               </div>
-            </Link>
-            {bonusBalance > 0 && true && (
-              // {bonusBalance > 0 && game.allowBonus && (
+            ) : (
+              <Link
+                to={`/casino/game/${gameType}/${bannerGame.providerName}/${bannerGame.gameid}/${bannerGame.brandGameId}/${bannerGame.gameName}?isBonus=false`}
+                style={{ width: "100%" }}
+              >
+                <div className={classes.PlayBtnContainer}>
+                  <button className={classes.PlayBtn}>
+                    <span>{translate("Play Game")}</span>
+                  </button>
+                </div>
+              </Link>
+            )}
+
+            {bonusBalance > 0 && game.allowBonus && !game.isLocked && (
               <Link
                 style={{ width: "100%" }}
                 to={`/casino/game/${gameType}/${bannerGame.providerName}/${bannerGame.gameid}/${bannerGame.brandGameId}/${bannerGame.gameName}?isBonus=true`}

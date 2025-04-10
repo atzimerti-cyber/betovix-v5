@@ -1,26 +1,21 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css"; // Import Swiper styles
-import "swiper/css/grid"; // Ensure grid CSS is included
+import "swiper/css";
+import "swiper/css/grid";
 
 import { casinoActions } from "../../../pages/Casino/casinoSlice";
 
 import MainSwiper from "./MainSwiper";
-import HeartIcon from "../../../assets/svgs/heart.svg?react";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
+import LockedIcon from "../../../assets/svgs/locked-region.svg?react";
 import ArrowRight from "../../../assets/svgs/open-arrow-right.svg?react";
 import PlayButton from "../../../assets/svgs/playbutton.svg?react";
 import classes from "./Cat3Swiper.module.css";
 import LoaderPlaceholder from "../../UI/Skeletons/LoaderPlaceholder";
 import { getCasinoByTags } from "../../../pages/Casino/casinoAsyncActions";
-import {
-  addCasinoFav,
-  removeCasinoFav,
-} from "../../../features/CasinoFavorites/CasinoFavoritesAsync";
 import { translate } from "../../../utils/translations";
 import _ from "lodash";
 
@@ -80,32 +75,6 @@ const Cat3Swiper = (props) => {
       replace: true,
     });
   };
-
-  // const onToggleFavorite = (item) => {
-  //   if (item.isFav) {
-  //     dispatch(removeCasinoFav(item.Data.Id)).then(() => {
-  //       let newItems = _.cloneDeep(items);
-  //       for (let i = 0; i < newItems.length; i++) {
-  //         if (newItems[i].Data.Id === item.Data.Id) {
-  //           newItems[i].isFav = false;
-  //           break;
-  //         }
-  //       }
-  //       setItems(newItems);
-  //     });
-  //   } else {
-  //     dispatch(addCasinoFav(item.Data.Id)).then(() => {
-  //       let newItems = _.cloneDeep(items);
-  //       for (let i = 0; i < newItems.length; i++) {
-  //         if (newItems[i].Data.Id === item.Data.Id) {
-  //           newItems[i].isFav = true;
-  //           break;
-  //         }
-  //       }
-  //       setItems(newItems);
-  //     });
-  //   }
-  // };
 
   //CHECK IF DEVICE IS IOS AND MOBILE TO OPEN IFRAME
   useEffect(() => {
@@ -212,13 +181,21 @@ const Cat3Swiper = (props) => {
                       <SwiperSlide key={item.Data.Id}>
                         <div
                           className={classes.SlideContainer}
+                          style={item.isLocked ? { pointerEvents: "none" } : {}}
                           onClick={() => {
-                            if (isTouchScreen) {
-                              openGameModal(item);
-                            }
+                            item.isLocked
+                              ? null
+                              : isTouchScreen && openGameModal(item);
                           }}
                         >
                           <div className={classes.BackgroundContainer}>
+                            {item.isLocked && (
+                              <div className={classes.NotAvailable}>
+                                <div className={classes.IconWrapper}>
+                                  <LockedIcon />
+                                </div>
+                              </div>
+                            )}
                             <article className={classes.Card}>
                               <div className={classes.ImageContainer}>
                                 <div
@@ -232,35 +209,16 @@ const Cat3Swiper = (props) => {
                               </div>
                             </article>
                           </div>
-                          {!isTouchScreen && (
+                          {!isTouchScreen && !item.isLocked && (
                             <div className={classes.OverlayContainer}>
                               <div className={classes.InfoContainer}>
                                 <div>
                                   <p className={classes.BgGameName}>
                                     {item.Data.Name}
                                   </p>
-                                  {/* <p className={classes.BgVendor}>
-                              {item.Data.VendorName}
-                            </p> */}
                                 </div>
                               </div>
                               <div className={classes.ButtonsContainer}>
-                                {/* <div className={classes.FavContainer}>
-                            <HeartIcon
-                              className={
-                                item.isFav ? classes.FavoriteIcon : null
-                              }
-                              onClick={(e) => {
-                                e.stopPropagation();
-                                e.preventDefault();
-                                if (user) {
-                                  onToggleFavorite(item);
-                                } else {
-                                  toast.warning("Login to access this feature");
-                                }
-                              }}
-                            />
-                          </div> */}
                                 <Link
                                   to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
                                 >

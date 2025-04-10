@@ -127,6 +127,12 @@
 .PlayBtn:hover {
   font-weight: 700;
 }
+.PlayBtnContainer svg {
+  height: 1.7rem;
+  width: 1.7rem;
+  margin-bottom: 10px;
+}
+
 .isBonus {
   width: 100%;
   display: flex;

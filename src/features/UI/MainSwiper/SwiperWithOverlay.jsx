@@ -8,6 +8,7 @@ import MainSwiper from "./MainSwiper";
 import HeartIcon from "../../../assets/svgs/heart.svg?react";
 import PlayButton from "../../../assets/svgs/playbutton.svg?react";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
+import LockedIcon from "../../../assets/svgs/locked-region.svg?react";
 import classes from "./SwiperWithOverlay.module.css";
 import LoaderPlaceholder from "../../UI/Skeletons/LoaderPlaceholder";
 import { getCasinoByTags } from "../../../pages/Casino/casinoAsyncActions";
@@ -27,7 +28,6 @@ const SwiperWithOverlay = (props) => {
   const isTouchScreen = useTouchScreen(); // Detect if the device has a touchscreen
 
   const lang = useSelector((state) => state.app.lang);
-  const isLocked = false;
 
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
@@ -162,21 +162,26 @@ const SwiperWithOverlay = (props) => {
                 <SwiperSlide key={item.Data.Id}>
                   <div
                     onClick={() => {
-                      if (isTouchScreen) {
-                        openGameModal(item);
-                      }
+                      !item.isLocked && isTouchScreen && openGameModal(item);
                     }}
                     className={classes.SlideContainer}
-                    style={
-                      bonusBalance > 0
-                        ? { minHeight: "213px" }
-                        : { minHeight: "178px" }
-                    }
+                    style={{
+                      minHeight: bonusBalance > 0 ? "213px" : "178px",
+                      ...(item.isLocked && { pointerEvents: "none" }),
+                    }}
                   >
                     <>
-                      <article className={classes.Card}>
-                        {isLocked && (
-                          <div className={classes.NotAvailable}></div>
+                      <article
+                        className={classes.Card}
+                        style={item.isLocked ? { pointerEvents: "none" } : {}}
+                      >
+                        {item.isLocked && (
+                          <div className={classes.NotAvailable}>
+                            <div className={classes.IconWrapper}>
+                              <LockedIcon />
+                            </div>
+                            <p>{translate("Not available in your region")}</p>
+                          </div>
                         )}
                         <div className={classes.ImageContainer}>
                           <div
@@ -197,8 +202,7 @@ const SwiperWithOverlay = (props) => {
                         {item.isNew && (
                           <div className={classes.NewLabel}>NEW</div>
                         )}
-                        {/* {!isTouchScreen && !item.Data.isLocked && ( */}
-                        {!isTouchScreen && !isLocked && (
+                        {!isTouchScreen && !item.isLocked && (
                           <div className={classes.OverlayContainer}>
                             <div className={classes.InfoContainer}>
                               <div className={classes.FavContainer}>

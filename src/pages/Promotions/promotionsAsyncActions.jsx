@@ -114,7 +114,7 @@ export const redeemPromoCode = (signal, code, onSuccess) => {
       if (response.status !== 200 || response.data.Status.StatusCode !== 200)
         throw Error(response.data.Contents);
 
-      let toastMessage = translate("Promo Code redeemed successfully!");
+      let toastMessage = translate("Promo Code redeemed successfully");
       toast.success(toastMessage);
 
       if (onSuccess) onSuccess(true);

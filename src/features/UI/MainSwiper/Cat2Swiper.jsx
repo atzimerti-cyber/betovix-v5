@@ -5,8 +5,7 @@ import { SwiperSlide } from "swiper/react";
 import { toast } from "react-toastify";
 
 import MainSwiper from "./MainSwiper";
-import HeartIcon from "../../../assets/svgs/heart.svg?react";
-import GiftIcon from "../../../assets/svgs/gift.svg?react";
+import LockedIcon from "../../../assets/svgs/locked-region.svg?react";
 import classes from "./Cat2Swiper.module.css";
 import LoaderPlaceholder from "../../UI/Skeletons/LoaderPlaceholder";
 import {
@@ -146,15 +145,18 @@ const Cat2Swiper = (props) => {
               return (
                 <SwiperSlide key={item.Data.Id}>
                   <div
-                    // id={`category2slide${index}`}
                     className={classes.SlideContainer}
-                    style={
-                      bonusBalance > 0
-                        ? { minHeight: "213px" }
-                        : { minHeight: "178px" }
-                    }
+                    // style={
+                    //   bonusBalance > 0
+                    //     ? { minHeight: "213px" }
+                    //     : { minHeight: "178px" }
+                    // }
+                    style={{
+                      minHeight: bonusBalance > 0 ? "213px" : "178px",
+                      ...(item.isLocked && { pointerEvents: "none" }),
+                    }}
                     onClick={() => {
-                      openGameModal(item);
+                      item.isLocked ? null : openGameModal(item);
                     }}
                   >
                     <div className={classes.BackgroundContainer}>
@@ -176,7 +178,20 @@ const Cat2Swiper = (props) => {
                         </div>
                       </article>
                     </div>
-                    <div className={classes.OverlayContainer}>
+                    <div
+                      className={classes.OverlayContainer}
+                      style={
+                        item.isLocked
+                          ? {
+                              background:
+                                "linear-gradient(90deg, rgba(0, 0, 0, 0.7) 70%, rgba(0, 0, 0, 0.76) 90%)",
+                            }
+                          : {
+                              background:
+                                "linear-gradient(90deg,transparent 0%,#0000001a 50%,  rgba(0, 0, 0, 0.56) 70%,  hsla(0, 0%, 0%, 0.76) 90% )",
+                            }
+                      }
+                    >
                       <div className={classes.InfoContainer}>
                         <div>
                           <p className={classes.BgGameName}>{item.Data.Name}</p>
@@ -185,6 +200,14 @@ const Cat2Swiper = (props) => {
                           </p>
                         </div>
                       </div>
+                      {item.isLocked && (
+                        <div className={classes.NotAvailable}>
+                          <div className={classes.IconWrapper}>
+                            <LockedIcon />
+                          </div>
+                          <p>{translate("Not available in your region")}</p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </SwiperSlide>
