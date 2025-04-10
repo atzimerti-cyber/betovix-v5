@@ -2,7 +2,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import Webcam from "react-webcam";
-import * as faceapi from "face-api.js";
+import * as faceapi from "@vladmandic/face-api";
 import * as tf from "@tensorflow/tfjs";
 
 import classes from "./LivePhotoCheck.module.css";
@@ -59,16 +59,31 @@ const LivePhotoCheck = (props) => {
     setLoading(false);
   };
 
+  // const detectFace = async (imageSrc) => {
+  //   const img = await faceapi.fetchImage(imageSrc);
+
+  //   // Resize the image to the expected dimensions
+  //   const input = faceapi.resizeResults(img, { width: 640, height: 480 }); // Adjust as needed
+
+  //   const detections = await faceapi
+  //     .detectSingleFace(input)
+  //     .withFaceLandmarks();
+  //   return detections;
+  // };
+
   const detectFace = async (imageSrc) => {
     const img = await faceapi.fetchImage(imageSrc);
+    const detection = await faceapi.detectSingleFace(img).withFaceLandmarks();
 
-    // Resize the image to the expected dimensions
-    const input = faceapi.resizeResults(img, { width: 640, height: 480 }); // Adjust as needed
+    if (detection) {
+      const resizedDetection = faceapi.resizeResults(detection, {
+        width: 640,
+        height: 480,
+      });
+      return resizedDetection;
+    }
 
-    const detections = await faceapi
-      .detectSingleFace(input)
-      .withFaceLandmarks();
-    return detections;
+    return null;
   };
 
   // Capture image and perform liveness check
