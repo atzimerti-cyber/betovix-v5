@@ -121,7 +121,11 @@ export const getVendorGame = (
       if (providername === "Softion") {
         requests = [
           axiosApi.get(
-            `Casino${providername}/GetGame?gameid=${id}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL}/casino&siteid=${config.VITE_SITE_ID}`,
+            `Casino${providername}/GetGame?gameid=${id}&gamename=${encodeURIComponent(
+              gameName
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
+              config.VITE_HOME_URL
+            }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
         ];
@@ -141,7 +145,11 @@ export const getVendorGame = (
       } else if (providername === "Vegas" || providername === "Amarix") {
         requests = [
           axiosApi.get(
-            `Casino${providername}/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL}/casino&siteid=${config.VITE_SITE_ID}`,
+            `Casino${providername}/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
+              gameName
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
+              config.VITE_HOME_URL
+            }/casino&siteid=${config.VITE_SITE_ID}`,
             // { signal: signal, baseURLOverride: config.VITE_CASINO_STORETUBE_BASE }
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
@@ -168,7 +176,11 @@ export const getVendorGame = (
       } else if (providername === "Aviatrix") {
         requests = [
           axiosApi.get(
-            `Casino${providername}/Get${providername}Game?gameid=${id}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL}/casino&siteid=${config.VITE_SITE_ID}`,
+            `Casino${providername}/Get${providername}Game?gameid=${id}&gamename=${encodeURIComponent(
+              gameName
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
+              config.VITE_HOME_URL
+            }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
         ];
@@ -188,7 +200,11 @@ export const getVendorGame = (
       } else if (providername === "MultiGames") {
         requests = [
           axiosApi.get(
-            `${providername}/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL}/casino&siteid=${config.VITE_SITE_ID}`,
+            `${providername}/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
+              gameName
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
+              config.VITE_HOME_URL
+            }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
         ];
@@ -208,7 +224,11 @@ export const getVendorGame = (
       } else if (providername === "Barbara Bang") {
         requests = [
           axiosApi.get(
-            `CasinoBarbara/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL}/casino&siteid=${config.VITE_SITE_ID}`,
+            `CasinoBarbara/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
+              gameName
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
+              config.VITE_HOME_URL
+            }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
         ];
@@ -227,7 +247,11 @@ export const getVendorGame = (
       } else if (providername === "Hub88") {
         requests = [
           axiosApi.get(
-            `CasinoHub/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL}/casino&siteid=${config.VITE_SITE_ID}`,
+            `CasinoHub/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
+              gameName
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
+              config.VITE_HOME_URL
+            }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
         ];
@@ -280,7 +304,11 @@ export const getLiveVendorGame = (
       if (providername === "MultiGames") {
         requests = [
           axiosApi.get(
-            `${providername}/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL}/casino&siteid=${config.VITE_SITE_ID}`,
+            `${providername}/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
+              gameName
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
+              config.VITE_HOME_URL
+            }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
         ];
@@ -300,7 +328,11 @@ export const getLiveVendorGame = (
       } else if (providername === "Beter") {
         requests = [
           axiosApi.get(
-            `Casino${providername}/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL}/casino&siteid=${config.VITE_SITE_ID}`,
+            `Casino${providername}/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
+              gameName
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
+              config.VITE_HOME_URL
+            }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
         ];
@@ -319,7 +351,11 @@ export const getLiveVendorGame = (
       } else if (providername === "Hub88") {
         requests = [
           axiosApi.get(
-            `CasinoHub/GetGame?gameid=${brandgameid}&gamename=${gameName}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL}/casino&siteid=${config.VITE_SITE_ID}`,
+            `CasinoHub/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
+              gameName
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
+              config.VITE_HOME_URL
+            }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
         ];
