@@ -69,36 +69,41 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
-@media (min-width: 420px) {
+@media (min-width: 380px) {
   .CardsContainer {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
-@media (min-width: 600px) {
+@media (min-width: 420px) {
   .CardsContainer {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
-@media (min-width: 900px) {
+@media (min-width: 600px) {
   .CardsContainer {
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
-@media (min-width: 1000px) {
+@media (min-width: 900px) {
   .CardsContainer {
     grid-template-columns: repeat(6, minmax(0, 1fr));
   }
 }
-
-@media (min-width: 1200px) {
+@media (min-width: 1000px) {
   .CardsContainer {
     grid-template-columns: repeat(7, minmax(0, 1fr));
   }
 }
 
-@media (min-width: 1350px) {
+@media (min-width: 1200px) {
   .CardsContainer {
     grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1350px) {
+  .CardsContainer {
+    grid-template-columns: repeat(9, minmax(0, 1fr));
   }
 }
 
