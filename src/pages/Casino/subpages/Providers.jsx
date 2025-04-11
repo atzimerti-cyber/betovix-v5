@@ -1,50 +1,81 @@
-import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import _ from 'lodash';
+import { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import _ from "lodash";
 
-import { casinoActions } from '../casinoSlice';
-import classes from './Providers.module.css';
-import Providers from '../../../assets/svgs/providers.svg?react';
-import { translate } from '../../../utils/translations';
-import GridVendors from '../features/GridVendors';
-import { getAllVendors } from '../casinoAsyncActions';
+import { casinoActions } from "../casinoSlice";
+import classes from "./Providers.module.css";
+import ProvidersIcon from "../../../assets/svgs/providers.svg?react";
+import { translate } from "../../../utils/translations";
+import GridVendors from "../features/GridVendors";
+import { getAllVendors } from "../casinoAsyncActions";
+import Search3 from "../../../features/Search/Search3";
+import useDebounce from "../../../hooks/useDebounce";
 
-const FavoriteGames = () => {
-    const dispatch = useDispatch();
-    const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+const Providers = () => {
+  const dispatch = useDispatch();
+  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
 
-    const allCasinoVendors = useSelector((state) => state.casino.casinoVendors);
-    const user = useSelector((state) => state.login.user);
+  const [searchString, setSearchString] = useState("");
+  const debSearchString = useDebounce(searchString);
 
-    useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-        dispatch(getAllVendors(signal));
+  const allCasinoVendors = useSelector((state) => state.casino.casinoVendors);
+  const user = useSelector((state) => state.login.user);
 
-        return () => {
-            controller.abort();
-            dispatch(casinoActions.resetLobby());
-        };
-    }, []);
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    dispatch(getAllVendors(signal, null));
 
-    return (
-        <>
-            <div className={classes.SlotGames}>
-                {allCasinoVendors && allCasinoVendors.length === 0 && (
-                    null
-                )}
+    return () => {
+      controller.abort();
+      dispatch(casinoActions.resetLobby());
+      setSearchString(null);
+    };
+  }, []);
 
-                {allCasinoVendors && allCasinoVendors.length > 1 && (
-                    <GridVendors
-                        title={translate('Our Providers')}
-                        icon={<Providers />}
-                        collection={allCasinoVendors}
-                    />
-                )}
-            </div>
-        </>
-    );
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    if (debSearchString !== "" && debSearchString !== null) {
+      dispatch(getAllVendors(signal, debSearchString));
+    } else {
+      dispatch(getAllVendors(signal, null));
+    }
+
+    return () => {
+      controller.abort();
+    };
+  }, [debSearchString]);
+
+  const handleSearchChange = (value) => {
+    setSearchString(value);
+  };
+
+  return (
+    <>
+      {allCasinoVendors && (
+        <div className={classes.SearchSection}>
+          <div className={classes.SearchWrapper}>
+            <Search3
+              placeholder={translate("Search providers") + "..."}
+              searchStr={searchString}
+              onChange={handleSearchChange}
+            />
+          </div>
+        </div>
+      )}
+      <div className={classes.SlotGames}>
+        {allCasinoVendors && (
+          <GridVendors
+            title={translate("Our Providers")}
+            icon={<ProvidersIcon />}
+            collection={allCasinoVendors}
+          />
+        )}
+      </div>
+    </>
+  );
 };
 
-export default FavoriteGames;
+export default Providers;

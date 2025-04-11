@@ -110,3 +110,14 @@
     grid-template-columns: repeat(5, minmax(0, 1fr));
   }
 }
+
+.SearchSection {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.SearchWrapper {
+  width: 30%;
+  min-width: 290px;
+}

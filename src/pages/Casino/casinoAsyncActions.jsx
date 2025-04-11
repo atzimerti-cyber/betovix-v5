@@ -383,13 +383,17 @@ export const getLiveVendorGame = (
   };
 };
 
-export const getAllVendors = (signal) => {
+export const getAllVendors = (signal, searchStr) => {
   return async (dispatch) => {
     try {
       const lang = getLang();
 
+      if (!searchStr) {
+        searchStr = "";
+      }
+
       const response = await axiosApi.get(
-        `MyCasino/GetVendors?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        `MyCasino/GetVendors?lang=${lang.id}&siteid=${config.VITE_SITE_ID}&search=${searchStr}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_CASINO_BASE,
@@ -397,7 +401,6 @@ export const getAllVendors = (signal) => {
       );
 
       if (response.data.Status.StatusCode !== 200) throw Error();
-      //console.log("Vendors(getAllVendors)", response.data.Contents);
       dispatch(casinoActions.setCasinoVendors(response.data.Contents));
     } catch (error) {
       const message = error?.message
