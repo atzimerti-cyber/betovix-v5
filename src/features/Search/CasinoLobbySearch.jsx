@@ -65,9 +65,6 @@ const CasinoLobbySearch = (props) => {
       dispatch(modalActions.setInLobbySearch(false));
       setValue("");
     }
-    // dispatch(modalActions.setInLobbySearch(false));
-    // dispatch(searchActions.setCasinoResults(null));
-    // setValue("");
   };
 
   useEffect(() => {

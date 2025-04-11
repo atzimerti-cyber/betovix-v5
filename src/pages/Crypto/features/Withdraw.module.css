@@ -111,7 +111,8 @@
   -webkit-line-clamp: 3;
   margin-top: 0.5rem;
   max-height: 50%;
-  font-size: 0.875rem;
+  font-size: 15px;
+  font-weight: 400;
   line-height: 1;
   color: hsl(var(--nc) / var(--tw-text-opacity));
 }
@@ -191,7 +192,8 @@
   }
 
   .PaymentButtonContainer > button h2 {
-    font-size: 17px;
+    font-size: 15px;
+    font-weight: 400;
     line-height: 1.25rem;
   }
 

@@ -7,6 +7,8 @@ import CashierModal from "./Modals/CashierModal";
 import LoginModal from "./Modals/LoginModal";
 import AnnouncementModal from "./Modals/AnnouncementModal";
 
+import VoucherModal from "../../pages/Crypto/features/VoucherModal";
+
 import OddsFormatModal from "./Modals/OddsFormatModal";
 import BonusModal from "./Modals/BonusModal";
 
@@ -39,6 +41,7 @@ const ModalRoot = () => {
   const location = useLocation();
   const dispatch = useDispatch();
 
+  const showVoucherModal = useSelector((state) => state.app.showVoucherModal);
   const inLobbySearch = useSelector((state) => state.modal.inLobbySearch);
   const permissions = useSelector((state) => state.login.permissions);
   const onCloseModal = useSelector((state) => state.modal.onCloseModal);
@@ -174,6 +177,7 @@ const ModalRoot = () => {
           </motion.div>
         </AnimatePresence>
       )} */}
+      {showVoucherModal && <VoucherModal />}
     </div>
   );
 };

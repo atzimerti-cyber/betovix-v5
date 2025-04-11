@@ -1,12 +1,18 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
+
+import { VouchstarBtn, VouchstarModal } from "react-vstar-websdk"; ////////////////////////
+import VoucherModal from "./VoucherModal";
 
 import classes from "./Deposit.module.css";
 
 import { cryptoActions } from "../cryptoSlice";
 import DepositMethods from "./DepositMethods";
 import FinalStageDeposit from "./FinalStageDeposit";
+import Vouchers from "./Vouchers";
+
+import VoucherIcon from "../../../assets/svgs/voucher.svg";
 
 import MainButton from "../../../features/UI/Buttons/MainButton";
 
@@ -26,6 +32,7 @@ const Deposit = () => {
   if (stage === "crypto") elClasses.push(classes.Crypto);
   else if (stage === "methods") elClasses.push(classes.Methods);
   else if (stage === "deposit") elClasses.push(classes.Deposit);
+  else if (stage === "voucher") elClasses.push(classes.Voucher);
 
   useEffect(() => {
     if (!paymentTypes) return;
@@ -64,46 +71,80 @@ const Deposit = () => {
     });
   };
 
+  const vouchStarPayment = paymentTypes?.find(
+    (payment) => payment.Provider === "VouchStar"
+  );
+
   return (
     <div className={elClasses.join(" ")}>
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
-          {paymentTypes &&
-            paymentTypes.length > 1 &&
-            paymentTypes.map((paymentType, index) => (
-              <div
-                key={index}
-                className={[
-                  classes.PaymentButtonContainer,
-                  classes.CryptoCoin,
-                ].join(" ")}
-                style={{
-                  background: "var(--button-grad-op-mid)",
+          {paymentTypes?.some(
+            (payment) => payment.Provider === "VouchStar"
+          ) && (
+            <div
+              className={classes.PaymentButtonContainer}
+              style={{
+                background: "var(--button-grad-op-mid)",
+              }}
+            >
+              <MainButton
+                color="transparent"
+                onClick={() => {
+                  navigateToModal("cashier", "deposit", "voucher");
                 }}
               >
-                <MainButton
-                  color="transparent"
-                  onClick={() => {
-                    if (paymentType.Methods.length <= 1) {
-                      selectPaymentType(paymentType);
-                      selectPaymentMethod(paymentType);
-                      navigateToModal("cashier", "deposit", "deposit");
-                    } else {
-                      selectPaymentType(paymentType);
-                      navigateToModal("cashier", "deposit", "methods");
-                    }
+                <img
+                  className={classes.AllCrypto}
+                  src={VoucherIcon}
+                  loading="lazy"
+                  alt="Voucher"
+                />
+                <h2>{translate("Buy Deposit Voucher")}</h2>
+              </MainButton>
+            </div>
+          )}
+
+          {paymentTypes &&
+            paymentTypes.length > 1 &&
+            paymentTypes.map((paymentType, index) => {
+              if (paymentType.Provider === "VouchStar") return null;
+
+              return (
+                <div
+                  key={index}
+                  className={[
+                    classes.PaymentButtonContainer,
+                    classes.CryptoCoin,
+                  ].join(" ")}
+                  style={{
+                    background: "var(--button-grad-op-mid)",
                   }}
                 >
-                  <div
-                    className={classes.Image}
-                    style={{
-                      backgroundImage: `url("${paymentType.Icon}")`,
+                  <MainButton
+                    color="transparent"
+                    onClick={() => {
+                      if (paymentType.Methods.length <= 1) {
+                        selectPaymentType(paymentType);
+                        selectPaymentMethod(paymentType);
+                        navigateToModal("cashier", "deposit", "deposit");
+                      } else {
+                        selectPaymentType(paymentType);
+                        navigateToModal("cashier", "deposit", "methods");
+                      }
                     }}
-                  ></div>
-                  <h2>{translate(`${paymentType.Name}`)}</h2>
-                </MainButton>
-              </div>
-            ))}
+                  >
+                    <div
+                      className={classes.Image}
+                      style={{
+                        backgroundImage: `url("${paymentType.Icon}")`,
+                      }}
+                    ></div>
+                    <h2>{translate(`${paymentType.Name}`)}</h2>
+                  </MainButton>
+                </div>
+              );
+            })}
         </div>
       </div>
 
@@ -114,6 +155,11 @@ const Deposit = () => {
       <div className={classes.DepositFinalStageWrapper}>
         <FinalStageDeposit />
       </div>
+      {vouchStarPayment && (
+        <div className={classes.VoucherTab}>
+          <Vouchers vouchers={vouchStarPayment} />
+        </div>
+      )}
     </div>
   );
 };

@@ -19,6 +19,10 @@
   --tw-translate-y: -200%;
 }
 
+.PaymentVerticalWrapper.Voucher {
+  --tw-translate-y: 100%;
+}
+
 .PaymentOptionsWrapper {
   position: relative;
   height: 100%;
@@ -50,6 +54,16 @@
   padding: 0.5rem;
   position: absolute;
   top: 200%;
+  width: 100%;
+}
+
+.VoucherTab {
+  height: 100%;
+  flex-shrink: 0;
+  overflow: auto;
+  padding: 0.5rem;
+  position: absolute;
+  top: -100%;
   width: 100%;
 }
 
@@ -97,7 +111,8 @@
   -webkit-line-clamp: 3;
   margin-top: 0.5rem;
   max-height: 50%;
-  font-size: 0.875rem;
+  font-size: 15px;
+  font-weight: 400;
   line-height: 1;
   color: hsl(var(--nc) / var(--tw-text-opacity));
 }
@@ -169,7 +184,8 @@
   }
 
   .PaymentButtonContainer > button h2 {
-    font-size: 17px;
+    font-size: 15px;
+    font-weight: 400;
     line-height: 1.25rem;
   }
 

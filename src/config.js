@@ -40,5 +40,6 @@ const config = {
     VITE_SITE_LOGO: "",
     VITE_SITE_NAME: "",
     VITE_STATS_THEME: "",
+    VOUCHER_TOKEN: SETTINGS.VOUCHER_TOKEN,
 };
 export default config;
