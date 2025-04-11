@@ -76,7 +76,7 @@
   --provider-card-bg-lowOp: #252826;
 
   --outer-container-left: #040508;
-
+  --display-signup-cont: none;
   --dropdown-bg: #1c3830;
 
   --swiper-container-grad: linear-gradient(45deg, #000000, #565656 120%);
