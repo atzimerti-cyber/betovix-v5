@@ -16,6 +16,7 @@ window.SETTINGS ={
     VITE_GAMIFICATION_STORETUBE: 'https://gamificationapi.storetube.gr:61113/api',
     VITE_UPLOAD: 'https://wallet1.modulesports.com:61009/api',
     TRACKER_PARTNERID: '18764645',
+    VOUCHER_TOKEN: "W7i6WT6CvkssscJVObTxIaA4XBsfNGXDj1rFKbKDvusqsw281jNM8a8cTkUis9Sm",
 }
 
 // window.SETTINGS ={
