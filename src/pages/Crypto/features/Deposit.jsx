@@ -12,7 +12,8 @@ import DepositMethods from "./DepositMethods";
 import FinalStageDeposit from "./FinalStageDeposit";
 import Vouchers from "./Vouchers";
 
-import VoucherIcon from "../../../assets/svgs/voucher.svg";
+// import VoucherIcon from "../../../assets/svgs/voucher.svg";
+import VoucherIcon from "../../../assets/images/voucher.png";
 
 import MainButton from "../../../features/UI/Buttons/MainButton";
 
@@ -95,10 +96,10 @@ const Deposit = () => {
                 }}
               >
                 <img
-                  className={classes.AllCrypto}
                   src={VoucherIcon}
                   loading="lazy"
                   alt="Voucher"
+                  style={{ height: "65%", width: "auto" }}
                 />
                 <h2>{translate("Buy Deposit Voucher")}</h2>
               </MainButton>
