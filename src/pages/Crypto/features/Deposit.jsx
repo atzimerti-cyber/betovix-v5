@@ -99,7 +99,7 @@ const Deposit = () => {
                   src={VoucherIcon}
                   loading="lazy"
                   alt="Voucher"
-                  style={{ height: "65%", width: "auto" }}
+                  style={{ height: "63%", width: "auto" }}
                 />
                 <h2>{translate("Buy Deposit Voucher")}</h2>
               </MainButton>
