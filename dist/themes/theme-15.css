@@ -1,0 +1,218 @@
+/* kafe/kitrino */
+:root {
+  --white: #fbfbfb;
+  --white-lowop: #fbfbfbc2;
+
+  --body-bg: #0c0f16;
+  --topbar-bg: #10141d;
+  --sb-search: #11786633;
+  --footer: #000000;
+  --sidebar-category-group: #10141d;
+  --sidebar-left-menu-item: #262626;
+  --sidebar-casino-active: #bfbfbf52;
+  --sidebar-casino-active-svg: #01d699;
+  --track-events-color: #02af8491;
+
+  --brand-green: #01d699;
+  --brand-green-lowop: #10dfa185;
+  --text-in-brand: black;
+
+  --brand-color: #01d699;
+
+  --placeholder-light: #ffffff;
+  --light-blue: #76ffca;
+  --light-blue-2: #1d2433;
+  --db-gray-4: #392f2c;
+  --db-gray-4: #2a3a34;
+  --mid-blue-1: #4a4a4a;
+  --mid-blue: #0f6846;
+  --dark-blue-1: #101614;
+  --dark-blue: #101614;
+  --dark-blue-lowop: #5050508c;
+  --light-blue-2: #5050508c;
+  --db-white-hover: hsla(0, 0%, 100%, 0.05);
+  --db-white-hover-light: hsla(0, 0%, 100%, 0.127);
+
+  --odds-button-border: #c4c4c484;
+  --odds-button: #192a26;
+  --odds-button-disabled: #6a6a6a8f;
+  --card-odds-button: #c6c6c6c6;
+  --card-odds-button-selected: #00ffaa;
+  --card-odds-button-disabled: #4f4f4f30;
+
+  --badge-new-purple: #067250;
+  --live-badge-purple: var(--brand-color);
+
+  --db-like: #cfcfcf;
+  --cancelled: #cfcfcf;
+  --green: #33c14b;
+  --yellow-accent-color: #01d699;
+
+  --lightcolor-low-op: #dbdbdb4a;
+  --lightcolor-op1: #ccffe7d1;
+  --darkcolor-op1: #212121;
+  --darkcolor-low-op: #21212158;
+
+  --layout-icon-btn: linear-gradient(222deg, #2f2f2f 0%, #202020 63%);
+  --toast-grad-op1: linear-gradient(50deg, #2b2b2b 0%, #2c2c2c 50%);
+  --casino-play-round: #a3a3a376;
+  --casino-play-button: linear-gradient(
+    30deg,
+    #6a6a6a 20%,
+    #8b8b8b 75%,
+    #848484 110%
+  );
+  --casino-play-bonus-button: linear-gradient(
+    120deg,
+    #bfbfbf44 0%,
+    #bfbfbf44 0%,
+    #bfbfbf81 75%,
+    #bfbfbf44 110%
+  );
+  --button-grad-op1: linear-gradient(45deg, #19151c, #1b2230 120%);
+  --button-grad-op-mid: linear-gradient(45deg, #19221f93, #1b30268b 120%);
+
+  --provider-card-bg: #252826;
+  --provider-card-bg-lowOp: #252826;
+
+  --outer-container-left: #040508;
+
+  --dropdown-bg: #1c3830;
+
+  --swiper-container-grad: linear-gradient(45deg, #000000, #565656 120%);
+  --accordion-header: linear-gradient(45deg, #161616, #007c60 120%);
+  --accordion-body: #0a0a0a;
+  --accordion-small-header: #26322f;
+  --accordion-small-body: #111615;
+  --casino-options-bg: radial-gradient(
+      65.95% 124.31% at 100% 100%,
+      #2e2e2e 10.17%,
+      #1f1f1f27
+    ),
+    #1c1c1c;
+  --calendar: #15151c;
+  --calendar-hover: #2a2a3b;
+  --event-board-bg: #2e2e2ee3;
+
+  --db-modal-auth-height: 506px;
+  --db-modal-announcement-height: 480px;
+  --db-chat-width: 330px;
+  --db-left-menu-width: 260px;
+  --db-left-menu-width-collapsed: 60px;
+
+  --db-minibar-height: 0px;
+  --db-minibar-height-mobile: 0px;
+
+  --db-topbar-height: 60px;
+  --db-topbar-height-mobile: 50px;
+
+  --db-header-height: calc(var(--db-topbar-height) + var(--db-minibar-height));
+  --db-header-height-mobile: calc(
+    var(--db-topbar-height-mobile) + var(--db-minibar-height-mobile)
+  );
+
+  --wr-pending: linear-gradient(222deg, #1e5063 0%, #26556dba 50%);
+  --wr-approved: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    #1c525d 30%,
+    rgba(59, 195, 191, 0.81) 100%
+  );
+  --wr-not-approved: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    rgba(93, 28, 28, 0.5) 40%,
+    rgba(153, 30, 30, 0.74) 100%
+  );
+  --wr-confirmed: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    #1c405d 30%,
+    rgba(141, 239, 75, 0.47) 100%
+  );
+  --wr-payed: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    #1c405d 30%,
+    rgba(141, 239, 75, 0.47) 100%
+  );
+  --wr-cancelled: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    rgba(93, 28, 28, 0.5) 40%,
+    rgba(153, 30, 30, 0.74) 100%
+  );
+
+  --db-bottom-bar-height: 52px;
+  --db-bottom-nav-height: 56px;
+  --db-sticky-language-height: 0px;
+  --db-scrollbar-width: 6px;
+  --db-scrollbar-sm-width: 4px;
+  --db-scrollbar-thumb-bg: var(--light-blue);
+  --db-scrollbar-track-bg: var(--mid-blue-1);
+  --db-transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --db-modal-overlay: #0c0f16a9;
+  --db-dropdown-shadow: -10px 6px 30px rgb(0 0 0 / 35%);
+  --db-modal-header-height: 38px;
+  --db-milestone-card-width: 140px;
+
+  --blg: 0 0% 41%;
+  --p: 0 0% 47%;
+  --b2: 0 0% 23%;
+  --b3: 0 0% 22%;
+  --inc: 0 0% 22%;
+  --suc: 0 0% 20%;
+  --wac: 0 0% 21%;
+  --erc: 0 0% 24%;
+  --rounded-box: 1rem;
+  --rounded-badge: 1.9rem;
+  --animation-btn: 0.25s;
+  --animation-input: 0.2s;
+  --btn-focus-scale: 0.95;
+  --border-btn: 1px;
+  --tab-border: 1px;
+  --tab-radius: 0.5rem;
+  --pf: 0 0% 47%;
+  --pc: 0 0% 100%;
+  --s: 163 99% 42%;
+  --sf: 0 0% 44%;
+  --sc: 0 0% 100%;
+  --a: 0 0% 37%;
+  --af: 0 0% 37%;
+  --ac: 0 0% 100%;
+  --n: 0 0% 28%;
+  --nf: 0 0% 28%;
+  --nc: 0 0% 100%;
+  --b1: 0 0% 15%;
+  --bc: 0 0% 100%;
+  --in: 0 0% 60%;
+  --su: 0 0% 51%;
+  --wa: 0 0% 56%;
+  --er: 0 0% 70%;
+  --btn-text-case: none;
+  --rounded-btn: 0.25rem;
+
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgba(59, 130, 246, 0.5);
+  --tw-ring-offset-shadow: 0 0 transparent;
+  --tw-ring-shadow: 0 0 transparent;
+  --tw-shadow: 0 0 transparent;
+  --tw-shadow-colored: 0 0 transparent;
+
+  --swiper-theme-color: #a3a3a3;
+  color: hsla(var(--bc) / var(--tw-text-opacity, 1));
+}
+body {
+  background-color: var(--body-bg);
+}
