@@ -385,11 +385,14 @@ const Topbar = () => {
                           <BellIcon />
                         </button>
                         {newNotifications && newNotifications.length > 0 && (
-                          <NumberBadge
-                            number={newNotifications.length}
-                            floating
-                            justifyRight
-                          />
+                          <div className={classes.NotificationBadge}>
+                            <span>{newNotifications.length}</span>
+                          </div>
+                          // <NumberBadge
+                          //   number={newNotifications.length}
+                          //   floating
+                          //   justifyRight
+                          // />
                         )}
                       </div>
                     </div>
