@@ -119,23 +119,20 @@ const CasinoGame = (props) => {
     if (isIOSDevice) {
       document.getElementById("loadGame").style.display = "block";
     }
-
     setIsIOS(isIOSDevice);
-
     return () => {
       document.getElementById("loadGame").style.display = "none";
     };
   }, []);
 
   useEffect(() => {
-    if (isIOS) {
-      console.info("paixnidi");
-      document.getElementById("btnBack").style.display = "flex";
-      document.getElementById("gameName").style.display = "flex";
-      document.getElementById("gameName").innerText = name;
-      document.getElementById("gameHeader").style.display = "flex";
-      document.getElementById("game").style.display = "block";
+    if (isIOS && casinoGame) {
       document.getElementById("game").src = casinoGame?.url;
+      document.getElementById("game").style.display = "block";
+      document.getElementById("gameHeader").style.display = "flex";
+      document.getElementById("gameName").innerText = name;
+      document.getElementById("gameName").style.display = "flex";
+      document.getElementById("btnBack").style.display = "flex";
     }
 
     return () => {
@@ -144,6 +141,7 @@ const CasinoGame = (props) => {
         document.getElementById("btnBack").style.display = "none";
         document.getElementById("gameHeader").style.display = "none";
         document.getElementById("gameName").style.display = "none";
+        document.getElementById("game").src = null;
         dispatch(casinoActions.setCasinoGame(null));
         dispatch(casinoActions.setShowCasinoGame(false));
       }
