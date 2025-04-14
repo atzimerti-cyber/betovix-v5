@@ -42,16 +42,16 @@
 
   <script>
     function hideGame() {
-      const previousUrl = document.referrer;
+      // const previousUrl = document.referrer;
 
-      if (previousUrl.includes('/casino/game')) {
-        console.log("MPHKE STO INCLUDES")
-        window.history.back();
-      } else {
-        console.log("MPHKE BACK")
+      // if (previousUrl.includes('/casino/game')) {
+      //   console.log("MPHKE STO INCLUDES")
+      //   window.history.back();
+      // } else {
+      //   console.log("MPHKE BACK")
 
-        window.history.go(-2);
-      }
+      window.history.go(-2);
+      // }
       // window.location.href = "/casino/lobby";
       document.getElementById('game').style.display = 'none';
       document.getElementById('btnBack').style.display = 'none';
