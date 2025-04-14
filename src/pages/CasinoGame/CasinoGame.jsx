@@ -36,9 +36,6 @@ const CasinoGame = (props) => {
   const { type, providername, id, brandgameid, name } = useParams();
 
   const gameContentRef = useRef(null);
-  const prevLocation = useRef(null);
-
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   const [isExpanded, setIsExpanded] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
@@ -98,14 +95,12 @@ const CasinoGame = (props) => {
     };
   }, [user?.AccountId]);
 
-  // CasinoGameWrapper CLASSES
   useEffect(() => {
     const newClasses = [classes.CasinoGameWrapper];
     if (isExpanded) newClasses.push(classes.Expanded);
     setElClasses(newClasses);
   }, [isExpanded]);
 
-  //CHECK IF DEVICE IS IOS AND MOBILE TO OPEN IFRAME
   useEffect(() => {
     const userAgent = window.navigator.userAgent;
     const isIOSDevice = /iPad|iPhone|iPod/.test(userAgent) && !window.MSStream;
@@ -120,14 +115,13 @@ const CasinoGame = (props) => {
     //     document.getElementById("game").src = casinoGame?.url;
     //   }
     // }
+
     if (isIOSDevice) {
-      console.info("mauro");
       document.getElementById("loadGame").style.display = "block";
     }
 
     setIsIOS(isIOSDevice);
 
-    // Cleanup function to hide the elements on unmount
     return () => {
       document.getElementById("loadGame").style.display = "none";
     };
@@ -137,21 +131,22 @@ const CasinoGame = (props) => {
     if (isIOS) {
       console.info("paixnidi");
       document.getElementById("btnBack").style.display = "flex";
-      // document.getElementById("btnBack").style.display = "block";
       document.getElementById("gameName").style.display = "flex";
-      // document.getElementById("gameName").style.display = "block";
-      document.getElementById("gameName").innerText = name; // Set the name inside the <p> tag
+      document.getElementById("gameName").innerText = name;
       document.getElementById("gameHeader").style.display = "flex";
       document.getElementById("game").style.display = "block";
       document.getElementById("game").src = casinoGame?.url;
     }
 
-    // Cleanup function to hide the elements on unmount
     return () => {
-      document.getElementById("game").style.display = "none";
-      document.getElementById("btnBack").style.display = "none";
-      document.getElementById("gameHeader").style.display = "none";
-      document.getElementById("gameName").style.display = "none"; // Hide the <p> tag on unmount
+      if (isIOS) {
+        document.getElementById("game").style.display = "none";
+        document.getElementById("btnBack").style.display = "none";
+        document.getElementById("gameHeader").style.display = "none";
+        document.getElementById("gameName").style.display = "none";
+        dispatch(casinoActions.setCasinoGame(null));
+        dispatch(casinoActions.setShowCasinoGame(false));
+      }
     };
   }, [casinoGame]);
 
@@ -203,9 +198,6 @@ const CasinoGame = (props) => {
 
   //TOGGLE FULLSCREEN BUTTON
   const toggleFullScreen = () => {
-    // if (isIOS) {
-    //   setIsFullScreen((prev) => !prev);
-    // } else {
     if (!document.fullscreenElement && !document.webkitFullscreenElement) {
       if (gameContentRef.current.requestFullscreen) {
         gameContentRef.current.requestFullscreen().catch((err) => {
@@ -224,7 +216,6 @@ const CasinoGame = (props) => {
         document.webkitExitFullscreen();
       }
     }
-    // }
   };
 
   //TOGGLE FAVORITE BUTTON

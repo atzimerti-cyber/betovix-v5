@@ -33,7 +33,7 @@ const CasinoGameOptionsModal = (props) => {
   }, [game]);
 
   useEffect(() => {
-    if (game.Position !== null) {
+    if (game?.Position !== null && game?.Position !== undefined) {
       fetchGameData(game);
     }
   }, [game]);
