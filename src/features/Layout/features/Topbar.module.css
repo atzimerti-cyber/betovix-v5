@@ -12,6 +12,55 @@
   box-sizing: border-box;
   height: var(--db-topbar-height-mobile);
 }
+.NotificationBadge {
+  --min-badge-width: 0.5rem;
+  display: flex;
+  height: 1rem;
+  width: auto;
+  min-width: var(--min-badge-width);
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background-color: #c831e7;
+  color: #fff;
+  padding-left: 0.375rem;
+  padding-right: 0.375rem;
+  font-size: 0.8rem;
+  line-height: 1.25rem;
+  letter-spacing: 0.025em;
+  --tw-text-opacity: 1;
+  /* color: rgb(255 255 255 / var(--tw-text-opacity)); */
+  color: #fff;
+  text-shadow: 2px 0px 4px black;
+  /* color: #166905; */
+  font-weight: 600;
+  position: absolute;
+  right: -0.7rem;
+  top: -0.7rem;
+  height: 1.2rem;
+  width: fit-content;
+  box-shadow: rgba(0, 0, 0, 0.679) 0px 0.25em 1em, #000000a3 0px 0px 2em 6px;
+  border: 1px solid #8913a1;
+  animation: 3s ease 0s infinite normal none running glowingBadge;
+}
+
+@keyframes glowingBadge {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  10%,
+  90% {
+    opacity: 1;
+  }
+
+  40%,
+  60% {
+    box-shadow: rgba(201, 49, 231, 0.679) 0px 0.25em 1em, #c931e7a3 0px 0px 2em 6px;
+  }
+}
 
 .Container {
   display: flex;
@@ -514,15 +563,15 @@
 .NotificationButton {
   border-radius: 5px;
 }
-.NotificationButton svg {
-  fill: var(--brand-green) !important;
+/* .NotificationButton svg {
+  fill: rgb(255, 138, 30);
 }
 .NotificationButton svg path {
-  fill: var(--brand-green) !important;
+  fill: rgb(255, 138, 30);
 }
 .NotificationButton svg polygon {
-  fill: var(--brand-green) !important;
-}
+  fill: rgb(255, 138, 30);
+} */
 .NotificationButton:hover {
   filter: brightness(1.1);
 }
