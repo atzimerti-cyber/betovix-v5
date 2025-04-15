@@ -59,6 +59,16 @@ const LeftContainer = memo(function () {
     elClasses.push(classes.Closed);
   }
 
+  const addParamsToUrl = (modal, tab) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", modal);
+    if (tab) searchParams.set("tab", tab);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+  };
+
   const casinoButton = () => {
     return (
       (permissions.AllowToCasino || permissions.AllowToSlots) && (
@@ -442,7 +452,11 @@ const LeftContainer = memo(function () {
           <>
             <div className={classes.GradBtnWrapper}>
               <button
-                onClick={() => navigate("/track-events")}
+                onClick={() =>
+                  user
+                    ? navigate("/track-events")
+                    : addParamsToUrl("auth", "login")
+                }
                 className={classes.HorseButton}
               >
                 <HorseIcon />

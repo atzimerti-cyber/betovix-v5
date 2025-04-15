@@ -8,6 +8,7 @@ import { DragDealer } from "./DragDealer";
 import classes from "./HorizontalMenu.module.css";
 import Ripple from "../Ripple/Ripple";
 import { translate } from "../../../utils/translations";
+import BetBuilderBadge from "../Badges/BetBuilderBadge";
 
 function HorizontalMenu(props) {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
@@ -58,11 +59,18 @@ function HorizontalMenu(props) {
           {props.items.map((item, index) => (
             <button
               key={item.Id}
-              className={
-                props.selected === item.Id
-                  ? [classes.Item, classes.Selected].join(" ")
-                  : classes.Item
-              }
+              // className={
+              //   props.selected === item.Id
+              //     ? [classes.Item, classes.Selected].join(" ")
+              //     : classes.Item
+              // }
+              className={[
+                classes.Item,
+                props.selected === item.Id ? classes.Selected : null,
+                item.Id === "betbuildercat" ? classes.BetBuilderButton : null,
+              ]
+                .filter(Boolean)
+                .join(" ")}
               onClick={handleItemClick(item, index)}
             >
               {item.icon && (
@@ -74,6 +82,11 @@ function HorizontalMenu(props) {
                   }
                 >
                   {item.icon}
+                </div>
+              )}
+              {item.Id === "betbuildercat" && (
+                <div style={{ marginRight: "5px" }}>
+                  <BetBuilderBadge />
                 </div>
               )}
               <div className={classes.SportName}>{getName(item)}</div>

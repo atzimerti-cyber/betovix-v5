@@ -61,6 +61,8 @@ const Event = () => {
     (state) => state.sportsbook.sportMarketTree
   );
 
+  const hasBetBuilder = false; /////////////////////////////////////////////////////////////////////////
+
   const [marketGroups, setMarketGroups] = useState(null);
   const [marketGroupsChanged, setMarketGroupsChanged] = useState(1);
   const [height, setHeight] = useState();
@@ -296,17 +298,44 @@ const Event = () => {
     const allMarketsId = `rand-${Math.random().toString(36).slice(2, 11)}`;
     groupsObj[allMarketsId] = { Id: allMarketsId, name: "All Markets" };
 
+    ////////BET BUILDER/////////
+    let betBuilderId = null;
+    if (hasBetBuilder) {
+      betBuilderId = `betbuildercat`;
+      groupsObj[betBuilderId] = { Id: betBuilderId, name: "Bet Builder" };
+    }
+
     let groups = Object.values(groupsObj);
     groups.sort((a, b) => a.Id - b.Id); // maybe not needed
 
     // Move the "All markets" object to the first position
     const allMarketsObj = groups.find((group) => group.Id === allMarketsId);
-    if (allMarketsObj) {
+    const betBuilderObj = groups.find((group) => group.Id === betBuilderId);
+    if (allMarketsObj && !betBuilderObj) {
       groups = [
         allMarketsObj,
         ...groups.filter((group) => group.Id !== allMarketsId),
       ];
+    } else if (!allMarketsObj && betBuilderObj) {
+      groups = [
+        betBuilderObj,
+        ...groups.filter((group) => group.Id !== betBuilderId),
+      ];
+    } else {
+      groups = [
+        allMarketsObj,
+        betBuilderObj,
+        ...groups.filter(
+          (group) => group.Id !== allMarketsId && group.Id !== betBuilderId
+        ),
+      ];
     }
+    // if (allMarketsObj) {
+    //   groups = [
+    //     allMarketsObj,
+    //     ...groups.filter((group) => group.Id !== allMarketsId),
+    //   ];
+    // }
 
     // Get auto...
     const marketTree =

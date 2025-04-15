@@ -1,0 +1,45 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@400;700&display=swap");
+
+.BBBadge {
+  --min-badge-width: 0.5rem;
+  display: flex;
+  height: 1rem;
+  width: 1rem;
+  min-width: var(--min-badge-width);
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-top-right-radius: 40%;
+  border-top-right-radius: 8px;
+  border-bottom-left-radius: 40%;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 2px;
+  border-top-left-radius: 2px;
+  background-color: var(--brand-green);
+  padding-left: 0.5rem;
+  padding: 0.55rem 0.75rem;
+  font-size: 11px;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: var(--text-in-brand);
+  font-weight: 600;
+  font-family: "Archivo", sans-serif;
+}
+
+.Floating.BBBadge {
+  position: absolute;
+  right: -0.3rem;
+  top: -0.125rem;
+  height: 1rem;
+  width: fit-content;
+}
+
+.JustifyRight.BBBadge {
+  margin-left: auto;
+}
+
+@media (min-width: 640px) {
+  .Floating.BBBadge {
+    right: -0.125rem;
+  }
+}

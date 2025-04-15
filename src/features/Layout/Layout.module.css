@@ -296,12 +296,11 @@
 @media (min-width: 769px) {
   .Content {
     padding-top: var(--db-header-height);
-    /* padding-top: var(--db-header-height); */
   }
 
   .OverlayButtons {
     bottom: 90px;
-    right: 1.5rem;
+    right: 10px;
   }
 }
 

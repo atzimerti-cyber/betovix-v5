@@ -39,9 +39,6 @@ const ProgressMap = React.lazy(() =>
 const Gamification = React.lazy(() =>
   import("./pages/UserGamification.jsx/Gamification")
 );
-// const TermsOfService = React.lazy(() =>
-//   import("./pages/Footer Pages/TermsOfService")
-// );
 const Pages = React.lazy(() => import("./pages/Footer Pages/Pages"));
 const Support = React.lazy(() => import("./pages/Footer Pages/Support"));
 const ContactUs = React.lazy(() => import("./pages/Footer Pages/ContactUs"));
@@ -229,14 +226,6 @@ function App() {
                 </Suspense>
               ),
             },
-            // {
-            //   path: "/terms-and-conditions",
-            //   element: (
-            //     <Suspense fallback={<PageFallback />}>
-            //       <TermsOfService />
-            //     </Suspense>
-            //   ),
-            // },
             {
               path: "/pages/:slug",
               element: (
@@ -245,22 +234,6 @@ function App() {
                 </Suspense>
               ),
             },
-            // {
-            //   path: "/privacy-policy",
-            //   element: (
-            //     <Suspense fallback={<PageFallback />}>
-            //       <PrivacyPolicy />
-            //     </Suspense>
-            //   ),
-            // },
-            // {
-            //   path: "/rpg",
-            //   element: (
-            //     <Suspense fallback={<PageFallback />}>
-            //       <ResponsibleGaming />
-            //     </Suspense>
-            //   ),
-            // },
             {
               path: "/support",
               element: (
