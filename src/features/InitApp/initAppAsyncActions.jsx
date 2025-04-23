@@ -760,7 +760,7 @@ export const getSite = (signal) => {
       if (response.status !== 200) throw new Error("Something went wrong");
 
       if (!response.data.Contents.SiteTheme) {
-        response.data.Contents.SiteTheme = "themes/theme-0.css";
+        response.data.Contents.SiteTheme = "/themes/theme-0.css";
       }
       if (!response.data.Contents.StatsTheme) {
         response.data.Contents.StatsTheme =

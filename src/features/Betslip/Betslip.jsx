@@ -28,12 +28,65 @@ import SaveIcon from "../../assets/svgs/save.svg?react";
 import ShareIcon from "../../assets/svgs/share.svg?react";
 import Spinner from "../UI/Spinner/Spinner";
 import { useMediaQuery } from "react-responsive";
+import BetBuilderSlip from "./features/BetBuilderSlip";
 
 const Betslip = memo(function (props) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
   const timerIdRef = useRef(null);
+
+  const dummySlip = null;
+  // const dummySlip = {
+  //   HomeTeamId: 483062,
+  //   HomeTeamName: {
+  //     langValues: {},
+  //     International: "DUMMY 1",
+  //   },
+  //   AwayTeamId: 503845,
+  //   AwayTeamName: {
+  //     langValues: {},
+  //     International: "DUMMY 2",
+  //   },
+  //   Active: true,
+  //   CategoryId: 336,
+  //   CategoryName: {
+  //     langValues: {},
+  //     International: "Canada",
+  //   },
+  //   DateOfMatch: "2025-04-19T22:30:00",
+  //   FieldId: "1743167581401",
+  //   FieldName: {
+  //     langValues: {
+  //       en: "W1",
+  //     },
+  //     International: "W1",
+  //   },
+  //   FieldTypeId: 1,
+  //   Line: "",
+  //   Live: false,
+  //   MarketName: {
+  //     langValues: {
+  //       en: "Match Result",
+  //     },
+  //     International: "Match Result",
+  //   },
+  //   MarketTypeId: 14,
+  //   MatchId: 174316758,
+  //   Odd: 1.94,
+  //   SportId: 1,
+  //   SportName: {
+  //     langValues: {
+  //       en: "Football",
+  //     },
+  //     International: "Football",
+  //   },
+  //   TournamentId: 1215,
+  //   TournamentName: {
+  //     langValues: {},
+  //     International: "Canadian Premier League",
+  //   },
+  // };
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
@@ -470,6 +523,15 @@ const Betslip = memo(function (props) {
             <BetslipControl />
 
             <div className={classes.BetGroup}>
+              {dummySlip && (
+                <AnimatePresence>
+                  <BetBuilderSlip
+                    key={dummySlip.FieldId}
+                    slip={dummySlip}
+                    index={7}
+                  />
+                </AnimatePresence>
+              )}
               <AnimatePresence>
                 {slips.length > 0 &&
                   slips.map((s, index) => {

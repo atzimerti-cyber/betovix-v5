@@ -9,6 +9,12 @@
   margin-block-end: 12px;
   flex-direction: column;
   padding-bottom: 6px;
+  position: relative;
+}
+.BBBadgeWrapper {
+  position: absolute;
+  bottom: -4px;
+  left: -4px;
 }
 
 .SelectionList {
@@ -35,8 +41,32 @@
   align-items: center;
   -webkit-box-pack: justify;
   justify-content: space-between;
-  margin-inline: 10px 0px;
-  height: 32px;
+  margin-inline: 5px 0px;
+  flex-direction: column;
+}
+
+.BBTitle {
+  margin: 3px auto 0px auto;
+  width: 100%;
+  text-transform: uppercase;
+  font-size: 14px;
+  display: flex;
+  color: var(--white);
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Archivo", sans-serif;
+}
+.TitleLeft {
+  display: flex;
+  gap: 7px;
+}
+.BBMatchInfo {
+  width: 100%;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
 }
 
 .TeamVersusGroup {
@@ -155,21 +185,79 @@
   -webkit-box-pack: justify;
   justify-content: space-between;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 }
 .OutcomeGroup {
   display: flex;
   border-radius: 0px;
   -webkit-box-pack: justify;
   justify-content: space-between;
-  flex-direction: column;
+  flex-direction: row;
   width: 100%;
+  padding-left: 7px;
+  height: 50px;
+}
+.BBMarket {
+  display: flex;
+  border-radius: 0px;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
+.BBMarketCheckbox {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 15px;
+}
+.Dot {
+  width: 5px;
+  height: 5px;
+  background: #ffffff9c;
+  border-radius: 0.4rem;
+  position: relative;
+}
+.OutcomeGroup:not(:last-child) .Dot::after {
+  content: "";
+  position: absolute;
+  background-color: #ffffff9c;
+  width: 1px;
+  height: 50px;
+  border: none;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.BBMarketRight {
+  margin: 3px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+.BBMarketLeft {
+  margin-inline: 10px;
+}
+.Trash {
+  display: flex;
+  cursor: pointer;
+}
+.Trash svg {
+  height: 15px;
+  width: 15px;
+}
+.Trash svg path {
+  stroke: rgba(255, 255, 255, 0.403);
+}
+.Trash:hover svg path {
+  stroke: rgba(255, 255, 255, 0.762);
 }
 
 .Content {
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
-  margin-inline: 10px;
 }
 
 .Extended {
@@ -189,7 +277,7 @@
   color: var(--lightcolor-op1);
   font-size: 12px;
   font-weight: 600;
-  margin: 3px 0px;
+  margin: 3px 0px 0px 0px;
 }
 
 .OutcomeInfo {
@@ -203,8 +291,8 @@
 .OutcomeName {
   color: rgb(255, 255, 255);
   text-transform: capitalize;
-  font-size: 14px;
-  font-weight: 600;
+  font-size: 12px;
+  font-weight: 400;
 }
 
 .OddsDelta {
@@ -255,19 +343,16 @@
 
 .PaymentMarketInfo {
   display: flex;
-  flex-direction: column;
-  margin-block-start: 8px;
-  align-items: flex-end;
-  margin-inline: 8px 0px;
+  align-items: center;
   gap: 0px;
   line-height: 1.2;
+  gap: 5px;
+  padding-top: 3px;
 }
 
 .AmountLabel {
   color: var(--lightcolor-op1);
   font-size: 12px;
-  margin: 0px;
-  margin-bottom: 5px;
   font-weight: 400;
 }
 

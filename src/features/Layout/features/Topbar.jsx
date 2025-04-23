@@ -365,7 +365,6 @@ const Topbar = () => {
 
               {isDesktop && (
                 <>
-                  {/* <div className={classes.Container}> */}
                   <div className={classes.DropDownWrapper}>
                     <div
                       className={classes.DropDownLabel}
@@ -388,11 +387,6 @@ const Topbar = () => {
                           <div className={classes.NotificationBadge}>
                             <span>{newNotifications.length}</span>
                           </div>
-                          // <NumberBadge
-                          //   number={newNotifications.length}
-                          //   floating
-                          //   justifyRight
-                          // />
                         )}
                       </div>
                     </div>
@@ -410,7 +404,6 @@ const Topbar = () => {
                   </div>
 
                   <DropdownLang topbar />
-                  {/* </div> */}
                 </>
               )}
             </>
