@@ -293,7 +293,7 @@ const Home = () => {
                   </div>
 
                   <div class="navigation">
-                    <div classclassName="nav-left"></div>
+                    <div class="nav-left"></div>
                     <div class="nav-right"></div>
                   </div>
                 </div>
