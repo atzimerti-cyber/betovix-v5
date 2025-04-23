@@ -271,10 +271,10 @@ const Home = () => {
   return (
     <div className={classes.PageContent} style={{ paddingTop: "16px" }}>
       <div className={classes.Home} id="homePage">
-        <div className="story-container" style={{ display: "none" }}>
-          <div className="story-circles">
-            <div className="story-viewer" id="storyViewer">
-              <button className="close-button">
+        <div class="story-container" style={{ display: "none" }}>
+          <div class="story-circles">
+            <div class="story-viewer" id="storyViewer">
+              <button class="close-button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
                   strokeWidth="2" strokeLinecap="round"
@@ -284,17 +284,17 @@ const Home = () => {
                 </svg>
               </button>
 
-              <div className="story-content">
-                <div className="progress-bars"></div>
-                <div className="story-image-container">
-                  <img className="story-image" src="" alt="Story" />
-                  <div className="caption">
+              <div class="story-content">
+                <div class="progress-bars"></div>
+                <div class="story-image-container">
+                  <img class="story-image" src="" alt="Story" />
+                  <div class="caption">
                     <p></p>
                   </div>
 
-                  <div className="navigation">
-                    <div className="nav-left"></div>
-                    <div className="nav-right"></div>
+                  <div class="navigation">
+                    <div classclassName="nav-left"></div>
+                    <div class="nav-right"></div>
                   </div>
                 </div>
               </div>
