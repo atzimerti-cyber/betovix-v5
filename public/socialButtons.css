@@ -1,0 +1,27 @@
+
+.footer-social-inline {
+  width: 60px;
+  font-size: 10px;
+  background: var(--body-bg);
+  padding: 11px;
+  border-radius: 45px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  margin-bottom: 3px;
+}
+
+.footer-buttons {
+  position: absolute;
+  top: 45px;
+  right: 0;
+  z-index: 99999;
+  display: none;
+}
+
+.footer-social-inline span{
+  display: none;
+}
+
+:global(.IsMobile) :local(.footer-buttons) {
+  display: none;
+}
