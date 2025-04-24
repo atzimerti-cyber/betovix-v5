@@ -242,6 +242,58 @@ const Layout = () => {
               {user?.Role < 40 && permissions.AllowToRetail && <OperatorView />}
               <Outlet />
             </div>
+            <div class="footer-buttons">
+
+              <div class="footer-social-inline">
+                <a href="../../">
+                  <img src="https://i.imgur.com/9VEa02Y.png" alt="Promosyon" />
+                  <span className="social-text">PROMOSYON</span>
+                </a>
+              </div>
+
+              <div class="footer-social-inline">
+                <a href="tel:5301111111">
+                  <img src="https://i.imgur.com/V7o9twR.png" alt="Telefon" />
+                  <span className="social-text">TELEFON</span>
+                </a>
+              </div>
+
+              <div class="footer-social-inline">
+                <a href="../../">
+                  <img src="https://i.imgur.com/voTvwT2.png" alt="Telegram" />
+                  <span className="social-text">TELEGRAM</span>
+                </a>
+              </div>
+
+              <div class="footer-social-inline">
+                <a href="../../">
+                  <img src="https://i.imgur.com/QgNPVSa.png" alt="Twitter" />
+                  <span className="social-text">X(TWİTTER)</span>
+                </a>
+              </div>
+
+              <div class="footer-social-inline">
+                <a href="https://wa.me/5301111111">
+                  <img src="https://i.imgur.com/bfBMnHL.png" alt="WhatsApp" />
+                  <span className="social-text">WHATSAPP</span>
+                </a>
+              </div>
+
+              <div class="footer-social-inline">
+                <a href="../../">
+                  <img src="https://i.imgur.com/NcyYV9L.png" alt="VIP" />
+                  <span className="social-text">VIP</span>
+                </a>
+              </div>
+
+              <div class="footer-social-inline">
+                <a href="../../">
+                  <img src="https://i.imgur.com/CQxrt6l.png" alt="Ortaklık" />
+                  <span className="social-text">ORTAKLIK</span>
+                </a>
+              </div>
+
+            </div>
           </main>
           <Footer />
         </div>
