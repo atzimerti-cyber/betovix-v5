@@ -10,6 +10,7 @@ import {
   formatTimeString,
 } from "../../../utils/custom";
 import LiveBadge from "../../../features/LiveBadge/LiveBadge";
+import BetBuilderBadge from "../../../features/UI/Badges/BetBuilderBadge";
 
 const MyBetDetails = memo(function (props) {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
@@ -75,12 +76,51 @@ const MyBetDetails = memo(function (props) {
 
                 <div className={classes.OutcomeContainer}>
                   <div className={classes.Outcome}>
-                    <span className={classes.MarketName}>
+                    <span
+                      className={classes.MarketName}
+                      style={{ display: "flex", gap: "3px" }}
+                    >
+                      {ticketEvent.PointName &&
+                        ticketEvent.PointName === "Bet Builder Combination" && (
+                          <BetBuilderBadge />
+                        )}
                       {translate(ticketEvent.MarketName)}
                     </span>
-                    <span className={classes.SectionOutcome}>
-                      {ticketEvent.PointName}
-                    </span>
+
+                    {ticketEvent.PointName &&
+                    ticketEvent.PointName === "Bet Builder Combination" &&
+                    ticketEvent.BB &&
+                    ticketEvent.BB.length > 0 ? (
+                      ticketEvent.BB.map((market) => (
+                        <div
+                          className={classes.BBWrapper}
+                          style={{ display: "flex" }}
+                        >
+                          <div className={classes.BBMarketCheckbox}>
+                            <div className={classes.Dot}></div>
+                          </div>
+                          <div className={classes.OutcomeContainer}>
+                            <div className={classes.Outcome}>
+                              <span className={classes.MarketName}>
+                                {translate(market.MarketName)}
+                              </span>
+                              <span className={classes.SectionOutcome}>
+                                {market.PointName}
+                              </span>
+                            </div>
+                          </div>
+                          <div className={classes.OddsSection}>
+                            <div className={classes.Odds}>
+                              <span>{addThousandsSeparator(market.Odd)}</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <span className={classes.SectionOutcome}>
+                        {ticketEvent.PointName}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>

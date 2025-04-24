@@ -65,21 +65,20 @@
   justify-content: space-around;
   width: fit-content;
   overflow: hidden;
-
-  font-weight: 700;
+  /* font-weight: 700; */
 }
 
 .MarketName {
   color: var(--lightcolor-op1);
   font-size: 12px;
-  font-weight: 700;
+  /* font-weight: 700; */
   margin-top: 10px;
 }
 
 .SectionOutcome {
   color: white;
   text-transform: capitalize;
-  font-weight: 500;
+  /* font-weight: 500; */
   font-size: 14px;
 }
 
@@ -129,7 +128,7 @@
   color: var(--white);
   font-variant-numeric: tabular-nums;
   font-feature-settings: "tnum";
-  font-weight: 600;
+  /* font-weight: 600; */
 }
 
 .Status {
@@ -143,8 +142,34 @@
 }
 
 .DateOfMatch {
-  font-weight: 700;
+  /* font-weight: 700; */
   font-size: 14px;
   line-height: 17px;
   color: var(--placeholder-light);
+}
+
+.BBMarketCheckbox {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 15px;
+  margin-right: 5px;
+}
+.Dot {
+  width: 5px;
+  height: 5px;
+  background: #ffffff9c;
+  border-radius: 0.4rem;
+  position: relative;
+}
+.BBWrapper:not(:last-child) .Dot::after {
+  content: "";
+  position: absolute;
+  background-color: #ffffff9c;
+  width: 1px;
+  height: 50px;
+  border: none;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
 }
