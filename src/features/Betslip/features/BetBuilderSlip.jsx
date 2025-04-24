@@ -77,7 +77,7 @@ const BetBuilderSlip = (props) => {
       tp = getTotalPayout();
       setSlipTotalPayout(tp);
     }
-  }, [props.slip.BB]);
+  }, [props.slip.BB, amounts]);
 
   const getTotalPayout = () => {
     let total = 0;
