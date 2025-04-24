@@ -23,6 +23,27 @@ const initialState = {
   systemLocked: false,
 };
 
+const removeSlipByFieldId = (state, fieldId) => {
+  const foundIndex = state.slips.findIndex((s) => s.FieldId === fieldId);
+  if (foundIndex > -1) {
+    state.slips.splice(foundIndex, 1);
+
+    if (state.amounts[fieldId] !== undefined) {
+      delete state.amounts[fieldId];
+    }
+
+    if (state.betType === "System") {
+      const uniqueMatchIds = new Set(state.slips.map((item) => item.MatchId));
+      const uniqueCount = uniqueMatchIds.size;
+      if (state.amounts[uniqueCount + 1] !== undefined) {
+        delete state.amounts[uniqueCount + 1];
+      }
+    }
+
+    state.slipUpdated += 1;
+  }
+};
+
 export const betslipSlice = createSlice({
   name: "betslip",
   initialState,
@@ -48,20 +69,85 @@ export const betslipSlice = createSlice({
     addToSlips: (state, action) => {
       state.slips.push(action.payload);
     },
+    // addBBToSlips: (state, action) => {
+    //   const { targetSlip, contents } = action.payload;
+
+    //   const currentSlips = current(state.slips);
+
+    //   const slipIndex = currentSlips.findIndex((s) => {
+    //     return s.MarketTypeId == -10 && s.MatchId == targetSlip.MatchId;
+    //   });
+
+    addBBSlipToSlips: (state, action) => {
+      const { found, responseData, market, marketField } = action.payload;
+
+      if (!found || found.length === 0) return;
+
+      const originalSlip = state.slips.find(
+        (s) => s.FieldId === found[0].FieldId
+      );
+      if (!originalSlip) return;
+
+      // Move ParentOdd and remove it
+      originalSlip.Odd = responseData.Contents.ParentOdd;
+      delete responseData.Contents.ParentOdd;
+
+      // Push new BB to existing BB array
+      if (!Array.isArray(originalSlip.BB)) {
+        originalSlip.BB = [];
+      }
+      originalSlip.BB.push(responseData.Contents);
+
+      state.slipUpdated += 1;
+    },
+
+    //   if (slipIndex != undefined) {
+    //     let slip = currentSlips[slipIndex];
+
+    //     state.slips[slipIndex].BB.push(contents);
+    //     let a=1;
+    //   }
+    // },
     updateSlipAmount: (state, action) => {
       state.slips[action.payload.index].amount = action.payload.value;
     },
     updateSlipOdds: (state, action) => {
       const currentSlips = current(state.slips);
-      const foundIndex = state.slips.findIndex(
-        (s) => s.FieldId === action.payload.fieldId
-      );
 
-      if (action.payload.newOdd !== state.slips[foundIndex].Odd) {
-        state.slips[foundIndex].previousOdds = currentSlips[foundIndex].Odd;
-        state.slips[foundIndex].Odd = action.payload.newOdd;
-        state.slips[foundIndex].changed = true;
-        state.slipUpdated += 1;
+      if (!action.payload.isBB) {
+        const foundIndex = state.slips.findIndex(
+          (s) => s.FieldId === action.payload.fieldId
+        );
+        if (action.payload.newOdd !== state.slips[foundIndex].Odd) {
+          state.slips[foundIndex].previousOdds = currentSlips[foundIndex].Odd;
+          state.slips[foundIndex].Odd = action.payload.newOdd;
+          state.slips[foundIndex].changed = true;
+          state.slipUpdated += 1;
+        }
+      } else {
+        state.slips.forEach((slip) => {
+          if (slip.BB && slip.BB.length > 0) {
+            const bbIndex = slip.BB.findIndex(
+              (bbs) => bbs.FieldId === action.payload.bbFieldId
+            );
+
+            if (
+              bbIndex !== -1 &&
+              action.payload.newBBOdd !== slip.BB[bbIndex].Odd
+            ) {
+              const updatedBB = [...slip.BB];
+              updatedBB[bbIndex] = {
+                ...updatedBB[bbIndex],
+                previousOdds: updatedBB[bbIndex].Odd,
+                Odd: action.payload.newBBOdd,
+                changed: true,
+              };
+
+              slip.BB = updatedBB;
+              state.slipUpdated += 1;
+            }
+          }
+        });
       }
     },
 
@@ -113,23 +199,39 @@ export const betslipSlice = createSlice({
       state.amounts[action.payload.key] = action.payload.value;
       state.slipUpdated += 1;
     },
-    removeFromSlips: (state, action) => {
-      const foundIndex = state.slips.findIndex(
-        (s) => s.FieldId === action.payload
-      );
-      if (foundIndex > -1) {
-        state.slips.splice(foundIndex, 1);
+    // removeFromSlips: (state, action) => {
+    //   const foundIndex = state.slips.findIndex(
+    //     (s) => s.FieldId === action.payload
+    //   );
+    //   if (foundIndex > -1) {
+    //     state.slips.splice(foundIndex, 1);
 
-        // Remove amounts
-        if (state.amounts[action.payload] !== undefined)
-          delete state.amounts[action.payload];
-        if (state.betType === "System") {
-          const uniqueMatchIds = new Set(
-            state.slips.map((item) => item.MatchId)
-          );
-          const uniqueCount = uniqueMatchIds.size;
-          if (state.amounts[uniqueCount + 1] !== undefined)
-            delete state.amounts[uniqueCount + 1];
+    //     // Remove amounts
+    //     if (state.amounts[action.payload] !== undefined)
+    //       delete state.amounts[action.payload];
+    //     if (state.betType === "System") {
+    //       const uniqueMatchIds = new Set(
+    //         state.slips.map((item) => item.MatchId)
+    //       );
+    //       const uniqueCount = uniqueMatchIds.size;
+    //       if (state.amounts[uniqueCount + 1] !== undefined)
+    //         delete state.amounts[uniqueCount + 1];
+    //     }
+    //   }
+    // },
+    removeFromSlips: (state, action) => {
+      removeSlipByFieldId(state, action.payload);
+    },
+    removeBBSlipFromSlips: (state, action) => {
+      const { slipFId, bBSlipFId } = action.payload;
+
+      const slip = state.slips.find((s) => s.FieldId === slipFId);
+
+      if (slip && Array.isArray(slip.BB)) {
+        slip.BB = slip.BB.filter((bbSlip) => bbSlip.FieldId !== bBSlipFId);
+
+        if (slip.BB.length == 0) {
+          removeSlipByFieldId(state, slipFId);
         }
       }
     },

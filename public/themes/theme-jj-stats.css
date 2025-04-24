@@ -1,21 +1,21 @@
 :root {
-  --brand-color: #d88d00;
-  --brand-bright-color: #fbe1847a;
-  --dark-theme-zero: #020824;
-  --dark-theme-one: #030822;
-  --dark-theme-two: #060e2f;
-  --dark-theme-three: #12193e;
-  --dark-theme-four: #13193e;
-  --dark-theme-five: #1c215c;
-  --dark-theme-six: #0a113290;
-  --dark-theme-seven: #fdbd02;
+  --brand-color: #dfb510;
+  --brand-bright-color: #dfb61085;
+  --dark-theme-zero: #0c0f16;
+  --dark-theme-one: #10141d;
+  --dark-theme-two: #1d2433;
+  --dark-theme-three: #0c0f16;
+  --dark-theme-four: #0c0f16;
+  --dark-theme-five: #0c0f16;
+  --dark-theme-six: #af8b0291;
+  --dark-theme-seven: #dfb510;
 
   --light-theme-one: #fbfbfb;
-  --light-theme-two: #ffd24b;
-  --light-theme-three: #d3d2f272;
-  --light-theme-four: #fdbd02;
-  --light-theme-five: #202951;
-  --light-theme-six: #0e1846;
+  --light-theme-two: #dfb510;
+  --light-theme-three: #fbfbfbc2;
+  --light-theme-four: #dfb510;
+  --light-theme-five: #0c0f16;
+  --light-theme-six: #10141d;
 
   --text-color-primary: var(--light-theme-one);
   --text-color-dark: var(--dark-theme-one);

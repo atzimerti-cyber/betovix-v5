@@ -6,10 +6,19 @@ import _ from "lodash";
 import classes from "./OddsButton.module.css";
 import { betslipActions } from "../../../features/Betslip/betslipSlice";
 import { layoutActions } from "../../../features/Layout/layoutSlice";
+import { bbOdd } from "../../Event/eventAsyncActions";
 
 const OddsButton = (props) => {
   const dispatch = useDispatch();
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
+  ////////////////FOR BET BUILDER UI/////////////////////
+  const selectedMarketCategory = useSelector(
+    (state) => state.event.selectedMarketCategory
+  );
+  // const combinationMap = useSelector((state) => state.event.combinationMap);
+  // const user = useSelector((state) => state.login.user);
+  //////////////////////////////////////////////////////
 
   const betType = useSelector((state) => state.betslip.betType);
   const ticketSettings = useSelector((state) => state.ticket.ticketSettings);
@@ -30,18 +39,76 @@ const OddsButton = (props) => {
 
   useEffect(() => {
     if (props.marketField) {
-      const found = slips.find((s) => s.FieldId === props.marketField.FieldId);
-      if (found) setIsSelected(true);
-      else setIsSelected(false);
+      if (selectedMarketCategory?.name === "Bet Builder") {
+        // const hasMarketType = slips.some((slip) => slip.MarketTypeId === -10);
+        const filteredSlips = slips.filter((slip) => slip.MarketTypeId === -10);
+
+        let found;
+        if (filteredSlips.length > 0) {
+          found = filteredSlips.some((slip) =>
+            slip.BB.some((s) => s.FieldId === props.marketField.FieldId)
+          );
+        }
+        if (found) setIsSelected(true);
+        else setIsSelected(false);
+      } else {
+        const found = slips.find(
+          (s) => s.FieldId === props.marketField.FieldId
+        );
+        if (found) setIsSelected(true);
+        else setIsSelected(false);
+      }
     }
-  }, [slips.length]);
+  }, [
+    slips,
+    // slips.length,
+    selectedMarketCategory,
+  ]);
+
+  useEffect(() => {}, []);
 
   const onClick = (e) => {
     e.stopPropagation();
     e.preventDefault();
 
     if (isSelected) {
-      dispatch(betslipActions.removeFromSlips(props.marketField.FieldId));
+      if (selectedMarketCategory?.name === "Bet Builder") {
+        dispatch(
+          betslipActions.removeBBSlipFromSlips({
+            slipFId: `-10${props.event.MatchId}`,
+            bBSlipFId: props.marketField.FieldId,
+          })
+        );
+        const isLive = liveState[props.event.MatchId] ? true : false;
+        dispatch(
+          bbOdd(
+            props.event,
+            props.market,
+            props.marketField,
+            props.odds,
+            isLive,
+            isMobile,
+            null,
+            "RemoveFromBB"
+          )
+        );
+      } else {
+        dispatch(betslipActions.removeFromSlips(props.marketField.FieldId));
+      }
+    } else if (selectedMarketCategory?.name === "Bet Builder") {
+      const isLive = liveState[props.event.MatchId] ? true : false;
+      dispatch(
+        bbOdd(
+          props.event,
+          props.market,
+          props.marketField,
+          props.odds,
+          isLive,
+          isMobile,
+          null,
+          null
+        )
+      );
     } else {
       const isLive = liveState[props.event.MatchId] ? true : false;
 
@@ -53,7 +120,7 @@ const OddsButton = (props) => {
         Active: props.market.Active && props.marketField.Active,
         CategoryId: props.event.Info.CategoryId,
         CategoryName: props.event.Info.CategoryName,
-        DateOfMatch: isLive ? new Date() : props.event.Info.DateOfMatch, // "2024-06-10T13:40:58.136Z",
+        DateOfMatch: isLive ? new Date() : props.event.Info.DateOfMatch,
         FieldId: props.marketField.FieldId,
         FieldName: props.marketField.FieldName,
         FieldTypeId: props.marketField.FieldTypeId,

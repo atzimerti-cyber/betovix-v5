@@ -17,6 +17,7 @@ import IndicatorUpIcon from "../../../assets/svgs/indicator-up.svg?react";
 
 import { layoutActions } from "../../Layout/layoutSlice";
 import BetBuilderBadge from "../../UI/Badges/BetBuilderBadge";
+import { bbOdd } from "../../../pages/Event/eventAsyncActions";
 
 const BetBuilderSlip = (props) => {
   const dispatch = useDispatch();
@@ -35,6 +36,8 @@ const BetBuilderSlip = (props) => {
   const [previousValue, setPreviousValue] = useState(null);
   const [showIndicator, setShowIndicator] = useState(false);
   const [checkAmounts, setCheckAmounts] = useState(false);
+  const [slipTotalPayout, setSlipTotalPayout] = useState(false);
+  // const [totalOdd, setTotalOdd] = useState(props.slip.Odd);
 
   useEffect(() => {
     if (inputRef.current) {
@@ -66,12 +69,20 @@ const BetBuilderSlip = (props) => {
       clearTimeout(timer);
       if (showIndicator) setShowIndicator(false);
     };
-  }, [props.slip.Odd]);
+  }, [props.slip.Odd, props.slip]);
+
+  useEffect(() => {
+    let tp;
+    if (props.slip.BB.length > 0) {
+      tp = getTotalPayout();
+      setSlipTotalPayout(tp);
+    }
+  }, [props.slip.BB]);
 
   const getTotalPayout = () => {
     let total = 0;
     if (amounts[props.slip.FieldId])
-      total = amounts[props.slip.FieldId] * props.slip.Odd;
+      total = amounts[props.slip.FieldId] * calcTotalOdd(props.slip);
 
     // Add thousands separators
     total = addThousandsSeparator(total, 2);
@@ -79,31 +90,37 @@ const BetBuilderSlip = (props) => {
     return total;
   };
 
-  const getOddsLabel = () => {
+  const calcTotalOdd = (slip) => {
+    let totalOdd = 1;
+    slip.BB.map((slip) => (totalOdd = totalOdd * slip.Odd));
+    return totalOdd.toFixed(2);
+  };
+
+  const getOddsLabel = (bbslip) => {
     if (
-      props.slip.FieldName?.International === "W1" ||
-      props.slip.FieldName?.International === "1"
+      bbslip?.FieldName === "W1" ||
+      (bbslip?.FieldName === "1" && bbslip?.MarketTypeId == 14) ||
+      bbslip.FieldName === "Team 1"
     )
       return translateNameWithLang(props.slip.HomeTeamName);
     else if (
-      props.slip.AwayTeamName &&
-      (props.slip.FieldName?.International === "W2" ||
-        props.slip.FieldName?.International === "2")
+      bbslip?.FieldName === "W2" ||
+      (bbslip?.FieldName === "2" && bbslip?.MarketTypeId == 14) ||
+      bbslip.FieldName === "Team 2"
     )
       return translateNameWithLang(props.slip.AwayTeamName);
-    else if (
-      props.slip.FieldName?.International === "x" ||
-      props.slip.FieldName?.International === "X"
-    )
+    else if (bbslip?.FieldName === "x" || bbslip?.FieldName === "X")
       return translate("Draw");
 
-    return translateNameWithLang(props.slip.FieldName);
+    return translateNameWithLang(bbslip?.FieldName);
   };
 
   const convertOdds = (decimalOdds) => {
     if (!decimalOdds || decimalOdds === "-" || decimalOdds <= 1) {
       return "-";
     }
+
+    decimalOdds = parseFloat(decimalOdds); //////////////////////////
 
     switch (selectedOddsFormat) {
       case "Decimal":
@@ -155,6 +172,26 @@ const BetBuilderSlip = (props) => {
     }
   };
 
+  const handleRemoveBBSlip = (fieldid) => {
+    dispatch(
+      betslipActions.removeBBSlipFromSlips({
+        slipFId: props.slip.FieldId,
+        bBSlipFId: fieldid,
+      })
+    );
+    let matchId = { MatchId: props.slip.MatchId };
+    dispatch(
+      bbOdd(matchId, null, null, null, null, null, null, "RemoveFromBB")
+    );
+
+    setCheckAmounts(true);
+
+    if (props.slip.BB.length == 1) {
+      dispatch(layoutActions.setShowRight("betslip"));
+      dispatch(layoutActions.setShowRightContainer(false));
+    }
+  };
+
   const handleAmountClick = (event) => {
     event.stopPropagation();
   };
@@ -189,8 +226,20 @@ const BetBuilderSlip = (props) => {
                     fontWeight: "600",
                   }}
                 >
-                  123.53
+                  {currentValue}
                 </span>
+                {/* <div className={classes.Indicator}>
+                  {showIndicator === "up" && (
+                    <div className={classes.Placeholder}>
+                      <IndicatorUpIcon className={classes.IndicatorUp} />
+                    </div>
+                  )}
+                  {showIndicator === "down" && (
+                    <div className={classes.Placeholder}>
+                      <IndicatorDownIcon className={classes.IndicatorDown} />
+                    </div>
+                  )}
+                </div> */}
               </div>
               <button
                 className={classes.DismissButton}
@@ -221,7 +270,6 @@ const BetBuilderSlip = (props) => {
                 {props.slip.AwayTeamName?.International && (
                   <>
                     <div className={classes.TeamVersusWord}> vs </div>
-
                     <div
                       className={[classes.TeamVersus, classes.TeamB].join(" ")}
                     >
@@ -245,23 +293,12 @@ const BetBuilderSlip = (props) => {
               </div>
 
               {props.slip.Live && <div className={classes.LiveBadge}>Live</div>}
-
-              {/* <button
-                className={classes.DismissButton}
-                onClick={handleRemoveSlip}
-              >
-                <TimesIcon />
-              </button> */}
             </div>
           </div>
 
           <div className={classes.Separator}></div>
           {betType === "Single" && (
             <div className={classes.PaymentSection}>
-              {/* <div className={classes.AmountArea} onClick={handleAmountClick}>
-                <AmountArea amountId={props.slip.FieldId} />
-              </div> */}
-
               <div className={classes.PaymentMarketInfo}>
                 <div className={classes.AmountLabel}>
                   {translate("Total Payout")}
@@ -269,7 +306,8 @@ const BetBuilderSlip = (props) => {
                 <div className={classes.AmountTotal}>
                   <CoinsIcon />
                   <div className={classes.AmountTotalText}>
-                    {getTotalPayout()}
+                    {/* {getTotalPayout()} */}
+                    {slipTotalPayout}
                   </div>
                 </div>
               </div>
@@ -281,156 +319,48 @@ const BetBuilderSlip = (props) => {
 
           <div className={classes.MarketSection}>
             <div className={classes.OutcomesWrap}>
-              <div className={classes.OutcomeGroup}>
-                <div className={classes.BBMarketCheckbox}>
-                  <div className={classes.Dot}></div>
-                </div>
-                <div className={classes.BBMarket}>
-                  <div className={classes.BBMarketLeft}>
-                    {" "}
-                    <div className={classes.Content}>
-                      <div className={classes.MarketInfo}>
-                        <div className={classes.MarketName}>
-                          {translateNameWithLang(props.slip.MarketName)}
-                        </div>
-                      </div>
+              {props.slip.BB.length > 0 &&
+                props.slip.BB.map((bbSlip) => (
+                  <div className={classes.OutcomeGroup}>
+                    <div className={classes.BBMarketCheckbox}>
+                      <div className={classes.Dot}></div>
                     </div>
-                    <div className={classes.Extended}>
-                      <div className={classes.Content}>
-                        <div className={classes.OutcomeInfo}>
-                          <div className={classes.OutcomeName}>
-                            {getOddsLabel()}
+                    <div className={classes.BBMarket}>
+                      <div className={classes.BBMarketLeft}>
+                        {" "}
+                        <div className={classes.Content}>
+                          <div className={classes.MarketInfo}>
+                            <div className={classes.MarketName}>
+                              {bbSlip.MarketName}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className={classes.BBMarketRight}>
-                    <div className={classes.OddsDelta}>
-                      <div className={classes.Indicator}>
-                        {showIndicator === "up" && (
-                          <div className={classes.Placeholder}>
-                            <IndicatorUpIcon className={classes.IndicatorUp} />
+                        <div className={classes.Extended}>
+                          <div className={classes.Content}>
+                            <div className={classes.OutcomeInfo}>
+                              <div className={classes.OutcomeName}>
+                                {getOddsLabel(bbSlip)}
+                              </div>
+                            </div>
                           </div>
-                        )}
-                        {showIndicator === "down" && (
-                          <div className={classes.Placeholder}>
-                            <IndicatorDownIcon
-                              className={classes.IndicatorDown}
-                            />
-                          </div>
-                        )}
-                      </div>
-                      <div className={classes.Odds}>
-                        {convertOdds(props.slip.Odd)}
-                      </div>
-                    </div>
-                    <div className={classes.Trash}>
-                      <TrashIcon />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className={classes.OutcomeGroup}>
-                <div className={classes.BBMarketCheckbox}>
-                  <div className={classes.Dot}></div>
-                </div>
-                <div className={classes.BBMarket}>
-                  <div className={classes.BBMarketLeft}>
-                    {" "}
-                    <div className={classes.Content}>
-                      <div className={classes.MarketInfo}>
-                        <div className={classes.MarketName}>
-                          {translateNameWithLang(props.slip.MarketName)}
                         </div>
                       </div>
-                    </div>
-                    <div className={classes.Extended}>
-                      <div className={classes.Content}>
-                        <div className={classes.OutcomeInfo}>
-                          <div className={classes.OutcomeName}>
-                            {getOddsLabel()}
+                      <div className={classes.BBMarketRight}>
+                        <div className={classes.OddsDelta}>
+                          <div className={classes.Odds}>
+                            {convertOdds(bbSlip.Odd)}
                           </div>
+                        </div>
+                        <div
+                          className={classes.Trash}
+                          onClick={() => handleRemoveBBSlip(bbSlip.FieldId)}
+                        >
+                          <TrashIcon />
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className={classes.BBMarketRight}>
-                    <div className={classes.OddsDelta}>
-                      <div className={classes.Indicator}>
-                        {showIndicator === "up" && (
-                          <div className={classes.Placeholder}>
-                            <IndicatorUpIcon className={classes.IndicatorUp} />
-                          </div>
-                        )}
-                        {showIndicator === "down" && (
-                          <div className={classes.Placeholder}>
-                            <IndicatorDownIcon
-                              className={classes.IndicatorDown}
-                            />
-                          </div>
-                        )}
-                      </div>
-                      <div className={classes.Odds}>
-                        {convertOdds(props.slip.Odd)}
-                      </div>
-                    </div>
-                    <div className={classes.Trash}>
-                      <TrashIcon />
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className={classes.OutcomeGroup}>
-                <div className={classes.BBMarketCheckbox}>
-                  <div className={classes.Dot}></div>
-                </div>
-                <div className={classes.BBMarket}>
-                  <div className={classes.BBMarketLeft}>
-                    {" "}
-                    <div className={classes.Content}>
-                      <div className={classes.MarketInfo}>
-                        <div className={classes.MarketName}>
-                          {translateNameWithLang(props.slip.MarketName)}
-                        </div>
-                      </div>
-                    </div>
-                    <div className={classes.Extended}>
-                      <div className={classes.Content}>
-                        <div className={classes.OutcomeInfo}>
-                          <div className={classes.OutcomeName}>
-                            {getOddsLabel()}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className={classes.BBMarketRight}>
-                    <div className={classes.OddsDelta}>
-                      <div className={classes.Indicator}>
-                        {showIndicator === "up" && (
-                          <div className={classes.Placeholder}>
-                            <IndicatorUpIcon className={classes.IndicatorUp} />
-                          </div>
-                        )}
-                        {showIndicator === "down" && (
-                          <div className={classes.Placeholder}>
-                            <IndicatorDownIcon
-                              className={classes.IndicatorDown}
-                            />
-                          </div>
-                        )}
-                      </div>
-                      <div className={classes.Odds}>
-                        {convertOdds(props.slip.Odd)}
-                      </div>
-                    </div>
-                    <div className={classes.Trash}>
-                      <TrashIcon />
-                    </div>
-                  </div>
-                </div>
-              </div>
+                ))}
             </div>
           </div>
         </div>

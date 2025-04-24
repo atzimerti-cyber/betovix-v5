@@ -6,6 +6,7 @@ import classes from "./AmountArea.module.css";
 import CoinsIcon from "../../../assets/svgs/coins.svg?react";
 import { betslipActions } from "../betslipSlice";
 import { translate } from "../../../utils/translations";
+import { ticketActions } from "../../Ticket/ticketSlice";
 // import { ticketActions } from '../../Ticket/ticketSlice';
 
 const AmountArea = memo(function (props) {
@@ -23,6 +24,7 @@ const AmountArea = memo(function (props) {
     if (totalStake !== null) {
       setBetAmount(totalStake.toFixed(2));
       updateAmount(parseFloat(totalStake));
+      handleAmountChange(parseFloat(totalStake));
     } else {
       setBetAmount("0.00");
       updateAmount(parseFloat(0));
@@ -127,7 +129,7 @@ const AmountArea = memo(function (props) {
     dispatch(
       betslipActions.updateAmount({ key: props.amountId, value: value })
     );
-    // dispatch(ticketActions.setCalculateTicket());
+    dispatch(ticketActions.setCalculateTicket());
   };
 
   return (

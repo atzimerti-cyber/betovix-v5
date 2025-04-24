@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import HorizontalMenu from "../../../features/UI/HorizontalMenu/HorizontalMenu";
 import classes from "./MarketsMenu.module.css";
 import { eventActions } from "../eventSlice";
+import { getBBComboMap } from "../eventAsyncActions";
 
 const MarketsMenu = (props) => {
   const dispatch = useDispatch();
@@ -11,6 +12,10 @@ const MarketsMenu = (props) => {
   const selectedMarketCategoryIndex = useSelector(
     (state) => state.event.selectedMarketCategoryIndex
   );
+  const selectedMarketCategory = useSelector(
+    (state) => state.event.selectedMarketCategory
+  );
+  const user = useSelector((state) => state.login.user);
 
   useEffect(() => {
     // let marketGroups = props.marketGroups;
@@ -25,6 +30,25 @@ const MarketsMenu = (props) => {
 
     dispatch(eventActions.setSelectedMarketCategory(props.marketGroups[0]));
   }, []);
+
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+    if (
+      selectedMarketCategory &&
+      selectedMarketCategory.Id === "betbuildercat" &&
+      props.eventId
+    ) {
+      if (user) {
+        dispatch(getBBComboMap(props.eventId, signal));
+      }
+    }
+
+    return () => {
+      controller.abort();
+      dispatch(eventActions.setCombinationMap(null));
+    };
+  }, [selectedMarketCategory, user]);
 
   return (
     <div className={classes.MarketsMenu}>

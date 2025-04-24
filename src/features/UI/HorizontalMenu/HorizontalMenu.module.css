@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Archivo");
+
 :global(.react-horizontal-scrolling-menu--scroll-container::-webkit-scrollbar) {
   display: none;
 }
@@ -6,7 +8,7 @@
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
 }
-@import url("https://fonts.googleapis.com/css2?family=Archivo");
+
 .Item {
   display: flex;
   flex-direction: row;
@@ -121,7 +123,7 @@
   color: var(--brand-green);
   fill: var(--brand-green);
 }
-.Item.BetBuilderButton::before {
+/* .Item.BetBuilderButton::before {
   content: "";
   position: absolute;
   top: 0;
@@ -167,4 +169,4 @@
     transform: translate(100%, 100%) rotate(45deg);
     opacity: 0;
   }
-}
+} */

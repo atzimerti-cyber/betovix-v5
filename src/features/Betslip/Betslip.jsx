@@ -16,7 +16,6 @@ import { betslipActions } from "./betslipSlice";
 import { getTicketUpdates, placeBet, saveBet } from "./betslipAsyncActions";
 import { translate } from "../../utils/translations";
 import Systems from "./features/Systems";
-import { layoutActions } from "../Layout/layoutSlice";
 import { addThousandsSeparator } from "../../utils/custom";
 import {
   getTicketFromStorage,
@@ -35,58 +34,6 @@ const Betslip = memo(function (props) {
   const navigate = useNavigate();
   const location = useLocation();
   const timerIdRef = useRef(null);
-
-  const dummySlip = null;
-  // const dummySlip = {
-  //   HomeTeamId: 483062,
-  //   HomeTeamName: {
-  //     langValues: {},
-  //     International: "DUMMY 1",
-  //   },
-  //   AwayTeamId: 503845,
-  //   AwayTeamName: {
-  //     langValues: {},
-  //     International: "DUMMY 2",
-  //   },
-  //   Active: true,
-  //   CategoryId: 336,
-  //   CategoryName: {
-  //     langValues: {},
-  //     International: "Canada",
-  //   },
-  //   DateOfMatch: "2025-04-19T22:30:00",
-  //   FieldId: "1743167581401",
-  //   FieldName: {
-  //     langValues: {
-  //       en: "W1",
-  //     },
-  //     International: "W1",
-  //   },
-  //   FieldTypeId: 1,
-  //   Line: "",
-  //   Live: false,
-  //   MarketName: {
-  //     langValues: {
-  //       en: "Match Result",
-  //     },
-  //     International: "Match Result",
-  //   },
-  //   MarketTypeId: 14,
-  //   MatchId: 174316758,
-  //   Odd: 1.94,
-  //   SportId: 1,
-  //   SportName: {
-  //     langValues: {
-  //       en: "Football",
-  //     },
-  //     International: "Football",
-  //   },
-  //   TournamentId: 1215,
-  //   TournamentName: {
-  //     langValues: {},
-  //     International: "Canadian Premier League",
-  //   },
-  // };
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
@@ -183,6 +130,7 @@ const Betslip = memo(function (props) {
         FieldId: slip.FieldId,
         Odd: slip.Odd,
         Live: isLive,
+        BB: slip?.BB && slip?.BB.length > 0 ? slip?.BB : null,
       };
 
       points.push(point);
@@ -210,7 +158,7 @@ const Betslip = memo(function (props) {
     // else if (betType === "System" && slips.length < 2) {
     //   dispatch(betslipActions.setAmounts({}));
     // }
-  }, [slips?.length, slipUpdated]);
+  }, [slips?.length, slipUpdated, slips]);
 
   const betButton = useMemo(() => {
     if (!user)
@@ -401,6 +349,7 @@ const Betslip = memo(function (props) {
         TournamentId: point.TournamentId,
         CategoryId: point.CategoryId,
         SportId: point.SportId,
+        BB: point.BB && point.BB.length > 0 ? point.BB : null, //
       });
     });
 
@@ -523,20 +472,15 @@ const Betslip = memo(function (props) {
             <BetslipControl />
 
             <div className={classes.BetGroup}>
-              {dummySlip && (
-                <AnimatePresence>
-                  <BetBuilderSlip
-                    key={dummySlip.FieldId}
-                    slip={dummySlip}
-                    index={7}
-                  />
-                </AnimatePresence>
-              )}
               <AnimatePresence>
                 {slips.length > 0 &&
-                  slips.map((s, index) => {
-                    return <Slip key={s.FieldId} slip={s} index={index} />;
-                  })}
+                  slips.map((s, index) =>
+                    s.MarketTypeId === -10 ? (
+                      <BetBuilderSlip key={s.FieldId} slip={s} index={7} />
+                    ) : (
+                      <Slip key={s.FieldId} slip={s} index={index} />
+                    )
+                  )}
               </AnimatePresence>
             </div>
 

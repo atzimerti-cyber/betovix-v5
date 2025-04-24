@@ -80,13 +80,17 @@ const Slip = (props) => {
   const getOddsLabel = () => {
     if (
       props.slip.FieldName?.International === "W1" ||
-      props.slip.FieldName?.International === "1"
+      (props.slip.FieldName?.International === "1" &&
+        props.slip.MarketTypeId == 14) ||
+      props.slip.FieldName?.International === "Team 1"
     )
       return translateNameWithLang(props.slip.HomeTeamName);
     else if (
-      props.slip.AwayTeamName &&
-      (props.slip.FieldName?.International === "W2" ||
-        props.slip.FieldName?.International === "2")
+      // props.slip.AwayTeamName &&
+      props.slip.FieldName?.International === "W2" ||
+      (props.slip.FieldName?.International === "2" &&
+        props.slip.MarketTypeId == 14) ||
+      props.slip.FieldName?.International === "Team 2"
     )
       return translateNameWithLang(props.slip.AwayTeamName);
     else if (

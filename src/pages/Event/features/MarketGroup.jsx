@@ -5,9 +5,18 @@ import Accordion from "../../../features/UI/Accordion/Accordion";
 import Market from "../../SportsBook/features/Market";
 import MarketWithList from "../../SportsBook/features/MarketWithList";
 import { translate } from "../../../utils/translations";
+import BetBuilderBadge from "../../../features/UI/Badges/BetBuilderBadge";
 
 const MarketGroup = (props) => {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+
+  ////////////////FOR BET BUILDER UI/////////////////////
+  const selectedMarketCategory = useSelector(
+    (state) => state.event.selectedMarketCategory
+  );
+  const combinationMap = useSelector((state) => state.event.combinationMap);
+  const user = useSelector((state) => state.login.user);
+  //////////////////////////////////////////////////////
 
   const selectedMarketCategoryIndex = useSelector(
     (state) => state.event.selectedMarketCategoryIndex
@@ -60,7 +69,10 @@ const MarketGroup = (props) => {
       let allIndex = 100000 * market.MarketTypeId;
 
       // If not in tree, search for a similar name
-      if (selectedMarketCategory.name === "All Markets") {
+      if (
+        selectedMarketCategory.name === "All Markets" ||
+        selectedMarketCategory.name === "Bet Builder"
+      ) {
         let thisGroup;
         if (inTree && inTree.groups && inTree.groups.length > 0) {
           thisGroup = inTree.groups[0];
@@ -227,6 +239,14 @@ const MarketGroup = (props) => {
 
     updatedMarkets.sort((a, b) => a.allIndex - b.allIndex);
 
+    ////////////////BET BUILDER MARKETS/////////////////////
+    if (selectedMarketCategory.name === "Bet Builder" && combinationMap) {
+      updatedMarkets = updatedMarkets.filter((market) =>
+        combinationMap.hasOwnProperty(market.MarketTypeId)
+      );
+    }
+    /////////////////////////////////////////////////////
+
     // Grouping objects by the first part of 'name' before '('
     const grouped = updatedMarkets.reduce((acc, obj) => {
       const key = `${obj.label}`;
@@ -256,6 +276,7 @@ const MarketGroup = (props) => {
     props.marketGroupsChanged,
     selectedMarketCategoryIndex,
     sportMarketTreeObj,
+    combinationMap,
   ]);
 
   const removeNumberInParentheses = (input) => {
@@ -272,13 +293,36 @@ const MarketGroup = (props) => {
     return input;
   };
 
-  return marketsWithSubgroups ? (
+  return selectedMarketCategory &&
+    selectedMarketCategory.Id === "betbuildercat" &&
+    !user ? (
+    <div
+      style={{
+        width: "100%",
+        height: "300px",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        alignItems: "center",
+        padding: "2rem 1rem",
+        gap: "10px",
+      }}
+    >
+      <div style={{ transform: "scale(1.5)" }}>
+        <BetBuilderBadge />
+      </div>
+      <p style={{ textAlign: "center", color: "var(--white)" }}>
+        {translate("Please login to access Bet Builder")}.
+      </p>
+    </div>
+  ) : marketsWithSubgroups ? (
     <div>
       {marketsWithSubgroups.length === 0 && (
         <p style={{ color: "var(--brand-color)" }}>
           {translate("No available markets")}.
         </p>
       )}
+
       {marketsWithSubgroups.map((group, index) => {
         if (
           group.length > 3 &&

@@ -46,6 +46,36 @@ export const getTicketUpdates = (payload) => {
               changesWereMade = true;
             }
           }
+
+          // Handle BB array if it exists
+          slips.forEach((slip) => {
+            if (
+              slip.BB &&
+              slip.BB.length > 0 &&
+              point.BB &&
+              point.BB.length > 0
+            ) {
+              slip.BB.forEach((bbItem) => {
+                const matchingPointBB = point.BB.find(
+                  (pointBBItem) => pointBBItem.FieldId === bbItem.FieldId
+                );
+                if (matchingPointBB) {
+                  const oldBbOdd = bbItem.Odd;
+                  const newBbOdd = parseFloat(matchingPointBB.Odd);
+                  if (oldBbOdd !== newBbOdd) {
+                    dispatch(
+                      betslipActions.updateSlipOdds({
+                        bbFieldId: bbItem.FieldId,
+                        newBBOdd: newBbOdd,
+                        isBB: true,
+                      })
+                    );
+                    changesWereMade = true;
+                  }
+                }
+              });
+            }
+          });
         });
       }
     } catch (error) {

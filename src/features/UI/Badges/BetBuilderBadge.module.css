@@ -24,6 +24,8 @@
   color: var(--text-in-brand);
   font-weight: 600;
   font-family: "Archivo", sans-serif;
+  position: relative;
+  overflow: hidden;
 }
 
 .Floating.BBBadge {
@@ -41,5 +43,45 @@
 @media (min-width: 640px) {
   .Floating.BBBadge {
     right: -0.125rem;
+  }
+}
+.BBBadge::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  left: 0%;
+  height: 200%;
+  width: 200%;
+  background: linear-gradient(
+    70deg,
+    rgba(255, 255, 255, 0.094) 20%,
+    rgb(255, 255, 255) 50%,
+    rgba(255, 255, 255, 0.07) 80%
+  );
+  transform: translateX(0) rotate(0deg);
+  animation: shimmerDiagonal 3s infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes shimmerDiagonal {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(100%) rotate(45deg);
+    opacity: 1;
+  }
+  60% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateX(200%) rotate(45deg);
+    opacity: 0;
   }
 }

@@ -12,6 +12,9 @@ import {
 } from "../../utils/custom";
 import config from "../../config";
 import { translate } from "../../utils/translations";
+import { betslipActions } from "../../features/Betslip/betslipSlice";
+import { layoutActions } from "../../features/Layout/layoutSlice";
+import { translateNameWithLang } from "../../utils/translations";
 
 export const getEvent = (sportId, eventId, signal) => {
   return async (dispatch, getState) => {
@@ -366,6 +369,180 @@ export const getOutrightEvents = (
     } catch (error) {
       const message = error?.message ? error.message : error;
       if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+    }
+  };
+};
+
+//////////////////BET BUILDER//////////////////////////
+export const getBBComboMap = (eventId, signal) => {
+  return async (dispatch) => {
+    try {
+      const lang = getLang();
+      if (!eventId) return;
+
+      const response = await axiosApi.get(
+        `Betting/getCombinationMap?eventId=${eventId}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_BETS_API,
+        }
+      );
+
+      if (response.status !== 200) throw Error();
+
+      dispatch(eventActions.setCombinationMap(response.data.Contents));
+    } catch (error) {
+      const message = error?.message ? error.message : error;
+      // if (!error?.code === "ERR_CANCELED")
+      toast.error(translate(message));
+    }
+  };
+};
+
+export const bbOdd = (
+  event,
+  market,
+  marketField,
+  odds,
+  isLive,
+  isMobile,
+  signal,
+  action
+) => {
+  return async (dispatch, getState) => {
+    try {
+      const lang = getLang();
+
+      const slips = getState().betslip.slips;
+
+      let bbpoints = [];
+      let point;
+
+      slips.map((slip) => {
+        if (slip.MarketTypeId == -10 && slip.MatchId == event.MatchId) {
+          bbpoints = slip.BB;
+        }
+      });
+
+      if (action !== "RemoveFromBB") {
+        point = {
+          MatchId: event.MatchId,
+          MarketTypeId: market.MarketTypeId,
+          Line: marketField.Line || market.MainLine || "",
+          FieldId: marketField.FieldId,
+          Odd: odds,
+          Live: isLive,
+        };
+      }
+
+      const response = await axiosApi.post(
+        `Betting/BBValidation?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        {
+          BBPoints: bbpoints,
+          Point: action === "RemoveFromBB" ? null : point,
+        },
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_BETS_API,
+        }
+      );
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
+        throw Error(response.data.Contents);
+
+      let found = slips.filter((s) => {
+        return s.MarketTypeId === -10 && s.MatchId === event.MatchId;
+      });
+
+      if (action === "RemoveFromBB") {
+        if (found.length > 0) {
+          dispatch(
+            betslipActions.updateSlipOdds({
+              fieldId: found[0].FieldId,
+              newOdd: response.data.Contents.ParentOdd,
+            })
+          );
+        }
+
+        return;
+      }
+
+      let bbslip;
+      if (found.length === 0) {
+        bbslip = {
+          Active: market.Active,
+          amount: 0,
+          AwayTeamId: event.Info.AwayTeamId,
+          AwayTeamName: event.Info.AwayTeamName,
+          CategoryId: event.Info.CategoryId,
+          CategoryName: event.Info.CategoryName,
+          DateOfMatch: event.Info.DateOfMatch,
+          FieldId: `-10${event.MatchId}`,
+          FieldName: "Bet Builder Field",
+          FieldTypeId: -10,
+          HomeTeamId: event.Info.HomeTeamId,
+          HomeTeamName: event.Info.HomeTeamName,
+          Line: "",
+          Live: isLive,
+          MarketName: "Bet Builder",
+          MarketTypeId: -10,
+          MatchId: event.MatchId,
+          Odd: response.data.Contents.ParentOdd,
+          SportId: event.Info.SportId,
+          SportName: event.Info.SportId,
+          TournamentId: event.Info.TournamentId,
+          TournamentName: event.Info.TournamentName,
+          BB: [],
+        };
+        response.data.Contents.MarketName = translateNameWithLang(
+          market.MarketName
+        );
+        response.data.Contents.FieldName = translateNameWithLang(
+          marketField.FieldName
+        );
+        delete response.data.Contents.ParentOdd;
+        bbslip.BB.push(response.data.Contents);
+        dispatch(betslipActions.addToSlips(bbslip));
+      } else {
+        response.data.Contents.MarketName = translateNameWithLang(
+          market.MarketName
+        );
+        response.data.Contents.FieldName = translateNameWithLang(
+          marketField.FieldName
+        );
+
+        dispatch(
+          betslipActions.addBBSlipToSlips({
+            found,
+            responseData: response.data,
+            market,
+            marketField,
+          })
+        );
+
+        // let clone = JSON.parse(JSON.stringify(found[0]));
+        // response.data.Contents.MarketName = translateNameWithLang(
+        //   market.MarketName
+        // );
+        // response.data.Contents.FieldName = translateNameWithLang(
+        //   marketField.FieldName
+        // );
+        // clone.Odd = response.data.Contents.ParentOdd;
+        // delete response.data.Contents.ParentOdd;
+        // clone.BB.push(response.data.Contents);
+
+        // bbslip = clone;
+        // dispatch(betslipActions.addToSlips(bbslip));
+        // dispatch(betslipActions.removeFromSlips(found[0].FieldId));
+      }
+
+      if (!isMobile) {
+        dispatch(layoutActions.setShowRight("betslip"));
+        dispatch(layoutActions.setShowRightContainer(true));
+      }
+    } catch (error) {
+      const message = error?.message ? error.message : error;
+      toast.error(translate(message));
     }
   };
 };

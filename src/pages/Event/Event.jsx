@@ -33,6 +33,7 @@ const Event = () => {
   const navigate = useNavigate();
   const { sportname, sportid, eventid } = useParams();
 
+  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const liveConnection = useSelector((state) => state.live.liveConnection);
   const selectedMarketCategory = useSelector(
@@ -47,7 +48,6 @@ const Event = () => {
   const event = useSelector((state) => state.event.event);
   const barLoading = useSelector((state) => state.app.barLoading);
 
-  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const sports = useSelector((state) => state.event.sports);
   const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
   const sportsStatusParams = useSelector(
@@ -61,7 +61,7 @@ const Event = () => {
     (state) => state.sportsbook.sportMarketTree
   );
 
-  const hasBetBuilder = false; /////////////////////////////////////////////////////////////////////////
+  const hasBetBuilder = true; /////////////////////////////////////////////////////////////////////////
 
   const [marketGroups, setMarketGroups] = useState(null);
   const [marketGroupsChanged, setMarketGroupsChanged] = useState(1);
@@ -499,12 +499,6 @@ const Event = () => {
               </span>
             ) : (
               <div className={classes.EventPage}>
-                {/* <h1 className={classes.EventTitle}>
-                                    {event?.Info?.AwayTeamName
-                                        ? `${translateNameWithLang(event?.Info?.HomeTeamName)} vs ${translateNameWithLang(event?.Info?.AwayTeamName)}`
-                                        : translateNameWithLang(event?.Info?.HomeTeamName)}
-                                </h1> */}
-
                 <aside
                   className={
                     event?.type === "live"
@@ -549,7 +543,10 @@ const Event = () => {
                       {event?.type !== "live" && <EventHeader event={event} />}
 
                       {marketGroups.length > 0 && (
-                        <MarketsMenu marketGroups={marketGroups} />
+                        <MarketsMenu
+                          marketGroups={marketGroups}
+                          eventId={event.MatchId}
+                        />
                       )}
 
                       <div>

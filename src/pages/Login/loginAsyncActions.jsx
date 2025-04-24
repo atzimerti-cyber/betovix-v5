@@ -125,7 +125,7 @@ export const login = (loginInfo, navigate, locationPathname, onSuccess) => {
       dispatch(loginActions.setLoginLoading(false));
       navigate(locationPathname, { replace: true });
 
-      if(onSuccess) onSuccess();
+      if (onSuccess) onSuccess();
 
       return { success: true };
     } catch (error) {
