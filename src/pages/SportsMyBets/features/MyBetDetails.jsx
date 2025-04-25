@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useState } from "react";
 import { useSelector } from "react-redux";
 
 import classes from "./MyBetDetails.module.css";
@@ -15,6 +15,8 @@ import BetBuilderBadge from "../../../features/UI/Badges/BetBuilderBadge";
 const MyBetDetails = memo(function (props) {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const liveState = useSelector((state) => state.live.liveState);
+
+  const [isClosed, setIsClosed] = useState(true);
 
   const getStatusText = (event) => {
     let text = event.Header.MatchTimeExtended;
@@ -86,7 +88,18 @@ const MyBetDetails = memo(function (props) {
                         )}
                       {translate(ticketEvent.MarketName)}
                     </span>
-
+                    {ticketEvent.PointName &&
+                      ticketEvent.PointName === "Bet Builder Combination" && (
+                        <p
+                          className={classes.SeeMoreText}
+                          onClick={() => setIsClosed(!isClosed)}
+                        >
+                          {isClosed
+                            ? translate("View More")
+                            : translate("View Less")}
+                          ...
+                        </p>
+                      )}
                     {ticketEvent.PointName &&
                     ticketEvent.PointName === "Bet Builder Combination" &&
                     ticketEvent.BB &&
@@ -94,7 +107,7 @@ const MyBetDetails = memo(function (props) {
                       ticketEvent.BB.map((market) => (
                         <div
                           className={classes.BBWrapper}
-                          style={{ display: "flex" }}
+                          style={{ display: isClosed ? "none" : "flex" }}
                         >
                           <div className={classes.BBMarketCheckbox}>
                             <div className={classes.Dot}></div>
@@ -168,7 +181,9 @@ const MyBetDetails = memo(function (props) {
               </div>
             ) : (
               <div className={classes.InfoContainer}>
+                {/* 
                 <div className={classes.EventTime}></div>
+                */}
                 <div className={classes.InfoScore}>
                   {getNotLiveGameScore(ticketEvent)}
                 </div>

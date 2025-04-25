@@ -54,7 +54,7 @@ const MyBets = (props) => {
     const signal = controller.signal;
     setAxiosController(controller);
 
-    const page = 1;
+    // const page = 1;
     let cashoutType = 3;
     if (props.isActive) cashoutType = 1;
     dispatch(myBetsActions.setTicketsLoading(true));
@@ -74,13 +74,12 @@ const MyBets = (props) => {
 
     if (!props.isActive) return;
     if (!ticketsTable || ticketsTable?.Total === 0) return;
-
     const pollingCallback = () => {
       dispatch(getTicketCashoutsUpdates(page, axiosController.signal));
     };
 
     timerIdRef.current = setInterval(pollingCallback, 5000);
-  }, [ticketsTable?.Total, axiosController]);
+  }, [ticketsTable?.Total, axiosController, page]);
 
   // Changing page
   useEffect(() => {

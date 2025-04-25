@@ -7,6 +7,7 @@
   max-height: 205px;
   overflow-y: auto;
   scroll-behavior: smooth;
+  background: var(--button-grad-op-mid);
 }
 :global(.IsMobile) :local(.MyBetDetailsSection) {
   max-height: unset;
@@ -38,6 +39,7 @@
   display: flex;
   flex-direction: column;
   margin-top: 5px;
+  flex: 1 1 0px;
 }
 
 .OddsSection {
@@ -70,8 +72,6 @@
 
 .MarketName {
   color: var(--lightcolor-op1);
-  font-size: 12px;
-  /* font-weight: 700; */
   margin-top: 10px;
 }
 
@@ -172,4 +172,11 @@
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
+}
+.SeeMoreText {
+  cursor: pointer;
+  font-size: 11px;
+}
+.SeeMoreText:hover {
+  text-decoration: underline;
 }
