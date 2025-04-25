@@ -45,6 +45,7 @@ const DropdownLang = (props) => {
       case "ar":
         return "عربي";
       case "el":
+      case "gr":
         return "Ελληνικά";
       case "it":
         return "Italiano";
@@ -52,6 +53,66 @@ const DropdownLang = (props) => {
         return "български";
       case "am":
         return "Amharic";
+      case "id":
+        return "Bahasa Indonesia";
+      case "fr":
+        return "Français";
+      case "es":
+        return "Español";
+      case "ru":
+        return "Русский";
+      case "sq":
+        return "Shqip";
+      case "sv":
+        return "Svenska";
+      case "cs":
+        return "Čeština";
+      case "et":
+        return "Eesti";
+      case "fi":
+        return "Suomi";
+      case "hr":
+        return "Hrvatski";
+      case "mk":
+        return "Македонски";
+      case "nl":
+        return "Nederlands";
+      case "no":
+        return "Norsk";
+      case "pt":
+        return "Português";
+      case "vi":
+        return "Tiếng Việt";
+      case "ro":
+        return "Română";
+      case "he":
+        return "עברית";
+      case "pl":
+        return "Polski";
+      case "hu":
+        return "Magyar";
+      case "lt":
+        return "Lietuvių";
+      case "lv":
+        return "Latviešu";
+      case "sk":
+        return "Slovenčina";
+      case "sl":
+        return "Slovenščina";
+      case "sr":
+        return "Српски";
+      case "bs":
+        return "Bosanski";
+      case "mt":
+        return "Malti";
+      case "ga":
+        return "Gaeilge";
+      case "da":
+        return "Dansk";
+      case "is":
+        return "Íslenska";
+      default:
+        return "-";
     }
   };
 
@@ -79,7 +140,9 @@ const DropdownLang = (props) => {
                 className={classes.Flag}
               />
             </div>
-            <span style={{ color: "white" }}>{getLangName(lang.id)}</span>
+            <span style={{ color: "white", fontSize: "13px" }}>
+              {getLangName(lang.id)}
+            </span>
             <CaretDownIcon />
           </>
         )}
@@ -101,7 +164,11 @@ const DropdownLang = (props) => {
           <ul className={classes.LangDropdownMenu}>
             {availableLangs.map((availableLang, index) => {
               return (
-                <li key={index} onClick={() => onSelectLang(availableLang)}>
+                <li
+                  key={index}
+                  onClick={() => onSelectLang(availableLang)}
+                  style={{ width: "100%" }}
+                >
                   <a>
                     <div className={classes.LangItem}>
                       <img

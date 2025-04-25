@@ -1,7 +1,6 @@
 .Dropdown {
   position: relative;
   display: inline-block;
-  /* width: calc(100% - 2rem); */
 }
 
 .Dropdown > button {
@@ -11,7 +10,7 @@
   justify-content: space-between !important;
   border: 0;
   outline: 0;
-  background-color: var(--body-bg); 
+  background-color: var(--body-bg);
   padding-left: 0.6rem;
   padding-right: 0.6rem;
   font-size: 0.875rem;
@@ -50,9 +49,8 @@
   transform-origin: top;
   --tw-scale-x: 1;
   --tw-scale-y: 1;
-
-  --tw-translate-x: -4.8rem;
-
+  /* --tw-translate-x: -4.8rem; */
+  --tw-translate-x: -5.8rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y))
     rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y))
     scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -158,7 +156,6 @@
 
 .LangDropdownMenu {
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
   margin-bottom: 0.5rem;
   width: 9rem;
@@ -166,12 +163,14 @@
   background-color: var(--dropdown-bg);
   font-size: 0.875rem;
   line-height: 1.25rem;
-  font-weight: 600;
   color: var(--white);
   --tw-shadow: var(--db-dropdown-shadow);
   --tw-shadow-colored: var(--db-dropdown-shadow);
   box-shadow: var(--tw-ring-offset-shadow, 0 0 transparent),
     var(--tw-ring-shadow, 0 0 transparent), var(--tw-shadow);
+  max-height: 50dvh;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .LangDropdownMenu li a {
@@ -203,7 +202,8 @@
   display: grid;
   place-items: center;
   font-size: 20px;
-  width: 1.15em;
+  min-width: 1.15em;
+  max-width: 1.15em;
   height: 1.15em;
   overflow: hidden;
   position: relative;
