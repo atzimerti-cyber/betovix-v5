@@ -5,6 +5,7 @@ import HorizontalMenu from "../../../features/UI/HorizontalMenu/HorizontalMenu";
 import classes from "./MarketsMenu.module.css";
 import { eventActions } from "../eventSlice";
 import { getBBComboMap } from "../eventAsyncActions";
+// import AdditionalMarketGroups from "./AdditionalMarketGroups";
 
 const MarketsMenu = (props) => {
   const dispatch = useDispatch();
@@ -18,16 +19,6 @@ const MarketsMenu = (props) => {
   const user = useSelector((state) => state.login.user);
 
   useEffect(() => {
-    // let marketGroups = props.marketGroups;
-    // const allMarketsId = `rand-${Math.random().toString(36).slice(2, 11)}`;
-
-    // // Create the "All Markets" object
-    // const allMarkets = {
-    //   Id: uniqueId,
-    //   name: "All Markets",
-    //   marketGroups: [...marketGroups],
-    // };
-
     dispatch(eventActions.setSelectedMarketCategory(props.marketGroups[0]));
   }, []);
 

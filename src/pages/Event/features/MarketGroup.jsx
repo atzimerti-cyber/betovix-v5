@@ -26,6 +26,8 @@ const MarketGroup = (props) => {
   );
   const changedMarkets = useSelector((state) => state.event.changedMarkets);
 
+  const specialGroups = useSelector((state) => state.sportsbook.specialGroups);
+
   const [marketsWithSubgroups, setMarketsWithSubgroups] = useState(null);
 
   useEffect(() => {
@@ -54,12 +56,6 @@ const MarketGroup = (props) => {
 
       const marketTypeId = market.MarketTypeId;
 
-      // const inTree = sportMarketTreeObj[marketTypeId];
-      // let subIndex;
-      // let subName;
-      // let marketIndex;
-      // let allIndex;
-
       const inTree = sportMarketTreeObj[marketTypeId];
       let subIndex = market.MarketSubTypeId
         ? parseInt(market.MarketSubTypeId)
@@ -67,6 +63,9 @@ const MarketGroup = (props) => {
       let subName = market.MarketName.International;
       let marketIndex = market.MarketTypeId;
       let allIndex = 100000 * market.MarketTypeId;
+      const isSpecial = specialGroups.find(
+        (s) => s.Id === selectedMarketCategory.Id
+      );
 
       // If not in tree, search for a similar name
       if (
@@ -96,35 +95,7 @@ const MarketGroup = (props) => {
           marketIndex = inTree.marketIndex;
           allIndex = thisGroup.allIndex;
         }
-      }
-      // else if (!inTree) {
-      //   if (keyString && market.MarketName.International.includes(keyString)) {
-      //     subIndex = market.MarketSubTypeId
-      //       ? parseInt(market.MarketSubTypeId)
-      //       : market.MarketTypeId;
-      //     subName = market.MarketName.International;
-      //     marketIndex = market.MarketTypeId;
-      //     allIndex = 100000 * market.MarketTypeId;
-      //   } else if (selectedMarketCategory.Id === 9999) {
-      //     subIndex = market.MarketSubTypeId
-      //       ? parseInt(market.MarketSubTypeId)
-      //       : market.MarketTypeId;
-      //     subName = market.MarketName.International;
-      //     marketIndex = market.MarketTypeId;
-      //     allIndex = 100000 * market.MarketTypeId;
-      //   } else if (selectedMarketCategory.name === "All Markets") {
-      //     /////////////////////
-      //     subIndex = market.MarketSubTypeId /////////////////////
-      //       ? parseInt(market.MarketSubTypeId) /////////////////////
-      //       : market.MarketTypeId; /////////////////////
-      //     subName = market.MarketName.International; /////////////////////
-      //     marketIndex = market.MarketTypeId; /////////////////////
-      //     allIndex = 1000000 * market.MarketTypeId; /////////////////////
-      //   } else {
-      //     return;
-      //   }
-      // }
-      else if (!inTree) {
+      } else if (!inTree) {
         if (keyString && market.MarketName.International.includes(keyString)) {
           subIndex = market.MarketSubTypeId
             ? parseInt(market.MarketSubTypeId)
@@ -139,7 +110,7 @@ const MarketGroup = (props) => {
           subName = market.MarketName.International;
           marketIndex = market.MarketTypeId;
           allIndex = 100000 * market.MarketTypeId;
-        } else if (selectedMarketCategory.name === "All Markets") {
+        } else if (selectedMarketCategory.name === "All Markets" || isSpecial) {
           /////////////////////
           subIndex = market.MarketSubTypeId /////////////////////
             ? parseInt(market.MarketSubTypeId) /////////////////////
@@ -154,6 +125,17 @@ const MarketGroup = (props) => {
         const thisGroup = inTree.groups.find(
           (g) => g.groupIndex === selectedMarketCategory.Id
         );
+
+        if (isSpecial) {
+          const currentSpecialGroup = specialGroups.find(
+            (s) => s.Id === selectedMarketCategory.Id
+          );
+          if (currentSpecialGroup)
+            thisGroup = inTree.groups.find((g) =>
+              currentSpecialGroup.groups.includes(g.name)
+            );
+        }
+
         if (
           !thisGroup &&
           keyString &&
@@ -165,7 +147,10 @@ const MarketGroup = (props) => {
           subName = market.MarketName.International;
           marketIndex = market.MarketTypeId;
           allIndex = 100000 * market.MarketTypeId;
-        } else if (selectedMarketCategory.name === "All Markets") {
+        } else if (
+          selectedMarketCategory.name === "All Markets" ||
+          (isSpecial && !thisGroup)
+        ) {
           subIndex = market.MarketSubTypeId
             ? parseInt(market.MarketSubTypeId)
             : market.MarketTypeId;
@@ -181,37 +166,6 @@ const MarketGroup = (props) => {
           allIndex = thisGroup.allIndex;
         }
       }
-      // else {
-      //   const thisGroup = inTree.groups.find(
-      //     (g) => g.groupIndex === selectedMarketCategory.Id
-      //   );
-      //   if (
-      //     !thisGroup &&
-      //     keyString &&
-      //     market.MarketName.International.includes(keyString)
-      //   ) {
-      //     subIndex = market.MarketSubTypeId
-      //       ? parseInt(market.MarketSubTypeId)
-      //       : market.MarketTypeId;
-      //     subName = market.MarketName.International;
-      //     marketIndex = market.MarketTypeId;
-      //     allIndex = 100000 * market.MarketTypeId;
-      //   } else if (selectedMarketCategory.name === "All Markets") {
-      //     subIndex = market.MarketSubTypeId
-      //       ? parseInt(market.MarketSubTypeId)
-      //       : market.MarketTypeId;
-      //     subName = market.MarketName.International;
-      //     marketIndex = market.MarketTypeId;
-      //     allIndex = 1000000 * market.MarketTypeId;
-      //   } else if (!thisGroup) {
-      //     return;
-      //   } else {
-      //     subIndex = inTree.sub.subIndex;
-      //     subName = inTree.sub.name;
-      //     marketIndex = inTree.marketIndex;
-      //     allIndex = thisGroup.allIndex;
-      //   }
-      // }
 
       // Markets with similar name (includes a number inside parenthesis) should be grouped together
       let label = market.MarketName.International;

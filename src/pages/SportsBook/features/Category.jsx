@@ -5,12 +5,9 @@ import Tournament from "./Tournament";
 import Accordion from "../../../features/UI/Accordion/Accordion";
 import AccordionSmall from "../../../features/UI/Accordion/AccordionSmall";
 import { translate } from "../../../utils/translations";
-import { private_createTypography } from "@mui/material";
 
 const Category = (props) => {
   const [categoryTournaments, setCategoryTournaments] = useState([]);
-
-  const openCategoryId = useSelector((state) => state.sportsHome.categoryOpen);
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const tournamentSearchString = useSelector(
@@ -25,6 +22,8 @@ const Category = (props) => {
   const sportSettings = useSelector((state) => state.app.sportSettings);
 
   const selectedSport = useSelector((state) => state.sportsbook.selectedSport);
+
+  const specialGroups = useSelector((state) => state.sportsbook.specialGroups);
 
   useEffect(() => {
     if (!props.category) return;
@@ -76,6 +75,16 @@ const Category = (props) => {
     tournamentTimeFilter,
   ]);
 
+  const getIsSpecial = (tournament) => {
+    const tournamentName = tournament?.Name?.International;
+    const filtered = specialGroups.filter((sg) =>
+      tournamentName.includes(sg.name)
+    );
+    const isSpecial = filtered.length > 0;
+
+    return isSpecial;
+  };
+
   return (
     <div data-category={`Category:${props.category.Id}`}>
       <Accordion
@@ -85,6 +94,8 @@ const Category = (props) => {
         catIcon={`url('/flags/flags/${props.category.Name.International}.png')`}
       >
         {categoryTournaments.map((categoryTournament, tournamentIndex) => {
+          const isSpecial = getIsSpecial(categoryTournament);
+          if (isSpecial) return null;
           return (
             <div
               key={categoryTournament.Id}

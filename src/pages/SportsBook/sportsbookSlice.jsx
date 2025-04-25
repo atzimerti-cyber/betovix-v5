@@ -71,6 +71,29 @@ const initialState = {
   customDateTournaments: null,
   loading: false,
   tournamentEventsLoading: false,
+
+  specialGroups: [
+    {
+      Id: "Cards and Corners",
+      name: "Cards and Corners",
+      groups: ["Cards", " Corners"],
+    },
+    {
+      Id: "Player Statistics",
+      name: "Player Statistics",
+      groups: ["Cards", "Goalscorers"],
+    },
+    {
+      Id: "Fouls and Shots on Goal",
+      name: "Fouls and Shots on Goal",
+      groups: ["Fouls", "Shots"],
+    },
+    {
+      Id: "Throws In and Offsides",
+      name: "Throws In and Offsides",
+      groups: ["Offsides", "Throws"],
+    },
+  ],
 };
 
 export const sportsbookSlice = createSlice({

@@ -300,7 +300,8 @@ const Event = () => {
 
     ////////BET BUILDER/////////
     let betBuilderId = null;
-    if (hasBetBuilder) {
+    if (event.Info.ExtraInfo.isBB === "true") {
+      // if (hasBetBuilder) {
       betBuilderId = `betbuildercat`;
       groupsObj[betBuilderId] = { Id: betBuilderId, name: "Bet Builder" };
     }
