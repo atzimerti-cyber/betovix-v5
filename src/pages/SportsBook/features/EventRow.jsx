@@ -14,6 +14,7 @@ import { sportsbookActions } from "../sportsbookSlice";
 
 import TeamLogo from "../../../features/TeamLogo/TeamLogo";
 import { translateNameWithLang } from "../../../utils/translations";
+import { sportsHomeActions } from "../subpages/sportsHomeSlice";
 
 const EventRow = (props) => {
   const dispatch = useDispatch();
@@ -51,6 +52,10 @@ const EventRow = (props) => {
     <div
       className={classes.EventRow}
       data-event={`Event:${props.event.Info.MatchId}`}
+      onClick={() => {
+        dispatch(sportsHomeActions.setSelectedCategory(props.catId));
+        dispatch(sportsHomeActions.setSelectedTournament(props.tourId));
+      }}
     >
       <Link
         className={classes.Info}
@@ -63,7 +68,9 @@ const EventRow = (props) => {
           <div className={classes.EventTime}>
             <div className={classes.Time}>
               {/* <span>{formatDateTime(props.event.Info.DateOfMatch)}</span> */}
-              <span>{formatDate(props.event.Info.DateOfMatch, "datetime")}</span>
+              <span>
+                {formatDate(props.event.Info.DateOfMatch, "datetime")}
+              </span>
               <span> - {getTimeUntil(props.event.Info.DateOfMatch)}</span>
             </div>
           </div>

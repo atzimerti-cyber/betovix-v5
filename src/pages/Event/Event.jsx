@@ -27,6 +27,7 @@ import { layoutActions } from "../../features/Layout/layoutSlice";
 
 import Arrow2LeftIcon from "../../assets/svgs/arrow2-left.svg?react";
 import config from "../../config";
+import { liveActions } from "../../features/InitApp/liveSlice";
 
 const Event = () => {
   const dispatch = useDispatch();
@@ -61,7 +62,7 @@ const Event = () => {
     (state) => state.sportsbook.sportMarketTree
   );
 
-  const hasBetBuilder = true; /////////////////////////////////////////////////////////////////////////
+  const specialMarketGroups = [];
 
   const [marketGroups, setMarketGroups] = useState(null);
   const [marketGroupsChanged, setMarketGroupsChanged] = useState(1);
@@ -71,6 +72,38 @@ const Event = () => {
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const showStats = useMediaQuery({ query: "(max-width: 1145px)" });
+
+  //////////////////////////////////////////////////////////////////////////////////////
+  const subscribeTo = useSelector((state) => state.live.subscribeTo);
+  const subscribedTo = useSelector((state) => state.live.subscribedTo);
+
+  useEffect(() => {
+    if (subscribeTo?.isSpecial) return;
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const sportIdInt = parseInt(sportid);
+    const eventIdInt = parseInt(eventid);
+
+    dispatch(getEvent(sportIdInt, eventIdInt, signal, true));
+
+    return () => {
+      controller.abort();
+    };
+  }, [subscribeTo?.matchId]);
+
+  useEffect(() => {
+    if (!event) return;
+
+    dispatch(
+      liveActions.setSubscribeTo({
+        matchId: event.MatchId,
+        isSpecial: false,
+      })
+    );
+  }, [event?.MatchId]);
+  //////////////////////////////////////////////////////////////////////////////////////
 
   useEffect(() => {
     return () => {
@@ -250,7 +283,18 @@ const Event = () => {
     if (!liveConnection) return;
     if (liveConnection.state !== "Connected") return;
 
-    const prevMatchId = previousMatchId === 0 ? event.MatchId : previousMatchId;
+    if (subscribeTo?.isSpecial) return; // Don't subscribe here if special group
+
+    // The MatchId is the same. Do not resubscribe
+    if (
+      subscribedTo &&
+      subscribeTo &&
+      subscribeTo.matchId === subscribedTo.matchId
+    )
+      return;
+
+    // const prevMatchId = previousMatchId === 0 ? event.MatchId : previousMatchId;
+    let prevMatchId = subscribedTo ? subscribedTo.matchId : 0;
 
     //Subscribe
     liveConnection
@@ -258,22 +302,26 @@ const Event = () => {
       .then(() => {
         console.log(`Unsubscribed from ${previousMatchId}`);
         console.log(`Subscribed to ${event.MatchId}`);
-        setPreviousMatchId(event.MatchId);
+        // setPreviousMatchId(event.MatchId);
+        dispatch(
+          liveActions.setSubscribedTo({
+            matchId: event.MatchId,
+            isSpecial: false,
+          })
+        );
       })
       .catch((err) => {
         console.error(`Subscription to ${event.MatchId} failed :`, err);
       });
 
     liveConnection.on("onOddsUpdate", handleOnOddsUpdate);
-    // liveConnection.on("onHeadersList", handleOnHeadersUpdate);
 
     return () => {
       if (liveConnection) {
         liveConnection.off("onOddsUpdate", handleOnOddsUpdate);
-        // liveConnection.off("onHeadersList", handleOnHeadersUpdate);
       }
     };
-  }, [event?.MatchId, liveConnection?.state]);
+  }, [event?.MatchId, liveConnection?.state, subscribeTo]);
 
   // Create the market groups, based on event markets
   useEffect(() => {
@@ -546,7 +594,7 @@ const Event = () => {
                       {marketGroups.length > 0 && (
                         <MarketsMenu
                           marketGroups={marketGroups}
-                          eventId={event.MatchId}
+                          eventId={event?.MatchId}
                         />
                       )}
 

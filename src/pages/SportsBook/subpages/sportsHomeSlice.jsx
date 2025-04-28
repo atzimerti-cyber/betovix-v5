@@ -7,6 +7,8 @@ const initialState = {
   tournamentEventsLoading: {},
   categoryOpen: null,
   tournamentOpen: null,
+  selectedCategory: null,
+  selectedTournament: null,
 };
 
 export const sportsHomeSlice = createSlice({
@@ -40,6 +42,12 @@ export const sportsHomeSlice = createSlice({
     },
     setTournamentOpen(state, action) {
       state.tournamentOpen = action.payload;
+    },
+    setSelectedCategory(state, action) {
+      state.selectedCategory = action.payload;
+    },
+    setSelectedTournament(state, action) {
+      state.selectedTournament = action.payload;
     },
   },
 });

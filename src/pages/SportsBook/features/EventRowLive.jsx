@@ -10,6 +10,7 @@ import TeamLogo from "../../../features/TeamLogo/TeamLogo";
 import { formatTimeString, formatDate } from "../../../utils/custom";
 import FlashingScore from "./FlashingScore";
 import { translate, translateNameWithLang } from "../../../utils/translations";
+import { sportsHomeActions } from "../subpages/sportsHomeSlice";
 
 const EventRowLive = (props) => {
   const dispatch = useDispatch();
@@ -155,6 +156,10 @@ const EventRowLive = (props) => {
     <div
       className={classes.EventRow}
       data-event={`Event:${event.Info.MatchId}`}
+      onClick={() => {
+        dispatch(sportsHomeActions.setSelectedCategory(props.catId));
+        dispatch(sportsHomeActions.setSelectedTournament(props.tourId));
+      }}
     >
       <Link
         className={classes.Info}

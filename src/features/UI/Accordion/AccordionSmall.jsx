@@ -13,19 +13,30 @@ const AccordionSmall = (props) => {
   const tournamentOpenId = useSelector(
     (state) => state.sportsHome.tournamentOpen
   );
+  const selectedTournamentId = useSelector(
+    (state) => state.sportsHome.selectedTournament
+  );
 
   useEffect(() => {
-    if (tournamentOpenId !== null) {
-      setAccordionInViewportTop();
+    if (selectedTournamentId !== null && selectedTournamentId === props.catId) {
+      setAccordionInViewportTop("back");
     }
     return () => {};
   }, []);
+  // }, [selectedTournamentId, , props.catId]);
 
-  const setAccordionInViewportTop = () => {
+  // useEffect(() => {
+  //   if (selectedTournamentId !== null && selectedTournamentId === props.catId) {
+  //     setAccordionInViewportTop("back");
+  //   }
+  // }, []);
+  // }, [selectedTournamentId, props.catId]);
+
+  const setAccordionInViewportTop = (origin) => {
     if (ref.current) {
       setTimeout(() => {
         ref.current.scrollIntoView({
-          behavior: "instant",
+          behavior: origin === "back" ? "instant" : "smooth",
           block: "center",
           inline: "nearest",
         });
@@ -35,10 +46,13 @@ const AccordionSmall = (props) => {
 
   const handleClick = (id) => {
     if (id !== tournamentOpenId) {
-      setAccordionInViewportTop(); // Scrolls into view
-      dispatch(sportsHomeActions.setTournamentOpen(id));
-    } else {
-      dispatch(sportsHomeActions.setTournamentOpen(null));
+      if (!isOpen) {
+        setAccordionInViewportTop();
+      }
+      setIsOpen(!isOpen);
+      //   dispatch(sportsHomeActions.setTournamentOpen(id));
+      // } else {
+      //   dispatch(sportsHomeActions.setTournamentOpen(null));
     }
   };
 
@@ -46,8 +60,8 @@ const AccordionSmall = (props) => {
     <section
       data-accordion="sportsAccordionSmall"
       className={
-        tournamentOpenId && props.catId
-          ? props.catId === tournamentOpenId
+        selectedTournamentId && props.catId
+          ? props.catId === selectedTournamentId
             ? [classes.Accordion, classes.Open].join(" ")
             : classes.Accordion
           : isOpen

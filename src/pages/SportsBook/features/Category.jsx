@@ -5,6 +5,7 @@ import Tournament from "./Tournament";
 import Accordion from "../../../features/UI/Accordion/Accordion";
 import AccordionSmall from "../../../features/UI/Accordion/AccordionSmall";
 import { translate } from "../../../utils/translations";
+import DUMMYTOURNAMENTS from "../../../dummyData/TODEL_tournaments";
 
 const Category = (props) => {
   const [categoryTournaments, setCategoryTournaments] = useState([]);
@@ -105,13 +106,15 @@ const Category = (props) => {
                 catId={categoryTournament.Id}
                 icon={selectedSport.icon}
                 title={translate(categoryTournament.Name.International)}
-                initOpen={tournamentIndex < 0}
+                initOpen={props.slice !== "sportsHome" && tournamentIndex < 2}
               >
                 <Tournament
                   tournament={categoryTournament}
                   slice={props.slice}
                   includePregame={props.includePregame}
                   includeLive={props.includeLive}
+                  catId={categoryTournament.Id}
+                  tourId={props.category.Id}
                 />
               </AccordionSmall>
             </div>

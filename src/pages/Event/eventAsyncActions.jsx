@@ -16,10 +16,10 @@ import { betslipActions } from "../../features/Betslip/betslipSlice";
 import { layoutActions } from "../../features/Layout/layoutSlice";
 import { translateNameWithLang } from "../../utils/translations";
 
-export const getEvent = (sportId, eventId, signal) => {
+export const getEvent = (sportId, eventId, signal, silent) => {
   return async (dispatch, getState) => {
     try {
-      dispatch(appActions.setBarLoading(true));
+      if (!silent) dispatch(appActions.setBarLoading(true));
 
       const liveState = getState().live.liveState;
       const eventIdInt = parseInt(eventId);

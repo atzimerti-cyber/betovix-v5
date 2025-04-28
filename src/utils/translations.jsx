@@ -32,7 +32,7 @@ export function translateNameWithLang(name) {
     return typeof name.langValues[lang.id] === "string"
       ? name.langValues[lang.id]
       : "";
-  } else if (name.International) {
+  } else if (name.International || name.International === "") {
     let strippedName = name.International.split(". Outright")[0]; // remove "Outright" before translating
     // Return a translated value or fallback to the strippedName
     return translations[strippedName] || strippedName;

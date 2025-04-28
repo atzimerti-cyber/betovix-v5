@@ -4,18 +4,55 @@ import axiosApi from "../../../axios-api";
 import _ from "lodash";
 
 import AdditionalMarketGroup from "./AdditionalMarketGroup";
-import { storageGetLang } from "../../../utils/storage";
 import config from "../../../config";
 
 const AdditionalMarketGroups = () => {
+  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const liveState = useSelector((state) => state.live.liveState);
   const event = useSelector((state) => state.event.event);
   const addedRemovedEvent = useSelector(
     (state) => state.live.addedRemovedEvent
   );
-  const specialGroups = useSelector((state) => state.eventLive.specialGroups);
+  const specialGroups = useSelector((state) => state.sportsbook.specialGroups);
 
   const [existingSpecialGroups, setExistingSpecialGroups] = useState({});
+
+  const dummySpecialGroups = {
+    1: {
+      Id: 1,
+      name: "Cards and Corners",
+      event: {
+        MatchId: 101,
+        Markets: [
+          { Id: 201, Name: "Total Yellow Cards" },
+          { Id: 202, Name: "Total Corners" },
+        ],
+        Info: {
+          SportName: { International: "Football" },
+          TournamentName: { International: "Premier League" },
+          HomeTeamName: { International: "Team A" },
+          AwayTeamName: { International: "Team B" },
+        },
+      },
+    },
+    2: {
+      Id: 2,
+      name: "Player Statistics",
+      event: {
+        MatchId: 102,
+        Markets: [
+          { Id: 203, Name: "Top Scorer" },
+          { Id: 204, Name: "Most Assists" },
+        ],
+        Info: {
+          SportName: { International: "Football" },
+          TournamentName: { International: "La Liga" },
+          HomeTeamName: { International: "Team C" },
+          AwayTeamName: { International: "Team D" },
+        },
+      },
+    },
+  };
 
   // Find if there are any Cards and Corners, Player Statistics and Fouls and Shots on Goal Tournaments
   useEffect(() => {
@@ -71,8 +108,6 @@ const AdditionalMarketGroups = () => {
   }, [addedRemovedEvent]);
 
   const getEvent = async (matchId) => {
-    const lang = storageGetLang();
-
     try {
       const response = await axiosApi.get(
         `LiveCluster/getLiveEvent?eventid=${matchId}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
@@ -89,6 +124,7 @@ const AdditionalMarketGroups = () => {
     }
   };
 
+  //return Object.values(dummySpecialGroups).map((specialGroup) => {
   return Object.values(existingSpecialGroups).map((specialGroup) => {
     if (!specialGroup.event) return null;
 

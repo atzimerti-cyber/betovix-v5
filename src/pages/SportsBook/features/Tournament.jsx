@@ -144,15 +144,37 @@ const Tournament = (props) => {
       {liveEventsIds &&
         liveEventsIds.map((eventId) => {
           if (props.typeList)
-            return <EventRowLiveList key={eventId} eventId={eventId} />;
-          else return <EventRowLive key={eventId} eventId={eventId} />;
+            return (
+              <EventRowLiveList
+                key={eventId}
+                eventId={eventId}
+                catId={props.catId}
+                tourId={props.tourId}
+              />
+            );
+          else
+            return (
+              <EventRowLive
+                key={eventId}
+                eventId={eventId}
+                catId={props.catId}
+                tourId={props.tourId}
+              />
+            );
         })}
 
       {events &&
         events.map((event) => {
           if (liveState[event.MatchId]) return; // don't add the live events here, even if they are still in the pregame
 
-          return <EventRow key={event.MatchId} event={event} />;
+          return (
+            <EventRow
+              key={event.MatchId}
+              event={event}
+              catId={props.catId}
+              tourId={props.tourId}
+            />
+          );
         })}
     </div>
   );

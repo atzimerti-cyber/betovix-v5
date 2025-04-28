@@ -514,7 +514,6 @@ const SportsHome = () => {
                   key={category.Id}
                   category={category}
                   initOpen={false}
-                  //initOpen={catIndex === 0}
                   slice="sportsHome"
                   includePregame
                   includeLive

@@ -380,7 +380,9 @@ const SportsLive = () => {
                 <Category
                   key={category.Id}
                   category={category}
-                  initOpen={catIndex === 0}
+                  // initOpen={false}
+                  initOpen={catIndex < 5}
+                  // initOpen={catIndex === 0}
                   slice="sportsLive"
                   includeLive
                 />
@@ -388,12 +390,12 @@ const SportsLive = () => {
             )
           ) : (
             <div
-            style={{
-              display: "flex",
-              rowGap: "0.3rem",
-              flexDirection: "column",
-            }}
-          >
+              style={{
+                display: "flex",
+                rowGap: "0.3rem",
+                flexDirection: "column",
+              }}
+            >
               <ShimmerIcon className={classes.ShimmerIcon} />
               <ShimmerIcon className={classes.ShimmerIcon} />
               <ShimmerIcon className={classes.ShimmerIcon} />

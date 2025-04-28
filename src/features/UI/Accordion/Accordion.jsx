@@ -14,22 +14,32 @@ const Accordion = (props) => {
   const tournamentOpenId = useSelector(
     (state) => state.sportsHome.tournamentOpen
   );
+  const selectedCategoryId = useSelector(
+    (state) => state.sportsHome.selectedCategory
+  );
 
   // const [isOpen, setIsOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(props.initOpen);
 
-  useEffect(() => {
-    if (tournamentOpenId === null && openCategoryId) {
-      setAccordionInViewportTop();
-    }
-    return () => {};
-  }, []);
+  // useEffect(() => {
+  //   if (tournamentOpenId === null && openCategoryId) {
+  //     setAccordionInViewportTop();
+  //   }
+  //   return () => {};
+  // }, []);
+
+  // useEffect(() => {
+  //   if (selectedCategoryId !== null && selectedCategoryId === props.catId) {
+  //     setAccordionInViewportTop("back");
+  //   }
+  // }, []);
+  // }, [selectedCategoryId, props.catId]);
 
   const setAccordionInViewportTop = () => {
     if (ref.current) {
       setTimeout(() => {
         ref.current.scrollIntoView({
-          behavior: "instant",
+          behavior: "smooth",
           block: "center",
           inline: "nearest",
         });
@@ -39,11 +49,14 @@ const Accordion = (props) => {
 
   const handleClick = (id) => {
     if (id !== openCategoryId) {
-      setAccordionInViewportTop(); // Scrolls into view
-      dispatch(sportsHomeActions.setCategoryOpen(id));
-    } else {
-      dispatch(sportsHomeActions.setCategoryOpen(null));
-      dispatch(sportsHomeActions.setTournamentOpen(null));
+      if (!isOpen) {
+        setAccordionInViewportTop();
+      }
+      setIsOpen(!isOpen);
+      //dispatch(sportsHomeActions.setCategoryOpen(id));
+      // } else {
+      //   dispatch(sportsHomeActions.setCategoryOpen(null));
+      //   dispatch(sportsHomeActions.setTournamentOpen(null));
     }
   };
 
