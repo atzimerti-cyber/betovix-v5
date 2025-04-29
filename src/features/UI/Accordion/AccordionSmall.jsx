@@ -3,7 +3,6 @@ import classes from "./AccordionSmall.module.css";
 import AngleDownIcon from "../../../assets/svgs/angle-down.svg?react";
 import Ripple from "../Ripple/Ripple";
 import { useDispatch, useSelector } from "react-redux";
-import { sportsHomeActions } from "../../../pages/SportsBook/subpages/sportsHomeSlice";
 
 const AccordionSmall = (props) => {
   const dispatch = useDispatch();
@@ -19,18 +18,11 @@ const AccordionSmall = (props) => {
 
   useEffect(() => {
     if (selectedTournamentId !== null && selectedTournamentId === props.catId) {
+      setIsOpen(true);
       setAccordionInViewportTop("back");
     }
     return () => {};
   }, []);
-  // }, [selectedTournamentId, , props.catId]);
-
-  // useEffect(() => {
-  //   if (selectedTournamentId !== null && selectedTournamentId === props.catId) {
-  //     setAccordionInViewportTop("back");
-  //   }
-  // }, []);
-  // }, [selectedTournamentId, props.catId]);
 
   const setAccordionInViewportTop = (origin) => {
     if (ref.current) {
@@ -50,9 +42,6 @@ const AccordionSmall = (props) => {
         setAccordionInViewportTop();
       }
       setIsOpen(!isOpen);
-      //   dispatch(sportsHomeActions.setTournamentOpen(id));
-      // } else {
-      //   dispatch(sportsHomeActions.setTournamentOpen(null));
     }
   };
 
@@ -82,7 +71,7 @@ const AccordionSmall = (props) => {
               setIsOpen(!isOpen);
             }
           }}
-          ref={ref} // Attach the ref here
+          ref={ref}
         >
           <Ripple type="square" faint />
 

@@ -420,7 +420,15 @@ export const bbOdd = (
 
       slips.map((slip) => {
         if (slip.MarketTypeId == -10 && slip.MatchId == event.MatchId) {
-          bbpoints = slip.BB;
+          if (slip.BB.length > 11) {
+            throw Error(
+              translate(
+                `You've reached the maximum number of selections for this Bet Builder`
+              )
+            );
+          } else {
+            bbpoints = slip.BB;
+          }
         }
       });
 

@@ -14,11 +14,14 @@ import { getSportMarketTree, getLiveStreams } from "../sportsbookAsyncActions";
 import NoImageIcon from "../../../assets/svgs/no-image.svg?react";
 import { sportsbookActions } from "../sportsbookSlice";
 import { translate } from "../../../utils/translations";
+import { sportsHomeActions } from "./sportsHomeSlice";
+import useBasePath from "../../../hooks/useBasePath";
 
 const SportsLive = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
+  const pathnameNoParams = useBasePath();
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const liveState = useSelector((state) => state.live.liveState);
@@ -380,7 +383,7 @@ const SportsLive = () => {
                 <Category
                   key={category.Id}
                   category={category}
-                  // initOpen={false}
+                  //initOpen={false}
                   initOpen={catIndex < 5}
                   // initOpen={catIndex === 0}
                   slice="sportsLive"

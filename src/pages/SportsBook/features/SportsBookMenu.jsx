@@ -40,6 +40,8 @@ const SportsBookMenu = () => {
   const handleStateChange = () => {
     dispatch(sportsHomeActions.setCategoryOpen(null));
     dispatch(sportsHomeActions.setTournamentOpen(null));
+    dispatch(sportsHomeActions.setSelectedCategory(null));
+    dispatch(sportsHomeActions.setSelectedTournament(null));
   };
 
   return (

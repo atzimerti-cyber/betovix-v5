@@ -96,12 +96,13 @@ const InitApp = () => {
     }
 
     //Clear out open sports category and tournament
-    if (
-      !(pathnameNoParams === "/sportsbook" || pathnameNoParams === "/event")
-    ) {
-      dispatch(sportsHomeActions.setCategoryOpen(null));
-      dispatch(sportsHomeActions.setTournamentOpen(null));
-    }
+    // if ( !(pathnameNoParams === "/sportsbook" || pathnameNoParams === "/event") ) {
+    // if (!pathnameNoParams.includes("/event")) {
+    //   dispatch(sportsHomeActions.setSelectedCategory(null));
+    //   dispatch(sportsHomeActions.setSelectedTournament(null));
+    //   dispatch(sportsHomeActions.setCategoryOpen(null));
+    //   dispatch(sportsHomeActions.setTournamentOpen(null));
+    // }
   }, [location.pathname, location.search, lang.id, navigate]);
 
   //previous path state

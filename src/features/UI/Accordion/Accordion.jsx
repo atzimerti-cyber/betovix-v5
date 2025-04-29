@@ -18,22 +18,14 @@ const Accordion = (props) => {
     (state) => state.sportsHome.selectedCategory
   );
 
-  // const [isOpen, setIsOpen] = useState(false);
   const [isOpen, setIsOpen] = useState(props.initOpen);
 
-  // useEffect(() => {
-  //   if (tournamentOpenId === null && openCategoryId) {
-  //     setAccordionInViewportTop();
-  //   }
-  //   return () => {};
-  // }, []);
-
-  // useEffect(() => {
-  //   if (selectedCategoryId !== null && selectedCategoryId === props.catId) {
-  //     setAccordionInViewportTop("back");
-  //   }
-  // }, []);
-  // }, [selectedCategoryId, props.catId]);
+  useEffect(() => {
+    if (selectedCategoryId === props.catId) {
+      setIsOpen(true);
+      setAccordionInViewportTop("back");
+    }
+  }, []);
 
   const setAccordionInViewportTop = () => {
     if (ref.current) {
@@ -53,10 +45,6 @@ const Accordion = (props) => {
         setAccordionInViewportTop();
       }
       setIsOpen(!isOpen);
-      //dispatch(sportsHomeActions.setCategoryOpen(id));
-      // } else {
-      //   dispatch(sportsHomeActions.setCategoryOpen(null));
-      //   dispatch(sportsHomeActions.setTournamentOpen(null));
     }
   };
 
@@ -83,7 +71,7 @@ const Accordion = (props) => {
             props.catId ? handleClick(props.catId) : setIsOpen(!isOpen);
           }
         }}
-        ref={ref} // Attach the ref here
+        ref={ref}
       >
         <Ripple type="square" faint />
 

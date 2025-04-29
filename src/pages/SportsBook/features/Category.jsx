@@ -106,15 +106,16 @@ const Category = (props) => {
                 catId={categoryTournament.Id}
                 icon={selectedSport.icon}
                 title={translate(categoryTournament.Name.International)}
-                initOpen={props.slice !== "sportsHome" && tournamentIndex < 2}
+                initOpen={false}
+                // initOpen={props.slice !== "sportsHome" && tournamentIndex < 2}
               >
                 <Tournament
                   tournament={categoryTournament}
                   slice={props.slice}
                   includePregame={props.includePregame}
                   includeLive={props.includeLive}
-                  catId={categoryTournament.Id}
-                  tourId={props.category.Id}
+                  catId={props.category.Id}
+                  tourId={categoryTournament.Id}
                 />
               </AccordionSmall>
             </div>
