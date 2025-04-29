@@ -769,6 +769,7 @@ export const getSite = (signal) => {
 
       // config.VITE_SITE_ID = 45;
       config.VITE_SITE_ID = response.data.Contents.SiteId;
+      config.VITE_VEGAS_HOME_URL = `https://${currentDomain}/casino/lobby`;
       config.VITE_SITE_LOGO = response.data.Contents.Logo;
       config.VITE_SITE_NAME = response.data.Contents.Name;
       config.VITE_STATS_THEME = response.data.Contents.StatsTheme;
