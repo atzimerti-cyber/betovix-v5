@@ -8,6 +8,7 @@ window.SETTINGS ={
     VITE_BETS_API: 'https://storetube.gr:60019/api',
     VITE_SITE_ID: 0,
     VITE_HOME_URL: 'https://betovix.storetube.gr',
+    VITE_VEGAS_HOME_URL: 'https://betovix.storetube.gr',
 
     VITE_WALLET_STORETUBE: 'https://storetube.gr:61009/api',
     VITE_STORETUBE: 'https://storetube.gr:60019/api',
@@ -29,6 +30,7 @@ window.SETTINGS ={
 //     VITE_BETS_API: 'https://modulesports.com:60019/api',
 //     VITE_SITE_ID: 0,
 //     VITE_HOME_URL: 'https://betovix.storetube.gr',
+//     VITE_VEGAS_HOME_URL: 'https://betovix.com',
 
 //     VITE_WALLET_STORETUBE: 'https://modulesports.com:61009/api',
 //     VITE_STORETUBE: 'https://modulesports.com:60019/api',
