@@ -116,16 +116,17 @@ const Market = (props) => {
                     value={market.MarketId}
                     className={classes.MarketOption}
                   >
-                    {market.MarketName.International}
+                    {translateNameWithLang(market.MarketName)}
+                    {/* {market.MarketName.International} */}
                   </option>
                 ))}
               </select>
             ) : (
               <div className={classes.MarketText}>
                 {props.allMarkets?.length === 1 &&
-                  props.allMarkets[0].MarketName.International}
-                {props.allMarkets?.length === 0 &&
-                  "-"}
+                  translateNameWithLang(props.allMarkets[0].MarketName)}
+                {/* props.allMarkets[0].MarketName.International} */}
+                {props.allMarkets?.length === 0 && "-"}
               </div>
             )}
           </div>

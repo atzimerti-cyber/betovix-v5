@@ -11,8 +11,8 @@
 
 .Header > svg {
   margin-right: 0.5rem;
-  height: 1.75rem;
-  width: 1.75rem;
+  height: 1.5rem;
+  width: 1.5rem;
 }
 .Header > svg path {
   fill: var(--brand-green);
@@ -21,9 +21,8 @@
 .Title {
   display: flex;
   align-items: center;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1.25rem;
-  font-weight: 700;
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
@@ -43,19 +42,17 @@
 }
 
 .TotalBubble {
-  background-color: var(--db-white-hover-light);
+  background-color: #ffffff14;
   margin-left: 1rem;
-  color: var(--white);
-  height: 1.5rem;
+  color: #fffffff5;
+  padding: 1px 10px;
   border-radius: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   line-height: 1.25rem;
-  font-weight: 600;
   margin-top: 0.2rem;
-  padding-inline: 10px;
 }
 
 .GameGrid {

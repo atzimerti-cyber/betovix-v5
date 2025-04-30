@@ -74,8 +74,8 @@
   --arrow-button: linear-gradient(159deg, #0e344d 0%, #1b4560 88%);
   --arrow-button-disabled: linear-gradient(159deg, #0e344d2f 0%, #1b45602f 88%);
 
-  --provider-card-bg: #1a384c;
-  --provider-card-bg-lowOp: #53748e4f;
+  --provider-card-bg: #ffffff08;
+  --provider-card-bg-lowOp: #ffffff08;
 
   --outer-container-left: #0c2739;
 
