@@ -150,7 +150,7 @@ const WithdrawPaymentForm = (props) => {
       CustomerIdCode: debouncedFormData.IDCode,
       CustomerIBAN: debouncedFormData.IBAN,
       // CustomerGambBankId: debouncedFormData.Bank,
-      CustomerGambBankId:
+      CustomerBankId:
         debouncedFormData.Bank && Object.values(debouncedFormData.Bank)[0],
       CustomerBirthDate: formatDate(debouncedFormData.DateOfBirth),
       CustomerIdentityExpDate: formatDate(
