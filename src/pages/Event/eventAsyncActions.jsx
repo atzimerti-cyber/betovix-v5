@@ -438,6 +438,7 @@ export const bbOdd = (
           MarketTypeId: market.MarketTypeId,
           Line: marketField.Line || market.MainLine || "",
           FieldId: marketField.FieldId,
+          FieldTypeId: marketField.FieldTypeId,
           Odd: odds,
           Live: isLive,
         };
