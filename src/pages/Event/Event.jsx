@@ -575,6 +575,16 @@ const Event = () => {
                     )}
                     {
                       event && event?.type !== "live" && (
+                        <iframe
+                          src={`https://pick777.net/stats/Stats.html?styles=${config.VITE_STATS_THEME}#en/external/page/h2h/${event.Info?.HomeTeamId}/${event.Info?.AwayTeamId}`}
+                          // src={`https://pick777.net/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}/external/page/h2h/${event.Info?.HomeTeamId}/${event.Info?.AwayTeamId}`}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            border: "none",
+                          }}
+                          title="Stats"
+                        />
                         // (bcStats === "true" ? (
                         //   <iframe
                         //     src={`https://stats.feedconstruct.com/matchDetails/langId=${lang.id}/pwd=648/key=93f428d0-6591-48da-859d-b6c326db2448/matchId=${event.Info.ExtraInfo.ExternalFixtureId}`}
@@ -586,15 +596,6 @@ const Event = () => {
                         //     title="Stats"
                         //   />
                         // ) : (
-                        <iframe
-                          src={`https://pick777.net/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}/external/page/h2h/${event.Info?.HomeTeamId}/${event.Info?.AwayTeamId}`}
-                          style={{
-                            width: "100%",
-                            height: "100%",
-                            border: "none",
-                          }}
-                          title="Stats"
-                        />
                       )
                       // ))
                     }
