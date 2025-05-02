@@ -78,7 +78,7 @@ const Event = () => {
   const subscribedTo = useSelector((state) => state.live.subscribedTo);
 
   useEffect(() => {
-    if (subscribeTo?.isSpecial) return;
+    if (!subscribeTo?.isSpecial) return;
 
     const controller = new AbortController();
     const signal = controller.signal;

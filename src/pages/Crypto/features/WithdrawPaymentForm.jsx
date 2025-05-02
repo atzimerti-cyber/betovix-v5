@@ -161,8 +161,8 @@ const WithdrawPaymentForm = (props) => {
       ),
     };
 
-    console.log("DFD:", debouncedFormData);
-    console.log("DTO:", withdrawDTO);
+    // console.log("DFD:", debouncedFormData);
+    // console.log("DTO:", withdrawDTO);
 
     const controller = new AbortController();
     const signal = controller.signal;
