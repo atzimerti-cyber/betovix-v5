@@ -92,7 +92,7 @@ const WithdrawPaymentForm = (props) => {
       updatedValue = formatCardNumber(updatedValue); // Apply formatting
     }
 
-    if (name === "Network") {
+    if (name === "Network" || name === "Bank") {
       setFormData((prevData) => {
         var result = "";
         const selectedOption = e.target.selectedOptions[0];
@@ -100,6 +100,7 @@ const WithdrawPaymentForm = (props) => {
         result = JSON.parse(data);
         return { ...prevData, [name]: result };
       });
+      return;
     }
     if (name !== "Network") {
       setFormData((prevData) => ({
@@ -108,8 +109,8 @@ const WithdrawPaymentForm = (props) => {
           name === "Amount"
             ? parseFloat(updatedValue) || undefined
             : updatedValue === ""
-              ? undefined
-              : updatedValue,
+            ? undefined
+            : updatedValue,
       }));
     }
   };
@@ -117,7 +118,7 @@ const WithdrawPaymentForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setDisabledButton(true);
-    
+
     const withdrawDTO = {
       Currency:
         debouncedFormData.Currency ||
@@ -148,7 +149,9 @@ const WithdrawPaymentForm = (props) => {
         : debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
       CustomerIdCode: debouncedFormData.IDCode,
       CustomerIBAN: debouncedFormData.IBAN,
-      CustomerGambBankId: debouncedFormData.Bank,
+      // CustomerGambBankId: debouncedFormData.Bank,
+      CustomerGambBankId:
+        debouncedFormData.Bank && Object.values(debouncedFormData.Bank)[0],
       CustomerBirthDate: formatDate(debouncedFormData.DateOfBirth),
       CustomerIdentityExpDate: formatDate(
         debouncedFormData.IdentityExpiredDate
@@ -292,7 +295,11 @@ const WithdrawPaymentForm = (props) => {
           id={Name}
           className={classes.Select}
           onChange={handleChange}
-          value={typeof formData[Name] === "object" ? Object.keys(formData[Name])[0] : formData[Name]}
+          value={
+            typeof formData[Name] === "object"
+              ? Object.keys(formData[Name])[0]
+              : formData[Name]
+          }
         >
           {ListValues.map((item, index) => {
             const key = Object.keys(item)[0];
