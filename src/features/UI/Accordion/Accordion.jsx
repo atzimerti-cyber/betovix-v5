@@ -21,7 +21,7 @@ const Accordion = (props) => {
   const [isOpen, setIsOpen] = useState(props.initOpen);
 
   useEffect(() => {
-    if (selectedCategoryId === props.catId) {
+    if (selectedCategoryId && selectedCategoryId === props.catId) {
       setIsOpen(true);
       setAccordionInViewportTop("back");
     }
