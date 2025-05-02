@@ -13,6 +13,7 @@ const StatisticsModal = () => {
   const location = useLocation();
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const bcStats = useSelector((state) => state.app.siteSettings.BCStats);
 
   return (
     <div className={classes.Statistics}>
@@ -36,11 +37,20 @@ const StatisticsModal = () => {
                         style={{ width: '100%', height: '100%', border: 'none' }}
                         title="Stats"
                     /> */}
-          <iframe
-            src={`https://pick777.net/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}`}
-            style={{ width: "100%", height: "100%", border: "none" }}
-            title="Stats"
-          />
+          {bcStats === "true" ? (
+            <iframe
+              // src={`https://pick777.net/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}`}
+              src={`https://stats.feedconstruct.com/statifyV2/langId=en/pwd=647/key=93f428d0-6591-48da-859d-b6c326db2448/sportId=1/tId=null`}
+              style={{ width: "100%", height: "100%", border: "none" }}
+              title="Stats"
+            />
+          ) : (
+            <iframe
+              src={`https://pick777.net/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}`}
+              style={{ width: "100%", height: "100%", border: "none" }}
+              title="Stats"
+            />
+          )}
         </div>
       </div>
     </div>

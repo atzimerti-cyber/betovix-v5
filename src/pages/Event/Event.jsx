@@ -35,6 +35,7 @@ const Event = () => {
   const { sportname, sportid, eventid } = useParams();
 
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
+  const bcStats = useSelector((state) => state.app.siteSettings.BCStats);
   const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const liveConnection = useSelector((state) => state.live.liveConnection);
   const selectedMarketCategory = useSelector(
@@ -572,17 +573,31 @@ const Event = () => {
                       // />
                       <sc-animation-component></sc-animation-component>
                     )}
-                    {event && event?.type !== "live" && (
-                      <iframe
-                        src={`https://pick777.net/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}/external/page/h2h/${event.Info?.HomeTeamId}/${event.Info?.AwayTeamId}`}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          border: "none",
-                        }}
-                        title="Stats"
-                      />
-                    )}
+                    {
+                      event && event?.type !== "live" && (
+                        // (bcStats === "true" ? (
+                        //   <iframe
+                        //     src={`https://stats.feedconstruct.com/matchDetails/langId=${lang.id}/pwd=648/key=93f428d0-6591-48da-859d-b6c326db2448/matchId=${event.Info.ExtraInfo.ExternalFixtureId}`}
+                        //     style={{
+                        //       width: "100%",
+                        //       height: "100%",
+                        //       border: "none",
+                        //     }}
+                        //     title="Stats"
+                        //   />
+                        // ) : (
+                        <iframe
+                          src={`https://pick777.net/stats/Stats.html?styles=${config.VITE_STATS_THEME}#${lang.id}/external/page/h2h/${event.Info?.HomeTeamId}/${event.Info?.AwayTeamId}`}
+                          style={{
+                            width: "100%",
+                            height: "100%",
+                            border: "none",
+                          }}
+                          title="Stats"
+                        />
+                      )
+                      // ))
+                    }
                   </div>
                 </aside>
 

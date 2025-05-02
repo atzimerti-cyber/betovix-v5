@@ -26,9 +26,8 @@
 
 .ModalContent {
   height: calc(100vh - 40px);
-  max-height: calc(100vh - 130px);
+  max-height: calc(100vh - 20px);
   overflow: hidden;
-  /* padding: 0.625rem; */
 }
 
 .Statistics header {
@@ -81,6 +80,6 @@
 
 @media (min-width: 768px) {
   .ModalContent {
-    padding: 0.7rem;
+    padding: 0.2rem;
   }
 }
