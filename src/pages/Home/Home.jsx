@@ -20,6 +20,7 @@ import GamificationBanner from "../UserGamification.jsx/GamificationBanner/Gamif
 import ServiceLinksSwiper from "../../features/UI/MainSwiper/ServiceLinksSwiper";
 import MainLinksSwiper from "../../features/UI/MainSwiper/MainLinksSwiper";
 import GameLinksSwiper from "../../features/UI/MainSwiper/GameLinksSwiper";
+import JackpotCounter from "../Casino/features/JackpotCounter";
 
 function ObjectHasValue(obj) {
   for (let key in obj) {
@@ -469,6 +470,15 @@ const Home = () => {
                       )}
                     </>
                   )}
+
+                  {tag.Category === "8" &&
+                    permissions.AllowToSlots &&
+                    permissions.AllowToCasino && (
+                      <JackpotCounter
+                        onDataNotFound={() => handleRemoveComponent(index)}
+                      />
+                    )}
+                    
                 </>
               )
             );

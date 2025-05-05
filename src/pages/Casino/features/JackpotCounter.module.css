@@ -1,0 +1,115 @@
+.JackpotWrapper {
+  padding: 1rem 2rem;
+}
+
+.Title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: var(--brand-color);
+  color: #000;
+  padding: 0.4rem 1rem;
+  border-radius: 999px;
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.TitleIcon {
+  background: white;
+  color: #ffc107;
+  padding: 0.2rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.TitleIcon img {
+  width: 18px;
+}
+
+
+.JackpotCounter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-evenly;
+}
+
+.CoinGif, .CoinGif1, .CoinGif2 {
+  position: absolute;
+  top: 0;
+  left: 28px;
+  width: 49px;
+  height: auto;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.2;
+}
+
+.CoinGif1 {
+  left: 85px;
+}
+
+.CoinGif2 {
+  left: unset;
+  right: 6px;
+}
+
+.Card {
+  background: linear-gradient(45deg, #ffffff1f, #00000059);
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: bold;
+  padding: 0.5rem 2rem;
+  border-radius: 12px;
+  border: 1px solid #ffffff1f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  flex: 1;
+  margin: 0.5rem 1.5rem;
+  margin-right: 0;
+  min-width: 205px;
+}
+
+.Icon img {
+  width: 70px;
+  height: auto;
+  position: absolute;
+  left: -35px;
+  top: -30px;
+}
+
+.Currency {
+  margin-left: 0.8rem;
+}
+
+.DigitDisplay {
+  display: flex;
+  gap: 2px;
+  margin-left: auto;
+  flex: 2;
+  width: 100%;
+  justify-content: flex-end;
+}
+
+.DigitWrapper {
+  overflow: hidden;
+  height: 1.5em;
+  width: 1ch;
+  position: relative;
+}
+
+.DigitScroll {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease-in-out;
+}
+
+.DigitValue {
+  height: 1.5em;
+  text-align: center;
+}
