@@ -116,6 +116,7 @@ const Betslip = memo(function (props) {
 
   // TODO: Rerun on changed live? (To get the game as live if it was pregame before)
   useEffect(() => {
+    // if (s)
     clearInterval(timerIdRef.current);
 
     let points = [];
@@ -145,13 +146,13 @@ const Betslip = memo(function (props) {
 
       dispatch(getTicketUpdates(payload));
     };
-    timerIdRef.current = setInterval(pollingCallback, 5000);
+    // timerIdRef.current = setInterval(pollingCallback, 5000);
 
-    // if (notLiveSlips.length > 0) {
-    //   timerIdRef.current = setInterval(pollingCallback, 5000);
-    // } else {
-    //   clearInterval(timerIdRef.current);
-    // }
+    if (notLiveSlips.length > 0) {
+      timerIdRef.current = setInterval(pollingCallback, 5000);
+    } else {
+      clearInterval(timerIdRef.current);
+    }
 
     // Reset amounts
     if (slips.length === 0) dispatch(betslipActions.setAmounts({}));
