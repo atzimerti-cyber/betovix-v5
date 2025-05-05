@@ -299,18 +299,17 @@ const BetBuilderSlip = (props) => {
           <div className={classes.Separator}></div>
           {betType === "Single" && (
             <div className={classes.PaymentSection}>
-              <div className={classes.PaymentMarketInfo}>
+              {/* <div className={classes.PaymentMarketInfo}>
                 <div className={classes.AmountLabel}>
                   {translate("Total Payout")}
                 </div>
                 <div className={classes.AmountTotal}>
                   <CoinsIcon />
-                  <div className={classes.AmountTotalText}>
-                    {/* {getTotalPayout()} */}
+                  <div className={classes.AmountTotalText}> 
                     {slipTotalPayout}
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className={classes.AmountArea} onClick={handleAmountClick}>
                 <AmountArea amountId={props.slip.FieldId} />
               </div>
@@ -347,9 +346,9 @@ const BetBuilderSlip = (props) => {
                       </div>
                       <div className={classes.BBMarketRight}>
                         <div className={classes.OddsDelta}>
-                          <div className={classes.Odds}>
+                          {/* <div className={classes.Odds}>
                             {convertOdds(bbSlip.Odd)}
-                          </div>
+                          </div> */}
                         </div>
                         <div
                           className={classes.Trash}
