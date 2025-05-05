@@ -91,7 +91,8 @@ const Category = (props) => {
     <div data-category={`Category:${props.category.Id}`}>
       <Accordion
         catId={props.category.Id}
-        title={translate(props.category.Name.International)}
+        // title={translate(props.category.Name.International)}
+        title={translateNameWithLang(props.category.Name)}
         initOpen={props.initOpen}
         catIcon={`url('/flags/flags/${props.category.Name.International}.png')`}
       >

@@ -136,7 +136,7 @@ const PromoCodeModal = () => {
       setCode(promoCode);
       setCodeDisabled(true);
     }
-  }, [promoCode]);
+  }, [promoCode, location]);
 
   const resetPromoState = () => {
     dispatch(modalActions.setPromoCodeSlug(null));
