@@ -3,6 +3,20 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import { storageSetOddsFormat } from "../../utils/storage";
 
 import SoccerIcon from "../../assets/sportIcons/soccer.svg?react";
+import SurfingIcon from "../../assets/sportIcons/surfing.svg?react";
+import SpecialBetsIcon from "../../assets/sportIcons/special.svg?react";
+import SoftballIcon from "../../assets/sportIcons/softball.svg?react";
+import SkiJumpingIcon from "../../assets/sportIcons/skijumping.svg?react";
+import PoolIcon from "../../assets/sportIcons/pool.svg?react";
+import PelotaIcon from "../../assets/sportIcons/pelota.svg?react";
+import Netball from "../../assets/sportIcons/Netball.svg?react";
+import Lacrosse from "../../assets/sportIcons/Lacrosse.svg?react";
+import Eurovision from "../../assets/sportIcons/eurovision.svg?react";
+import CCSking from "../../assets/sportIcons/ccskiing.svg?react";
+import Biathlon from "../../assets/sportIcons/biathlon.svg?react";
+import BeachFootball from "../../assets/sportIcons/beachfootball.svg?react";
+import AutoRacing from "../../assets/sportIcons/autoracing.svg?react";
+import AlpineSkiing from "../../assets/sportIcons/alpskiing.svg?react";
 import BasketballIcon from "../../assets/sportIcons/basketball.svg?react";
 import TennisIcon from "../../assets/sportIcons/tennis.svg?react";
 import CricketIcon from "../../assets/sportIcons/cricket.svg?react";
@@ -189,7 +203,21 @@ const initialState = {
   topSports: null,
   topTournaments: null,
   sportIcons: {
+    "Alpine Skiing": <AlpineSkiing />,
+    "Beach Football": <BeachFootball />,
+    "Auto Racing": <AutoRacing />,
+    "Special bets": <SpecialBetsIcon />,
+    "Ski Jumping": <SkiJumpingIcon />,
+    "Cross-Country Skiing": <CCSking />,
+    Netball: <Netball />,
+    Surfing: <SurfingIcon />,
+    Softball: <SoftballIcon />,
+    Pool: <PoolIcon />,
+    Pelota: <PelotaIcon />,
+    Eurovision: <Eurovision />,
+    Lacrosse: <Lacrosse />,
     Cricket: <CricketIcon />,
+    Biathlon: <Biathlon />,
     Badminton: <CricketIcon />,
     Soccer: <SoccerIcon />,
     Basketball: <BasketballIcon />,
