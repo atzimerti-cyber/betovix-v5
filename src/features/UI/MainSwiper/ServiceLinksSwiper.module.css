@@ -11,6 +11,15 @@
   transform: scale(1.025);
 }
 
+.Title {
+  margin-block: 5px;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  color: #fff;
+  display: none;
+}
+
 .SlideServiceLinks {
   height: 100%;
   aspect-ratio: 1;

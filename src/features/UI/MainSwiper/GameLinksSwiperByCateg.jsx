@@ -5,6 +5,7 @@ import { SwiperSlide } from "swiper/react";
 
 import MainSwiper from "./MainSwiper";
 import classes from "./GameLinksSwiper.module.css";
+import { translate } from "../../../utils/translations";
 
 const GameLinksSwiperByCateg = (props) => {
   const dispatch = useDispatch();
@@ -39,12 +40,13 @@ const GameLinksSwiperByCateg = (props) => {
                 link.Target === "_self" || link.Target === ""
                   ? navigate(link.Link)
                   : window.open(
-                      link.Link.replace("{domain}", currentDomain),
-                      `${link.Target}`
-                    );
+                    link.Link.replace("{domain}", currentDomain),
+                    `${link.Target}`
+                  );
               }}
             >
               <img src={link.Image} />
+              <span className={classes.Title}>{translate(link.Title)}</span>
             </SwiperSlide>
           ))}
         </MainSwiper>
