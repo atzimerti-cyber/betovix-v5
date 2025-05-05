@@ -10,6 +10,15 @@
   transform: scale(1.025);
 }
 
+.Title {
+  margin-block: 5px;
+  display: inline-block;
+  text-align: center;
+  width: 100%;
+  color: #fff;
+  display: none;
+}
+
 .SlideGameLinks {
   height: 100%;
   aspect-ratio: 650/1290;

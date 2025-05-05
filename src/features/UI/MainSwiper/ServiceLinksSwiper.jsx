@@ -7,6 +7,7 @@ import MainSwiper from "./MainSwiper";
 import classes from "./ServiceLinksSwiper.module.css";
 import { getSiteLinks } from "../../../pages/Promotions/promotionsAsyncActions";
 import config from "../../../config";
+import { translate } from "../../../utils/translations";
 
 const ServiceLinksSwiper = () => {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ const ServiceLinksSwiper = () => {
                 style={{ backgroundImage: `url("${link.Image}")` }}
               ></div> */}
               <img src={link.Image} />
+              <span className={classes.Title}>{translate(link.Title)}</span>
             </SwiperSlide>
           ))}
         </MainSwiper>
