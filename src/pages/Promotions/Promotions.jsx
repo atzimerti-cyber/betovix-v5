@@ -67,7 +67,7 @@ const Promotions = (props) => {
             )}
           </div>
         </div>
-        <div className={classes.PromotionsBody}>
+        <div className={classes.PromotionsBody} id="PromotionsBody">
           {promotions && promotions.length > 0 ? (
             promotions.map((promo, index) => (
               <div className={classes.Promo} key={index}>

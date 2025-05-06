@@ -243,7 +243,6 @@ const Layout = () => {
               <Outlet />
             </div>
             <div class="footer-buttons">
-
               <div class="footer-social-inline">
                 <a href="../../">
                   <img src="https://i.imgur.com/9VEa02Y.png" alt="Promosyon" />
@@ -292,7 +291,6 @@ const Layout = () => {
                   <span className="social-text">ORTAKLIK</span>
                 </a>
               </div>
-
             </div>
           </main>
           <Footer />
@@ -312,6 +310,7 @@ const Layout = () => {
                 }}
               >
                 <motion.div
+                  id="OuterContainerRight"
                   key={showRightContainer ? 1 : 0}
                   className={[classes.OuterContainerRight, classes.Show].join(
                     " "
@@ -433,6 +432,7 @@ const Layout = () => {
 
       {showBackToTop && !isInactive && (
         <button
+          id="BackToTopButton"
           className={classes.BackToTopButton}
           onClick={scrollToTopHandler}
           aria-label="Back to top"

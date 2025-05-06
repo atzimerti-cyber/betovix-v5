@@ -164,6 +164,7 @@ const Slip = (props) => {
   return (
     <motion.div
       className={classes.Slip}
+      id="Slip"
       initial={{ y: 32, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       exit={{ x: -100, opacity: 0, transition: { duration: 0.2, delay: 0 } }}

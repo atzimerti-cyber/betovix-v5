@@ -41,7 +41,13 @@ const Footer = () => {
   }, []);
 
   useEffect(() => {
-    if (isFooterAllowed && licence && licence !== "" && !licence.LicenceLink && window[licence.Init]) {
+    if (
+      isFooterAllowed &&
+      licence &&
+      licence !== "" &&
+      !licence.LicenceLink &&
+      window[licence.Init]
+    ) {
       window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init();
     }
   }, [licence]);
@@ -90,13 +96,16 @@ const Footer = () => {
 
           {licence && licence !== "" && (
             <div className={classes.LinksLayout}>
-
               <h2>{translate("License")}</h2>
 
-              <div className={classes.License}>
-                {licence.Name === "Anjouan" && (
-                  licence.LicenceLink ? (
-                    <a href={licence.LicenceLink} target="_blank" rel="noopener noreferrer">
+              <div className={classes.License} id="License">
+                {licence.Name === "Anjouan" &&
+                  (licence.LicenceLink ? (
+                    <a
+                      href={licence.LicenceLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
                       <img src={LicenseAnj} alt="License" />
                     </a>
                   ) : (
@@ -106,9 +115,7 @@ const Footer = () => {
                       data-anj-image-size="60"
                       data-anj-image-type="basic-small"
                     ></div>
-                  )
-                )}
-
+                  ))}
               </div>
               <Plus18Icon className={classes.PlusEighteen} />
             </div>
@@ -172,7 +179,7 @@ const Footer = () => {
         </div>
       )}
 
-      <div className={classes.CurrenciesContainer}>
+      <div className={classes.CurrenciesContainer} id="CurrenciesContainer">
         <div className={classes.CurrencyItem}>
           <svg
             fill="none"

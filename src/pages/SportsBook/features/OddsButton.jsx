@@ -281,12 +281,15 @@ const OddsButton = (props) => {
       disabled={props.disabled}
       onClick={(e) => onClick(e)}
     >
-      <span className={classes.OddsLabel}>{props.label}</span>
+      <span className={classes.OddsLabel} id="OddsLabel">
+        {props.label}
+      </span>
       {convertOdds(props.odds)}
     </button>
   ) : (
     <button
       data-odds-button="oddsButton"
+      id="oddsButton"
       data-field={
         props.marketField ? `Field:${props.marketField.FieldId}` : `Field:0`
       }
@@ -294,7 +297,9 @@ const OddsButton = (props) => {
       disabled={props.disabled}
       onClick={(e) => onClick(e)}
     >
-      <div className={classes.OddsLabel}>{props.label}</div>
+      <div className={classes.OddsLabel} id="OddsLabel">
+        {props.label}
+      </div>
       <div className={classes.OddsDelta}>
         {/* <div className={classes.Indicator}>
                     {showIndicator === 'up' && (

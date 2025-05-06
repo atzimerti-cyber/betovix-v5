@@ -121,7 +121,7 @@ const LeftContainer = memo(function () {
       pathnameNoParams !== "/searchEvent" &&
       (permissions.AllowToCasino || permissions.AllowToSlots) && (
         <>
-          <div className={classes.SideMenuDivider}></div>
+          <div className={classes.SideMenuDivider} id="SideMenuDivider"></div>
           {!isMobile && (
             <Search
               placeholder={translate("Search Casino")}
@@ -157,7 +157,10 @@ const LeftContainer = memo(function () {
                     className={classes.Grouped}
                     key={casinoMenuItem.category.id}
                   >
-                    <div className={classes.SideMenuDivider}></div>
+                    <div
+                      className={classes.SideMenuDivider}
+                      id="SideMenuDivider"
+                    ></div>
                     {getItems(
                       casinoMenuItem,
                       casinoMenuItem.category.id,
@@ -180,7 +183,7 @@ const LeftContainer = memo(function () {
       pathnameNoParams !== "/search" &&
       permissions.AllowToSports && (
         <>
-          <div className={classes.SideMenuDivider}></div>
+          <div className={classes.SideMenuDivider} id="SideMenuDivider"></div>
 
           {!isMobile && (
             <Search
@@ -316,7 +319,10 @@ const LeftContainer = memo(function () {
               } else {
                 return (
                   <div className={classes.Grouped} key={menuItem.category.id}>
-                    <div className={classes.SideMenuDivider}></div>
+                    <div
+                      className={classes.SideMenuDivider}
+                      id="SideMenuDivider"
+                    ></div>
                     {getItems(
                       menuItem,
                       menuItem.category.id,
@@ -510,7 +516,10 @@ const LeftContainer = memo(function () {
             } else {
               return (
                 <div className={classes.Grouped} key={menuItem.category.id}>
-                  <div className={classes.SideMenuDivider}></div>
+                  <div
+                    className={classes.SideMenuDivider}
+                    id="SideMenuDivider"
+                  ></div>
                   {getItems(
                     menuItem,
                     menuItem.category.id,
@@ -547,7 +556,9 @@ const LeftContainer = memo(function () {
         )}
       </div>
 
-      {!isMobile && <div className={classes.SideMenuDivider}></div>}
+      {!isMobile && (
+        <div className={classes.SideMenuDivider} id="SideMenuDivider"></div>
+      )}
     </>
   );
 });

@@ -33,11 +33,11 @@
   --db-white-hover: hsla(0, 0%, 100%, 0.05);
   --db-white-hover-light: hsla(0, 0%, 100%, 0.127);
 
-  --odds-button-border: #c4c4c484;
+  --odds-button-border: #141113;
   --odds-button: #192a26;
   --odds-button-disabled: #6a6a6a8f;
   --card-odds-button: #c6c6c6c6;
-  --card-odds-button-selected: #00ffaa;
+  --card-odds-button-selected: var(--brand-green);
   --card-odds-button-disabled: #4f4f4f30;
 
   --badge-new-purple: #067250;

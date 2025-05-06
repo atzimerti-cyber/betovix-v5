@@ -130,7 +130,7 @@ const Topbar = () => {
     <div className={classes.Topbar} id="topbar">
       <div className={classes.TopbarLeftWrapper} id="topbarLeft">
         <div className={classes.TopbarLeft}>
-          <div className={classes.HeaderHamburger}>
+          <div className={classes.HeaderHamburger} id="HeaderHamburger">
             {!showingLiveEvent && (
               <MainButton
                 color="transparent"

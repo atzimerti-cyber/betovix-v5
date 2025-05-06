@@ -133,7 +133,7 @@ const MyBet = (props) => {
   if (isOpen) elClasses.push(classes.IsOpen);
 
   return (
-    <div className={elClasses.join(" ")}>
+    <div className={elClasses.join(" ")} id="MyBet">
       <section
         className={classes.HeaderSection}
         onClick={() => setIsOpen((prev) => !prev)}

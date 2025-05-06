@@ -65,8 +65,8 @@ const GameCard = (props) => {
   };
 
   return (
-    <div onClick={gotoEvent} className={classes.Card}>
-      <div className={classes.SportDecoration}>
+    <div onClick={gotoEvent} className={classes.Card} id="GameCard">
+      <div className={classes.SportDecoration} id="SportDecoration">
         {sportIcons[props.game.Info?.SportName?.International] || null}
       </div>
 
@@ -116,7 +116,7 @@ const GameCard = (props) => {
         )}
       </div>
 
-      <div className={classes.OddsContainer}>
+      <div className={classes.OddsContainer} id="OddsContainer">
         {props.game.Markets && props.game.Markets.length > 0 ? (
           (() => {
             const targetMarket = props.game.Markets.find(

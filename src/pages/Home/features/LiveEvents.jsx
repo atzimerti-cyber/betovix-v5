@@ -77,7 +77,10 @@ const LiveEvents = () => {
 
               return (
                 <SwiperSlide key={game.MatchId}>
-                  <div className={classes.SlideContainer}>
+                  <div
+                    className={classes.SlideContainer}
+                    id="LiveEventsSlideContainer"
+                  >
                     <GameCard game={game} type="live" />
                   </div>
                 </SwiperSlide>
@@ -86,11 +89,12 @@ const LiveEvents = () => {
           : Array.from({ length: slidesPerView }, (_, index) => (
               <SwiperSlide key={index}>
                 <div
+                  id="LiveEventsSkeleton"
                   className={[classes.SlideContainer, classes.Loading].join(
                     " "
                   )}
                 >
-                  <Link to="/" className={classes.Card}>
+                  <Link to="/" className={classes.Card} id="LiveSkeletonCard">
                     <SkeletonGame />
                   </Link>
                 </div>
