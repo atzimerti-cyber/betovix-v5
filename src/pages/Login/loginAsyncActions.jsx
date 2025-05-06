@@ -201,6 +201,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
             Country: registerInfo.country,
             SiteId: config.VITE_SITE_ID,
             Username: registerInfo.displayName,
+            Newsletter: registerInfo.newsletter,
             FirstName:
               registerInfo.firstName === "true" ? null : registerInfo.firstName,
             LastName:

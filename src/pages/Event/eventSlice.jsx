@@ -11,7 +11,7 @@ const initialState = {
   changedMarkets: 0,
   liveListOpenSportId: null,
   showingLiveEvent: null,
-
+  favMarkets: null,
   sportPregameCategories: null,
   tournamentEvents: null,
   ////BET BUILDER///////
@@ -76,6 +76,9 @@ export const eventSlice = createSlice({
     },
     setShowingLiveEvent: (state, action) => {
       state.showingLiveEvent = action.payload;
+    },
+    setFavMarkets: (state, action) => {
+      state.favMarkets = action.payload;
     },
     setSportPregameCategories: (state, action) => {
       state.sportPregameCategories = action.payload;

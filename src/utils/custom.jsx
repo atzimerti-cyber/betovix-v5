@@ -413,3 +413,15 @@ export function siteCurrency(siteCurr) {
   const currencies = useSelector((state) => state.app.siteCurrencies);
   return currencies?.[siteCurr]?.Symbol || null;
 }
+
+export function getFormattedSportName(sportNameInternational) {
+  if (!sportNameInternational) return null;
+
+  const formattedSportName = sportNameInternational
+    .replace(/ ?\([^)]*\)/g, "") // Remove space before parentheses, the parentheses, and their contents
+    .replace(/\s+/g, "_") // Replace spaces with underscores
+    .replace(/:/g, ""); // Remove colons
+  const finalSportName = formattedSportName.toLowerCase();
+
+  return finalSportName;
+}

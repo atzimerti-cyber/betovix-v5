@@ -261,3 +261,27 @@
     gap: 0;
   }
 }
+.FavFilterWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.FavFilter {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 5px;
+  padding: 0.5rem;
+  background: var(--accordion-body);
+  border-radius: 4px;
+  color: var(--white);
+  font-size: 10px;
+}
+.FavFilter:hover {
+  filter: brightness(1.15);
+}
+.FavFilter svg {
+  height: 0.87rem;
+  width: 0.87rem;
+}

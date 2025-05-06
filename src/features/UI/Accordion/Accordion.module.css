@@ -88,3 +88,10 @@
   width: 25px;
   height: 16px;
 }
+
+.StarIcon {
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

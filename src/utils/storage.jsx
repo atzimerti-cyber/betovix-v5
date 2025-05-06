@@ -92,3 +92,38 @@ export function setRightbar(isOpen) {
   const str = isOpen.toString();
   localStorage.setItem("rightbar", str);
 }
+
+// Favorite markets
+export function storageGetFavMarkets() {
+  let favMarkets = localStorage.getItem("otFavs");
+  if (favMarkets) favMarkets = JSON.parse(favMarkets);
+  return favMarkets;
+}
+export function storageAddFavMarket(sportName, marketName) {
+  let favMarkets = localStorage.getItem("otFavs");
+  if (favMarkets) favMarkets = JSON.parse(favMarkets);
+  else favMarkets = { [sportName]: [] };
+
+  if (!favMarkets[sportName]) favMarkets[sportName] = [];
+
+  favMarkets[sportName].push(marketName);
+  localStorage.setItem("otFavs", JSON.stringify(favMarkets));
+}
+export function storageRemoveFavMarket(sportName, marketName) {
+  let favMarkets = localStorage.getItem("otFavs");
+  if (favMarkets) favMarkets = JSON.parse(favMarkets);
+
+  if (favMarkets && favMarkets[sportName]) {
+    const updatedMarkets = favMarkets[sportName].filter(
+      (m) => m !== marketName
+    );
+
+    if (updatedMarkets.length === 0) {
+      delete favMarkets[sportName];
+    } else {
+      favMarkets[sportName] = updatedMarkets;
+    }
+
+    localStorage.setItem("otFavs", JSON.stringify(favMarkets));
+  }
+}

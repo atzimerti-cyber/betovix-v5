@@ -244,6 +244,16 @@ const TransactionsModal = () => {
         return translate("PayFix");
       case 19:
         return translate("PayCo");
+      case 20:
+        return translate("VouchStar_Skrill");
+      case 21:
+        return translate("VouchStar_Sofort");
+      case 22:
+        return translate("VouchStar_Bancontact");
+      case 23:
+        return translate("VouchStar");
+      case 24:
+        return translate("PayCo");
       default:
         return " ";
     }

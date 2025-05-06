@@ -49,6 +49,7 @@ const Register = () => {
   const defaultCountry = useSelector((state) => state.app.defaultCountry);
 
   const [isOver18, setIsOver18] = useState(false);
+  const [newsletter, setNewsletter] = useState(true);
   const [siteCountry, setSiteCountry] = useState("");
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [registerInfo, setRegisterInfo] = useState({
@@ -63,6 +64,7 @@ const Register = () => {
     lastName: idRequired ? null : "true",
     birthDate: idRequired ? null : "true",
     phoneNumber: idRequired ? null : "true",
+    newsletter: null,
   });
   const [validChecks, setValidChecks] = useState({
     displayName: true,
@@ -82,6 +84,7 @@ const Register = () => {
     lastName: true,
     birthDate: true,
     phoneNumber: true,
+    newsletter: true,
   });
 
   const countries = [
@@ -331,6 +334,13 @@ const Register = () => {
   ];
 
   useEffect(() => {
+    if (newsletter !== null) {
+      setNewsletter(newsletter);
+      setRegisterInfo({ ...registerInfo, newsletter: newsletter });
+    }
+  }, [newsletter]);
+
+  useEffect(() => {
     if (cookiesSettings === "false") {
       setIsTermsAccepted(true);
     }
@@ -345,7 +355,7 @@ const Register = () => {
         setSiteCountry(countryCode);
       }
     }
-  }, [defaultCountry]); // Ensure it runs when `defaultCountry` is available
+  }, [defaultCountry]);
 
   useEffect(() => {
     if (siteCountry) {
@@ -354,7 +364,7 @@ const Register = () => {
         country: siteCountry,
       }));
     }
-  }, [siteCountry]); // Ensure registerInfo updates after siteCountry is set
+  }, [siteCountry]);
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -388,6 +398,7 @@ const Register = () => {
   const debBirthDate = useDebounce(registerInfo.birthDate);
   const debPhoneNumber = useDebounce(registerInfo.phoneNumber);
   const debIDCode = useDebounce(registerInfo.idCode);
+  const debNewsletter = useDebounce(registerInfo.newsletter);
   const debCode = useDebounce(registerInfo.code);
 
   const [isRegisterDisabled, setIsRegisterDisabled] = useState(true);
@@ -555,31 +566,7 @@ const Register = () => {
     )
       setIsRegisterDisabled(false);
     else setIsRegisterDisabled(true);
-  }, [
-    // registerInfo.displayName,
-    // registerInfo.email,
-    // registerInfo.country,
-    // registerInfo.password,
-    // registerInfo.verifyPassword,
-    // registerInfo.idCode,
-    // registerInfo.firstName,
-    // registerInfo.lastName,
-    // registerInfo.phoneNumber,
-    // registerInfo.birthDate,
-    // validChecks.displayName,
-    // validChecks.email,
-    // validChecks.password.valid,
-    // validChecks.verifyPassword,
-    // validChecks.idCode,
-    // validChecks.firstName,
-    // validChecks.lastName,
-    // validChecks.phoneNumber,
-    // validChecks.birthDate,
-    registerInfo,
-    validChecks,
-    isOver18,
-    isTermsAccepted,
-  ]);
+  }, [registerInfo, validChecks, isOver18, isTermsAccepted]);
 
   const onTogglePassword = () => {
     const updated = {
@@ -647,6 +634,7 @@ const Register = () => {
             >
               {translate(`Create your account`)}!
             </div>
+
             <label htmlFor="displayName">
               {translate("Username")}
               <span
@@ -1338,6 +1326,23 @@ const Register = () => {
                 </label>
               </div>
             ) : null}
+
+            <div className={classes.CheckboxContainer}>
+              <input
+                checked={registerInfo.newsletter}
+                onChange={(e) => setNewsletter(e.target.checked)}
+                type="checkbox"
+                id="newsletter"
+                name="newsletter"
+                className={classes.CheckboxInput}
+              />
+              <label htmlFor="newsletter" className={classes.CheckboxLabel}>
+                {translate(
+                  "Subscribe me to official updates and announcements"
+                )}
+                .
+              </label>
+            </div>
 
             <div className={classes.BigBtn}>
               <MainButton

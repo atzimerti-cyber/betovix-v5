@@ -5,6 +5,13 @@ import AngleDownIcon from "../../../assets/svgs/angle-down.svg?react";
 import Ripple from "../Ripple/Ripple";
 import { useDispatch, useSelector } from "react-redux";
 import { sportsHomeActions } from "../../../pages/SportsBook/subpages/sportsHomeSlice";
+import {
+  storageAddFavMarket,
+  storageGetFavMarkets,
+  storageRemoveFavMarket,
+} from "../../../utils/storage";
+import StarIcon from "../../../assets/svgs/star.svg?react";
+import { eventActions } from "../../../pages/Event/eventSlice";
 
 const Accordion = (props) => {
   const dispatch = useDispatch();
@@ -19,6 +26,18 @@ const Accordion = (props) => {
   );
 
   const [isOpen, setIsOpen] = useState(props.initOpen);
+  const [isFavorite, setIsFavorite] = useState(false);
+
+  useEffect(() => {
+    if (!props.marketGroup) return;
+    const favMarkets = storageGetFavMarkets();
+    if (
+      favMarkets &&
+      favMarkets[props.sportName] &&
+      favMarkets[props.sportName].includes(props.groupName)
+    )
+      setIsFavorite(true);
+  }, []);
 
   useEffect(() => {
     if (selectedCategoryId && selectedCategoryId === props.catId) {
@@ -48,6 +67,28 @@ const Accordion = (props) => {
     }
   };
 
+  const toggleFavorite = (e) => {
+    e.stopPropagation();
+
+    props.group.map((market, i) => {
+      if (isFavorite) {
+        // storageRemoveFavMarket(props.sportName, props.groupName);
+        storageRemoveFavMarket(
+          props.sportName,
+          market.MarketName?.International
+        );
+      } else {
+        // storageAddFavMarket(props.sportName, props.groupName);
+        storageAddFavMarket(props.sportName, market.MarketName?.International);
+      }
+    });
+
+    const favMarkets = storageGetFavMarkets();
+    dispatch(eventActions.setFavMarkets(favMarkets));
+
+    setIsFavorite(!isFavorite);
+  };
+
   return (
     <section
       data-accordion="sportsAccordionBig"
@@ -74,7 +115,15 @@ const Accordion = (props) => {
         ref={ref}
       >
         <Ripple type="square" faint />
-
+        {/* {props.marketGroup && (
+          <div className={classes.StarIcon} onClick={toggleFavorite}>
+            {isFavorite ? (
+              <StarIcon fill="#ffd000d1" />
+            ) : (
+              <StarIcon fill="#ffffff45" />
+            )}
+          </div>
+        )} */}
         {props.icon && (
           <span className={classes.IconWrapper}>{props.icon}</span>
         )}
@@ -87,6 +136,15 @@ const Accordion = (props) => {
           </div>
         )}
         <span className={classes.HeaderContent}>{props.title}</span>
+        {props.marketGroup && (
+          <div className={classes.StarIcon} onClick={toggleFavorite}>
+            {isFavorite ? (
+              <StarIcon fill="#ffd000d1" />
+            ) : (
+              <StarIcon fill="#ffffff45" />
+            )}
+          </div>
+        )}
         <AngleDownIcon />
       </div>
 

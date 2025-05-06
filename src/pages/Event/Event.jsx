@@ -20,7 +20,7 @@ import BarLoading from "../../features/UI/BarLoading/BarLoading";
 import { appActions } from "../../features/InitApp/appSlice";
 import lzString from "lz-string";
 import { getUpdatedMarkets } from "../../utils/liveUpdates";
-import { formatDate } from "../../utils/custom";
+import { formatDate, getFormattedSportName } from "../../utils/custom";
 import { translate, translateNameWithLang } from "../../utils/translations";
 import { betslipActions } from "../../features/Betslip/betslipSlice";
 import { layoutActions } from "../../features/Layout/layoutSlice";
@@ -28,6 +28,8 @@ import { layoutActions } from "../../features/Layout/layoutSlice";
 import Arrow2LeftIcon from "../../assets/svgs/arrow2-left.svg?react";
 import config from "../../config";
 import { liveActions } from "../../features/InitApp/liveSlice";
+import StarIcon from "../../assets/svgs/star.svg?react";
+import { storageGetFavMarkets } from "../../utils/storage";
 
 const Event = () => {
   const dispatch = useDispatch();
@@ -55,7 +57,7 @@ const Event = () => {
   const sportsStatusParams = useSelector(
     (state) => state.sportsbook.sportsStatusParams
   );
-
+  const favMarkets = useSelector((state) => state.event.favMarkets);
   const sportMarketTreeObj = useSelector(
     (state) => state.event.sportMarketTreeObj
   );
@@ -70,6 +72,9 @@ const Event = () => {
   const [height, setHeight] = useState();
   const [showTab, setShowTab] = useState("tab1");
   const [previousMatchId, setPreviousMatchId] = useState(0);
+  const [hasFavMarketGroup, setHasFavMarketGroup] = useState(false);
+  const [showFavMarketGroups, setShowFavMarketGroups] = useState(false);
+  const [favMarketsInStorage, setFavMarketsInStorage] = useState(false);
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const showStats = useMediaQuery({ query: "(max-width: 1145px)" });
@@ -105,6 +110,16 @@ const Event = () => {
     );
   }, [event?.MatchId]);
   //////////////////////////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    const storagefavMarkets = storageGetFavMarkets();
+    if (storagefavMarkets && Object.keys(storagefavMarkets).length > 0) {
+      setHasFavMarketGroup(true);
+      setFavMarketsInStorage(storagefavMarkets);
+    } else {
+      setHasFavMarketGroup(false);
+    }
+  }, [favMarkets]);
 
   useEffect(() => {
     return () => {
@@ -428,6 +443,10 @@ const Event = () => {
     if (sportParams && sportParams.fieldImage) return sportParams.fieldImage;
   };
 
+  const sportName = getFormattedSportName(
+    event?.Info?.SportName?.International
+  );
+
   return (
     <>
       <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
@@ -613,12 +632,37 @@ const Event = () => {
                           eventId={event?.MatchId}
                         />
                       )}
+                      {hasFavMarketGroup && (
+                        <div className={classes.FavFilterWrapper}>
+                          <button
+                            className={classes.FavFilter}
+                            onClick={() => {
+                              setShowFavMarketGroups(!showFavMarketGroups);
+                            }}
+                          >
+                            <StarIcon
+                              fill={
+                                showFavMarketGroups ? "#ffd000d1" : "#ffffff45"
+                              }
+                            />
+                            <p>
+                              {showFavMarketGroups
+                                ? translate("Show All")
+                                : translate("Favorites Only")}
+                            </p>
+                          </button>
+                        </div>
+                      )}
 
                       <div>
                         <MarketGroup
                           marketGroups={marketGroups}
                           event={event}
                           marketGroupsChanged={marketGroupsChanged}
+                          favoriteGroups={
+                            hasFavMarketGroup && favMarketsInStorage
+                          }
+                          filterFavGroups={showFavMarketGroups && true}
                         />
                       </div>
                     </div>

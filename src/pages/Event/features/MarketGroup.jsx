@@ -6,6 +6,7 @@ import Market from "../../SportsBook/features/Market";
 import MarketWithList from "../../SportsBook/features/MarketWithList";
 import { translate } from "../../../utils/translations";
 import BetBuilderBadge from "../../../features/UI/Badges/BetBuilderBadge";
+import { getFormattedSportName } from "../../../utils/custom";
 
 const MarketGroup = (props) => {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
@@ -38,10 +39,6 @@ const MarketGroup = (props) => {
     const selectedMarketCategory =
       props.marketGroups[selectedMarketCategoryIndex];
     if (!selectedMarketCategory) return;
-
-    // if (selectedMarketCategory.name === "All Markets") {
-    //   null;
-    // }
 
     let keyString = null;
     if (selectedMarketCategory.Auto)
@@ -193,16 +190,16 @@ const MarketGroup = (props) => {
 
     updatedMarkets.sort((a, b) => a.allIndex - b.allIndex);
 
-    ////////////////BET BUILDER MARKETS/////////////////////
+    //###################### BET BUILDER MARKETS #############################
     if (selectedMarketCategory.name === "Bet Builder" && combinationMap) {
       updatedMarkets = updatedMarkets.filter((market) =>
         combinationMap.hasOwnProperty(market.MarketTypeId)
       );
     }
-    /////////////////////////////////////////////////////
+    //###########################################################
 
     // Grouping objects by the first part of 'name' before '('
-    const grouped = updatedMarkets.reduce((acc, obj) => {
+    let grouped = updatedMarkets.reduce((acc, obj) => {
       const key = `${obj.label}`;
       if (!acc[key]) {
         acc[key] = [];
@@ -210,6 +207,32 @@ const MarketGroup = (props) => {
       acc[key].push(obj);
       return acc;
     }, {});
+
+    //##########################  FAVORITE MARKET GROUPS #######################################
+    if (props.filterFavGroups && props.favoriteGroups) {
+      const favoriteGroupNames = Object.values(props.favoriteGroups).flat();
+
+      grouped = Object.keys(grouped).reduce((acc, groupLabel) => {
+        const filteredMarkets = grouped[groupLabel].filter((market) => {
+          const marketName = market.MarketName?.International;
+          // const isFavorite = favoriteGroupNames.includes(marketName);
+          const isFavorite = favoriteGroupNames.some(
+            (fav) =>
+              // marketName?.includes(fav)
+              marketName == fav
+          );
+
+          return isFavorite;
+        });
+
+        if (filteredMarkets.length > 0) {
+          acc[groupLabel] = filteredMarkets;
+        }
+
+        return acc;
+      }, {});
+    }
+    //###########################################################
 
     // Sort the items within each array by obj.MarketTypeId
     for (const allIndex in grouped) {
@@ -231,6 +254,7 @@ const MarketGroup = (props) => {
     selectedMarketCategoryIndex,
     sportMarketTreeObj,
     combinationMap,
+    props.filterFavGroups,
   ]);
 
   const removeNumberInParentheses = (input) => {
@@ -288,22 +312,35 @@ const MarketGroup = (props) => {
               "Under"
             ))
         ) {
+          const sportName = getFormattedSportName(
+            props.event?.Info?.SportName?.International
+          );
           return (
             <Accordion
               key={`${group[0].subIndex}-${group[0].label}`}
               title={translate(group[0].label)}
               initOpen={index < 3}
+              marketGroup={true}
+              sportName={sportName}
+              groupName={group[0].label}
+              group={group}
             >
               <MarketWithList event={props.event} group={group} />
             </Accordion>
           );
         }
-
+        const sportName = getFormattedSportName(
+          props.event?.Info?.SportName?.International
+        );
         return (
           <Accordion
             key={`${group[0].subIndex}-${group[0].label}`}
             title={translate(group[0].label)}
             initOpen={index < 3}
+            marketGroup={true}
+            sportName={sportName}
+            groupName={group[0].label}
+            group={group}
           >
             {group.map((market) => (
               <Market
