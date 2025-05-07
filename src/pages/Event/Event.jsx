@@ -359,7 +359,8 @@ const Event = () => {
         });
       }
     });
-    const allMarketsId = `rand-${Math.random().toString(36).slice(2, 11)}`;
+    const allMarketsId = `allmarketscateg`;
+    // const allMarketsId = `rand-${Math.random().toString(36).slice(2, 11)}`;
     groupsObj[allMarketsId] = { Id: allMarketsId, name: "All Markets" };
 
     ////////BET BUILDER/////////

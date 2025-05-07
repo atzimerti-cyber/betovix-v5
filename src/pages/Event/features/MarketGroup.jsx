@@ -67,7 +67,8 @@ const MarketGroup = (props) => {
       // If not in tree, search for a similar name
       if (
         selectedMarketCategory.name === "All Markets" ||
-        selectedMarketCategory.name === "Bet Builder"
+        selectedMarketCategory.name === "Bet Builder" ||
+        (props.filterFavGroups && props.favoriteGroups)
       ) {
         let thisGroup;
         if (inTree && inTree.groups && inTree.groups.length > 0) {
@@ -252,6 +253,7 @@ const MarketGroup = (props) => {
     changedMarkets,
     props.marketGroupsChanged,
     selectedMarketCategoryIndex,
+    selectedMarketCategory,
     sportMarketTreeObj,
     combinationMap,
     props.filterFavGroups,

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useLocation } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
+import { useInactivityTimer } from "../../utils/useInactivityTimer";
 
 import { useNavigate } from "react-router-dom";
 
@@ -25,6 +26,10 @@ const InitApp = () => {
   const location = useLocation();
   const pathnameNoParams = useBasePath();
   const prevPathnameRef = useRef(`${location.pathname}${location.search}`);
+
+  useInactivityTimer(() => {
+    window.location.reload();
+  }, 1200000);
 
   const lang = useSelector((state) => state.app.lang);
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });

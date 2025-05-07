@@ -28,15 +28,31 @@ const Accordion = (props) => {
   const [isOpen, setIsOpen] = useState(props.initOpen);
   const [isFavorite, setIsFavorite] = useState(false);
 
+  // useEffect(() => {
+  //   if (!props.marketGroup) return;
+  //   const favMarkets = storageGetFavMarkets();
+  //   if (
+  //     favMarkets &&
+  //     favMarkets[props.sportName] &&
+  //     favMarkets[props.sportName].includes(props.groupName)
+  //   )
+  //     setIsFavorite(true);
+  // }, []);
+
   useEffect(() => {
     if (!props.marketGroup) return;
+
     const favMarkets = storageGetFavMarkets();
-    if (
-      favMarkets &&
-      favMarkets[props.sportName] &&
-      favMarkets[props.sportName].includes(props.groupName)
-    )
-      setIsFavorite(true);
+
+    if (favMarkets && favMarkets[props.sportName]) {
+      props.group.forEach((market) => {
+        if (
+          favMarkets[props.sportName].includes(market.MarketName?.International)
+        ) {
+          setIsFavorite(true);
+        }
+      });
+    }
   }, []);
 
   useEffect(() => {
