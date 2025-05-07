@@ -295,21 +295,21 @@ const SportsHome = () => {
         // Check if is in tours order first
         if (
           categsOrder[a.Id] &&
-          categsOrder[a.Id] < 9999 &&
+          categsOrder[a.Id] < 999999 &&
           !categsOrder[b.Id]
         ) {
           return -1; // a comes first
         } else if (
           categsOrder[b.Id] &&
-          categsOrder[b.Id] < 9999 &&
+          categsOrder[b.Id] < 999999 &&
           !categsOrder[a.Id]
         ) {
           return 1; // b comes first
         } else if (
           categsOrder[a.Id] &&
-          categsOrder[a.Id] < 9999 &&
+          categsOrder[a.Id] < 999999 &&
           categsOrder[b.Id] &&
-          categsOrder[b.Id] < 9999
+          categsOrder[b.Id] < 999999
         ) {
           // Both have order, sort by order
           return categsOrder[a.Id] - categsOrder[b.Id];

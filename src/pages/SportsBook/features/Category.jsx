@@ -37,19 +37,23 @@ const Category = (props) => {
 
       updatedTournaments.sort((a, b) => {
         // Check if is in tours order first
-        if (toursOrder[a.Id] && toursOrder[a.Id] < 9999 && !toursOrder[b.Id]) {
+        if (
+          toursOrder[a.Id] &&
+          toursOrder[a.Id] < 999999 &&
+          !toursOrder[b.Id]
+        ) {
           return -1; // a comes first
         } else if (
           toursOrder[b.Id] &&
-          toursOrder[b.Id] < 9999 &&
+          toursOrder[b.Id] < 999999 &&
           !toursOrder[a.Id]
         ) {
           return 1; // b comes first
         } else if (
           toursOrder[a.Id] &&
-          toursOrder[a.Id] < 9999 &&
+          toursOrder[a.Id] < 999999 &&
           toursOrder[b.Id] &&
-          toursOrder[b.Id] < 9999
+          toursOrder[b.Id] < 999999
         ) {
           // Both have order, sort by order
           return toursOrder[a.Id] - toursOrder[b.Id];
