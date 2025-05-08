@@ -26,6 +26,12 @@
   font-family: "Archivo", sans-serif;
   position: relative;
   overflow: hidden;
+
+  transition: width 0.7s ease;
+}
+
+.BBBadge:hover {
+  width: 4rem;
 }
 
 .Floating.BBBadge {
@@ -33,7 +39,7 @@
   right: -0.3rem;
   top: -0.125rem;
   height: 1rem;
-  width: fit-content;
+  /* width: fit-content; */
 }
 
 .JustifyRight.BBBadge {
@@ -84,4 +90,38 @@
     transform: translateX(200%) rotate(45deg);
     opacity: 0;
   }
+}
+
+.ShortText,
+.FullText {
+  position: absolute;
+  white-space: nowrap;
+  transition: opacity 0s ease;
+  pointer-events: none;
+}
+
+.ShortText {
+  opacity: 1;
+  z-index: 2;
+}
+
+.FullText {
+  opacity: 0;
+  z-index: 1;
+}
+
+.HoverExpand {
+  position: relative;
+  overflow: hidden;
+  width: fit-content;
+}
+.HoverExpand .BBBadge:hover {
+  width: 4rem;
+}
+.HoverExpand:hover .ShortText {
+  opacity: 0;
+}
+
+.HoverExpand:hover .FullText {
+  opacity: 1;
 }

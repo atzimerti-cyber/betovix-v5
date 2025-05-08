@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import CloseButton from "../../UI/Buttons/CloseButton";
 import { translate } from "../../../utils/translations";
 import CopyIcon from "../../../assets/svgs/copy3.svg?react";
+import BetBuilderBadge from "../../UI/Badges/BetBuilderBadge";
 
 const BookedBetModal = () => {
   const navigate = useNavigate();
@@ -73,41 +74,70 @@ const BookedBetModal = () => {
               <div>{new Date(lastBooked.date_added).toLocaleString()}</div>
             </div>
           </div>
-
-          <table className={classes.EventsTable}>
-            <thead>
-              <tr>
-                <th>{translate("Time")}</th>
-                <th>{translate("Event Date")}</th>
-                <th>{translate("Tournament")}</th>
-                <th>{translate("Event")}</th>
-                <th>{translate("Market")}</th>
-                <th>{translate("Outcome")}</th>
-                <th>{translate("Odd")}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ticketData.points.map((point, index) => (
-                <tr key={index}>
-                  <td>
-                    {point.Live
-                      ? "-"
-                      : new Date(point.DateOfMatch).toLocaleTimeString()}
-                  </td>
-                  <td>
-                    {point.Live
-                      ? "[Live]"
-                      : new Date(point.DateOfMatch).toLocaleDateString()}
-                  </td>
-                  <td>{translate(point.TournamentName.International)}</td>
-                  <td>{translate(point.MatchName)}</td>
-                  <td>{translate(point.MarketName.International)}</td>
-                  <td>{translate(point.FieldName.International)}</td>
-                  <td>{point.Odd}</td>
+          <div className={classes.EventsTableWrapper}>
+            <table className={classes.EventsTable}>
+              <thead>
+                <tr>
+                  <th>{translate("Time")}</th>
+                  <th>{translate("Event Date")}</th>
+                  <th>{translate("Tournament")}</th>
+                  <th>{translate("Event")}</th>
+                  <th>{translate("Market")}</th>
+                  <th>{translate("Outcome")}</th>
+                  <th>{translate("Odd")}</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {ticketData.points.map((point, index) => (
+                  <tr key={index}>
+                    <td>
+                      {point.Live
+                        ? "-"
+                        : new Date(point.DateOfMatch).toLocaleTimeString()}
+                    </td>
+                    <td>
+                      {point.Live
+                        ? "[Live]"
+                        : new Date(point.DateOfMatch).toLocaleDateString()}
+                    </td>
+                    <td>{translate(point.TournamentName.International)}</td>
+                    <td>{translate(point.MatchName)}</td>
+                    {!point.BB || point.BB.length === 0 ? (
+                      <>
+                        <td>{translate(point.MarketName.International)}</td>
+                        <td>{translate(point.FieldName.International)}</td>
+                      </>
+                    ) : (
+                      <>
+                        <td>
+                          <div className={classes.BBBadge}>
+                            <BetBuilderBadge hover={true} />
+                          </div>
+                          {point.BB.map((bbpoint) => (
+                            <div className={classes.BBMarket}>
+                              {translate(bbpoint.MarketName)}
+                            </div>
+                          ))}
+                        </td>
+                        <td>
+                          <div className={classes.BBBadge}>
+                            <BetBuilderBadge />
+                          </div>
+                          {point.BB.map((bbpoint) => (
+                            <div className={classes.BBMarket}>
+                              {translate(bbpoint.FieldName)}
+                            </div>
+                          ))}
+                        </td>
+                      </>
+                    )}
+
+                    <td>{point.Odd}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

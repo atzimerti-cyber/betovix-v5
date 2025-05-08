@@ -73,7 +73,7 @@ const BetBuilderSlip = (props) => {
 
   useEffect(() => {
     let tp;
-    if (props.slip.BB.length > 0) {
+    if (props.slip.BB && props.slip.BB.length > 0) {
       tp = getTotalPayout();
       setSlipTotalPayout(tp);
     }
@@ -186,7 +186,7 @@ const BetBuilderSlip = (props) => {
 
     setCheckAmounts(true);
 
-    if (props.slip.BB.length == 1) {
+    if (props.slip.BB && props.slip.BB.length == 1) {
       dispatch(layoutActions.setShowRight("betslip"));
       dispatch(layoutActions.setShowRightContainer(false));
     }
@@ -318,7 +318,8 @@ const BetBuilderSlip = (props) => {
 
           <div className={classes.MarketSection}>
             <div className={classes.OutcomesWrap}>
-              {props.slip.BB.length > 0 &&
+              {props.slip.BB &&
+                props.slip.BB.length > 0 &&
                 props.slip.BB.map((bbSlip) => (
                   <div className={classes.OutcomeGroup}>
                     <div className={classes.BBMarketCheckbox}>

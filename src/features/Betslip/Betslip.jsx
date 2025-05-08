@@ -290,6 +290,7 @@ const Betslip = memo(function (props) {
         TournamentId: point.TournamentId,
         CategoryId: point.CategoryId,
         SportId: point.SportId,
+        BB: point.BB && point.BB.length > 0 ? point.BB : null, //
       });
     });
 

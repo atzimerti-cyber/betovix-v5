@@ -214,6 +214,7 @@ export const loadBooked = (signal, code, callback) => {
           MatchName: point.MatchName,
           TournamentId: point.TournamentId,
           TournamentName: point.TournamentName,
+          BB: point.BB && point.BB.length > 0 ? point.BB : null, //
         };
 
         dispatch(betslipActions.addToSlips(newSlip));

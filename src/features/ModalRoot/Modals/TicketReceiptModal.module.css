@@ -23,7 +23,7 @@
 }
 
 .ModalContent {
-  max-height: 100dvh;
+  max-height: 96dvh;
   overflow-y: auto;
   overflow-x: hidden;
   padding: 0.625rem;
@@ -133,11 +133,17 @@
 .bodyPrint .left {
   float: left;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
 .bodyPrint .right {
   float: right;
   text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
 }
 
 .bodyPrint .row {
@@ -146,7 +152,10 @@
 }
 
 .bodyPrint .fullWidth {
-  display: block;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2px;
+  gap: 3px;
 }
 
 .bodyPrint .fullWidth.champName {
@@ -183,7 +192,9 @@
 
 .bodyPrint .twoThirds {
   width: 66.66%;
-  display: inline-block;
+  display: flex;
+  justify-content: space-between;
+  height: max-content;
 }
 
 .bodyPrint div.disclaimer {
