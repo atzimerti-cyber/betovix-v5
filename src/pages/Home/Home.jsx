@@ -21,6 +21,7 @@ import ServiceLinksSwiper from "../../features/UI/MainSwiper/ServiceLinksSwiper"
 import MainLinksSwiper from "../../features/UI/MainSwiper/MainLinksSwiper";
 import GameLinksSwiper from "../../features/UI/MainSwiper/GameLinksSwiper";
 import JackpotCounter from "../Casino/features/JackpotCounter";
+import JackpotCounterV2 from "../Casino/features/JackpotCounterV2";
 
 function ObjectHasValue(obj) {
   for (let key in obj) {
@@ -478,7 +479,15 @@ const Home = () => {
                         onDataNotFound={() => handleRemoveComponent(index)}
                       />
                     )}
-                    
+
+                  {tag.Category === "9" &&
+                    permissions.AllowToSlots &&
+                    permissions.AllowToCasino && (
+                      <JackpotCounterV2
+                        onDataNotFound={() => handleRemoveComponent(index)}
+                      />
+                    )}
+
                 </>
               )
             );
