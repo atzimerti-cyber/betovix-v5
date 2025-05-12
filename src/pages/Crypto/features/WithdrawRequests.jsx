@@ -80,7 +80,12 @@ const WithdrawRequests = () => {
 
   const navigateToWithdraw = () => {
     const searchParams = new URLSearchParams(location.search);
-    if (paymentTypes.length > 1) {
+    if (paymentTypes.length === 0) {
+      searchParams.delete("stage");
+      navigate(`${location.pathname}?${searchParams.toString()}`, {
+        replace: true,
+      });
+    } else if (paymentTypes.length > 1) {
       searchParams.delete("stage");
       navigate(`${location.pathname}?${searchParams.toString()}`, {
         replace: true,

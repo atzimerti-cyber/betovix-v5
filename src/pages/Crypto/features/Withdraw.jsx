@@ -73,32 +73,30 @@ const Withdraw = () => {
     <div className={elClasses.join(" ")}>
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
-          {paymentTypes && paymentTypes.length > 1 && (
-            <div
-              className={classes.PaymentButtonContainer}
-              style={{
-                border: "1px solid var(--card-odds-button)",
-                backgroundColor: "var(--card-odds-button)",
+          <div
+            className={classes.PaymentButtonContainer}
+            style={{
+              border: "1px solid var(--card-odds-button)",
+              backgroundColor: "var(--card-odds-button)",
+            }}
+          >
+            <MainButton
+              color="transparent"
+              onClick={() => {
+                navigateToModal("cashier", "withdraw", "requests");
               }}
             >
-              <MainButton
-                color="transparent"
-                onClick={() => {
-                  navigateToModal("cashier", "withdraw", "requests");
-                }}
-              >
-                <img
-                  className={classes.AllCrypto}
-                  src={allCrypto}
-                  loading="lazy"
-                  alt="All crypto"
-                />
-                <h2 style={{ color: "var(--darkcolor-op1)" }}>
-                  {translate("Withdrawal Requests")}
-                </h2>
-              </MainButton>
-            </div>
-          )}
+              <img
+                className={classes.AllCrypto}
+                src={allCrypto}
+                loading="lazy"
+                alt="All crypto"
+              />
+              <h2 style={{ color: "var(--darkcolor-op1)" }}>
+                {translate("Withdrawal Requests")}
+              </h2>
+            </MainButton>
+          </div>
 
           {paymentTypes &&
             paymentTypes.length > 1 &&
