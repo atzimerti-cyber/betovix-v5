@@ -329,21 +329,15 @@
     /*  Spinner  */
     .Spinner {
       border: 4px solid rgba(255, 255, 255, 0.093);
-      /* Light white semi-transparent border */
       border-top: 4px solid rgba(255, 255, 255, 0.708);
-      /* Solid white for the spinning part */
       border-radius: 50%;
       width: 36px;
-      /* Adjust size */
       height: 36px;
-      /* Adjust size */
       animation: spin 1s linear infinite;
-      /* Smooth spinning animation */
       margin: 2rem auto 2rem auto;
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+      top: calc(50% - 48px);
+      left: calc(50% - 18px);
     }
 
     @keyframes spin {
@@ -385,15 +379,15 @@
     <div class="Spinner"></div>
   </div>
   <div id="gameHeader"
-    style="position: fixed;display: none;align-items: center;top:0;height: 45px;background: #000000;width: 100%;z-index:2147483640">
+    style="position: fixed;display: none;align-items: center;top:0;height: 30px;background: #000000;width: 100%;z-index:2147483640">
     <button id="btnBack" onclick="hideGame()"
-      style="display:none;position:fixed; left:3%;justify-content: center;align-items: center;height:20px;width:20px;z-index:2147483647;background: rgba(77, 77, 77, 0);border-radius:20px;color:white;font-weight:500;font-size:18px;">&#10094;</button>
+      style="display:none;position:fixed; left:3%;justify-content: center;align-items: center;z-index:2147483647;background: rgba(77, 77, 77, 0);border-radius:20px;color:white;font-weight:500;font-size:18px;">&#10094;</button>
     <p id="gameName"
       style="display:none;position:fixed; right:5%;max-width:80%;align-items: center;z-index:2147483647;color:white;font-weight:500;font-size:15px;text-wrap: nowrap;">
     </p>
   </div>
   <iframe id="game" style="position:fixed;
-    padding-top: 45px;
+    padding-top: 30px;
         top:0;
         left:0;
         right:0;
