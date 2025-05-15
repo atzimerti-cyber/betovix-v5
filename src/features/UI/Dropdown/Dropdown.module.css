@@ -48,10 +48,9 @@
 
 .DropdownItems > ul {
   width: 9rem;
-  border-radius: 7px;
+  border-radius: 5px;
   font-size: 0.875rem;
   line-height: 1.25rem;
-  font-weight: 600;
   color: var(--white);
   --tw-shadow: var(--db-dropdown-shadow);
   --tw-shadow-colored: var(--db-dropdown-shadow);
@@ -60,10 +59,10 @@
 }
 
 .DropdownItems > ul > li > a > svg {
-  fill: var(--brand-color);
+  fill: var(--brand-green);
   height: 1.1rem;
   width: 1.1rem;
 }
 .DropdownItems > ul > li > a > svg path {
-  fill: var(--brand-color);
+  fill: var(--brand-green);
 }
