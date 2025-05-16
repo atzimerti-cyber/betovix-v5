@@ -154,7 +154,7 @@ const LoginFullPage = () => {
                 </div>
               </>
             ) : (
-              tab === "forgot-password" && (
+              tab == "forgot-password" && (
                 <div className={classes.ForgotTabWrapper}>
                   <div className={classes.BackWrapper}>
                     <button
