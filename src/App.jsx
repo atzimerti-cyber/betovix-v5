@@ -10,6 +10,7 @@ import Layout from "./features/Layout/Layout";
 import PrivateRoute from "./features/PrivateRoute/PrivateRoute";
 import HasPermission from "./features/PrivateRoute/HasPermission";
 import PageFallback from "./features/UI/PageFallback/PageFallback";
+import LoginFullPage from "./pages/Login/LoginFullPage";
 
 // Lazy load the other components
 const Home = React.lazy(() => import("./pages/Home/Home"));
@@ -62,7 +63,9 @@ function App() {
               path: "/",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <Home />
+                  <HasPermission checkPermissions={[]}>
+                    <Home />
+                  </HasPermission>
                 </Suspense>
               ),
             },
@@ -154,7 +157,9 @@ function App() {
               path: "/crypto",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <Crypto />
+                  <HasPermission checkPermissions={[]}>
+                    <Crypto />
+                  </HasPermission>
                 </Suspense>
               ),
             },
@@ -184,9 +189,11 @@ function App() {
               path: "/profile",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <PrivateRoute roleId={40}>
-                    <Profile />
-                  </PrivateRoute>
+                  <HasPermission checkPermissions={[]}>
+                    <PrivateRoute roleId={40}>
+                      <Profile />
+                    </PrivateRoute>
+                  </HasPermission>
                 </Suspense>
               ),
             },
@@ -194,7 +201,9 @@ function App() {
               path: "/leaderboard/*",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <Leaderboard />
+                  <HasPermission checkPermissions={[]}>
+                    <Leaderboard />
+                  </HasPermission>
                 </Suspense>
               ),
             },
@@ -212,7 +221,9 @@ function App() {
               path: "/promotions",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <Promotions />
+                  <HasPermission checkPermissions={[]}>
+                    <Promotions />
+                  </HasPermission>
                 </Suspense>
               ),
             },
@@ -251,6 +262,14 @@ function App() {
               ),
             },
           ],
+        },
+        {
+          path: "/login",
+          element: (
+            <Suspense fallback={<PageFallback />}>
+              <LoginFullPage />
+            </Suspense>
+          ),
         },
       ],
     },
