@@ -11,6 +11,7 @@ import PrivateRoute from "./features/PrivateRoute/PrivateRoute";
 import HasPermission from "./features/PrivateRoute/HasPermission";
 import PageFallback from "./features/UI/PageFallback/PageFallback";
 import LoginFullPage from "./pages/Login/LoginFullPage";
+const version = '1.04';
 
 // Lazy load the other components
 const Home = React.lazy(() => import("./pages/Home/Home"));
