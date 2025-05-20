@@ -748,9 +748,9 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=betovix.com`,
+        `Site/GetSite?domainName=bluexcasino.com`,
         // `Site/GetSite?domainName=betovix.storetube.gr`,
-        `Site/GetSite?domainName=${currentDomain}`,
+        //`Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
@@ -773,6 +773,7 @@ export const getSite = (signal) => {
       config.VITE_SITE_LOGO = response.data.Contents.Logo;
       config.VITE_SITE_NAME = response.data.Contents.Name;
       config.VITE_STATS_THEME = response.data.Contents.StatsTheme;
+      config.VITE_HOME_URL = `https://${currentDomain}`;
 
       // Set the page title
       document.title = response.data.Contents.PageTitle;
@@ -1077,7 +1078,7 @@ export const getUserNotifications = () => {
     } catch (error) {
       toast.error(
         translate(error?.message) ||
-          translate("An error occurred while fetching notifications.")
+        translate("An error occurred while fetching notifications.")
       );
     }
   };
@@ -1123,7 +1124,7 @@ export const tawktoChat = () => {
     } catch (error) {
       toast.error(
         translate(error?.message) ||
-          "An error occurred while fetching site settings"
+        "An error occurred while fetching site settings"
       );
     }
   };
