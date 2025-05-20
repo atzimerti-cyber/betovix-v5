@@ -53,7 +53,6 @@ const Home = () => {
   );
 
   useEffect(() => {
-
     const stories = [
       {
         id: 1,
@@ -100,7 +99,6 @@ const Home = () => {
         ]
       }
     ];
-
     const storyCircles = document.querySelector('.story-circles');
     const storyViewer = document.getElementById('storyViewer');
     const closeButton = document.querySelector('.close-button');
