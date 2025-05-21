@@ -71,6 +71,7 @@ const Providers = () => {
             title={translate("Our Providers")}
             icon={<ProvidersIcon />}
             collection={allCasinoVendors}
+
           />
         )}
       </div>

@@ -23,16 +23,21 @@ const GridVendors = (props) => {
       </div>
 
       <div className={classes.GameGrid}>
-        {props.collection?.map((vendor, index) => {
+        {/* {props.collection?.map((vendor, index) => {
           return <VendorCard key={vendor.Data.Id} vendor={vendor} />;
-        })}
+        })} */}
+        {[...props.collection]
+          .sort((a, b) => a.Data.Name.localeCompare(b.Data.Name))
+          .map((vendor) => (
+            <VendorCard key={vendor.Data.Id} vendor={vendor} />
+          ))}
 
         {props.loading || props.collection === null || moreLoading
           ? Array.from({ length: 24 }, (_, index) => (
-              <div key={index} className={classes.ImageContainer}>
-                <LoaderPlaceholder />
-              </div>
-            ))
+            <div key={index} className={classes.ImageContainer}>
+              <LoaderPlaceholder />
+            </div>
+          ))
           : null}
       </div>
 
