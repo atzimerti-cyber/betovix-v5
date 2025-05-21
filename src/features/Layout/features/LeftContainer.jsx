@@ -103,7 +103,7 @@ const LeftContainer = memo(function () {
           <SportsIcon
             className={
               pathnameNoParams.includes("sportsbook") ||
-              pathnameNoParams.includes("/event")
+                pathnameNoParams.includes("/event")
                 ? classes.ActiveSvg
                 : null
             }
@@ -346,18 +346,16 @@ const LeftContainer = memo(function () {
 
     return (
       <ul
-        key={`${
-          categoryId
-            ? `${categoryId}_${menuItem.category.id}`
-            : `${index}_${menuItem.items.id}`
-        }`}
+        key={`${categoryId
+          ? `${categoryId}_${menuItem.category.id}`
+          : `${index}_${menuItem.items.id}`
+          }`}
         className={classes.List}
       >
         {menuItem.items.map((item) => (
           <LeftMenuItem
-            key={`${
-              categoryId ? `${categoryId}_${item.id}` : `${index}_${item.id}`
-            }`}
+            key={`${categoryId ? `${categoryId}_${item.id}` : `${index}_${item.id}`
+              }`}
             isActive={item.page === pathname}
             item={item}
             hide={!fullLeftContainer}
@@ -392,13 +390,23 @@ const LeftContainer = memo(function () {
           <div className={classes.SideMenuButtonContainer}>
             {casinoOriented && casinoOriented === "true" ? (
               <>
-                {casinoButton()}
+                {/* {casinoButton()} */}
+                {permissions.AllowToSlots && !permissions.AllowToSports ? (
+                  null
+                ) : (
+                  casinoButton()
+                )}
                 {sportsButton()}
               </>
             ) : (
               <>
                 {sportsButton()}
-                {casinoButton()}
+                {permissions.AllowToSlots && !permissions.AllowToSports ? (
+                  null
+                ) : (
+                  casinoButton()
+                )}
+                {/* {casinoButton()} */}
               </>
             )}
           </div>

@@ -19,6 +19,7 @@ import appSlice, { appActions } from "./appSlice";
 import useBasePath from "../../hooks/useBasePath";
 import { sportsHomeActions } from "../../pages/SportsBook/subpages/sportsHomeSlice";
 import { mod } from "@tensorflow/tfjs";
+import { setAccessToken } from "../../utils/auth";
 
 const InitApp = () => {
   const dispatch = useDispatch();
@@ -64,6 +65,25 @@ const InitApp = () => {
     );
   };
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const token = searchParams.get("token");
+
+    if (token && !initDataLoaded) {
+      setAccessToken(token);
+      searchParams.delete("token");
+
+      // Replace URL without token parameter
+      navigate(
+        {
+          pathname: location.pathname,
+          search: searchParams.toString(),
+        },
+        { replace: true }
+      );
+    }
+  }, [initDataLoaded, location, navigate, setAccessToken]);
+
   //Affiliate Code
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
@@ -99,15 +119,6 @@ const InitApp = () => {
         navigate(newPath, { replace: true });
       }
     }
-
-    //Clear out open sports category and tournament
-    // if ( !(pathnameNoParams === "/sportsbook" || pathnameNoParams === "/event") ) {
-    // if (!pathnameNoParams.includes("/event")) {
-    //   dispatch(sportsHomeActions.setSelectedCategory(null));
-    //   dispatch(sportsHomeActions.setSelectedTournament(null));
-    //   dispatch(sportsHomeActions.setCategoryOpen(null));
-    //   dispatch(sportsHomeActions.setTournamentOpen(null));
-    // }
   }, [location.pathname, location.search, lang.id, navigate]);
 
   //previous path state
