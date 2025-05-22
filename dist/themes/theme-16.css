@@ -1,0 +1,823 @@
+/* kafe/kitrino */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+:root {
+  --white: #efefef;
+  --white-lowop: #fbfbfbc2;
+
+  --body-bg: #141414;
+  --topbar-bg: #101010;
+  --sb-search: #141414;
+  --footer: #1a0331;
+  --outer-container-left: #101010;
+  --sidebar-category-group: #141414;
+  --sidebar-left-menu-item: #141414;
+  --sidebar-casino-active: #bfbfbf52;
+  --sidebar-casino-active-svg: var(--brand-green);
+  --track-events-color: #af8b0291;
+
+  --brand-green: #ef2081;
+  --brand-green-lowop: #ff384f57;
+
+  --brand-color: #ff0000;
+  --brand-color: #ef2081;
+  --text-in-brand: rgb(255, 255, 255);
+
+  --placeholder-light: #ccccccab;
+  --light-blue: #ff008c;
+  --light-blue-2: #211d1f;
+  --db-gray-4: #3a2e2a;
+  --mid-blue-1: #4a4a4a;
+  --mid-blue: #ef20811c;
+  --dark-blue-1: #101010;
+  --dark-blue: #212121;
+  --dark-blue-lowop: #141414;
+
+  --db-white-hover: hsla(0, 0%, 100%, 0.05);
+  --db-white-hover-light: hsla(0, 0%, 100%, 0.127);
+
+  --odds-button-border: var(--brand-green);
+  --odds-button: #42373d;
+  --odds-button-disabled: #2121218f;
+  --card-odds-button: #101010;
+  --card-odds-button-selected: #2121215d;
+  --card-odds-button-disabled: #4f4f4f30;
+
+  --badge-new-purple: #ff384f;
+  --live-badge-purple: var(--brand-color);
+
+  --db-like: #cfcfcf;
+  --cancelled: #cfcfcf;
+  --green: #33c14b;
+  --yellow-accent-color: #f1bf2b;
+
+  --lightcolor-low-op: #dbdbdb4a;
+  --lightcolor-op1: #dbdbdb;
+  --darkcolor-op1: #fff;
+  --darkcolor-low-op: #fff;
+
+  --layout-icon-btn: linear-gradient(222deg, #2f2f2f 0%, #202020 63%);
+  --toast-grad-op1: linear-gradient(50deg, #4b4b4b 0%, #5f5f5f 50%);
+  --casino-play-round: #a3a3a376;
+  --casino-play-button: linear-gradient(
+    30deg,
+    #6a6a6a 20%,
+    #8b8b8b 75%,
+    #848484 110%
+  );
+  --casino-play-bonus-button: linear-gradient(
+    120deg,
+    #bfbfbf44 0%,
+    #bfbfbf44 0%,
+    #bfbfbf81 75%,
+    #bfbfbf44 110%
+  );
+  --button-grad-op1: linear-gradient(
+    45deg,
+    rgba(37, 34, 35, 0.76),
+    #2c2526d1 120%
+  );
+  --button-grad-op-mid: linear-gradient(
+    45deg,
+    rgba(37, 34, 35, 0.76),
+    #2c2526d1 120%
+  );
+
+  --provider-card-bg: #1a161c;
+  --provider-card-bg-lowOp: #1a161c;
+
+  --dropdown-bg: #2c2725;
+
+  --swiper-container-grad: linear-gradient(45deg, #101010, #101010 120%);
+  --accordion-header: linear-gradient(45deg, #1b181a, #141414 120%);
+  --accordion-body: linear-gradient(45deg, #0e0d0e, #111011 120%);
+  --accordion-small-header: linear-gradient(45deg, #141414, #141414 120%);
+  --accordion-small-body: linear-gradient(45deg, #141113, #141113 120%);
+  --casino-options-bg: radial-gradient(
+      65.95% 124.31% at 100% 100%,
+      #2e2e2e 10.17%,
+      #1f1f1f27
+    ),
+    #1c1c1c;
+  --calendar: #19151c;
+  --calendar-hover: #3a2a3b;
+  --event-board-bg: #2e2e2ee3;
+
+  --db-modal-auth-height: 506px;
+  --db-modal-announcement-height: 480px;
+  --db-chat-width: 330px;
+  --db-left-menu-width: 260px;
+  --db-left-menu-width-collapsed: 60px;
+
+  --db-minibar-height: 0px;
+  --db-minibar-height-mobile: 0px;
+
+  --db-topbar-height: 60px;
+  --db-topbar-height-mobile: 50px;
+
+  --db-header-height: calc(var(--db-topbar-height) + var(--db-minibar-height));
+  --db-header-height-mobile: calc(
+    var(--db-topbar-height-mobile) + var(--db-minibar-height-mobile)
+  );
+
+  --wr-pending: linear-gradient(222deg, #1e5063 0%, #26556dba 50%);
+  --wr-approved: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    #1c525d 30%,
+    rgba(59, 195, 191, 0.81) 100%
+  );
+  --wr-not-approved: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    rgba(93, 28, 28, 0.5) 40%,
+    rgba(153, 30, 30, 0.74) 100%
+  );
+  --wr-confirmed: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    #1c405d 30%,
+    rgba(141, 239, 75, 0.47) 100%
+  );
+  --wr-payed: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    #1c405d 30%,
+    rgba(141, 239, 75, 0.47) 100%
+  );
+  --wr-cancelled: linear-gradient(
+    161deg,
+    var(--sidebar-left-menu-item) 0%,
+    rgba(93, 28, 28, 0.5) 40%,
+    rgba(153, 30, 30, 0.74) 100%
+  );
+
+  --db-bottom-bar-height: 52px;
+  --db-bottom-nav-height: 56px;
+  --db-sticky-language-height: 0px;
+  --db-scrollbar-width: 6px;
+  --db-scrollbar-sm-width: 4px;
+  --db-scrollbar-thumb-bg: var(--light-blue);
+  --db-scrollbar-track-bg: var(--mid-blue-1);
+  --db-transition: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --db-modal-overlay: #0c0f16a9;
+  --db-dropdown-shadow: -10px 6px 30px rgb(0 0 0 / 35%);
+  --db-modal-header-height: 38px;
+  --db-milestone-card-width: 140px;
+
+  --blg: 0 0% 41%;
+  --p: 0 0% 47%;
+  --b2: 0 0% 23%;
+  --b3: 0 0% 22%;
+  --inc: 0 0% 22%;
+  --suc: 0 0% 20%;
+  --wac: 0 0% 21%;
+  --erc: 0 0% 24%;
+  --rounded-box: 1rem;
+  --rounded-badge: 1.9rem;
+  --animation-btn: 0.25s;
+  --animation-input: 0.2s;
+  --btn-focus-scale: 0.95;
+  --border-btn: 1px;
+  --tab-border: 1px;
+  --tab-radius: 0.5rem;
+  --pf: 0 0% 47%;
+  --pc: 0 0% 100%;
+  --s: 353deg 100% 61%;
+  --s: 16deg 81% 56%;
+  --sf: 0 0% 44%;
+  --sc: 0 0% 100%;
+  --a: 0 0% 37%;
+  --af: 0 0% 37%;
+  --ac: 0 0% 100%;
+  --n: 0 0% 28%;
+  --nf: 0 0% 28%;
+  --nc: 0 0% 100%;
+  --b1: 0 0% 15%;
+  --bc: 0 0% 100%;
+  --in: 0 0% 60%;
+  --su: 0 0% 51%;
+  --wa: 0 0% 56%;
+  --er: 0 0% 70%;
+  --btn-text-case: none;
+  --rounded-btn: 0.25rem;
+
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgba(59, 130, 246, 0.5);
+  --tw-ring-offset-shadow: 0 0 transparent;
+  --tw-ring-shadow: 0 0 transparent;
+  --tw-shadow: 0 0 transparent;
+  --tw-shadow-colored: 0 0 transparent;
+
+  --swiper-theme-color: #a3a3a3;
+  color: hsla(var(--bc) / var(--tw-text-opacity, 1));
+  --display-signup-cont: none;
+}
+
+#MainButton_secondary svg {
+  fill: #000 !important;
+}
+
+#MainButton_secondary svg path {
+  fill: #000 !important;
+}
+
+#layout.IsMobile #bottomBar {
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border: 1px solid var(--brand-green);
+  border-bottom: 0 !important;
+  --db-bottom-bar-height: 60px;
+  background: var(--topbar-bg) !important;
+  text-transform: uppercase !important;
+  z-index: 99999;
+}
+
+#layout.IsMobile #bottomBar button span {
+  font-size: 10px !important;
+  text-transform: uppercase !important;
+}
+
+#layout.IsMobile #bottomBar button svg {
+  width: 20px;
+  height: 20px;
+}
+
+#layout.IsMobile #bottomBar button {
+  padding: 0 10px !important;
+}
+
+#layout.IsMobile div#serviceLinks .swiper-wrapper {
+  transform: none !important;
+  display: flex;
+  flex-wrap: wrap !important;
+  margin: 0px !important;
+}
+
+#layout.IsMobile .div#serviceLinks > div > div {
+  overflow: inherit;
+  touch-action: none !important;
+}
+
+#layout.IsMobile #serviceLinks > div > div > div > div {
+  display: flex;
+  width: 25%;
+  max-width: none !important;
+  margin: 0px !important;
+  padding: 3px;
+}
+
+#layout.IsMobile .div#serviceLinks > div > div {
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+#layout.IsMobile .div#mainLinks .swiper-wrapper {
+  transform: none !important;
+  display: flex;
+  flex-wrap: wrap !important;
+  margin: 0px !important;
+}
+
+#layout.IsMobile .div#mainLinks > div > div {
+  overflow: inherit;
+  touch-action: none !important;
+}
+
+#layout.IsMobile .div#mainLinks > div > div > div > div {
+  display: flex !important;
+  width: 33.3333% !important;
+  max-width: none !important;
+  margin: 0px !important;
+  padding: 3px;
+}
+
+#layout.IsMobile .div#mainLinks > div > div {
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+#mainLinks .swiper-slide img {
+  border: 2px solid var(--light-blue) !important;
+  border-radius: 20px;
+}
+
+#layout.IsMobile #bottomBar button#betslip span:before {
+  font-size: 10px !important;
+}
+
+#layout.IsMobile #bottomBar #betslip,
+#layout.IsMobile #bottomBar #sportsButton {
+  display: none;
+}
+
+#layout.IsMobile #bottomBar button#betslip span {
+  font-size: 0 !important;
+}
+
+#homeBanners ._ParentContainer_vc3wh_49 {
+  display: none !important;
+}
+
+#serviceLinks > div > div > div {
+  justify-content: space-between;
+}
+
+#mainLinks > div > div > div {
+  justify-content: space-between;
+}
+#mainLinks > div > div > div > div {
+  flex: auto;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+}
+
+div#PromotionsHeader {
+  height: 400px;
+  width: 100%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  background-image: url(https://i.ibb.co/bgjmzm3v/b57c3abe11c.png) !important;
+}
+
+div#PromoCard {
+  height: 550px !important;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+div#PromoCard > div:first-child::after {
+  content: "";
+  position: absolute;
+  left: -1px;
+  z-index: 9;
+  background: linear-gradient(90deg, #11111100, transparent) !important;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  div#PromoCard {
+    height: 350px !important;
+    /* Sabit yükseklik yerine içeriğe göre genişlesin */
+    overflow: hidden !important;
+    width: 100% !important;
+  }
+
+  div#PromoCard img {
+    width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    object-fit: cover !important;
+  }
+}
+
+@media (max-width: 400px) {
+  #SiteLogoNoUser {
+    width: 215px !important;
+  }
+}
+
+#homePage {
+  margin-top: 0rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 2px !important;
+}
+
+#SiteLogo,
+#SiteLogoNoUser {
+  height: 90% !important;
+  width: 200px !important;
+  background-position: left;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#layout.IsMobile #bottomBar #casinoButton {
+  background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/slot_button.png) !important;
+  background-size: contain !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  position: relative !important;
+  top: -50px !important;
+  width: 70px !important;
+  height: 100px !important;
+  margin: 0 -20px !important;
+  z-index: 10 !important;
+  border: none !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+/* Butonun içindeki ikon ve yazıyı kaldırıyoruz */
+#layout.IsMobile #bottomBar #casinoButton svg,
+#layout.IsMobile #bottomBar #casinoButton span,
+#layout.IsMobile #bottomBar #casinoButton i {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  #bannerImgContainer {
+    position: relative;
+    display: block;
+    width: 100%;
+    cursor: default;
+    height: 245px !important;
+  }
+}
+
+/* Vp Edit */
+._PromoButton_1hwtg_925 {
+  background: linear-gradient(268.9deg, #ffc90008, #ff008c) !important;
+}
+._SearchContainer_6o4up_1 input {
+  background-color: var(--outer-container-left) !important;
+  border: 1px solid var(--light-blue) !important;
+}
+._SideMenuDivider_1hwtg_419:before,
+._SideMenuDivider_1hwtg_419:after {
+  background: #fff !important;
+  height: 1px !important;
+  margin-top: 5px;
+}
+._PromoButton_1hwtg_925:hover {
+  background: #ff008c !important;
+  background-color: #ff008c !important;
+}
+._Topbar_bqlaf_1 {
+  border-bottom: 2px solid #ff008c;
+}
+#MainButton_secondary {
+  background-color: #ff008c !important;
+  color: #fff !important;
+  background-image: url("http://a94aa000f9a94cc51775bd5eac97c926.vartaws.net/enz/regbtn.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+._MainButton_wz6ef_1:hover {
+  transform: scale(1.025);
+  background: #ffffff17 !important;
+}
+#MainButton_secondary,
+#MainButton_transparent {
+  font-family: "Poppins";
+}
+._Card_z6czp_101 {
+  border: 2px solid #ff008c;
+}
+._BackgroundContainer_z6czp_27 {
+  display: none !important;
+}
+div#cryptoSwiper {
+  display: none;
+}
+div#liveEventsSwiper {
+  margin: 10px 0;
+  border: 2px solid #ef2081;
+  background: var(--topbar-bg) !important;
+}
+div#footer {
+  border-top: 2px solid #f60087;
+  background-image: url("http://a94aa000f9a94cc51775bd5eac97c926.vartaws.net/enz/footerv3.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+#homePage #Game1Links,
+#homePage #GameLinks {
+  transform: scale(1.04);
+}
+#homePage #Game1Links .swiper-slide,
+#homePage #GameLinks .swiper-slide {
+  margin-right: 0 !important;
+}
+#homePage #Game1Links .swiper-wrapper,
+#homePage #GameLinks .swiper-wrapper {
+  justify-content: space-between;
+}
+#homePage ._GameLinks_29shb_1 > div > div > div > div {
+  max-width: 100% !important;
+  flex: auto;
+}
+
+#homePage #mainLinks,
+#homePage #serviceLinks {
+  transform: scale(1.015);
+}
+
+#mainLinks .swiper-wrapper .swiper-slide:nth-child(1) {
+  order: 4;
+}
+#mainLinks .swiper-wrapper .swiper-slide:nth-child(2) {
+  order: 3;
+}
+#mainLinks .swiper-wrapper .swiper-slide:nth-child(3) {
+  order: 2;
+}
+#mainLinks .swiper-wrapper .swiper-slide:nth-child(4) {
+  order: 1;
+}
+
+#serviceLinks .swiper-wrapper .swiper-slide:nth-child(1) {
+  order: 1;
+}
+#serviceLinks .swiper-wrapper .swiper-slide:nth-child(2) {
+  order: 3;
+}
+#serviceLinks .swiper-wrapper .swiper-slide:nth-child(3) {
+  order: 6;
+}
+#serviceLinks .swiper-wrapper .swiper-slide:nth-child(4) {
+  order: 5;
+}
+#serviceLinks .swiper-wrapper .swiper-slide:nth-child(5) {
+  order: 2;
+}
+#serviceLinks .swiper-wrapper .swiper-slide:nth-child(6) {
+  order: 4;
+}
+#serviceLinks .swiper-wrapper .swiper-slide:nth-child(7) {
+  order: 7;
+}
+#serviceLinks .swiper-wrapper .swiper-slide:nth-child(8) {
+  order: 8;
+}
+
+._Slip_1w8px_5 {
+  border: 1px solid #ef2081;
+}
+._OuterContainerRight_bkyg5_169 {
+  border-left: 1px solid #ef2081;
+}
+
+._SportDecoration_1vay1_33 svg path,
+._SportDecoration_1vay1_33 svg {
+  fill: var(--light-blue) !important;
+}
+
+#serviceLinks img,
+#mainLinks img,
+#GameLinks img,
+#Game1Links img {
+  cursor: pointer;
+}
+#GameLinks img,
+#Game1Links img {
+  transform: scale(1.075);
+}
+
+div#homePage > div {
+  order: 99;
+}
+div#homePage > div:nth-child(1) {
+  order: 1;
+}
+div#homePage > div:nth-child(2) {
+  order: 2;
+}
+div#homePage > div:nth-child(3) {
+  order: 3;
+}
+div#homePage > div:nth-child(4) {
+  order: 4;
+}
+div#homePage > div:nth-child(5) {
+  order: 5;
+}
+div#homePage > div:nth-child(6) {
+  order: 6;
+}
+div#homePage > div:nth-child(7) {
+  order: 7;
+}
+div#homePage > div:nth-child(8) {
+  order: 3;
+  display: none;
+} /* kripto fiyatları */
+div#homePage > div:nth-child(9) {
+  order: 6;
+}
+div#homePage > div:nth-child(10) {
+  order: 10;
+}
+div#homePage > div:nth-child(11) {
+  order: 11;
+}
+div#homePage > div:nth-child(12) {
+  order: 12;
+}
+div#homePage > div:nth-child(13) {
+  order: 13;
+}
+div#homePage > div:nth-child(14) {
+  order: 14;
+}
+
+._Title_1ivki_65 svg path {
+  fill: #ff008c !important;
+}
+._CategoryGroup_1ivki_1:before {
+  display: block;
+  content: "";
+  width: 70%;
+  height: 4px;
+  position: relative;
+  background: #ff008c;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin: auto;
+  left: 0;
+  right: 0;
+}
+
+#footer svg._PlusEighteen_elxcz_133 circle {
+  stroke: #ff008c !important;
+}
+#footer svg._PlusEighteen_elxcz_133 path {
+  fill: #fff !important;
+}
+#footer ._LinksLayout_elxcz_75 h2 {
+  color: #ff008c !important;
+}
+#footer ._LinksLayout_elxcz_75 a {
+  color: #fff !important;
+}
+
+._InfoContainer_elxcz_253 {
+  display: none;
+}
+
+#footer ._CurrenciesContainer_elxcz_143 {
+  padding: 5px;
+  background: #f4458c !important;
+  margin: 0 !important;
+  width: 100%;
+  display: flex;
+  max-width: none !important;
+  margin-bottom: -20px !important;
+  gap: 30px;
+}
+#footer ._CurrencyItem_elxcz_165 svg:first-of-type {
+  opacity: 0 !important;
+}
+#footer ._CurrencyItem_elxcz_165 svg:last-of-type {
+  opacity: 1 !important;
+}
+
+._OddsButton_1qtrh_1._Selected_1qtrh_141 {
+  border-color: #141113;
+}
+#homePage ._CardButton_1qtrh_163._Selected_1qtrh_141 {
+  background: var(--light-blue) !important;
+}
+
+/* Desktop */
+@media screen and (min-width: 769px) {
+  #homePage ._CardButton_1qtrh_163:hover {
+    background: var(--light-blue) !important;
+  }
+  ._OddsButton_1qtrh_1:hover {
+    background: var(--mid-blue);
+  }
+}
+
+._License_elxcz_15 img {
+  filter: none !important;
+}
+
+._MyBet_iv339_1 {
+  border: 1px solid var(--brand-green);
+  box-shadow: 0px 0px 15px -5px var(--brand-green);
+}
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+  #serviceLinks .swiper-wrapper {
+    gap: 5px;
+  }
+  #serviceLinks .swiper-wrapper .swiper-slide {
+    width: calc(25% - 5px) !important;
+  }
+  #mainLinks .swiper-wrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px !important;
+    transform: none !important;
+  }
+  #mainLinks .swiper-wrapper .swiper-slide {
+    flex: 33%;
+    margin-right: 0 !important;
+  }
+  #GameLinks .swiper-wrapper,
+  #Game1Links .swiper-wrapper {
+    flex-direction: row;
+    flex-wrap: wrap;
+    transform: none !important;
+  }
+  #GameLinks .swiper-wrapper .swiper-slide,
+  #Game1Links .swiper-wrapper .swiper-slide {
+    flex: 33%;
+  }
+  div#footer {
+    padding: 20px !important;
+  }
+  #footer ._CurrenciesContainer_elxcz_143 {
+    background: transparent !important;
+    margin-bottom: 100px !important;
+  }
+  button._BackToTopButton_bkyg5_725 {
+    display: none !important;
+  }
+  #layout.IsMobile #bottomBar #casinoButton:after {
+    content: "";
+    display: block;
+    padding: 31px;
+    border-radius: 100px;
+    box-shadow: 2px 2px 25px 3px #ff008c;
+    pointer-events: none;
+    animation: glowEffect 1.5s infinite alternate;
+  }
+  @keyframes glowEffect {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  div#homePage > div:nth-child(8) {
+    display: none;
+  }
+  /* Mobile menu edit */
+  #layout.IsMobile #bottomBar #menuButton,
+  #layout.IsMobile #bottomBar #sportsButton,
+  #layout.IsMobile #bottomBar #liveCasino,
+  #layout.IsMobile #bottomBar #betslip {
+    background-size: contain !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+    margin-top: -25px !important;
+    width: 65px !important;
+    height: 65px !important;
+  }
+  #layout.IsMobile #bottomBar #menuButton {
+    background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/mm_menu.png) !important;
+  }
+  #layout.IsMobile #bottomBar #sportsButton {
+    background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/mm_sport.png) !important;
+  }
+  #layout.IsMobile #bottomBar #liveCasino {
+    background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/mm_canli.png) !important;
+  }
+  #layout.IsMobile #bottomBar #betslip {
+    background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/mm_kupon.png) !important;
+  }
+  #layout.IsMobile #bottomBar #menuButton svg,
+  #layout.IsMobile #bottomBar #sportsButton svg,
+  #layout.IsMobile #bottomBar #liveCasino svg,
+  #layout.IsMobile #bottomBar #betslip svg {
+    display: none;
+  }
+  #layout.IsMobile #bottomBar #casinoButton {
+    margin: 0 10px !important;
+  }
+  ._BackToTopButton_1d63t_727 {
+    bottom: calc(var(--db-bottom-bar-height) + 115px);
+  }
+  div#comm100-button-d0624421-fb83-4b67-9d31-f699154b4de2 iframe,
+  div#comm100-container iframe#chat_button_adaptive_container {
+    right: -10px !important;
+    bottom: 75px !important;
+  }
+}
+
+body {
+  background-color: var(--body-bg);
+}
+html {
+  --s: 46.89deg 93.7% 75.1% !important;
+}
