@@ -316,11 +316,6 @@
   font-size: 10px !important;
 }
 
-#layout.IsMobile #bottomBar #betslip,
-#layout.IsMobile #bottomBar #sportsButton {
-  display: none;
-}
-
 #layout.IsMobile #bottomBar button#betslip span {
   font-size: 0 !important;
 }
