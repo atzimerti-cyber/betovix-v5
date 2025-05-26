@@ -773,12 +773,13 @@ const PaymentForm = (props) => {
             <div
               className={classes.Image}
               style={{
+                ...(paymiFrame && { display: 'none' }),
                 backgroundImage: `url("${props.icon}")`,
-                width: "50%",
+                width: '50%',
               }}
             ></div>
           )}
-          <div className={classes.PaymentInfo}>
+          <div className={classes.PaymentInfo} style={paymiFrame && { display: 'none' }}>
             {(methodMinAmount || typeMinAmount) && (
               <div className={classes.Info}>
                 <p>

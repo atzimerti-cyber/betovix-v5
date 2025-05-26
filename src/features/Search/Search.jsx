@@ -4,24 +4,45 @@ import SearchIcon from "../../assets/svgs/search.svg?react";
 import TimesIcon from "../../assets/svgs/times.svg?react";
 import { layoutActions } from "../Layout/layoutSlice";
 import classes from "./Search.module.css";
+import { useNavigate } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
 const Search = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const fullLeftContainer = useSelector(
     (state) => state.layout.fullLeftContainer
   );
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   let elClasses = [classes.SearchContainer];
   if (props.hide) elClasses.push(classes.Hide);
 
+  const handleMobile = () => {
+    if (props.category == 'sports') {
+      navigate('/searchEvent');
+    } else if (props.category == 'casino') {
+      navigate('/search');
+    } else {
+      navigate('/')
+    }
+
+    dispatch(layoutActions.setFullLeftContainer(false))
+  }
+
   return (
     <div
       className={elClasses.join(" ")}
-      onClick={() =>
-        fullLeftContainer
-          ? null
-          : dispatch(layoutActions.setFullLeftContainer(true))
-      }
+      onClick={() => {
+        isMobile ? (
+          handleMobile()
+        ) : (
+          fullLeftContainer
+            ? null
+            : dispatch(layoutActions.setFullLeftContainer(true))
+        )
+      }}
       data-tooltip-id={props.dataTooltipId}
       data-tooltip-content={props.dataTooltipContent}
     >

@@ -122,7 +122,7 @@ const LeftContainer = memo(function () {
       (permissions.AllowToCasino || permissions.AllowToSlots) && (
         <>
           <div className={classes.SideMenuDivider} id="SideMenuDivider"></div>
-          {/* {!isMobile && ( */}
+
           <Search
             placeholder={translate("Search Casino")}
             hide={!fullLeftContainer}
@@ -133,8 +133,9 @@ const LeftContainer = memo(function () {
               dispatch(searchActions.setSearchString(value));
               if (value !== "") navigate("/search");
             }}
+            category={'casino'}
           />
-          {/* )} */}
+
           {casinoMenuItems.map((casinoMenuItem, index) => {
             if (casinoMenuItem.category) {
               if (fullLeftContainer) {
@@ -196,6 +197,7 @@ const LeftContainer = memo(function () {
               dispatch(searchActions.setSearchString(value));
               if (value !== "") navigate("/searchEvent");
             }}
+            category={'sports'}
           />
           {/* )} */}
 
