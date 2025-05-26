@@ -47,13 +47,13 @@ const FilterBar = (props) => {
       return;
     }
 
-    const po = casinoVendors.map((v) => {
-      return {
+    const po = casinoVendors
+      .map((v) => ({
         id: v.Data.BrandId,
         label: v.Data.Name,
         value: v.GameCount,
-      };
-    });
+      }))
+      .sort((a, b) => a.label.localeCompare(b.label));
 
     const cp = casinoVendors
       .filter((v) => selectedProviders.includes(v.Data.Name))
