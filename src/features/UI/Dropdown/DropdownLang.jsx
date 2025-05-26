@@ -45,7 +45,7 @@ const DropdownLang = (props) => {
       case "ar":
         return "عربي";
       case "el":
-      case "gr":
+        // case "gr":
         return "Ελληνικά";
       case "it":
         return "Italiano";
