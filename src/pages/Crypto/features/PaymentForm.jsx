@@ -32,6 +32,7 @@ const PaymentForm = (props) => {
   const buttonLoading = useSelector((state) => state.crypto.buttonLoading);
   const defaultCountry = useSelector((state) => state.app.defaultCountry);
 
+  const [paymiFrame, setPaymiFrame] = useState(null);
   const [formData, setFormData] = useState({});
   const [disabledButton, setDisabledButton] = useState(true);
   const [siteCountry, setSiteCountry] = useState("");
@@ -320,6 +321,9 @@ const PaymentForm = (props) => {
           if (field.Name === "Country" && field.DefaultValue) {
             f[field.Name] = siteCountry ? siteCountry : "";
             // f[field.Name] = field.DefaultValue;
+          }
+          else if (field.Name == "iframeUrl" && field.DefaultValue) {
+            setPaymiFrame(field.DefaultValue);
           } else {
             const value =
               (field.DefaultValue !== "-" && field.DefaultValue) || "";
@@ -744,8 +748,25 @@ const PaymentForm = (props) => {
     );
   };
 
+  const setiFrame = (field) => {
+    setPaymiFrame(field.DefaultValue);
+  }
+
   return (
     <div className={classes.PaymentForm}>
+      {paymiFrame &&
+        <div className={classes.IFrameWrapper}>
+          <iframe
+            className={classes.paymIframe}
+            src={paymiFrame}
+            referrerPolicy="no-referrer"
+            allow="autoplay; clipboard-write; fullscreen"
+            allowFullScreen
+            width="100%"
+            height="100%"
+          ></iframe>
+        </div>
+      }
       {props.method && props.method.Fields && (
         <>
           {props.icon != null && props.icon !== "" && (
@@ -780,23 +801,29 @@ const PaymentForm = (props) => {
             )}
           </div>
           <form onSubmit={handleSubmit} className={classes.InputsForm}>
-            {props.method.Fields.map((field) => renderInputField(field))}
-            <div className={classes.Text}>
-              <span
-                style={{
-                  display: "flex",
-                  columnGap: " 0.3rem",
-                  color: " white",
-                  fontSize: "0.7rem",
-                }}
-              >
-                <p style={{ color: "var(--brand-green)" }}>*</p>
-                {translate("Required Fields")}
-              </span>
-            </div>
+            {props.method.Fields
+              .filter((field) => field.Name !== "iframeUrl")
+              .map((field) => renderInputField(field))}
+            {!paymiFrame && (
+              <div className={classes.Text}>
+                <span
+                  style={{
+                    display: "flex",
+                    columnGap: " 0.3rem",
+                    color: " white",
+                    fontSize: "0.7rem",
+                  }}
+                >
+                  <p style={{ color: "var(--brand-green)" }}>*</p>
+                  {translate("Required Fields")}
+                </span>
+              </div>
+            )}
 
-            {buttonLoading ? null : (
-              <button
+
+            {buttonLoading && !paymiFrame ? null : (
+              !paymiFrame &&
+              < button
                 type="submit"
                 className={
                   disabledButton
@@ -816,9 +843,11 @@ const PaymentForm = (props) => {
               </div>
             )}
           </form>
+
         </>
-      )}
-    </div>
+      )
+      }
+    </div >
   );
 };
 

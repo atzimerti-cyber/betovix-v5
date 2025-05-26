@@ -165,5 +165,10 @@
 }
 
 input[type="date"] {
-  color-scheme: dark; 
+  color-scheme: dark;
+}
+.IFrameWrapper {
+  display: flex;
+  height: 350px;
+  margin-bottom: 1rem;
 }
