@@ -122,19 +122,19 @@ const LeftContainer = memo(function () {
       (permissions.AllowToCasino || permissions.AllowToSlots) && (
         <>
           <div className={classes.SideMenuDivider} id="SideMenuDivider"></div>
-          {!isMobile && (
-            <Search
-              placeholder={translate("Search Casino")}
-              hide={!fullLeftContainer}
-              dataTooltipId="left-menu-tooltip"
-              dataTooltipContent={translate("Search Casino")}
-              value={searchString}
-              onChange={(value) => {
-                dispatch(searchActions.setSearchString(value));
-                if (value !== "") navigate("/search");
-              }}
-            />
-          )}
+          {/* {!isMobile && ( */}
+          <Search
+            placeholder={translate("Search Casino")}
+            hide={!fullLeftContainer}
+            dataTooltipId="left-menu-tooltip"
+            dataTooltipContent={translate("Search Casino")}
+            value={searchString}
+            onChange={(value) => {
+              dispatch(searchActions.setSearchString(value));
+              if (value !== "") navigate("/search");
+            }}
+          />
+          {/* )} */}
           {casinoMenuItems.map((casinoMenuItem, index) => {
             if (casinoMenuItem.category) {
               if (fullLeftContainer) {
@@ -185,19 +185,19 @@ const LeftContainer = memo(function () {
         <>
           <div className={classes.SideMenuDivider} id="SideMenuDivider"></div>
 
-          {!isMobile && (
-            <Search
-              placeholder={translate("Search Event")}
-              hide={!fullLeftContainer}
-              dataTooltipId="left-menu-tooltip"
-              dataTooltipContent={translate("Search Event")}
-              value={searchString}
-              onChange={(value) => {
-                dispatch(searchActions.setSearchString(value));
-                if (value !== "") navigate("/searchEvent");
-              }}
-            />
-          )}
+          {/* {!isMobile && ( */}
+          <Search
+            placeholder={translate("Search Event")}
+            hide={!fullLeftContainer}
+            dataTooltipId="left-menu-tooltip"
+            dataTooltipContent={translate("Search Event")}
+            value={searchString}
+            onChange={(value) => {
+              dispatch(searchActions.setSearchString(value));
+              if (value !== "") navigate("/searchEvent");
+            }}
+          />
+          {/* )} */}
 
           <div className={classes.SideMenuContainer} id="sideMenuContainer">
             <div className={classes.SideMenuSubButtonContainer}>
