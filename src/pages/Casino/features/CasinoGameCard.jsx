@@ -13,12 +13,14 @@ import { casinoActions } from "../casinoSlice";
 
 import PlayButton from "../../../assets/svgs/playbutton.svg?react";
 import useTouchScreen from "../../../hooks/useTouchScreen";
+import config from "../../../config";
 
 const CasinoGameCard = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [isFavorite, setIsFavorite] = useState(props.game.isFav);
+  const inModal = config.CASINO_OPEN_STYLE;
 
   const isTouchScreen = useTouchScreen();
   const lang = useSelector((state) => state.app.lang);
@@ -44,10 +46,6 @@ const CasinoGameCard = (props) => {
     ? "live"
     : "slots";
 
-  const openGameModal = (game) => {
-    dispatch(casinoActions.setGameOptionsModal(game));
-    addParamsToUrl("game-options");
-  };
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);
@@ -59,11 +57,48 @@ const CasinoGameCard = (props) => {
     });
   };
 
+  // const openGameModal = (game) => {
+  //   dispatch(casinoActions.setGameOptionsModal(game));
+  //   addParamsToUrl("game-options");
+  // };
+
+  const openGameModal = (game) => {
+    if (inModal === 'FULLSCREEN') {
+      const gameType = game.Data.Tags.toLowerCase().includes("live")
+        ? "live"
+        : "slots";
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set('modal', 'cgame');
+
+      searchParams.set('ty', gameType);
+      searchParams.set('pn', game.Data.ProviderName);
+      searchParams.set('gameid', game.Data.Id);
+      searchParams.set('bgid', game.Data.BrandGameId);
+      searchParams.set('name', game.Data.Name);
+      searchParams.set('isBonus', false);
+
+      navigate(`${location.pathname}?${searchParams.toString()}`, {
+        replace: false,
+      });
+    } else {
+      dispatch(casinoActions.setGameOptionsModal(game));
+      addParamsToUrl("game-options");
+    }
+
+  };
+
   return (
     <div
       className={classes.SlideContainer}
+      // onClick={() => {
+      //   !props.game.isLocked && isTouchScreen && openGameModal(props.game);
+      // }}
       onClick={() => {
-        !props.game.isLocked && isTouchScreen && openGameModal(props.game);
+        inModal === 'FULLSCREEN' ? (
+          !props.game.isLocked && openGameModal(props.game)
+        ) : (
+          !props.game.isLocked && isTouchScreen && openGameModal(props.game)
+        )
       }}
       style={props.game.isLocked ? { pointerEvents: "none" } : {}}
     >
@@ -95,7 +130,7 @@ const CasinoGameCard = (props) => {
         {props.game.isNew && (
           <div className={classes.NewLabel}>{translate("NEW")}</div>
         )}
-        {!isTouchScreen && !props.game.isLocked && (
+        {!isTouchScreen && !props.game.isLocked && inModal !== 'FULLSCREEN' && (
           <div className={classes.OverlayContainer}>
             <div className={classes.InfoContainer}>
               <div className={classes.FavContainer}>
