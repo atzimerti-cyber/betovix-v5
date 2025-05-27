@@ -1,6 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import { AnimatePresence } from "framer-motion";
 import { useMediaQuery } from "react-responsive";
@@ -33,7 +33,14 @@ const CasinoGame = (props) => {
 
   const lang = useSelector((state) => state.app.lang);
   const prevPage = useSelector((state) => state.app.prevPage);
-  const { type, providername, id, brandgameid, name } = useParams();
+  // const { type, providername, id, brandgameid, name } = useParams();
+  let { type, providername, id, brandgameid, name } = useParams();
+  const [searchParams] = useSearchParams();
+  type = type || searchParams.get("ty");
+  providername = providername || searchParams.get("pn");
+  id = id || searchParams.get("gameid");
+  brandgameid = brandgameid || searchParams.get("bgid");
+  name = name || searchParams.get("name");
 
   const gameContentRef = useRef(null);
 

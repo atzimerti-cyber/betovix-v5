@@ -22,6 +22,7 @@ import _ from "lodash";
 import { useMediaQuery } from "react-responsive";
 import useTouchScreen from "../../../hooks/useTouchScreen";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
+import config from "../../../config";
 
 const Cat3Swiper = (props) => {
   const dispatch = useDispatch();
@@ -29,6 +30,7 @@ const Cat3Swiper = (props) => {
   const location = useLocation();
 
   const lang = useSelector((state) => state.app.lang);
+  const inModal = config.CASINO_OPEN_STYLE;
 
   const notGridSwiper = useMediaQuery({ query: "(max-width: 700px)" });
 
@@ -100,9 +102,34 @@ const Cat3Swiper = (props) => {
     }
   };
 
+  // const openGameModal = (game) => {
+  //   dispatch(casinoActions.setGameOptionsModal(game));
+  //   addParamsToUrl("game-options");
+  // };
+
   const openGameModal = (game) => {
-    dispatch(casinoActions.setGameOptionsModal(game));
-    addParamsToUrl("game-options");
+    if (inModal === 'FULLSCREEN') {
+      const gameType = game.Data.Tags.toLowerCase().includes("live")
+        ? "live"
+        : "slots";
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set('modal', 'cgame');
+
+      searchParams.set('ty', gameType);
+      searchParams.set('pn', game.Data.ProviderName);
+      searchParams.set('gameid', game.Data.Id);
+      searchParams.set('bgid', game.Data.BrandGameId);
+      searchParams.set('name', game.Data.Name);
+      searchParams.set('isBonus', false);
+
+      navigate(`${location.pathname}?${searchParams.toString()}`, {
+        replace: false,
+      });
+    } else {
+      dispatch(casinoActions.setGameOptionsModal(game));
+      addParamsToUrl("game-options");
+    }
+
   };
 
   return (
@@ -182,10 +209,17 @@ const Cat3Swiper = (props) => {
                         <div
                           className={classes.SlideContainer}
                           style={item.isLocked ? { pointerEvents: "none" } : {}}
+                          // onClick={() => {
+                          //   item.isLocked
+                          //     ? null
+                          //     : isTouchScreen && openGameModal(item);
+                          // }}
                           onClick={() => {
-                            item.isLocked
-                              ? null
-                              : isTouchScreen && openGameModal(item);
+                            inModal === 'FULLSCREEN' ? (
+                              !item.isLocked && openGameModal(item)
+                            ) : (
+                              !item.isLocked && isTouchScreen && openGameModal(item)
+                            )
                           }}
                         >
                           <div className={classes.BackgroundContainer}>
@@ -209,7 +243,7 @@ const Cat3Swiper = (props) => {
                               </div>
                             </article>
                           </div>
-                          {!isTouchScreen && !item.isLocked && (
+                          {!isTouchScreen && !item.isLocked && inModal !== 'FULLSCREEN' && (
                             <div className={classes.OverlayContainer}>
                               <div className={classes.InfoContainer}>
                                 <div>

@@ -21,6 +21,7 @@ import { translate } from "../../../utils/translations";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 import _ from "lodash";
 import { casinoActions } from "../../../pages/Casino/casinoSlice";
+import config from "../../../config";
 
 const Cat2Swiper = (props) => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const Cat2Swiper = (props) => {
   const location = useLocation();
 
   const lang = useSelector((state) => state.app.lang);
+  const inModal = config.CASINO_OPEN_STYLE;
 
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
@@ -101,10 +103,10 @@ const Cat2Swiper = (props) => {
     }
   };
 
-  const openGameModal = (game) => {
-    dispatch(casinoActions.setGameOptionsModal(game));
-    addParamsToUrl("game-options");
-  };
+  // const openGameModal = (game) => {
+  //   dispatch(casinoActions.setGameOptionsModal(game));
+  //   addParamsToUrl("game-options");
+  // };
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);
@@ -114,6 +116,30 @@ const Cat2Swiper = (props) => {
     navigate(`${location.pathname}?${searchParams.toString()}`, {
       replace: true,
     });
+  };
+
+  const openGameModal = (game) => {
+    if (inModal === 'FULLSCREEN') {
+      const gameType = game.Data.Tags.toLowerCase().includes("live")
+        ? "live"
+        : "slots";
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set('modal', 'cgame');
+
+      searchParams.set('ty', gameType);
+      searchParams.set('pn', game.Data.ProviderName);
+      searchParams.set('gameid', game.Data.Id);
+      searchParams.set('bgid', game.Data.BrandGameId);
+      searchParams.set('name', game.Data.Name);
+      searchParams.set('isBonus', false);
+
+      navigate(`${location.pathname}?${searchParams.toString()}`, {
+        replace: false,
+      });
+    } else {
+      dispatch(casinoActions.setGameOptionsModal(game));
+      addParamsToUrl("game-options");
+    }
   };
 
   return (
@@ -146,11 +172,6 @@ const Cat2Swiper = (props) => {
                 <SwiperSlide key={item.Data.Id}>
                   <div
                     className={classes.SlideContainer}
-                    // style={
-                    //   bonusBalance > 0
-                    //     ? { minHeight: "213px" }
-                    //     : { minHeight: "178px" }
-                    // }
                     style={{
                       minHeight: bonusBalance > 0 ? "213px" : "178px",
                       ...(item.isLocked && { pointerEvents: "none" }),
@@ -183,13 +204,13 @@ const Cat2Swiper = (props) => {
                       style={
                         item.isLocked
                           ? {
-                              background:
-                                "linear-gradient(90deg, rgba(0, 0, 0, 0.7) 70%, rgba(0, 0, 0, 0.76) 90%)",
-                            }
+                            background:
+                              "linear-gradient(90deg, rgba(0, 0, 0, 0.7) 70%, rgba(0, 0, 0, 0.76) 90%)",
+                          }
                           : {
-                              background:
-                                "linear-gradient(90deg,transparent 0%,#0000001a 50%,  rgba(0, 0, 0, 0.56) 70%,  hsla(0, 0%, 0%, 0.76) 90% )",
-                            }
+                            background:
+                              "linear-gradient(90deg,transparent 0%,#0000001a 50%,  rgba(0, 0, 0, 0.56) 70%,  hsla(0, 0%, 0%, 0.76) 90% )",
+                          }
                       }
                     >
                       <div className={classes.InfoContainer}>

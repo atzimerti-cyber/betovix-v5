@@ -1,0 +1,5 @@
+.GameModal {
+  height: 95dvh;
+  width: 95dvw;
+  display: flex;
+}

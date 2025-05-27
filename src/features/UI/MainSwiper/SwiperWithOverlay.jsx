@@ -21,6 +21,7 @@ import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 import _ from "lodash";
 import useTouchScreen from "../../../hooks/useTouchScreen";
 import { casinoActions } from "../../../pages/Casino/casinoSlice";
+import config from "../../../config";
 
 const SwiperWithOverlay = (props) => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const SwiperWithOverlay = (props) => {
   const isTouchScreen = useTouchScreen(); // Detect if the device has a touchscreen
 
   const lang = useSelector((state) => state.app.lang);
+  const inModal = config.CASINO_OPEN_STYLE;
 
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
@@ -114,9 +116,35 @@ const SwiperWithOverlay = (props) => {
       });
     }
   };
+
+  // const openGameModal = (game) => {
+  //   dispatch(casinoActions.setGameOptionsModal(game));
+  //   addParamsToUrl("game-options");
+  // };
+
   const openGameModal = (game) => {
-    dispatch(casinoActions.setGameOptionsModal(game));
-    addParamsToUrl("game-options");
+    if (inModal === 'FULLSCREEN') {
+      const gameType = game.Data.Tags.toLowerCase().includes("live")
+        ? "live"
+        : "slots";
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set('modal', 'cgame');
+
+      searchParams.set('ty', gameType);
+      searchParams.set('pn', game.Data.ProviderName);
+      searchParams.set('gameid', game.Data.Id);
+      searchParams.set('bgid', game.Data.BrandGameId);
+      searchParams.set('name', game.Data.Name);
+      searchParams.set('isBonus', false);
+
+      navigate(`${location.pathname}?${searchParams.toString()}`, {
+        replace: false,
+      });
+    } else {
+      dispatch(casinoActions.setGameOptionsModal(game));
+      addParamsToUrl("game-options");
+    }
+
   };
 
   return (
@@ -162,7 +190,11 @@ const SwiperWithOverlay = (props) => {
                 <SwiperSlide key={item.Data.Id}>
                   <div
                     onClick={() => {
-                      !item.isLocked && isTouchScreen && openGameModal(item);
+                      inModal === 'FULLSCREEN' ? (
+                        !item.isLocked && openGameModal(item)
+                      ) : (
+                        !item.isLocked && isTouchScreen && openGameModal(item)
+                      )
                     }}
                     className={classes.SlideContainer}
                     style={{
@@ -202,7 +234,7 @@ const SwiperWithOverlay = (props) => {
                         {item.isNew && (
                           <div className={classes.NewLabel}>NEW</div>
                         )}
-                        {!isTouchScreen && !item.isLocked && (
+                        {!isTouchScreen && !item.isLocked && inModal !== 'FULLSCREEN' && (
                           <div className={classes.OverlayContainer}>
                             <div className={classes.InfoContainer}>
                               <div className={classes.FavContainer}>

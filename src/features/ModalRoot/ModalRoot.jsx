@@ -35,6 +35,7 @@ import TfaModal from "./Modals/TfaModal";
 import PromoCodeModal from "./Modals/PromoCodeModal";
 import NotificationPopUp from "./Modals/NotificationPopUp";
 import CalendarModal from "./Modals/CalendarModal";
+import CasinoGameInModal from "./Modals/CasinoGameInModal";
 
 const ModalRoot = () => {
   const navigate = useNavigate();
@@ -125,7 +126,8 @@ const ModalRoot = () => {
     if (user) modalPage = <CasinoGameOptionsModal onClose={returnToPrevious} />;
     else
       modalPage = <Navigate replace to={getUrlWithParams("auth", "login")} />;
-  }
+  } else if (modal === "cgame")
+    modalPage = <CasinoGameInModal onClose={returnToPrevious} />;
 
   useEffect(() => {
     const isShown = sessionStorage.getItem("promoShown");
