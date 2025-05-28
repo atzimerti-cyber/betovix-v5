@@ -24,6 +24,7 @@ const CasinoGameCard = (props) => {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
+  const inModal = useSelector((state) => state.app.siteSettings?.CasinoGameStyle);
 
   const [isFavorite, setIsFavorite] = useState(props.game.isFav);
 
@@ -48,8 +49,27 @@ const CasinoGameCard = (props) => {
   };
 
   const openGameModal = (game) => {
-    dispatch(casinoActions.setGameOptionsModal(game));
-    addParamsToUrl("game-options");
+    if (inModal === 'FULLSCREEN') {
+      const gameType = game.Data.Tags.toLowerCase().includes("live")
+        ? "live"
+        : "slots";
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set('modal', 'cgame');
+      searchParams.set('ty', gameType);
+      searchParams.set('pn', game.Data.ProviderName);
+      searchParams.set('gameid', game.Data.Id);
+      searchParams.set('bgid', game.Data.BrandGameId);
+      searchParams.set('name', game.Data.Name);
+      searchParams.set('isBonus', false);
+
+      navigate(`${location.pathname}?${searchParams.toString()}`, {
+        replace: false,
+      });
+    } else {
+      dispatch(casinoActions.setGameOptionsModal(game));
+      addParamsToUrl("game-options");
+    }
+
   };
 
   const addParamsToUrl = (modal, tab) => {
@@ -67,7 +87,11 @@ const CasinoGameCard = (props) => {
       <div
         className={classes.SlideContainer}
         onClick={() => {
-          !props.game.isLocked && isTouchScreen && openGameModal(props.game);
+          isTouchScreen ? (
+            !props.game.isLocked && openGameModal(props.game)
+          ) : (
+            inModal !== 'WITHBONUS' && !props.game.isLocked && openGameModal(props.game)
+          )
         }}
         style={props.game.isLocked ? { pointerEvents: "none" } : {}}
       >
@@ -99,34 +123,18 @@ const CasinoGameCard = (props) => {
           {props.game.isNew && (
             <div className={classes.NewLabel}>{translate("NEW")}</div>
           )}
-          {!isTouchScreen && !props.game.isLocked && (
+          {!isTouchScreen && !props.game.isLocked && inModal === 'WITHBONUS' && (
             <div className={classes.OverlayContainer}>
               <div className={classes.InfoContainer}>
                 {user && (
                   <div className={classes.FavContainer}>
-                    {/* <HeartIcon
-                    className={props.game.isFav ? classes.FavoriteIcon : null}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      e.preventDefault();
-                      if (user) {
-                        onToggleFavorite(props.game);
-                      } else {
-                        toast.warning("Login to access this feature");
-                      }
-                    }}
-                  /> */}
+
                     <HeartIcon
                       className={isFavorite ? classes.FavoriteIcon : null}
                       onClick={(e) => {
                         e.stopPropagation();
                         e.preventDefault();
                         onToggleFavorite();
-                        // if (user) {
-                        //   onToggleFavorite(props.game);
-                        // } else {
-                        //   toast.warning("Login to access this feature");
-                        // }
                       }}
                     />
                   </div>
@@ -140,25 +148,20 @@ const CasinoGameCard = (props) => {
                 </div>
               </div>
               <div className={classes.ButtonsContainer}>
-                <Link
-                  to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}?isBonus=false`}
-                >
-                  <div className={classes.PlayBtnContainer}>
-                    <button className={classes.PlayBtn}>
-                      <PlayButton />
+                <div className={classes.PlayBtnContainer} >
+                  <button className={classes.PlayBtn} onClick={() => {
+                    !props.game.isLocked && openGameModal(props.game)
+                  }}>
+                    <PlayButton />
+                  </button>
+                </div>
+                {bonusBalance > 0 && props.game.allowBonus && (
+                  <div className={classes.isBonus}>
+                    <button className={classes.bonusContainer}>
+                      <GiftIcon />
+                      <p>{translate("Available with Bonus")}</p>
                     </button>
                   </div>
-                </Link>
-                {bonusBalance > 0 && props.game.allowBonus && (
-                  <Link
-                    to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}?isBonus=true`}
-                  >
-                    <div className={classes.isBonus}>
-                      <button className={classes.bonusContainer}>
-                        <GiftIcon />
-                      </button>
-                    </div>
-                  </Link>
                 )}
               </div>
             </div>

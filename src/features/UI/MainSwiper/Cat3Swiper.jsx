@@ -22,7 +22,6 @@ import _ from "lodash";
 import { useMediaQuery } from "react-responsive";
 import useTouchScreen from "../../../hooks/useTouchScreen";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
-import config from "../../../config";
 
 const Cat3Swiper = (props) => {
   const dispatch = useDispatch();
@@ -30,7 +29,7 @@ const Cat3Swiper = (props) => {
   const location = useLocation();
 
   const lang = useSelector((state) => state.app.lang);
-  const inModal = config.CASINO_OPEN_STYLE;
+  const inModal = useSelector((state) => state.app.siteSettings?.CasinoGameStyle);
 
   const notGridSwiper = useMediaQuery({ query: "(max-width: 700px)" });
 
@@ -209,16 +208,11 @@ const Cat3Swiper = (props) => {
                         <div
                           className={classes.SlideContainer}
                           style={item.isLocked ? { pointerEvents: "none" } : {}}
-                          // onClick={() => {
-                          //   item.isLocked
-                          //     ? null
-                          //     : isTouchScreen && openGameModal(item);
-                          // }}
                           onClick={() => {
-                            inModal === 'FULLSCREEN' ? (
+                            isTouchScreen ? (
                               !item.isLocked && openGameModal(item)
                             ) : (
-                              !item.isLocked && isTouchScreen && openGameModal(item)
+                              inModal !== 'WITHBONUS' && !item.isLocked && openGameModal(item)
                             )
                           }}
                         >
@@ -243,7 +237,7 @@ const Cat3Swiper = (props) => {
                               </div>
                             </article>
                           </div>
-                          {!isTouchScreen && !item.isLocked && inModal !== 'FULLSCREEN' && (
+                          {!isTouchScreen && !item.isLocked && inModal === 'WITHBONUS' && (
                             <div className={classes.OverlayContainer}>
                               <div className={classes.InfoContainer}>
                                 <div>
@@ -253,27 +247,28 @@ const Cat3Swiper = (props) => {
                                 </div>
                               </div>
                               <div className={classes.ButtonsContainer}>
-                                <Link
+                                {/* <Link
                                   to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
-                                >
-                                  <div className={classes.PlayBtnContainer}>
-                                    <button className={classes.PlayBtn}>
-                                      <PlayButton />
+                                > */}
+                                <div className={classes.PlayBtnContainer}>
+                                  <button className={classes.PlayBtn} onClick={() => {
+                                    !item.isLocked && openGameModal(item)
+                                  }}>
+                                    <PlayButton />
+                                  </button>
+                                </div>
+                                {/* </Link> */}
+                                {bonusBalance > 0 && item.allowBonus && (
+                                  // <Link
+                                  //   to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
+                                  // >
+                                  <div className={classes.isBonus}>
+                                    <button className={classes.bonusContainer}>
+                                      <GiftIcon />
+                                      <p>{translate("Available with Bonus")}</p>
                                     </button>
                                   </div>
-                                </Link>
-                                {bonusBalance > 0 && item.allowBonus && (
-                                  <Link
-                                    to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
-                                  >
-                                    <div className={classes.isBonus}>
-                                      <button
-                                        className={classes.bonusContainer}
-                                      >
-                                        <GiftIcon />
-                                      </button>
-                                    </div>
-                                  </Link>
+                                  // </Link>
                                 )}
                               </div>
                             </div>

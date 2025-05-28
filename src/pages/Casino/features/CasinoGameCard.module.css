@@ -33,27 +33,6 @@
   }
 }
 
-.isBonus button {
-  color: var(--lightcolor-op1);
-  border: 1px solid var(--db-gray-4);
-  animation: 6s ease 0s infinite normal none running jQMcyq;
-  width: 100%;
-  font-weight: 500;
-  font-size: 11px;
-  margin-top: 5px;
-  border-radius: 5px;
-  padding: 3px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  line-height: normal;
-  padding: 4px 10px;
-}
-
-.isBonus button svg {
-  height: 16px;
-  width: 16px;
-}
 @media (max-width: 500px) {
   .isBonus button svg {
     display: none;
@@ -280,12 +259,11 @@
 
 .InfoContainer {
   display: flex;
-  /* flex-direction: row; */
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 0rem 0.9rem 0.1rem 0.9rem;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   width: 60%;
 }
 .InfoContainer > div {
@@ -334,12 +312,10 @@
 
 .ButtonsContainer {
   display: flex;
-  /* flex-direction: row; */
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  /* padding: 0.9rem 0.9rem 0.1rem 0.9rem; */
-  padding: 1rem;
+  justify-content: center;
+  gap: 1rem;
 }
 .FavContainer {
   display: flex;
@@ -360,6 +336,7 @@
 .PlayBtnContainer {
   width: 100%;
   display: flex;
+  justify-content: center;
 }
 .PlayBtn {
   background: #7d7d7db6;
@@ -412,40 +389,6 @@
 }
 
 /* .isBonus button {
-  color: #ebfbff;
-  border: 1px solid var(--db-gray-4);
-  animation: 6s ease 0s infinite normal none running jQMcyq;
-  width: max-content;
-  font-weight: 400;
-  font-size: 11px;
-  margin-top: 5px;
-  border-radius: 5px;
-  padding: 3px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  line-height: normal;
-  padding: 4px 10px;
-  background-color: #8dbcc96b;
-  column-gap: 0.5rem;
-}
-
-.isBonus button svg {
-  height: 20px;
-  width: 20px;
-}
-.isBonus > button:hover {
-  background-color: #6bc6e091;
-  color: #ffffff;
-}
-
-@media (max-width: 500px) {
-  .isBonus button svg {
-    display: none;
-  }
-} */
-
-.isBonus button {
   border: 1px solid var(--db-gray-4);
   animation: 6s ease 0s infinite normal none running jQMcyq;
   height: 3rem;
@@ -460,11 +403,27 @@
   column-gap: 0.5rem;
   text-align: center;
   text-wrap: wrap;
+} */
+.isBonus button {
+  pointer-events: none;
+  cursor: default;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: normal;
+  gap: 0.2rem;
+  text-align: center;
+  text-wrap: wrap;
+  transition: transform 0.09s linear;
+  font-size: 11px;
+  flex-direction: column;
+  color: white;
 }
 
 .isBonus button svg {
-  height: 20px;
-  width: 20px;
+  height: 15px;
+  width: 15px;
 }
 .isBonus button span {
   color: #ebfbff;

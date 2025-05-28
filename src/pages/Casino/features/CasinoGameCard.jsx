@@ -13,14 +13,14 @@ import { casinoActions } from "../casinoSlice";
 
 import PlayButton from "../../../assets/svgs/playbutton.svg?react";
 import useTouchScreen from "../../../hooks/useTouchScreen";
-import config from "../../../config";
 
 const CasinoGameCard = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [isFavorite, setIsFavorite] = useState(props.game.isFav);
-  const inModal = config.CASINO_OPEN_STYLE;
+  const inModal = useSelector((state) => state.app.siteSettings?.CasinoGameStyle);
+
 
   const isTouchScreen = useTouchScreen();
   const lang = useSelector((state) => state.app.lang);
@@ -69,7 +69,6 @@ const CasinoGameCard = (props) => {
         : "slots";
       const searchParams = new URLSearchParams(location.search);
       searchParams.set('modal', 'cgame');
-
       searchParams.set('ty', gameType);
       searchParams.set('pn', game.Data.ProviderName);
       searchParams.set('gameid', game.Data.Id);
@@ -90,14 +89,11 @@ const CasinoGameCard = (props) => {
   return (
     <div
       className={classes.SlideContainer}
-      // onClick={() => {
-      //   !props.game.isLocked && isTouchScreen && openGameModal(props.game);
-      // }}
       onClick={() => {
-        inModal === 'FULLSCREEN' ? (
+        isTouchScreen ? (
           !props.game.isLocked && openGameModal(props.game)
         ) : (
-          !props.game.isLocked && isTouchScreen && openGameModal(props.game)
+          inModal !== 'WITHBONUS' && !props.game.isLocked && openGameModal(props.game)
         )
       }}
       style={props.game.isLocked ? { pointerEvents: "none" } : {}}
@@ -130,7 +126,7 @@ const CasinoGameCard = (props) => {
         {props.game.isNew && (
           <div className={classes.NewLabel}>{translate("NEW")}</div>
         )}
-        {!isTouchScreen && !props.game.isLocked && inModal !== 'FULLSCREEN' && (
+        {!isTouchScreen && !props.game.isLocked && inModal === 'WITHBONUS' && (
           <div className={classes.OverlayContainer}>
             <div className={classes.InfoContainer}>
               <div className={classes.FavContainer}>
@@ -149,25 +145,20 @@ const CasinoGameCard = (props) => {
               </div>
             </div>
             <div className={classes.ButtonsContainer}>
-              <Link
-                to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}?isBonus=false`}
-              >
-                <div className={classes.PlayBtnContainer}>
-                  <button className={classes.PlayBtn}>
-                    <PlayButton />
+              <div className={classes.PlayBtnContainer}>
+                <button className={classes.PlayBtn} onClick={() => {
+                  !props.game.isLocked && openGameModal(props.game)
+                }}>
+                  <PlayButton />
+                </button>
+              </div>
+              {bonusBalance > 0 && props.game.allowBonus && (
+                <div className={classes.isBonus}>
+                  <button className={classes.bonusContainer}>
+                    <GiftIcon />
+                    {/* <p>{translate("Available with Bonus")}</p> */}
                   </button>
                 </div>
-              </Link>
-              {bonusBalance > 0 && props.game.allowBonus && (
-                <Link
-                  to={`/casino/game/${gameType}/${props.game.Data.ProviderName}/${props.game.Data.Id}/${props.game.Data.BrandGameId}/${props.game.Data.Name}?isBonus=true`}
-                >
-                  <div className={classes.isBonus}>
-                    <button className={classes.bonusContainer}>
-                      <GiftIcon />
-                    </button>
-                  </div>
-                </Link>
               )}
             </div>
           </div>

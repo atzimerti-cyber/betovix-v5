@@ -21,7 +21,6 @@ import { translate } from "../../../utils/translations";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 import _ from "lodash";
 import { casinoActions } from "../../../pages/Casino/casinoSlice";
-import config from "../../../config";
 
 const Cat2Swiper = (props) => {
   const dispatch = useDispatch();
@@ -29,7 +28,8 @@ const Cat2Swiper = (props) => {
   const location = useLocation();
 
   const lang = useSelector((state) => state.app.lang);
-  const inModal = config.CASINO_OPEN_STYLE;
+  const inModal = useSelector((state) => state.app.siteSettings?.CasinoGameStyle);
+
 
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);

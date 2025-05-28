@@ -21,7 +21,6 @@ import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 import _ from "lodash";
 import useTouchScreen from "../../../hooks/useTouchScreen";
 import { casinoActions } from "../../../pages/Casino/casinoSlice";
-import config from "../../../config";
 
 const SwiperWithOverlay = (props) => {
   const dispatch = useDispatch();
@@ -29,7 +28,7 @@ const SwiperWithOverlay = (props) => {
   const isTouchScreen = useTouchScreen(); // Detect if the device has a touchscreen
 
   const lang = useSelector((state) => state.app.lang);
-  const inModal = config.CASINO_OPEN_STYLE;
+  const inModal = useSelector((state) => state.app.siteSettings?.CasinoGameStyle);
 
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
@@ -117,13 +116,8 @@ const SwiperWithOverlay = (props) => {
     }
   };
 
-  // const openGameModal = (game) => {
-  //   dispatch(casinoActions.setGameOptionsModal(game));
-  //   addParamsToUrl("game-options");
-  // };
-
   const openGameModal = (game) => {
-    if (inModal === 'FULLSCREEN') {
+    if (inModal !== 'WITHBONUS') {
       const gameType = game.Data.Tags.toLowerCase().includes("live")
         ? "live"
         : "slots";
@@ -190,10 +184,10 @@ const SwiperWithOverlay = (props) => {
                 <SwiperSlide key={item.Data.Id}>
                   <div
                     onClick={() => {
-                      inModal === 'FULLSCREEN' ? (
+                      isTouchScreen ? (
                         !item.isLocked && openGameModal(item)
                       ) : (
-                        !item.isLocked && isTouchScreen && openGameModal(item)
+                        inModal !== 'WITHBONUS' && !item.isLocked && openGameModal(item)
                       )
                     }}
                     className={classes.SlideContainer}
@@ -234,7 +228,7 @@ const SwiperWithOverlay = (props) => {
                         {item.isNew && (
                           <div className={classes.NewLabel}>NEW</div>
                         )}
-                        {!isTouchScreen && !item.isLocked && inModal !== 'FULLSCREEN' && (
+                        {!isTouchScreen && !item.isLocked && inModal === 'WITHBONUS' && (
                           <div className={classes.OverlayContainer}>
                             <div className={classes.InfoContainer}>
                               <div className={classes.FavContainer}>
@@ -267,25 +261,20 @@ const SwiperWithOverlay = (props) => {
                               </div>
                             </div>
                             <div className={classes.ButtonsContainer}>
-                              <Link
-                                to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=false`}
-                              >
-                                <div className={classes.PlayBtnContainer}>
-                                  <button className={classes.PlayBtn}>
-                                    <PlayButton />
+                              <div className={classes.PlayBtnContainer} >
+                                <button className={classes.PlayBtn} onClick={() => {
+                                  !item.isLocked && openGameModal(item)
+                                }}>
+                                  <PlayButton />
+                                </button>
+                              </div>
+                              {bonusBalance > 0 && item.allowBonus && (
+                                <div className={classes.isBonus}>
+                                  <button className={classes.bonusContainer}>
+                                    <GiftIcon />
+                                    <p>{translate("Available with Bonus")}</p>
                                   </button>
                                 </div>
-                              </Link>
-                              {bonusBalance > 0 && item.allowBonus && (
-                                <Link
-                                  to={`/casino/game/${gameType}/${item.Data.ProviderName}/${item.Data.Id}/${item.Data.BrandGameId}/${item.Data.Name}?isBonus=true`}
-                                >
-                                  <div className={classes.isBonus}>
-                                    <button className={classes.bonusContainer}>
-                                      <GiftIcon />
-                                    </button>
-                                  </div>
-                                </Link>
                               )}
                             </div>
                           </div>

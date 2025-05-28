@@ -83,6 +83,28 @@ const CasinoGameOptionsModal = (props) => {
     props.onClose();
   };
 
+  const openGameModal = (game, isBonus) => {
+
+    const gameType = game.Data.Tags.toLowerCase().includes("live")
+      ? "live"
+      : "slots";
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set('modal', 'cgame');
+
+    searchParams.set('ty', gameType);
+    searchParams.set('pn', game.Data.ProviderName);
+    searchParams.set('gameid', game.Data.Id);
+    searchParams.set('bgid', game.Data.BrandGameId);
+    searchParams.set('name', game.Data.Name);
+    searchParams.set('isBonus', isBonus);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: false,
+    });
+
+
+  };
+
   return game && game.Data ? (
     <div className={classes.GameOptionsModal}>
       <div className={classes.ModalContent}>
@@ -125,30 +147,30 @@ const CasinoGameOptionsModal = (props) => {
               </span>
             </div>
           ) : (
-            <Link
-              to={`/casino/game/${gameType}/${game.Data.ProviderName}/${game.Data.Id}/${game.Data.BrandGameId}/${game.Data.Name}?isBonus=false`}
-              style={{ width: "100%" }}
-            >
-              <div className={classes.PlayBtnContainer}>
-                <button className={classes.PlayBtn}>
-                  <span>{translate("Play")}</span>
-                </button>
-              </div>
-            </Link>
+            // <Link
+            //   to={`/casino/game/${gameType}/${game.Data.ProviderName}/${game.Data.Id}/${game.Data.BrandGameId}/${game.Data.Name}?isBonus=false`}
+            //   style={{ width: "100%" }}
+            // >
+            <div className={classes.PlayBtnContainer}>
+              <button className={classes.PlayBtn} onClick={() => openGameModal(game, false)}>
+                <span>{translate("Play")}</span>
+              </button>
+            </div>
+            // </Link>
           )}
 
           {bonusBalance > 0 && game.allowBonus && !game.isLocked && (
-            <Link
-              style={{ width: "100%" }}
-              to={`/casino/game/${gameType}/${game.Data.ProviderName}/${game.Data.Id}/${game.Data.BrandGameId}/${game.Data.Name}?isBonus=true`}
-            >
-              <div className={classes.isBonus}>
-                <button className={classes.bonusContainer}>
-                  <GiftIcon />
-                  <span>{translate("Play With Bonus")}</span>
-                </button>
-              </div>
-            </Link>
+            // <Link
+            //   style={{ width: "100%" }}
+            //   to={`/casino/game/${gameType}/${game.Data.ProviderName}/${game.Data.Id}/${game.Data.BrandGameId}/${game.Data.Name}?isBonus=true`}
+            // >
+            <div className={classes.isBonus}>
+              <button className={classes.bonusContainer} onClick={() => openGameModal(game, true)}>
+                <GiftIcon />
+                <span>{translate("Play With Bonus")}</span>
+              </button>
+            </div>
+            // </Link>
           )}
         </div>
       </div>
