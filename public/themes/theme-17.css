@@ -405,7 +405,7 @@ div#PromoCard > div:first-child::after {
 }
 
 #layout.IsMobile #bottomBar #casinoButton {
-  background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/slot_button.png) !important;
+  background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/slot_button1.png) !important;
   background-size: contain !important;
   background-repeat: no-repeat !important;
   background-position: center !important;
@@ -779,16 +779,16 @@ div#homePage > div:nth-child(14) {
     height: 65px !important;
   }
   #layout.IsMobile #bottomBar #menuButton {
-    background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/mm_menu.png) !important;
+    background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/mm_menu1.png) !important;
   }
   #layout.IsMobile #bottomBar #sportsButton {
-    background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/mm_sport.png) !important;
+    background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/mm_sport1.png) !important;
   }
   #layout.IsMobile #bottomBar #liveCasino {
-    background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/mm_canli.png) !important;
+    background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/mm_canli1.png) !important;
   }
   #layout.IsMobile #bottomBar #betslip {
-    background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/mm_kupon.png) !important;
+    background-image: url(https://cdnwallet1.modulesports.com/uploads/promo/mm_kupon1.png) !important;
   }
   #layout.IsMobile #bottomBar #menuButton svg,
   #layout.IsMobile #bottomBar #sportsButton svg,
