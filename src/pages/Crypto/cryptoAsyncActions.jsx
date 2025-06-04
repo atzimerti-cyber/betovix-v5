@@ -144,7 +144,8 @@ export const submitDepositForm = (signal, depositDTO) => {
       if (
         depositDTO.PaymentProvider === "Interkassa" ||
         depositDTO.PaymentProvider === "Chapa" ||
-        depositDTO.PaymentProvider === "Jetpay"
+        depositDTO.PaymentProvider === "Jetpay" ||
+        depositDTO.PaymentProvider === "payguru"
       ) {
         window.location.href = response.data.Contents;
         //window.open(response.data.Contents, "_blank");
