@@ -4,29 +4,30 @@
   --white: #efefef;
   --white-lowop: #fbfbfbc2;
 
-  --body-bg: #141414;
+  --body-bg: #1e1e1e;
   --topbar-bg: #101010;
   --sb-search: #141414;
   --footer: #1a0331;
   --outer-container-left: #101010;
-  --sidebar-category-group: #141414;
-  --sidebar-left-menu-item: #141414;
+  --sidebar-category-group: #202020;
+  --sidebar-left-menu-item: #0f0f0f;
   --sidebar-casino-active: #bfbfbf52;
   --sidebar-casino-active-svg: var(--brand-green);
   --track-events-color: #af8b0291;
 
-  --brand-green: #e6182d;
-  --brand-green-lowop: #ff384f57;
+  --brand-green: #00e0a0;
+  --brand-green-lowop: #38ffbf57;
+  --darkcolor-low-op: var(--body-bg);
 
-  --brand-color: #e6182d;
+  --brand-color: #00e0a0;
   --text-in-brand: rgb(255, 255, 255);
 
   --placeholder-light: #ccccccab;
-  --light-blue: #e6182d;
-  --light-blue-2: #211d1f;
-  --db-gray-4: #3a2e2a;
+  --light-blue: #00e0a0;
+  --light-blue-2: #313131;
+  --db-gray-4: #505050;
   --mid-blue-1: #4a4a4a;
-  --mid-blue: #e6182d1c;
+  --mid-blue: #00976c;
   --dark-blue-1: #101010;
   --dark-blue: #212121;
   --dark-blue-lowop: #141414;
@@ -35,13 +36,13 @@
   --db-white-hover-light: hsla(0, 0%, 100%, 0.127);
 
   --odds-button-border: var(--brand-green);
-  --odds-button: #42373d;
+  --odds-button: #343434;
   --odds-button-disabled: #2121218f;
   --card-odds-button: #101010;
   --card-odds-button-selected: #2121215d;
   --card-odds-button-disabled: #4f4f4f30;
 
-  --badge-new-purple: #ff384f;
+  --badge-new-purple: #e6182d;
   --live-badge-purple: var(--brand-color);
 
   --db-like: #cfcfcf;
@@ -70,27 +71,19 @@
     #bfbfbf81 75%,
     #bfbfbf44 110%
   );
-  --button-grad-op1: linear-gradient(
-    45deg,
-    rgba(37, 34, 35, 0.76),
-    #2c2526d1 120%
-  );
-  --button-grad-op-mid: linear-gradient(
-    45deg,
-    rgba(37, 34, 35, 0.76),
-    #2c2526d1 120%
-  );
+  --button-grad-op1: #343434;
+  --button-grad-op-mid: #343434;
 
-  --provider-card-bg: #1a161c;
-  --provider-card-bg-lowOp: #1a161c;
+  --provider-card-bg: #343434;
+  --provider-card-bg-lowOp: #343434;
 
   --dropdown-bg: #1f1f1f;
 
   --swiper-container-grad: linear-gradient(45deg, #101010, #101010 120%);
-  --accordion-header: linear-gradient(45deg, #1b181a, #141414 120%);
-  --accordion-body: linear-gradient(45deg, #0e0d0e, #111011 120%);
-  --accordion-small-header: linear-gradient(45deg, #141414, #141414 120%);
-  --accordion-small-body: linear-gradient(45deg, #141113, #141113 120%);
+  --accordion-header: #343434;
+  --accordion-body: #161616;
+  --accordion-small-header: #343434;
+  --accordion-small-body: #161616;
   --casino-options-bg: radial-gradient(
       65.95% 124.31% at 100% 100%,
       #2e2e2e 10.17%,
@@ -453,14 +446,14 @@ div#PromoCard > div:first-child::after {
   margin-top: 5px;
 }
 ._PromoButton_1hwtg_925:hover {
-  background: #e6182d !important;
-  background-color: #e6182d !important;
+  background: #126e51 !important;
+  background-color: #126e51 !important;
 }
 ._Topbar_bqlaf_1 {
-  border-bottom: 2px solid #e6182d;
+  border-bottom: 2px solid #00e0a0;
 }
 #MainButton_secondary {
-  background-color: #e6182d !important;
+  background-color: #126e51 !important;
   color: #fff !important;
   /* background-image: url("https://cdnwallet1.modulesports.com/uploads/casinoGames/footerv3_1748860554513..png"); */
   background-size: cover;
@@ -475,7 +468,7 @@ div#PromoCard > div:first-child::after {
   font-family: "Poppins";
 } */
 ._Card_z6czp_101 {
-  border: 2px solid #e6182d;
+  border: 2px solid #00e0a0;
 }
 ._BackgroundContainer_z6czp_27 {
   display: none !important;
@@ -485,11 +478,11 @@ div#cryptoSwiper {
 }
 div#liveEventsSwiper {
   margin: 10px 0;
-  border: 2px solid #e6182d;
+  border: 2px solid #126e51;
   background: var(--topbar-bg) !important;
 }
 div#footer {
-  border-top: 2px solid #e6182d;
+  border-top: 2px solid #00e0a0;
   background-image: url("https://cdnwallet1.modulesports.com/uploads/casinoGames/footerv3_1748860554513..png");
   background-size: cover;
   background-repeat: no-repeat;
@@ -559,10 +552,10 @@ div#footer {
 }
 
 ._Slip_1w8px_5 {
-  border: 1px solid #e6182d;
+  border: 1px solid #00e0a0;
 }
 ._OuterContainerRight_bkyg5_169 {
-  border-left: 1px solid #e6182d;
+  border-left: 1px solid #00e0a0;
 }
 
 ._SportDecoration_1vay1_33 svg path,
@@ -629,7 +622,7 @@ div#homePage > div:nth-child(14) {
 }
 
 ._Title_1ivki_65 svg path {
-  fill: #e6182d !important;
+  fill: #00e0a0 !important;
 }
 ._CategoryGroup_1ivki_1:before {
   display: block;
@@ -637,7 +630,7 @@ div#homePage > div:nth-child(14) {
   width: 70%;
   height: 4px;
   position: relative;
-  background: #e6182d;
+  background: #00e0a0;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   margin: auto;
@@ -646,13 +639,13 @@ div#homePage > div:nth-child(14) {
 }
 
 #footer svg._PlusEighteen_elxcz_133 circle {
-  stroke: #e6182d !important;
+  stroke: #00e0a0 !important;
 }
 #footer svg._PlusEighteen_elxcz_133 path {
   fill: #fff !important;
 }
 #footer ._LinksLayout_elxcz_75 h2 {
-  color: #e6182d !important;
+  color: #00e0a0 !important;
 }
 #footer ._LinksLayout_elxcz_75 a {
   color: #fff !important;
@@ -664,7 +657,7 @@ div#homePage > div:nth-child(14) {
 
 #footer ._CurrenciesContainer_elxcz_143 {
   padding: 5px;
-  /* background: #e6182d !important; */
+  /* background: #00e0a0 !important; */
   margin: 0 !important;
   width: 100%;
   display: flex;
@@ -748,7 +741,7 @@ div#homePage > div:nth-child(14) {
     display: block;
     padding: 31px;
     border-radius: 100px;
-    box-shadow: 2px 2px 25px 3px #e6182d;
+    box-shadow: 2px 2px 25px 3px #00e0a0;
     pointer-events: none;
     animation: glowEffect 1.5s infinite alternate;
   }
