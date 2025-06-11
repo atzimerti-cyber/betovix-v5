@@ -1,6 +1,21 @@
 <svg width="800" height="500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+
   <!-- Letter N -->
-  <path d="M10 97 L10 30 L55 79 L55 9" fill="none" stroke="black" stroke-width="14"/>
+  <!-- Left vertical bar -->
+  <polygon points="-20,10 0,10 0,97 -20,97" fill="black"/>
+  <!-- Diagonal bar -->
+  <polygon points="-20,10 0,10 60,90 40,97" fill="black"/>
+  <!-- Right vertical bar -->
+  <polygon points="40,10 60,10 60,97 40,97" fill="black"/>
+
   <!-- Letter E -->
-  <path d="M70 16 L110 16 M70 50 L100 50 M70 90 L110 90 M70 9 L70 97" fill="none" stroke="black" stroke-width="14"/>
+  <!-- Left vertical bar -->
+  <polygon points="62,10 80,10 80,97 62,97" fill="black"/>
+  <!-- Top horizontal bar -->
+  <polygon points="70,10 120,10 120,25 80,25" fill="black"/>
+  <!-- Middle horizontal bar -->
+  <polygon points="70,45 110,45 110,60 80,60" fill="black"/>
+  <!-- Bottom horizontal bar -->
+  <polygon points="70,80 120,80 120,97 80,97" fill="black"/>
+
 </svg>

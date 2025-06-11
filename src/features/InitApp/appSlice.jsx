@@ -343,6 +343,7 @@ const initialState = {
     "No Limit City": <NoLimit />,
     "NoLimit": <NoLimit />,
     "NoLimit City": <NoLimit />,
+    "Nolimit City": <NoLimit />,
     "NoLimitCity": <NoLimit />,
     "X-mas Specials": <XmasCasinoIcon />,
     Blackjack: <Blackjack />,
