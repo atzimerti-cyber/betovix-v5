@@ -1,6 +1,6 @@
 :root {
-  --brand-color: #e6182d;
-  --brand-bright-color: #e6182d;
+  --brand-color: #00e0a0;
+  --brand-bright-color: #00e0a0;
   --dark-theme-zero: #211d1f;
   --dark-theme-one: #211d1f;
   --dark-theme-two: #111111;
@@ -8,12 +8,12 @@
   --dark-theme-four: #211d1f;
   --dark-theme-five: #3a2e2a;
   --dark-theme-six: #1c171a;
-  --dark-theme-seven: #e6182d;
+  --dark-theme-seven: #00e0a0;
 
   --light-theme-one: #efefef;
   --light-theme-two: #d4d4d4;
   --light-theme-three: #ccccccab;
-  --light-theme-four: #e6182d;
+  --light-theme-four: #00e0a0;
   --light-theme-five: #4a4a4a;
   --light-theme-six: #212121;
 
