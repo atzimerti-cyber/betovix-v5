@@ -1,21 +1,21 @@
-<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white">
 
   <!-- Letter N -->
   <!-- Left vertical bar -->
-  <polygon points="-20,10 0,10 0,97 -20,97" fill="black"/>
+  <polygon points="-20,10 0,10 0,97 -20,97" fill="inherit"/>
   <!-- Diagonal bar -->
-  <polygon points="-20,10 0,10 60,90 40,97" fill="black"/>
+  <polygon points="-20,10 0,10 60,90 40,97" fill="inherit"/>
   <!-- Right vertical bar -->
-  <polygon points="40,10 60,10 60,97 40,97" fill="black"/>
+  <polygon points="40,10 60,10 60,97 40,97" fill="inherit"/>
 
   <!-- Letter E -->
   <!-- Left vertical bar -->
-  <polygon points="62,10 80,10 80,97 62,97" fill="black"/>
+  <polygon points="62,10 80,10 80,97 62,97" fill="inherit"/>
   <!-- Top horizontal bar -->
-  <polygon points="70,10 120,10 120,25 80,25" fill="black"/>
+  <polygon points="70,10 120,10 120,25 80,25" fill="inherit"/>
   <!-- Middle horizontal bar -->
-  <polygon points="70,45 110,45 110,60 80,60" fill="black"/>
+  <polygon points="70,45 110,45 110,60 80,60" fill="inherit"/>
   <!-- Bottom horizontal bar -->
-  <polygon points="70,80 120,80 120,97 80,97" fill="black"/>
+  <polygon points="70,80 120,80 120,97 80,97" fill="inherit"/>
 
 </svg>
