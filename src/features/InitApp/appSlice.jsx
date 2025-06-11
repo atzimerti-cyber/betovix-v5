@@ -76,7 +76,6 @@ import HurlingIcon from "../../assets/sportIcons/hurling.svg?react";
 
 import Pragmatic from "../../assets/casinoIcons/pragmatic-logo.svg?react";
 import Slots from "../../assets/casinoIcons/slots.svg?react";
-import NoLimit from "../../assets/casinoIcons/nolimit.svg?react";
 import Peterandsons from "../../assets/casinoIcons/peterandsons.svg?react";
 import New from "../../assets/casinoIcons/newrelease.svg?react";
 import Blackjack from "../../assets/casinoIcons/bj.svg?react";
@@ -88,6 +87,9 @@ import Egt from "../../assets/casinoIcons/egt-logo.svg?react";
 import Egyptian from "../../assets/casinoIcons/egyptian.svg?react";
 import Evolution from "../../assets/casinoIcons/evolution-logo.svg?react";
 import Netent from "../../assets/casinoIcons/netent-logo.svg?react";
+import NoLimit from "../../assets/casinoIcons/nolimitcity.svg?react";
+import RedRake from "../../assets/casinoIcons/redrake.svg?react";
+import BonusBuy from "../../assets/casinoIcons/bonusbuy.svg?react";
 
 import Novomatic from "../../assets/casinoIcons/novomatic.svg?react";
 import PlayNGo from "../../assets/casinoIcons/playngo-logo.svg?react";
@@ -295,6 +297,7 @@ const initialState = {
     "All Games": <AllGames />,
     Amatic: <Amatic />,
     Egyptian: <Egyptian />,
+    "BonusBuy": <BonusBuy />,
     Egypt: <Egyptian />,
     Megaways: <Megaways />,
     Halloween: <Halloween />,
@@ -313,6 +316,8 @@ const initialState = {
     Pragmatic: <Pragmatic />,
     RedTiger: <RedTiger />,
     "Red Tiger": <RedTiger />,
+    "Red Rake": <RedRake />,
+    RedRake: <RedRake />,
     Yggdrasil: <Yggdrasil />,
     Providers: <Providers />,
     "New Games": <New />,
@@ -334,6 +339,9 @@ const initialState = {
     "Card Games": <CardGames />,
     Premium: <Premium />,
     "No Limit": <NoLimit />,
+    "No Limit City": <NoLimit />,
+    "NoLimit": <NoLimit />,
+    "NoLimitCity": <NoLimit />,
     "X-mas Specials": <XmasCasinoIcon />,
     Blackjack: <Blackjack />,
     "Peter & Sons": <Peterandsons />,
