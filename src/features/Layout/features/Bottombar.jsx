@@ -353,6 +353,18 @@ const Bottombar = () => {
         liveCasino: 3,
         betslip: 4,
       };
+
+      // Remove buttons depending on the perimissions
+      if (!permissions.AllowToSports) {
+        delete buttonsObj["sports"];
+        delete buttonsObj["betslip"];
+      }
+      if (!permissions.AllowToCasino) {
+        delete buttonsObj["liveCasino"];
+      }
+      if (!permissions.AllowToSlots) {
+        delete buttonsObj["casino"];
+      }
       // const buttonsObjIndexes = Object.values(buttonsObj).sort((a, b) => a - b);
       // setMenuButtonsIndexes(buttonsObjIndexes);
       setMenuButtonsIndexes(Object.values(buttonsObj));
