@@ -1,1 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 83.3 211.8"><defs><style>.cls-1{fill:#47b86c;}</style></defs><title>Asset 3</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="6.1 0 0 0 0 211.8 6.1 211.8 6.1 171 83.3 171 83.3 146.3 23.9 146.3 23.9 117.9 74.7 117.9 74.7 93 23.9 93 23.9 65.5 83.3 65.5 83.3 40.6 6.1 40.6 6.1 0"/></g></g></svg>
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- Letter N -->
+  <path d="M10 97 L10 30 L55 79 L55 9" fill="none" stroke="black" stroke-width="14"/>
+  <!-- Letter E -->
+  <path d="M70 16 L110 16 M70 50 L100 50 M70 90 L110 90 M70 9 L70 97" fill="none" stroke="black" stroke-width="14"/>
+</svg>
