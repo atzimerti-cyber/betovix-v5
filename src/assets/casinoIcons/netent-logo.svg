@@ -1,5 +1,6 @@
-<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white">
+<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white">
 
+  <g transform="translate(15 13) scale(0.7)">
   <!-- Letter N -->
   <!-- Left vertical bar -->
   <polygon points="-20,10 0,10 0,97 -20,97" fill="inherit"/>
@@ -17,5 +18,5 @@
   <polygon points="70,45 110,45 110,60 80,60" fill="inherit"/>
   <!-- Bottom horizontal bar -->
   <polygon points="70,80 120,80 120,97 80,97" fill="inherit"/>
-
+</g>
 </svg>
