@@ -1,1 +1,22 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 83.3 211.8"><defs><style>.cls-1{fill:#47b86c;}</style></defs><title>Asset 3</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><polygon class="cls-1" points="6.1 0 0 0 0 211.8 6.1 211.8 6.1 171 83.3 171 83.3 146.3 23.9 146.3 23.9 117.9 74.7 117.9 74.7 93 23.9 93 23.9 65.5 83.3 65.5 83.3 40.6 6.1 40.6 6.1 0"/></g></g></svg>
+<svg width="800" height="800" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="white">
+
+  <g transform="translate(15 13) scale(0.7)">
+  <!-- Letter N -->
+  <!-- Left vertical bar -->
+  <polygon points="-20,10 0,10 0,97 -20,97" fill="inherit"/>
+  <!-- Diagonal bar -->
+  <polygon points="-20,10 0,10 60,90 40,97" fill="inherit"/>
+  <!-- Right vertical bar -->
+  <polygon points="40,10 60,10 60,97 40,97" fill="inherit"/>
+
+  <!-- Letter E -->
+  <!-- Left vertical bar -->
+  <polygon points="62,10 80,10 80,97 62,97" fill="inherit"/>
+  <!-- Top horizontal bar -->
+  <polygon points="70,10 120,10 120,25 80,25" fill="inherit"/>
+  <!-- Middle horizontal bar -->
+  <polygon points="70,45 110,45 110,60 80,60" fill="inherit"/>
+  <!-- Bottom horizontal bar -->
+  <polygon points="70,80 120,80 120,97 80,97" fill="inherit"/>
+</g>
+</svg>
