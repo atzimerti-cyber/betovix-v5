@@ -119,7 +119,7 @@ const InitApp = () => {
         navigate(newPath, { replace: true });
       }
     }
-  }, [location.pathname, location.search, lang.id, navigate]);
+  }, [location.pathname, lang.id]);
 
   //previous path state
   useEffect(() => {
