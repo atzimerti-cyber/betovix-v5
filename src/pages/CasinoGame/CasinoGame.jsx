@@ -35,7 +35,7 @@ const CasinoGame = (props) => {
   const prevPage = useSelector((state) => state.app.prevPage);
   // const { type, providername, id, brandgameid, name } = useParams();
   let { type, providername, id, brandgameid, name } = useParams();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   type = type || searchParams.get("ty");
   providername = providername || searchParams.get("pn");
   id = id || searchParams.get("gameid");
@@ -266,10 +266,21 @@ const CasinoGame = (props) => {
   // };
 
   const handleBack = () => {
-    if (prevPage) {
-      navigate(prevPage);
+    if (location.pathname.includes('/casino/game')) {
+      if (prevPage) {
+        navigate(prevPage);
+      } else {
+        navigate("/casino");
+      }
     } else {
-      navigate("/casino");
+      searchParams.delete('modal');
+      searchParams.delete('gameid');
+      searchParams.delete('isBonus');
+      searchParams.delete('ty');
+      searchParams.delete('pn');
+      searchParams.delete('bgid');
+      searchParams.delete('name');
+      setSearchParams(searchParams);
     }
   };
 

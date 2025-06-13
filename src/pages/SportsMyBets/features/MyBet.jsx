@@ -242,9 +242,9 @@ const MyBet = (props) => {
                 ticketCashouts && ticketCashouts[props.item.TicketId]
                   ? classes.CashoutButtonSection
                   : [
-                      classes.CashoutButtonSection,
-                      classes.NoCashoutButton,
-                    ].join(" ")
+                    classes.CashoutButtonSection,
+                    classes.NoCashoutButton,
+                  ].join(" ")
               }
             >
               {/* Different cashout options */}
@@ -300,7 +300,8 @@ const MyBet = (props) => {
                           className={classes.CashoutButton}
                           onClick={onShowConfirmCashout}
                         >
-                          {translate("Cashout")}{" "}
+                          {/* {translate("Cashout")}{" "} */}
+                          Cashout{" "}
                           {addThousandsSeparator(
                             ticketCashouts[props.item.TicketId]?.Metrics
                               ?.Cashout

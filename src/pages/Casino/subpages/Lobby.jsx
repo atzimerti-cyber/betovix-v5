@@ -36,11 +36,6 @@ const Lobby = () => {
 
   const {
     slidesPerView,
-    slidesPerGroup,
-    isMobile,
-    isTablet,
-    isDesktop,
-    isBigDesktop,
   } = useSlidesResponsive("casino");
   let specials = ["recent", "favs"];
 
@@ -85,7 +80,7 @@ const Lobby = () => {
     const observer = new IntersectionObserver(handleIntersection, {
       root: null, // Use the viewport as the container
       rootMargin: "0px",
-      threshold: 0.3, // Trigger when 70% of the target is in view
+      threshold: 0.1, // Trigger when 70% of the target is in view
     });
 
     // Start observing the target element
@@ -111,7 +106,7 @@ const Lobby = () => {
         availableTags = tags.filter((tag) => !specials.includes(tag.Tags));
       }
 
-      let slidesCount = parseInt(window.innerHeight / 215);
+      let slidesCount = parseInt(window.innerHeight);
       if (slidesCount < 1) {
         slidesCount = 1;
       }
