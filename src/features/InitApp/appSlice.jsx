@@ -375,6 +375,7 @@ const initialState = {
   seoHTMLPage: false,
   changeUsername: true,
   showVoucherModal: false,
+  app: null,
 };
 
 export const appSlice = createSlice({
@@ -483,6 +484,9 @@ export const appSlice = createSlice({
     },
     setShowVoucherModal: (state, action) => {
       state.showVoucherModal = action.payload;
+    },
+    setApp: (state, action) => {
+      state.app = action.payload;
     },
   },
 });

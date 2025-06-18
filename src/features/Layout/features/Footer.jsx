@@ -8,6 +8,7 @@ import Plus18Icon from "../../../assets/svgs/plus-18.svg?react";
 import LicenseAnj from "../../../assets/images/license.png";
 import { translate } from "../../../utils/translations";
 import SocialMedia from "./SocialMedia";
+import DownloadApp from "./DownloadApp";
 import { getSiteSettings } from "../../InitApp/initAppAsyncActions";
 import config from "../../../config";
 
@@ -22,6 +23,7 @@ const Footer = () => {
   const currentDomain = window.location.hostname;
   const [isBetovix, setIsBetovix] = useState(false);
   const isFooterAllowed = siteSettings.AllowFooter === "true";
+  const app = useSelector((state) => state.app.app);
 
   useEffect(() => {
     if (currentDomain === "betovix.com") {
@@ -166,6 +168,8 @@ const Footer = () => {
       </div> */}
 
       <SocialMedia />
+
+      {app && <DownloadApp/>}
 
       {seoPage && (
         <div className={classes.Section}>

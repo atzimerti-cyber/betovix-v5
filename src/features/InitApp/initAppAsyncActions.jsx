@@ -989,6 +989,16 @@ export const getSiteSettings = (signal) => {
         }
       }
 
+       if (response.data.Contents.Site?.AppActive === "true") {
+        const app = {
+          AppImg1: response.data.Contents.Site.AppImg1,
+          AppImg2: response.data.Contents.Site.AppImg2,
+          AppLink1: response.data.Contents.Site.AppLink1,
+          AppLink2: response.data.Contents.Site.AppLink2,
+        };
+        dispatch(appActions.setApp(app));
+      }
+
       // if (response.data.Contents.Site.CustomerCssUrl !== "") {
       //   const customercss = "/customer.css";
       //   const link = document.createElement("link");
