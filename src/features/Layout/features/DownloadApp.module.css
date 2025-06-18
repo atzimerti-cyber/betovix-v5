@@ -3,12 +3,12 @@
     gap: 16px;
     justify-content: center;
     align-items: center;
-    padding-top: 25px;
+    padding: 25px;
     flex-wrap: wrap;
 }
 
 .DownloadAppLink img {
-    width: 100px;
+    width: 85px;
     height: auto;
     transition: transform 0.3s ease, opacity 0.3s ease;
     cursor: pointer;

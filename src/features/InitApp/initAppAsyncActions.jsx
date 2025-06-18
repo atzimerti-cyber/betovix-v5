@@ -989,13 +989,24 @@ export const getSiteSettings = (signal) => {
         }
       }
 
-       if (response.data.Contents.Site?.AppActive === "true") {
-        const app = {
-          AppImg1: response.data.Contents.Site.AppImg1,
-          AppImg2: response.data.Contents.Site.AppImg2,
-          AppLink1: response.data.Contents.Site.AppLink1,
-          AppLink2: response.data.Contents.Site.AppLink2,
-        };
+      if (response.data.Contents.Site?.AppActive === "true") {
+        const siteData = response.data.Contents.Site;
+        const app = {};
+
+        let i = 1;
+        while (true) {
+          const imgKey = `AppImg${i}`;
+          const linkKey = `AppLink${i}`;
+
+          if (siteData[imgKey] && siteData[linkKey]) {
+            app[imgKey] = siteData[imgKey];
+            app[linkKey] = siteData[linkKey];
+            i++;
+          } else {
+            break; // Stop when either one is missing
+          }
+        }
+
         dispatch(appActions.setApp(app));
       }
 
