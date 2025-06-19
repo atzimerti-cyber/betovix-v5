@@ -311,14 +311,17 @@ const Home = () => {
         {/* TAGS TEST */}
         {tags &&
           tags.map((tag, index) => {
-            const { isVisible, elementRef } = useIntersectionObserver(
-              0.3,
-              user
-            );
+            // const { isVisible, elementRef } = useIntersectionObserver(
+            //   0,
+            //   user
+            // );
+            const elementRef = useRef(null);
+
+            const isVisible = true;
 
             return (
               tagVisibility[index] && (
-                <>
+                <div key={index}>
                   {(tag.Category === "1" ||
                     tag.Category === "2" ||
                     tag.Category === "3") &&
@@ -486,7 +489,7 @@ const Home = () => {
                       />
                     )}
 
-                </>
+                </div>
               )
             );
           })}
