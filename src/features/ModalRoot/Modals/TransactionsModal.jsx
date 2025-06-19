@@ -31,9 +31,13 @@ const TransactionsModal = () => {
   const count = 5;
 
   useEffect(() => {
+    if (includeCasino && selectedPeriod !== "today" && selectedPeriod !== "custom") return;
+
     const controller = new AbortController();
     const signal = controller.signal;
     const dateQuery = getFilterQuery();
+
+    if (!dateQuery) return;
 
     const filter = {
       count: count,
@@ -66,19 +70,22 @@ const TransactionsModal = () => {
     setCurrentPage(1);
   };
 
+  useEffect(() => {
+    if (includeCasino && selectedPeriod !== "today" && selectedPeriod !== "custom") {
+      setSelectedPeriod("today");
+      setCustomPeriod({ from: "", to: "" }); // clear custom fields if needed
+    }
+  }, [includeCasino]);
+
+
   const handleCustomDateChange = (field, value) => {
     setCustomPeriod((prev) => ({ ...prev, [field]: value }));
   };
 
   const getFilterQuery = () => {
-    const currentDate = new Date();
-    let fromDate = "";
-    let toDate = "";
-
-    // Function to format date in 'YYYY-MM-DD HH:MM:SS' format
     const formatDateForQuery = (date) => {
       const year = date.getFullYear();
-      const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are 0-indexed
+      const month = String(date.getMonth() + 1).padStart(2, "0");
       const day = String(date.getDate()).padStart(2, "0");
       const hours = String(date.getHours()).padStart(2, "0");
       const minutes = String(date.getMinutes()).padStart(2, "0");
@@ -87,49 +94,49 @@ const TransactionsModal = () => {
       return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     };
 
-    switch (selectedPeriod) {
-      case "today":
-        // Set fromDate to start of today (00:00:00)
-        const startOfDay = new Date(currentDate.setHours(0, 0, 0, 0));
-        fromDate = formatDateForQuery(startOfDay);
+    const now = new Date();
 
-        // Set toDate to end of today (23:59:59)
-        const endOfDay = new Date(currentDate.setHours(23, 59, 59, 999));
-        toDate = formatDateForQuery(endOfDay);
-        break;
+    if (selectedPeriod === "today") {
+      const startOfDay = new Date();
+      startOfDay.setHours(0, 0, 0, 0);
 
-      case "1week":
-        const oneWeekAgo = new Date(
-          currentDate.setDate(currentDate.getDate() - 7)
-        );
-        fromDate = formatDateForQuery(oneWeekAgo);
-        toDate = formatDateForQuery(new Date()); // Current date
-        break;
+      const endOfDay = new Date();
+      endOfDay.setHours(23, 59, 59, 999);
 
-      case "30days":
-        const thirtyDaysAgo = new Date(
-          currentDate.setDate(currentDate.getDate() - 30)
-        );
-        fromDate = formatDateForQuery(thirtyDaysAgo);
-        toDate = formatDateForQuery(new Date()); // Current date
-        break;
-
-      case "custom":
-        if (customPeriod.from && customPeriod.to) {
-          fromDate = formatDateForQuery(new Date(customPeriod.from));
-          toDate = formatDateForQuery(new Date(customPeriod.to));
-        } else {
-          return ""; // Return an empty filter query or a fallback value
-        }
-        break;
-
-      default:
-        break;
+      return ` (DateAdded BETWEEN '${formatDateForQuery(startOfDay)}' AND '${formatDateForQuery(endOfDay)}') `;
     }
 
-    // Return the query formatted correctly for SQL
-    return ` (DateAdded BETWEEN '${fromDate}' AND '${toDate}') `;
+    if (selectedPeriod === "1week" && !includeCasino) {
+      const from = new Date(now);
+      from.setDate(now.getDate() - 7);
+      const to = new Date();
+
+      return ` (DateAdded BETWEEN '${formatDateForQuery(from)}' AND '${formatDateForQuery(to)}') `;
+    }
+
+    if (selectedPeriod === "30days" && !includeCasino) {
+      const from = new Date(now);
+      from.setDate(now.getDate() - 30);
+      const to = new Date();
+
+      return ` (DateAdded BETWEEN '${formatDateForQuery(from)}' AND '${formatDateForQuery(to)}') `;
+    }
+
+    if (selectedPeriod === "custom" && customPeriod.from && customPeriod.to) {
+      if (includeCasino && customPeriod.from !== customPeriod.to) return "";
+
+      const from = new Date(customPeriod.from);
+      from.setHours(0, 0, 0, 0);
+
+      const to = new Date(customPeriod.to);
+      to.setHours(23, 59, 59, 999);
+
+      return ` (DateAdded BETWEEN '${formatDateForQuery(from)}' AND '${formatDateForQuery(to)}') `;
+    }
+
+    return ""; // fallback for invalid state
   };
+
 
   const renderBgColor = (kind) => {
     switch (kind) {
@@ -327,8 +334,8 @@ const TransactionsModal = () => {
                     className={classes.Select}
                   >
                     <option value="today">{translate("Today")}</option>
-                    <option value="1week">{translate("Last 1 Week")}</option>
-                    <option value="30days">{translate("Last 30 Days")}</option>
+                    <option value="1week" disabled={includeCasino}>{translate("Last 1 Week")}</option>
+                    <option value="30days" disabled={includeCasino}>{translate("Last 30 Days")}</option>
                     <option value="custom">{translate("Custom")}</option>
                   </select>
                 </div>
@@ -374,6 +381,11 @@ const TransactionsModal = () => {
                     {translate("Include Casino")}
                   </label>
                 </div>
+                {includeCasino && selectedPeriod === "custom" && customPeriod.from && customPeriod.to && customPeriod.from !== customPeriod.to && (
+                  <p style={{ color: "orange", fontSize: "0.75rem" }}>
+                    **{" "} {translate("When including Casino, custom date range must be one day only")}.
+                  </p>
+                )}
               </div>
 
             </div>
