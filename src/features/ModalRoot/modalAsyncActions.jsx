@@ -45,7 +45,7 @@ export const getTransactionList = (signal, filter) => {
 
       dispatch(modalActions.setLoading(true));
       const response = await axiosApi.post(
-        `/MyWalletTransaction/GetTransactionTable?lang=${lang.id}`,
+        `/WalletTransaction/GetWalletCasinoTransactionTable?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         filter,
 
         {

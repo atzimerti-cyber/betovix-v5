@@ -26,6 +26,7 @@ const TransactionsModal = () => {
   const [customPeriod, setCustomPeriod] = useState({ from: "", to: "" });
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [includeCasino, setIncludeCasino] = useState(false);
 
   const count = 5;
 
@@ -41,8 +42,8 @@ const TransactionsModal = () => {
       filter: {
         AccountId: user.AccountId,
         DateAdded: dateQuery,
-        Kind: "( (Kind=1 OR Kind=3 OR Kind=5 OR Kind=7)  OR (Kind=2 OR Kind=4 OR Kind=6 OR Kind=8) )",
         WalletTypeId: 1,
+        JoinCasino: includeCasino,
       },
     };
 
@@ -50,7 +51,7 @@ const TransactionsModal = () => {
     return () => {
       controller.abort();
     };
-  }, [currentPage, user, selectedPeriod, customPeriod, dispatch]);
+  }, [currentPage, user, selectedPeriod, customPeriod, includeCasino, dispatch]);
 
   useEffect(() => {
     if (transactions && transactions.Rows.length > 0) {
@@ -132,67 +133,52 @@ const TransactionsModal = () => {
 
   const renderBgColor = (kind) => {
     switch (kind) {
-      case 1:
+      case 'Deposit':
         return {
           background:
             "linear-gradient(161deg, #10324b 0%, #1c405d 30%,  #2a9995cf 100%)",
         };
-      case 2:
+      case 'Withdraw':
         return {
           background:
             "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #71190afa 100%)",
         };
-      case 3:
+      case 'Bet':
         return {
           background:
             "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #000000bd 100%)",
         };
-      case 4:
+      case 'Win':
         return {
           background:
             "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #4fb328a3 100%)",
         };
-      case 5:
+      case 'BonusWin':
         return {
           background:
-            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, rgb(0, 0, 0) 100%)",
+            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #007d8b 100%)",
         };
-      case 6:
-        return {
-          background:
-            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #4fb328a3 100%)",
-        };
-      case 7:
-        return {
-          background:
-            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #000000bd 100%)",
-        };
-      case 8:
-        return {
-          background:
-            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #4fb328a3 100%)",
-        };
-      case 9:
+      case 'Sport':
         return {
           background:
             "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #1f78d1 100%)",
         };
-      case 10:
+      case 'Slot':
         return {
           background:
             "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #ffa500 100%)",
         };
-      case 11:
+      case 'Casino':
         return {
           background:
             "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #6a1b9a 100%)",
         };
-      case 12:
+      case 'Reward':
         return {
           background:
             "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #ffeb3b 100%)",
         };
-      case 13:
+      case 'Cancel Withdraw':
         return {
           background:
             "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #f44336 100%)",
@@ -378,7 +364,18 @@ const TransactionsModal = () => {
                     </div>
                   </div>
                 )}
+                <div className={classes.CheckboxContainer}>
+                  <label>
+                    <input
+                      type="checkbox"
+                      checked={includeCasino}
+                      onChange={(e) => setIncludeCasino(e.target.checked)}
+                    />
+                    {translate("Include Casino")}
+                  </label>
+                </div>
               </div>
+
             </div>
             {transactions && transactions.Rows.length > 0 ? (
               <>
@@ -420,10 +417,10 @@ const TransactionsModal = () => {
                       </div>
                       <div className={classes.Right}>
                         <p>
-                          <b>{renderTransactionType(transaction.Data.Type)}</b>
+                          <b>{transaction.Data.Type}</b>
                         </p>
                         <p>
-                          <b>{renderTransactionKind(transaction.Data.Kind)}</b>
+                          <b>{transaction.Data.Kind}</b>
                         </p>
                       </div>
                     </div>
