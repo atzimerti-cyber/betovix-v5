@@ -46,7 +46,7 @@ const TransactionsModal = () => {
       filter: {
         AccountId: user.AccountId,
         DateAdded: dateQuery,
-        WalletTypeId: 1,
+        WalletTypeId: null,
         JoinCasino: includeCasino,
       },
     };
@@ -163,7 +163,12 @@ const TransactionsModal = () => {
       case 'BonusWin':
         return {
           background:
-            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #007d8b 100%)",
+            "linear-gradient(161deg, rgb(16 75 32) 0%, rgb(28 93 72) 30%, #007d8b 100%)",
+        };
+      case 'BonusBet':
+        return {
+          background:
+            "linear-gradient(161deg, rgb(10 10 10) 0%, rgb(25 38 48) 30%, rgb(0, 125, 139) 100%)",
         };
       case 'Sport':
         return {
@@ -185,10 +190,10 @@ const TransactionsModal = () => {
           background:
             "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #ffeb3b 100%)",
         };
-      case 'Cancel Withdraw':
+      case 'CancelWithdraw':
         return {
           background:
-            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #f44336 100%)",
+            "linear-gradient(161deg, #10324b 0%, #1c405d 30%, #4fb328a3 100%)",
         };
       default:
         return {
@@ -419,9 +424,20 @@ const TransactionsModal = () => {
                         <p>
                           {translate(`Amount`)}
                           {": "}
-                          <b> {transaction.Data.Amount.toFixed(2)} </b>
+                          <b
+                            style={{
+                              color: transaction.Data.Amount < 0 ? "#ff2727" : "#57ff57"
+                            }}
+                          >
+                            {transaction.Data.Amount.toFixed(2)}
+                          </b>
                         </p>
-                        <p>
+                        <p style={{ fontSize: "0.8rem" }}>
+                          {translate(`Balance Before`)}
+                          {": "}
+                          <b> {transaction.Data.BalanceBefore.toFixed(2)} </b>
+                        </p>
+                        <p style={{ fontSize: "0.8rem" }}>
                           {translate(`Balance After`)}
                           {": "}
                           <b> {transaction.Data.BalanceAfter.toFixed(2)} </b>

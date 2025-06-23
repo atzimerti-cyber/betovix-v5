@@ -435,7 +435,7 @@ const WithdrawPaymentForm = (props) => {
               }
               disabled={disabledButton}
             >
-              {translate(`Make Withdraw Request`)}
+              {translate("Make Withdraw Request")}
             </button>
           </form>
         </>
