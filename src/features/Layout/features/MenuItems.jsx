@@ -8,16 +8,20 @@ import PaperIcon from "../../../assets/svgs/paper2.svg?react";
 import ExchangeIcon from "../../../assets/svgs/exchange.svg?react";
 import LogoutIcon from "../../../assets/svgs/logout.svg?react";
 import UserIcon from "../../../assets/svgs/user.svg?react";
+import AffIcon from "../../../assets/svgs/affiliate.svg?react";
 import { loginActions } from "../../../pages/Login/loginSlice";
 import classes from "./MenuItems.module.css";
 import { translate } from "../../../utils/translations";
 import { useMediaQuery } from "react-responsive";
+import { getAccessToken } from "../../../utils/auth";
 
 const MenuItems = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const lang = useSelector((state) => state.app.lang);
+  const user = useSelector((state) => state.login.user);
+  const siteSettings = useSelector((state) => state.app.siteSettings);
 
   const newNotifications = useSelector(
     (state) => state.layout.newNotifications
@@ -42,8 +46,36 @@ const MenuItems = (props) => {
     });
   };
 
+  const NavigateToBackOffice = () => {
+    const currentDomain = window.location.hostname;
+    const token = getAccessToken();
+    const prefix =
+      siteSettings?.WalletPrefix
+        ? siteSettings.WalletPrefix
+        : "wallet.";
+
+    const walletUrl = `https://${prefix}${currentDomain}?token=${token}`;
+
+    window.location.href = walletUrl;
+  }
+
   return (
     <>
+      {user && user.Role < 40 &&
+        <li>
+          <a
+            onClick={() => {
+              NavigateToBackOffice();
+              props.onClick();
+            }}
+          >
+            <AffIcon fill="#527491" height="16px" width="16px" />
+            <span>{translate("Affiliate")}</span>
+          </a>
+        </li>
+      }
+
+
       <li>
         <a
           onClick={() => {
@@ -107,18 +139,18 @@ const MenuItems = (props) => {
           <span>{translate("My Transactions")}</span>
         </a>
       </li>
-      {support?.Source && 
-      <li>
-        <a
-          onClick={() => {
-            navigate(`/support`);
-            props.onClick();
-          }}
-        >
-          <LiveSupportIcon />
-          <span>{translate("Live Support")}</span>
-        </a>
-      </li>
+      {support?.Source &&
+        <li>
+          <a
+            onClick={() => {
+              navigate(`/support`);
+              props.onClick();
+            }}
+          >
+            <LiveSupportIcon />
+            <span>{translate("Live Support")}</span>
+          </a>
+        </li>
       }
       <li>
         <a

@@ -120,6 +120,15 @@ export const login = (loginInfo, navigate, locationPathname, onSuccess) => {
         // registered: 1712505696754,
       };
 
+      if (response2.data.Contents.Role < 40 && !response2.data.Contents.MyPermissions.AllowToRetail) {
+        const currentDomain = window.location.hostname;
+        const token = response2.data.Contents.Token;
+        const walletUrl = `https://wallet.${currentDomain}?token=${token}`;
+
+        window.location.href = walletUrl;
+        // navigate(walletUrl, { replace: true });
+      }
+
       dispatch(loginActions.setUser(user));
 
       dispatch(loginActions.setLoginLoading(false));
