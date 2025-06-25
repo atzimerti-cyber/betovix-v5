@@ -85,6 +85,9 @@
   align-items: center;
   border-bottom: 1px var(--db-white-hover) solid;
 }
+.Row:last-child {
+  border-bottom: 0;
+}
 .Label {
   text-align: right;
   align-items: flex-start;

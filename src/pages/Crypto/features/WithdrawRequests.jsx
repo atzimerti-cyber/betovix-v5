@@ -346,7 +346,12 @@ const WithdrawRequests = () => {
                     onClick={() => handleRequestDetails(req)}
                   >
                     <i>
-                      {" "}
+                      <p>
+                        <b>
+                          {translate(`Id`)} {": "}
+                        </b>
+                        #{req.reqId}
+                      </p>
                       <p
                         style={{
                           fontSize: "12px",
@@ -356,10 +361,11 @@ const WithdrawRequests = () => {
                       </p>
                     </i>
                     <b>
-                      <p>
-                        {translate(`Amount`)}
-                        {": "}
-                        {req.amount}
+                      <p style={{ fontSize: "0.8rem", color: "lightblue" }}>
+                        <i>
+                          {req.username} (
+                          {req.accountid})
+                        </i>
                       </p>
                     </b>
                   </div>
@@ -367,6 +373,20 @@ const WithdrawRequests = () => {
                     className={classes.Center}
                     onClick={() => handleRequestDetails(req)}
                   >
+                    <p>
+                      {translate(`Amount`)}
+                      {": "}
+                      {req.amount.toFixed(2)}
+                      {" "}
+                      {/* {req.provider === "CoinPayments"
+                        ? Object.keys(JSON.parse(req.currency))[0]
+                        : req.currency} */}
+                    </p>
+                    <p style={{ fontSize: "0.8rem", color: "lightblue" }}>
+                      <i>
+                        {req.provider}
+                      </i>
+                    </p>
                     <p>
                       <b>{renderReqStatus(req.status)}</b>
                     </p>

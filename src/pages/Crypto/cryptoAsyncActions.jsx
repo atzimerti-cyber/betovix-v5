@@ -229,6 +229,7 @@ export const getWithrawalReqs = (signal, page, count, sort, status) => {
         status: req.Data.Status,
         provider: req.Data.Provider,
         crAddress: req.Data?.Address,
+        username: req.Username ? req.Username : "",
       }));
 
       const total = response.data.Contents.Total;
