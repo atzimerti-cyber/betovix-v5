@@ -36,6 +36,7 @@ import PromoCodeModal from "./Modals/PromoCodeModal";
 import NotificationPopUp from "./Modals/NotificationPopUp";
 import CalendarModal from "./Modals/CalendarModal";
 import CasinoGameInModal from "./Modals/CasinoGameInModal";
+import PaymentModal from "./Modals/PaymentModal";
 
 const ModalRoot = () => {
   const navigate = useNavigate();
@@ -98,6 +99,8 @@ const ModalRoot = () => {
   else if (modal === "announcement") modalPage = <AnnouncementModal />;
   else if (modal === "promotion") modalPage = <PromotionModal />;
   else if (modal === "transactions") modalPage = <TransactionsModal />;
+  else if (modal === "payment")
+    modalPage = <PaymentModal onClose={returnToPrevious} />;
   else if (modal === "tfa") modalPage = <TfaModal />;
   else if (modal === "bonus") {
     if (user) modalPage = <BonusModal />;

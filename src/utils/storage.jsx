@@ -127,3 +127,16 @@ export function storageRemoveFavMarket(sportName, marketName) {
     localStorage.setItem("otFavs", JSON.stringify(favMarkets));
   }
 }
+
+export function storageGetPaymentAddress() {
+  const PAdd = localStorage.getItem("PAdd");
+  if (PAdd) return PAdd;
+
+  return null;
+}
+export function storageSetPaymentAddress(address) {
+  localStorage.setItem("PAdd", address);
+}
+export function storageDeletePaymentAddress() {
+  localStorage.removeItem("PAdd");
+}

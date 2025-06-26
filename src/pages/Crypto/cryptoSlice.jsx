@@ -27,6 +27,8 @@ const initialState = {
   methodMaxAmount: null,
   TrxId: null,
   TrxLink: null,
+  /////////////////
+  depositIframeAddress: null,
 };
 
 export const cryptoSlice = createSlice({
@@ -125,6 +127,10 @@ export const cryptoSlice = createSlice({
     },
     setTrxLink: (state, action) => {
       state.TrxLink = action.payload;
+    },
+    /////////////////////
+    setDepositIframeAddress: (state, action) => {
+      state.depositIframeAddress = action.payload;
     },
   },
 });

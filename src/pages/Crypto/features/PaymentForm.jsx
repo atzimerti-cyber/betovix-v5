@@ -400,7 +400,7 @@ const PaymentForm = (props) => {
     const controller = new AbortController();
     const signal = controller.signal;
 
-    dispatch(submitDepositForm(signal, depositDTO));
+    dispatch(submitDepositForm(signal, depositDTO, navigate, location.pathname));
   };
 
   const renderInputField = (field) => {

@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-import { getLang } from "../../utils/storage";
+import { getLang, storageSetPaymentAddress } from "../../utils/storage";
 import axiosApi from "../../axios-api";
 import { cryptoActions } from "./cryptoSlice";
 import config from "../../config";
@@ -120,7 +120,7 @@ export const getDepositAddress = (signal, provider, network) => {
   };
 };
 
-export const submitDepositForm = (signal, depositDTO) => {
+export const submitDepositForm = (signal, depositDTO, navigate = null, locationPathname = null) => {
   return async (dispatch, getState) => {
     try {
       dispatch(cryptoActions.setButtonLoading(true));
@@ -142,13 +142,22 @@ export const submitDepositForm = (signal, depositDTO) => {
       }
 
       if (
-        depositDTO.PaymentProvider === "Interkassa" ||
+        // depositDTO.PaymentProvider === "Interkassa" ||
         depositDTO.PaymentProvider === "Chapa" ||
         depositDTO.PaymentProvider === "Jetpay" ||
         depositDTO.PaymentProvider === "payguru"
       ) {
         window.location.href = response.data.Contents;
-        //window.open(response.data.Contents, "_blank");
+      } else if (depositDTO.PaymentProvider === "Interkassa") {
+
+        navigate(`${locationPathname}?modal=payment`, {
+          replace: true,
+        });
+        dispatch(
+          cryptoActions.setDepositIframeAddress(response.data.Contents)
+        );
+        storageSetPaymentAddress(response.data.Contents);
+
       } else if (depositDTO.PaymentProvider === "CoinPayments") {
         dispatch(
           cryptoActions.setDepositAddress(response.data.Contents.WalletAddress)
