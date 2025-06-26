@@ -150,13 +150,19 @@ export const submitDepositForm = (signal, depositDTO, navigate = null, locationP
         window.location.href = response.data.Contents;
       } else if (depositDTO.PaymentProvider === "Interkassa") {
 
-        navigate(`${locationPathname}?modal=payment`, {
+        // navigate(`${locationPathname}?modal=payment`, {
+        //   replace: true,
+        // });
+        // dispatch(
+        //   cryptoActions.setDepositIframeAddress(response.data.Contents)
+        // );
+        // storageSetPaymentAddress(response.data.Contents);
+
+        navigate(`${locationPathname}`, {
           replace: true,
         });
-        dispatch(
-          cryptoActions.setDepositIframeAddress(response.data.Contents)
-        );
-        storageSetPaymentAddress(response.data.Contents);
+
+        window.open(response.data.Contents, '_blank');
 
       } else if (depositDTO.PaymentProvider === "CoinPayments") {
         dispatch(
