@@ -149,7 +149,8 @@ const WithdrawPaymentForm = (props) => {
         : debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
       CustomerIdCode: debouncedFormData.IDCode,
       CustomerIBAN: debouncedFormData.IBAN,
-      Bank: debouncedFormData.Bank,
+      Bank: debouncedFormData['Banks'],
+      // Bank: debouncedFormData.Bank,
       AccountType: debouncedFormData['Account Type'],
       Account: debouncedFormData.Account,
       CustomerBankId:
