@@ -117,18 +117,19 @@ const MenuItems = (props) => {
           </a>
         </li>
       )}
-
-      <li>
-        <a
-          onClick={() => {
-            navigate(`sportsbook/mybets`);
-            props.onClick();
-          }}
-        >
-          <PaperIcon fill="#527491" />
-          <span>{translate("My Bets")}</span>
-        </a>
-      </li>
+      {permissions.AllowToSports && (
+        <li>
+          <a
+            onClick={() => {
+              navigate(`sportsbook/mybets`);
+              props.onClick();
+            }}
+          >
+            <PaperIcon fill="#527491" />
+            <span>{translate("My Bets")}</span>
+          </a>
+        </li>
+      )}
       <li>
         <a
           onClick={() => {
