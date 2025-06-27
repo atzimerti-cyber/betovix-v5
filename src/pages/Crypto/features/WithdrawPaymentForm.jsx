@@ -109,8 +109,8 @@ const WithdrawPaymentForm = (props) => {
           name === "Amount"
             ? parseFloat(updatedValue) || undefined
             : updatedValue === ""
-            ? undefined
-            : updatedValue,
+              ? undefined
+              : updatedValue,
       }));
     }
   };
@@ -149,7 +149,9 @@ const WithdrawPaymentForm = (props) => {
         : debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
       CustomerIdCode: debouncedFormData.IDCode,
       CustomerIBAN: debouncedFormData.IBAN,
-      // CustomerGambBankId: debouncedFormData.Bank,
+      Bank: debouncedFormData.Bank,
+      AccountType: debouncedFormData['Account Type'],
+      Account: debouncedFormData.Account,
       CustomerBankId:
         debouncedFormData.Bank && Object.values(debouncedFormData.Bank)[0],
       CustomerBirthDate: formatDate(debouncedFormData.DateOfBirth),
