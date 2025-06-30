@@ -524,13 +524,12 @@ export const loadInitData = (isMobile) => {
             icon: <SupportIcon />,
             page: "support",
           },
-          {
+          permissions?.AllowToSports &&  {
             id: 3,
             label: "My Bets",
             icon: <PaperIcon />,
             page: "sportsbook/mybets",
           },
-
           {
             id: 4,
             label: "Crypto Rates",
