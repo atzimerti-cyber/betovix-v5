@@ -55,6 +55,8 @@ export const cryptoSlice = createSlice({
       state.selectedPaymentMethodWithdraw = null;
       state.withdrawRequestMessage = null;
       state.withdrawals = null;
+      state.depositAddress = "";
+      state.withdrawLimitMessage = null;
     },
     setCrypto: (state, action) => {
       state.crypto = action.payload;

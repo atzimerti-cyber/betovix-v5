@@ -115,6 +115,14 @@ const FinalStageDeposit = () => {
             </>
           )}
 
+          {paymentType.Provider === "Arifpay" && (
+            <>
+              <div className={classes.Message} style={{ width: '60%', minWidth: '300px', textAlign: 'center', fontSize: '15px', minHeight: '100px' }}>
+                <p>{depositAddress}</p>
+              </div>
+            </>
+          )}
+
           {paymentType.Provider === "CoinPayments" && (
             <div className={classes.QrContainer}>
               <div className={classes.QrWrapper}>
@@ -134,15 +142,16 @@ const FinalStageDeposit = () => {
             </div>
           )}
 
-          <div className={classes.Message}>
-            <WarningIcon height="15px" />
-            <span>
-              {translate(
-                `Please be advised that your transaction may take a while to complete. You will receive an email once it is completed`
-              )}
-              .
-            </span>
-          </div>
+          {paymentType.Provider === "CoinPayments" || paymentType.Provider === "PayNora" &&
+            (<div className={classes.Message}>
+              <WarningIcon height="15px" />
+              <span>
+                {translate(
+                  `Please be advised that your transaction may take a while to complete. You will receive an email once it is completed`
+                )}
+                .
+              </span>
+            </div>)}
         </div>
       )}
     </>

@@ -137,6 +137,7 @@ export const submitDepositForm = (signal, depositDTO, navigate = null, locationP
 
       if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
         dispatch(cryptoActions.setWithdrawLimitMessage(response.data.Contents));
+        // dispatch(cryptoActions.setDepositAddress(response.data.Contents));
         dispatch(cryptoActions.setButtonLoading(false));
         return;
       }
@@ -168,7 +169,7 @@ export const submitDepositForm = (signal, depositDTO, navigate = null, locationP
         dispatch(
           cryptoActions.setDepositAddress(response.data.Contents.WalletAddress)
         );
-      } else if (depositDTO.PaymentProvider === "PayNora") {
+      } else if (depositDTO.PaymentProvider === "PayNora" || depositDTO.PaymentProvider === "Arifpay") {
         dispatch(cryptoActions.setDepositAddress(response.data.Contents));
       } else if (depositDTO.PaymentProvider === "GambPayTransfer") {
         window.location.href = response.data.Contents.url;
