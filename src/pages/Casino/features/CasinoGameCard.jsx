@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -26,6 +26,7 @@ const CasinoGameCard = (props) => {
   const lang = useSelector((state) => state.app.lang);
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
+  const [imageUrl, setImageUrl] = useState(null);
 
   const onToggleFavorite = () => {
     if (!user) {
@@ -86,6 +87,14 @@ const CasinoGameCard = (props) => {
 
   };
 
+  useEffect(() => {
+    const testImg = new Image();
+    testImg.src = props.game.Data.ImageUrl;
+
+    testImg.onload = () => setImageUrl(props.game.Data.ImageUrl);
+    testImg.onerror = () => setImageUrl(props.game.Data.ImageUrl2);
+  }, [props.game.Data.ImageUrl, props.game.Data.ImageUrl2]);
+
   return (
     <div
       className={classes.SlideContainer}
@@ -111,11 +120,20 @@ const CasinoGameCard = (props) => {
           </div>
         )}
         <div className={classes.ImageContainer}>
-          <div
+          {/* <div
             style={{
               backgroundImage:
                 props.game.Data.ImageUrl !== null &&
                 `url(${props.game.Data.ImageUrl.replace(/ /g, "%20")})`,
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              height: "100%",
+            }}
+            onLoad={() => updateLoadedImages(index)}
+          ></div> */}
+          <div
+            style={{
+              backgroundImage: imageUrl ? `url(${imageUrl.replace(/ /g, "%20")})` : "none",
               backgroundSize: "cover",
               backgroundPosition: "center",
               height: "100%",
