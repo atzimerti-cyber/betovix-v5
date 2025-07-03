@@ -8,9 +8,11 @@
   padding: 0 0.3rem;
   padding-bottom: 5rem;
 }
+
 .SideMenuScroll.Closed {
   padding: 0;
 }
+
 .SideMenuAllButtonsContainer {
   position: relative;
   margin: 0rem 0.5rem 0.5rem 0.5rem;
@@ -20,24 +22,25 @@
   gap: 1.5rem;
   /* min-height: 3rem; */
 }
-#promotionsButton {
-  display: none;
-}
-.SideMenuAllButtonsContainer > button {
+
+.SideMenuAllButtonsContainer>button {
   position: absolute;
   width: 20px;
   top: 0;
   right: -1.8%;
 }
+
 .SideMenuScroll.Closed .SideMenuAllButtonsContainer {
   margin: 0.5rem 0.5rem;
   padding: 0;
   margin: 0;
 }
-.SideMenuScroll.Closed .TrackMenuButtonContainer > button {
+
+.SideMenuScroll.Closed .TrackMenuButtonContainer>button {
   padding: 0.4rem 0rem 0.4rem 0.5rem;
 }
-.SideMenuAllButtonsContainer > button > svg {
+
+.SideMenuAllButtonsContainer>button>svg {
   max-height: 1.25rem;
   max-width: 1.25rem;
 }
@@ -49,7 +52,7 @@
   gap: 0.5rem;
 }
 
-.SideMenuContainer > button {
+.SideMenuContainer>button {
   height: 1.75rem;
   min-height: 1.5rem;
   width: 2rem;
@@ -57,7 +60,7 @@
   padding-right: 0;
 }
 
-.SideMenuContainer > button > svg {
+.SideMenuContainer>button>svg {
   max-height: 1.25rem;
   max-width: 1.25rem;
 }
@@ -118,6 +121,7 @@
 .SideMenuSubButtonContainer button:hover {
   border-color: transparent;
 }
+
 .TrackMenuButtonContainer {
   flex-direction: row;
   gap: 0.125rem;
@@ -126,6 +130,7 @@
   align-items: center;
   justify-content: center;
 }
+
 /* .TrackMenuButtonContainer button {
   height: 2.4rem;
   width: 50%;
@@ -186,9 +191,11 @@
 .SideMenuButtonContainer button .ActiveSvg path {
   fill: var(--brand-green) !important;
 }
+
 .SideMenuButtonContainer button .Active2Svg path {
   fill: var(--sidebar-casino-active-svg) !important;
 }
+
 .SideMenuButtonContainer button .Active3Svg path {
   fill: var(--sidebar-horse-active-svg) !important;
 }
@@ -255,7 +262,7 @@
   padding-right: 0.75rem;
 }
 
-.SideMenuBottomButtons > button {
+.SideMenuBottomButtons>button {
   height: 2.5rem !important;
   width: 50%;
   justify-content: flex-start !important;
@@ -270,7 +277,7 @@
   min-height: 2rem;
 }
 
-.SideMenuBottomButtons > div > div {
+.SideMenuBottomButtons>div>div {
   max-height: 50vh;
   overflow-y: scroll;
 }
@@ -306,7 +313,7 @@
   flex-direction: column;
 }
 
-.Closed.SideMenuScroll .SideMenuButtonContainer > button {
+.Closed.SideMenuScroll .SideMenuButtonContainer>button {
   /* margin: 0.25rem; */
   max-height: 30px;
   min-height: 30px;
@@ -316,7 +323,7 @@
   padding: 0.25rem;
 }
 
-.Closed.SideMenuScroll .SideMenuSubButtonContainer > button {
+.Closed.SideMenuScroll .SideMenuSubButtonContainer>button {
   margin: 0.25rem;
   max-height: 30px;
   min-height: 30px;
@@ -326,18 +333,19 @@
   padding: 0.25rem;
 }
 
-.Closed.SideMenuScroll .SideMenuButtonContainer > button span {
+.Closed.SideMenuScroll .SideMenuButtonContainer>button span {
   display: contents;
   max-width: 0;
   opacity: 0;
 }
-.Closed.SideMenuScroll .GradBtnWrapper > button span {
+
+.Closed.SideMenuScroll .GradBtnWrapper>button span {
   display: none;
   max-width: 0;
   opacity: 0;
 }
 
-.Closed.SideMenuScroll .SideMenuSubButtonContainer > button span {
+.Closed.SideMenuScroll .SideMenuSubButtonContainer>button span {
   display: contents;
   max-width: 0;
   opacity: 0;
@@ -347,11 +355,11 @@
   fill: var(--light-blue);
 }
 
-.Closed.SideMenuBottomButtons > div {
+.Closed.SideMenuBottomButtons>div {
   width: 100%;
 }
 
-.Closed.SideMenuBottomButtons > button {
+.Closed.SideMenuBottomButtons>button {
   justify-content: center !important;
   padding: 0.5rem;
   padding-left: 0 !important;
@@ -367,6 +375,7 @@
     padding: 0 0.3rem;
     padding-bottom: 0;
   }
+
   .SideMenuAllButtonsContainer {
     margin: 0rem 0.5rem 0.5rem 0.5rem;
     display: flex;
@@ -375,6 +384,7 @@
     /* min-height: 3.5rem; */
     padding: 0;
   }
+
   .SideMenuBottomButtons {
     bottom: 0;
     margin-top: 0;
@@ -384,10 +394,11 @@
     padding-right: 0;
   }
 
-  .SideMenuBottomButtons > button {
+  .SideMenuBottomButtons>button {
     width: 100%;
   }
 }
+
 .LangDropdown {
   /* height: 3.5rem; */
   border-radius: 500px;
@@ -434,6 +445,7 @@
 }
 
 @keyframes _jQMcyq_dgbon_1 {
+
   0%,
   100% {
     opacity: 1;
@@ -462,6 +474,7 @@
   align-items: center;
   margin: 0.2rem 0;
 }
+
 .PromoButton,
 .HorseButton,
 .PromotionsButton {
@@ -478,6 +491,7 @@
   line-height: 1.25rem;
   font-weight: 600;
 }
+
 .PromotionsButton {
   justify-content: center;
   text-align: center;
@@ -486,23 +500,30 @@
   z-index: 0;
   background-repeat: no-repeat;
   background-size: cover;
+  display: none;
+
 }
+
 .PromoButton svg,
 .HorseButton svg {
   height: 1.5rem;
   width: 1.5rem;
 }
+
 .HorseButton svg path {
   fill: var(--sidebar-horse-active-svg);
 }
+
 .HorseButton {
   background: linear-gradient(89deg, #4c83b0ad 0.25%, #0f79ad0f);
   transition: background 0.5s ease-out;
 }
+
 .HorseButton:hover {
   background: #356286;
   background-color: #356286;
 }
+
 .PromoButton {
   overflow: hidden;
   position: relative;
@@ -515,6 +536,7 @@
   background: #735f28;
   background-color: #735f28;
 }
+
 .PromoButton::before {
   content: "";
   position: absolute;
@@ -522,32 +544,35 @@
   left: 0;
   height: 200%;
   width: 200%;
-  background: linear-gradient(
-    45deg,
-    transparent 40%,
-    rgba(255, 255, 255, 0.408) 50%,
-    transparent 60%
-  );
+  background: linear-gradient(45deg,
+      transparent 40%,
+      rgba(255, 255, 255, 0.408) 50%,
+      transparent 60%);
   transform: translate(-100%, -100%) rotate(45deg);
   animation: shimmerDiagonal 4s ease-in-out infinite;
   pointer-events: none;
   z-index: 1;
 }
+
 @keyframes shimmerDiagonal {
   0% {
     transform: translate(-100%, -100%) rotate(45deg);
     opacity: 0;
   }
+
   10% {
     opacity: 0.3;
   }
+
   50% {
     transform: translate(100%, 100%) rotate(45deg);
     opacity: 0.3;
   }
+
   60% {
     opacity: 0;
   }
+
   100% {
     transform: translate(100%, 100%) rotate(45deg);
     opacity: 0;
