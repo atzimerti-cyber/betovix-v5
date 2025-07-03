@@ -146,10 +146,11 @@ export const submitDepositForm = (signal, depositDTO, navigate = null, locationP
         // depositDTO.PaymentProvider === "Interkassa" ||
         depositDTO.PaymentProvider === "Chapa" ||
         depositDTO.PaymentProvider === "Jetpay" ||
-        depositDTO.PaymentProvider === "payguru"
+        depositDTO.PaymentProvider === "payguru" ||
+        depositDTO.PaymentProvider === "Hizlica"
       ) {
         window.location.href = response.data.Contents;
-      } else if (depositDTO.PaymentProvider === "Interkassa") {
+      } else if (depositDTO.PaymentProvider === "Interkassa" || depositDTO.PaymentProvider === "Hizlica") {
 
         // navigate(`${locationPathname}?modal=payment`, {
         //   replace: true,
