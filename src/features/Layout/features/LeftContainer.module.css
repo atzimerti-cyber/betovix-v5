@@ -345,6 +345,12 @@
   opacity: 0;
 }
 
+.Closed.SideMenuScroll .GradPromoWrapper>button span {
+  display: none;
+  max-width: 0;
+  opacity: 0;
+}
+
 .Closed.SideMenuScroll .SideMenuSubButtonContainer>button span {
   display: contents;
   max-width: 0;
@@ -463,7 +469,7 @@
   }
 }
 
-.GradBtnWrapper {
+.GradBtnWrapper, .GradPromoWrapper {
   position: relative;
   min-height: 2.8rem;
   max-height: 2.8rem;
@@ -500,8 +506,6 @@
   z-index: 0;
   background-repeat: no-repeat;
   background-size: cover;
-  display: none;
-
 }
 
 .PromoButton svg,

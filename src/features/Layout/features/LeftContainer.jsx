@@ -408,7 +408,7 @@ const LeftContainer = memo(function () {
         )}
 
 
-        <div className={classes.GradBtnWrapper}>
+        <div className={classes.GradPromoWrapper}>
           <button
             onClick={() => navigate("/promotions")}
             className={classes.PromotionsButton}
