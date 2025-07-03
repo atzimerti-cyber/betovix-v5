@@ -32,7 +32,7 @@ const Bottombar = () => {
   const initDataLoaded = useSelector((state) => state.app.initDataLoaded);
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const permissions = useSelector((state) => state.login.permissions);
-  const fixedMenu = useSelector((state) => state.app.siteSettings.FixedMenu);
+  // const fixedMenu = useSelector((state) => state.app.siteSettings.FixedMenu);
   const footerbarMenu = useSelector((state) => state.app.footerbarMenu);
 
   // const getMultiplier = () => {
@@ -376,8 +376,7 @@ const Bottombar = () => {
     //   setMenuButtonsIndexes(filteredIndexes);
     // }  else 
     if (
-      !footerbarMenu && footerbarMenu.length == 0 &&
-      fixedMenu === "true"
+      !footerbarMenu && footerbarMenu?.length == 0
     ) {
       let buttonsObj = {
         menu: 0,
@@ -411,8 +410,10 @@ const Bottombar = () => {
   ]);
 
   const handleBtnClick = (i) => {
-    if (i.State) {
-      navigate(`/${i.State}`)
+    if (i.page) {
+      navigate(`${i.page}`)
+    } else if (i.link) {
+      window.open(i.link, '_blank');
     }
   }
 
@@ -420,6 +421,16 @@ const Bottombar = () => {
     <div className={classes.Bottombar} id="bottomBar">
       {footerbarMenu && footerbarMenu.length > 0 ? (
         <>
+          <button
+            id="menuButton"
+            key={1}
+            type="button"
+            className={classes.BottomMenuItem}
+            onClick={() => dispatch(layoutActions.setFullLeftContainer(true))}
+          >
+            <MenuBurgerIcon className={classes.WithStroke} />
+            <span className={classes.Label}>{translate("Menu")}</span>
+          </button>
 
           {footerbarMenu.map((i) => (
             <button
@@ -436,6 +447,28 @@ const Bottombar = () => {
               <span className={classes.Label}>{translate(i.label)}</span>
             </button>
           ))}
+
+          {permissions.AllowToSports &&
+            <button
+              id="betslip"
+              key={10}
+              type="button"
+              className={classes.BottomMenuItem}
+              onClick={() => {
+                dispatch(layoutActions.setFullLeftContainer(false));
+                dispatch(layoutActions.setShowRightContainer(true));
+                dispatch(layoutActions.setShowRight("betslip"));
+              }}
+            >
+              <BetslipIcon className={classes.WithFill} />
+
+              <span className={classes.Label}>{translate("Betslip")}</span>
+              {slips.length > 0 && (
+                <div className={classes.SlipsNum}>{slips.length}</div>
+              )}
+            </button>
+          }
+
         </>
 
       ) : (

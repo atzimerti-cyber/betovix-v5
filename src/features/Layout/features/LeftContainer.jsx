@@ -412,7 +412,7 @@ const LeftContainer = memo(function () {
           <button
             onClick={() => navigate("/promotions")}
             className={classes.PromotionsButton}
-            id="promoCodeButton"
+            id="promotionsButton"
             style={{ backgroundImage: `url(${PromotionsImg})` }}
           >
             <span>{translate("Promotions")}</span>

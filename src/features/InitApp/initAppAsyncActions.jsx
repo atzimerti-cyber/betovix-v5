@@ -441,7 +441,8 @@ export const loadInitData = (isMobile) => {
                 id: item.Id,
                 label: item.Name,
                 icon: footerbarMenuIcons[item.Name] || <NoImageIcon />,
-                page: item.Link || "#",
+                page: item.State,
+                link: item.Link || "#",
                 badgeId: item.Badge,
               });
             });
@@ -780,9 +781,9 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        // `Site/GetSite?domainName=slotking150.com`,
+       // `Site/GetSite?domainName=betovix.com`,
         // `Site/GetSite?domainName=betovix.storetube.gr`,
-        `Site/GetSite?domainName=${currentDomain}`,
+         `Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,

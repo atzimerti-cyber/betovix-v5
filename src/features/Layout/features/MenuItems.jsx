@@ -47,14 +47,24 @@ const MenuItems = (props) => {
   };
 
   const NavigateToBackOffice = () => {
+    // const currentDomain = window.location.hostname;
+    // const token = getAccessToken();
+    // const prefix =
+    //   siteSettings?.WalletPrefix
+    //     ? siteSettings.WalletPrefix
+    //     : "wallet.";
+
+    // const walletUrl = `https://${prefix}${currentDomain}?token=${token}`;
+
+    // window.location.href = walletUrl;
+
     const currentDomain = window.location.hostname;
     const token = getAccessToken();
-    const prefix =
-      siteSettings?.WalletPrefix
-        ? siteSettings.WalletPrefix
-        : "wallet.";
+    const url = siteSettings?.WalletUrl;
 
-    const walletUrl = `https://${prefix}${currentDomain}?token=${token}`;
+    const walletUrl = url
+      ? url + "?token=" + token
+      : "https://wallet." + currentDomain + "?token=" + token;
 
     window.location.href = walletUrl;
   }
