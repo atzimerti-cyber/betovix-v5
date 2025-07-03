@@ -481,6 +481,10 @@
   margin: 0.2rem 0;
 }
 
+.GradPromoWrapper {
+  display: none;
+}
+
 .PromoButton,
 .HorseButton,
 .PromotionsButton {
