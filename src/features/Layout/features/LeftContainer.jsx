@@ -408,11 +408,10 @@ const LeftContainer = memo(function () {
         )}
 
 
-        <div className={classes.GradPromoWrapper}>
+        <div className={classes.GradPromoWrapper} id="promotionsButton">
           <button
             onClick={() => navigate("/promotions")}
             className={classes.PromotionsButton}
-            id="promotionsButton"
             style={{ backgroundImage: `url(${PromotionsImg})` }}
           >
             <span>{translate("Promotions")}</span>
