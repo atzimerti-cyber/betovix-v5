@@ -9,7 +9,7 @@ import OddsButton from "./OddsButton";
 import { useDispatch, useSelector } from "react-redux";
 import { useMediaQuery } from "react-responsive";
 import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
-import { translate } from "../../../utils/translations.jsx";
+import { translate, translateNameWithLang } from "../../../utils/translations.jsx";
 import { formatDate } from "../../../utils/custom.jsx";
 
 const SportsBanners = (props) => {
@@ -23,11 +23,11 @@ const SportsBanners = (props) => {
   const slidesPerView = useSlidesResponsive("sportsBanners").slidesPerView;
 
   const getOddsLabel = (label) => {
-    if (label === "W1") return "1";
-    else if (label === "W2") return "2";
-    else if (label === "Draw") return "x";
+    if (label?.International === "W1") return "1";
+    else if (label?.International === "W2") return "2";
+    else if (label?.International === "Draw") return "x";
 
-    return translate(label);
+    return translateNameWithLang(label);
   };
 
   const dateFormatter = (dateStr) => {
@@ -95,9 +95,8 @@ const SportsBanners = (props) => {
                       to={`/event/${banner.event?.Info.SportName?.International.toLowerCase().replace(
                         / /g,
                         "-"
-                      )}/${banner.event?.Info.SportId}/${
-                        banner.event?.Header.MatchId
-                      }`}
+                      )}/${banner.event?.Info.SportId}/${banner.event?.Header.MatchId
+                        }`}
                     >
                       <div className={classes.EventTeams}>
                         <div className={classes.HomeTeam}>
@@ -129,7 +128,7 @@ const SportsBanners = (props) => {
                     </Link>
                     <div className={classes.EventMarkets}>
                       {banner.event.Markets &&
-                      banner.event.Markets.length > 0 ? (
+                        banner.event.Markets.length > 0 ? (
                         // banner.event.Markets.find(
                         //   (market) => market.MarketTypeId === 14
                         // )?.MarketFields.map((marketField) => (
@@ -153,9 +152,10 @@ const SportsBanners = (props) => {
                           (marketField) => (
                             <OddsButton
                               key={marketField.FieldId}
-                              label={getOddsLabel(
-                                marketField.FieldName?.International
-                              )}
+                              // label={getOddsLabel(
+                              //   marketField.FieldName?.International
+                              // )} 
+                              label={getOddsLabel(marketField.FieldName)}
                               event={banner.event}
                               market={banner.event?.Markets[0]}
                               marketField={marketField}

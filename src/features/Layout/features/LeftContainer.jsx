@@ -10,6 +10,8 @@ import classes from "./LeftContainer.module.css";
 import LiveSupportIcon from "../../../assets/svgs/live-support.svg?react";
 import DropdownLang from "../../UI/Dropdown/DropdownLang";
 import CasinoIcon from "../../../assets/svgs/casino.svg?react";
+import PromotionsIcon from "../../../assets/svgs/promotions.svg?react";
+import PromotionsImg from "../../../assets/images/promosyonlar.png";
 import SportsIcon from "../../../assets/svgs/sports.svg?react";
 import HorseIcon from "../../../assets/svgs/horse-head.svg?react";
 import FireIcon from "../../../assets/svgs/fire.svg?react";
@@ -259,44 +261,6 @@ const LeftContainer = memo(function () {
                         {fullLeftContainer ? translate("View Ticket") : ""}
                       </span>
                     </MainButton>
-
-                    {/* <MainButton
-                        active={pathnameNoParams.includes(
-                          "?modal=load-ticket"
-                        )}
-                        onClick={() => navigate("?modal=load-ticket")}
-                        dataTooltipId="left-menu-tooltip"
-                        dataTooltipContent={translate("Print Ticket")}
-                      >
-                        <TicketIcon
-                          className={
-                            pathnameNoParams.includes("?modal=load-ticket")
-                              ? classes.ActiveSvg
-                              : null
-                          }
-                        />
-                        <span>
-                          {fullLeftContainer ? translate("Print Ticket") : ""}
-                        </span>
-                      </MainButton> */}
-
-                    {/* <MainButton
-                      active={pathnameNoParams.includes("?modal=promo-code")}
-                      onClick={() => navigate("?modal=promo-code")}
-                      dataTooltipId="left-menu-tooltip"
-                      dataTooltipContent={translate("Promo Code")}
-                    >
-                      <TicketIcon
-                        className={
-                          pathnameNoParams.includes("?modal=promo-code")
-                            ? classes.ActiveSvg
-                            : null
-                        }
-                      />
-                      <span>
-                        {fullLeftContainer ? translate("Promo Code") : ""}
-                      </span>
-                    </MainButton> */}
                   </>
                 )}
               </>
@@ -425,46 +389,6 @@ const LeftContainer = memo(function () {
 
         {/* TRACK EVENTS BUTTON */}
         {permissions.AllowToSIS && (
-          // <div className={classes.SideMenuAllButtonsContainer}>
-          //   <div
-          //     className={classes.SideMenuButtonContainer}
-          //     style={{ marginBottom: "3px" }}
-          //   >
-          //     {/* <InteractiveButton
-          //       active={pathnameNoParams.includes("track-events")}
-          //       onClick={() => navigate("/track-events")}
-          //       dataTooltipId="left-menu-tooltip"
-          //       dataTooltipContent={translate("Track Events")}
-          //       image={StaticHorse}
-          //       gif={GifHorse}
-          //       color="yellow"
-          //     >
-          //       <span>
-          //         {fullLeftContainer ? translate("Horse Racing") : ""}
-          //       </span>
-          //     </InteractiveButton> */}
-
-          //     <MainButton
-          //       active3={pathnameNoParams.includes("track-events")}
-          //       onClick={() => navigate("/track-events")}
-          //       dataTooltipId="left-menu-tooltip"
-          //       dataTooltipContent={translate("Track Events")}
-          //       shimmer
-          //     >
-          //       <HorseIcon
-          //         className={
-          //           pathnameNoParams.includes("track-events")
-          //             ? classes.Active3Svg
-          //             : null
-          //         }
-          //       />
-          //       <span>
-          //         {fullLeftContainer ? translate("Horse Racing") : ""}
-          //       </span>
-          //     </MainButton>
-          //     <div className={classes.NewBadge}>NEW</div>
-          //   </div>
-          // </div>
           <>
             <div className={classes.GradBtnWrapper}>
               <button
@@ -482,6 +406,18 @@ const LeftContainer = memo(function () {
             </div>
           </>
         )}
+
+
+        <div className={classes.GradBtnWrapper}>
+          <button
+            onClick={() => navigate("/promotions")}
+            className={classes.PromotionsButton}
+            id="promoCodeButton"
+            style={{ backgroundImage: `url(${PromotionsImg})` }}
+          >
+            <span>{translate("Promotions")}</span>
+          </button>
+        </div>
 
         <div className={classes.GradBtnWrapper}>
           <button

@@ -1,12 +1,27 @@
 import { store } from "../app/store";
 
-export function translate(key) {
+export function translate(key, c) {
   if (!key) return;
-
+  if (c === "this") {
+    if (!window.dictLang) window.dictLang = {};
+    if (!window.dictLang[key]) {
+      window.dictLang[key] = 1;
+    } else {
+      window.dictLang[key] += 1;
+    }
+  }
   const { translations } = store.getState().app;
 
   return translations[key] || key; // Fallback to key if translation is missing
 }
+window.printL = function () {
+  var str = '';
+  for (var key in window.dictLang) {
+    str += "'" + key + "',"
+  }
+  console.log(str)
+}
+
 
 // export function translateNameWithLang(name) {
 //     if (!name) return;

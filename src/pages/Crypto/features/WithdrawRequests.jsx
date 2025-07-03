@@ -278,7 +278,7 @@ const WithdrawRequests = () => {
               <option value="">{translate("All")}</option>
               {uniqueStatuses.map((status) => (
                 <option key={status} value={status}>
-                  {translate(renderReqStatus(status))}
+                  {renderReqStatus(status)}
                 </option>
               ))}
             </select>

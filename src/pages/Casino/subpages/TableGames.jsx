@@ -81,7 +81,7 @@ const TableGames = () => {
         <div className={classes.PromoBanner}>
           {/* <VirtualGamesIcon /> */}
           <p className={classes.PageTitle} style={{ marginLeft: "1rem" }}>
-            {translate(`Table Games `)}
+            {translate(`Table Games`)}
           </p>
           {/* <img src={PromoImage} alt="" /> */}
         </div>

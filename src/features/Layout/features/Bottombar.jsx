@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
@@ -33,25 +33,26 @@ const Bottombar = () => {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const permissions = useSelector((state) => state.login.permissions);
   const fixedMenu = useSelector((state) => state.app.siteSettings.FixedMenu);
+  const footerbarMenu = useSelector((state) => state.app.footerbarMenu);
 
-  const getMultiplier = () => {
-    let totalMultiplier = 1;
-    slips.forEach((slip) => {
-      totalMultiplier = totalMultiplier * slip.Odd;
-    });
+  // const getMultiplier = () => {
+  //   let totalMultiplier = 1;
+  //   slips.forEach((slip) => {
+  //     totalMultiplier = totalMultiplier * slip.Odd;
+  //   });
 
-    return formatNumberTo(totalMultiplier);
-  };
+  //   return formatNumberTo(totalMultiplier);
+  // };
 
-  const addParamsToUrl = (modal, tab) => {
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.set("modal", modal);
-    if (tab) searchParams.set("tab", tab);
+  // const addParamsToUrl = (modal, tab) => {
+  //   const searchParams = new URLSearchParams(location.search);
+  //   searchParams.set("modal", modal);
+  //   if (tab) searchParams.set("tab", tab);
 
-    navigate(`${location.pathname}?${searchParams.toString()}`, {
-      replace: true,
-    });
-  };
+  //   navigate(`${location.pathname}?${searchParams.toString()}`, {
+  //     replace: true,
+  //   });
+  // };
 
   const [menuButtonsIndexes, setMenuButtonsIndexes] = useState([]);
 
@@ -203,7 +204,7 @@ const Bottombar = () => {
         dispatch(layoutActions.setFullLeftContainer(false));
         navigate("/search");
       }}
-      // onClick={() => addParamsToUrl("search")}
+    // onClick={() => addParamsToUrl("search")}
     >
       <SearchIcon className={classes.WithStroke} />
       <span className={classes.Label}>{translate("Search Casino")}</span>
@@ -278,74 +279,106 @@ const Bottombar = () => {
   useEffect(() => {
     if (!initDataLoaded) return;
 
-    if (fixedMenu === "false" || !fixedMenu) {
-      let allButtonsObj = {
-        menu: 0,
-        sports: 1,
-        casino: 2,
-        mybets: 3,
-        betslip: 4,
-        search: 5,
-        searchEvent: 6,
-        inplay: 7,
-        liveCasino: 8,
-        crashGames: 9,
-        chat: 10,
-        crypto: 11,
-        leader: 12,
-      };
+    // if (fixedMenu === "false" || !fixedMenu) {
+    //   let allButtonsObj = {
+    //     menu: 0,
+    //     sports: 1,
+    //     casino: 2,
+    //     mybets: 3,
+    //     betslip: 4,
+    //     search: 5,
+    //     searchEvent: 6,
+    //     inplay: 7,
+    //     liveCasino: 8,
+    //     crashGames: 9,
+    //     chat: 10,
+    //     crypto: 11,
+    //     leader: 12,
+    //   };
 
-      // Remove buttons depending on the perimissions
-      if (!permissions.AllowToSports) {
-        delete allButtonsObj["sports"];
-        delete allButtonsObj["mybets"];
-        delete allButtonsObj["betslip"];
-        delete allButtonsObj["inplay"];
-        delete allButtonsObj["searchEvent"];
-      }
-      if (!permissions.AllowToCasino && !permissions.AllowToSlots) {
-        delete allButtonsObj["search"];
-        delete allButtonsObj["casino"];
-        delete allButtonsObj["liveCasino"];
-        delete allButtonsObj["crashGames"];
-      }
+    //   // Remove buttons depending on the perimissions
+    //   if (!permissions.AllowToSports) {
+    //     delete allButtonsObj["sports"];
+    //     delete allButtonsObj["mybets"];
+    //     delete allButtonsObj["betslip"];
+    //     delete allButtonsObj["inplay"];
+    //     delete allButtonsObj["searchEvent"];
+    //   }
+    //   if (!permissions.AllowToCasino && !permissions.AllowToSlots) {
+    //     delete allButtonsObj["search"];
+    //     delete allButtonsObj["casino"];
+    //     delete allButtonsObj["liveCasino"];
+    //     delete allButtonsObj["crashGames"];
+    //   }
 
-      // Remove buttons depending on the route
-      // if (slips.length > 0) delete allButtonsObj['mybets'];
-      // else delete allButtonsObj['betslip'];
+    //   // Remove buttons depending on the route
+    //   // if (slips.length > 0) delete allButtonsObj['mybets'];
+    //   // else delete allButtonsObj['betslip'];
 
-      if (basepath.includes("sportsbook") || basepath.includes("event")) {
-        delete allButtonsObj["sports"];
-        delete allButtonsObj["crypto"];
-        delete allButtonsObj["search"];
-        // delete allButtonsObj["betslip"];
-      } else if (basepath.includes("casino/game")) {
-        delete allButtonsObj["mybets"];
-        delete allButtonsObj["searchEvent"];
-        delete allButtonsObj["betslip"];
-        delete allButtonsObj["inplay"];
-        delete allButtonsObj["mybets"];
-      } else if (basepath.includes("casino")) {
-        delete allButtonsObj["mybets"];
-        delete allButtonsObj["searchEvent"];
-        delete allButtonsObj["betslip"];
-        delete allButtonsObj["inplay"];
-        delete allButtonsObj["casino"];
-        delete allButtonsObj["leader"];
-        delete allButtonsObj["crypto"];
-        delete allButtonsObj["chat"];
-      }
+    //   if (basepath.includes("sportsbook") || basepath.includes("event")) {
+    //     delete allButtonsObj["sports"];
+    //     delete allButtonsObj["crypto"];
+    //     delete allButtonsObj["search"];
+    //     // delete allButtonsObj["betslip"];
+    //   } else if (basepath.includes("casino/game")) {
+    //     delete allButtonsObj["mybets"];
+    //     delete allButtonsObj["searchEvent"];
+    //     delete allButtonsObj["betslip"];
+    //     delete allButtonsObj["inplay"];
+    //     delete allButtonsObj["mybets"];
+    //   } else if (basepath.includes("casino")) {
+    //     delete allButtonsObj["mybets"];
+    //     delete allButtonsObj["searchEvent"];
+    //     delete allButtonsObj["betslip"];
+    //     delete allButtonsObj["inplay"];
+    //     delete allButtonsObj["casino"];
+    //     delete allButtonsObj["leader"];
+    //     delete allButtonsObj["crypto"];
+    //     delete allButtonsObj["chat"];
+    //   }
 
-      if (!user) {
-        delete allButtonsObj["mybets"];
-      }
+    //   if (!user) {
+    //     delete allButtonsObj["mybets"];
+    //   }
 
-      const allButtonsIndexes = Object.values(allButtonsObj).sort(
-        (a, b) => a - b
-      );
-      let firstFiveItems = allButtonsIndexes.slice(0, 5);
-      setMenuButtonsIndexes(firstFiveItems);
-    } else if (fixedMenu === "true") {
+    //   const allButtonsIndexes = Object.values(allButtonsObj).sort(
+    //     (a, b) => a - b
+    //   );
+    //   let firstFiveItems = allButtonsIndexes.slice(0, 5);
+    //   setMenuButtonsIndexes(firstFiveItems);
+    // } else 
+
+    // if (footerbarMenu && footerbarMenu.length > 0) {
+    //   const allButtonsObj = {
+    //     // menu: 0,
+    //     sports: 1,
+    //     slots: 2,
+    //     mybets: 3,
+    //     betslip: 4,
+    //     search: 5,
+    //     searchEvent: 6,
+    //     inplay: 7,
+    //     live: 8,
+    //     crashGames: 9,
+    //     chat: 10,
+    //     crypto: 11,
+    //     leader: 12,
+    //   };
+
+    //   const footerArray = Array.from(footerbarMenu);
+
+    //   const allowedLabels = new Set(footerArray.map(item => item.label.toLowerCase()));
+
+    //   const filteredIndexes = Object.entries(allButtonsObj)
+    //     .filter(([key]) => allowedLabels.has(key.toLowerCase()))
+    //     .map(([, value]) => value);
+
+    //   setMenuButtonsIndexes(filteredIndexes);
+    // }  else 
+    if (
+      !footerbarMenu && footerbarMenu.length == 0 &&
+      fixedMenu === "true"
+    ) {
       let buttonsObj = {
         menu: 0,
         sports: 1,
@@ -377,12 +410,44 @@ const Bottombar = () => {
     initDataLoaded,
   ]);
 
+  const handleBtnClick = (i) => {
+    if (i.State) {
+      navigate(`/${i.State}`)
+    }
+  }
+
   return (
     <div className={classes.Bottombar} id="bottomBar">
-      {allButtons.map((menuButton, index) => {
+      {footerbarMenu && footerbarMenu.length > 0 ? (
+        <>
+
+          {footerbarMenu.map((i) => (
+            <button
+              key={i.badgeId}
+              id={i.badgeId}
+              className={classes.BottomMenuItem}
+              type="button"
+              onClick={() => {
+                dispatch(layoutActions.setFullLeftContainer(false));
+                handleBtnClick(i);
+              }}
+            >
+              {i.icon}
+              <span className={classes.Label}>{translate(i.label)}</span>
+            </button>
+          ))}
+        </>
+
+      ) : (
+        allButtons.map((menuButton, index) => {
+          if (!menuButtonsIndexes.includes(index)) return null;
+          return <Fragment key={index}>{menuButton}</Fragment>;
+        })
+      )}
+      {/* {footerbarMenu?.length == 0 && fixedMenu === "true" && allButtons.map((menuButton, index) => {
         if (!menuButtonsIndexes.includes(index)) return null;
         return menuButton;
-      })}
+      })} */}
     </div>
   );
 };

@@ -461,7 +461,8 @@
   margin: 0.2rem 0;
 }
 .PromoButton,
-.HorseButton {
+.HorseButton,
+.PromotionsButton {
   height: 100%;
   width: 100%;
   border-radius: 6px;
@@ -474,6 +475,15 @@
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 600;
+}
+.PromotionsButton {
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+  z-index: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 .PromoButton svg,
 .HorseButton svg {
@@ -521,7 +531,6 @@
   pointer-events: none;
   z-index: 1;
 }
-
 @keyframes shimmerDiagonal {
   0% {
     transform: translate(-100%, -100%) rotate(45deg);

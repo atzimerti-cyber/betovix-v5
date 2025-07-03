@@ -71,28 +71,9 @@ const MultiSelect = (props) => {
 
         <AnimatePresence>
           {showDropdown && (
-            // <Dropdown3 onClickOutside={onClose}>
             <Dropdown3>
-              {/* <div className={classes.DropdownMenu}> */}
               <div className={classes.TopElement}>
                 <div className={classes.MenuTitle}>{props.menuTitle}</div>
-                {/* <div
-                    className={
-                      selectedOptions.length > 0
-                        ? classes.ClearLabel
-                        : [classes.ClearLabel, classes.Disabled].join(" ")
-                    }
-                    onClick={() => {
-                      setSelectedOptions([]);
-                    }}
-                  >
-                    {translate("Clear Selection")}
-                    <span className={classes.SelectedCount}>
-                      {selectedOptions.length > 0
-                        ? "(" + selectedOptions.length + ")"
-                        : "(0)"}
-                    </span>
-                  </div> */}
               </div>
 
               <div className={classes.SumbitButtonContainer}>
@@ -155,7 +136,6 @@ const MultiSelect = (props) => {
                   </li>
                 ))}
               </div>
-              {/* </div> */}
             </Dropdown3>
           )}
         </AnimatePresence>

@@ -41,6 +41,7 @@ export const loadInitData = (isMobile) => {
     try {
       // Init menu
       let casinoMenuItems = [];
+      let footerbarMenuItems = [];
       let sportsMenuItems = [];
       let allMenuItems = [];
 
@@ -344,6 +345,11 @@ export const loadInitData = (isMobile) => {
           ? siteSettings.CasinoMinibarType
           : "Betovix";
 
+      const footerbartype =
+        siteSettings && siteSettings?.FooterMenuType
+          ? siteSettings.FooterMenuType
+          : "Betovix";
+
       // Casino
       // -------------------------------------
       if (permissions.AllowToCasino || permissions.AllowToSlots) {
@@ -369,6 +375,13 @@ export const loadInitData = (isMobile) => {
               timeout: 10000,
             }
           ),
+          axiosApi.get(
+            `Menu/MyMenu?type=footermenu&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+            {
+              baseURLOverride: config.VITE_CASINO_BASE,
+              timeout: 10000,
+            }
+          ),
         ];
         const responsesCasino = await Promise.all(requestsCasino);
         responsesCasino.forEach((response) => {
@@ -383,6 +396,7 @@ export const loadInitData = (isMobile) => {
         const currentstate = getState().app;
         const casinoIcons = currentstate.casinoIcons;
         const casinoMenuIcons = currentstate.casinoMenuIcons;
+        const footerbarMenuIcons = currentstate.footerbarMenuIcons;
 
         let casinoWalletMenu = {
           category: { id: 5, label: "Casino Categories", visible: true },
@@ -417,6 +431,24 @@ export const loadInitData = (isMobile) => {
           }
         });
 
+        let footerbarMenu = [];
+
+        responsesCasino[3].data.Contents.Categs.forEach((categoryData) => {
+          if (categoryData.Categ.Name === footerbartype) {
+            categoryData.Items.forEach((item) => {
+
+              footerbarMenu.push({
+                id: item.Id,
+                label: item.Name,
+                icon: footerbarMenuIcons[item.Name] || <NoImageIcon />,
+                page: item.Link || "#",
+                badgeId: item.Badge,
+              });
+            });
+          }
+        });
+
+        footerbarMenuItems.push(footerbarMenu);
         casinoMenuItems.push(casinoMinibarMenu);
 
         //  casinoMenuItems.push({
@@ -476,6 +508,7 @@ export const loadInitData = (isMobile) => {
         casinoMenuItems.push(casinoWalletMenu);
 
         dispatch(appActions.setCasinoMenuItems(casinoMenuItems));
+        dispatch(appActions.setFooterbarMenu(footerbarMenuItems[0]));
         dispatch(appActions.setCasinoMinibarItems(casinoMinibarMenu));
       }
 
@@ -524,7 +557,7 @@ export const loadInitData = (isMobile) => {
             icon: <SupportIcon />,
             page: "support",
           },
-          permissions?.AllowToSports &&  {
+          permissions?.AllowToSports && {
             id: 3,
             label: "My Bets",
             icon: <PaperIcon />,
@@ -747,7 +780,7 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=betovix.com`,
+        // `Site/GetSite?domainName=slotking150.com`,
         // `Site/GetSite?domainName=betovix.storetube.gr`,
         `Site/GetSite?domainName=${currentDomain}`,
         {

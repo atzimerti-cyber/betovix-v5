@@ -45,11 +45,11 @@ const GameCard = (props) => {
   };
 
   const getOddsLabel = (label) => {
-    if (label === "W1") return "1";
-    else if (label === "W2") return "2";
-    else if (label === "Draw") return "x";
+    if (label?.International === "W1") return "1";
+    else if (label?.International === "W2") return "2";
+    else if (label?.International === "Draw") return "x";
 
-    return translate(label);
+    return translateNameWithLang(label);
   };
 
   const gotoEvent = () => {
@@ -128,7 +128,7 @@ const GameCard = (props) => {
             return selectedMarket.MarketFields.map((marketField) => (
               <OddsButton
                 key={marketField.FieldId}
-                label={getOddsLabel(marketField.FieldName?.International)}
+                label={getOddsLabel(marketField.FieldName)}
                 event={props.game}
                 market={selectedMarket}
                 marketField={marketField}

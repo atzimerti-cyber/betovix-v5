@@ -376,6 +376,17 @@ const initialState = {
   changeUsername: true,
   showVoucherModal: false,
   app: null,
+  footerbarMenu: null,
+  footerbarMenuIcons: {
+    Home: <HomeIcon />,
+    Slots: <SlotsIcon />,
+    Sports: <FootballIcon />,
+    "Live Casino": <BlackjackIcon />,
+    "Live Support": <BlackjackIcon />,
+    "Virtual Games": <VirtualGames />,
+    "Game Shows": <GameShows />,
+    "Table Games": <TableGames />, 
+  },
 };
 
 export const appSlice = createSlice({
@@ -487,6 +498,9 @@ export const appSlice = createSlice({
     },
     setApp: (state, action) => {
       state.app = action.payload;
+    },
+    setFooterbarMenu: (state, action) => {
+      state.footerbarMenu = action.payload;
     },
   },
 });

@@ -83,28 +83,28 @@ const Deposit = () => {
           {paymentTypes?.some(
             (payment) => payment.Provider === "VouchStar"
           ) && (
-            <div
-              className={classes.PaymentButtonContainer}
-              style={{
-                background: "var(--button-grad-op-mid)",
-              }}
-            >
-              <MainButton
-                color="transparent"
-                onClick={() => {
-                  navigateToModal("cashier", "deposit", "voucher");
+              <div
+                className={classes.PaymentButtonContainer}
+                style={{
+                  background: "var(--button-grad-op-mid)",
                 }}
               >
-                <img
-                  src={VoucherIcon}
-                  loading="lazy"
-                  alt="Voucher"
-                  style={{ height: "63%", width: "auto" }}
-                />
-                <h2>{translate("Buy Deposit Voucher")}</h2>
-              </MainButton>
-            </div>
-          )}
+                <MainButton
+                  color="transparent"
+                  onClick={() => {
+                    navigateToModal("cashier", "deposit", "voucher");
+                  }}
+                >
+                  <img
+                    src={VoucherIcon}
+                    loading="lazy"
+                    alt="Voucher"
+                    style={{ height: "63%", width: "auto" }}
+                  />
+                  <h2>{translate("Buy Deposit Voucher")}</h2>
+                </MainButton>
+              </div>
+            )}
 
           {paymentTypes &&
             paymentTypes.length > 1 &&
