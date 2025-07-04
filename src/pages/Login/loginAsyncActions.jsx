@@ -58,7 +58,7 @@ export const logingGoogle = (loginInfo, navigate, locationPathname) => {
   };
 };
 export const login = (loginInfo, navigate, locationPathname, onSuccess) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
     dispatch(loginActions.setLoginLoading(true));
 
     try {
@@ -123,7 +123,19 @@ export const login = (loginInfo, navigate, locationPathname, onSuccess) => {
       if (response2.data.Contents.Role < 40 && !response2.data.Contents.MyPermissions.AllowToRetail) {
         const currentDomain = window.location.hostname;
         const token = response2.data.Contents.Token;
-        const walletUrl = `https://wallet.${currentDomain}?token=${token}`;
+        const currentState1 = getState().app;
+        const siteSettings = currentState1.siteSettings;
+        const url = siteSettings?.WalletUrl;
+
+        const formatUrl = (url) => url.startsWith('http') ? url : 'https://' + url;
+        const separator = url?.includes('?') ? '&' : '?';
+        const walletUrl = url
+          ? formatUrl(url) + separator + "token=" + token
+          : "https://wallet." + currentDomain + "?token=" + token;
+          
+        // const walletUrl = url
+        //   ? url + "?token=" + token
+        //   : "https://wallet." + currentDomain + "?token=" + token;
 
         window.location.href = walletUrl;
         // navigate(walletUrl, { replace: true });

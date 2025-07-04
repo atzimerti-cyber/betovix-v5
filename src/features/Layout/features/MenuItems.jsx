@@ -61,10 +61,15 @@ const MenuItems = (props) => {
     const currentDomain = window.location.hostname;
     const token = getAccessToken();
     const url = siteSettings?.WalletUrl;
-
+    const formatUrl = (url) => url.startsWith('http') ? url : 'https://' + url;
+    const separator = url?.includes('?') ? '&' : '?';
     const walletUrl = url
-      ? url + "?token=" + token
+      ? formatUrl(url) + separator + "token=" + token
       : "https://wallet." + currentDomain + "?token=" + token;
+
+    // const walletUrl = url
+    //   ? url + "?token=" + token
+    //   : "https://wallet." + currentDomain + "?token=" + token;
 
     window.location.href = walletUrl;
   }
