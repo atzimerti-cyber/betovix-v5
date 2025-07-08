@@ -92,7 +92,7 @@ const WithdrawPaymentForm = (props) => {
       updatedValue = formatCardNumber(updatedValue); // Apply formatting
     }
 
-    if (name === "Network" || name === "Bank") {
+    if (name === "Network" || name === "Bank" || name === "Coin") {
       setFormData((prevData) => {
         var result = "";
         const selectedOption = e.target.selectedOptions[0];
@@ -120,48 +120,33 @@ const WithdrawPaymentForm = (props) => {
     setDisabledButton(true);
 
     const withdrawDTO = {
-      Currency:
-        debouncedFormData.Currency ||
-        (debouncedFormData.Network &&
-          Object.values(debouncedFormData.Network)[0]),
-      Network: debouncedFormData.Network
-        ? Object.keys(debouncedFormData.Network)[0]
-        : debouncedFormData.BankCode && debouncedFormData.BankCode,
+      Currency: debouncedFormData.Currency || (debouncedFormData.Network && Object.values(debouncedFormData.Network)[0]) || debouncedFormData.Coin && Object.values(debouncedFormData.Coin)[0],
+      Network: debouncedFormData.Network ? Object.keys(debouncedFormData.Network)[0] : debouncedFormData.BankCode && debouncedFormData.BankCode,
       Amount: debouncedFormData.Amount,
       PaymentType: debouncedFormData.PaymentType,
       PaymentMethod: debouncedFormData.PaymentMethod,
       PaymentProvider: props.provider,
       SiteId: `${config.VITE_SITE_ID}`,
-      CustomerFirstName: debouncedFormData.FirstName
-        ? debouncedFormData.FirstName
-        : debouncedFormData.AccountName && debouncedFormData.AccountName,
+      CustomerFirstName: debouncedFormData.FirstName ? debouncedFormData.FirstName : debouncedFormData.AccountName && debouncedFormData.AccountName,
       CustomerLastName: debouncedFormData.LastName,
       CustomerPhone: debouncedFormData.Phone,
       CustomerEmail: debouncedFormData.Email,
       CustomerCountry: debouncedFormData.Country,
       CustomerCity: debouncedFormData.City,
-      CustomerAddress: debouncedFormData.WalletAddress
-        ? debouncedFormData.WalletAddress
-        : debouncedFormData.Address,
+      CustomerAddress: debouncedFormData.WalletAddress ? debouncedFormData.WalletAddress : debouncedFormData.Address,
       CustomerPostCode: debouncedFormData.PostCode,
-      CardNumber: debouncedFormData.CardNumber
-        ? debouncedFormData.CardNumber.replace(/\s+/g, "")
-        : debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
+      CardNumber: debouncedFormData.CardNumber ? debouncedFormData.CardNumber.replace(/\s+/g, "") : debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
+      CustomerAccountNumber: debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
       CustomerIdCode: debouncedFormData.IDCode,
       CustomerIBAN: debouncedFormData.IBAN,
       Bank: debouncedFormData['Banks'],
       // Bank: debouncedFormData.Bank,
       AccountType: debouncedFormData['Account Type'],
       Account: debouncedFormData.Account,
-      CustomerBankId:
-        debouncedFormData.Bank && Object.values(debouncedFormData.Bank)[0],
+      CustomerBankId: debouncedFormData.Bank && Object.values(debouncedFormData.Bank)[0],
       CustomerBirthDate: formatDate(debouncedFormData.DateOfBirth),
-      CustomerIdentityExpDate: formatDate(
-        debouncedFormData.IdentityExpiredDate
-      ),
-      CustomerIdentityReceiveDate: formatDate(
-        debouncedFormData.IdentityIssueDate
-      ),
+      CustomerIdentityExpDate: formatDate(debouncedFormData.IdentityExpiredDate),
+      CustomerIdentityReceiveDate: formatDate(debouncedFormData.IdentityIssueDate),
     };
 
     // console.log("DFD:", debouncedFormData);
