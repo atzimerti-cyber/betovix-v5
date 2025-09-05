@@ -351,6 +351,13 @@
   opacity: 0;
 }
 
+.Closed.SideMenuScroll .GradBonusWrapper span {
+  display: none;
+  max-width: 0;
+  opacity: 0;
+}
+
+
 .Closed.SideMenuScroll .SideMenuSubButtonContainer>button span {
   display: contents;
   max-width: 0;
@@ -481,13 +488,27 @@
   margin: 0.2rem 0;
 }
 
+.GradBonusWrapper, .BonusRequestButton {
+  position: relative;
+  min-height: 2.8rem;
+  max-height: 2.8rem;
+  width: 100%;
+  padding: 0rem 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0.2rem 0;
+}
+
+
 .GradPromoWrapper {
   display: none;
 }
 
 .PromoButton,
 .HorseButton,
-.PromotionsButton {
+.PromotionsButton,
+.BonusRequestButton {
   height: 100%;
   width: 100%;
   border-radius: 6px;
@@ -502,9 +523,8 @@
   font-weight: 600;
 }
 
-.PromotionsButton {
-  justify-content: center;
-  text-align: center;
+.PromotionsButton, .BonusRequestButton {
+
   overflow: hidden;
   position: relative;
   z-index: 0;
@@ -512,8 +532,19 @@
   background-size: cover;
 }
 
+.BonusRequestButton {
+    background: linear-gradient(89deg, #b16a7d 0.25%, #0f79ad0f);
+    transition: background 0.5s ease-out;
+}
+
+.BonusRequestButton:hover {
+  background: #b16a7d;
+  background-color: #b16a7d;
+}
+
 .PromoButton svg,
-.HorseButton svg {
+.HorseButton svg,
+.BonusRequestButton svg {
   height: 1.5rem;
   width: 1.5rem;
 }

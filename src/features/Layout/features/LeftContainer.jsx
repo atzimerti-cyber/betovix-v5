@@ -15,6 +15,7 @@ import PromotionsImg from "../../../assets/images/promosyonlar.png";
 import SportsIcon from "../../../assets/svgs/sports.svg?react";
 import HorseIcon from "../../../assets/svgs/horse-head.svg?react";
 import FireIcon from "../../../assets/svgs/fire.svg?react";
+import GiftIcon from "../../../assets/svgs/gift1.svg?react";
 import StaticHorse from "../../../assets/images/static-h.png?react";
 import GifHorse from "../../../assets/images/horse.gif?react";
 import { layoutActions } from "../layoutSlice";
@@ -48,6 +49,9 @@ const LeftContainer = memo(function () {
   );
   const casinoOriented = useSelector(
     (state) => state.app.siteSettings?.casinoOriented
+  );
+  const bonusRequest = useSelector(
+    (state) => state.app.siteSettings?.BonusRequest
   );
 
   const pathname = location.pathname.substring(1);
@@ -428,6 +432,20 @@ const LeftContainer = memo(function () {
             <span>{translate("Promo Code")}</span>
           </button>
         </div>
+
+        {bonusRequest &&
+          <div className={classes.GradBonusWrapper} id="BonusRequestButton">
+            <a
+              href={bonusRequest}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={classes.BonusRequestButton}
+            >
+                <GiftIcon />
+              <span>{translate("Bonus Request")}</span>
+            </a>
+          </div>
+        }
 
         {casinoOriented && casinoOriented === "true" ? (
           <>
