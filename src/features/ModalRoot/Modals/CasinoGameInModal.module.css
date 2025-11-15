@@ -3,3 +3,10 @@
   width: 95dvw;
   display: flex;
 }
+@media screen and (max-width: 720px) {
+
+  .GameModal {
+    height: 100dvh;
+    width: 100dvw;
+}
+}

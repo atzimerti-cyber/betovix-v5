@@ -42,6 +42,8 @@ const CasinoGame = (props) => {
   brandgameid = brandgameid || searchParams.get("bgid");
   name = name || searchParams.get("name");
 
+  const isSmallScreen = useMediaQuery({ maxWidth: 720 });
+
   const gameContentRef = useRef(null);
 
   const [isExpanded, setIsExpanded] = useState(false);
@@ -325,13 +327,20 @@ const CasinoGame = (props) => {
                   <span>{translate("Expand")}</span>
                 </MainButton>
 
-                <MainButton
+                {/* <MainButton
                   color="transparent"
                   onClick={() => toggleFullScreen()}
                 >
                   <FullscreenOutlineIcon />
                   <span>{translate("Full Screen")}</span>
-                </MainButton>
+                </MainButton> */}
+
+                {!isSmallScreen && (
+                  <MainButton color="transparent" onClick={() => toggleFullScreen()}>
+                    <FullscreenOutlineIcon />
+                    <span>{translate("Full Screen")}</span>
+                  </MainButton>
+                )}
               </div>
             </div>
             <div className={classes.Placeholder} ref={gameContentRef}>
