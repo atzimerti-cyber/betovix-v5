@@ -34,6 +34,13 @@ const WithdrawPaymentForm = (props) => {
 
   const debouncedFormData = useDebounce(formData, 300);
 
+  const paymentType = useSelector(
+    (state) => state.crypto.selectedPaymentTypeWithdraw
+  );
+  const paymentMethod = useSelector(
+    (state) => state.crypto.selectedPaymentMethodWithdraw
+  );
+
   useEffect(() => {
     const allFieldsFilled = Object.values(debouncedFormData).every(
       (value) => value !== "" && value !== undefined
@@ -119,7 +126,7 @@ const WithdrawPaymentForm = (props) => {
     e.preventDefault();
     setDisabledButton(true);
 
-    const withdrawDTO = {
+    let withdrawDTO = {
       Currency: debouncedFormData.Currency || (debouncedFormData.Network && Object.values(debouncedFormData.Network)[0]) || debouncedFormData.Coin && Object.values(debouncedFormData.Coin)[0],
       Network: debouncedFormData.Network ? Object.keys(debouncedFormData.Network)[0] : debouncedFormData.BankCode && debouncedFormData.BankCode,
       Amount: debouncedFormData.Amount,
@@ -129,25 +136,52 @@ const WithdrawPaymentForm = (props) => {
       SiteId: `${config.VITE_SITE_ID}`,
       CustomerFirstName: debouncedFormData.FirstName ? debouncedFormData.FirstName : debouncedFormData.AccountName && debouncedFormData.AccountName,
       CustomerLastName: debouncedFormData.LastName,
-      CustomerPhone: debouncedFormData.Phone,
+      CustomerPhone: debouncedFormData.Phone || debouncedFormData.PhoneNumber,
       CustomerEmail: debouncedFormData.Email,
       CustomerCountry: debouncedFormData.Country,
       CustomerCity: debouncedFormData.City,
       CustomerAddress: debouncedFormData.WalletAddress ? debouncedFormData.WalletAddress : debouncedFormData.Address,
       CustomerPostCode: debouncedFormData.PostCode,
-      CardNumber: debouncedFormData.CardNumber ? debouncedFormData.CardNumber.replace(/\s+/g, "") : debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
-      CustomerAccountNumber: debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
       CustomerIdCode: debouncedFormData.IDCode,
       CustomerIBAN: debouncedFormData.IBAN,
       Bank: debouncedFormData['Banks'],
       // Bank: debouncedFormData.Bank,
-      AccountType: debouncedFormData['Account Type'],
+      AccountType: debouncedFormData['Account Type'] || debouncedFormData.AccountType,
       Account: debouncedFormData.Account,
-      CustomerBankId: debouncedFormData.Bank && Object.values(debouncedFormData.Bank)[0],
       CustomerBirthDate: formatDate(debouncedFormData.DateOfBirth),
       CustomerIdentityExpDate: formatDate(debouncedFormData.IdentityExpiredDate),
       CustomerIdentityReceiveDate: formatDate(debouncedFormData.IdentityIssueDate),
+      DocumentType: debouncedFormData.DocumentType,
+      DocumentNumber: debouncedFormData.DocumentNumber,
+      CustomerAccountNumber: debouncedFormData.CustomerAccountNumber,
     };
+
+
+    if (paymentType.Provider === 'FairPay') {
+      const paymentMethodId = paymentMethod?.Fields
+        ?.find(field => field.Name === "PaymentMethodId")
+        ?.DefaultValue;
+
+      const paymentMethodTypeId = paymentMethod?.Fields
+        ?.find(field => field.Name === "PaymentMethodTypeId")
+        ?.DefaultValue;
+
+      withdrawDTO = {
+        ...withdrawDTO,
+        CountryId: paymentType?.Metadata.CountryId,
+        PaymentMethodId: paymentMethodId,
+        PaymentMethodTypeId: paymentMethodTypeId,
+        Bank: debouncedFormData.Bank,
+      }
+    } else {
+      withdrawDTO = {
+        ...withdrawDTO,
+        CardNumber: debouncedFormData.CardNumber ? debouncedFormData.CardNumber.replace(/\s+/g, "") : debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
+        CustomerAccountNumber: debouncedFormData.AccountNumber && debouncedFormData.AccountNumber,
+        CustomerBankId: debouncedFormData.Bank && Object.values(debouncedFormData.Bank)[0],
+
+      }
+    }
 
     // console.log("DFD:", debouncedFormData);
     // console.log("DTO:", withdrawDTO);
@@ -244,7 +278,7 @@ const WithdrawPaymentForm = (props) => {
             )}
           </>
         );
-      } else if (Name === "Phone") {
+      } else if (Name === "Phone" || Name === "PhoneNumber") {
         inputElement = (
           <input
             className={`${classes.Input}`}
@@ -276,7 +310,7 @@ const WithdrawPaymentForm = (props) => {
           />
         );
       }
-    } else if (Type === "list" && ListValues.length > 0) {
+    } else if (Type.toLowerCase() === "list" && ListValues.length > 0) {
       inputElement = (
         <select
           name={Name}
@@ -291,15 +325,30 @@ const WithdrawPaymentForm = (props) => {
         >
           {ListValues.map((item, index) => {
             const key = Object.keys(item)[0];
+            const isFP = paymentType.Provider === 'FairPay' ? true : false;
+
             return (
-              <option
-                className={classes.SelectOptions}
-                key={index}
-                value={key}
-                data={JSON.stringify(item)}
-              >
-                {key}
-              </option>
+              <>
+                {isFP ? (
+                  <option
+                    className={classes.SelectOptions}
+                    key={index}
+                    value={item}
+                    data={JSON.stringify(item)}
+                  >
+                    {item}
+                  </option>
+                ) : (
+                  <option
+                    className={classes.SelectOptions}
+                    key={index}
+                    value={key}
+                    data={JSON.stringify(item)}
+                  >
+                    {key}
+                  </option>
+                )}
+              </>
             );
           })}
           {/* {ListValues.map((item, index) => {

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -15,6 +15,9 @@ const DepositMethods = () => {
   const location = useLocation();
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const paymentTypes = useSelector((state) => state.crypto.DepositPaymentTypes);
+    const selectedPaymentMethods = useSelector((state) => state.crypto.selectedPaymentMethods);
+  const [methods, setMethods] = useState(null);
+
   const paymentType = useSelector(
     (state) => state.crypto.selectedPaymentTypeDeposit
   );
@@ -26,8 +29,12 @@ const DepositMethods = () => {
       Object.keys(paymentType).length === 0
     ) {
       navigateToDeposit();
+    } else if (paymentType.Provider === 'FairPay') {
+      if(selectedPaymentMethods && selectedPaymentMethods.length > 0) setMethods(selectedPaymentMethods);
+    } else {
+      setMethods(paymentType.Methods);
     }
-  }, [paymentType]);
+  }, [paymentType, selectedPaymentMethods]);
 
   const navigateToDeposit = () => {
     const searchParams = new URLSearchParams(location.search);
@@ -78,7 +85,7 @@ const DepositMethods = () => {
       <div className={classes.PaymentOptionsWrapper}>
         <div className={classes.Grid}>
           {paymentType &&
-            paymentType?.Methods.map(
+            methods?.map(
               (method, index) =>
                 method.Name !== "Active" && (
                   <div

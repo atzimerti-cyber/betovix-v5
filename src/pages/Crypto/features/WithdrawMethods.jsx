@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -23,6 +23,8 @@ const WithdrawMethods = () => {
   const paymentType = useSelector(
     (state) => state.crypto.selectedPaymentTypeWithdraw
   );
+  const selectedPaymentMethods = useSelector((state) => state.crypto.selectedPaymentMethods);
+  const [methods, setMethods] = useState(null);
 
   useEffect(() => {
     if (
@@ -31,8 +33,12 @@ const WithdrawMethods = () => {
       Object.keys(paymentType).length === 0
     ) {
       navigateToWithdraw();
+    } else if (paymentType.Provider === 'FairPay') {
+      if(selectedPaymentMethods && selectedPaymentMethods.length > 0) setMethods(selectedPaymentMethods);
+    } else {
+      setMethods(paymentType.Methods);
     }
-  }, [paymentType]);
+  }, [paymentType, selectedPaymentMethods]);
 
   const navigateToWithdraw = () => {
     const searchParams = new URLSearchParams(location.search);
@@ -115,7 +121,7 @@ const WithdrawMethods = () => {
             </div>
           )}
           {paymentType &&
-            paymentType?.Methods.map(
+            methods?.map(
               (method, index) =>
                 method.Name !== "Active" && (
                   <div

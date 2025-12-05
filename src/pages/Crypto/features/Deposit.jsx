@@ -11,6 +11,7 @@ import { cryptoActions } from "../cryptoSlice";
 import DepositMethods from "./DepositMethods";
 import FinalStageDeposit from "./FinalStageDeposit";
 import Vouchers from "./Vouchers";
+import { fairpayCountry } from "../cryptoAsyncActions";
 
 // import VoucherIcon from "../../../assets/svgs/voucher.svg";
 import VoucherIcon from "../../../assets/images/voucher.png";
@@ -28,6 +29,7 @@ const Deposit = () => {
   const paymentTypes = useSelector((state) => state.crypto.DepositPaymentTypes);
   const query = new URLSearchParams(location.search);
   const stage = query.get("stage");
+  const buttonLoading = useSelector((state) => state.crypto.buttonLoading);
 
   let elClasses = [classes.PaymentVerticalWrapper];
   if (stage === "crypto") elClasses.push(classes.Crypto);
@@ -58,6 +60,26 @@ const Deposit = () => {
 
   const selectPaymentMethod = (type) => {
     dispatch(cryptoActions.setSelectedPaymentMethodDeposit(type.Methods[0]));
+  };
+
+  const handleCountrySelect = (type) => {
+    if (!type.Metadata) return;
+    if (!type.Metadata.Country) return;
+    if (!type.Metadata.CountryId) return;
+
+    selectPaymentType(type);
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const country = type.Metadata.Country;
+    const countryId = type.Metadata.CountryId;
+
+    dispatch(
+      fairpayCountry(signal, country, countryId, 1, (data) => {
+        dispatch(cryptoActions.setSelectedPaymentMethods(data));
+        navigateToModal("cashier", "deposit", "methods");
+      })
+    );
   };
 
   const navigateToModal = (modal, tab, stage) => {
@@ -125,7 +147,9 @@ const Deposit = () => {
                   <MainButton
                     color="transparent"
                     onClick={() => {
-                      if (paymentType.Methods.length <= 1) {
+                      if (paymentType.Provider === "FairPay") {
+                        handleCountrySelect(paymentType);
+                      } else if (paymentType.Methods.length <= 1) {
                         selectPaymentType(paymentType);
                         selectPaymentMethod(paymentType);
                         navigateToModal("cashier", "deposit", "deposit");

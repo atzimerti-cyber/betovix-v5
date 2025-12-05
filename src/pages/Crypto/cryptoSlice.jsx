@@ -29,6 +29,7 @@ const initialState = {
   TrxLink: null,
   /////////////////
   depositIframeAddress: null,
+  selectedPaymentMethods: null,
 };
 
 export const cryptoSlice = createSlice({
@@ -57,6 +58,7 @@ export const cryptoSlice = createSlice({
       state.withdrawals = null;
       state.depositAddress = "";
       state.withdrawLimitMessage = null;
+      state.selectedPaymentMethods = null;
     },
     setCrypto: (state, action) => {
       state.crypto = action.payload;
@@ -133,6 +135,9 @@ export const cryptoSlice = createSlice({
     /////////////////////
     setDepositIframeAddress: (state, action) => {
       state.depositIframeAddress = action.payload;
+    },
+    setSelectedPaymentMethods: (state, action) => {
+      state.selectedPaymentMethods = action.payload;
     },
   },
 });

@@ -42,16 +42,16 @@ export function translateNameWithLang(name) {
 
   const { translations, lang } = store.getState().app;
 
-  if (name.langValues && name.langValues[lang.id]) {
+  if (name?.langValues && name?.langValues[lang.id]) {
     // Ensure it returns a string, otherwise return empty string or some default
-    return typeof name.langValues[lang.id] === "string"
-      ? name.langValues[lang.id]
+    return typeof name?.langValues[lang.id] === "string"
+      ? name?.langValues[lang.id]
       : "";
-  } else if (name.International || name.International === "") {
-    let strippedName = name.International.split(". Outright")[0]; // remove "Outright" before translating
+  } else if (name?.International || name?.International === "") {
+    let strippedName = name?.International.split(". Outright")[0]; // remove "Outright" before translating
     // Return a translated value or fallback to the strippedName
     return translations[strippedName] || strippedName;
-  } else if (name) {
+  } else if (typeof name === "string") {
     return name;
   }
   // Ensure the default fallback also returns a string

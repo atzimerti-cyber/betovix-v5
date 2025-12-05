@@ -37,6 +37,12 @@ const PaymentForm = (props) => {
   const [disabledButton, setDisabledButton] = useState(true);
   const [siteCountry, setSiteCountry] = useState("");
 
+  const paymentType = useSelector(
+    (state) => state.crypto.selectedPaymentTypeDeposit
+  );
+  const paymentMethod = useSelector(
+    (state) => state.crypto.selectedPaymentMethodDeposit
+  );
   const debouncedFormData = useDebounce(formData, 300);
 
   const countries = [
@@ -374,7 +380,7 @@ const PaymentForm = (props) => {
       cur = debouncedFormData.Currency;
     }
 
-    const depositDTO = {
+    let depositDTO = {
       Currency: cur,
       Network: net,
       Amount: debouncedFormData.Amount,
@@ -384,7 +390,7 @@ const PaymentForm = (props) => {
       SiteId: `${config.VITE_SITE_ID}`,
       CustomerFirstName: debouncedFormData.FirstName,
       CustomerLastName: debouncedFormData.LastName,
-      CustomerPhone: debouncedFormData.Phone,
+      CustomerPhone: debouncedFormData.Phone || debouncedFormData.PhoneNumber,
       CustomerEmail: debouncedFormData.Email,
       CustomerCountry: debouncedFormData.Country,
       CustomerCity: debouncedFormData.City,
@@ -393,7 +399,26 @@ const PaymentForm = (props) => {
         : debouncedFormData.Address,
       CustomerPostCode: debouncedFormData.PostCode,
       CustomerIdCode: debouncedFormData.IDCode,
+      DocumentType: debouncedFormData.DocumentType,
+      DocumentNumber: debouncedFormData.DocumentNumber,
     };
+
+    if (paymentType.Provider === 'FairPay') {
+      const paymentMethodId = paymentMethod?.Fields
+        ?.find(field => field.Name === "PaymentMethodId")
+        ?.DefaultValue;
+
+      const paymentMethodTypeId = paymentMethod?.Fields
+        ?.find(field => field.Name === "PaymentMethodTypeId")
+        ?.DefaultValue;
+
+      depositDTO = {
+        ...depositDTO,
+        CountryId: paymentType?.Metadata.CountryId,
+        PaymentMethodId: paymentMethodId,
+        PaymentMethodTypeId: paymentMethodTypeId,
+      }
+    }
     console.log(debouncedFormData);
     console.log(depositDTO);
 
@@ -649,7 +674,7 @@ const PaymentForm = (props) => {
             <option value="ZW">Zimbabwe</option>
           </select>
         );
-      } else if (Name === "Phone") {
+      } else if (Name === "Phone" || Name === 'PhoneNumber') {
         inputElement = (
           <input
             className={
@@ -691,7 +716,7 @@ const PaymentForm = (props) => {
         );
       }
     } else if (
-      (Type === "string" || Type === "list") &&
+      (Type === "string" || Type.toLowerCase() === "list") &&
       ListValues.length > 0
     ) {
       inputElement = (
@@ -704,15 +729,30 @@ const PaymentForm = (props) => {
         >
           {ListValues.map((item, index) => {
             const key = Object.keys(item)[0];
+            const isFP = paymentType.Provider === 'FairPay' ? true : false;
+
             return (
-              <option
-                className={classes.SelectOptions}
-                key={index}
-                value={key}
-                data={JSON.stringify(item)}
-              >
-                {key}
-              </option>
+              <>
+                {isFP ? (
+                  <option
+                    className={classes.SelectOptions}
+                    key={index}
+                    value={item}
+                    data={JSON.stringify(item)}
+                  >
+                    {item}
+                  </option>
+                ) : (
+                  <option
+                    className={classes.SelectOptions}
+                    key={index}
+                    value={key}
+                    data={JSON.stringify(item)}
+                  >
+                    {key}
+                  </option>
+                )}
+              </>
             );
           })}
         </select>

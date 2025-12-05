@@ -14,6 +14,7 @@ import MainButton from "../../../features/UI/Buttons/MainButton";
 
 import { translate } from "../../../utils/translations";
 import { useEffect } from "react";
+import { fairpayCountry } from "../cryptoAsyncActions";
 
 const Withdraw = () => {
   const dispatch = useDispatch();
@@ -69,6 +70,26 @@ const Withdraw = () => {
     dispatch(cryptoActions.setSelectedPaymentMethodWithdraw(type.Methods[0]));
   };
 
+  const handleCountrySelect = (type) => {
+    if (!type.Metadata) return;
+    if (!type.Metadata.Country) return;
+    if (!type.Metadata.CountryId) return;
+
+    selectPaymentType(type);
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+    const country = type.Metadata.Country;
+    const countryId = type.Metadata.CountryId;
+
+    dispatch(
+      fairpayCountry(signal, country, countryId, 2, (data) => {
+        dispatch(cryptoActions.setSelectedPaymentMethods(data));
+        navigateToModal("cashier", "withdraw", "methods");
+      })
+    );
+  };
+
   return (
     <div className={elClasses.join(" ")}>
       <div className={classes.PaymentOptionsWrapper}>
@@ -114,7 +135,9 @@ const Withdraw = () => {
                 <MainButton
                   color="transparent"
                   onClick={() => {
-                    if (paymentType.Methods.length <= 2) {
+                    if (paymentType.Provider === "FairPay") {
+                      handleCountrySelect(paymentType);
+                    } else if (paymentType.Methods.length <= 1) {
                       selectPaymentType(paymentType);
                       selectPaymentMethod(paymentType);
                       navigateToModal("cashier", "withraw", "withdraw");

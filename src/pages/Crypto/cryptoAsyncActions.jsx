@@ -146,7 +146,8 @@ export const submitDepositForm = (signal, depositDTO, navigate = null, locationP
         // depositDTO.PaymentProvider === "Interkassa" ||
         depositDTO.PaymentProvider === "Chapa" ||
         depositDTO.PaymentProvider === "Jetpay" ||
-        depositDTO.PaymentProvider === "payguru"
+        depositDTO.PaymentProvider === "payguru" ||
+        depositDTO.PaymentProvider === "FairPay"
       ) {
         window.location.href = response.data.Contents;
       } else if (depositDTO.PaymentProvider === "Interkassa" || depositDTO.PaymentProvider === "Hizlica" || depositDTO.PaymentProvider === "NeoPay" || depositDTO.PaymentProvider === "Extra") {
@@ -184,6 +185,33 @@ export const submitDepositForm = (signal, depositDTO, navigate = null, locationP
   };
 };
 
+export const fairpayCountry = (signal, country, countryId, type, callback) => {
+  return async (dispatch, getState) => {
+    try {
+            dispatch(cryptoActions.setButtonLoading(true));
+
+      const response = await axiosApi.get(
+        `/Payments/GetPaymentMethodsFairPay?countryId=${countryId}&country=${country}&type=${type}&siteid=${config.VITE_SITE_ID}`,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_STORETUBE,
+        }
+      );
+
+      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
+        throw Error(translate("Failed to fetch fairpay methods"));
+      dispatch(cryptoActions.setButtonLoading(false));
+
+      if (callback) callback(response.data.Contents);
+
+    } catch (error) {
+            dispatch(cryptoActions.setButtonLoading(false));
+
+      const message = error?.message ? error.message : error;
+      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+    }
+  };
+};
 export const submitWithdrawForm = (signal, withrawDTO) => {
   return async (dispatch, getState) => {
     try {
