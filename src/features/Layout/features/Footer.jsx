@@ -48,11 +48,11 @@ const Footer = () => {
       licence &&
       licence !== "" &&
       !licence.LicenceLink &&
-      window[licence.Init]
+      typeof window?.[licence.Init] === "function"
     ) {
-      window.anj_e4a2fe78_d6a5_4db4_8b68_4943b8cde3f0.init();
+      window[licence.Init]();
     }
-  }, [licence]);
+  }, [licence, isFooterAllowed]);
 
   const logoURL = config.VITE_SITE_LOGO ? config.VITE_SITE_LOGO : null;
 
@@ -169,7 +169,7 @@ const Footer = () => {
 
       <SocialMedia />
 
-      {app && <DownloadApp/>}
+      {app && <DownloadApp />}
 
       {seoPage && (
         <div className={classes.Section}>
