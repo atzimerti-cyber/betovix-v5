@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 import classes from "./Footer.module.css";
@@ -24,6 +24,7 @@ const Footer = () => {
   const [isBetovix, setIsBetovix] = useState(false);
   const isFooterAllowed = siteSettings.AllowFooter === "true";
   const app = useSelector((state) => state.app.app);
+  const calledInitsRef = useRef(new Set());
 
   useEffect(() => {
     if (currentDomain === "betovix.com") {
@@ -43,16 +44,43 @@ const Footer = () => {
   }, []);
 
   useEffect(() => {
-    if (
-      isFooterAllowed &&
-      licence &&
-      licence !== "" &&
-      !licence.LicenceLink &&
-      typeof window?.[licence.Init] === "function"
-    ) {
-      window[licence.Init]();
+    if (!isFooterAllowed) return;
+    if (!licence || licence === "") return;
+    if (licence.LicenceLink) return;
+
+    const initKey = licence.Init;
+    if (!initKey) return;
+
+    if (calledInitsRef.current.has(initKey)) return;
+
+    const target = window?.[initKey];
+    if (!target) return;
+
+    try {
+      if (typeof target === "function") {
+        target();
+      } else if (typeof target.init === "function") {
+        target.init();
+      } else {
+        return;
+      }
+
+      calledInitsRef.current.add(initKey);
+    } catch (err) {
+      console.error(`Error calling init for "${initKey}":`, err);
     }
-  }, [licence, isFooterAllowed]);
+
+  }, [licence?.Init, licence?.LicenceLink, isFooterAllowed]);
+
+  // useEffect(() => {
+  //   if (isFooterAllowed &&
+  //     licence &&
+  //     licence !== "" &&
+  //     !licence.LicenceLink &&
+  //     window?.[licence.Init]) {
+  //     window[licence.Init].init();
+  //   }
+  // }, [licence, isFooterAllowed]);
 
   const logoURL = config.VITE_SITE_LOGO ? config.VITE_SITE_LOGO : null;
 
