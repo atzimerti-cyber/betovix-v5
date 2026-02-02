@@ -37,6 +37,7 @@ import NotificationPopUp from "./Modals/NotificationPopUp";
 import CalendarModal from "./Modals/CalendarModal";
 import CasinoGameInModal from "./Modals/CasinoGameInModal";
 import PaymentModal from "./Modals/PaymentModal";
+import PrintTicket from "./Modals/PrintTicket";
 
 const ModalRoot = () => {
   const navigate = useNavigate();
@@ -131,6 +132,8 @@ const ModalRoot = () => {
       modalPage = <Navigate replace to={getUrlWithParams("auth", "login")} />;
   } else if (modal === "cgame")
     modalPage = <CasinoGameInModal onClose={returnToPrevious} />;
+  else if (modal === "print-ticket")
+    modalPage = <PrintTicket onClose={returnToPrevious} />;
 
   useEffect(() => {
     const isShown = sessionStorage.getItem("promoShown");

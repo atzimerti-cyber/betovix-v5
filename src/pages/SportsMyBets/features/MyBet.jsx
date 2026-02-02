@@ -20,9 +20,13 @@ import Spinner from "../../../features/UI/Spinner/Spinner";
 import { getTicketCashouts } from "../myBetsAsyncActions";
 import { myBetsActions } from "../myBetsSlice";
 import GiftIcon from "../../../assets/svgs/gift.svg?react";
+import MainButton from "../../../features/UI/Buttons/MainButton";
+import { useNavigate } from "react-router-dom";
+import { betslipActions } from "../../../features/Betslip/betslipSlice";
 
 const MyBet = (props) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const timezone = useSelector((state) => state.app.timezone); // triggers recalc on timezone change
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
@@ -132,6 +136,16 @@ const MyBet = (props) => {
   let elClasses = [classes.MyBet, classes[betStatus]];
   if (isOpen) elClasses.push(classes.IsOpen);
 
+  const addParamsToUrl = (modal, tab) => {
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", modal);
+    if (tab) searchParams.set("tab", tab);
+
+    navigate(`${location.pathname}?${searchParams.toString()}`, {
+      replace: true,
+    });
+  };
+
   return (
     <div className={elClasses.join(" ")} id="MyBet">
       <section
@@ -238,6 +252,7 @@ const MyBet = (props) => {
             </div>
 
             <div
+              style={{ rowGap: '5px' }}
               className={
                 ticketCashouts && ticketCashouts[props.item.TicketId]
                   ? classes.CashoutButtonSection
@@ -247,6 +262,14 @@ const MyBet = (props) => {
                   ].join(" ")
               }
             >
+              <MainButton color='dark' size="small"
+                onClick={(e) => {
+                  addParamsToUrl('print-ticket');
+                  dispatch(betslipActions.setTicketToPrint(props.item))
+                }}>
+
+                <span>{translate('PRINT')}</span>
+              </MainButton>
               {/* Different cashout options */}
               {cashedOutResult[props.item.TicketId] &&
                 cashedOutResult[props.item.TicketId] === "loading" && (

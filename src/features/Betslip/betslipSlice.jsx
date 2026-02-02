@@ -21,6 +21,8 @@ const initialState = {
   triggerPlaceBet: false,
   multiLocked: false,
   systemLocked: false,
+  ticketToPrint: null,
+  loading: null,
 };
 
 const removeSlipByFieldId = (state, fieldId) => {
@@ -59,6 +61,7 @@ export const betslipSlice = createSlice({
       state.betType = "Single";
       state.betError = null;
       state.totalStake = null;
+      state.loading = false;
     },
     resetSlips: (state) => {
       state.slips = [];
@@ -276,6 +279,12 @@ export const betslipSlice = createSlice({
     },
     setSystemLocked(state, action) {
       state.systemLocked = action.payload;
+    },
+    setTicketToPrint(state, action) {
+      state.ticketToPrint = action.payload;
+    },
+    setLoading(state, action) {
+      state.loading = action.payload;
     },
   },
 });

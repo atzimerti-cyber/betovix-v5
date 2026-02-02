@@ -781,9 +781,9 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-       // `Site/GetSite?domainName=betovix.com`,
+        `Site/GetSite?domainName=crimsoncoins.net`,
         // `Site/GetSite?domainName=betovix.storetube.gr`,
-         `Site/GetSite?domainName=${currentDomain}`,
+        //`Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
@@ -962,6 +962,10 @@ export const getSiteSettings = (signal) => {
       } else {
         const appPermission = getState().login;
         permissions = appPermission.notLoggedInPermissions;
+      }
+
+      if (response.data.Contents.Site.printLogo === 'true') {
+        dispatch(appActions.setPrintLogoVisible(true));
       }
 
       if (response.data.Contents.Site.MetaDesc !== "") {

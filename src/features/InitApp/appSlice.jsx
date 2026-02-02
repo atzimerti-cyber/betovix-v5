@@ -377,6 +377,7 @@ const initialState = {
   showVoucherModal: false,
   app: null,
   footerbarMenu: null,
+  printLogoVisible: false,
   footerbarMenuIcons: {
     Home: <HomeIcon />,
     Slots: <SlotsIcon />,
@@ -385,7 +386,7 @@ const initialState = {
     "Live Support": <BlackjackIcon />,
     "Virtual Games": <VirtualGames />,
     "Game Shows": <GameShows />,
-    "Table Games": <TableGames />, 
+    "Table Games": <TableGames />,
   },
 };
 
@@ -395,6 +396,9 @@ export const appSlice = createSlice({
   reducers: {
     setSiteId: (state, action) => {
       state.siteId = action.payload;
+    },
+    setPrintLogoVisible: (state, action) => {
+      state.printLogoVisible = action.payload;
     },
     setSiteSettingsSuccess: (state, action) => {
       state.siteSettingsSuccess = action.payload;

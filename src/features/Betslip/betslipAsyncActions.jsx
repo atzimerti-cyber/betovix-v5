@@ -228,3 +228,30 @@ export const loadBooked = (signal, code, callback) => {
     }
   };
 };
+
+export const getTicketWithId = (signal, ticketId) => {
+  return async (dispatch) => {
+    try {
+      dispatch(betslipActions.setLoading(true));
+      const lang = getLang();
+
+      const response = await axiosApi.get(
+        `MyTicket/GetTicket?TicketId=${ticketId}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        {
+          signal: signal,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        }
+      );
+      if (response.data.Status.StatusCode !== 200)
+        throw new Error(response.data.Contents);
+
+      dispatch(betslipActions.setTicketToPrint(response.data.Contents));
+      dispatch(betslipActions.setLoading(false));
+    } catch (error) {
+      const message = error?.message ? error.message : null;
+      toast.error(message || "No Ticket Found");
+      dispatch(betslipActions.setTicketToPrint(null));
+      dispatch(betslipActions.setLoading(false));
+    }
+  };
+};
