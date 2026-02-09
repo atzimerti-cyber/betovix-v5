@@ -123,8 +123,7 @@ export const getVendorGame = (
           axiosApi.get(
             `Casino${providername}/GetGame?gameid=${id}&gamename=${encodeURIComponent(
               gameName
-            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
-              config.VITE_HOME_URL
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL
             }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
@@ -147,8 +146,7 @@ export const getVendorGame = (
           axiosApi.get(
             `Casino${providername}/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
               gameName
-            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
-              config.VITE_VEGAS_HOME_URL
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_VEGAS_HOME_URL
             }/casino&siteid=${config.VITE_SITE_ID}`,
             // { signal: signal, baseURLOverride: config.VITE_CASINO_STORETUBE_BASE }
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
@@ -172,8 +170,7 @@ export const getVendorGame = (
           axiosApi.get(
             `Casino${providername}/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
               gameName
-            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
-              config.VITE_VEGAS_HOME_URL
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_VEGAS_HOME_URL
             }/casino&siteid=${config.VITE_SITE_ID}`,
             // { signal: signal, baseURLOverride: config.VITE_CASINO_STORETUBE_BASE }
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
@@ -198,8 +195,7 @@ export const getVendorGame = (
           axiosApi.get(
             `Casino${providername}/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
               gameName
-            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
-              config.VITE_HOME_URL
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL
             }/casino&siteid=${config.VITE_SITE_ID}`,
             // { signal: signal, baseURLOverride: config.VITE_CASINO_STORETUBE_BASE }
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
@@ -222,8 +218,7 @@ export const getVendorGame = (
           axiosApi.get(
             `Casino${providername}/Get${providername}Game?gameid=${id}&gamename=${encodeURIComponent(
               gameName
-            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
-              config.VITE_HOME_URL
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL
             }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
@@ -246,8 +241,7 @@ export const getVendorGame = (
           axiosApi.get(
             `${providername}/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
               gameName
-            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
-              config.VITE_HOME_URL
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL
             }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
@@ -270,8 +264,7 @@ export const getVendorGame = (
           axiosApi.get(
             `CasinoBarbara/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
               gameName
-            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
-              config.VITE_HOME_URL
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL
             }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
@@ -293,8 +286,7 @@ export const getVendorGame = (
           axiosApi.get(
             `CasinoHub/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
               gameName
-            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
-              config.VITE_HOME_URL
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL
             }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
@@ -350,8 +342,7 @@ export const getLiveVendorGame = (
           axiosApi.get(
             `${providername}/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
               gameName
-            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
-              config.VITE_HOME_URL
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL
             }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
@@ -374,8 +365,7 @@ export const getLiveVendorGame = (
           axiosApi.get(
             `Casino${providername}/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
               gameName
-            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
-              config.VITE_HOME_URL
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL
             }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
@@ -397,8 +387,7 @@ export const getLiveVendorGame = (
           axiosApi.get(
             `CasinoHub/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
               gameName
-            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${
-              config.VITE_HOME_URL
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL
             }/casino&siteid=${config.VITE_SITE_ID}`,
             { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
           ),
@@ -414,6 +403,30 @@ export const getLiveVendorGame = (
             throw Error();
           }
         });
+        gameUrl = responses[0].data.Contents;
+      } else if (providername === "Nirvana") {
+        requests = [
+          axiosApi.get(
+            `Casino${providername}/GetGame?gameid=${brandgameid}&gamename=${encodeURIComponent(
+              gameName
+            )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_HOME_URL
+            // )}&demo=${isDemo}&IsBonus=${isBonus}&lang=${lang.id}&lobbyUrl=${config.VITE_VEGAS_HOME_URL
+            }/casino&siteid=${config.VITE_SITE_ID}`,
+            { signal: signal, baseURLOverride: config.VITE_CASINO_BASE }
+          ),
+        ];
+
+        const responses = await Promise.all(requests);
+        responses.forEach((response) => {
+          if (response.data.Status.StatusCode !== 200) {
+            const message = response.data.Contents
+              ? translate(response.data.Contents)
+              : translate("Error Loading Game");
+            toast.error(message);
+            throw Error();
+          }
+        });
+
         gameUrl = responses[0].data.Contents;
       }
 
