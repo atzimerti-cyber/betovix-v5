@@ -48,7 +48,7 @@ const Banners = ({ onDataNotFound }) => {
     <BigSwiper slidesPerView={1} autoplay delay={6000}>
       {banners && banners.length > 0 ? (
         banners.map((banner, index) => {
-          let link = null;
+          const link = banner.ImgLink ? banner.ImgLink : null;
 
           return (
             <SwiperSlide key={banner.Id}>
