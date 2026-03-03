@@ -314,9 +314,14 @@ export const loadInitData = (isMobile) => {
         sportsMenuItems.push(topSportsMenu);
 
         let alphabeticalAllSports = [...updatedSports];
-        alphabeticalAllSports.sort((a, b) =>
-          a.Name.International.localeCompare(b.Name.International)
-        );
+        alphabeticalAllSports.sort((a, b) => {
+          if (a.Order !== b.Order) {
+            return a.Order - b.Order; // ascending order
+          }
+
+          // If Order is the same, sort alphabetically
+          return a.Name.International.localeCompare(b.Name.International);
+        });
         let allSportsMenu = {
           category: { id: 4, label: "All Sports", visible: false },
           items: [],
