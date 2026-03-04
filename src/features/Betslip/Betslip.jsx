@@ -247,12 +247,13 @@ const Betslip = memo(function (props) {
 
       if (uniqueMatchIds.size === matchIds.length && betType !== "Multiple") {
         onChangeTab("Multiple");
-      } else if (
-        uniqueMatchIds.size !== matchIds.length &&
-        betType !== "System"
-      ) {
-        onChangeTab("System");
       }
+      // else if (
+      //   uniqueMatchIds.size !== matchIds.length &&
+      //   betType !== "System"
+      // ) {
+      //   onChangeTab("System");
+      // }
     }
   }, [slips?.length]);
 
@@ -270,8 +271,8 @@ const Betslip = memo(function (props) {
         AwayTeamName: point.AwayTeamName,
         MatchName: point.AwayTeamName?.International
           ? point.HomeTeamName.International +
-            " - " +
-            point.AwayTeamName.International
+          " - " +
+          point.AwayTeamName.International
           : point.HomeTeamName.International,
         MatchId: point.MatchId,
         MarketName: point.MarketName,
@@ -331,8 +332,8 @@ const Betslip = memo(function (props) {
       points.push({
         MatchName: point.AwayTeamName?.International
           ? point.HomeTeamName.International +
-            " - " +
-            point.AwayTeamName.International
+          " - " +
+          point.AwayTeamName.International
           : point.HomeTeamName.International,
         MatchId: point.MatchId,
         MarketName: point.MarketName.International,
@@ -457,12 +458,12 @@ const Betslip = memo(function (props) {
               active: betType === "Multiple",
               disabled: multiLocked ? true : false,
             },
-            {
-              id: "System",
-              label: translate("System"),
-              active: betType === "System",
-              disabled: systemLocked ? true : false,
-            },
+            // {
+            //   id: "System",
+            //   label: translate("System"),
+            //   active: betType === "System",
+            //   disabled: systemLocked ? true : false,
+            // },
           ]}
           onChangeTab={(tab) => onChangeTab(tab)}
           type="buttons"

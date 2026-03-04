@@ -118,7 +118,8 @@ const BetError = () => {
       betError = "systemNum";
     } else if (betType === "Multiple" && ids.length !== uniqueIds.size) {
       betError = "multiSame";
-      dispatch(betslipActions.setBetType("System"));
+      // dispatch(betslipActions.setBetType("System"));
+      dispatch(betslipActions.setBetType("Single"));
       dispatch(betslipActions.setMultiLocked(true));
     } else if (ids.length !== uniqueIds.size) {
       dispatch(betslipActions.setMultiLocked(true));
