@@ -67,7 +67,12 @@ export const layoutSlice = createSlice({
       state.availableBonus = action.payload.AvailableBonusCount;
     },
     setAvailableBonusBalance: (state, action) => {
-      state.bonusBalance = action.payload.TotalBonusBalance;
+      // New bonus APIs return the current bonus balance as a number.
+      // Keep compatibility with the legacy login/State shape while the template is migrated.
+      state.bonusBalance =
+        typeof action.payload === "number"
+          ? action.payload
+          : Number(action.payload?.TotalBonusBalance) || 0;
     },
     setFooter: (state, action) => {
       state.footer = action.payload;

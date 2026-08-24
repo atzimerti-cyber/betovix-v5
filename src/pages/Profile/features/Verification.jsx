@@ -118,7 +118,7 @@ const Verification = () => {
     if (idFiles.frontSide) {
       const frontSideFormData = idFiles.frontSide;
 
-      dispatch(uploadKYCFile(frontSideFormData, 3, signal));
+      dispatch(uploadKYCFile(frontSideFormData, 3, signal, "IdentityDocumentFront"));
     } else {
       console.log("Front side of the ID is required.");
     }
@@ -127,7 +127,7 @@ const Verification = () => {
     if (idFiles.backSide) {
       const backSideFormData = idFiles.backSide;
 
-      dispatch(uploadKYCFile(backSideFormData, 3, signal));
+      dispatch(uploadKYCFile(backSideFormData, 3, signal, "IdentityDocumentBack"));
     } else {
       console.log("Back side of the ID is required.");
     }
@@ -152,7 +152,7 @@ const Verification = () => {
     if (proofOfAddress) {
       const file = proofOfAddress;
 
-      dispatch(uploadKYCFile(file, 5, signal));
+      dispatch(uploadKYCFile(file, 5, signal, "ProofOfAddress"));
     } else {
       console.log("Proof of Address is required.");
     }
@@ -177,7 +177,7 @@ const Verification = () => {
     if (fundsSource) {
       const file = fundsSource;
 
-      dispatch(uploadKYCFile(file, 6, signal));
+      dispatch(uploadKYCFile(file, 6, signal, "SourceOfFunds"));
     } else {
       console.log("Source of Funds is required.");
     }

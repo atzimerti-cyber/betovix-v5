@@ -101,7 +101,7 @@ const AnnouncementModal = () => {
               </div>
             )}
           </div>
-          {cookiesSettings === "true" ? (
+          {cookiesSettings === true ? (
             <div className={classes.InformationSection}>
               <p>
                 {translate(

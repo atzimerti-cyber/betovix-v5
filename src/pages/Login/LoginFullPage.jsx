@@ -25,9 +25,10 @@ const LoginFullPage = () => {
   const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const theme = useSelector((state) => state.layout.theme);
   const user = useSelector((state) => state.login.user);
+  const loginLoading = useSelector((state) => state.login.loginLoading);
   const siteSettings = useSelector((state) => state.app.siteSettings);
 
-  const logoURL = config.VITE_SITE_LOGO ? config.VITE_SITE_LOGO : null;
+  const logoURL = siteSettings?.Logo || config.VITE_SITE_LOGO || null;
 
   const [tab, setTab] = useState("login");
   const [loginInfo, setLoginInfo] = useState({
@@ -63,14 +64,34 @@ const LoginFullPage = () => {
   );
 
   const onLogin = (e) => {
-    if (loginInfo.Username.trim() && loginInfo.Password.trim()) {
-      // e.preventDefault();
-      dispatch(login(loginInfo, navigate, location.pathname));
-    }
+    e.preventDefault();
+    const username = loginInfo.Username.trim();
+    const password = loginInfo.Password.trim();
+
+    if (!username || !password || loginLoading) return;
+
+    dispatch(
+      login(
+        { ...loginInfo, Username: username, Password: password },
+        navigate,
+        location.pathname
+      )
+    );
   };
 
-  return user || siteSettings.NeedAuth !== "true" ? (
-    <Navigate to="/" />
+  if (!siteSettings || Object.keys(siteSettings).length === 0) return null;
+
+  const rawRedirect = typeof siteSettings.RedirectAfterLogin === "string"
+    ? siteSettings.RedirectAfterLogin.trim()
+    : "";
+  const redirectAfterLogin = rawRedirect && !rawRedirect.startsWith("//")
+    ? (rawRedirect.startsWith("/") ? rawRedirect : `/${rawRedirect}`)
+    : "/";
+
+  return user && !loginLoading ? (
+    <Navigate to={redirectAfterLogin} replace />
+  ) : siteSettings.NeedAuth !== true ? (
+    <Navigate to="/" replace />
   ) : (
     <div id="layout" data-theme={theme} className={classes.LoginFullPage}>
       <ToastContainer
@@ -107,7 +128,7 @@ const LoginFullPage = () => {
 
             {tab === "login" ? (
               <>
-                <form>
+                <form onSubmit={onLogin}>
                   <label htmlFor="Username">{translate("Username")}</label>
                   {/* <div className={classes.InputOuter}> */}
                   <input
@@ -139,7 +160,7 @@ const LoginFullPage = () => {
                   {/* </div> */}
 
                   <div className={classes.SubmitButtonWrapper}>
-                    <MainButton color="primary" onClick={onLogin}>
+                    <MainButton color="primary" type="submit" disabled={loginLoading}>
                       {translate("Login")}
                     </MainButton>
                   </div>

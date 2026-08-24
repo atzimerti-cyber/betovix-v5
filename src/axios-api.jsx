@@ -2,6 +2,17 @@ import axios from 'axios';
 
 import { getAccessToken } from './utils/auth';
 import config from './config';
+import { getDeviceTelemetryHeaders } from './utils/deviceFingerprint';
+
+
+const shouldAttachDeviceTelemetry = (url) => {
+    if (typeof url !== 'string') return false;
+
+    const normalizedUrl = url.toLowerCase();
+    return normalizedUrl.includes('login/authenticate2')
+        || normalizedUrl.includes('login/authenticategoogle')
+        || normalizedUrl.includes('auth/login');
+};
 
 const fetchClient = () => {
     const defaultOptions = {
@@ -17,10 +28,23 @@ const fetchClient = () => {
     let instance = axios.create(defaultOptions);
 
     // Set the AUTH token for any request
-    instance.interceptors.request.use(function (config) {
+    instance.interceptors.request.use(async function (config) {
         const token = getAccessToken();
-        if (token) {
-            config.headers.Authorization = token;
+        if (token && !config.noToken) {
+            config.headers.Authorization = 'Bearer ' + token;
+        }
+
+        if (shouldAttachDeviceTelemetry(config.url)) {
+            const telemetryHeaders = await getDeviceTelemetryHeaders();
+
+            if (typeof config.headers?.set === 'function') {
+                Object.entries(telemetryHeaders).forEach(([name, value]) => config.headers.set(name, value));
+            } else {
+                config.headers = {
+                    ...config.headers,
+                    ...telemetryHeaders,
+                };
+            }
         }
 
         // Remove 'application/json' Content-Type if sending FormData

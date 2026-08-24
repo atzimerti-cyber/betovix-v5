@@ -33,7 +33,7 @@ const Category = (props) => {
     let updatedTournaments = [...props.category.Tournaments];
 
     if (tournamentSort === "Default Sort") {
-      const toursOrder = sportSettings.ToursOrder;
+      const toursOrder = sportSettings?.ToursOrder || {};
 
       updatedTournaments.sort((a, b) => {
         // Check if is in tours order first

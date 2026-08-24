@@ -122,7 +122,7 @@ export const changePassword = (signal, payload) => {
       const lang = getLang();
 
       const response = await axiosApi.post(
-        `/MyAffiliate/ChangePassword/&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        `/MyAffiliate/ChangePassword?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
           OldPass: payload.OldPass,
           Password: payload.Password,
@@ -180,42 +180,100 @@ export const changeUsername = (signal, oldUsername, newUsername, password) => {
   };
 };
 
+
+const KYC_STATUS = {
+  NOT_STARTED: 0,
+  PENDING: 1,
+  REJECTED: 2,
+  VERIFIED: 3,
+};
+
+const toUiKycStatus = (status) => {
+  if (!status || ["Missing", "NotStarted", "Draft"].includes(status)) return KYC_STATUS.NOT_STARTED;
+  if (["Uploaded", "Submitted", "UnderReview"].includes(status)) return KYC_STATUS.PENDING;
+  if (["Rejected", "ResubmissionRequired", "Expired"].includes(status)) return KYC_STATUS.REJECTED;
+  if (status === "Approved") return KYC_STATUS.VERIFIED;
+  return KYC_STATUS.NOT_STARTED;
+};
+
+const findRequirement = (state, key) =>
+  (state?.requirements || []).find((item) => item?.requirementKey === key) || null;
+
+const findDocument = (state, documentType) => {
+  const source = state?.documents?.length ? state.documents : state?.requirements || [];
+  return source.find(
+    (item) => item?.documentType === documentType || item?.requirementKey === documentType
+  ) || null;
+};
+
+const getIdUiStatus = (state) => {
+  const front = findDocument(state, "IdentityDocumentFront")?.status || "Missing";
+  const back = findDocument(state, "IdentityDocumentBack")?.status || "Missing";
+  if (front === "Approved" && back === "Approved") return KYC_STATUS.VERIFIED;
+  if ([front, back].some((v) => ["Rejected", "ResubmissionRequired", "Expired"].includes(v))) return KYC_STATUS.REJECTED;
+  if ([front, back].some((v) => ["Uploaded", "Submitted", "UnderReview"].includes(v))) return KYC_STATUS.PENDING;
+  return KYC_STATUS.NOT_STARTED;
+};
+
+const mapKycStateToLegacyLevels = (state) => ({
+  level1: toUiKycStatus(findRequirement(state, "email")?.status),
+  level2: toUiKycStatus(findRequirement(state, "personal_information")?.status),
+  level3: getIdUiStatus(state),
+  level4: toUiKycStatus(findDocument(state, "Selfie")?.status),
+  level5: toUiKycStatus(findDocument(state, "ProofOfAddress")?.status),
+  level6: toUiKycStatus(findDocument(state, "SourceOfFunds")?.status),
+});
+
+const validateKycResponse = (response, fallback) => {
+  if (response?.status && response.status !== 200) throw new Error(fallback);
+  if (response?.data?.Status && response.data.Status.StatusCode !== 200) {
+    throw new Error(response.data.Contents || fallback);
+  }
+};
+
+const getActiveKycCaseId = (state) => state?.activeCase?.verificationCaseId || null;
+const getKycLevelId = (state) => state?.verificationLevel?.verificationLevelId || 1;
+
+const ensureKycCase = async (state) => {
+  const active = getActiveKycCaseId(state);
+  if (active) return active;
+
+  const response = await axiosApi.post(
+    "kyc/me/cases",
+    { verificationLevelId: getKycLevelId(state), source: "PlayerPortal" },
+    { baseURLOverride: config.VITE_WALLET_API_BASE }
+  );
+  validateKycResponse(response, "Unable to start verification");
+  return response.data?.Contents?.verificationCaseId || response.data?.Contents?.activeCase?.verificationCaseId;
+};
+
+const submitKycCaseIfReady = async (state) => {
+  if (!state?.canSubmit) return;
+  const caseId = getActiveKycCaseId(state);
+  if (!caseId) return;
+  await axiosApi.post(
+    `kyc/me/cases/${caseId}/submit`,
+    { acceptedTerms: true },
+    { baseURLOverride: config.VITE_WALLET_API_BASE }
+  );
+};
+
 export const getLevelsVerified = (signal) => {
   return async (dispatch) => {
     try {
-      const lang = getLang();
-
-      const response = await axiosApi.get(
-        `/AccountVerification/GetVerificationStatus`,
-        {
-          signal: signal,
-          baseURLOverride: config.VITE_WALLET_STORETUBE,
-        }
-      );
-
-      // Check for a successful response
-      if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
-        throw Error(response.data.Contents);
-      }
-
-      const contents = response.data.Contents;
-
-      dispatch(
-        profileActions.setVerificationLevels({
-          level1: contents[1] || 0,
-          level2: contents[2] || 0,
-          level3: contents[3] || 0,
-          level4: contents[4] || 0,
-          level5: contents[5] || 0,
-          level6: contents[6] || 0,
-        })
-      );
+      const response = await axiosApi.get("kyc/me/state", {
+        signal,
+        baseURLOverride: config.VITE_WALLET_API_BASE,
+      });
+      validateKycResponse(response, "Unable to get verification status");
+      const state = response.data?.Contents ?? response.data ?? {};
+      dispatch(profileActions.setKycState(state));
+      dispatch(profileActions.setVerificationLevels(mapKycStateToLegacyLevels(state)));
+      return state;
     } catch (error) {
-      const message =
-        error?.response?.data?.Status?.Message ||
-        error?.message ||
-        "Error occurred";
-      return { success: false, error: message };
+      if (error?.code !== "ERR_CANCELED") {
+        return { success: false, error: error?.response?.data?.detail || error?.message || "Error occurred" };
+      }
     }
   };
 };
@@ -223,68 +281,81 @@ export const getLevelsVerified = (signal) => {
 export const submitPersonalInfo = (personalInfo, signal) => {
   return async (dispatch) => {
     try {
-      const lang = getLang();
-
       const response = await axiosApi.post(
-        `/AccountVerification/VerifyPersonalInformation`,
+        "kyc/me/personal-information",
         personalInfo,
-        {
-          signal: signal,
-          baseURLOverride: config.VITE_WALLET_STORETUBE,
-        }
+        { signal, baseURLOverride: config.VITE_WALLET_API_BASE }
       );
+      validateKycResponse(response, "Unable to verify personal information");
 
-      if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
-        throw new Error(response.data.Contents);
-      }
-
-      dispatch(getLevelsVerified(signal));
+      const stateResponse = await axiosApi.get("kyc/me/state", {
+        baseURLOverride: config.VITE_WALLET_API_BASE,
+      });
+      validateKycResponse(stateResponse, "Unable to get verification status");
+      const state = stateResponse.data?.Contents ?? stateResponse.data ?? {};
+      await submitKycCaseIfReady(state);
+      await dispatch(getLevelsVerified(signal));
       toast.success(translate("Verification Request Successful"));
-      return { success: true }; // Return success if needed
+      return { success: true };
     } catch (error) {
-      const message =
-        error?.response?.data?.Status?.Message ||
-        error?.message ||
-        "Error occurred";
+      const message = error?.response?.data?.detail || error?.response?.data?.title || error?.message || "Error occurred";
+      if (error?.code !== "ERR_CANCELED") toast.error(translate(message));
       return { success: false, error: translate(message) };
     }
   };
 };
 
-export const uploadKYCFile = (file, level, signal) => {
-  return async (dispatch) => {
+export const uploadKYCFile = (file, level, signal, documentTypeOverride) => {
+  return async (dispatch, getState) => {
     try {
       dispatch(profileActions.setDisableVerifyButton(true));
-      const lang = getLang();
+
+      let kycState = getState()?.profile?.kycState;
+      if (!kycState) {
+        const stateResponse = await axiosApi.get("kyc/me/state", {
+          signal,
+          baseURLOverride: config.VITE_WALLET_API_BASE,
+        });
+        validateKycResponse(stateResponse, "Unable to get verification status");
+        kycState = stateResponse.data?.Contents ?? stateResponse.data ?? {};
+      }
+
+      const verificationCaseId = await ensureKycCase(kycState);
+      if (!verificationCaseId) throw new Error("Unable to start verification case");
+
+      const documentType =
+        documentTypeOverride ||
+        ({ 4: "Selfie", 5: "ProofOfAddress", 6: "SourceOfFunds" }[level]);
+      if (!documentType) throw new Error("Invalid verification document type");
 
       const formData = new FormData();
       formData.append("file", file);
+      formData.append("verificationCaseId", verificationCaseId);
+      formData.append("documentType", documentType);
 
-      const response = await axiosApi.post(
-        `/Upload/PostKYCFile?verificationLevel=${level}`,
-        formData,
-        {
-          signal: signal,
-          baseURLOverride: config.VITE_UPLOAD,
-        }
-      );
+      const response = await axiosApi.post("kyc/me/documents", formData, {
+        signal,
+        baseURLOverride: config.VITE_WALLET_API_BASE,
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      validateKycResponse(response, "Unable to upload verification file");
 
-      if (response.status !== 200 || response.data.Status.StatusCode !== 200) {
-        throw new Error(response.data.Contents);
-      }
+      const stateResponse = await axiosApi.get("kyc/me/state", {
+        baseURLOverride: config.VITE_WALLET_API_BASE,
+      });
+      validateKycResponse(stateResponse, "Unable to get verification status");
+      const updatedState = stateResponse.data?.Contents ?? stateResponse.data ?? {};
+      await submitKycCaseIfReady(updatedState);
+      await dispatch(getLevelsVerified(signal));
 
-      dispatch(getLevelsVerified(signal));
       toast.success(translate("Upload Successful"));
-      dispatch(profileActions.setDisableVerifyButton(false));
       return { success: true };
     } catch (error) {
-      dispatch(profileActions.setDisableVerifyButton(false));
-      const message =
-        error?.response?.data?.Status?.Message ||
-        error?.message ||
-        "Error occurred";
-      toast.error(translate(message) + ".");
+      const message = error?.response?.data?.detail || error?.response?.data?.title || error?.message || "Error occurred";
+      if (error?.code !== "ERR_CANCELED") toast.error(translate(message));
       return { success: false, error: message };
+    } finally {
+      dispatch(profileActions.setDisableVerifyButton(false));
     }
   };
 };

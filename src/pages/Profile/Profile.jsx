@@ -75,7 +75,7 @@ const Profile = () => {
                   icon: <Settings2Icon />,
                   active: selectedTab === "settings",
                 },
-                siteSettings?.AllowKYC && siteSettings.AllowKYC == 'true' && {
+                siteSettings?.AllowKYC === true && {
                   id: "verification",
                   label: translate("Verification"),
                   icon: <CheckFilledIcon />,

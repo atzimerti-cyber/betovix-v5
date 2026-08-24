@@ -37,14 +37,16 @@ const TopEvents = ({ onDataNotFound }) => {
       controller.abort();
       dispatch(topEventsActions.reset());
     };
-  }, []);
+  }, [dispatch, lang?.id]);
 
   //Remove Component if no favs found
   useEffect(() => {
-    if (eventsTop !== null && eventsTop.length === 0) {
-      onDataNotFound();
+    if (Array.isArray(eventsTop) && eventsTop.length === 0) {
+      onDataNotFound?.();
     }
   }, [eventsTop, onDataNotFound]);
+
+  if (Array.isArray(eventsTop) && eventsTop.length === 0) return null;
 
   return (
     <div className={classes.TopSwiper} id="topEventsSwiper">

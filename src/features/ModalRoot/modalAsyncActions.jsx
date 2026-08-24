@@ -45,7 +45,7 @@ export const getTransactionList = (signal, filter) => {
 
       dispatch(modalActions.setLoading(true));
       const response = await axiosApi.post(
-        `/WalletTransaction/GetWalletCasinoTransactionTable?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        `/MyWalletTransaction/GetTransactionTable?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         filter,
 
         {
@@ -76,8 +76,9 @@ export const claimBonus = (signal, bonusId, callback) => {
       const lang = getLang();
 
       dispatch(modalActions.setLoading(true));
-      const response = await axiosApi.get(
-        `/BonusForAccount/ClaimBonus?bonusFaId=${bonusId}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+      const response = await axiosApi.post(
+        `bonus/instances/${bonusId}/claim?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        {},
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
@@ -107,8 +108,9 @@ export const cancelBonus = (signal, bonusId) => {
       const lang = getLang();
 
       dispatch(modalActions.setLoading(true));
-      const response = await axiosApi.get(
-        `/BonusForAccount/CancelMyBonus?bonusFAid=${bonusId}`,
+      const response = await axiosApi.post(
+        `bonus/instances/${bonusId}/cancel`,
+        {},
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
@@ -267,4 +269,21 @@ export const getPromoPageBySlug = (signal, slug) => {
       if (!error?.code === "ERR_CANCELED") toast.error(message);
     }
   };
+};
+
+const isAbortError = (error) => error?.name === "CanceledError" || error?.name === "AbortError" || error?.code === "ERR_CANCELED";
+
+export const getPaymentTransactionDetails = (signal, transactionId) => async () => {
+  try {
+    const response = await axiosApi.get(`/payments/transactions/${encodeURIComponent(transactionId)}`, {
+      signal,
+      baseURLOverride: config.VITE_WALLET_API_BASE,
+    });
+    return response.data;
+  } catch (error) {
+    if (!isAbortError(error)) {
+      toast.error(error?.response?.data?.detail || error?.response?.data?.title || error?.message || translate("Failed to fetch payment transaction details"));
+    }
+    throw error;
+  }
 };

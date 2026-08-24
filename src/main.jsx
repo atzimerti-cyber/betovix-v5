@@ -4,15 +4,11 @@ import "./index.css";
 import App from "./App.jsx";
 import { Provider } from "react-redux";
 import { store } from "./app/store";
-import { VouchstarSDK } from "react-vstar-websdk";
-import config from "./config.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   // <React.StrictMode>
   <Provider store={store}>
-    <VouchstarSDK vouchstarToken={config.VOUCHER_TOKEN}>
-      <App />
-    </VouchstarSDK>
+    <App />
   </Provider>
   // </React.StrictMode>
 );

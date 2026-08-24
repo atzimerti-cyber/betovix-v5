@@ -3,23 +3,45 @@ import _ from "lodash";
 
 const initialState = {
   casinoHome: null,
+  lobbyCategories: null,
   casinoBanners: null,
   casinoVendors: null,
+  topProviders: null,
   vendorGames: null,
   moreLoading: false,
   showCasinoGame: false,
   slotGames: null,
   liveGames: null,
   searchResults: null,
-  searchLoading: true,
+  searchHomeResults: null,
+  searchLoading: false,
+  searchHomeLoading: false,
   sorting: "Default",
   filteredGames: {},
   promotionCasino: null,
   casinoGame: null,
-
+  casinoGameModal: null,
   casinoTags: null,
   casinoByTags: {},
   gameOptionsModal: null,
+  promotions: null,
+  loadMoreSuccess: true,
+  selectedGame: null,
+  playerStats: [],
+  casinoLandMenu: null,
+  initialResultsCount: null,
+};
+
+const updateFavoriteInCollection = (collection, gameId, value) => {
+  const games = Array.isArray(collection) ? collection : collection?.Data;
+  if (!Array.isArray(games)) return;
+  games.forEach((game) => {
+    const id = game?.gameId ?? game?.Id ?? game?.Data?.Id;
+    if (String(id) === String(gameId)) {
+      game.isFav = value;
+      game.isFavorite = value;
+    }
+  });
 };
 
 export const casinoSlice = createSlice({
@@ -27,24 +49,14 @@ export const casinoSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.casinoHome = null;
-      state.casinoBanners = null;
-      state.casinoVendors = null;
-      state.vendorGames = null;
-      state.showCasinoGame = false;
-      state.slotGames = null;
-      state.searchResults = null;
-      state.searchLoading = true;
-      state.sorting = "Default";
-      state.filteredGames = {};
-      state.promotionCasino = null;
-      state.casinoGame = null;
-      state.casinoByTags = {};
+      Object.assign(state, _.cloneDeep(initialState));
     },
     resetLobby: (state) => {
       state.casinoHome = null;
+      state.lobbyCategories = null;
       state.casinoBanners = null;
       state.casinoVendors = null;
+      state.topProviders = null;
       state.casinoByTags = {};
     },
     resetSlots: (state) => {
@@ -58,128 +70,91 @@ export const casinoSlice = createSlice({
       state.casinoByTags = {};
       state.filteredGames = {};
     },
-    setCasinoHome: (state, action) => {
-      state.casinoHome = action.payload;
-    },
-    setCasinoBanners: (state, action) => {
-      state.casinoBanners = action.payload;
-    },
-    setCasinoVendors: (state, action) => {
-      state.casinoVendors = action.payload;
-    },
+    setCasinoHome: (state, action) => { state.casinoHome = action.payload; },
+    setLobbyCategories: (state, action) => { state.lobbyCategories = action.payload; },
+    setCasinoBanners: (state, action) => { state.casinoBanners = action.payload; },
+    setCasinoVendors: (state, action) => { state.casinoVendors = action.payload; },
+    setTopProviders: (state, action) => { state.topProviders = action.payload; },
     addToVendorGames: (state, action) => {
-      state.vendorGames.Data = [...state.vendorGames.Data, ...action.payload];
+      if (!state.vendorGames) state.vendorGames = { Data: [] };
+      state.vendorGames.Data = [...(state.vendorGames.Data || []), ...action.payload];
     },
-    setVendorGames: (state, action) => {
-      state.vendorGames = action.payload;
-    },
-    setMoreLoading: (state, action) => {
-      state.moreLoading = action.payload;
-    },
-    setCasinoGame: (state, action) => {
-      state.casinoGame = action.payload;
-    },
-    setShowCasinoGame: (state, action) => {
-      state.showCasinoGame = action.payload;
-    },
-    setSlotGames: (state, action) => {
-      state.slotGames = action.payload;
-    },
+    setVendorGames: (state, action) => { state.vendorGames = action.payload; },
+    setMoreLoading: (state, action) => { state.moreLoading = action.payload; },
+    setCasinoGame: (state, action) => { state.casinoGame = action.payload; },
+    setShowCasinoGame: (state, action) => { state.showCasinoGame = action.payload; },
+    setCasinoGameModal: (state, action) => { state.casinoGameModal = action.payload; },
+    setSlotGames: (state, action) => { state.slotGames = action.payload; },
     addToAllSlots: (state, action) => {
-      state.slotGames.Data = [...state.slotGames.Data, ...action.payload.Data];
-      state.slotGames.Total = action.payload.Total;
-      state.slotGames.casinoSearchPage = action.payload.casinoSearchPage;
-      state.slotGames.casinoGamesAdded = action.payload.casinoGamesAdded;
-      state.slotGames.providers = action.payload.providers;
+      if (!state.slotGames) state.slotGames = { Data: [] };
+      state.slotGames.Data = [...(state.slotGames.Data || []), ...(action.payload.Data || [])];
+      Object.assign(state.slotGames, action.payload, { Data: state.slotGames.Data });
     },
-
-    setLiveGames: (state, action) => {
-      state.liveGames = action.payload;
-    },
+    setLiveGames: (state, action) => { state.liveGames = action.payload; },
     addToAllLives: (state, action) => {
-      state.liveGames.Data = [...state.liveGames.Data, ...action.payload.Data];
-      state.liveGames.Total = action.payload.Total;
-      state.liveGames.casinoSearchPage = action.payload.casinoSearchPage;
-      state.liveGames.casinoGamesAdded = action.payload.casinoGamesAdded;
-      state.liveGames.providers = action.payload.providers;
+      if (!state.liveGames) state.liveGames = { Data: [] };
+      state.liveGames.Data = [...(state.liveGames.Data || []), ...(action.payload.Data || [])];
+      Object.assign(state.liveGames, action.payload, { Data: state.liveGames.Data });
     },
-
     setSearchResults: (state, action) => {
       state.searchResults = action.payload;
+      if (state.initialResultsCount == null && action.payload?.Total != null) state.initialResultsCount = action.payload.Total;
     },
-    setSearchLoading: (state, action) => {
-      state.searchLoading = action.payload;
+    setInitialResultsCount: (state, action) => { state.initialResultsCount = action.payload; },
+    setSearchHomeResults: (state, action) => { state.searchHomeResults = action.payload; },
+    addToSearchResults: (state, action) => {
+      if (!state.searchResults) state.searchResults = { Data: [] };
+      state.searchResults.Data = [...(state.searchResults.Data || []), ...(action.payload?.Data || [])];
     },
-    setSorting: (state, action) => {
-      state.sorting = action.payload;
+    addToSearchHomeResults: (state, action) => {
+      if (!state.searchHomeResults) state.searchHomeResults = { Data: [] };
+      state.searchHomeResults.Data = [...(state.searchHomeResults.Data || []), ...(action.payload?.Data || [])];
     },
-    setFilteredGames: (state, action) => {
-      state.filteredGames = action.payload;
-    },
+    setSearchLoading: (state, action) => { state.searchLoading = action.payload; },
+    setSearchHomeLoading: (state, action) => { state.searchHomeLoading = action.payload; },
+    setSorting: (state, action) => { state.sorting = action.payload; },
+    setFilteredGames: (state, action) => { state.filteredGames = action.payload || {}; },
     addToFilteredGames: (state, action) => {
-      state.filteredGames[action.payload.property].Data = [
-        ...state.filteredGames[action.payload.property].Data,
-        ...action.payload.values,
-      ];
-      state.filteredGames[action.payload.property].filter.Page =
-        state.filteredGames[action.payload.property].filter.Page + 1;
+      const bucket = state.filteredGames?.[action.payload.property];
+      if (!bucket) return;
+      bucket.Data = [...(bucket.Data || []), ...(action.payload.values || [])];
+      if (bucket.filter) bucket.filter.Page = Number(bucket.filter.Page || 1) + 1;
     },
     loadMoreFilteredGames: (state, action) => {
-      state.filteredGames.Data = [
-        ...state.filteredGames.Data,
-        ...action.payload.Data,
-      ];
-      state.filteredGames.Total = action.payload.Total;
-      state.filteredGames.casinoSearchPage = action.payload.casinoSearchPage;
-      state.filteredGames.casinoGamesAdded = action.payload.casinoGamesAdded;
-      state.filteredGames.providers = action.payload.providers;
+      if (!state.filteredGames?.Data) state.filteredGames = { ...state.filteredGames, Data: [] };
+      state.filteredGames.Data = [...state.filteredGames.Data, ...(action.payload.Data || [])];
+      Object.assign(state.filteredGames, action.payload, { Data: state.filteredGames.Data });
     },
     addFavorite: (state, action) => {
-      const currentState = current(state);
-      const updated = _.cloneDeep(currentState.filteredGames);
-
-      for (const key in updated) {
-        for (let i = 0; i < updated[key].Data.length; i++) {
-          if (updated[key].Data[i].Data.Id === action.payload) {
-            updated[key].Data[i].isFav = true;
-            break;
-          }
-        }
-      }
-
+      const updated = _.cloneDeep(current(state).filteredGames || {});
+      Object.values(updated).forEach((collection) => updateFavoriteInCollection(collection, action.payload, true));
       state.filteredGames = updated;
+      updateFavoriteInCollection(state.casinoHome, action.payload, true);
+      if (state.casinoGameModal) updateFavoriteInCollection([state.casinoGameModal], action.payload, true);
     },
     removeFavorite: (state, action) => {
-      const currentState = current(state);
-      const updated = _.cloneDeep(currentState.filteredGames);
-
-      for (const key in updated) {
-        for (let i = 0; i < updated[key].Data.length; i++) {
-          if (updated[key].Data[i].Data.Id === action.payload) {
-            updated[key].Data[i].isFav = false;
-            break;
-          }
-        }
-      }
+      const updated = _.cloneDeep(current(state).filteredGames || {});
+      Object.values(updated).forEach((collection) => updateFavoriteInCollection(collection, action.payload, false));
       state.filteredGames = updated;
+      if (state.casinoGameModal) updateFavoriteInCollection([state.casinoGameModal], action.payload, false);
     },
-    setPromotionCasino: (state, action) => {
-      state.promotionCasino = action.payload;
+    setPromotionCasino: (state, action) => { state.promotionCasino = action.payload; },
+    setCasinoTags: (state, action) => { state.casinoTags = action.payload; },
+    setCasinoByTags: (state, action) => { state.casinoByTags[action.payload.Tag] = action.payload.Contents; },
+    addToCasinoByTags: (state, action) => {
+      const tag = action.payload.Tag;
+      const currentTag = state.casinoByTags[tag];
+      if (Array.isArray(currentTag)) state.casinoByTags[tag] = [...currentTag, ...(action.payload.Contents || [])];
+      else if (currentTag?.Data) currentTag.Data = [...currentTag.Data, ...(action.payload.Contents || [])];
     },
-
-    setCasinoTags: (state, action) => {
-      state.casinoTags = action.payload;
-    },
-    setCasinoByTags: (state, action) => {
-      let tag = action.payload.Tag;
-      state.casinoByTags[tag] = action.payload.Contents;
-    },
-    setGameOptionsModal: (state, action) => {
-      state.gameOptionsModal = action.payload;
-    },
+    setGameOptionsModal: (state, action) => { state.gameOptionsModal = action.payload; },
+    setPromotions: (state, action) => { state.promotions = action.payload; },
+    loadMoreSuccess: (state, action) => { state.loadMoreSuccess = action.payload; },
+    setSelectedGame: (state, action) => { state.selectedGame = action.payload; },
+    setPlayerStats: (state, action) => { state.playerStats = action.payload || []; },
+    setCasinoLandMenu: (state, action) => { state.casinoLandMenu = action.payload; },
   },
 });
 
 export const casinoActions = casinoSlice.actions;
-
 export default casinoSlice;

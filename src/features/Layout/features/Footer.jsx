@@ -22,7 +22,7 @@ const Footer = () => {
   const licence = useSelector((state) => state.app.siteLicence);
   const currentDomain = window.location.hostname;
   const [isBetovix, setIsBetovix] = useState(false);
-  const isFooterAllowed = siteSettings.AllowFooter === "true";
+  const isFooterAllowed = siteSettings?.AllowFooter === true;
   const app = useSelector((state) => state.app.app);
   const calledInitsRef = useRef(new Set());
 
@@ -82,7 +82,7 @@ const Footer = () => {
   //   }
   // }, [licence, isFooterAllowed]);
 
-  const logoURL = config.VITE_SITE_LOGO ? config.VITE_SITE_LOGO : null;
+  const logoURL = siteSettings?.Logo || config.VITE_SITE_LOGO || null;
 
   const seoPagePath = (lang) => {
     if (lang.id) {

@@ -26,8 +26,8 @@ export const getEventsTop = (signal) => {
 
       dispatch(topEventsActions.setTopEvents(response.data.Contents));
     } catch (error) {
-      if (!error?.code === "ERR_CANCELED")
-        toast.error(translate(`${error?.message}`));
+      if (error?.code !== "ERR_CANCELED" && error?.code !== "ERR_NETWORK")
+        toast.error(translate(`${error?.message || "An error occurred"}`));
     }
   };
 };

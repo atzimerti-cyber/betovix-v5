@@ -140,6 +140,10 @@ const ManualRewards = ({ onDataNotFound }) => {
     }
   };
 
+  const hasAnyReward = rewards.some((reward) => reward !== null && reward !== undefined);
+
+  if (dataCame !== null && !hasAnyReward) return null;
+
   return (
     <>
       <div className={classes.ManualRewards}>

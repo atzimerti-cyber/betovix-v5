@@ -35,6 +35,7 @@ const Topbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const lang = useSelector((state) => state.app.lang);
+  const siteSettings = useSelector((state) => state.app.siteSettings);
 
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
   const progressBar = useMediaQuery({
@@ -121,10 +122,7 @@ const Topbar = () => {
 
   const inCasinoGame = location.pathname.includes("/casino/game/");
 
-  const logoURL = config.VITE_SITE_LOGO ? config.VITE_SITE_LOGO : null;
-  const basePath = window.location.origin;
-  const sitename = config.VITE_SITE_NAME ? config.VITE_SITE_NAME + "/" : "";
-  const smallLogoURL = `${basePath}/${sitename}logo-small.svg`;
+  const logoURL = siteSettings?.Logo || config.VITE_SITE_LOGO || null;
 
   return (
     <div className={classes.Topbar} id="topbar">
@@ -192,7 +190,7 @@ const Topbar = () => {
                 <div
                   className={classes.SiteLogo}
                   style={{
-                    backgroundImage: `url(${smallLogoURL})`,
+                    backgroundImage: `url(${logoURL})`,
                   }}
                 ></div>
               ) : (

@@ -12,7 +12,7 @@ export const getBanners = (signal, device) => {
       const lang = getLang();
 
       const response = await axiosApi.get(
-        `SiteBanner/GetSiteBanners?siteId=${config.VITE_SITE_ID}&lang=${lang.id}`,
+        `SiteBanner/GetSiteBanners?siteId=${config.VITE_SITE_ID}&lang=${lang.id}&deviceTarget=${device}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
@@ -24,24 +24,15 @@ export const getBanners = (signal, device) => {
         (response.data.Status && response.data.Status.StatusCode !== 200)
       )
         throw Error();
-      let banners = [];
-      if (device === "mobile") {
-        response.data.Contents.map((banner) => {
-          if (banner.Position > 5) {
-            banners.push(banner);
-          }
-        });
-      } else if (device === "desktop") {
-        response.data.Contents.map((banner) => {
-          if (banner.Position < 6) {
-            banners.push(banner);
-          }
-        });
-      }
+      const banners = Array.isArray(response.data?.Contents)
+        ? response.data.Contents
+        : [];
       dispatch(bannersActions.setBanners(banners));
     } catch (error) {
-      let toastMessage = translate(`${error?.message}`);
-      if (!error?.code === "ERR_CANCELED") toast.error(toastMessage);
+      dispatch(bannersActions.setBanners([]));
+      if (error?.code !== "ERR_CANCELED" && error?.code !== "ERR_NETWORK") {
+        toast.error(translate(`${error?.message || "An error occurred"}`));
+      }
     }
   };
 };

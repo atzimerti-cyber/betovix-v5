@@ -341,7 +341,7 @@ const Register = () => {
   }, [newsletter]);
 
   useEffect(() => {
-    if (cookiesSettings === "false") {
+    if (cookiesSettings === false) {
       setIsTermsAccepted(true);
     }
   }, [cookiesSettings]);
@@ -511,7 +511,7 @@ const Register = () => {
     let isValid;
     if (strongPassword) {
       isValid = validMinSize && validCases && validNumbers && validSpecial;
-    } else if (!strongPassword || strongPassword === "false") {
+    } else if (strongPassword === false) {
       isValid = debPassword.length >= 3;
       validMinSize = debPassword.length >= 3;
     }
@@ -1301,7 +1301,7 @@ const Register = () => {
               </label>
             </div>
 
-            {cookiesSettings === "true" ? (
+            {cookiesSettings === true ? (
               <div className={classes.CheckboxContainer}>
                 <input
                   checked={isTermsAccepted}

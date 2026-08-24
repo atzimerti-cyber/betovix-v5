@@ -425,3 +425,76 @@ export function getFormattedSportName(sportNameInternational) {
 
   return finalSportName;
 }
+
+export const normalizeCasinoGame = (game) => {
+  if (!game) return null;
+
+  // Legacy casino responses already wrap the game under Data, while the new
+  // casino APIs return a flat game object. Keep both shapes usable by the
+  // existing Betovix cards and always provide the image fields they expect.
+  if (game?.Data) {
+    const image =
+      game.Data.ImageUrl3 ||
+      game.Data.ImageUrl ||
+      game.thumbnailUrl ||
+      game.backgroundImageUrl ||
+      "";
+
+    return {
+      ...game,
+      Data: {
+        ...game.Data,
+        ImageUrl: game.Data.ImageUrl || image,
+        ImageUrl3: game.Data.ImageUrl3 || image,
+        Tags: game.Data.Tags || game.Tags || "",
+      },
+      thumbnailUrl: game.thumbnailUrl || image,
+      displayName: game.displayName || game.Data.Name,
+      vendorName: game.vendorName || game.Data.VendorName,
+      vendorCode: game.vendorCode || game.Data.VendorCode,
+      gameId: game.gameId || game.Data.Id,
+      providerName: game.providerName || game.Data.ProviderName,
+      providerId: game.providerId || game.Data.ProviderId,
+      isFav: game.isFav ?? game.isFavorite ?? game.Data.isFav ?? game.Data.isFavorite ?? false,
+    };
+  }
+
+  let metadata = {};
+  try {
+    metadata = game.metadataJson ? JSON.parse(game.metadataJson) : {};
+  } catch {
+    metadata = {};
+  }
+
+  const image = game.thumbnailUrl || game.backgroundImageUrl || "";
+  const tags = [game.categoryCode, game.categoryName, ...(game.tagCodes || [])]
+    .filter(Boolean)
+    .join(",");
+
+  return {
+    ...game,
+    Data: {
+      Id: game.gameId,
+      BrandGameId: game.providerGameCode ?? game.gameId,
+      Name: game.displayName,
+      ImageUrl: image,
+      ImageUrl3: image,
+      ProviderId: game.providerId,
+      ProviderName: game.providerName,
+      VendorName: game.vendorName,
+      VendorCode: game.vendorCode,
+      Tags: tags,
+    },
+    isFav: game.isFav ?? game.isFavorite ?? false,
+    isNew: metadata.isNew ?? false,
+    isLocked: false,
+    allowBonus: game.hasBonusRelevance ?? false,
+    thumbnailUrl: image,
+    displayName: game.displayName,
+    vendorName: game.vendorName,
+    vendorCode: game.vendorCode,
+    gameId: game.gameId,
+    providerName: game.providerName,
+    providerId: game.providerId,
+  };
+};

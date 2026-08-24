@@ -358,7 +358,7 @@ const LeftContainer = memo(function () {
           style={{ marginTop: "0.5rem" }}
         >
           <div className={classes.SideMenuButtonContainer}>
-            {casinoOriented && casinoOriented === "true" ? (
+            {casinoOriented === true ? (
               <>
                 {/* {casinoButton()} */}
                 {permissions.AllowToSlots && !permissions.AllowToSports ? (
@@ -447,7 +447,7 @@ const LeftContainer = memo(function () {
           </div>
         }
 
-        {casinoOriented && casinoOriented === "true" ? (
+        {casinoOriented === true ? (
           <>
             {casinoMenu()}
             {sportsMenu()}

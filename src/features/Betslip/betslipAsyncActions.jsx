@@ -79,8 +79,10 @@ export const getTicketUpdates = (payload) => {
         });
       }
     } catch (error) {
-      let toastMessage = translate(`${error?.message}`);
-      toast.error(toastMessage);
+      if (error?.code !== "ERR_CANCELED" && error?.code !== "ERR_NETWORK") {
+        let toastMessage = translate(`${error?.message}`);
+        toast.error(toastMessage);
+      }
     }
   };
 };
@@ -115,9 +117,9 @@ export const placeBet = (payload, slips, amounts, betType) => {
         })
       );
       dispatch(
-        betslipActions.setTicketId(response.data.Contents.Reciep.ticketId)
+        betslipActions.setTicketId(response.data.Contents.Reciep.ticketCode)
       );
-      dispatch(betslipActions.reset());
+      dispatch(betslipActions.resetSlips());
       dispatch(betslipActions.setPlacingBetLoading(false));
     } catch (error) {
       dispatch(
@@ -130,7 +132,7 @@ export const placeBet = (payload, slips, amounts, betType) => {
         })
       );
       dispatch(betslipActions.setTicketId(null));
-      dispatch(betslipActions.reset());
+      dispatch(betslipActions.resetSlips());
       dispatch(betslipActions.setPlacingBetLoading(false));
     }
   };
@@ -158,8 +160,10 @@ export const saveBet = (payload) => {
       return response.data.Contents; // Return the response to indicate success
     } catch (error) {
       dispatch(betslipActions.setSavingBetLoading(false));
-      let toastMessage = translate(`${error?.message}`);
-      toast.error(toastMessage);
+      if (error?.code !== "ERR_CANCELED" && error?.code !== "ERR_NETWORK") {
+        let toastMessage = translate(`${error?.message}`);
+        toast.error(toastMessage);
+      }
     }
   };
 };

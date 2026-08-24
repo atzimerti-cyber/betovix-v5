@@ -14,6 +14,7 @@ const Banners = ({ onDataNotFound }) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.login.user);
+  const lang = useSelector((state) => state.app.lang);
 
   const [loadedImages, setLoadedImages] = useState([]);
   const banners = useSelector((state) => state.banners.banners);
@@ -35,14 +36,16 @@ const Banners = ({ onDataNotFound }) => {
       controller.abort();
       dispatch(bannersActions.reset());
     };
-  }, []);
+  }, [dispatch, lang?.id]);
 
   //Remove Component if no favs found
   useEffect(() => {
-    if (banners !== null && (banners === null || banners.length === 0)) {
-      onDataNotFound();
+    if (Array.isArray(banners) && banners.length === 0) {
+      onDataNotFound?.();
     }
   }, [banners, onDataNotFound]);
+
+  if (Array.isArray(banners) && banners.length === 0) return null;
 
   return (
     <BigSwiper slidesPerView={1} autoplay delay={6000}>

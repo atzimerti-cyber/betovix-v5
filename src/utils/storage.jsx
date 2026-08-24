@@ -140,3 +140,7 @@ export function storageSetPaymentAddress(address) {
 export function storageDeletePaymentAddress() {
   localStorage.removeItem("PAdd");
 }
+
+// Compatibility aliases used by the migrated modules.
+export const storageGetLang = getLang;
+export const storageSetLang = setLang;

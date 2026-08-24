@@ -4,6 +4,7 @@ import _ from "lodash";
 const initialState = {
   topGames: null,
   verificationLevels: {},
+  kycState: null,
   disableVerifyButton: false,
   marketingEmails: false,
   markEmLoading: false,
@@ -21,6 +22,9 @@ export const profileSlice = createSlice({
     },
     setVerificationLevels: (state, action) => {
       state.verificationLevels = action.payload;
+    },
+    setKycState: (state, action) => {
+      state.kycState = action.payload;
     },
     setDisableVerifyButton: (state, action) => {
       state.disableVerifyButton = action.payload;

@@ -76,7 +76,7 @@ const SportsLive = () => {
 
   // Get the selected sport from the params
   useEffect(() => {
-    if (!sports) return;
+    if (!Array.isArray(sports) || sports.length === 0) return;
 
     // If did not come from the sportsMenu, select the first sport
     let sport;
@@ -199,7 +199,7 @@ const SportsLive = () => {
   // When the sports change (because an event was added or removed) re-evaluate
   useEffect(() => {
     if (loadingCategories) return;
-    if (!sports) return;
+    if (!Array.isArray(sports) || sports.length === 0) return;
 
     setCategoriesAndTournaments();
   }, [loadingCategories, sports]);
@@ -297,7 +297,7 @@ const SportsLive = () => {
   const getSorted = (subset) => {
     let ca = _.cloneDeep(subset);
     if (tournamentSort === "Default Sort") {
-      const categsOrder = sportSettings.CategsOrder;
+      const categsOrder = sportSettings?.CategsOrder || {};
 
       ca.sort((a, b) => {
         // Check if is in tours order first

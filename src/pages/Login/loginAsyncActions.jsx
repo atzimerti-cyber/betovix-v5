@@ -4,12 +4,45 @@ import { loginActions } from "./loginSlice";
 import { layoutActions } from "../../../src/features/Layout/layoutSlice";
 import { gamificationActions } from "../UserGamification.jsx/userGamificationSlice";
 import { getLang } from "../../utils/storage";
+import { jwtDecode } from "jwt-decode";
 
 import { toast } from "react-toastify";
-import { setAccessToken } from "../../utils/auth";
+import { getRefreshToken, setAccessToken, setTokens, startTokenRefreshTimer } from "../../utils/auth";
 import config from "../../config";
 import { translate } from "../../utils/translations";
 import { profileActions } from "../Profile/profileSlice";
+import { getSiteSettings } from "../../features/InitApp/initAppAsyncActions";
+import { appActions } from "../../features/InitApp/appSlice";
+import { getCurrentBonusBalance } from "../../utils/bonusUtils";
+
+const safeMessage = (error, fallback) => error?.response?.data?.detail || error?.response?.data?.message || error?.response?.data?.title || error?.message || fallback;
+
+
+const syncAuthenticatedBonusState = async (dispatch, langId) => {
+  const [activeResult, summaryResult] = await Promise.allSettled([
+    axiosApi.get(`bonus/me/active?lang=${langId}&SiteId=${config.VITE_SITE_ID}`, {
+      baseURLOverride: config.VITE_WALLET_API_BASE,
+    }),
+    axiosApi.get(`bonus/me/summary?lang=${langId}&SiteId=${config.VITE_SITE_ID}`, {
+      baseURLOverride: config.VITE_WALLET_API_BASE,
+    }),
+  ]);
+
+  if (activeResult.status === "fulfilled" && activeResult.value?.status === 200) {
+    const activeBonuses = activeResult.value.data;
+    dispatch(appActions.setActiveBonuses(activeBonuses));
+    dispatch(layoutActions.setAvailableBonusBalance(getCurrentBonusBalance(activeBonuses)));
+  } else {
+    dispatch(appActions.setActiveBonuses(null));
+    dispatch(layoutActions.setAvailableBonusBalance(0));
+  }
+
+  if (summaryResult.status === "fulfilled" && summaryResult.value?.status === 200) {
+    dispatch(appActions.setSummaryBonuses(summaryResult.value.data));
+  } else {
+    dispatch(appActions.setSummaryBonuses(null));
+  }
+};
 
 export const logingGoogle = (loginInfo, navigate, locationPathname) => {
   return async (dispatch) => {
@@ -20,7 +53,7 @@ export const logingGoogle = (loginInfo, navigate, locationPathname) => {
         `login/AuthenticateGoogle?siteId=${config.VITE_SITE_ID}`,
         loginInfo,
         {
-          baseURLOverride: config.VITE_WALLET_API_BASE,
+          baseURLOverride: config.VITE_LOGIN_API,
         }
       );
       if (response.data.Status.StatusCode !== 200)
@@ -28,7 +61,7 @@ export const logingGoogle = (loginInfo, navigate, locationPathname) => {
       setAccessToken(response.data.Contents.Token);
 
       const response2 = await axiosApi.get(
-        `login/State/?lang=en&siteid=${config.VITE_SITE_ID}`,
+        `login/State/?lang=${getLang()?.id || "en"}&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -48,6 +81,9 @@ export const logingGoogle = (loginInfo, navigate, locationPathname) => {
       };
 
       dispatch(loginActions.setUser(user));
+      dispatch(layoutActions.setAvailableBonus(user));
+      await dispatch(getSiteSettings(null));
+      await syncAuthenticatedBonusState(dispatch, getLang()?.id || "en");
 
       dispatch(loginActions.setLoginLoading(false));
       navigate(locationPathname, { replace: true });
@@ -63,11 +99,11 @@ export const login = (loginInfo, navigate, locationPathname, onSuccess) => {
 
     try {
       const response = await axiosApi.post(
-        `login/Authenticate2?siteId=${config.VITE_SITE_ID}`,
+        `login/Authenticate2?lang=${getLang()?.id || "en"}&siteid=${config.VITE_SITE_ID}`,
         loginInfo,
         {
           // baseURLOverride: config.VITE_WALLET_API_BASE,
-          baseURLOverride: config.VITE_LOGIN_URL,
+          baseURLOverride: config.VITE_LOGIN_API,
         }
       );
       if (response.data.Status.StatusCode !== 200) {
@@ -98,10 +134,21 @@ export const login = (loginInfo, navigate, locationPathname, onSuccess) => {
         throw Error(message);
       }
 
-      setAccessToken(response.data.Contents.Token);
+      if (response.data.Contents.Token) {
+        const refreshToken = response.data.Contents.refreshToken || response.data.Contents.RefreshToken;
+        setTokens(response.data.Contents.Token, refreshToken);
+
+        try {
+          const decoded = jwtDecode(response.data.Contents.Token);
+          const expiresInSeconds = decoded.exp - Math.floor(Date.now() / 1000);
+          startTokenRefreshTimer(response.data.expiresInSeconds || expiresInSeconds, dispatch);
+        } catch {
+          // getAccessToken will clear an invalid token on the next read.
+        }
+      }
 
       const response2 = await axiosApi.get(
-        `login/State/?lang=en&siteid=${config.VITE_SITE_ID}`,
+        `login/State/?lang=${getLang()?.id || "en"}&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -120,28 +167,12 @@ export const login = (loginInfo, navigate, locationPathname, onSuccess) => {
         // registered: 1712505696754,
       };
 
-      if (response2.data.Contents.Role < 40 && !response2.data.Contents.MyPermissions.AllowToRetail) {
-        const currentDomain = window.location.hostname;
-        const token = response2.data.Contents.Token;
-        const currentState1 = getState().app;
-        const siteSettings = currentState1.siteSettings;
-        const url = siteSettings?.WalletUrl;
-
-        const formatUrl = (url) => url.startsWith('http') ? url : 'https://' + url;
-        const separator = url?.includes('?') ? '&' : '?';
-        const walletUrl = url
-          ? formatUrl(url) + separator + "token=" + token
-          : "https://wallet." + currentDomain + "?token=" + token;
-          
-        // const walletUrl = url
-        //   ? url + "?token=" + token
-        //   : "https://wallet." + currentDomain + "?token=" + token;
-
-        window.location.href = walletUrl;
-        // navigate(walletUrl, { replace: true });
-      }
+      // New platform: keep the authenticated player on this frontend.
 
       dispatch(loginActions.setUser(user));
+      dispatch(layoutActions.setAvailableBonus(user));
+      await dispatch(getSiteSettings(null));
+      await syncAuthenticatedBonusState(dispatch, getLang()?.id || "en");
 
       dispatch(loginActions.setLoginLoading(false));
       navigate(locationPathname, { replace: true });
@@ -155,6 +186,36 @@ export const login = (loginInfo, navigate, locationPathname, onSuccess) => {
       dispatch(loginActions.setLoginLoading(false));
 
       return { success: false };
+    }
+  };
+};
+
+export const refreshAuthToken = () => {
+  return async (dispatch) => {
+    try {
+      const refreshToken = getRefreshToken();
+      if (!refreshToken) {
+        dispatch(loginActions.logout());
+        return;
+      }
+
+      const response = await axiosApi.post(
+        `auth/refresh`,
+        { refreshToken },
+        {
+          baseURLOverride: config.VITE_LOGIN_API,
+          noToken: true,
+        }
+      );
+
+      if (response.status !== 200) throw new Error("Refresh failed");
+
+      setTokens(response.data.accessToken, response.data.refreshToken);
+      startTokenRefreshTimer(response.data.expiresInSeconds, dispatch);
+    } catch (error) {
+      if (error?.response?.status === 401 || error?.response?.status === 403) {
+        dispatch(loginActions.logout());
+      }
     }
   };
 };
@@ -184,6 +245,8 @@ export const verifyTfa = (signal, code, token, navigate, locationPathname) => {
           throw Error(response2.data.Contents);
 
         dispatch(loginActions.setUser(response2.data.Contents));
+        dispatch(layoutActions.setAvailableBonus(response2.data.Contents));
+        await syncAuthenticatedBonusState(dispatch, lang.id);
         navigate(locationPathname, { replace: true });
       } else {
         toast.error(translate(response.data.Contents));
@@ -201,7 +264,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
     try {
       let response2;
       const response1 = await axiosApi.get(
-        `/MyAccount/UsernameExists?username=${registerInfo.displayName}&lang=en&siteid=${config.VITE_SITE_ID}`,
+        `/MyAccount/UsernameExists?username=${registerInfo.displayName}&lang=${getLang()?.id || "en"}&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -212,7 +275,7 @@ export const register = (registerInfo, navigate, locationPathname) => {
         dispatch(loginActions.setLoginLoading(false));
       } else if (response1.data.Contents == false) {
         response2 = await axiosApi.post(
-          `MyAccount/Register/?lang=en&siteid=${config.VITE_SITE_ID}`,
+          `MyAccount/Register/?lang=${getLang()?.id || "en"}&siteid=${config.VITE_SITE_ID}`,
           {
             TCNumber:
               registerInfo.idCode === "true" ? null : registerInfo.idCode,
@@ -263,55 +326,42 @@ export const register = (registerInfo, navigate, locationPathname) => {
 };
 
 export const verify = (code, navigate) => {
-  return async (dispatch) => {
+  return async () => {
     try {
       const response = await axiosApi.get(
-        `/MyAccount/VerifyAccount?activationCode=${code}`,
-        {
-          baseURLOverride: config.VITE_WALLET_API_BASE,
-        }
+        `/player-registration/verify-email?token=${encodeURIComponent(code)}`,
+        { baseURLOverride: config.VITE_WALLET_API_BASE, noToken: true }
       );
-      if (response.data.Status.StatusCode === 200) {
-        toast.success(translate(response.data.Contents));
-        setAccessToken(response.data.Contents.Token);
 
-        const response2 = await axiosApi.get(
-          `login/State/?lang=en&siteid=${config.VITE_SITE_ID}`,
-          {
-            baseURLOverride: config.VITE_WALLET_API_BASE,
-          }
-        );
-        if (response2.data.Status.StatusCode !== 200)
-          throw Error(response2.data.Contents);
-
-        const user = {
-          ...response2.data.Contents,
-        };
-
-        dispatch(loginActions.setUser(user));
-        navigate(`/`, { replace: true });
+      if (response?.data?.verified) {
+        toast.success(translate("Account verified successfully"));
+        navigate(`?modal=auth&tab=login`, { replace: true });
       } else {
-        toast.error(translate(response.data.Contents));
-        navigate(``, { replace: true });
-        dispatch(loginActions.setLoginLoading(false));
+        toast.error(translate("Account could not be verified. Please try again."));
       }
     } catch (error) {
-      toast.error(translate("An error has occurred"));
+      if (error?.code !== "ERR_NETWORK") toast.error(safeMessage(error, translate("An error has occurred")));
     }
   };
 };
 
 export const affiliateCampaigns = (code) => {
-  return async (dispatch) => {
+  return async () => {
     try {
+      if (!code) return false;
+
       const response = await axiosApi.get(
-        `/AffiliateCampaigns/CampaignClick?code=${code}`,
+        `/AffiliateCampaigns/CampaignClick?code=${encodeURIComponent(code)}&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
+          noToken: true,
         }
       );
-    } catch (error) {
-      toast.error(translate("An error has occurred"));
+
+      return response.data === true;
+    } catch {
+      // Affiliate tracking is optional and must never block/show an error during startup.
+      return false;
     }
   };
 };
@@ -320,7 +370,7 @@ export const getUser = (navigate) => {
   return async (dispatch, getState) => {
     try {
       const response = await axiosApi.get(
-        `login/State/?lang=en&siteid=${config.VITE_SITE_ID}`,
+        `login/State/?lang=${getLang()?.id || "en"}&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -365,10 +415,14 @@ export const getUser = (navigate) => {
 
         dispatch(loginActions.setUser(user));
         dispatch(
-          profileActions.setMarketingEmails(user.MyPermissions.AllowToSendPromo)
+          profileActions.setMarketingEmails(
+            user?.MyPermissions?.AllowToSendPromo ??
+              getState().login.permissions?.AllowToSendPromo ??
+              false
+          )
         );
         dispatch(layoutActions.setAvailableBonus(user));
-        dispatch(layoutActions.setAvailableBonusBalance(user));
+        await syncAuthenticatedBonusState(dispatch, getLang()?.id || "en");
       }
     } catch (error) {
       null;
@@ -475,33 +529,57 @@ export const updatePassword = (info, id, navigate, locationPathname) => {
   };
 };
 
-export const resendEmail = (data) => {
+export const resendEmail = (data, callback) => {
   return async (dispatch) => {
     dispatch(loginActions.setUpdateLoading(true));
     try {
-      const response = await axiosApi.get(
-        `MyAccount/ResendAccVerificationEmail?data=${data}&siteid=${config.VITE_SITE_ID}`,
-        {
-          baseURLOverride: config.VITE_WALLET_API_BASE,
-        }
-      );
-
-      if (response.data.Status.StatusCode !== 200) {
-        dispatch(loginActions.setUpdateLoading(false));
-        let toastMessage1 = translate(`An error has occurred`);
-        toast.error(`${toastMessage1}.`);
-      } else {
-        let toastMessage1 = translate(`Success`);
-        let toastMessage2 = translate(
-          `Please check your email to verify your registration`
-        );
-        toast.success(`${toastMessage1}! ${toastMessage2}.`);
-        dispatch(loginActions.setUpdateLoading(false));
-      }
+      const payload = { usernameOrEmail: data, siteId: config.VITE_SITE_ID };
+      await axiosApi.post(`player-registration/resend-verification-email`, payload, {
+        baseURLOverride: config.VITE_WALLET_API_BASE,
+        noToken: true,
+      });
+      toast.success(`${translate("Success")}! ${translate("Please check your email to verify your registration")}.`);
+      callback?.(true);
     } catch (error) {
-      let toastMessage1 = translate(`An error has occurred`);
-      toast.error(`${toastMessage1}.`);
+      toast.error(safeMessage(error, translate("An error has occurred")));
+      callback?.(false);
+    } finally {
       dispatch(loginActions.setUpdateLoading(false));
+    }
+  };
+};
+
+export const getRegistrationBonuses = (signal, callback) => {
+  return async (dispatch) => {
+    dispatch(loginActions.setBonusesLoading?.(true));
+    try {
+      const response = await axiosApi.get(
+        `player-registration/bonus-choice-set?siteId=${config.VITE_SITE_ID}`,
+        { signal, baseURLOverride: config.VITE_WALLET_API_BASE, noToken: true }
+      );
+      callback?.(response.data);
+      return response.data;
+    } catch (error) {
+      if (error?.code !== "ERR_CANCELED") console.warn("Registration bonus choices unavailable", error?.message);
+      callback?.(null);
+      return null;
+    } finally {
+      dispatch(loginActions.setBonusesLoading?.(false));
+    }
+  };
+};
+
+export const saveRegistrationBonus = (registrationId) => {
+  return async () => {
+    if (!registrationId) return false;
+    try {
+      await axiosApi.get(`bonus/me/choice-sets/${encodeURIComponent(registrationId)}/select`, {
+        baseURLOverride: config.VITE_WALLET_API_BASE,
+      });
+      return true;
+    } catch (error) {
+      toast.error(safeMessage(error, translate("An error has occurred")));
+      return false;
     }
   };
 };

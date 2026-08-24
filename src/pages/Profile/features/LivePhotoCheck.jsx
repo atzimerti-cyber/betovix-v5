@@ -114,19 +114,19 @@ const LivePhotoCheck = (props) => {
           .then(
             (blob) => new File([blob], "live_photo.jpg", { type: "image/jpeg" })
           );
-        dispatch(uploadKYCFile(file, 4, signal));
+        dispatch(uploadKYCFile(file, 4, signal, "Selfie"));
 
         // Front side
         if (props.idFiles.frontSide) {
           const frontSideFormData = props.idFiles.frontSide;
 
-          dispatch(uploadKYCFile(frontSideFormData, 3, signal));
+          dispatch(uploadKYCFile(frontSideFormData, 3, signal, "IdentityDocumentFront"));
         }
         // Back side
         if (props.idFiles.backSide) {
           const backSideFormData = props.idFiles.backSide;
 
-          dispatch(uploadKYCFile(backSideFormData, 3, signal));
+          dispatch(uploadKYCFile(backSideFormData, 3, signal, "IdentityDocumentBack"));
         }
       } else {
         if (!props.idFiles.frontSide) {
@@ -165,7 +165,7 @@ const LivePhotoCheck = (props) => {
         .then(
           (blob) => new File([blob], "live_photo.jpg", { type: "image/jpeg" })
         );
-      dispatch(uploadKYCFile(file, 4, signal));
+      dispatch(uploadKYCFile(file, 4, signal, "Selfie"));
     }
   };
 
@@ -177,7 +177,7 @@ const LivePhotoCheck = (props) => {
   //   if (props.idFiles.frontSide) {
   //     const frontSideFormData = props.idFiles.frontSide;
 
-  //     dispatch(uploadKYCFile(frontSideFormData, 3, signal));
+  //     dispatch(uploadKYCFile(frontSideFormData, 3, signal, "IdentityDocumentFront"));
   //   } else {
   //     console.log("Front side of the ID is required.");
   //   }
@@ -186,7 +186,7 @@ const LivePhotoCheck = (props) => {
   //   if (props.idFiles.backSide) {
   //     const backSideFormData = props.idFiles.backSide;
 
-  //     dispatch(uploadKYCFile(backSideFormData, 3, signal));
+  //     dispatch(uploadKYCFile(backSideFormData, 3, signal, "IdentityDocumentBack"));
   //   } else {
   //     console.log("Back side of the ID is required.");
   //   }

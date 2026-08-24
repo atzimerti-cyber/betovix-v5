@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import Preloader from "../UI/Loaders/Preloader";
 import { getSite, getSiteSettings, loadInitData } from "./initAppAsyncActions";
-import { getUser } from "../../pages/Login/loginAsyncActions";
+import { getUser, refreshAuthToken } from "../../pages/Login/loginAsyncActions";
 import { affiliateCampaigns } from "../../pages/Login/loginAsyncActions";
 import { isMoreThan14DaysOld } from "../../utils/custom";
 import { storageGetTimezone, storageSetTimezone } from "../../utils/storage";
@@ -19,7 +19,8 @@ import appSlice, { appActions } from "./appSlice";
 import useBasePath from "../../hooks/useBasePath";
 import { sportsHomeActions } from "../../pages/SportsBook/subpages/sportsHomeSlice";
 import { mod } from "@tensorflow/tfjs";
-import { setAccessToken } from "../../utils/auth";
+import { getAccessToken, setAccessToken, setAuthStorageMode, startTokenRefreshTimer } from "../../utils/auth";
+import { jwtDecode } from "jwt-decode";
 
 const InitApp = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ const InitApp = () => {
   const siteSettingsSuccess = useSelector(
     (state) => state.app.siteSettingsSuccess
   );
+  const siteSettings = useSelector((state) => state.app.siteSettings);
   // const user = useSelector((state) => state.login.user);
   const userAccountId = useSelector((state) => state.login.user)?.AccountId;
 
@@ -163,6 +165,11 @@ const InitApp = () => {
   }, [site]);
 
   useEffect(() => {
+    if (!siteSettings) return;
+    setAuthStorageMode(siteSettings?.Mode?.toLowerCase() === "shop");
+  }, [siteSettings]);
+
+  useEffect(() => {
     if (siteSettingsSuccess) {
       dispatch(loadInitData(isMobile));
 
@@ -186,17 +193,40 @@ const InitApp = () => {
   }, [userAccountId]);
 
   useEffect(() => {
-    // Get user every 5 seconds...
+    // Refresh user state every 60 seconds...
     clearInterval(timerIdRef.current);
     const pollingCallback = () => {
       dispatch(getUser(navigate));
     };
-    if (userAccountId) timerIdRef.current = setInterval(pollingCallback, 5000);
+    if (userAccountId) timerIdRef.current = setInterval(pollingCallback, 60000);
 
     return () => {
-      if (!userAccountId) clearInterval(timerIdRef.current);
+      clearInterval(timerIdRef.current);
     };
   }, [userAccountId]);
+
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState !== "visible") return;
+
+      const token = getAccessToken();
+      if (!token) return;
+
+      try {
+        const decoded = jwtDecode(token);
+        const remaining = decoded.exp - Date.now() / 1000;
+
+        if (remaining <= 10) dispatch(refreshAuthToken());
+        else startTokenRefreshTimer(remaining, dispatch);
+      } catch {
+        dispatch(refreshAuthToken());
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [dispatch]);
 
   if (isLoaded && initDataLoaded) return <Outlet />;
   if (isLoaded) return <Preloader />;

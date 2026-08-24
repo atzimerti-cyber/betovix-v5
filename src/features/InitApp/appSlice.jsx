@@ -361,6 +361,8 @@ const initialState = {
   },
   sportSettings: null,
   siteSettings: null,
+  summaryBonuses: null,
+  activeBonuses: null,
   socialMedia: null,
   siteCurrencies: null,
   registerPromoImg: null,
@@ -457,6 +459,12 @@ export const appSlice = createSlice({
     },
     setSiteSettings: (state, action) => {
       state.siteSettings = action.payload;
+    },
+    setSummaryBonuses: (state, action) => {
+      state.summaryBonuses = action.payload;
+    },
+    setActiveBonuses: (state, action) => {
+      state.activeBonuses = action.payload;
     },
     setSocialMedia: (state, action) => {
       state.socialMedia = action.payload;

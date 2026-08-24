@@ -35,6 +35,21 @@ import {
 } from "../../pages/UserGamification.jsx/gamificationAsyncActions";
 import { translate } from "../../utils/translations";
 import ScriptHeadInjector from "../../utils/scriptHeadInjector";
+import { getCurrentBonusBalance } from "../../utils/bonusUtils";
+import { normalizePermissions, normalizeSiteSettings } from "../../utils/siteSettings";
+
+const isAuthError = (error) => [401, 403].includes(error?.response?.status);
+const isCanceled = (error) => error?.code === "ERR_CANCELED" || error?.name === "CanceledError" || error?.name === "AbortError";
+
+const optionalRequest = async (promise, fallback = null) => {
+  try {
+    return await promise;
+  } catch (error) {
+    if (isCanceled(error) || isAuthError(error) || error?.response?.status === 404) return fallback;
+    console.warn("Optional startup request failed", error?.config?.url || error?.message);
+    return fallback;
+  }
+};
 
 export const loadInitData = (isMobile) => {
   return async (dispatch, getState) => {
@@ -118,15 +133,17 @@ export const loadInitData = (isMobile) => {
       const token = getAccessToken();
       let user = null;
       if (token) {
-        const response = await axiosApi.get(
-          `login/State/?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-          {
-            baseURLOverride: config.VITE_WALLET_API_BASE,
-          }
+        // Authenticated-only reference data.
+        dispatch(getCurrencies());
+        const response = await optionalRequest(
+          axiosApi.get(
+            `login/State/?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+            { baseURLOverride: config.VITE_WALLET_API_BASE }
+          )
         );
-        if (response.data.Status.StatusCode !== 200)
+        if (!response || response?.data?.Status?.StatusCode !== 200) {
           dispatch(loginActions.logout());
-        else {
+        } else {
           // TODO: The rest should come from the backend
           user = {
             ...response.data.Contents,
@@ -139,7 +156,33 @@ export const loadInitData = (isMobile) => {
           };
           dispatch(loginActions.setUser(user));
           dispatch(layoutActions.setAvailableBonus(user));
-          dispatch(layoutActions.setAvailableBonusBalance(user));
+
+          // The new backend no longer exposes the usable bonus balance through
+          // login/State.TotalBonusBalance. Keep the authoritative bonus state
+          // from the bonus APIs, exactly like the migrated reference frontend.
+          const [activeBonusesResult, summaryBonusesResult] = await Promise.allSettled([
+            axiosApi.get(`bonus/me/active?lang=${lang.id}&SiteId=${config.VITE_SITE_ID}`, {
+              baseURLOverride: config.VITE_WALLET_API_BASE,
+            }),
+            axiosApi.get(`bonus/me/summary?lang=${lang.id}&SiteId=${config.VITE_SITE_ID}`, {
+              baseURLOverride: config.VITE_WALLET_API_BASE,
+            }),
+          ]);
+
+          if (activeBonusesResult.status === "fulfilled" && activeBonusesResult.value?.status === 200) {
+            const activeBonuses = activeBonusesResult.value.data;
+            dispatch(appActions.setActiveBonuses(activeBonuses));
+            dispatch(layoutActions.setAvailableBonusBalance(getCurrentBonusBalance(activeBonuses)));
+          } else {
+            dispatch(appActions.setActiveBonuses(null));
+            dispatch(layoutActions.setAvailableBonusBalance(0));
+          }
+
+          if (summaryBonusesResult.status === "fulfilled" && summaryBonusesResult.value?.status === 200) {
+            dispatch(appActions.setSummaryBonuses(summaryBonusesResult.value.data));
+          } else {
+            dispatch(appActions.setSummaryBonuses(null));
+          }
 
           if (user?.Role < 40) {
             dispatch(fetchChildDetails(user.AccountId));
@@ -152,7 +195,7 @@ export const loadInitData = (isMobile) => {
 
       const requestsNecessary = [
         axiosApi.get(
-          `Translation/MyTranslations?type=Sportsbook&lang=${lang.id}`,
+          `Translation/MyTranslations?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
           {
             baseURLOverride: config.VITE_WALLET_API_BASE,
           }
@@ -162,21 +205,18 @@ export const loadInitData = (isMobile) => {
       responsesNecessary.forEach((response) => {
         if (response.status !== 200) throw Error();
       });
-      dispatch(appActions.setTranslations(responsesNecessary[0].data.Contents));
+      dispatch(appActions.setTranslations(responsesNecessary[0]?.data?.Contents || {}));
 
       //Tawk.To
       dispatch(tawktoChat());
 
-      //Get Progress
-      dispatch(heroProgress());
-      //dispatch(getUserAchievements());
-
-      //Get user rewards
-      dispatch(getRewards());
-
-      //GetUserNotifications
-      {
-        user && dispatch(getUserNotifications());
+      // Authenticated user-only startup calls.
+      // Do not call these endpoints for guests: the new backend returns 401.
+      if (user) {
+        dispatch(heroProgress());
+        //dispatch(getUserAchievements());
+        dispatch(getRewards());
+        dispatch(getUserNotifications());
       }
 
       // Get permissions after setting user
@@ -185,7 +225,7 @@ export const loadInitData = (isMobile) => {
 
       // Sports
       // -------------------------------------
-      if (permissions.AllowToSports) {
+      if (permissions?.AllowToSports) {
         const requestsSports = [
           axiosApi.post(
             `Pregame/PostData?action=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
@@ -209,18 +249,15 @@ export const loadInitData = (isMobile) => {
           }),
         ];
 
-        const responsesSports = await Promise.all(requestsSports);
-        responsesSports.forEach((response) => {
-          if (response.status !== 200) throw Error();
-        });
+        const responsesSports = await Promise.all(requestsSports.map((request) => optionalRequest(request)));
 
-        dispatch(appActions.setSportSettings(responsesSports[3].data.Contents));
+        dispatch(appActions.setSportSettings(responsesSports[3]?.data?.Contents || {}));
 
         // Update sports with icon and slug
         const currentState = getState().app;
         const sportIcons = currentState.sportIcons;
         let updatedSports = [];
-        responsesSports[0].data.Contents.forEach((sport) => {
+        (Array.isArray(responsesSports[0]?.data?.Contents) ? responsesSports[0].data.Contents : []).forEach((sport) => {
           let icon = sportIcons[sport.Name?.International] || <NoImageIcon />;
           updatedSports.push({
             ...sport,
@@ -233,10 +270,10 @@ export const loadInitData = (isMobile) => {
         const topSports = updatedSports.slice(0, 6);
 
         // Top tournaments
-        const topTournaments = responsesSports[1].data;
+        const topTournaments = responsesSports[1]?.data || {};
 
         // Init live
-        const matchesObj = responsesSports[2].data.Matches.reduce(
+        const matchesObj = (Array.isArray(responsesSports[2]?.data?.Matches) ? responsesSports[2].data.Matches : []).reduce(
           (acc, match) => {
             acc[match.MatchId] = match;
             return acc;
@@ -265,7 +302,7 @@ export const loadInitData = (isMobile) => {
         // });
         // sportsMenuItems.push(topTournamentsMenu);
 
-        // topTournaments.SubCategs.forEach((subCateg) => {
+        // (topTournaments?.SubCategs || []).forEach((subCateg) => {
         //   subCateg.Items.forEach((topTournament) => {
         //     const value = topTournament.Value.split(",");
         //     topTournamentsMenu.items.push({
@@ -279,9 +316,9 @@ export const loadInitData = (isMobile) => {
 
         // sportsMenuItems.push(topTournamentsMenu);
 
-        topTournaments.SubCategs.forEach((subCateg) => {
+        (topTournaments?.SubCategs || []).forEach((subCateg) => {
           // Create a copy of the Items array and sort it
-          const sortedItems = [...subCateg?.Items].sort(
+          const sortedItems = [...(subCateg?.Items || [])].sort(
             (a, b) => parseFloat(a?.Par1) - parseFloat(b?.Par1)
           );
 
@@ -335,14 +372,9 @@ export const loadInitData = (isMobile) => {
       const currentState1 = getState().app;
       const siteSettings = currentState1.siteSettings;
       const type =
-        siteSettings && siteSettings?.CasinoMenuType
+        siteSettings?.CasinoMenuType && siteSettings.CasinoMenuType !== "casinobetovix"
           ? siteSettings.CasinoMenuType
-          : "casinobetovix";
-      const minitype =
-        siteSettings && siteSettings?.CasinoMinibarType
-          ? siteSettings.CasinoMinibarType
-          : "Betovix";
-
+          : "casinov2";
       const footerbartype =
         siteSettings && siteSettings?.FooterMenuType
           ? siteSettings.FooterMenuType
@@ -350,7 +382,7 @@ export const loadInitData = (isMobile) => {
 
       // Casino
       // -------------------------------------
-      if (permissions.AllowToCasino || permissions.AllowToSlots) {
+      if (permissions?.AllowToCasino || permissions?.AllowToSlots) {
         const requestsCasino = [
           axiosApi.get(
             `MyCasino/GetVendors?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
@@ -360,31 +392,32 @@ export const loadInitData = (isMobile) => {
             }
           ),
           axiosApi.get(
-            `MyCasino/MyMenu?type=${type}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+            `Legacy/Menu/MyMenu?type=${type}&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
             {
               baseURLOverride: config.VITE_CASINO_BASE,
               timeout: 10000,
             }
           ),
           axiosApi.get(
-            `MyCasino/MyMenu?type=casinominibar&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+            `Legacy/Menu/MyMenu?type=CasinoTopHeader&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
             {
               baseURLOverride: config.VITE_CASINO_BASE,
               timeout: 10000,
             }
           ),
           axiosApi.get(
-            `Menu/MyMenu?type=footermenu&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+            `Legacy/Menu/MyMenu?type=footermenu&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
             {
               baseURLOverride: config.VITE_CASINO_BASE,
               timeout: 10000,
             }
           ),
         ];
-        const responsesCasino = await Promise.all(requestsCasino);
-        responsesCasino.forEach((response) => {
-          if (response.status !== 200) throw Error();
-        });
+        const responsesCasino = await Promise.all(
+          requestsCasino.map((request) =>
+            optionalRequest(request, { data: { Contents: {} } })
+          )
+        );
 
         if (Array.isArray(responsesCasino[0].data.Contents))
           dispatch(
@@ -396,17 +429,58 @@ export const loadInitData = (isMobile) => {
         const casinoMenuIcons = currentstate.casinoMenuIcons;
         const footerbarMenuIcons = currentstate.footerbarMenuIcons;
 
+        const casinoMenuPayload = responsesCasino[1]?.data?.Contents || {};
+        const casinoTopHeaderPayload = responsesCasino[2]?.data?.Contents || {};
+
         let casinoWalletMenu = {
           category: { id: 5, label: "Casino Categories", visible: true },
           items: [],
         };
-        responsesCasino[1].data.Contents.Categs.forEach((category) => {
-          casinoWalletMenu.items.push({
-            id: category.Categ.Id,
-            label: category.Categ.Name,
-            icon: casinoIcons[category.Categ.Name] || <NoImageIcon />,
-            page: `casino/menu?tag=${category.Categ.BadgeType}`,
+
+        (casinoMenuPayload?.Categs || []).forEach((category) => {
+          const categoryName = category?.Categ?.Name;
+          const categoryBadge = category?.Categ?.BadgeType;
+
+          if (categoryName && categoryBadge) {
+            casinoWalletMenu.items.push({
+              id: category.Categ.Id,
+              label: categoryName,
+              icon: casinoIcons[categoryName] || <NoImageIcon />,
+              page: `casino/menu?tag=${categoryBadge}`,
+            });
+          }
+
+          (category?.Items || []).forEach((item) => {
+            const label = item?.Name;
+            const page = item?.Link || item?.State;
+            if (!label || !page) return;
+            if (label === "Favorites" && !user) return;
+
+            if (!casinoWalletMenu.items.some((existing) => existing.label === label)) {
+              casinoWalletMenu.items.push({
+                id: item.Id,
+                label,
+                icon: casinoMenuIcons[label] || casinoIcons[label] || <NoImageIcon />,
+                page,
+              });
+            }
           });
+        });
+
+        (casinoMenuPayload?.Items || []).forEach((item) => {
+          const label = item?.Name;
+          const page = item?.Link || item?.State;
+          if (!label || !page) return;
+          if (label === "Favorites" && !user) return;
+
+          if (!casinoWalletMenu.items.some((existing) => existing.label === label)) {
+            casinoWalletMenu.items.push({
+              id: item.Id,
+              label,
+              icon: casinoMenuIcons[label] || casinoIcons[label] || <NoImageIcon />,
+              page,
+            });
+          }
         });
 
         let casinoMinibarMenu = {
@@ -414,26 +488,31 @@ export const loadInitData = (isMobile) => {
           items: [],
         };
 
-        responsesCasino[2].data.Contents.Categs.forEach((categoryData) => {
-          if (categoryData.Categ.Name === minitype) {
-            categoryData.Items.forEach((item) => {
-              if (item.Name === "Favorites" && !user) return;
+        const topHeaderItems = [
+          ...(Array.isArray(casinoTopHeaderPayload?.Items) ? casinoTopHeaderPayload.Items : []),
+          ...(Array.isArray(casinoTopHeaderPayload?.Categs)
+            ? casinoTopHeaderPayload.Categs.flatMap((category) => category?.Items || [])
+            : []),
+        ];
 
-              casinoMinibarMenu.items.push({
-                id: item.Id,
-                label: item.Name,
-                icon: casinoMenuIcons[item.Name] || <NoImageIcon />,
-                page: item.Link || "#",
-              });
-            });
-          }
+        topHeaderItems.forEach((item) => {
+          if (item?.Name === "Favorites" && !user) return;
+          const page = item?.Link || item?.State;
+          if (!item?.Name || !page) return;
+
+          casinoMinibarMenu.items.push({
+            id: item.Id,
+            label: item.Name,
+            icon: casinoMenuIcons[item.Name] || <NoImageIcon />,
+            page,
+          });
         });
 
         let footerbarMenu = [];
 
-        responsesCasino[3].data.Contents.Categs.forEach((categoryData) => {
+        (responsesCasino[3]?.data?.Contents?.Categs || []).forEach((categoryData) => {
           if (categoryData.Categ.Name === footerbartype) {
-            categoryData.Items.forEach((item) => {
+            (categoryData?.Items || []).forEach((item) => {
 
               footerbarMenu.push({
                 id: item.Id,
@@ -511,8 +590,58 @@ export const loadInitData = (isMobile) => {
         dispatch(appActions.setCasinoMinibarItems(casinoMinibarMenu));
       }
 
+      // Main navigation menu. The migrated frontend reads this from the sports menu
+      // using the site's MainMenuType. Keep the existing Betovix sidebar structure,
+      // but feed it with the same backend menu source.
+      const siteMenuResponse = await optionalRequest(
+        axiosApi.get(
+          `Legacy/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+          { baseURLOverride: config.VITE_WALLET_API_BASE }
+        ),
+        { data: { Contents: {} } }
+      );
+      const siteMenus = siteMenuResponse?.data?.Contents || {};
+      const mainMenuType = siteSettings?.MainMenuType || "MAIN MENU V2";
+      const mainMenuCategory = (siteMenus?.Categs || []).find(
+        (entry) => entry?.Categ?.Name === mainMenuType && Array.isArray(entry?.Items)
+      ) || (siteMenus?.Categs || []).find((entry) => Array.isArray(entry?.Items) && entry.Items.length);
+
+      const mainMenuItems = (mainMenuCategory?.Items || [])
+        .slice()
+        .filter((item) => {
+          // Sports/Inplay already belong to the existing sports navigation in this template.
+          // Do not duplicate them in the generic sidebar menu.
+          const name = String(item?.Name || "").trim().toLowerCase();
+          return name !== "sports" && name !== "inplay" && name !== "in play";
+        })
+        .sort((a, b) => Number(a?.ViewOrder || 0) - Number(b?.ViewOrder || 0))
+        .map((item) => {
+          const rawPage = item?.Link || item?.State;
+          if (!rawPage) return null;
+
+          const isExternal = /^(https?:)?\/\//.test(rawPage);
+          const page = isExternal
+            ? rawPage
+            : rawPage.startsWith("/")
+              ? rawPage
+              : `/${rawPage}`;
+
+          return {
+            id: item.Id,
+            label: item.Name,
+            icon: item.Icon ? <img src={item.Icon} alt="" /> : <NoImageIcon />,
+            page,
+            badge: item.Badge,
+          };
+        })
+        .filter(Boolean);
+
+      if (mainMenuItems.length) {
+        allMenuItems.push({ items: mainMenuItems });
+      }
+
       {
-        permissions.AllowGamification &&
+        permissions?.AllowGamification &&
           allMenuItems.push({
             category: { id: 7, label: "Arena", visible: true, isNew: true },
             items: [
@@ -581,16 +710,8 @@ export const loadInitData = (isMobile) => {
       const ss = getState().app.siteSettings;
       const footerType = ss && ss.FooterType ? ss.FooterType : "FOOTER";
 
-      const footerResponse = await axiosApi.get(
-        `/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-        {
-          baseURLOverride: config.VITE_WALLET_API_BASE,
-        }
-      );
-      if (footerResponse.data.Status.StatusCode !== 200) throw Error();
-
-      const footers = footerResponse.data.Contents;
-      const foundFooter = footers?.Categs.find(
+      const footers = siteMenus || {};
+      const foundFooter = footers?.Categs?.find(
         (f) => f.Categ.Name === footerType
       );
 
@@ -612,7 +733,7 @@ export const loadInitData = (isMobile) => {
       //   })) || [];
 
       const footer =
-        foundFooter.SubCategs?.map((categ) => ({
+        foundFooter?.SubCategs?.map((categ) => ({
           title: categ.SubCateg?.Name || "Untitled",
           subcategs:
             categ?.Items?.filter(
@@ -629,24 +750,18 @@ export const loadInitData = (isMobile) => {
 
       dispatch(appActions.setMenuItems(allMenuItems));
 
-      //Home Page Tags
-      const homeTagsResponse = await axiosApi.get(
-        `/MyCasino/GetLobbyTags?siteid=${config.VITE_SITE_ID}`,
-        {
-          baseURLOverride: config.VITE_CASINO_BASE,
-        }
-      );
-      if (homeTagsResponse.data.Status.StatusCode !== 200) throw Error();
-
-      dispatch(appActions.setHomeTags(homeTagsResponse.data.Contents));
+      // Home content is loaded by the Home page from the new casino personalization APIs.
+      // GetHomeTags returns the casino tag catalog, not the home layout configuration.
+      dispatch(appActions.setHomeTags([]));
 
       setTimeout(function () {
         dispatch(appActions.setInitDataLoaded(true));
       }, 2000);
     } catch (error) {
-      dispatch(loginActions.logout()); //////////////////////////////////////////////////////
+      // An optional startup request must not log the user out or keep the site blocked.
+      // Authentication failures are handled by login/State and the auth flow itself.
+      console.error("Failed to load initial application data", error);
       dispatch(appActions.setInitDataLoaded(true));
-      toast.error(translate(error?.message));
     }
   };
 };
@@ -756,7 +871,7 @@ export const getTranslations = (lang) => {
   return async (dispatch) => {
     try {
       const response = await axiosApi.get(
-        `Translation/MyTranslations?type=Sportsbook&lang=${lang.id}`,
+        `Translation/MyTranslations?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
         {
           baseURLOverride: config.VITE_WALLET_API_BASE,
         }
@@ -781,7 +896,7 @@ export const getSite = (signal) => {
       const response = await axiosApi.get(
         //`Site/GetSite?domainName=crimsoncoins.net`,
         // `Site/GetSite?domainName=betovix.storetube.gr`,
-        `Site/GetSite?domainName=${currentDomain}`,
+        `Legacy/Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
@@ -907,7 +1022,10 @@ export const getSite = (signal) => {
 
       dispatch(appActions.setSiteCurrency(response.data.Contents.Currency));
       dispatch(appActions.setSiteId(true));
-      dispatch(getCurrencies());
+
+      // Currency/Currencies is authenticated on the new backend.
+      // Do not call it while bootstrapping a guest session.
+      if (getAccessToken()) dispatch(getCurrencies());
     } catch (error) {
       dispatch(appActions.setSiteId(false));
     }
@@ -915,7 +1033,7 @@ export const getSite = (signal) => {
 };
 
 export const getSiteSettings = (signal) => {
-  return async (dispatch, navigate) => {
+  return async (dispatch, getState) => {
     try {
       const response = await axiosApi.get(
         `Site/GetSiteSettings?SiteId=${config.VITE_SITE_ID}`,
@@ -928,181 +1046,111 @@ export const getSiteSettings = (signal) => {
       if (response.status !== 200)
         throw new Error("Failed to fetch site settings");
 
-      let languages = [];
-      const str = response.data.Contents.Site.AllowedLangs;
-      const ids = str.split(",");
-      ids.map((id) => {
-        languages.push({
-          id: id,
-        });
-      });
+      const contents = response.data?.Contents || {};
+      const site = normalizeSiteSettings(contents.Site || {});
 
-      let defaultLang = { id: `${response.data.Contents.Site.DefaultLang}` };
+      // New backend responses do not guarantee the old language fields.
+      // Keep the template language state working without blocking app startup.
+      const currentAppState = getState().app;
+      const allowedLangs = Array.isArray(site.AllowedLangs)
+        ? site.AllowedLangs
+            .map((item) => (typeof item === "string" ? { id: item } : item))
+            .filter((item) => item?.id)
+        : typeof site.AllowedLangs === "string"
+          ? site.AllowedLangs
+              .split(",")
+              .map((id) => id.trim())
+              .filter(Boolean)
+              .map((id) => ({ id }))
+          : currentAppState.availableLangs || [];
+      const defaultLang = site.DefaultLang
+        ? { id: `${site.DefaultLang}` }
+        : currentAppState.defaultLang || allowedLangs[0] || { id: "en" };
 
-      // let siteCurrencies = [];
-      // const currStr = response.data.Contents.Site.AllowedCurrencies;
-      // const currencies = currStr.split(",");
-      // currencies.map((curr) => {
-      //   siteCurrencies.push(curr);
-      // });
+      const currentLoginState = getState().login;
+      const fallbackPermissions =
+        currentLoginState.permissions && Object.keys(currentLoginState.permissions).length
+          ? currentLoginState.permissions
+          : currentLoginState.notLoggedInPermissions || {};
+      const permissions = normalizePermissions(contents.Permissions, fallbackPermissions);
 
-      let permissions;
-
-      if (
-        response.data.Contents.Site.LandPage &&
-        response.data.Contents.Site.LandPage !== ""
-      ) {
-        navigate(response.data.Contents.Site.LandPage);
-      }
-
-      if (response.data.Contents.Permissions) {
-        permissions = response.data.Contents.Permissions;
-      } else {
-        const appPermission = getState().login;
-        permissions = appPermission.notLoggedInPermissions;
-      }
-
-      if (response.data.Contents.Site.printLogo === 'true') {
+      if (site.printLogo === true) {
         dispatch(appActions.setPrintLogoVisible(true));
       }
 
-      if (response.data.Contents.Site.MetaDesc !== "") {
+      if (site.MetaDesc) {
         const metaTag = document.createElement("meta");
         metaTag.name = "description";
-        metaTag.content = response.data.Contents.Site.MetaDesc;
+        metaTag.content = site.MetaDesc;
         document.head.appendChild(metaTag);
       }
 
-      if (response.data.Contents.Site.GoogleClientId) {
-        config.VITE_GOOGLE_CLIENT_ID =
-          response.data.Contents.Site.GoogleClientId;
-      }
+      if (site.GoogleClientId) config.VITE_GOOGLE_CLIENT_ID = site.GoogleClientId;
+      config.VITE_LOGIN_URL = site.LoginUrl || config.VITE_WALLET_API_BASE;
+      if (site.Logo) config.VITE_SITE_LOGO = site.Logo;
 
-      if (response.data.Contents.Site.LoginUrl) {
-        config.VITE_LOGIN_URL = response.data.Contents.Site.LoginUrl;
-      } else {
-        config.VITE_LOGIN_URL = config.VITE_WALLET_API_BASE;
-      }
-
-      if (response.data.Contents.Site?.noReferrer === "true") {
-        let metaTag = document.createElement("meta");
+      if (site.noReferrer === true) {
+        const metaTag = document.createElement("meta");
         metaTag.name = "referrer";
         metaTag.content = "no-referrer";
         document.head.appendChild(metaTag);
       }
 
-      if (response.data.Contents.Site.CustomerCssUrl !== "") {
-        const customercss = response.data.Contents.Site.CustomerCssUrl;
+      if (site.CustomerCssUrl) {
         const rules = document.createElement("style");
-        rules.innerHTML = customercss;
-
+        rules.innerHTML = site.CustomerCssUrl;
         document.head.appendChild(rules);
       }
 
-      if (response.data.Contents.Site?.LicenceActive === "true") {
+      if (site.LicenceActive === true) {
         const license = {
-          SealId: response.data.Contents.Site.SealId,
-          Id: response.data.Contents.Site.Id,
-          Name: response.data.Contents.Site.Name,
-          Init: response.data.Contents.Site.Init,
-          Url: response.data.Contents.Site.Url,
-          LicenceActive: response.data.Contents.Site.LicenceActive,
-          LicenceLink: response.data.Contents.Site.LicenceLink,
+          SealId: site.SealId,
+          Id: site.Id,
+          Name: site.Name,
+          Init: site.Init,
+          Url: site.Url,
+          LicenceActive: site.LicenceActive,
+          LicenceLink: site.LicenceLink,
         };
         dispatch(appActions.setLicence(license));
 
-        if (
-          response.data.Contents.Site?.Url &&
-          response.data.Contents.Site?.Url !== ""
-        ) {
-          const licence = response.data.Contents.Site;
+        if (site.Url) {
           const script = document.createElement("script");
           script.type = "text/javascript";
-          script.src = licence.Url;
-
+          script.src = site.Url;
           document.head.appendChild(script);
         }
       }
 
-      if (response.data.Contents.Site?.AppActive === "true") {
-        const siteData = response.data.Contents.Site;
+      if (site.AppActive === true) {
         const app = {};
-
         let i = 1;
-        while (true) {
-          const imgKey = `AppImg${i}`;
-          const linkKey = `AppLink${i}`;
-
-          if (siteData[imgKey] && siteData[linkKey]) {
-            app[imgKey] = siteData[imgKey];
-            app[linkKey] = siteData[linkKey];
-            i++;
-          } else {
-            break; // Stop when either one is missing
-          }
+        while (site[`AppImg${i}`] && site[`AppLink${i}`]) {
+          app[`AppImg${i}`] = site[`AppImg${i}`];
+          app[`AppLink${i}`] = site[`AppLink${i}`];
+          i++;
         }
-
         dispatch(appActions.setApp(app));
       }
 
-      // if (response.data.Contents.Site.CustomerCssUrl !== "") {
-      //   const customercss = "/customer.css";
-      //   const link = document.createElement("link");
+      dispatch(loginActions.setStrongPassword(site["Strong Password"] !== false));
+      dispatch(loginActions.setIDRequired(site.IDRequired === true));
 
-      //   link.rel = "stylesheet";
-      //   link.href = customercss;
-
-      //   document.head.appendChild(link);
-      // }
-
-      if (response.data.Contents.Site["Strong Password"] === "false") {
-        dispatch(loginActions.setStrongPassword(false));
-      } else {
-        dispatch(loginActions.setStrongPassword(true));
-      }
-
-      if (response.data.Contents.Site.IDRequired === "true") {
-        dispatch(loginActions.setIDRequired(true));
-      } else {
-        dispatch(loginActions.setIDRequired(false));
-      }
-
-      if (response.data.Contents.Site.GoogleTag !== "") {
-        ScriptHeadInjector(response.data.Contents.Site.GoogleTag);
-      }
-
-      if (response.data.Contents.Site.SeoHTMLPage === "true") {
-        dispatch(appActions.setSeoHTMLPage(true));
-      }
-
-      if (response.data.Contents.Site.ChangeUsername === "false") {
-        dispatch(appActions.setChangeUsername(false));
-      }
-
-      dispatch(
-        appActions.setRegisterPromoImg(
-          response.data.Contents.Site.RegisterPromoImg
-        )
-      );
+      if (site.GoogleTag) ScriptHeadInjector(site.GoogleTag);
+      dispatch(appActions.setSeoHTMLPage(site.SeoHTMLPage === true));
+      dispatch(appActions.setChangeUsername(site.ChangeUsername !== false));
+      dispatch(appActions.setRegisterPromoImg(site.RegisterPromoImg || null));
+      dispatch(appActions.setRegisterPromoImgMobile(site.RegisterPromoImgMobile || null));
 
       dispatch(loginActions.setPermissions(permissions));
-
-      dispatch(
-        appActions.setRegisterPromoImgMobile(
-          response.data.Contents.Site.RegisterPromoImgMobile
-        )
-      );
-      dispatch(appActions.setSiteSettings(response.data.Contents["Site"]));
-      dispatch(appActions.setAvailableLangs(languages));
+      dispatch(appActions.setSiteSettings(site));
+      dispatch(appActions.setAvailableLangs(allowedLangs));
       dispatch(appActions.setDefaultLang(defaultLang));
-      dispatch(
-        appActions.setDefaultCountry(response.data.Contents.Site.DefaultCountry)
-      );
-      dispatch(
-        appActions.setSocialMedia(response.data.Contents["Social Media"])
-      );
+      dispatch(appActions.setDefaultCountry(site.DefaultCountry || null));
+      dispatch(appActions.setSocialMedia(contents["Social Media"] || null));
       dispatch(appActions.setSiteSettingsSuccess(true));
     } catch (error) {
+      console.error("Failed to initialize site settings", error);
       dispatch(appActions.setSiteSettingsSuccess(false));
     }
   };
@@ -1132,10 +1180,9 @@ export const getUserNotifications = () => {
 
       dispatch(layoutActions.setNotifications(notifications));
     } catch (error) {
-      toast.error(
-        translate(error?.message) ||
-        translate("An error occurred while fetching notifications.")
-      );
+      if (!isCanceled(error) && !isAuthError(error)) {
+        console.warn("Notifications unavailable", error?.message);
+      }
     }
   };
 };
@@ -1178,10 +1225,9 @@ export const tawktoChat = () => {
         layoutActions.setTawkToScript(response.data.Contents["Tawk.to"])
       );
     } catch (error) {
-      toast.error(
-        translate(error?.message) ||
-        "An error occurred while fetching site settings"
-      );
+      if (!isCanceled(error) && !isAuthError(error)) {
+        console.warn("Customer support settings unavailable", error?.message);
+      }
     }
   };
 };

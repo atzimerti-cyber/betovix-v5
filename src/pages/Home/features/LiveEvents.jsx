@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
 import { SwiperSlide } from "swiper/react";
 import { Link } from "react-router-dom";
@@ -13,51 +13,41 @@ import useSlidesResponsive from "../../../hooks/useSlidesResponsive";
 
 const LiveEvents = () => {
   const lang = useSelector((state) => state.app.lang);
-
   const liveState = useSelector((state) => state.live.liveState);
-  const addedRemovedEvent = useSelector(
-    (state) => state.live.addedRemovedEvent
-  );
-  const allSports = useSelector((state) => state.app.allSports);
+  const addedRemovedEvent = useSelector((state) => state.live.addedRemovedEvent);
+  const allSports = useSelector((state) => state.app.allSports) || [];
 
-  const {
-    slidesPerView,
-    slidesPerGroup,
-    isMobile,
-    isTablet,
-    isDesktop,
-    isBigDesktop,
-  } = useSlidesResponsive("match");
+  const { slidesPerView, slidesPerGroup } = useSlidesResponsive("match");
 
-  const [eventKeys, setEventKeys] = useState(null);
-
-  useEffect(() => {
-    if (!liveState) return;
-
-    let liveArr = Object.keys(liveState).map((s) => liveState[s]);
+  const eventKeys = useMemo(() => {
+    if (liveState == null) return null;
+    if (typeof liveState !== "object") return [];
 
     const orderMap = allSports.reduce((acc, item) => {
       acc[item.Id] = item.Order;
       return acc;
     }, {});
 
-    liveArr.sort((a, b) => {
-      return (
-        (orderMap[a.Info.SportId] || 999999) -
-        (orderMap[b.Info.SportId] || 999999)
-      );
-    });
+    return Object.values(liveState)
+      .filter((item) => {
+        if (!item?.Info?.MatchId) return false;
+        if (!item?.Info?.SportId) return false;
+        if (!item?.Header) return false;
+        if (item.Header.Active === false) return false;
+        return true;
+      })
+      .sort(
+        (a, b) =>
+          (orderMap[a.Info.SportId] || 999999) -
+          (orderMap[b.Info.SportId] || 999999)
+      )
+      .map((item) => item.Info.MatchId)
+      .slice(0, 10);
+  }, [liveState, allSports, addedRemovedEvent, lang?.id]);
 
-    let allKeys = [];
-    liveArr.forEach((item) => {
-      if (!item.Info) return;
-      if (!item.Header) return;
-      if (!item.Info.SportId) return;
-
-      allKeys.push(item.Info.MatchId);
-    });
-    setEventKeys(allKeys);
-  }, [addedRemovedEvent]);
+  // The live websocket/state can exist while containing no renderable events.
+  // In that case the Home must not show an empty "Live Events" section.
+  if (Array.isArray(eventKeys) && eventKeys.length === 0) return null;
 
   return (
     <div className={classes.LiveSwiper} id="liveEventsSwiper">
@@ -68,15 +58,13 @@ const LiveEvents = () => {
         title={<Link to="/sportsbook/live">{translate("Live Events")}</Link>}
         viewAll="/sportsbook/live"
       >
-        {eventKeys
-          ? eventKeys.map((key, index) => {
-              const game = liveState[key];
-
-              if (index > 9) return null;
-              if (!game?.Header?.Active) return null;
+        {Array.isArray(eventKeys)
+          ? eventKeys.map((key) => {
+              const game = liveState?.[key];
+              if (!game) return null;
 
               return (
-                <SwiperSlide key={game.MatchId}>
+                <SwiperSlide key={game?.Info?.MatchId || key}>
                   <div
                     className={classes.SlideContainer}
                     id="LiveEventsSlideContainer"

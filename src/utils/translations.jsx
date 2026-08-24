@@ -11,6 +11,7 @@ export function translate(key, c) {
     }
   }
   const { translations } = store.getState().app;
+  if (!translations) return key;
 
   return translations[key] || key; // Fallback to key if translation is missing
 }

@@ -12,6 +12,22 @@ import { childsNotExist } from "../../utils/custom";
 import config from "../../config";
 import { translate } from "../../utils/translations";
 
+const getSportsFromResponse = (data) => {
+  if (Array.isArray(data?.Contents?.Sports)) return data.Contents.Sports;
+  if (Array.isArray(data?.Sports)) return data.Sports;
+  if (Array.isArray(data?.Contents)) return data.Contents;
+  return [];
+};
+
+const getEventsFromResponse = (data) => {
+  if (Array.isArray(data?.Contents?.Events)) return data.Contents.Events;
+  if (Array.isArray(data?.Events)) return data.Events;
+  return [];
+};
+
+const isRequestCanceled = (error) =>
+  error?.code === "ERR_CANCELED" || error?.name === "CanceledError";
+
 export const initSportsbook = (signal) => {
   return async (dispatch) => {
     try {
@@ -38,8 +54,8 @@ export const initSportsbook = (signal) => {
       });
 
       // Remove null items...
-      const banners = responses[0].data.Banners.filter((d) => d !== null);
-      const bannerEvents = responses[0].data.BannerEvents;
+      const banners = (responses[0]?.data?.Banners || []).filter((d) => d !== null);
+      const bannerEvents = responses[0]?.data?.BannerEvents || {};
 
       const sportsBanners = banners.map((banner) => {
         const correspondingEvent = bannerEvents[banner.EventId];
@@ -52,7 +68,7 @@ export const initSportsbook = (signal) => {
       dispatch(sportsbookActions.setSportBanners(sportsBanners));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+      if (!isRequestCanceled(error) && error?.code !== "ERR_NETWORK") toast.error(translate(message));
     }
   };
 };
@@ -82,19 +98,35 @@ export const getPregameData = (sportIcons, signal, isOutrights = false) => {
           throw Error();
       });
 
-      let updatedSports = [];
-      responses[0].data?.Sports?.forEach((sport) => {
-        let icon = sportIcons[sport.Name?.International] || <NoImageIcon />;
-        if (sport.Counters["5D"] > 0 || isOutrights)
-          updatedSports.push({
-            ...sport,
-            slug: sport.Name?.International.toLowerCase().replace(/ /g, "-"),
-            icon: icon,
-          });
-      });
-      // Step 1: Create a mapping from array1
+      const sportsFromApi = getSportsFromResponse(responses[0]?.data);
+      let updatedSports = sportsFromApi
+        .filter((sport) => {
+          if (isOutrights) return true;
+          if (typeof sport?.Count === "number") return sport.Count > 0;
+          if (sport?.Counters && typeof sport.Counters["5D"] === "number") {
+            return sport.Counters["5D"] > 0;
+          }
+          return Array.isArray(sport?.Categories) && sport.Categories.length > 0;
+        })
+        .map((sport) => ({
+          ...sport,
+          Categories: (sport?.Categories || [])
+            .map((category) => ({
+              ...category,
+              Tournaments: (category?.Tournaments || []).filter((tournament) => {
+                if (isOutrights) return true;
+                if (typeof tournament?.Count === "number") return tournament.Count > 0;
+                return true;
+              }),
+            }))
+            .filter((category) => isOutrights || category.Tournaments.length > 0),
+          slug: sport?.Name?.International?.toLowerCase().replace(/ /g, "-") || String(sport?.Id || ""),
+          icon: sportIcons?.[sport?.Name?.International] || <NoImageIcon />,
+        }))
+        .filter((sport) => isOutrights || sport.Categories.length > 0);
+
       const currentState = getState().app;
-      const orderMap = currentState.allSports.reduce((acc, item) => {
+      const orderMap = (Array.isArray(currentState.allSports) ? currentState.allSports : []).reduce((acc, item) => {
         acc[item.Id] = item.Order;
         return acc;
       }, {});
@@ -106,7 +138,7 @@ export const getPregameData = (sportIcons, signal, isOutrights = false) => {
       dispatch(sportsbookActions.setSports(sortedSports));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+      if (!isRequestCanceled(error) && error?.code !== "ERR_NETWORK") toast.error(translate(message));
     }
   };
 };
@@ -149,7 +181,7 @@ export const getTournamentEvents = (tournamentId, ids, slice, signal) => {
           sportsHomeActions.addTournamentEvents({
             tournamentId: tournamentId,
             //events: response.data.Contents,
-            events: response.data.Contents.Events,
+            events: getEventsFromResponse(response.data),
           })
         );
       else if (slice === "sportsUpcoming")
@@ -157,7 +189,7 @@ export const getTournamentEvents = (tournamentId, ids, slice, signal) => {
           sportsUpcomingActions.addTournamentEvents({
             tournamentId: tournamentId,
             //events: response.data.Contents,
-            events: response.data.Contents.Events,
+            events: getEventsFromResponse(response.data),
           })
         );
       else if (slice === "sportsLive")
@@ -165,7 +197,7 @@ export const getTournamentEvents = (tournamentId, ids, slice, signal) => {
           sportsLiveActions.addTournamentEvents({
             tournamentId: tournamentId,
             //events: response.data.Contents,
-            events: response.data.Contents.Events,
+            events: getEventsFromResponse(response.data),
           })
         );
       else if (slice === "sportsOutrights")
@@ -173,7 +205,7 @@ export const getTournamentEvents = (tournamentId, ids, slice, signal) => {
           sportsOutrightsActions.addTournamentEvents({
             tournamentId: tournamentId,
             //events: response.data.Contents,
-            events: response.data.Contents.Events,
+            events: getEventsFromResponse(response.data),
           })
         );
       else
@@ -181,7 +213,7 @@ export const getTournamentEvents = (tournamentId, ids, slice, signal) => {
           sportsbookActions.addTournamentEvents({
             tournamentId: tournamentId,
             //events: response.data.Contents,
-            events: response.data.Contents.Events,
+            events: getEventsFromResponse(response.data),
           })
         );
       dispatch(
@@ -198,7 +230,7 @@ export const getTournamentEvents = (tournamentId, ids, slice, signal) => {
         })
       );
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+      if (!isRequestCanceled(error) && error?.code !== "ERR_NETWORK") toast.error(translate(message));
     }
   };
 };
@@ -240,7 +272,7 @@ export const getSportMarketTree = (sportId, signal) => {
       }
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+      if (!isRequestCanceled(error) && error?.code !== "ERR_NETWORK") toast.error(translate(message));
     }
   };
 };
@@ -261,17 +293,26 @@ export const getTournament = (sportId, categoryId, tournamentId, signal) => {
       if (response.status && response.status !== 200)
         throw Error(response.data.Contents);
 
-      const sport = response.data.Sports.find((s) => s.Id === sportId);
-      const category = sport.Categories.find((c) => c.Id === categoryId);
-      let tournament = category.Tournaments.find((t) => t.Id === tournamentId);
-      tournament.CategoryId = category.Id;
-      tournament.SportId = sport.Id;
+      const sports = getSportsFromResponse(response.data);
+      const sport = sports.find((s) => String(s.Id) === String(sportId));
+      const category = sport?.Categories?.find((c) => String(c.Id) === String(categoryId));
+      const foundTournament = category?.Tournaments?.find((t) => String(t.Id) === String(tournamentId));
+      if (!sport || !category || !foundTournament) return;
 
-      dispatch(sportsbookActions.setSelectedSport(sport));
+      const tournament = {
+        ...foundTournament,
+        CategoryId: category.Id,
+        SportId: sport.Id,
+      };
+
+      dispatch(sportsbookActions.setSelectedSport({
+        ...sport,
+        slug: sport?.Name?.International?.toLowerCase().replace(/ /g, "-"),
+      }));
       dispatch(sportsbookActions.setSelectedTournament(tournament));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+      if (!isRequestCanceled(error) && error?.code !== "ERR_NETWORK") toast.error(translate(message));
     }
   };
 };
@@ -294,7 +335,7 @@ export const getLiveStreams = (signal) => {
       dispatch(sportsbookActions.setLiveStreams(response.data));
     } catch (error) {
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+      if (!isRequestCanceled(error) && error?.code !== "ERR_NETWORK") toast.error(translate(message));
     }
   };
 };
@@ -318,7 +359,7 @@ export const getCustomDateEvents = (signal, payload) => {
 
       let events;
       if (response.data.Contents !== null) {
-        events = response.data.Contents.Events;
+        events = getEventsFromResponse(response.data);
 
         // Filter out events where either AwayTeamName.International or HomeTeamName.International is an empty string
         events = events.filter((event) => {
@@ -334,7 +375,7 @@ export const getCustomDateEvents = (signal, payload) => {
           return dateA - dateB; // Ascending order (earliest date first)
         });
       } else {
-        events = {};
+        events = [];
       }
 
       // Dispatch the sorted events
@@ -343,7 +384,7 @@ export const getCustomDateEvents = (signal, payload) => {
     } catch (error) {
       dispatch(sportsbookActions.setLoading(false));
       const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+      if (!isRequestCanceled(error) && error?.code !== "ERR_NETWORK") toast.error(translate(message));
     }
   };
 };

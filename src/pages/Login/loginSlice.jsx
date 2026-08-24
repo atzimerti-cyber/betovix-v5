@@ -2,6 +2,7 @@ import { createSlice, current } from "@reduxjs/toolkit";
 import _ from "lodash";
 
 import { removeTokens } from "../../utils/auth";
+import { normalizePermissions } from "../../utils/siteSettings";
 
 const initialState = {
   user: null,
@@ -32,6 +33,7 @@ const initialState = {
     AllowToVerification: false,
     AllowToRetail: false,
   },
+  sitePermissions: null,
   mailToVerify: null,
   strongPassword: true,
   idRequired: false,
@@ -47,12 +49,19 @@ export const loginSlice = createSlice({
       // To prevent unnecessary recalculations when the user is set
       if (!_.isEqual(action.payload, currentUser)) {
         state.user = action.payload;
-        state.permissions = action.payload.MyPermissions;
+        // Permissions now come primarily from Site/GetSiteSettings.
+        // Keep them unless login/State explicitly returns MyPermissions.
+        if (action.payload?.MyPermissions && typeof action.payload.MyPermissions === "object") {
+          state.permissions = normalizePermissions(
+            action.payload.MyPermissions,
+            state.permissions
+          );
+        }
       }
     },
     logout: (state) => {
       state.user = null;
-      state.permissions = state.notLoggedInPermissions;
+      state.permissions = state.sitePermissions || state.notLoggedInPermissions;
       state.accountChildren = [];
       state.selectedAccount = null;
       removeTokens();
@@ -79,7 +88,9 @@ export const loginSlice = createSlice({
       state.mailToVerify = action.payload;
     },
     setPermissions(state, action) {
-      state.permissions = action.payload;
+      const normalized = normalizePermissions(action.payload);
+      state.permissions = normalized;
+      state.sitePermissions = normalized;
     },
     setTFAtoken(state, action) {
       state.tfaToken = action.payload;

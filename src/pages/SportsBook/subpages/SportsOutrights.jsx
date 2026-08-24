@@ -62,7 +62,7 @@ const SportsOutrights = () => {
 
   // Get the selected sport from the params
   useEffect(() => {
-    if (!sports) return;
+    if (!Array.isArray(sports) || sports.length === 0) return;
 
     // If did not come from the sportsMenu, select the first sport
     let sport;
@@ -77,7 +77,7 @@ const SportsOutrights = () => {
       );
     } else sport = sports.find((s) => s.slug === sportParam);
 
-    if (!sport) sport = allSports.find((s) => s.slug === sportParam);
+    if (!sport) sport = (Array.isArray(allSports) ? allSports : []).find((s) => s.slug === sportParam);
 
     dispatch(sportsbookActions.setSelectedSport(sport));
   }, [sports?.length, sportParam]);
@@ -181,7 +181,7 @@ const SportsOutrights = () => {
   const getSorted = (subset) => {
     let ca = _.cloneDeep(subset);
     if (tournamentSort === "Default Sort") {
-      const categsOrder = sportSettings.CategsOrder;
+      const categsOrder = sportSettings?.CategsOrder || {};
 
       ca.sort((a, b) => {
         // Check if is in tours order first
