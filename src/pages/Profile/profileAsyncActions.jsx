@@ -64,28 +64,6 @@ export const subscribeToEmails = (signal, state) => {
   };
 };
 
-export const getHeroes = (signal) => {
-  return async (dispatch) => {
-    try {
-      const lang = getLang();
-
-      const response = await axiosApi.get(`/Gamification/GetAllHeroes`, {
-        signal: signal,
-        baseURLOverride: config.VITE_WALLET_STORETUBE,
-      });
-
-      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
-        throw Error(response.data.Contents);
-
-      const heroes = response.data.Contents;
-      console.log("All Heroes:", heroes);
-      dispatch(profileActions.setHeroes(heroes));
-    } catch (error) {
-      const message = error?.message ? error.message : error;
-      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
-    }
-  };
-};
 
 export const getLevels = (signal) => {
   return async (dispatch) => {
@@ -117,29 +95,33 @@ export const getLevels = (signal) => {
 };
 
 export const changePassword = (signal, payload) => {
-  return async (dispatch) => {
+  return async () => {
     try {
-      const lang = getLang();
-
       const response = await axiosApi.post(
-        `/MyAffiliate/ChangePassword?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+        `/auth/change-password`,
         {
-          OldPass: payload.OldPass,
-          Password: payload.Password,
-          RePassword: payload.RePassword,
+          currentPassword: payload.OldPass,
+          newPassword: payload.Password,
+          revokeOtherSessions: true,
         },
         {
-          signal: signal,
-          baseURLOverride: config.VITE_WALLET_STORETUBE,
+          signal,
+          baseURLOverride: config.VITE_LOGIN_API || config.VITE_WALLET_API_BASE,
         }
       );
 
-      if (response.status !== 200 || response.data.Status.StatusCode !== 200)
-        throw Error("Failed to change password");
+      if (response.status !== 200) throw new Error('Failed to change password');
+      toast.success(translate(response?.data?.message || 'Password changed successfully'));
+      return { success: true, data: response.data };
     } catch (error) {
-      const message = error?.message ? error.message : error;
-      toast.error(translate(message));
-      if (!error?.code === "ERR_CANCELED") toast.error(translate(message));
+      const message =
+        error?.response?.data?.detail ||
+        error?.response?.data?.message ||
+        error?.response?.data?.title ||
+        error?.message ||
+        'Failed to change password';
+      if (error?.code !== 'ERR_CANCELED') toast.error(translate(message));
+      return { success: false, error: message };
     }
   };
 };

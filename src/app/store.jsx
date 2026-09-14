@@ -20,7 +20,6 @@ import searchSlice from "../pages/Search/searchSlice";
 import ticketSlice from "../features/Ticket/ticketSlice";
 import leaderboardSlice from "../pages/Leaderboard/leaderboardSlice";
 import myBetsSlice from "../pages/SportsMyBets/myBetsSlice";
-import userGamificationSlice from "../pages/UserGamification.jsx/userGamificationSlice";
 import casinoFavoritesSlice from "../features/CasinoFavorites/CasinoFavoritesSlice";
 import bannersSlice from "../features/Banners/BannersSlice";
 import topEventsSlice from "../features/TopEvents/TopEventsSlice";
@@ -28,7 +27,6 @@ import casinoNewSlice from "../features/NewGames/CasinoNewGamesSlice";
 import crashGamesSlice from "../features/CrashGames/crashGamesSlice";
 import casinoTagSlice from "../features/CasinoTag/CasinoTagSlice";
 import recommendedGamesSlice from "../features/RecommendedGames/recommendedGamesSlice";
-import progressSlice from "../pages/Home/features/ProgressSlice";
 import promotionsSlice from "../pages/Promotions/promotionsSlice";
 import pagesSlice from "../pages/Footer Pages/pagesSlice";
 import TrackEventsSlice from "../pages/TrackEvents/TrackEventsSlice";
@@ -55,7 +53,6 @@ export const store = configureStore({
     search: searchSlice.reducer,
     leaderboard: leaderboardSlice.reducer,
     myBets: myBetsSlice.reducer,
-    gamification: userGamificationSlice.reducer,
     casinoFavorites: casinoFavoritesSlice.reducer,
     banners: bannersSlice.reducer,
     topEvents: topEventsSlice.reducer,
@@ -63,7 +60,6 @@ export const store = configureStore({
     crashGames: crashGamesSlice.reducer,
     casinoTag: casinoTagSlice.reducer,
     recommendedGames: recommendedGamesSlice.reducer,
-    progress: progressSlice.reducer,
     promotions: promotionsSlice.reducer,
     pages: pagesSlice.reducer,
     trackEvents: TrackEventsSlice.reducer,

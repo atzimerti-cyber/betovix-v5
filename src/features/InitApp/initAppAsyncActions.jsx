@@ -14,6 +14,7 @@ import {
 
 import { getAccessToken } from "../../utils/auth";
 import { loginActions } from "../../pages/Login/loginSlice";
+import { getUser } from "../../pages/Login/loginAsyncActions";
 import { liveActions } from "./liveSlice";
 import { setLang } from "../../utils/storage";
 import { ticketActions } from "../Ticket/ticketSlice";
@@ -24,18 +25,11 @@ import config from "../../config";
 import NoImageIcon from "../../assets/svgs/no-image.svg?react";
 import PaperIcon from "../../assets/svgs/paper.svg?react";
 import PricesIcon from "../../assets/svgs/prices.svg?react";
-import LogoSmall1C from "../../assets/svgs/logo-small-oneColor.svg?react";
-import RewardsIcon from "../../assets/svgs/rewards.svg?react";
 import PromotionsIcon from "../../assets/svgs/promotions.svg?react";
 import SupportIcon from "../../assets/svgs/livesupportbtn.svg?react";
 
-import {
-  getRewards,
-  heroProgress,
-} from "../../pages/UserGamification.jsx/gamificationAsyncActions";
 import { translate } from "../../utils/translations";
 import ScriptHeadInjector from "../../utils/scriptHeadInjector";
-import { getCurrentBonusBalance } from "../../utils/bonusUtils";
 import { normalizePermissions, normalizeSiteSettings } from "../../utils/siteSettings";
 
 const isAuthError = (error) => [401, 403].includes(error?.response?.status);
@@ -133,60 +127,13 @@ export const loadInitData = (isMobile) => {
       const token = getAccessToken();
       let user = null;
       if (token) {
-        // Authenticated-only reference data.
+        // The migrated auth state is rebuilt from the new JWT + wallet/bonus APIs.
+        // Do not call the legacy login/State endpoint.
         dispatch(getCurrencies());
-        const response = await optionalRequest(
-          axiosApi.get(
-            `login/State/?lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-            { baseURLOverride: config.VITE_WALLET_API_BASE }
-          )
-        );
-        if (!response || response?.data?.Status?.StatusCode !== 200) {
-          dispatch(loginActions.logout());
-        } else {
-          // TODO: The rest should come from the backend
-          user = {
-            ...response.data.Contents,
+        user = await dispatch(getUser());
 
-            // profileHidden: false,
-            // marketingEmails: true,
-            // level: 0,
-            // wagered: 500,
-            // registered: 1712505696754,
-          };
-          dispatch(loginActions.setUser(user));
-          dispatch(layoutActions.setAvailableBonus(user));
-
-          // The new backend no longer exposes the usable bonus balance through
-          // login/State.TotalBonusBalance. Keep the authoritative bonus state
-          // from the bonus APIs, exactly like the migrated reference frontend.
-          const [activeBonusesResult, summaryBonusesResult] = await Promise.allSettled([
-            axiosApi.get(`bonus/me/active?lang=${lang.id}&SiteId=${config.VITE_SITE_ID}`, {
-              baseURLOverride: config.VITE_WALLET_API_BASE,
-            }),
-            axiosApi.get(`bonus/me/summary?lang=${lang.id}&SiteId=${config.VITE_SITE_ID}`, {
-              baseURLOverride: config.VITE_WALLET_API_BASE,
-            }),
-          ]);
-
-          if (activeBonusesResult.status === "fulfilled" && activeBonusesResult.value?.status === 200) {
-            const activeBonuses = activeBonusesResult.value.data;
-            dispatch(appActions.setActiveBonuses(activeBonuses));
-            dispatch(layoutActions.setAvailableBonusBalance(getCurrentBonusBalance(activeBonuses)));
-          } else {
-            dispatch(appActions.setActiveBonuses(null));
-            dispatch(layoutActions.setAvailableBonusBalance(0));
-          }
-
-          if (summaryBonusesResult.status === "fulfilled" && summaryBonusesResult.value?.status === 200) {
-            dispatch(appActions.setSummaryBonuses(summaryBonusesResult.value.data));
-          } else {
-            dispatch(appActions.setSummaryBonuses(null));
-          }
-
-          if (user?.Role < 40) {
-            dispatch(fetchChildDetails(user.AccountId));
-          }
+        if (user?.Role < 40) {
+          dispatch(fetchChildDetails(user.AccountId));
         }
       }
 
@@ -213,9 +160,6 @@ export const loadInitData = (isMobile) => {
       // Authenticated user-only startup calls.
       // Do not call these endpoints for guests: the new backend returns 401.
       if (user) {
-        dispatch(heroProgress());
-        //dispatch(getUserAchievements());
-        dispatch(getRewards());
         dispatch(getUserNotifications());
       }
 
@@ -640,33 +584,6 @@ export const loadInitData = (isMobile) => {
         allMenuItems.push({ items: mainMenuItems });
       }
 
-      {
-        permissions?.AllowGamification &&
-          allMenuItems.push({
-            category: { id: 7, label: "Arena", visible: true, isNew: true },
-            items: [
-              {
-                id: 1,
-                label: `My Progress`,
-                icon: <LogoSmall1C color="#FF0000" />,
-                modal: "your-progress",
-              },
-              {
-                id: 2,
-                label: `My Rewards`,
-                icon: <RewardsIcon color="#FF0000" />,
-                page: "rewards",
-              },
-              // {
-              //   id: 3,
-              //   label: `Hero’s Haven`,
-              //   icon: <RewardsIcon color="#FF0000" />,
-              //   page: "hero",
-              // },
-            ],
-          });
-      }
-
       const layout = getState().layout;
       const support = layout.tawkToScript;
 
@@ -759,7 +676,7 @@ export const loadInitData = (isMobile) => {
       }, 2000);
     } catch (error) {
       // An optional startup request must not log the user out or keep the site blocked.
-      // Authentication failures are handled by login/State and the auth flow itself.
+      // Authentication failures are handled by the new auth flow itself.
       console.error("Failed to load initial application data", error);
       dispatch(appActions.setInitDataLoaded(true));
     }
@@ -895,7 +812,7 @@ export const getSite = (signal) => {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
         //`Site/GetSite?domainName=crimsoncoins.net`,
-        // `Site/GetSite?domainName=betovix.storetube.gr`,
+        // `Legacy/Site/GetSite?domainName=betovix.storetube.gr`,
         `Legacy/Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,

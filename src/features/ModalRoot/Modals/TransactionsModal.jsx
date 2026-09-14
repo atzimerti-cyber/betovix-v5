@@ -221,7 +221,7 @@ const TransactionsModal = () => {
       case 8:
         return translate("NativeTronPayments");
       case 9:
-        return translate("Gamification");
+        return translate("Other");
       case 10:
         return translate("Chapa");
       case 11:

@@ -8,6 +8,7 @@ const initialState = {
   user: null,
   loginLoading: false,
   updateLoading: false,
+  bonusesLoading: false,
   accountChildren: [],
   selectedAccount: null,
   recoverId: null,
@@ -20,12 +21,10 @@ const initialState = {
     AllowToSports: true,
 
     AllowToRetail: false,
-    AllowGamification: true,
     AllowToCasino: true,
     AllowToVerification: false,
   },
   notLoggedInPermissions: {
-    AllowGamification: true,
     AllowToCasino: true,
     AllowToHistory: false,
     AllowToSlots: true,
@@ -71,6 +70,9 @@ export const loginSlice = createSlice({
     },
     setUpdateLoading: (state, action) => {
       state.updateLoading = action.payload;
+    },
+    setBonusesLoading: (state, action) => {
+      state.bonusesLoading = action.payload;
     },
     setAccountChildren(state, action) {
       state.accountChildren = action.payload;

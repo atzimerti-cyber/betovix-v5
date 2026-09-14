@@ -61,9 +61,6 @@ const Topbar = () => {
   const newNotifications = useSelector(
     (state) => state.layout.newNotifications
   );
-  const newRewards = useSelector(
-    (state) => state.gamification.availableRewards
-  );
 
   const [balanceInteger, setBalanceInteger] = useState(0);
   const [balanceBonusInteger, setBalanceBonusInteger] = useState(0);
@@ -336,9 +333,6 @@ const Topbar = () => {
                     {/* <UserIcon /> */}
                     <span>{user?.Username}</span>
                   </MainButton>
-                  {newRewards > 0 && (
-                    <NumberBadge number={newRewards} floating justifyRight />
-                  )}
                 </div>
 
                 {isDesktop && (

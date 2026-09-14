@@ -1,356 +1,702 @@
-.Form {
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  padding-top: 0.3rem;
-  align-self: center;
-  overflow-y: auto;
-}
-
-.Form > label {
-  margin-bottom: 0.25rem;
-  margin-top: 0.25rem;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  font-weight: bold;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.StepOne > label,
-.StepTwo > label {
-  margin-bottom: 0.25rem;
-  margin-top: 0.25rem;
-  font-size: 0.75rem;
-  line-height: 1.4rem;
-  font-weight: normal;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.Form .InputOuter {
-  margin-bottom: 0.5rem;
-  border-radius: 0.5rem;
-  border-color: var(--mid-blue);
-}
-.InputOuterCountrySelect {
-  margin-bottom: 0.5rem;
-  border-radius: 0.5rem;
-  border-color: var(--mid-blue);
-  background-color: var(--mid-blue);
-  width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding: 0.625rem 0.75rem;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-.InputOuterCountrySelect:hover {
-  border-color: var(--brand-green);
-}
-
-.LoginWith {
-  margin-bottom: 0.5rem;
-  text-align: center;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.Form button {
-  margin-bottom: 0.5rem;
-  height: 2.5rem;
-  border-radius: 0.375rem;
-  font-size: 0.75rem;
-  line-height: 1rem;
-  min-height: 2rem;
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity)) !important;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-  /* width: 100%; */
-}
-
-.CheckboxContainer {
-  margin-top: 0.3rem;
-  margin-bottom: 0.5rem;
-  width: 100%;
-  padding-top: 0.25rem;
-  text-align: start;
-  font-size: 0.75rem;
-  line-height: 1.25;
-  color: var(--placeholder-light);
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  flex-direction: row;
-}
-.CheckboxInput {
-  height: 0.9rem;
-}
-.CheckboxLabel {
-  margin-left: 0.6rem;
-}
-
-.Required {
-  color: var(--brand-color);
-  font-size: 0.9rem;
-  margin-inline: 0.25ch;
-  transition: color 0.3s;
-}
-.Optional {
-  color: var(--brand-green);
-  font-size: 0.7rem;
-  font-weight: 500;
-  margin-inline: 0.25ch;
-  transition: color 0.3s;
-}
-
-.Required.Fulfilled {
-  color: var(--brand-green);
-}
-
-.Container {
-  margin-bottom: 1rem;
-}
-
-.FormValidationMessage {
-  animation: fadeIn 0.3s backwards;
-  color: var(--cancelled);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  line-height: 1.2;
-  margin-block: 0.375rem 0;
-  margin-inline: 0.25em;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-}
-
-.ShowPasswordIcon line {
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-
-.ShowPasswordIcon.ShowLine line {
-  opacity: 1;
-}
-
-.PasswordCheckContainer {
+.RegisterContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 0.25rem;
-  margin-block: 0 0.25rem;
-  margin-block-start: 0.25rem;
+  min-height: 650px;
+  width: 100%;
 }
 
-.PasswordMessage {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  color: var(--light-blue);
-  transition: color 0.3s;
-}
-
-.PasswordMessage svg {
-  width: 0.75rem;
-  height: 0.75rem;
-}
-
-.PasswordMessage svg path {
-  fill: var(--db-gray-800);
-}
-
-.PasswordText {
-  line-height: 0.75rem;
-}
-
-.PasswordMessage.IsValid {
-  color: var(--brand-green);
-}
-
-.PasswordMessage.IsValid svg path {
-  fill: var(--brand-color);
-}
-
-/* Media */
-@media (min-width: 640px) {
-  .CaptchaText {
-    margin-top: auto;
-  }
-}
-
-.PhoneInput > div {
-  color: #fff;
-  font-size: 0.78rem !important;
-  font-weight: 400 !important;
-  border: 1px solid transparent !important;
-  border-radius: 0.5rem;
-}
-.PhoneInput > div:hover {
-  border: 1px solid var(--brand-green) !important;
-}
-
-.PhoneInput > div > input {
-  background: var(--mid-blue) !important;
-  border: 1px solid transparent !important;
-  width: 100% !important;
-  border-radius: 0.5rem !important;
-  font-size: 0.75rem !important;
-  font-weight: 400 !important;
-}
-.PhoneInput > div > div {
-  background: var(--mid-blue) !important;
-  border: 1px solid transparent !important;
-  border-radius: 0.5rem !important;
-}
-.PhoneInput > div > div > div:hover,
-.PhoneInput > div > div > div:focus {
-  background-color: var(--dark-blue-1) !important;
-  background: var(--dark-blue-1) !important;
-  border: 0px solid transparent !important;
-  border-radius: 0.4rem !important;
-}
-.PhoneInput > div > div > ul {
-  background: var(--mid-blue) !important;
-}
-.PhoneInput > div > div > ul > li:hover {
-  background: #0f4767 !important;
-}
-.PhoneInput > div > div > ul > li > span {
-  color: #fff !important;
-}
-.PhoneInput .react-tel-input .flag-dropdown .open .selected-flag {
-  background: var(--cancelled) !important;
+.RegisterContainer.NoPromo {
+  grid-template-columns: 1fr;
+  min-height: 560px;
 }
 
 .PromoContainer {
-  width: 100%;
-  border-radius: 10px;
+  position: relative;
+  min-height: 650px;
   overflow: hidden;
-  animation: _gradientAnimation_1gomg_1 8s ease infinite;
-  aspect-ratio: 9 / 5;
-  background-size: 300% 300%;
-  max-height: 200px;
-  display: flex;
-  justify-content: center;
+  background: var(--mid-blue);
 }
 
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 .ImageContainer {
+  position: absolute;
+  inset: 0;
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 100%;
-  max-height: 200px;
-  aspect-ratio: 9 / 5;
 }
 
-.BigBtn > button {
-  width: 100%;
+.PromoOverlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, var(--dark-blue-1), transparent 58%);
+  opacity: 0.72;
+  pointer-events: none;
 }
 
-.RegisterContainer {
-  height: 100%;
+.Form {
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 0.5rem;
+  justify-content: center;
+  gap: 12px;
+  padding: 86px 24px 24px;
+  background: var(--dark-blue-1);
 }
 
-/* Media */
-@media (min-width: 768px) {
-  .RegisterContainer {
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .PromoContainer {
-    width: 100%;
-    border-radius: 10px;
-    overflow: hidden;
-    aspect-ratio: 517 / 919;
-    animation: gradientAnimation 8s ease infinite;
-    background-size: 300% 300%;
-    max-height: none;
-  }
-  .ImageContainer {
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100%;
-    max-height: none;
-    aspect-ratio: 517 / 919;
-  }
+.NoPromo .Form {
+  padding-inline: 34px;
+}
+
+.AuthIntro {
+  margin-bottom: 2px;
 }
 
 .Title {
-  font-size: 1.4rem;
+  color: var(--brand-color);
+  font-size: 1.45rem;
   font-weight: 800;
-  text-wrap: wrap;
-  color: #ffffff;
-  line-height: 1.2rem;
+  line-height: 1.2;
 }
 
-.BackBtn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 14px;
-  width: 100%;
-  color: white !important;
-}
-
-.RegPhoneNum > div {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding: 4px 0;
-  gap: 5px;
-}
-.RegPhoneNum > div > div {
-  display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-  align-items: center;
-  gap: 5px;
-}
-.RegPhoneNum > div > input {
-  background: var(--mid-blue);
-  padding: 0.625rem;
-  border-radius: 8px;
-  font-size: 0.75rem;
+.AuthIntro p {
+  margin: 8px 0 6px;
   color: var(--white);
+  font-size: 0.88rem;
+  font-weight: 600;
+  line-height: 1.35;
 }
-.RegPhoneNum > div > div > select {
+
+.InputOuter {
+  width: 100%;
+}
+
+.Form :global(.InputWrapper) {
+  min-height: 56px;
+  border-radius: 12px;
+  background: var(--mid-blue);
+  border-color: transparent;
+}
+
+.Form :global(.MainInput) {
+  min-height: 54px;
+  padding-inline: 16px;
+  font-size: 0.9rem;
+}
+
+.Form > button,
+.AuthStep > button,
+.RegisterActionRow button {
+  min-height: 52px;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.AuthTextAction {
+  align-self: flex-end;
+  width: auto;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 0;
+  border: 0;
+  border-radius: 0 !important;
   background: transparent;
   color: var(--white);
-  border: 1px solid var(--lightcolor-low-op);
-  border-radius: 5px;
-  padding: 1px 2px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
 }
-.RegPhoneNum > div > div > select > option {
+
+.AuthTextAction:hover {
+  color: var(--brand-color);
+}
+
+.AuthSwitch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 2px;
+  color: var(--placeholder-light);
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.AuthSwitch button {
+  width: auto !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 0 !important;
+  border: 0;
+  border-radius: 0 !important;
+  background: transparent;
+  color: var(--brand-color) !important;
+  font-size: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.ShowPasswordIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.ShowPasswordIcon line {
+  opacity: 1;
+}
+
+.ShowPasswordIcon.ShowLine line,
+.ShowLine line {
+  opacity: 0;
+}
+
+.StageProgress {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  min-height: 22px;
+  margin: 0 0 16px;
+}
+
+.StageProgress > span {
+  display: block;
+  height: 2px;
+  border-radius: 999px;
+}
+
+.StageProgressLineActive {
+  background: var(--brand-color);
+}
+
+.StageProgressLineInactive {
+  background: var(--lightcolor-low-op);
+}
+
+.StageProgress small {
+  color: var(--placeholder-light);
+  font-size: 0.68rem;
+  font-weight: 700;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.AuthStep {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.AuthTwoColumns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.NativeField {
+  min-width: 0;
+  min-height: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  border-radius: 12px;
   background: var(--mid-blue);
 }
-.RegPhoneNum > div > div > div > img {
-  height: 20px;
-  width: 20px;
+
+.NativeField:focus-within {
+  border-color: var(--lightcolor-op1);
+}
+
+.NativeField label {
+  color: var(--placeholder-light);
+  font-size: 0.62rem;
+  line-height: 1.1;
+}
+
+.NativeField select,
+.NativeField input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.NativeField option {
+  background: var(--dark-blue-1);
+  color: var(--white);
+}
+
+
+.CustomSelectField {
+  position: relative;
+}
+
+.CustomSelectTrigger {
+  width: 100%;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--white);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+}
+
+.CustomSelectArrow {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  color: var(--placeholder-light);
+  fill: currentColor;
+}
+
+.CustomSelectMenu {
+  position: absolute;
+  z-index: 30;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  padding: 6px;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 10px;
+  background: var(--dark-blue-1);
+  box-shadow: var(--shadow-1);
+}
+
+.CustomSelectOption {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--white);
+  font: inherit;
+  font-size: 0.75rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.CustomSelectOption:hover,
+.CustomSelectOptionActive {
+  background: var(--lightcolor-low-op);
+}
+
+.CustomSelectFlag {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 18px;
+  display: block;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.ReadOnlyField {
+  cursor: default;
+}
+
+.ReadOnlyValue {
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.PhoneField {
+  min-height: 56px;
+  display: grid;
+  grid-template-columns: 116px minmax(0, 1fr);
+  overflow: hidden;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  background: var(--mid-blue);
+  transition: border-color 0.2s ease;
+}
+
+.PhoneField:focus-within {
+  border-color: var(--lightcolor-op1);
+}
+
+.PhoneFieldInvalid {
+  border-color: var(--lightcolor-low-op);
+}
+
+.PhoneDialSelector {
+  position: relative;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 12px;
+  border-right: 1px solid var(--lightcolor-low-op);
+  color: var(--white);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.PhoneDialTrigger {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.PhoneCountryMenu {
+  right: auto;
+  width: min(360px, calc(100vw - 48px));
+}
+
+.PhoneCountryOptionText {
+  min-width: 0;
+  flex: 1 1 auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.PhoneCountryOptionCode {
+  flex: 0 0 auto;
+  color: var(--placeholder-light);
+}
+
+.PhoneFlag {
+  flex: 0 0 auto;
+  width: 24px;
+  height: 18px;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.PhoneDialCode {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.PhoneDialArrow {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  color: var(--placeholder-light);
+  fill: currentColor;
+}
+
+.PhoneNumberInput {
+  width: 100%;
+  min-width: 0;
+  min-height: 54px;
+  padding: 0 16px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--white);
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.PhoneNumberInput::placeholder {
+  color: var(--placeholder-light);
+}
+
+.ConsentRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  color: var(--placeholder-light);
+  font-size: 0.67rem;
+  line-height: 1.35;
+}
+
+.RegistrationBonusPanel {
+  position: absolute;
+  z-index: 4;
+  left: 20px;
+  right: 20px;
+  bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.RegistrationBonusHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--white);
+  text-align: center;
+}
+
+.RegistrationBonusHeader strong {
+  color: var(--brand-color);
+  font-size: 1.05rem;
+}
+
+.RegistrationBonusHeader span {
+  font-size: 0.7rem;
+}
+
+.RegistrationBonusList {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.RegistrationBonusOption {
+  position: relative;
+  min-height: 56px;
+  display: grid;
+  grid-template-columns: 24px 1fr 18px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 14px;
+  background: var(--darkcolor-op1);
+  color: var(--white);
+  text-align: left;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+
+.RegistrationBonusOption > span:nth-child(2) {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.RegistrationBonusOption strong {
+  font-size: 0.68rem;
+  line-height: 1.2;
+}
+
+.RegistrationBonusOption small {
+  color: var(--placeholder-light);
+  font-size: 0.58rem;
+  line-height: 1.2;
+}
+
+.RegistrationBonusNumber {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--brand-color);
+  color: var(--white);
+  font-size: 0.66rem;
+  font-weight: 800;
+}
+
+.RegistrationBonusOption i {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+}
+
+.ActiveBonus {
+  border-color: var(--brand-color);
+}
+
+.ActiveBonus i {
+  box-shadow: inset 0 0 0 4px var(--dark-blue-1);
+  background: var(--brand-color);
+}
+
+.LoginPromoCopy {
+  position: absolute;
+  z-index: 4;
+  left: 28px;
+  right: 28px;
+  top: 92px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: var(--white);
+  text-align: center;
+}
+
+.LoginPromoCopy strong {
+  color: var(--brand-color);
+  font-size: 1.7rem;
+  line-height: 1.1;
+}
+
+.LoginPromoCopy span {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.RegisterActionRow {
+  display: grid;
+  grid-template-columns: 0.7fr 1.3fr;
+  gap: 10px;
+}
+
+.SecondaryAuthButton {
+  border: 1px solid var(--lightcolor-low-op);
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.FormValidationMessage {
+  color: var(--cancelled);
+  font-size: 0.68rem;
+}
+
+.InlineBonusSummary {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 10px;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 10px;
+  color: var(--placeholder-light);
+  font-size: 0.68rem;
+}
+
+.InlineBonusSummary strong {
+  color: var(--white);
+}
+
+.InlineBonusSummary button {
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--brand-color);
+  font-size: inherit;
+  font-weight: 700;
+}
+
+.AuthLoading {
+  padding: 12px;
+  color: var(--placeholder-light);
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .RegisterContainer,
+  .RegisterContainer.NoPromo {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .PromoContainer {
+    display: none;
+  }
+
+  .Form,
+  .NoPromo .Form {
+    min-height: 0;
+    padding: 70px 16px 20px;
+  }
+
+  .AuthTwoColumns {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .Form :global(.InputWrapper),
+  .PhoneField,
+  .NativeField {
+    min-height: 50px;
+  }
+
+  .Form :global(.MainInput) {
+    min-height: 48px;
+  }
+
+  .PhoneField,
+  .PhoneField :global(.react-tel-input),
+  .PhoneField :global(.react-tel-input .form-control),
+  .PhoneField :global(.react-tel-input .flag-dropdown),
+  .PhoneField :global(.react-tel-input .selected-flag) {
+    min-height: 50px;
+    height: 50px;
+  }
+
+  .RegistrationBonusList {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .AuthTwoColumns,
+  .RegisterActionRow {
+    grid-template-columns: 1fr;
+  }
+
+  .Title {
+    font-size: 1.25rem;
+  }
+}
+
+.InlineBonusChooser {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 4px;
+  padding: 14px;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 14px;
+  background: var(--darkcolor-op1);
+}
+
+.InlineBonusChooser .RegistrationBonusHeader {
+  text-align: left;
+}
+
+.InlineBonusChooser .RegistrationBonusList {
+  grid-template-columns: 1fr 1fr;
+}
+
+.InlineBonusChooser .RegistrationBonusOption {
+  background: var(--mid-blue);
+}
+
+@media (max-width: 520px) {
+  .InlineBonusChooser .RegistrationBonusList {
+    grid-template-columns: 1fr;
+  }
+}
+
+.NoBonusOption {
+  grid-column: 1 / -1;
 }

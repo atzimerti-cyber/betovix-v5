@@ -1,231 +1,128 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation, Link } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
+import { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
-import MainInput from "../../features/UI/Inputs/MainInput";
-import MainButton from "../../features/UI/Buttons/MainButton";
-import classes from "./Login.module.css";
-import { login } from "./loginAsyncActions";
-import { verify } from "./loginAsyncActions";
-import React from "react";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import AlternativeMethods from "./features/AlternativeMethods";
-import { translate } from "../../utils/translations";
-import config from "../../config";
-import { loginActions } from "./loginSlice";
-import { wrap } from "lodash";
+import MainInput from '../../features/UI/Inputs/MainInput';
+import MainButton from '../../features/UI/Buttons/MainButton';
+import EyeIcon from '../../assets/svgs/eye.svg?react';
+import classes from './Login.module.css';
+import { login, verify } from './loginAsyncActions';
+import { translate } from '../../utils/translations';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
-  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
   const loginLoading = useSelector((state) => state.login.loginLoading);
-  const mobileImg = useMediaQuery({ query: "(max-width: 768px)" });
   const registerPromoImg = useSelector((state) => state.app.registerPromoImg);
-  const registerPromoImgMobile = useSelector(
-    (state) => state.app.registerPromoImgMobile
-  );
-  const cookiesSettings = useSelector(
-    (state) => state.app.siteSettings.Cookies
-  );
-  // const promoSlug = useSelector((state) => state.modal.promoCodeSlug);
-  // const promoCode = useSelector((state) => state.modal.promoCode);
+  const registerPromoImgMobile = useSelector((state) => state.app.registerPromoImgMobile);
 
-  const [loading, setLoading] = useState(false);
-  const [promoSlug, setSlug] = useState("");
-  const [promoCode, setCode] = useState("");
+  const [loadingVerification, setLoadingVerification] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [form, setForm] = useState({ usernameOrEmail: '', password: '' });
+
+  const promoImage = useMemo(
+    () =>
+      isMobile
+        ? registerPromoImgMobile || registerPromoImg || null
+        : registerPromoImg || registerPromoImgMobile || null,
+    [isMobile, registerPromoImg, registerPromoImgMobile],
+  );
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    const code = searchParams.get("activationCode");
-    if (code) {
-      setLoading(true);
-      dispatch(verify(code, navigate)).then(() => setLoading(false));
-    }
-  }, [dispatch]);
+    const code = searchParams.get('activationCode');
+    if (!code) return;
 
-  const [loginInfo, setLoginInfo] = useState({
-    Provider: 1,
-    SiteId: config.VITE_SITE_ID,
-    Username: "",
-    Password: "",
-    RememberMe: false,
-    Ip: 1,
-    "2fa": "",
-  });
-  const [isLoginDisabled, setIsLoginDisabled] = useState(true);
-
-  useEffect(() => {
-    if (loginInfo.Username && loginInfo.Password) setIsLoginDisabled(false);
-    else setIsLoginDisabled(true);
-  }, [loginInfo.Username, loginInfo.Password]);
-
-  const updateLoginInfo = (property, value) => {
-    setLoginInfo({ ...loginInfo, [property]: value });
-  };
+    setLoadingVerification(true);
+    Promise.resolve(dispatch(verify(code, navigate))).finally(() => setLoadingVerification(false));
+  }, [dispatch, location.search, navigate]);
 
   const changeTab = (tab) => {
     const searchParams = new URLSearchParams(location.search);
-    searchParams.set("modal", "auth");
-    searchParams.set("tab", tab);
-
-    navigate(`${location.pathname}?${searchParams.toString()}`, {
-      replace: true,
-    });
+    searchParams.set('modal', 'auth');
+    searchParams.set('tab', tab);
+    navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
   };
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    const slug = searchParams.get("slug");
-    const code1 = searchParams.get("promocode");
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    if (!form.usernameOrEmail.trim() || !form.password || loginLoading) return;
 
-    if (slug && code1) {
-      setSlug(slug);
-      setCode(code1);
-    }
-  }, []);
-
-  const handleLoginSuccess = () => {
-    dispatch(login(loginInfo, navigate, location.pathname)).then((result) => {
-      if (result && result.success && promoSlug && promoCode) {
-        navigate(
-          `${location.pathname}?modal=promo-code&slug=${promoSlug}&promocode=${promoCode}`,
-          { replace: true }
-        );
-      }
-    });
+    await dispatch(
+      login(
+        {
+          Username: form.usernameOrEmail,
+          Password: form.password,
+        },
+        navigate,
+        location.pathname,
+      ),
+    );
   };
+
+  if (loadingVerification) return <div className={classes.AuthLoading}>{translate('Loading')}...</div>;
 
   return (
-    <>
-      {loading ? (
-        <div className={classes.Loading}>
-          <div className={classes.Spinner}></div>
-        </div>
-      ) : (
-        <div className={classes.RegisterContainer}>
-          <div className={classes.PromoContainer}>
-            <div
-              className={classes.ImageContainer}
-              style={{
-                backgroundImage: mobileImg
-                  ? `url(${registerPromoImgMobile})`
-                  : `url(${registerPromoImg})`,
-              }}
-            ></div>
+    <div className={`${classes.RegisterContainer} ${!promoImage ? classes.NoPromo : ''}`}>
+      {promoImage ? (
+        <div className={classes.PromoContainer}>
+          <div className={classes.ImageContainer} style={{ backgroundImage: `url(${promoImage})` }} />
+          <div className={classes.PromoOverlay} />
+          <div className={classes.LoginPromoCopy}>
+            <strong>{translate('Welcome Back')}</strong>
+            <span>{translate('Log in and let the games begin')}</span>
           </div>
-          <form className={classes.Form}>
-            <div
-              className={classes.Title}
-              style={{ marginBottom: "1rem", textWrap: "wrap", width: "60%" }}
-            >
-              {translate(`Log in to your account.`)}
-            </div>
-            <label htmlFor="Username">{translate("Username")}</label>
-            <div className={classes.InputOuter}>
-              <MainInput
-                role="textbox"
-                type="text"
-                id="Username"
-                name="Username"
-                placeholder={translate("Type your Username")}
-                value={loginInfo.Username}
-                onChange={(value) => updateLoginInfo("Username", value)}
-              />
-            </div>
-
-            <label htmlFor="Password">{translate("Password")}</label>
-            <div className={classes.InputOuter}>
-              <MainInput
-                role="textbox"
-                type="password"
-                id="Password"
-                name="Password"
-                placeholder={translate("Type your Password")}
-                value={loginInfo.Password}
-                onChange={(value) => updateLoginInfo("Password", value)}
-                noAutoComplete={false}
-              />
-            </div>
-
-            {/* <label htmlFor='twoFactor'>{translate('2FA Code (If enabled)')}</label>
-                        <div className={classes.InputOuter}>
-                            <MainInput
-                                role='textbox'
-                                type='number'
-                                id='twoFactor'
-                                name='twoFactor'
-                                inputmode='decimal'
-                                value={loginInfo['2fa']}
-                                onChange={(value) => updateLoginInfo('2fa', value)}
-                            />
-                        </div> */}
-
-            <MainButton
-              loading={loginLoading}
-              color="primary"
-              disabled={isLoginDisabled}
-              onClick={handleLoginSuccess}
-            >
-              {translate("Login")}
-            </MainButton>
-            {config.VITE_GOOGLE_CLIENT_ID !== "" && (
-              <>
-                <p className={classes.LoginWith}>
-                  {translate("or login with")}
-                </p>
-                <GoogleOAuthProvider clientId={config.VITE_GOOGLE_CLIENT_ID}>
-                  <AlternativeMethods />
-                </GoogleOAuthProvider>
-              </>
-            )}
-            <MainButton
-              color="transparent"
-              onClick={() => changeTab("forgot-password")}
-            >
-              {translate("Forgot your password?")}
-            </MainButton>
-
-            {cookiesSettings === true && (
-              <label
-                htmlFor="terms"
-                className={classes.CheckboxLabel}
-                style={{ fontWeight: "300", marginLeft: "0rem" }}
-              >
-                {translate(
-                  "By accessing this site I attest that I have read and agree with the"
-                )}{" "}
-                <Link
-                  to="/pages/terms-of-service"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <b>{translate("Terms and Conditions")}</b>.
-                </Link>
-                *
-              </label>
-            )}
-
-            <p
-              style={{
-                fontSize: "0.75rem",
-                fontWeight: "400",
-                cursor: "pointer",
-                textAlign: "center",
-                textDecoration: "underline",
-                color: "white",
-              }}
-              onClick={() => changeTab("register")}
-            >
-              <i>{translate("No account? Register here")}</i>
-            </p>
-          </form>
         </div>
-      )}
-    </>
+      ) : null}
+
+      <form className={classes.Form} onSubmit={onSubmit}>
+        <div className={classes.AuthIntro}>
+          <div className={classes.Title}>{translate('Log In')}</div>
+          <p>{translate('Log in and let the games begin')}</p>
+        </div>
+
+        <div className={classes.InputOuter}>
+          <MainInput
+            type='text'
+            value={form.usernameOrEmail}
+            placeholder={translate('Username or Email')}
+            onChange={(value) => setForm((current) => ({ ...current, usernameOrEmail: value }))}
+          />
+        </div>
+
+        <div className={classes.InputOuter}>
+          <MainInput
+            type={showPassword ? 'text' : 'password'}
+            value={form.password}
+            placeholder={translate('Password')}
+            onChange={(value) => setForm((current) => ({ ...current, password: value }))}
+            rightIcon={<EyeIcon className={showPassword ? classes.ShowPasswordIcon : `${classes.ShowPasswordIcon} ${classes.ShowLine}`} onClick={() => setShowPassword((value) => !value)} />}
+          />
+        </div>
+
+        <button type='button' className={classes.AuthTextAction} onClick={() => changeTab('forgot-password')}>
+          {translate('Forgot your password?')}
+        </button>
+
+        <MainButton
+          color='primary'
+          type='submit'
+          loading={loginLoading}
+          disabled={!form.usernameOrEmail.trim() || !form.password || loginLoading}
+        >
+          {translate('Sign In')}
+        </MainButton>
+
+        <div className={classes.AuthSwitch}>
+          <span>{translate('You are new player?')}</span>
+          <button type='button' onClick={() => changeTab('register')}>{translate('Create Account')}</button>
+        </div>
+      </form>
+    </div>
   );
 };
 

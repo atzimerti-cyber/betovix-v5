@@ -1,16 +1,15 @@
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import classes from "./Promotions.module.css";
-import { useLocation, useNavigate } from "react-router-dom";
-import { promotionsActions } from "./promotionsSlice";
 import { getPromotion } from "./promotionsAsyncActions";
+import { promotionsActions } from "./promotionsSlice";
 import { translate } from "../../utils/translations";
-import PromoImage from "../../assets/images/promo_banner.png";
 import PromotionsIcon from "../../assets/svgs/promotions.svg?react";
 import MainButton from "../../features/UI/Buttons/MainButton";
 
-const Promotions = (props) => {
+const Promotions = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -21,21 +20,17 @@ const Promotions = (props) => {
 
   useEffect(() => {
     const controller = new AbortController();
-    const signal = controller.signal;
-    dispatch(getPromotion(signal));
+    dispatch(getPromotion(controller.signal));
 
-    return () => dispatch(promotionsActions.reset());
-  }, []);
+    return () => {
+      controller.abort();
+      dispatch(promotionsActions.reset());
+    };
+  }, [dispatch, lang]);
 
   const addParamsToUrl = (modal, link) => {
     const searchParams = new URLSearchParams(location.search);
-    // const linkParams = new URLSearchParams(link);
-
-    // const pageId = linkParams.get("pageId");
-    // const slug = linkParams.get("slug");
-
     searchParams.set("modal", modal);
-    // if (pageId) searchParams.set("pageId", pageId);
     if (link) searchParams.set("slug", link);
 
     navigate(`${location.pathname}?${searchParams.toString()}`, {
@@ -46,70 +41,74 @@ const Promotions = (props) => {
   return (
     <div className={classes.PageContent}>
       <div className={classes.PromotionsContainer}>
-        <div className={classes.PromotionsHeader} id="PromotionsHeader">
+        <header
+          className={`${classes.PromotionsHeader} ${!promoImg ? classes.NoBanner : ""}`}
+          id="PromotionsHeader"
+        >
+          {promoImg ? (
+            <div
+              className={classes.PromoBannerImg}
+              style={{ backgroundImage: `url(${promoImg})` }}
+              aria-hidden="true"
+            />
+          ) : null}
+          <div className={classes.HeaderShade} aria-hidden="true" />
           <div className={classes.Title}>
-            <span>{translate(`Promotions`)}</span>
-            <p>
-              {translate(
-                `Explore exclusive casino and sportsbook promotions and special bonuses to boost your play`
-              )}
-              .
-            </p>
+            <div className={classes.TitleIcon}><PromotionsIcon /></div>
+            <div>
+              <span>{translate("Promotions")}</span>
+              <p>
+                {translate(
+                  "Explore exclusive casino and sportsbook promotions and special bonuses to boost your play"
+                )}.
+              </p>
+            </div>
           </div>
-          <div className={classes.PromoBanner}>
-            {promoImg && promoImg !== "" ? (
-              <div
-                className={classes.PromoBannerImg}
-                style={{ backgroundImage: `url(${promoImg})` }}
-              ></div>
-            ) : (
-              <img src={PromoImage} alt="" />
-            )}
-          </div>
-        </div>
+        </header>
+
         <div className={classes.PromotionsBody} id="PromotionsBody">
-          {promotions && promotions.length > 0 ? (
-            promotions.map((promo, index) => (
-              <div className={classes.Promo} key={index}>
-                <div className={classes.PromoCard} key={index} id="PromoCard">
-                  <div
-                    className={classes.BgImage}
-                    style={{ backgroundImage: `url(${promo.image})` }}
-                  ></div>
+          {promotions?.length ? (
+            promotions.map((promo) => (
+              <article className={classes.Promo} key={promo.id || promo.link || promo.title}>
+                <div className={classes.PromoCard} id="PromoCard">
+                  {promo.image ? (
+                    <div
+                      className={classes.BgImage}
+                      style={{ backgroundImage: `url(${promo.image})` }}
+                      aria-hidden="true"
+                    />
+                  ) : (
+                    <div className={classes.PromoImagePlaceholder} aria-hidden="true">
+                      <PromotionsIcon />
+                    </div>
+                  )}
+                  <div className={classes.CardShade} aria-hidden="true" />
                   <div className={classes.Content}>
                     <div className={classes.PromoTop}>
-                      <div className={classes.PromoTitle}>
-                        <span>{translate(`${promo.title}`)}</span>
-                      </div>
-                      <div className={classes.PromoText}>
-                        <span>{translate(`${promo.content}`)} </span>
-                      </div>
+                      <div className={classes.PromoTitle}>{translate(`${promo.title || "Promotion"}`)}</div>
+                      {promo.content ? (
+                        <div className={classes.PromoText}>{translate(`${promo.content}`)}</div>
+                      ) : null}
                     </div>
-                    <div className={classes.PromoBottom}>
-                      <div className={classes.Buttons}>
-                        {promo.link !== "" && (
-                          <MainButton
-                            color="secondary"
-                            onClick={() =>
-                              addParamsToUrl("promotion", promo.link)
-                            }
-                            className={classes.LinkButton}
-                          >
-                            {translate(`Read More`)}
-                          </MainButton>
-                        )}
-                        <button className={classes.InfoButton}></button>
+                    {promo.link ? (
+                      <div className={classes.PromoBottom}>
+                        <MainButton
+                          color="primary"
+                          onClick={() => addParamsToUrl("promotion", promo.link)}
+                          className={classes.LinkButton}
+                        >
+                          {translate("Read More")}
+                        </MainButton>
                       </div>
-                    </div>
+                    ) : null}
                   </div>
                 </div>
-              </div>
+              </article>
             ))
           ) : (
             <div className={classes.NoRes}>
-              <span style={{ color: "var(--brand-green)" }}>
-                {translate(`No available promotions at this moment.`)}
-              </span>
+              <PromotionsIcon />
+              <span>{translate("No available promotions at this moment.")}</span>
             </div>
           )}
         </div>

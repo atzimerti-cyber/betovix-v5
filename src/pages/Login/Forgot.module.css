@@ -1,127 +1,68 @@
-.RecoverForm {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
-    justify-content: flex-start;
+.ForgotShell {
+  width: 100%;
+  min-height: 470px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 86px 32px 28px;
 }
 
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
+.Form {
+  width: 100%;
+  max-width: 430px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 
-.Required {
-    color: var(--light-blue);
-    font-size: 0.9rem;
-    margin-inline: 0.25ch;
-    transition: color 0.3s;
+.Header h2 {
+  margin: 0;
+  color: var(--white);
+  font-size: 1.45rem;
+  line-height: 1.2;
 }
 
-.Required.Fulfilled {
-    color: var(--brand-green);
-}
-
-.Container {
-    margin-bottom: 1rem;
-}
-
-.ShowPasswordIcon line {
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.ShowPasswordIcon.ShowLine line {
-    opacity: 1;
-}
-
-.FormValidationMessage {
-    animation: _fadeIn_2pkma_1 0.3s backwards;
-    color: var(--cancelled);
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    line-height: 1.2;
-    margin-block: 0.375rem 0;
-    margin-inline: 0.25em;
-}
-
-.PasswordCheckContainer {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.25rem;
-    margin-block: 0 0.25rem;
-    margin-block-start: 0.25rem;
-}
-
-.PasswordMessage {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    color: var(--light-blue);
-    transition: color 0.3s;
-}
-
-.PasswordMessage svg {
-    width: 0.75rem;
-    height: 0.75rem;
-}
-
-.PasswordMessage svg path {
-    fill: var(--db-gray-800);
-}
-
-.PasswordText {
-    line-height: 0.75rem;
-}
-
-.PasswordMessage.IsValid {
-    color: var(--brand-green);
-}
-
-.PasswordMessage.IsValid svg path {
-    fill: #33c16c;
-}
-
-.FormTitle {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    font-weight: 700;
-    --tw-text-opacity: 1;
-    color: rgb(255 255 255 / var(--tw-text-opacity));
+.Header p {
+  margin: 8px 0 6px;
+  color: var(--placeholder-light);
+  font-size: 0.82rem;
+  line-height: 1.45;
 }
 
 .InputOuter {
-    margin-bottom: 0.5rem;
-    border-radius: 0.125rem;
-    border-color: var(--mid-blue);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
-.RequestButtonWrapper {
-    display: flex;
-    flex-direction: column;
+.InputOuter label {
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 600;
 }
 
-.RequestButtonWrapper button {
-    margin-bottom: 0.5rem;
-    height: 2.5rem;
-    border-radius: 0.375rem;
-    font-size: 0.75rem;
-    line-height: 1rem;
+.LinkButton {
+  align-self: center;
+  border: 0;
+  background: transparent;
+  color: var(--brand-color);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
 }
 
-.RecoverForm .InputOuter {
-    margin-bottom: 0.5rem;
-    border-radius: 0.5rem;
-    border-color: var(--mid-blue);
+.ErrorText {
+  color: var(--cancelled);
+  font-size: 0.68rem;
 }
 
-.Text {
-    margin-bottom: 0.25rem;
-    margin-top: 0.25rem;
-    font-size: 0.75rem;
-    line-height: 1rem;
-    line-height: 1rem;
-    color: var(--lightcolor-op1);
-    margin-top: 0.75rem;
+.EyeOpen line {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .ForgotShell {
+    min-height: 0;
+    padding: 78px 16px 20px;
+  }
 }

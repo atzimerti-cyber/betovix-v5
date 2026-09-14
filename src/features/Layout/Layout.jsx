@@ -43,9 +43,6 @@ const Layout = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
 
-  const hasHero = useSelector((state) => state.gamification.selectedHero);
-  const userCurrentLevel = useSelector((state) => state.progress.currentLevel);
-  const levelProgress = useSelector((state) => state.gamification.progressBar);
   // const tawktoScript = useSelector((state) => state.layout.tawkToScript);
 
   const fullLeftContainer = useSelector(
@@ -288,24 +285,6 @@ const Layout = () => {
 
       {!isMobile && !showRightContainer && (
         <div className={classes.OverlayButtons}>
-          {user && permissions.AllowGamification && hasHero && (
-            <div
-              className={classes.IconButton}
-              onClick={() => addParamsToUrl("your-progress")}
-              style={{ overflow: "hidden" }}
-            >
-              <div
-                className={classes.BtnFill}
-                style={{ "--percentage": levelProgress }}
-              ></div>
-              <div className={classes.Percentage}>{levelProgress}%</div>
-              <div className={classes.IconContainer}>
-                {userCurrentLevel.icon && (
-                  <img src={userCurrentLevel.icon} alt="User Level" />
-                )}
-              </div>
-            </div>
-          )}
 
           {permissions.AllowToSports && (
             <div

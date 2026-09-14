@@ -1,1386 +1,683 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
-// import PhoneInput from "react-phone-input-2";
-import PhoneInput from "react-phone-number-input";
+import { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
+import { getCountries, getCountryCallingCode, isValidPhoneNumber } from 'react-phone-number-input';
 
-import classes from "./Login.module.css";
+import MainInput from '../../features/UI/Inputs/MainInput';
+import MainButton from '../../features/UI/Buttons/MainButton';
+import Checkbox from '../../features/UI/Checkbox/Checkbox';
+import EyeIcon from '../../assets/svgs/eye.svg?react';
+import AngleDownIcon from '../../assets/svgs/angle-down.svg?react';
+import classes from './Login.module.css';
+import {
+  getRegistrationBonuses,
+  getRegistrationPreferences,
+  registerPlayer,
+} from './loginAsyncActions';
+import { translate } from '../../utils/translations';
+import config from '../../config';
 
-import MainInput from "../../features/UI/Inputs/MainInput";
-import MainButton from "../../features/UI/Buttons/MainButton";
-import useDebounce from "../../hooks/useDebounce";
-import Autoheight from "../../features/UI/Autoheight/Autoheight";
-import EyeIcon from "../../assets/svgs/eye.svg?react";
-import Times2Icon from "../../assets/svgs/times2.svg?react";
-import CheckIcon from "../../assets/svgs/check.svg?react";
-import { register } from "./loginAsyncActions";
-import { translate } from "../../utils/translations";
-import { affiliateCampaigns } from "./loginAsyncActions";
-import { GoogleOAuthProvider } from "@react-oauth/google";
-import { loginActions } from "../../pages/Login/loginSlice";
-import { Link } from "react-router-dom";
-import config from "../../config";
-import AlternativeMethods from "./features/AlternativeMethods";
-import AngleLeftIcon from "../../assets/svgs/angle-left.svg?react";
-import { isMoreThan14DaysOld, siteCurrency } from "../../utils/custom";
+const normalizeDate = (value) => {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return date.toISOString().slice(0, 10);
+};
+
+const isAdult = (value) => {
+  if (!value) return false;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return false;
+  const now = new Date();
+  const threshold = new Date(now.getFullYear() - 18, now.getMonth(), now.getDate());
+  return date <= threshold;
+};
+
+const createRequestKey = () =>
+  typeof crypto !== 'undefined' && crypto.randomUUID
+    ? crypto.randomUUID()
+    : `web-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+
+const getOptionTitle = (option) =>
+  option?.title || option?.name || option?.label || option?.campaignName || option?.campaignKey || translate('Bonus');
+
+const getOptionDescription = (option) =>
+  option?.description || option?.subtitle || option?.rewardDescription || option?.campaignDescription || '';
+
+const isNoBonusOption = (option) =>
+  option?.isNoBonus || String(option?.optionType || option?.type || '').toLowerCase() === 'nobonus';
+
+const getCountryFlagUrl = (countryCode) =>
+  countryCode && countryCode.length === 2
+    ? `https://flagcdn.com/24x18/${String(countryCode).toLowerCase()}.png`
+    : null;
 
 const Register = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
-  const mobileImg = useMediaQuery({ query: "(max-width: 768px)" });
-
-  const [registerStage, setRegisterStage] = useState(1);
-
-  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-  const registerPromoImg = useSelector((state) => state.app.registerPromoImg);
-  const registerPromoImgMobile = useSelector(
-    (state) => state.app.registerPromoImgMobile
-  );
-  const cookiesSettings = useSelector(
-    (state) => state.app.siteSettings.Cookies
-  );
-  const settings = useSelector((state) => state.app.settings);
-  const loginLoading = useSelector((state) => state.login.loginLoading);
-  const strongPassword = useSelector((state) => state.login.strongPassword);
-  const idRequired = useSelector((state) => state.login.idRequired);
+  const lang = useSelector((state) => state.app.lang);
+  const siteSettings = useSelector((state) => state.app.siteSettings || {});
+  const appSettings = useSelector((state) => state.app.settings || {});
   const defaultCountry = useSelector((state) => state.app.defaultCountry);
+  const siteDefaultCountry = siteSettings.DefaultCountry || siteSettings.defaultCountry || defaultCountry || null;
+  const registerPromoImg = useSelector((state) => state.app.registerPromoImg);
+  const registerPromoImgMobile = useSelector((state) => state.app.registerPromoImgMobile);
+  const loginLoading = useSelector((state) => state.login.loginLoading);
 
-  const [isOver18, setIsOver18] = useState(false);
-  const [newsletter, setNewsletter] = useState(true);
-  const [siteCountry, setSiteCountry] = useState("");
-  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
-  const [registerInfo, setRegisterInfo] = useState({
-    displayName: null,
-    email: null,
-    password: null,
-    verifyPassword: null,
-    code: null,
-    country: "",
-    idCode: idRequired ? null : "true",
-    firstName: idRequired ? null : "true",
-    lastName: idRequired ? null : "true",
-    birthDate: idRequired ? null : "true",
-    phoneNumber: idRequired ? null : "true",
-    newsletter: null,
-  });
-  const [validChecks, setValidChecks] = useState({
-    displayName: true,
-    email: true,
-    password: {
-      valid: true,
-      show: false,
-      minSize: true,
-      numbers: true,
-      special: true,
-      cases: true,
-    },
-    verifyPassword: null,
-    code: true,
-    idCode: true,
-    firstName: true,
-    lastName: true,
-    birthDate: true,
-    phoneNumber: true,
-    newsletter: true,
+  const promoImage = isMobile
+    ? registerPromoImgMobile || registerPromoImg || null
+    : registerPromoImg || registerPromoImgMobile || null;
+
+  const [step, setStep] = useState(1);
+  const [showPassword, setShowPassword] = useState(false);
+  const [preferences, setPreferences] = useState(null);
+  const [choiceSet, setChoiceSet] = useState(null);
+  const [bonusLoading, setBonusLoading] = useState(true);
+  const [selectedBonus, setSelectedBonus] = useState(null);
+  const [submitError, setSubmitError] = useState('');
+  const [phoneTouched, setPhoneTouched] = useState(false);
+  const [countryMenuOpen, setCountryMenuOpen] = useState(false);
+  const [phoneCountryMenuOpen, setPhoneCountryMenuOpen] = useState(false);
+  const [nationalityMenuOpen, setNationalityMenuOpen] = useState(false);
+  const [documentTypeMenuOpen, setDocumentTypeMenuOpen] = useState(false);
+
+  const [form, setForm] = useState({
+    email: '',
+    password: '',
+    country: '',
+    currency: '',
+    phone: '',
+    acceptTerms: false,
+    marketing: true,
+    firstName: '',
+    lastName: '',
+    birthDate: '',
+    nationality: '',
+    documentType: '',
+    documentId: '',
   });
 
-  const countries = [
-    { name: "Afghanistan", code: "AF" },
-    { name: "Åland Islands", code: "AX" },
-    { name: "Albania", code: "AL" },
-    { name: "Algeria", code: "DZ" },
-    { name: "American Samoa", code: "AS" },
-    { name: "Andorra", code: "AD" },
-    { name: "Angola", code: "AO" },
-    { name: "Anguilla", code: "AI" },
-    { name: "Antarctica", code: "AQ" },
-    { name: "Antigua and Barbuda", code: "AG" },
-    { name: "Argentina", code: "AR" },
-    { name: "Armenia", code: "AM" },
-    { name: "Aruba", code: "AW" },
-    { name: "Australia", code: "AU" },
-    { name: "Austria", code: "AT" },
-    { name: "Azerbaijan", code: "AZ" },
-    { name: "Bahamas", code: "BS" },
-    { name: "Bahrain", code: "BH" },
-    { name: "Bangladesh", code: "BD" },
-    { name: "Barbados", code: "BB" },
-    { name: "Belarus", code: "BY" },
-    { name: "Belgium", code: "BE" },
-    { name: "Belize", code: "BZ" },
-    { name: "Benin", code: "BJ" },
-    { name: "Bermuda", code: "BM" },
-    { name: "Bhutan", code: "BT" },
-    { name: "Bolivia", code: "BO" },
-    { name: "Bosnia and Herzegovina", code: "BA" },
-    { name: "Botswana", code: "BW" },
-    { name: "Bouvet Island", code: "BV" },
-    { name: "Brazil", code: "BR" },
-    { name: "British Indian Ocean Territory", code: "IO" },
-    { name: "Brunei Darussalam", code: "BN" },
-    { name: "Bulgaria", code: "BG" },
-    { name: "Burkina Faso", code: "BF" },
-    { name: "Burundi", code: "BI" },
-    { name: "Cambodia", code: "KH" },
-    { name: "Cameroon", code: "CM" },
-    { name: "Canada", code: "CA" },
-    { name: "Cape Verde", code: "CV" },
-    { name: "Cayman Islands", code: "KY" },
-    { name: "Central African Republic", code: "CF" },
-    { name: "Chad", code: "TD" },
-    { name: "Chile", code: "CL" },
-    { name: "China", code: "CN" },
-    { name: "Christmas Island", code: "CX" },
-    { name: "Cocos (Keeling) Islands", code: "CC" },
-    { name: "Colombia", code: "CO" },
-    { name: "Comoros", code: "KM" },
-    { name: "Congo", code: "CG" },
-    { name: "Congo, The Democratic Republic of the", code: "CD" },
-    { name: "Cook Islands", code: "CK" },
-    { name: "Costa Rica", code: "CR" },
-    { name: "Cote D'Ivoire", code: "CI" },
-    { name: "Croatia", code: "HR" },
-    { name: "Cuba", code: "CU" },
-    { name: "Cyprus", code: "CY" },
-    { name: "Czech Republic", code: "CZ" },
-    { name: "Denmark", code: "DK" },
-    { name: "Djibouti", code: "DJ" },
-    { name: "Dominica", code: "DM" },
-    { name: "Dominican Republic", code: "DO" },
-    { name: "Ecuador", code: "EC" },
-    { name: "Egypt", code: "EG" },
-    { name: "El Salvador", code: "SV" },
-    { name: "Equatorial Guinea", code: "GQ" },
-    { name: "Eritrea", code: "ER" },
-    { name: "Estonia", code: "EE" },
-    { name: "Ethiopia", code: "ET" },
-    { name: "Falkland Islands (Malvinas)", code: "FK" },
-    { name: "Faroe Islands", code: "FO" },
-    { name: "Fiji", code: "FJ" },
-    { name: "Finland", code: "FI" },
-    { name: "France", code: "FR" },
-    { name: "French Guiana", code: "GF" },
-    { name: "French Polynesia", code: "PF" },
-    { name: "French Southern Territories", code: "TF" },
-    { name: "Gabon", code: "GA" },
-    { name: "Gambia", code: "GM" },
-    { name: "Georgia", code: "GE" },
-    { name: "Germany", code: "DE" },
-    { name: "Ghana", code: "GH" },
-    { name: "Gibraltar", code: "GI" },
-    { name: "Greece", code: "EL" },
-    { name: "Greenland", code: "GL" },
-    { name: "Grenada", code: "GD" },
-    { name: "Guadeloupe", code: "GP" },
-    { name: "Guam", code: "GU" },
-    { name: "Guatemala", code: "GT" },
-    { name: "Guernsey", code: "GG" },
-    { name: "Guinea", code: "GN" },
-    { name: "Guinea-Bissau", code: "GW" },
-    { name: "Guyana", code: "GY" },
-    { name: "Haiti", code: "HT" },
-    { name: "Heard Island and Mcdonald Islands", code: "HM" },
-    { name: "Holy See (Vatican City State)", code: "VA" },
-    { name: "Honduras", code: "HN" },
-    { name: "Hong Kong", code: "HK" },
-    { name: "Hungary", code: "HU" },
-    { name: "Iceland", code: "IS" },
-    { name: "India", code: "IN" },
-    { name: "Indonesia", code: "ID" },
-    { name: "Iran, Islamic Republic Of", code: "IR" },
-    { name: "Iraq", code: "IQ" },
-    { name: "Ireland", code: "IE" },
-    { name: "Isle of Man", code: "IM" },
-    { name: "Israel", code: "IL" },
-    { name: "Italy", code: "IT" },
-    { name: "Jamaica", code: "JM" },
-    { name: "Japan", code: "JP" },
-    { name: "Jersey", code: "JE" },
-    { name: "Jordan", code: "JO" },
-    { name: "Kazakhstan", code: "KZ" },
-    { name: "Kenya", code: "KE" },
-    { name: "Kiribati", code: "KI" },
-    { name: "Korea, Democratic People's Republic of", code: "KP" },
-    { name: "Korea, Republic of", code: "KR" },
-    { name: "Kuwait", code: "KW" },
-    { name: "Kyrgyzstan", code: "KG" },
-    { name: "Lao People's Democratic Republic", code: "LA" },
-    { name: "Latvia", code: "LV" },
-    { name: "Lebanon", code: "LB" },
-    { name: "Lesotho", code: "LS" },
-    { name: "Liberia", code: "LR" },
-    { name: "Libyan Arab Jamahiriya", code: "LY" },
-    { name: "Liechtenstein", code: "LI" },
-    { name: "Lithuania", code: "LT" },
-    { name: "Luxembourg", code: "LU" },
-    { name: "Macao", code: "MO" },
-    { name: "Macedonia, The Former Yugoslav Republic of", code: "MK" },
-    { name: "Madagascar", code: "MG" },
-    { name: "Malawi", code: "MW" },
-    { name: "Malaysia", code: "MY" },
-    { name: "Maldives", code: "MV" },
-    { name: "Mali", code: "ML" },
-    { name: "Malta", code: "MT" },
-    { name: "Marshall Islands", code: "MH" },
-    { name: "Martinique", code: "MQ" },
-    { name: "Mauritania", code: "MR" },
-    { name: "Mauritius", code: "MU" },
-    { name: "Mayotte", code: "YT" },
-    { name: "Mexico", code: "MX" },
-    { name: "Micronesia, Federated States of", code: "FM" },
-    { name: "Moldova, Republic of", code: "MD" },
-    { name: "Monaco", code: "MC" },
-    { name: "Mongolia", code: "MN" },
-    { name: "Montserrat", code: "MS" },
-    { name: "Morocco", code: "MA" },
-    { name: "Mozambique", code: "MZ" },
-    { name: "Myanmar", code: "MM" },
-    { name: "Namibia", code: "NA" },
-    { name: "Nauru", code: "NR" },
-    { name: "Nepal", code: "NP" },
-    { name: "Netherlands", code: "NL" },
-    { name: "Netherlands Antilles", code: "AN" },
-    { name: "New Caledonia", code: "NC" },
-    { name: "New Zealand", code: "NZ" },
-    { name: "Nicaragua", code: "NI" },
-    { name: "Niger", code: "NE" },
-    { name: "Nigeria", code: "NG" },
-    { name: "Niue", code: "NU" },
-    { name: "Norfolk Island", code: "NF" },
-    { name: "Northern Mariana Islands", code: "MP" },
-    { name: "Norway", code: "NO" },
-    { name: "Oman", code: "OM" },
-    { name: "Pakistan", code: "PK" },
-    { name: "Palau", code: "PW" },
-    { name: "Palestinian Territory, Occupied", code: "PS" },
-    { name: "Panama", code: "PA" },
-    { name: "Papua New Guinea", code: "PG" },
-    { name: "Paraguay", code: "PY" },
-    { name: "Peru", code: "PE" },
-    { name: "Philippines", code: "PH" },
-    { name: "Pitcairn", code: "PN" },
-    { name: "Poland", code: "PL" },
-    { name: "Portugal", code: "PT" },
-    { name: "Puerto Rico", code: "PR" },
-    { name: "Qatar", code: "QA" },
-    { name: "Reunion", code: "RE" },
-    { name: "Romania", code: "RO" },
-    { name: "Russian Federation", code: "RU" },
-    { name: "Rwanda", code: "RW" },
-    { name: "Saint Helena", code: "SH" },
-    { name: "Saint Kitts and Nevis", code: "KN" },
-    { name: "Saint Lucia", code: "LC" },
-    { name: "Saint Pierre and Miquelon", code: "PM" },
-    { name: "Saint Vincent and the Grenadines", code: "VC" },
-    { name: "Samoa", code: "WS" },
-    { name: "San Marino", code: "SM" },
-    { name: "Sao Tome and Principe", code: "ST" },
-    { name: "Saudi Arabia", code: "SA" },
-    { name: "Senegal", code: "SN" },
-    { name: "Serbia and Montenegro", code: "CS" },
-    { name: "Seychelles", code: "SC" },
-    { name: "Sierra Leone", code: "SL" },
-    { name: "Singapore", code: "SG" },
-    { name: "Slovakia", code: "SK" },
-    { name: "Slovenia", code: "SI" },
-    { name: "Solomon Islands", code: "SB" },
-    { name: "Somalia", code: "SO" },
-    { name: "South Africa", code: "ZA" },
-    { name: "South Georgia and the South Sandwich Islands", code: "GS" },
-    { name: "Spain", code: "ES" },
-    { name: "Sri Lanka", code: "LK" },
-    { name: "Sudan", code: "SD" },
-    { name: "Suriname", code: "SR" },
-    { name: "Svalbard and Jan Mayen", code: "SJ" },
-    { name: "Swaziland", code: "SZ" },
-    { name: "Sweden", code: "SE" },
-    { name: "Switzerland", code: "CH" },
-    { name: "Syrian Arab Republic", code: "SY" },
-    { name: "Taiwan, Province of China", code: "TW" },
-    { name: "Tajikistan", code: "TJ" },
-    { name: "Tanzania, United Republic of", code: "TZ" },
-    { name: "Thailand", code: "TH" },
-    { name: "Timor-Leste", code: "TL" },
-    { name: "Togo", code: "TG" },
-    { name: "Tokelau", code: "TK" },
-    { name: "Tonga", code: "TO" },
-    { name: "Trinidad and Tobago", code: "TT" },
-    { name: "Tunisia", code: "TN" },
-    { name: "Turkey", code: "TR" },
-    { name: "Turkmenistan", code: "TM" },
-    { name: "Turks and Caicos Islands", code: "TC" },
-    { name: "Tuvalu", code: "TV" },
-    { name: "Uganda", code: "UG" },
-    { name: "Ukraine", code: "UA" },
-    { name: "United Arab Emirates", code: "AE" },
-    { name: "United Kingdom", code: "EN" },
-    { name: "United States", code: "US" },
-    { name: "United States Minor Outlying Islands", code: "UM" },
-    { name: "Uruguay", code: "UY" },
-    { name: "Uzbekistan", code: "UZ" },
-    { name: "Vanuatu", code: "VU" },
-    { name: "Venezuela", code: "VE" },
-    { name: "Vietnam", code: "VN" },
-    { name: "Virgin Islands, British", code: "VG" },
-    { name: "Virgin Islands, U.S.", code: "VI" },
-    { name: "Wallis and Futuna", code: "WF" },
-    { name: "Western Sahara", code: "EH" },
-    { name: "Yemen", code: "YE" },
-    { name: "Zambia", code: "ZM" },
-    { name: "Zimbabwe", code: "ZW" },
-  ];
-
-  useEffect(() => {
-    if (newsletter !== null) {
-      setNewsletter(newsletter);
-      setRegisterInfo({ ...registerInfo, newsletter: newsletter });
+  const regionNames = useMemo(() => {
+    try {
+      return new Intl.DisplayNames([lang?.id || 'en'], { type: 'region' });
+    } catch {
+      return new Intl.DisplayNames(['en'], { type: 'region' });
     }
-  }, [newsletter]);
+  }, [lang?.id]);
+
+  const countries = useMemo(
+    () =>
+      getCountries()
+        .map((code) => ({
+          code,
+          name: regionNames.of(code) || code,
+          dialCode: `+${getCountryCallingCode(code)}`,
+        }))
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    [regionNames],
+  );
 
   useEffect(() => {
-    if (cookiesSettings === false) {
-      setIsTermsAccepted(true);
-    }
-  }, [cookiesSettings]);
+    const controller = new AbortController();
+
+    Promise.all([
+      dispatch(getRegistrationPreferences(controller.signal)),
+      dispatch(getRegistrationBonuses(controller.signal)),
+    ]).then(([prefs, bonuses]) => {
+      if (controller.signal.aborted) return;
+
+      setPreferences(prefs || null);
+      setChoiceSet(bonuses || null);
+      setBonusLoading(false);
+
+      const defaultCurrency =
+        prefs?.defaults?.currency ||
+        prefs?.Defaults?.Currency ||
+        siteSettings.Currency ||
+        siteSettings.currency ||
+        'EUR';
+
+      setForm((current) => ({
+        ...current,
+        currency: current.currency || defaultCurrency,
+      }));
+    });
+
+    return () => controller.abort();
+  }, [dispatch]);
 
   useEffect(() => {
-    if (defaultCountry && defaultCountry !== "") {
-      const countryCode = countries.find(
-        (country) => country.name === defaultCountry
-      )?.code;
-      if (countryCode) {
-        setSiteCountry(countryCode);
-      }
-    }
-  }, [defaultCountry]);
+    if (!siteDefaultCountry || form.country) return;
 
-  useEffect(() => {
-    if (siteCountry) {
-      setRegisterInfo((prevInfo) => ({
-        ...prevInfo,
-        country: siteCountry,
+    const normalizedDefaultCountry = String(siteDefaultCountry).trim().toLowerCase();
+    const match = countries.find(
+      (country) =>
+        country.code.toLowerCase() === normalizedDefaultCountry ||
+        country.name.toLowerCase() === normalizedDefaultCountry,
+    );
+
+    if (match) {
+      setForm((current) => ({
+        ...current,
+        country: match.code,
       }));
     }
-  }, [siteCountry]);
+  }, [countries, siteDefaultCountry, form.country]);
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(location.search);
-    let value = searchParams.get("code");
-    if (!value) {
-      value = localStorage.getItem("AffiliateCode");
-      const date = localStorage.getItem("AffiliateCodeDate");
-      const isMore = isMoreThan14DaysOld(date);
-      if (isMore) {
-        localStorage.removeItem("AffilliateCode");
-        localStorage.removeItem("AffilliateCodeDate");
-      }
-    }
-    if (value) {
-      localStorage.setItem("AffiliateCode", value);
-      localStorage.setItem("AffiliateCodeDate", new Date().toISOString());
+  const bonusOptions = useMemo(() => {
+    const shouldShow = choiceSet?.shouldShow ?? choiceSet?.ShouldShow ?? true;
+    if (!shouldShow) return [];
 
-      dispatch(loginActions.logout());
+    const options = choiceSet?.options || choiceSet?.Options || [];
+    const allowNoBonus = Boolean(choiceSet?.allowNoBonus ?? choiceSet?.AllowNoBonus);
+    const hasNoBonus = options.some(isNoBonusOption);
 
-      updateRegisterInfo("code", value);
-      dispatch(affiliateCampaigns(value));
-    }
-  }, []);
-
-  const debDisplayName = useDebounce(registerInfo.displayName);
-  const debEmail = useDebounce(registerInfo.email);
-  const debPassword = useDebounce(registerInfo.password);
-  const debVerifyPassword = useDebounce(registerInfo.verifyPassword);
-  const debFirstName = useDebounce(registerInfo.firstName);
-  const debLastName = useDebounce(registerInfo.lastName);
-  const debBirthDate = useDebounce(registerInfo.birthDate);
-  const debPhoneNumber = useDebounce(registerInfo.phoneNumber);
-  const debIDCode = useDebounce(registerInfo.idCode);
-  const debNewsletter = useDebounce(registerInfo.newsletter);
-  const debCode = useDebounce(registerInfo.code);
-
-  const [isRegisterDisabled, setIsRegisterDisabled] = useState(true);
-
-  const updateRegisterInfo = (property, value) => {
-    if (property === "email" || property === "password") value = value.trim();
-
-    setRegisterInfo({ ...registerInfo, [property]: value });
-  };
-
-  useEffect(() => {
-    if (!debDisplayName) return;
-
-    if (
-      debDisplayName.trim().length > 0 &&
-      debDisplayName.trim().length < settings.usernameMinLength
-    )
-      setValidChecks({ ...validChecks, displayName: false });
-    else setValidChecks({ ...validChecks, displayName: true });
-  }, [debDisplayName]);
-
-  useEffect(() => {
-    if (idRequired && !debFirstName) return;
-
-    if (idRequired) {
-      if (debFirstName.trim().length > 0)
-        setValidChecks({ ...validChecks, firstName: true });
-      else setValidChecks({ ...validChecks, firstName: false });
-    }
-  }, [debFirstName]);
-
-  useEffect(() => {
-    if (idRequired && !debLastName) return;
-
-    if (idRequired) {
-      if (debLastName.trim().length > 0)
-        setValidChecks({ ...validChecks, lastName: true });
-      else setValidChecks({ ...validChecks, lastName: false });
-    }
-  }, [debLastName]);
-
-  useEffect(() => {
-    if (idRequired && !debBirthDate) return;
-
-    if (idRequired) {
-      if (debBirthDate.trim().length > 0)
-        setValidChecks({ ...validChecks, birthDate: true });
-      else setValidChecks({ ...validChecks, birthDate: false });
-    }
-  }, [debBirthDate]);
-
-  useEffect(() => {
-    if (idRequired && !debPhoneNumber) return;
-
-    if (idRequired) {
-      if (debPhoneNumber.trim().length > 0)
-        setValidChecks({ ...validChecks, phoneNumber: true });
-      else setValidChecks({ ...validChecks, phoneNumber: false });
-    }
-    // else {
-    //   setRegisterInfo({ ...registerInfo, phoneNumber: true });
-    //   setValidChecks({ ...validChecks, phoneNumber: true });
-    // }
-  }, [debPhoneNumber]);
-
-  useEffect(() => {
-    if (!debEmail) return;
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const isValid = emailRegex.test(debEmail);
-
-    if (debEmail.length > 0 && !isValid)
-      setValidChecks({ ...validChecks, email: false });
-    else setValidChecks({ ...validChecks, email: true });
-  }, [debEmail]);
-
-  useEffect(() => {
-    if (idRequired && !debIDCode) return;
-    if (idRequired) {
-      let validID;
-      if (registerInfo.country === "TR") {
-        validID = /^[1-9]\d{9}[02468]$/.test(debIDCode);
-      } else {
-        validID =
-          /\d/.test(debIDCode) && debIDCode.replace(/\s/g, "").length > 0;
-      }
-
-      if (debIDCode.length > 0 && validID) {
-        setValidChecks({ ...validChecks, idCode: true });
-      } else {
-        setValidChecks({ ...validChecks, idCode: false });
-      }
-    }
-  }, [debIDCode, registerInfo.country]);
-
-  useEffect(() => {
-    if (!debPassword) return;
-
-    let validMinSize = debPassword.length >= settings.passwordMinLength;
-
-    const hasUppercase = /[A-Z]/.test(debPassword);
-    const hasLowercase = /[a-z]/.test(debPassword);
-    const validCases = hasUppercase && hasLowercase;
-
-    const validNumbers = /\d/.test(debPassword);
-
-    const specialCharRegex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    const validSpecial = specialCharRegex.test(debPassword);
-
-    let isValid;
-    if (strongPassword) {
-      isValid = validMinSize && validCases && validNumbers && validSpecial;
-    } else if (strongPassword === false) {
-      isValid = debPassword.length >= 3;
-      validMinSize = debPassword.length >= 3;
+    if (allowNoBonus && !hasNoBonus) {
+      return [
+        ...options,
+        {
+          id: 'no-bonus',
+          isNoBonus: true,
+          title: translate("I don't want a bonus"),
+        },
+      ];
     }
 
-    // Functional update to avoid stale state
-    setValidChecks((prevValidChecks) => ({
-      ...prevValidChecks,
-      password: {
-        valid: isValid,
-        show: prevValidChecks.password.show,
-        minSize: validMinSize,
-        numbers: validNumbers,
-        special: validSpecial,
-        cases: validCases,
-      },
-    }));
-  }, [debPassword, settings.passwordMinLength]);
+    return options;
+  }, [choiceSet, lang?.id]);
 
   useEffect(() => {
-    if (!debPassword || !debVerifyPassword) return;
+    if (selectedBonus || bonusOptions.length === 0) return;
+    setSelectedBonus(bonusOptions[0]);
+  }, [bonusOptions, selectedBonus]);
 
-    const isMatching = debPassword === debVerifyPassword;
-    setValidChecks((prevValidChecks) => ({
-      ...prevValidChecks,
-      verifyPassword: isMatching,
-    }));
-  }, [debPassword, debVerifyPassword]);
+  const currencies = useMemo(() => {
+    const list = preferences?.currencies || preferences?.Currencies || [];
+    return list.map((item) =>
+      typeof item === 'string'
+        ? { value: item, label: item }
+        : {
+            value: item.code || item.value || item.id || item.currencyCode,
+            label: item.name || item.label || item.code || item.value || item.currencyCode,
+          },
+    );
+  }, [preferences]);
 
-  useEffect(() => {
-    if (
-      registerInfo.displayName &&
-      registerInfo.email &&
-      registerInfo.password &&
-      registerInfo.verifyPassword &&
-      registerInfo.country &&
-      registerInfo.idCode &&
-      registerInfo.firstName &&
-      registerInfo.lastName &&
-      registerInfo.phoneNumber &&
-      registerInfo.birthDate &&
-      validChecks.displayName &&
-      validChecks.email &&
-      validChecks.password.valid &&
-      validChecks.verifyPassword &&
-      validChecks.idCode &&
-      validChecks.firstName &&
-      validChecks.lastName &&
-      validChecks.phoneNumber &&
-      validChecks.birthDate &&
-      isOver18 &&
-      isTermsAccepted
-    )
-      setIsRegisterDisabled(false);
-    else setIsRegisterDisabled(true);
-  }, [registerInfo, validChecks, isOver18, isTermsAccepted]);
+  const update = (key, value) => setForm((current) => ({ ...current, [key]: value }));
 
-  const onTogglePassword = () => {
-    const updated = {
-      ...validChecks,
-      password: {
-        ...validChecks.password,
-        show: !validChecks.password.show,
-      },
-    };
-    setValidChecks(updated);
-  };
+  const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email);
+  const minPassword = Math.max(6, Number(appSettings.passwordMinLength || 6));
+  const passwordValid = form.password.length >= minPassword;
+  const selectedPhoneCountry = countries.find((country) => country.code === form.country) || null;
+  const localPhoneDigits = String(form.phone || '').replace(/\D/g, '');
+  const fullPhoneNumber = selectedPhoneCountry && localPhoneDigits
+    ? `${selectedPhoneCountry.dialCode}${localPhoneDigits}`
+    : '';
+  const phoneValid = Boolean(fullPhoneNumber) && isValidPhoneNumber(fullPhoneNumber);
+  const step1Valid =
+    emailValid &&
+    passwordValid &&
+    Boolean(form.country) &&
+    Boolean(form.currency) &&
+    phoneValid &&
+    form.acceptTerms &&
+    !bonusLoading;
 
-  const handleNextStep = () => {
-    if (
-      registerInfo.displayName &&
-      validChecks.displayName &&
-      validChecks.email &&
-      validChecks.password.valid &&
-      validChecks.verifyPassword
-    ) {
-      setRegisterStage(2);
-    }
-  };
-
-  const handleBack = () => {
-    if (registerStage === 2) setRegisterStage(1);
-  };
+  const birthDateValid = isAdult(form.birthDate);
+  const step2Valid =
+    Boolean(form.firstName.trim()) &&
+    Boolean(form.lastName.trim()) &&
+    Boolean(form.birthDate) &&
+    birthDateValid &&
+    Boolean(form.nationality) &&
+    Boolean(form.documentType) &&
+    Boolean(form.documentId.trim());
 
   const changeTab = (tab) => {
-    const searchParams = new URLSearchParams(location.search);
-    searchParams.set("modal", "auth");
-    searchParams.set("tab", tab);
+    const params = new URLSearchParams(location.search);
+    params.set('modal', 'auth');
+    params.set('tab', tab);
+    navigate(`${location.pathname}?${params.toString()}`, { replace: true });
+  };
 
-    navigate(`${location.pathname}?${searchParams.toString()}`, {
-      replace: true,
-    });
+  const onRegister = async (event) => {
+    event.preventDefault();
+    if (!step1Valid || !step2Valid || loginLoading) return;
+
+    const url = new URLSearchParams(location.search);
+    const affiliateTrackingCode =
+      url.get('code') ||
+      url.get('affiliateTrackingCode') ||
+      localStorage.getItem('AffiliateCode') ||
+      null;
+
+    const parentAccountId = Number(
+      siteSettings.defaultShopId ??
+        siteSettings.DefaultShopId ??
+        siteSettings.RegistrationParentAccountId ??
+        siteSettings.PlayerParentAccountId ??
+        siteSettings.ParentAccountId ??
+        siteSettings.RootAccountId ??
+        0,
+    );
+
+    if (!parentAccountId && !affiliateTrackingCode) {
+      setSubmitError(translate('Registration parent account is not configured for this site.'));
+      return;
+    }
+
+    setSubmitError('');
+
+    const requestKey = createRequestKey();
+    const selectedIsNoBonus = isNoBonusOption(selectedBonus);
+    const selectedId = Number(selectedBonus?.id || 0) || null;
+    const selectedChoiceOptionId = Number(selectedBonus?.choiceOptionId || selectedBonus?.ChoiceOptionId || 0) || null;
+    const choiceSetId = Number(choiceSet?.choiceSetId || choiceSet?.ChoiceSetId || 0);
+
+    const payload = {
+      siteId: Number(config.VITE_SITE_ID),
+      parentAccountId,
+      email: form.email.trim(),
+      // Backend falls back to normalized email when Username is blank.
+      username: form.email.trim(),
+      password: form.password,
+      phoneNumber: fullPhoneNumber || null,
+      mobile: fullPhoneNumber || null,
+      phoneVerified: false,
+      status: 1,
+      firstName: form.firstName.trim(),
+      lastName: form.lastName.trim(),
+      birthDate: normalizeDate(form.birthDate),
+      country: form.country || null,
+      nationality: form.nationality || null,
+      documentIdType: form.documentType || null,
+      documentType: form.documentType || null,
+      documentId: form.documentId.trim() || null,
+      queueOnboardingAutomation: true,
+      enforcePasswordPolicy: true,
+      clientRegistrationKey: requestKey,
+      correlationId: requestKey,
+      affiliateTrackingCode,
+      affiliateReferralCode: url.get('referralCode') || url.get('affiliateReferralCode') || null,
+      affiliateClickId: url.get('clickId') || url.get('affiliateClickId') || null,
+      affiliateSubId1: url.get('subId1') || url.get('affiliateSubId1') || null,
+      affiliateSubId2: url.get('subId2') || url.get('affiliateSubId2') || null,
+      affiliateSubId3: url.get('subId3') || url.get('affiliateSubId3') || null,
+      affiliateSubId4: url.get('subId4') || url.get('affiliateSubId4') || null,
+      affiliateSubId5: url.get('subId5') || url.get('affiliateSubId5') || null,
+      affiliateSource: url.get('source') || url.get('affiliateSource') || null,
+      affiliateLandingPage: typeof window !== 'undefined' ? window.location.href : null,
+      preferences: {
+        language: preferences?.defaults?.language || preferences?.Defaults?.Language || lang?.id || 'en',
+        currency: form.currency,
+        theme: preferences?.defaults?.theme || preferences?.Defaults?.Theme || undefined,
+        oddsFormat: preferences?.defaults?.oddsFormat || preferences?.Defaults?.OddsFormat || undefined,
+      },
+      bonusChoice:
+        !selectedIsNoBonus && choiceSetId && (selectedId || selectedChoiceOptionId)
+          ? {
+              choiceSetId,
+              id: selectedId,
+              choiceOptionId: selectedChoiceOptionId,
+            }
+          : null,
+    };
+
+    await dispatch(registerPlayer(payload, navigate, location));
   };
 
   return (
-    <div className={classes.RegisterContainer}>
-      <div className={classes.PromoContainer}>
-        <div
-          className={classes.ImageContainer}
-          style={{
-            backgroundImage: mobileImg
-              ? `url(${registerPromoImgMobile})`
-              : `url(${registerPromoImg})`,
-          }}
-        ></div>
-      </div>
-      <form className={classes.Form} autoComplete="off">
-        {registerStage === 1 && (
-          <div className={classes.StepOne}>
-            <div
-              className={classes.Title}
-              style={{
-                marginBottom: "0.6rem",
-                textWrap: "wrap",
-                width: "100%",
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "flex-end",
-                gap: "0.4rem",
-              }}
-            >
-              {translate(`Create your account`)}!
-            </div>
+    <div className={`${classes.RegisterContainer} ${!promoImage ? classes.NoPromo : ''}`}>
+      {promoImage ? (
+        <div className={classes.PromoContainer}>
+          <div className={classes.ImageContainer} style={{ backgroundImage: `url(${promoImage})` }} />
+          <div className={classes.PromoOverlay} />
 
-            <label htmlFor="displayName">
-              {translate("Username")}
-              <span
-                className={
-                  debDisplayName && validChecks.displayName
-                    ? [classes.Required, classes.Fulfilled].join(" ")
-                    : classes.Required
-                }
-              >
-                ∗
-              </span>
-            </label>
-            <div className={classes.InputOuter}>
-              <MainInput
-                required
-                role="textbox"
-                type="text"
-                id="displayName"
-                name="displayName"
-                placeholder={translate("Type your display name")}
-                value={registerInfo.displayName}
-                onChange={(value) => updateRegisterInfo("displayName", value)}
-                noAutoComplete
-                isInvalid={!validChecks.displayName}
-              />
-              <div className={classes.FormValidationMessage}>
-                <Autoheight show={!validChecks.displayName}>{`${translate(
-                  "Username needs to be at least"
-                )} ${settings.usernameMinLength} ${translate(
-                  "characters long"
-                )}`}</Autoheight>
+          {bonusOptions.length > 0 ? (
+            <div className={classes.RegistrationBonusPanel}>
+              <div className={classes.RegistrationBonusHeader}>
+                <strong>{translate('Choose your bonus')}</strong>
+                <span>{translate('Select a welcome offer before you continue.')}</span>
+              </div>
+
+              <div className={classes.RegistrationBonusList}>
+                {bonusOptions.map((option, index) => {
+                  const key = option?.id ?? option?.choiceOptionId ?? `bonus-${index}`;
+                  const active = option === selectedBonus || String(key) === String(selectedBonus?.id);
+                  return (
+                    <button
+                      key={key}
+                      type='button'
+                      className={`${classes.RegistrationBonusOption} ${active ? classes.ActiveBonus : ''} ${isNoBonusOption(option) ? classes.NoBonusOption : ''}`}
+                      onClick={() => setSelectedBonus(option)}
+                    >
+                      <span className={classes.RegistrationBonusNumber}>{isNoBonusOption(option) ? '×' : index + 1}</span>
+                      <span>
+                        <strong>{translate(getOptionTitle(option))}</strong>
+                        {getOptionDescription(option) ? <small>{translate(getOptionDescription(option))}</small> : null}
+                      </span>
+                      <i aria-hidden='true' />
+                    </button>
+                  );
+                })}
               </div>
             </div>
+          ) : null}
+        </div>
+      ) : null}
 
-            <label htmlFor="email">
-              {translate("Email")}
-              <span
-                className={
-                  debEmail && validChecks.email
-                    ? [classes.Required, classes.Fulfilled].join(" ")
-                    : classes.Required
-                }
-              >
-                ∗
-              </span>
-            </label>
-            <div className={classes.InputOuter}>
-              <MainInput
-                required
-                role="textbox"
-                type="text"
-                id="email"
-                name="email"
-                placeholder={translate("Type your Email")}
-                value={registerInfo.email}
-                onChange={(value) => updateRegisterInfo("email", value)}
-                noAutoComplete
-                isInvalid={!validChecks.email}
-              />
-              <div className={classes.FormValidationMessage}>
-                <Autoheight show={!validChecks.email}>
-                  {translate("Please enter a valid email address")}
-                </Autoheight>
-              </div>
-            </div>
+      <form className={classes.Form} autoComplete='off' onSubmit={onRegister}>
+        <div className={classes.StageProgress}>
+          <span className={classes.StageProgressLineActive} />
+          <small>{translate('Step')} {step}/2</small>
+          <span className={step === 2 ? classes.StageProgressLineActive : classes.StageProgressLineInactive} />
+        </div>
 
-            <label htmlFor="password">
-              {translate("Password")}
-              <span
-                className={
-                  debPassword && validChecks.password
-                    ? [classes.Required, classes.Fulfilled].join(" ")
-                    : classes.Required
-                }
-              >
-                ∗
-              </span>
-            </label>
-            <div className={classes.InputOuter}>
-              <MainInput
-                role="textbox"
-                type={validChecks.password.show ? "text" : "password"}
-                id="password"
-                name="password"
-                placeholder={translate("Type your password")}
-                value={registerInfo.password}
-                onChange={(value) => updateRegisterInfo("password", value)}
-                noAutoComplete
-                isInvalid={!validChecks.password.valid}
-                rightIcon={
-                  <EyeIcon
-                    className={
-                      validChecks.password.show
-                        ? classes.ShowPasswordIcon
-                        : [classes.ShowPasswordIcon, classes.ShowLine].join(" ")
-                    }
-                    onClick={onTogglePassword}
-                  />
-                }
-              />
-              {strongPassword ? (
-                <div className={classes.FormValidationMessage}>
-                  <Autoheight show={!validChecks.password.valid}>
-                    {translate(
-                      "Password must include a special character, upper and lower case, and a number"
-                    )}
-                  </Autoheight>
-                  <Autoheight show={debPassword && debPassword.length > 0}>
-                    <div className={classes.PasswordCheckContainer}>
-                      <div
-                        className={
-                          validChecks.password.minSize
-                            ? [classes.PasswordMessage, classes.IsValid].join(
-                                " "
-                              )
-                            : classes.PasswordMessage
-                        }
-                      >
-                        {validChecks.password.minSize ? (
-                          <CheckIcon />
-                        ) : (
-                          <Times2Icon />
-                        )}
-                        <div className={classes.PasswordText}>
-                          {translate("Min.")} {settings.passwordMinLength}{" "}
-                          {translate("character")}
-                        </div>
-                      </div>
-                      <div
-                        className={
-                          validChecks.password.special
-                            ? [classes.PasswordMessage, classes.IsValid].join(
-                                " "
-                              )
-                            : classes.PasswordMessage
-                        }
-                      >
-                        {validChecks.password.special ? (
-                          <CheckIcon />
-                        ) : (
-                          <Times2Icon />
-                        )}
-                        <div className={classes.PasswordText}>
-                          {translate("1 Special Character")}
-                        </div>
-                      </div>
-                      <div
-                        className={
-                          validChecks.password.cases
-                            ? [classes.PasswordMessage, classes.IsValid].join(
-                                " "
-                              )
-                            : classes.PasswordMessage
-                        }
-                      >
-                        {validChecks.password.cases ? (
-                          <CheckIcon />
-                        ) : (
-                          <Times2Icon />
-                        )}
-                        <div className={classes.PasswordText}>
-                          {translate("Upper and Lowercase")}
-                        </div>
-                      </div>
-                      <div
-                        className={
-                          validChecks.password.numbers
-                            ? [classes.PasswordMessage, classes.IsValid].join(
-                                " "
-                              )
-                            : classes.PasswordMessage
-                        }
-                      >
-                        {validChecks.password.numbers ? (
-                          <CheckIcon />
-                        ) : (
-                          <Times2Icon />
-                        )}
-                        <div className={classes.PasswordText}>
-                          {translate("1 Number")}
-                        </div>
-                      </div>
-                    </div>
-                  </Autoheight>
-                </div>
-              ) : (
-                <div className={classes.FormValidationMessage}>
-                  <Autoheight show={debPassword && debPassword.length > 0}>
-                    <div className={classes.PasswordCheckContainer}>
-                      <div
-                        className={
-                          validChecks.password.minSize
-                            ? [classes.PasswordMessage, classes.IsValid].join(
-                                " "
-                              )
-                            : classes.PasswordMessage
-                        }
-                      >
-                        {validChecks.password.minSize ? (
-                          <CheckIcon />
-                        ) : (
-                          <Times2Icon />
-                        )}
-                        <div className={classes.PasswordText}>
-                          {translate("Minimum 3 characters.")}
-                        </div>
-                      </div>
-                    </div>
-                  </Autoheight>
-                </div>
-              )}
+        {!promoImage && bonusOptions.length > 0 ? (
+          <div className={classes.InlineBonusChooser}>
+            <div className={classes.RegistrationBonusHeader}>
+              <strong>{translate('Choose your bonus')}</strong>
+              <span>{translate('Select a welcome offer before you continue.')}</span>
             </div>
-
-            <label htmlFor="verify-password">
-              {translate("Verify Password")}
-              <span
-                className={
-                  debVerifyPassword && validChecks.verifyPassword
-                    ? [classes.Required, classes.Fulfilled].join(" ")
-                    : classes.Required
-                }
-              >
-                *
-              </span>
-            </label>
-            <div className={classes.InputOuter}>
-              <MainInput
-                role="textbox"
-                type={validChecks.password.show ? "text" : "password"}
-                id="verify-password"
-                name="verifyPassword"
-                placeholder={translate("Type your password again")}
-                value={registerInfo.verifyPassword}
-                onChange={(value) =>
-                  updateRegisterInfo("verifyPassword", value)
-                }
-                noAutoComplete
-                isInvalid={
-                  registerInfo.verifyPassword && !validChecks.verifyPassword
-                }
-                rightIcon={
-                  <EyeIcon
-                    className={
-                      validChecks.password.show
-                        ? classes.ShowPasswordIcon
-                        : [classes.ShowPasswordIcon, classes.ShowLine].join(" ")
-                    }
-                    onClick={onTogglePassword}
-                  />
-                }
-              />
-              <div className={classes.FormValidationMessage}>
-                <Autoheight
-                  show={
-                    registerInfo.verifyPassword && !validChecks.verifyPassword
-                  }
-                >
-                  {translate("Passwords do not match")}
-                </Autoheight>
-              </div>
-            </div>
-            <div className={classes.BigBtn}>
-              <MainButton
-                color="primary"
-                onClick={handleNextStep}
-                disabled={
-                  !registerInfo.displayName ||
-                  !validChecks.displayName ||
-                  !validChecks.email ||
-                  !validChecks.password.valid ||
-                  !validChecks.verifyPassword
-                }
-              >
-                {translate("Next Step")}
-              </MainButton>
+            <div className={classes.RegistrationBonusList}>
+              {bonusOptions.map((option, index) => {
+                const key = option?.id ?? option?.choiceOptionId ?? `inline-bonus-${index}`;
+                const active = option === selectedBonus || String(key) === String(selectedBonus?.id);
+                return (
+                  <button
+                    key={key}
+                    type='button'
+                    className={`${classes.RegistrationBonusOption} ${active ? classes.ActiveBonus : ''} ${isNoBonusOption(option) ? classes.NoBonusOption : ''}`}
+                    onClick={() => setSelectedBonus(option)}
+                  >
+                    <span className={classes.RegistrationBonusNumber}>{isNoBonusOption(option) ? '×' : index + 1}</span>
+                    <span>
+                      <strong>{translate(getOptionTitle(option))}</strong>
+                      {getOptionDescription(option) ? <small>{translate(getOptionDescription(option))}</small> : null}
+                    </span>
+                    <i aria-hidden='true' />
+                  </button>
+                );
+              })}
             </div>
           </div>
-        )}
+        ) : null}
 
-        {/* ============================================================================================================================= */}
+        <div className={classes.AuthIntro}>
+          <div className={classes.Title}>{step === 1 ? translate('Create an account') : translate('Tell us about yourself')}</div>
+          <p>
+            {step === 1
+              ? translate('Sign up and start playing in less than 60 seconds.')
+              : translate('Complete the required details to finish your registration.')}
+          </p>
+        </div>
 
-        {registerStage === 2 && (
-          <div className={classes.StepTwo}>
-            <div
-              className={classes.ReturnBtn}
-              style={{
-                width: "100%",
-                background: "#ffffff0d",
-                borderRadius: "8px",
-                paddingInline: "10px",
-              }}
-            >
-              <button
-                onClick={handleBack}
-                style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  fontSize: "14px",
-                  width: "100%",
-                }}
-              >
-                <AngleLeftIcon height="10px" width="20px" />
-                {translate("Back")}
-              </button>
-            </div>
-
-            <label
-              htmlFor="firstName"
-              style={idRequired ? {} : { display: "none" }}
-            >
-              {translate("First Name")}
-              <span className={classes.Required}>*</span>
-            </label>
-            <div
-              className={classes.InputOuter}
-              style={idRequired ? {} : { display: "none" }}
-            >
-              <MainInput
-                role="textbox"
-                type="text"
-                id="firstName"
-                name="firstName"
-                placeholder={translate("Enter your first name")}
-                value={registerInfo.firstName}
-                onChange={(value) => updateRegisterInfo("firstName", value)}
-                noAutoComplete
-                isInvalid={!validChecks.firstName}
-              />
-            </div>
-
-            <label
-              htmlFor="lastName"
-              style={idRequired ? {} : { display: "none" }}
-            >
-              {translate("Last Name")}
-              <span className={classes.Required}>*</span>
-            </label>
-            <div
-              className={classes.InputOuter}
-              style={idRequired ? {} : { display: "none" }}
-            >
-              <MainInput
-                role="textbox"
-                type="text"
-                id="lastName"
-                name="lastName"
-                placeholder={translate("Enter your last name")}
-                value={registerInfo.lastName}
-                onChange={(value) => updateRegisterInfo("lastName", value)}
-                noAutoComplete
-                isInvalid={!validChecks.lastName}
-              />
-            </div>
-
-            <label
-              htmlFor="birthDate"
-              style={idRequired ? {} : { display: "none" }}
-            >
-              {translate("Date of Birth")}
-              <span className={classes.Required}>*</span>
-            </label>
-            <div
-              className={classes.InputOuter}
-              style={idRequired ? {} : { display: "none" }}
-            >
-              <MainInput
-                type="date"
-                id="birthDate"
-                name="birthDate"
-                value={registerInfo.birthDate}
-                onChange={(value) => updateRegisterInfo("birthDate", value)}
-                noAutoComplete
-                isInvalid={!validChecks.birthDate}
-              />
-            </div>
-
-            <label
-              htmlFor="phoneNumber"
-              style={idRequired ? {} : { display: "none" }}
-            >
-              {translate("Phone Number")}
-              <span className={classes.Required}>*</span>
-            </label>
-            <div
-              className={classes.InputOuter}
-              style={idRequired ? {} : { display: "none" }}
-            >
-              <div className={classes.RegPhoneNum}>
-                <PhoneInput
-                  className={classes.RegPhone}
-                  international
-                  defaultCountry={siteCountry}
-                  value={registerInfo.phoneNumber}
-                  onChange={(value) => updateRegisterInfo("phoneNumber", value)}
-                />
-              </div>
-            </div>
-
-            <label
-              htmlFor="playerID"
-              style={idRequired ? {} : { display: "none" }}
-            >
-              {translate("ID Code")}
-              <span className={classes.Required}>∗</span>
-            </label>
-            <div
-              className={classes.InputOuter}
-              style={idRequired ? {} : { display: "none" }}
-            >
-              <MainInput
-                role="textbox"
-                type="text"
-                id="playerID"
-                name="playerID"
-                placeholder={translate("Type your Identification Code")}
-                value={registerInfo.idCode}
-                onChange={(value) => updateRegisterInfo("idCode", value)}
-                noAutoComplete
-                isInvalid={!validChecks.idCode}
-              />
-            </div>
-
-            <label htmlFor="country">
-              {translate("Country")}
-              <span className={classes.Required}>∗</span>
-            </label>
+        {step === 1 ? (
+          <div className={classes.AuthStep}>
             <div className={classes.InputOuter}>
-              <select
-                id="country"
-                name="country"
-                className={classes.InputOuterCountrySelect}
-                value={registerInfo.country}
-                // onChange={(e) =>
-                //   setRegisterInfo({ ...registerInfo, country: e.target.value })
-                // }
-                onChange={(e) => updateRegisterInfo("country", e.target.value)}
-              >
-                <option value="AF">Afghanistan</option>
-                <option value="AL">Albania</option>
-                <option value="DZ">Algeria</option>
-                <option value="AS">American Samoa</option>
-                <option value="AD">Andorra</option>
-                <option value="AO">Angola</option>
-                <option value="AI">Anguilla</option>
-                <option value="AG">Antigua and Barbuda</option>
-                <option value="AR">Argentina</option>
-                <option value="AM">Armenia</option>
-                <option value="AW">Aruba</option>
-                <option value="AU">Australia</option>
-                <option value="AT">Austria</option>
-                <option value="AZ">Azerbaijan</option>
-                <option value="BS">Bahamas</option>
-                <option value="BH">Bahrain</option>
-                <option value="BD">Bangladesh</option>
-                <option value="BB">Barbados</option>
-                <option value="BY">Belarus</option>
-                <option value="BE">Belgium</option>
-                <option value="BZ">Belize</option>
-                <option value="BJ">Benin</option>
-                <option value="BM">Bermuda</option>
-                <option value="BT">Bhutan</option>
-                <option value="BO">Bolivia</option>
-                <option value="BA">Bosnia and Herzegovina</option>
-                <option value="BW">Botswana</option>
-                <option value="BR">Brazil</option>
-                <option value="BN">Brunei</option>
-                <option value="BG">Bulgaria</option>
-                <option value="BF">Burkina Faso</option>
-                <option value="BI">Burundi</option>
-                <option value="KH">Cambodia</option>
-                <option value="CM">Cameroon</option>
-                <option value="CA">Canada</option>
-                <option value="CV">Cape Verde</option>
-                <option value="KY">Cayman Islands</option>
-                <option value="CF">Central African Republic</option>
-                <option value="TD">Chad</option>
-                <option value="CL">Chile</option>
-                <option value="CN">China</option>
-                <option value="CO">Colombia</option>
-                <option value="KM">Comoros</option>
-                <option value="CG">Congo (Brazzaville)</option>
-                <option value="CD">Congo (Kinshasa)</option>
-                <option value="CR">Costa Rica</option>
-                <option value="CI">Côte d'Ivoire</option>
-                <option value="HR">Croatia</option>
-                <option value="CU">Cuba</option>
-                <option value="CY">Cyprus</option>
-                <option value="CZ">Czech Republic</option>
-                <option value="DK">Denmark</option>
-                <option value="DJ">Djibouti</option>
-                <option value="DM">Dominica</option>
-                <option value="DO">Dominican Republic</option>
-                <option value="EC">Ecuador</option>
-                <option value="EG">Egypt</option>
-                <option value="SV">El Salvador</option>
-                <option value="GQ">Equatorial Guinea</option>
-                <option value="ER">Eritrea</option>
-                <option value="EE">Estonia</option>
-                <option value="SZ">Eswatini</option>
-                <option value="ET">Ethiopia</option>
-                <option value="FJ">Fiji</option>
-                <option value="FI">Finland</option>
-                <option value="FR">France</option>
-                <option value="GA">Gabon</option>
-                <option value="GM">Gambia</option>
-                <option value="GE">Georgia</option>
-                <option value="DE">Germany</option>
-                <option value="GH">Ghana</option>
-                <option value="GR">Greece</option>
-                <option value="GD">Grenada</option>
-                <option value="GU">Guam</option>
-                <option value="GT">Guatemala</option>
-                <option value="GN">Guinea</option>
-                <option value="GW">Guinea-Bissau</option>
-                <option value="GY">Guyana</option>
-                <option value="HT">Haiti</option>
-                <option value="HN">Honduras</option>
-                <option value="HU">Hungary</option>
-                <option value="IS">Iceland</option>
-                <option value="IN">India</option>
-                <option value="ID">Indonesia</option>
-                <option value="IR">Iran</option>
-                <option value="IQ">Iraq</option>
-                <option value="IE">Ireland</option>
-                <option value="IL">Israel</option>
-                <option value="IT">Italy</option>
-                <option value="JM">Jamaica</option>
-                <option value="JP">Japan</option>
-                <option value="JO">Jordan</option>
-                <option value="KZ">Kazakhstan</option>
-                <option value="KE">Kenya</option>
-                <option value="KI">Kiribati</option>
-                <option value="KW">Kuwait</option>
-                <option value="KG">Kyrgyzstan</option>
-                <option value="LA">Laos</option>
-                <option value="LV">Latvia</option>
-                <option value="LB">Lebanon</option>
-                <option value="LS">Lesotho</option>
-                <option value="LR">Liberia</option>
-                <option value="LY">Libya</option>
-                <option value="LI">Liechtenstein</option>
-                <option value="LT">Lithuania</option>
-                <option value="LU">Luxembourg</option>
-                <option value="MG">Madagascar</option>
-                <option value="MW">Malawi</option>
-                <option value="MY">Malaysia</option>
-                <option value="MV">Maldives</option>
-                <option value="ML">Mali</option>
-                <option value="MT">Malta</option>
-                <option value="MH">Marshall Islands</option>
-                <option value="MR">Mauritania</option>
-                <option value="MU">Mauritius</option>
-                <option value="MX">Mexico</option>
-                <option value="FM">Micronesia</option>
-                <option value="MD">Moldova</option>
-                <option value="MC">Monaco</option>
-                <option value="MN">Mongolia</option>
-                <option value="ME">Montenegro</option>
-                <option value="MA">Morocco</option>
-                <option value="MZ">Mozambique</option>
-                <option value="MM">Myanmar</option>
-                <option value="NA">Namibia</option>
-                <option value="NR">Nauru</option>
-                <option value="NP">Nepal</option>
-                <option value="NL">Netherlands</option>
-                <option value="NZ">New Zealand</option>
-                <option value="NI">Nicaragua</option>
-                <option value="NE">Niger</option>
-                <option value="NG">Nigeria</option>
-                <option value="NO">Norway</option>
-                <option value="OM">Oman</option>
-                <option value="PK">Pakistan</option>
-                <option value="PW">Palau</option>
-                <option value="PA">Panama</option>
-                <option value="PG">Papua New Guinea</option>
-                <option value="PY">Paraguay</option>
-                <option value="PE">Peru</option>
-                <option value="PH">Philippines</option>
-                <option value="PL">Poland</option>
-                <option value="PT">Portugal</option>
-                <option value="QA">Qatar</option>
-                <option value="RO">Romania</option>
-                <option value="RU">Russia</option>
-                <option value="RW">Rwanda</option>
-                <option value="WS">Samoa</option>
-                <option value="SM">San Marino</option>
-                <option value="ST">Sao Tome and Principe</option>
-                <option value="SA">Saudi Arabia</option>
-                <option value="SN">Senegal</option>
-                <option value="RS">Serbia</option>
-                <option value="SC">Seychelles</option>
-                <option value="SL">Sierra Leone</option>
-                <option value="SG">Singapore</option>
-                <option value="SK">Slovakia</option>
-                <option value="SI">Slovenia</option>
-                <option value="SB">Solomon Islands</option>
-                <option value="SO">Somalia</option>
-                <option value="ZA">South Africa</option>
-                <option value="ES">Spain</option>
-                <option value="LK">Sri Lanka</option>
-                <option value="SD">Sudan</option>
-                <option value="SR">Suriname</option>
-                <option value="SE">Sweden</option>
-                <option value="CH">Switzerland</option>
-                <option value="SY">Syria</option>
-                <option value="TW">Taiwan</option>
-                <option value="TJ">Tajikistan</option>
-                <option value="TZ">Tanzania</option>
-                <option value="TH">Thailand</option>
-                <option value="TL">Timor-Leste</option>
-                <option value="TG">Togo</option>
-                <option value="TO">Tonga</option>
-                <option value="TT">Trinidad and Tobago</option>
-                <option value="TN">Tunisia</option>
-                <option value="TR">Turkey</option>
-                <option value="TM">Turkmenistan</option>
-                <option value="TV">Tuvalu</option>
-                <option value="UG">Uganda</option>
-                <option value="UA">Ukraine</option>
-                <option value="AE">United Arab Emirates</option>
-                <option value="GB">United Kingdom</option>
-                <option value="US">United States</option>
-                <option value="UY">Uruguay</option>
-                <option value="UZ">Uzbekistan</option>
-                <option value="VU">Vanuatu</option>
-                <option value="VE">Venezuela</option>
-                <option value="VN">Vietnam</option>
-                <option value="YE">Yemen</option>
-                <option value="ZM">Zambia</option>
-                <option value="ZW">Zimbabwe</option>
-              </select>
-            </div>
-
-            <label htmlFor="code" style={{ display: "none" }}>
-              {translate("Affiliate Code")}
-              <span className={classes.Optional}> (Optional)</span>
-            </label>
-            <div className={classes.InputOuter} style={{ display: "none" }}>
               <MainInput
-                role="textbox"
-                type="text"
-                id="code"
-                name="code"
-                placeholder={translate("Type your Affiliate Code")}
-                value={registerInfo.code}
-                onChange={(value) => updateRegisterInfo("code", value)}
-                noAutoComplete
-                isInvalid={!validChecks.email}
+                type='email'
+                value={form.email}
+                placeholder={translate('Email')}
+                onChange={(value) => update('email', value)}
+                isInvalid={Boolean(form.email) && !emailValid}
               />
             </div>
 
-            <div className={classes.CheckboxContainer}>
-              <input
-                checked={isOver18}
-                onChange={(e) => setIsOver18(e.target.checked)}
-                type="checkbox"
-                id="over18"
-                name="over18"
-                className={classes.CheckboxInput}
+            <div className={classes.InputOuter}>
+              <MainInput
+                type={showPassword ? 'text' : 'password'}
+                value={form.password}
+                placeholder={translate('Password')}
+                onChange={(value) => update('password', value.trim())}
+                isInvalid={Boolean(form.password) && !passwordValid}
+                rightIcon={<EyeIcon className={showPassword ? classes.ShowPasswordIcon : `${classes.ShowPasswordIcon} ${classes.ShowLine}`} onClick={() => setShowPassword((value) => !value)} />}
               />
-              <label htmlFor="over18" className={classes.CheckboxLabel}>
-                {translate("Yes, I'm over 18")}*
-              </label>
             </div>
 
-            {cookiesSettings === true ? (
-              <div className={classes.CheckboxContainer}>
-                <input
-                  checked={isTermsAccepted}
-                  onChange={(e) => setIsTermsAccepted(e.target.checked)}
-                  type="checkbox"
-                  id="terms"
-                  name="terms"
-                  className={classes.CheckboxInput}
-                />
-                <label htmlFor="terms" className={classes.CheckboxLabel}>
-                  {translate(
-                    "By accessing this site I attest that I have read and agree with the"
-                  )}{" "}
-                  <Link
-                    to="/pages/terms-of-service"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <b>{translate("Terms and Conditions")}</b>.
-                  </Link>
-                  *
-                </label>
+            <div className={classes.AuthTwoColumns}>
+              <div className={`${classes.NativeField} ${classes.CustomSelectField}`}>
+                <label>{translate('Country')}</label>
+                <button
+                  type='button'
+                  className={classes.CustomSelectTrigger}
+                  onClick={() => {
+                    setCountryMenuOpen((open) => !open);
+                    setPhoneCountryMenuOpen(false);
+                  }}
+                  aria-expanded={countryMenuOpen}
+                >
+                  <span>{selectedPhoneCountry?.name || translate('Country')}</span>
+                  <AngleDownIcon className={classes.CustomSelectArrow} aria-hidden='true' />
+                </button>
+                {countryMenuOpen ? (
+                  <div className={classes.CustomSelectMenu}>
+                    {countries.map((country) => (
+                      <button
+                        key={country.code}
+                        type='button'
+                        className={`${classes.CustomSelectOption} ${form.country === country.code ? classes.CustomSelectOptionActive : ''}`}
+                        onClick={() => {
+                          setForm((current) => ({ ...current, country: country.code }));
+                          setCountryMenuOpen(false);
+                          setPhoneCountryMenuOpen(false);
+                        }}
+                      >
+                        <img className={classes.CustomSelectFlag} src={getCountryFlagUrl(country.code)} alt='' aria-hidden='true' />
+                        <span>{country.name}</span>
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
               </div>
+
+              <div className={`${classes.NativeField} ${classes.ReadOnlyField}`}>
+                <label>{translate('Currency')}</label>
+                <div className={classes.ReadOnlyValue}>{form.currency || '—'}</div>
+              </div>
+            </div>
+
+            <div className={`${classes.PhoneField} ${phoneTouched && !phoneValid ? classes.PhoneFieldInvalid : ''}`}>
+              <div className={classes.PhoneDialSelector}>
+                <button
+                  type='button'
+                  className={classes.PhoneDialTrigger}
+                  aria-label={translate('Phone country code')}
+                  aria-expanded={phoneCountryMenuOpen}
+                  onClick={() => {
+                    setPhoneCountryMenuOpen((open) => !open);
+                    setCountryMenuOpen(false);
+                  }}
+                >
+                  {getCountryFlagUrl(form.country) ? <img className={classes.PhoneFlag} src={getCountryFlagUrl(form.country)} alt='' aria-hidden='true' /> : null}
+                  <span className={classes.PhoneDialCode}>{selectedPhoneCountry?.dialCode || '—'}</span>
+                  <AngleDownIcon className={classes.PhoneDialArrow} aria-hidden='true' />
+                </button>
+                {phoneCountryMenuOpen ? (
+                  <div className={`${classes.CustomSelectMenu} ${classes.PhoneCountryMenu}`}>
+                    {countries.map((country) => (
+                      <button
+                        key={`phone-${country.code}`}
+                        type='button'
+                        className={`${classes.CustomSelectOption} ${form.country === country.code ? classes.CustomSelectOptionActive : ''}`}
+                        onClick={() => {
+                          setForm((current) => ({ ...current, country: country.code }));
+                          setPhoneCountryMenuOpen(false);
+                          setPhoneTouched(true);
+                        }}
+                      >
+                        <img className={classes.CustomSelectFlag} src={getCountryFlagUrl(country.code)} alt='' aria-hidden='true' />
+                        <span className={classes.PhoneCountryOptionText}>{country.name}</span>
+                        <span className={classes.PhoneCountryOptionCode}>{country.dialCode}</span>
+                      </button>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+
+              <input
+                className={classes.PhoneNumberInput}
+                type='tel'
+                inputMode='numeric'
+                autoComplete='tel-national'
+                value={form.phone}
+                placeholder={translate('Number')}
+                onBlur={() => setPhoneTouched(true)}
+                onChange={(event) => {
+                  const digits = event.target.value.replace(/\D/g, '').slice(0, 15);
+                  update('phone', digits);
+                }}
+              />
+            </div>
+
+            <div className={classes.ConsentRow}>
+              <Checkbox checked={form.acceptTerms} onChange={() => update('acceptTerms', !form.acceptTerms)} />
+              <span>{translate('I am 18 years old and I accept the Terms and Conditions and Privacy Policy.')}</span>
+            </div>
+            <div className={classes.ConsentRow}>
+              <Checkbox checked={form.marketing} onChange={() => update('marketing', !form.marketing)} />
+              <span>{translate('I agree to receive marketing promotions.')}</span>
+            </div>
+
+            <MainButton color='primary' type='button' disabled={!step1Valid} onClick={() => setStep(2)}>
+              {translate('Continue')}
+            </MainButton>
+          </div>
+        ) : (
+          <div className={classes.AuthStep}>
+            <div className={classes.AuthTwoColumns}>
+              <div className={classes.InputOuter}>
+                <MainInput value={form.firstName} placeholder={translate('First Name')} onChange={(value) => update('firstName', value)} />
+              </div>
+              <div className={classes.InputOuter}>
+                <MainInput value={form.lastName} placeholder={translate('Surname')} onChange={(value) => update('lastName', value)} />
+              </div>
+            </div>
+
+            <div className={classes.NativeField}>
+              <label>{translate('Birthdate')}</label>
+              <input
+                type='date'
+                value={form.birthDate}
+                max={new Date(new Date().setFullYear(new Date().getFullYear() - 18)).toISOString().slice(0, 10)}
+                onChange={(event) => update('birthDate', event.target.value)}
+              />
+            </div>
+
+            <div className={`${classes.NativeField} ${classes.CustomSelectField}`}>
+              <label>{translate('Nationality')}</label>
+              <button
+                type='button'
+                className={classes.CustomSelectTrigger}
+                onClick={() => {
+                  setNationalityMenuOpen((open) => !open);
+                  setCountryMenuOpen(false);
+                  setPhoneCountryMenuOpen(false);
+                }}
+                aria-expanded={nationalityMenuOpen}
+              >
+                <span>{countries.find((country) => country.code === form.nationality)?.name || translate('Nationality')}</span>
+                <AngleDownIcon className={classes.CustomSelectArrow} aria-hidden='true' />
+              </button>
+              {nationalityMenuOpen ? (
+                <div className={classes.CustomSelectMenu}>
+                  {countries.map((country) => (
+                    <button
+                      key={`nationality-${country.code}`}
+                      type='button'
+                      className={`${classes.CustomSelectOption} ${form.nationality === country.code ? classes.CustomSelectOptionActive : ''}`}
+                      onClick={() => {
+                        update('nationality', country.code);
+                        setNationalityMenuOpen(false);
+                      }}
+                    >
+                      <img className={classes.CustomSelectFlag} src={getCountryFlagUrl(country.code)} alt='' aria-hidden='true' />
+                      <span>{country.name}</span>
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+
+            <div className={`${classes.NativeField} ${classes.CustomSelectField}`}>
+              <label>{translate('Document Type')}</label>
+              <button
+                type='button'
+                className={classes.CustomSelectTrigger}
+                onClick={() => {
+                  setDocumentTypeMenuOpen((open) => !open);
+                  setNationalityMenuOpen(false);
+                  setCountryMenuOpen(false);
+                  setPhoneCountryMenuOpen(false);
+                }}
+                aria-expanded={documentTypeMenuOpen}
+              >
+                <span>
+                  {form.documentType === 'nationalId'
+                    ? translate('National Identity')
+                    : form.documentType === 'passport'
+                      ? translate('Passport')
+                      : translate('Document Type')}
+                </span>
+                <AngleDownIcon className={classes.CustomSelectArrow} aria-hidden='true' />
+              </button>
+              {documentTypeMenuOpen ? (
+                <div className={classes.CustomSelectMenu}>
+                  {[
+                    { value: 'nationalId', label: translate('National Identity') },
+                    { value: 'passport', label: translate('Passport') },
+                  ].map((option) => (
+                    <button
+                      key={option.value}
+                      type='button'
+                      className={`${classes.CustomSelectOption} ${form.documentType === option.value ? classes.CustomSelectOptionActive : ''}`}
+                      onClick={() => {
+                        update('documentType', option.value);
+                        setDocumentTypeMenuOpen(false);
+                      }}
+                    >
+                      <span>{option.label}</span>
+                    </button>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+
+            <div className={classes.InputOuter}>
+              <MainInput
+                value={form.documentId}
+                placeholder={translate('Document ID')}
+                onChange={(value) => update('documentId', value)}
+              />
+            </div>
+
+            {form.birthDate && !birthDateValid ? (
+              <div className={classes.FormValidationMessage}>{translate('You must be over 18')}</div>
             ) : null}
 
-            <div className={classes.CheckboxContainer}>
-              <input
-                checked={registerInfo.newsletter}
-                onChange={(e) => setNewsletter(e.target.checked)}
-                type="checkbox"
-                id="newsletter"
-                name="newsletter"
-                className={classes.CheckboxInput}
-              />
-              <label htmlFor="newsletter" className={classes.CheckboxLabel}>
-                {translate(
-                  "Subscribe me to official updates and announcements"
-                )}
-                .
-              </label>
-            </div>
-
-            <div className={classes.BigBtn}>
-              <MainButton
-                loading={loginLoading}
-                color="primary"
-                disabled={isRegisterDisabled}
-                onClick={() =>
-                  dispatch(register(registerInfo, navigate, location.pathname))
-                }
-                style={{ width: "100%" }}
-              >
-                {translate("Register")}
+            <div className={classes.RegisterActionRow}>
+              <button type='button' className={classes.SecondaryAuthButton} onClick={() => setStep(1)}>
+                {translate('Back')}
+              </button>
+              <MainButton color='primary' type='submit' loading={loginLoading} disabled={!step2Valid || loginLoading}>
+                {translate('Create Account')}
               </MainButton>
             </div>
           </div>
         )}
 
-        {config.VITE_GOOGLE_CLIENT_ID !== "" && (
-          <>
-            <p className={classes.LoginWith}>{translate("or register with")}</p>
-            <GoogleOAuthProvider clientId={config.VITE_GOOGLE_CLIENT_ID}>
-              <AlternativeMethods />
-            </GoogleOAuthProvider>
-          </>
-        )}
-        <p
-          style={{
-            fontSize: "0.75rem",
-            fontWeight: "400",
-            cursor: "pointer",
-            textAlign: "center",
-            textDecoration: "underline",
-            color: "white",
-          }}
-          onClick={() => changeTab("login")}
-        >
-          <i>{translate("Already have an account? Log in")}</i>
-        </p>
+        {submitError ? <div className={classes.FormValidationMessage}>{submitError}</div> : null}
+
+        <div className={classes.AuthSwitch}>
+          <span>{translate('Already have an account?')}</span>
+          <button type='button' onClick={() => changeTab('login')}>{translate('Sign In')}</button>
+        </div>
+
+        {bonusLoading ? <div className={classes.AuthLoading}>{translate('Loading bonuses')}...</div> : null}
       </form>
     </div>
   );

@@ -22,15 +22,18 @@ const AnnouncementModal = () => {
   );
 
   useEffect(() => {
-    if (!siteSettings) {
-      navigate(location.pathname);
-    } else {
-      if (isMobile) {
-        setLogo(siteSettings.AnouncementImgMobile);
-      } else {
-        setLogo(siteSettings.AnouncementImg);
-      }
+    if (!siteSettings) return;
+
+    const image = String(
+      isMobile ? siteSettings?.AnouncementImgMobile || "" : siteSettings?.AnouncementImg || ""
+    ).trim();
+
+    if (!image) {
+      navigate(location.pathname, { replace: true });
+      return;
     }
+
+    setLogo(image);
   }, [siteSettings, navigate, location.pathname, isMobile]);
 
   const addParamsToUrl = (modal, tab) => {
@@ -48,6 +51,8 @@ const AnnouncementModal = () => {
       sessionStorage.setItem("promoShown", "true");
     };
   }, []);
+
+  if (!logo) return null;
 
   return (
     <div className={classes.AnnouncementModal}>

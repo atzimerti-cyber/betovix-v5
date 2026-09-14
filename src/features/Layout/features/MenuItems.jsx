@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import StarIcon from "../../../assets/svgs/star.svg?react";
 import BellIcon from "../../../assets/svgs/bell.svg?react";
 import LiveSupportIcon from "../../../assets/svgs/live-support.svg?react";
 import PaperIcon from "../../../assets/svgs/paper2.svg?react";
@@ -9,7 +8,7 @@ import ExchangeIcon from "../../../assets/svgs/exchange.svg?react";
 import LogoutIcon from "../../../assets/svgs/logout.svg?react";
 import UserIcon from "../../../assets/svgs/user.svg?react";
 import AffIcon from "../../../assets/svgs/affiliate.svg?react";
-import { loginActions } from "../../../pages/Login/loginSlice";
+import { logout } from "../../../pages/Login/loginAsyncActions";
 import classes from "./MenuItems.module.css";
 import { translate } from "../../../utils/translations";
 import { useMediaQuery } from "react-responsive";
@@ -28,10 +27,6 @@ const MenuItems = (props) => {
   );
 
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
-
-  const newRewards = useSelector(
-    (state) => state.gamification.availableRewards
-  );
 
   const permissions = useSelector((state) => state.login.permissions);
   const support = useSelector((state) => state.layout.tawkToScript);
@@ -116,22 +111,6 @@ const MenuItems = (props) => {
           </a>
         </li>
       )}
-      {permissions.AllowGamification && (
-        <li>
-          <a
-            onClick={() => {
-              navigate(`rewards`);
-              props.onClick();
-            }}
-          >
-            <StarIcon />
-            <span>{translate("My Rewards")}</span>
-            {newRewards > 0 && (
-              <div className={classes.NumberBadge}>{newRewards}</div>
-            )}
-          </a>
-        </li>
-      )}
       {permissions.AllowToSports && (
         <li>
           <a
@@ -171,9 +150,10 @@ const MenuItems = (props) => {
       <li>
         <a
           onClick={() => {
-            window.location.reload();
-            dispatch(loginActions.logout());
-            props.onClick();
+            dispatch(logout()).finally(() => {
+              props.onClick();
+              navigate("/", { replace: true });
+            });
           }}
           className={classes.LogOutBtn}
         >

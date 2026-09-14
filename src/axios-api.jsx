@@ -9,9 +9,7 @@ const shouldAttachDeviceTelemetry = (url) => {
     if (typeof url !== 'string') return false;
 
     const normalizedUrl = url.toLowerCase();
-    return normalizedUrl.includes('login/authenticate2')
-        || normalizedUrl.includes('login/authenticategoogle')
-        || normalizedUrl.includes('auth/login');
+    return normalizedUrl.includes('auth/login');
 };
 
 const fetchClient = () => {

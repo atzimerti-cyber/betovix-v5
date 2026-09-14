@@ -14,10 +14,6 @@ import BonusModal from "./Modals/BonusModal";
 
 import SearchModal from "./Modals/SearchModal";
 
-import AchievementModal from "./Modals/Gamification Modals/AchievementModal";
-import HeroConfirmation from "./Modals/HeroConfirmation";
-import BuyLevelConfirmation from "./Modals/BuyLevelConfirmation";
-import YourProgress from "../../pages/UserGamification.jsx/features/YourProgress";
 
 import { modalActions } from "./modalSlice";
 import { useEffect } from "react";
@@ -46,12 +42,22 @@ const ModalRoot = () => {
 
   const showVoucherModal = useSelector((state) => state.app.showVoucherModal);
   const inLobbySearch = useSelector((state) => state.modal.inLobbySearch);
-  const permissions = useSelector((state) => state.login.permissions);
   const onCloseModal = useSelector((state) => state.modal.onCloseModal);
   const user = useSelector((state) => state.login.user);
+  const siteSettings = useSelector((state) => state.app.siteSettings);
   const query = new URLSearchParams(location.search);
   let modal = query.get("modal");
   const tab = query.get("tab");
+  const resetToken = query.get("resetToken");
+
+  useEffect(() => {
+    if (!resetToken || (modal === "auth" && tab === "forgot-password")) return;
+
+    const searchParams = new URLSearchParams(location.search);
+    searchParams.set("modal", "auth");
+    searchParams.set("tab", "forgot-password");
+    navigate(`${location.pathname}?${searchParams.toString()}`, { replace: true });
+  }, [resetToken, modal, tab, location.pathname, location.search, navigate]);
 
   useEffect(() => {
     return () => dispatch(modalActions.setOnCloseModal(null));
@@ -97,7 +103,17 @@ const ModalRoot = () => {
   else if (modal === "load-ticket") modalPage = <LoadTicketModal />;
   else if (modal === "promo-code") modalPage = <PromoCodeModal />;
   else if (modal === "statistics") modalPage = <StatisticsModal />;
-  else if (modal === "announcement") modalPage = <AnnouncementModal />;
+  else if (modal === "announcement") {
+    const isMobileViewport = window.matchMedia("(max-width: 768px)").matches;
+    const announcementImage = String(
+      isMobileViewport
+        ? siteSettings?.AnouncementImgMobile || ""
+        : siteSettings?.AnouncementImg || ""
+    ).trim();
+
+    if (announcementImage) modalPage = <AnnouncementModal />;
+    else modal = null;
+  }
   else if (modal === "promotion") modalPage = <PromotionModal />;
   else if (modal === "transactions") modalPage = <TransactionsModal />;
   else if (modal === "payment")
@@ -114,18 +130,6 @@ const ModalRoot = () => {
       modalPage = <Navigate replace to={getUrlWithParams("auth", "login")} />;
   } else if (modal === "n") {
     if (user) modalPage = <NotificationPopUp />;
-  } else if (modal === "achievement") {
-    if (user && permissions.AllowGamification) modalPage = <AchievementModal />;
-    else
-      modalPage = <Navigate replace to={getUrlWithParams("auth", "login")} />;
-  } else if (modal === "hero-confirm") modalPage = <HeroConfirmation />;
-  else if (modal === "buy-level-confirm") {
-    if (user && !permissions.AllowGamification)
-      modalPage = <BuyLevelConfirmation />;
-  } else if (modal === "your-progress") {
-    if (user && permissions.AllowGamification) modalPage = <YourProgress />;
-    else
-      modalPage = <Navigate replace to={getUrlWithParams("auth", "login")} />;
   } else if (modal === "game-options") {
     if (user) modalPage = <CasinoGameOptionsModal onClose={returnToPrevious} />;
     else
@@ -136,20 +140,26 @@ const ModalRoot = () => {
     modalPage = <PrintTicket onClose={returnToPrevious} />;
 
   useEffect(() => {
+    if (!siteSettings || user || modal != null) return undefined;
+
+    const desktopImage = String(siteSettings?.AnouncementImg || "").trim();
+    const mobileImage = String(siteSettings?.AnouncementImgMobile || "").trim();
+    const isMobileViewport = window.matchMedia("(max-width: 768px)").matches;
+    const announcementImage = isMobileViewport ? mobileImage : desktopImage;
     const isShown = sessionStorage.getItem("promoShown");
 
-    if (!isShown && modal == null && !user) {
-      setTimeout(() => {
-        // console.log('isShown')
-        modal = true;
-        const searchParams = new URLSearchParams(location.search);
-        searchParams.set("modal", "announcement");
-        navigate(`${location.pathname}?${searchParams.toString()}`, {
-          replace: true,
-        });
-      }, 1000);
-    }
-  }, []);
+    if (isShown || !announcementImage) return undefined;
+
+    const timeoutId = window.setTimeout(() => {
+      const searchParams = new URLSearchParams(location.search);
+      searchParams.set("modal", "announcement");
+      navigate(`${location.pathname}?${searchParams.toString()}`, {
+        replace: true,
+      });
+    }, 1000);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [siteSettings, user, modal, location.pathname, location.search, navigate]);
 
   return (
     <div className={classes.ModalRoot} id="modal-root">

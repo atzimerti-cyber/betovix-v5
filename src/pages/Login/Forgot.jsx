@@ -1,385 +1,161 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 
-import classes from "./Forgot.module.css";
-import { translate } from "../../utils/translations";
-import MainInput from "../../features/UI/Inputs/MainInput";
-import MainButton from "../../features/UI/Buttons/MainButton";
-import useDebounce from "../../hooks/useDebounce";
-import Autoheight from "../../features/UI/Autoheight/Autoheight";
-import {
-  sentRecoveryUsername,
-  verifyCode,
-  updatePassword,
-} from "./loginAsyncActions";
-import ArrowButton from "../../features/UI/Buttons/ArrowButton";
-import AngleLeftIcon from "../../assets/svgs/angle-left.svg?react";
-import EyeIcon from "../../assets/svgs/eye.svg?react";
-import Times2Icon from "../../assets/svgs/times2.svg?react";
-import CheckIcon from "../../assets/svgs/check.svg?react";
-import { loginActions } from "./loginSlice";
+import MainInput from '../../features/UI/Inputs/MainInput';
+import MainButton from '../../features/UI/Buttons/MainButton';
+import EyeIcon from '../../assets/svgs/eye.svg?react';
+import classes from './Forgot.module.css';
+import { requestPasswordReset, resetPassword } from './loginAsyncActions';
+import { translate } from '../../utils/translations';
 
 const Forgot = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const dispatch = useDispatch();
-
-  const lang = useSelector((state) => state.app.lang);
-  const recoverId = useSelector((state) => state.login.recoverId);
-  const usernameSent = useSelector((state) => state.login.usernameSent);
-  const settings = useSelector((state) => state.app.settings);
   const updateLoading = useSelector((state) => state.login.updateLoading);
+  const passwordMinLength = useSelector((state) => Number(state.app.settings?.passwordMinLength || 6));
 
-  const [username, setUsername] = useState("");
-  const [code, setCode] = useState("");
-  const [isUpdateDisabled, setIsUpdateDisabled] = useState(true);
+  const searchParams = useMemo(() => new URLSearchParams(location.search), [location.search]);
+  const tokenFromUrl = searchParams.get('resetToken') || searchParams.get('token') || '';
 
-  const [validChecks, setValidChecks] = useState({
-    password: {
-      valid: true,
-      show: false,
-      minSize: true,
-      numbers: true,
-      special: true,
-      cases: true,
-    },
-    verifyPassword: null,
-  });
+  const [usernameOrEmail, setUsernameOrEmail] = useState('');
+  const [resetToken, setResetToken] = useState(tokenFromUrl);
+  const [requested, setRequested] = useState(Boolean(tokenFromUrl));
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
-  const [updateInfo, setUpdateInfo] = useState({
-    Password: null,
-    RePassword: null,
-  });
+  useEffect(() => {
+    if (tokenFromUrl) {
+      setResetToken(tokenFromUrl);
+      setRequested(true);
+    }
+  }, [tokenFromUrl]);
 
-  const debPassword = useDebounce(updateInfo.Password);
-  const debVerifyPassword = useDebounce(updateInfo.RePassword);
-
-  const updateRecoverInfo = (property, value) => {
-    if (property === "password") value = value.trim();
-
-    setUpdateInfo({ ...updateInfo, [property]: value });
+  const changeTab = (tab) => {
+    const params = new URLSearchParams(location.search);
+    params.set('modal', 'auth');
+    params.set('tab', tab);
+    params.delete('resetToken');
+    params.delete('token');
+    navigate(`${location.pathname}?${params.toString()}`, { replace: true });
   };
 
-  useEffect(() => {
-    if (!debPassword) return;
+  const onRequestReset = async (event) => {
+    event.preventDefault();
+    if (!usernameOrEmail.trim() || updateLoading) return;
 
-    const validMinSize = debPassword.length >= settings.passwordMinLength;
+    const result = await dispatch(requestPasswordReset(usernameOrEmail));
+    if (!result?.success) return;
 
-    const hasUppercase = /[A-Z]/.test(debPassword);
-    const hasLowercase = /[a-z]/.test(debPassword);
-    const validCases = hasUppercase && hasLowercase;
+    // Current backend returns ResetToken only in DEV until notification delivery is fully wired.
+    // In production the user receives the token/link by email and can return to this form.
+    if (result.data?.resetToken) setResetToken(result.data.resetToken);
+    setRequested(true);
+  };
 
-    const validNumbers = /\d/.test(debPassword);
+  const passwordValid = newPassword.length >= passwordMinLength;
+  const passwordsMatch = newPassword === confirmPassword && Boolean(confirmPassword);
 
-    const specialCharRegex = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
-    const validSpecial = specialCharRegex.test(debPassword);
+  const onReset = async (event) => {
+    event.preventDefault();
+    if (!resetToken.trim() || !passwordValid || !passwordsMatch || updateLoading) return;
 
-    const isValid = validMinSize && validCases && validNumbers && validSpecial;
-
-    // Functional update to avoid stale state
-    setValidChecks((prevValidChecks) => ({
-      ...prevValidChecks,
-      password: {
-        valid: isValid,
-        show: prevValidChecks.password.show,
-        minSize: validMinSize,
-        numbers: validNumbers,
-        special: validSpecial,
-        cases: validCases,
-      },
-    }));
-  }, [debPassword, settings.passwordMinLength]);
-
-  useEffect(() => {
-    if (!debPassword || !debVerifyPassword) return;
-
-    const isMatching = debPassword === debVerifyPassword;
-    setValidChecks({
-      ...validChecks,
-      verifyPassword: isMatching,
-    });
-  }, [debPassword, debVerifyPassword]);
-
-  useEffect(() => {
-    if (
-      updateInfo.Password &&
-      updateInfo.RePassword &&
-      validChecks.password.valid &&
-      validChecks.verifyPassword
-    )
-      setIsUpdateDisabled(false);
-    else setIsUpdateDisabled(true);
-  }, [validChecks.password.valid, validChecks.verifyPassword]);
-
-  const onTogglePassword = () => {
-    const updated = {
-      ...validChecks,
-      password: {
-        ...validChecks.password,
-        show: !validChecks.password.show,
-      },
-    };
-    setValidChecks(updated);
+    const result = await dispatch(resetPassword(resetToken, newPassword));
+    if (result?.success) changeTab('login');
   };
 
   return (
-    <form className={classes.RecoverForm}>
-      {!usernameSent && !recoverId && (
-        <>
-          <label className={classes.Text} htmlFor="username">
-            {translate("Username")}
-          </label>
+    <div className={classes.ForgotShell}>
+      {!requested ? (
+        <form className={classes.Form} onSubmit={onRequestReset}>
+          <div className={classes.Header}>
+            <h2>{translate('Forgot your password?')}</h2>
+            <p>{translate('Enter your username or email and we will send you password reset instructions.')}</p>
+          </div>
+
           <div className={classes.InputOuter}>
+            <label htmlFor='forgot-username'>{translate('Username or Email')}</label>
             <MainInput
-              role="textbox"
-              type="text"
-              id="username"
-              name="username"
-              placeholder={translate("Type your Username")}
-              value={username}
-              onChange={(value) => setUsername(value)}
-              autoComplete
-              disabled={usernameSent}
+              id='forgot-username'
+              type='text'
+              value={usernameOrEmail}
+              placeholder={translate('Username or Email')}
+              onChange={(value) => setUsernameOrEmail(value)}
             />
           </div>
 
-          <div className={classes.RequestButtonWrapper}>
-            <MainButton
-              loading={updateLoading}
-              color="primary"
-              disabled={username === "" || updateLoading}
-              onClick={() => dispatch(sentRecoveryUsername(username))}
-            >
-              {translate("Recover")}
-            </MainButton>
-          </div>
-        </>
-      )}
+          <MainButton color='primary' type='submit' loading={updateLoading} disabled={!usernameOrEmail.trim() || updateLoading}>
+            {translate('Send reset link')}
+          </MainButton>
 
-      {usernameSent && !recoverId && (
-        <>
-          <label className={classes.Text} htmlFor="code">
-            {translate("Verification Code")}
-          </label>
-          <div className={classes.InputOuter}>
-            <MainInput
-              role="textbox"
-              type="text"
-              id="code"
-              name="code"
-              placeholder={translate("Enter the code sent to your email")}
-              value={code}
-              onChange={(value) => setCode(value)}
-              autoComplete
-            />
-          </div>
-          <div className={classes.RequestButtonWrapper}>
-            <MainButton
-              loading={updateLoading}
-              color="primary"
-              disabled={code === "" || updateLoading}
-              onClick={() => dispatch(verifyCode(code))}
-            >
-              {translate("Verify Code")}
-            </MainButton>
-          </div>
-          <div style={{ marginBottom: 10, marginTop: 10 }}>
-            <ArrowButton
-              onClick={() =>
-                dispatch(loginActions.setUsernameSentCorrectly(false))
-              }
-            >
-              <AngleLeftIcon />
-            </ArrowButton>
-          </div>
-        </>
-      )}
-
-      {usernameSent && recoverId && (
-        <>
-          <label className={classes.Text} htmlFor="password">
-            {translate("Password")}
-            <span
-              className={
-                debPassword && validChecks.password
-                  ? [classes.Required, classes.Fulfilled].join(" ")
-                  : classes.Required
-              }
-            >
-              ∗
-            </span>
-          </label>
-          <div className={classes.InputOuter}>
-            <MainInput
-              role="textbox"
-              type={validChecks.password.show ? "text" : "password"}
-              id="password"
-              name="password"
-              placeholder={translate("Type your password")}
-              value={updateInfo.Password}
-              onChange={(value) => updateRecoverInfo("Password", value)}
-              noAutoComplete
-              isInvalid={!validChecks.password.valid}
-              rightIcon={
-                <EyeIcon
-                  className={
-                    validChecks.password.show
-                      ? [classes.ShowPasswordIcon, classes.ShowLine].join(" ")
-                      : classes.ShowPasswordIcon
-                  }
-                  onClick={onTogglePassword}
-                />
-              }
-            />
-            <div className={classes.FormValidationMessage}>
-              <Autoheight show={!validChecks.password.valid}>
-                {translate(
-                  "Password must include a special character, upper and lower case, and a number"
-                )}
-              </Autoheight>
-              <Autoheight show={debPassword && debPassword.length > 0}>
-                <div className={classes.PasswordCheckContainer}>
-                  <div
-                    className={
-                      validChecks.password.minSize
-                        ? [classes.PasswordMessage, classes.IsValid].join(" ")
-                        : classes.PasswordMessage
-                    }
-                  >
-                    {validChecks.password.minSize ? (
-                      <CheckIcon />
-                    ) : (
-                      <Times2Icon />
-                    )}
-                    <div className={classes.PasswordText}>
-                      {translate("Min.")} {settings.passwordMinLength}{" "}
-                      {translate("character")}
-                    </div>
-                  </div>
-                  <div
-                    className={
-                      validChecks.password.special
-                        ? [classes.PasswordMessage, classes.IsValid].join(" ")
-                        : classes.PasswordMessage
-                    }
-                  >
-                    {validChecks.password.special ? (
-                      <CheckIcon />
-                    ) : (
-                      <Times2Icon />
-                    )}
-                    <div className={classes.PasswordText}>
-                      {translate("1 Special Character")}
-                    </div>
-                  </div>
-                  <div
-                    className={
-                      validChecks.password.cases
-                        ? [classes.PasswordMessage, classes.IsValid].join(" ")
-                        : classes.PasswordMessage
-                    }
-                  >
-                    {validChecks.password.cases ? (
-                      <CheckIcon />
-                    ) : (
-                      <Times2Icon />
-                    )}
-                    <div className={classes.PasswordText}>
-                      {translate("Upper and Lowercase")}
-                    </div>
-                  </div>
-                  <div
-                    className={
-                      validChecks.password.numbers
-                        ? [classes.PasswordMessage, classes.IsValid].join(" ")
-                        : classes.PasswordMessage
-                    }
-                  >
-                    {validChecks.password.numbers ? (
-                      <CheckIcon />
-                    ) : (
-                      <Times2Icon />
-                    )}
-                    <div className={classes.PasswordText}>
-                      {translate("1 Number")}
-                    </div>
-                  </div>
-                </div>
-              </Autoheight>
-            </div>
+          <button type='button' className={classes.LinkButton} onClick={() => changeTab('login')}>
+            {translate('Back to login')}
+          </button>
+        </form>
+      ) : (
+        <form className={classes.Form} onSubmit={onReset}>
+          <div className={classes.Header}>
+            <h2>{translate('Reset password')}</h2>
+            <p>{translate('Use the reset token from your email and choose a new password.')}</p>
           </div>
 
-          <label className={classes.Text} htmlFor="verify-password">
-            {translate("Verify Password")}
-            <span
-              className={
-                debVerifyPassword && validChecks.verifyPassword
-                  ? [classes.Required, classes.Fulfilled].join(" ")
-                  : classes.Required
-              }
-            >
-              ∗
-            </span>
-          </label>
           <div className={classes.InputOuter}>
+            <label htmlFor='reset-token'>{translate('Reset Token')}</label>
             <MainInput
-              role="textbox"
-              type={validChecks.password.show ? "text" : "password"}
-              id="verify-password"
-              name="verifyPassword"
-              placeholder={translate("Type your password again")}
-              value={updateInfo.RePassword}
-              onChange={(value) => updateRecoverInfo("RePassword", value)}
-              noAutoComplete
-              isInvalid={updateInfo.RePassword && !validChecks.verifyPassword}
-              rightIcon={
-                <EyeIcon
-                  className={
-                    validChecks.password.show
-                      ? [classes.ShowPasswordIcon, classes.ShowLine].join(" ")
-                      : classes.ShowPasswordIcon
-                  }
-                  onClick={onTogglePassword}
-                />
-              }
+              id='reset-token'
+              type='text'
+              value={resetToken}
+              placeholder={translate('Paste reset token')}
+              onChange={(value) => setResetToken(value)}
             />
-            <div className={classes.FormValidationMessage}>
-              <Autoheight
-                show={updateInfo.RePassword && !validChecks.verifyPassword}
-              >
-                {translate("Passwords do not match")}
-              </Autoheight>
-            </div>
+          </div>
+
+          <div className={classes.InputOuter}>
+            <label htmlFor='new-password'>{translate('New Password')}</label>
+            <MainInput
+              id='new-password'
+              type={showPassword ? 'text' : 'password'}
+              value={newPassword}
+              placeholder={translate('New Password')}
+              onChange={(value) => setNewPassword(value)}
+              rightIcon={<EyeIcon className={showPassword ? classes.EyeOpen : ''} onClick={() => setShowPassword((value) => !value)} />}
+            />
+            {newPassword && !passwordValid ? (
+              <span className={classes.ErrorText}>
+                {translate('Password must be at least')} {passwordMinLength} {translate('characters long')}
+              </span>
+            ) : null}
+          </div>
+
+          <div className={classes.InputOuter}>
+            <label htmlFor='confirm-password'>{translate('Confirm Password')}</label>
+            <MainInput
+              id='confirm-password'
+              type={showPassword ? 'text' : 'password'}
+              value={confirmPassword}
+              placeholder={translate('Confirm Password')}
+              onChange={(value) => setConfirmPassword(value)}
+            />
+            {confirmPassword && !passwordsMatch ? <span className={classes.ErrorText}>{translate('Passwords do not match')}</span> : null}
           </div>
 
           <MainButton
+            color='primary'
+            type='submit'
             loading={updateLoading}
-            color="primary"
-            disabled={isUpdateDisabled}
-            onClick={() =>
-              dispatch(
-                updatePassword(
-                  updateInfo,
-                  recoverId,
-                  navigate,
-                  location.pathname
-                )
-              )
-            }
+            disabled={!resetToken.trim() || !passwordValid || !passwordsMatch || updateLoading}
           >
-            {translate("Update Password")}
+            {translate('Update Password')}
           </MainButton>
-          <div style={{ marginBottom: 10, marginTop: 10 }}>
-            <ArrowButton
-              onClick={() => dispatch(loginActions.setRecoverAccountId(null))}
-            >
-              <AngleLeftIcon />
-            </ArrowButton>
-          </div>
-        </>
+
+          <button type='button' className={classes.LinkButton} onClick={() => setRequested(false)}>
+            {translate('Request a new reset link')}
+          </button>
+        </form>
       )}
-    </form>
+    </div>
   );
 };
 

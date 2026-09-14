@@ -8,15 +8,11 @@ import UserIcon from "../../assets/svgs/user.svg?react";
 import GlobeIcon from "../../assets/svgs/globe.svg?react";
 import Settings2Icon from "../../assets/svgs/settings2.svg?react";
 import CheckFilledIcon from "../../assets/svgs/verify.svg?react";
-import LogoSmallIcon from "../../assets/svgs/logo-small-onecolor.svg?react";
 import ToolsIcon from "../../assets/svgs/tools.svg?react";
 import TabsVertical from "../../features/UI/Tabs/TabsVertical";
 import Overview from "./features/Overview";
 import Settings from "./features/Settings";
 import Verification from "./features/Verification";
-
-//import Hero from './features/Hero';
-import Heroes from "../UserGamification.jsx/features/Heroes";
 
 import BarLoading from "../../features/UI/BarLoading/BarLoading";
 import { translate } from "../../utils/translations";
@@ -30,9 +26,8 @@ const Profile = () => {
 
   const lang = useSelector((state) => state.app.lang);
 
-  const permissions = useSelector((state) => state.login.permissions);
   const barLoading = useSelector((state) => state.app.barLoading);
-  const [selectedTab, setSelectedTab] = useState(tab || "overview");
+  const [selectedTab, setSelectedTab] = useState(tab === "heroes" ? "overview" : tab || "overview");
   const siteSettings = useSelector((state) => state.app.siteSettings);
 
   useEffect(() => {
@@ -63,12 +58,6 @@ const Profile = () => {
                   icon: <GlobeIcon />,
                   active: selectedTab === "overview",
                 },
-                permissions.AllowGamification && {
-                  id: "heroes",
-                  label: translate("Realm of Heroes"),
-                  icon: <LogoSmallIcon />,
-                  active: selectedTab === "heroes",
-                },
                 {
                   id: "settings",
                   label: translate("Settings"),
@@ -94,9 +83,6 @@ const Profile = () => {
 
             <div className={classes.TabPanel}>
               {selectedTab === "overview" && <Overview />}
-              {selectedTab === "heroes" && permissions.AllowGamification && (
-                <Heroes />
-              )}
               {selectedTab === "settings" && <Settings />}
               {selectedTab === "verification" && <Verification />}
               {selectedTab === "rgt" && <RGT />}

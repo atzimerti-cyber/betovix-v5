@@ -35,12 +35,6 @@ const Search = React.lazy(() => import("./pages/Search/Search"));
 const SearchSports = React.lazy(() => import("./pages/Search/SearchSports"));
 const Leaderboard = React.lazy(() => import("./pages/Leaderboard/Leaderboard"));
 const Promotions = React.lazy(() => import("./pages/Promotions/Promotions"));
-const ProgressMap = React.lazy(() =>
-  import("./pages/UserGamification.jsx/features/ProgressMap")
-);
-const Gamification = React.lazy(() =>
-  import("./pages/UserGamification.jsx/Gamification")
-);
 const Pages = React.lazy(() => import("./pages/Footer Pages/Pages"));
 const Support = React.lazy(() => import("./pages/Footer Pages/Support"));
 const ContactUs = React.lazy(() => import("./pages/Footer Pages/ContactUs"));
@@ -209,31 +203,11 @@ function App() {
               ),
             },
             {
-              path: "/rewards",
-              element: (
-                <Suspense fallback={<PageFallback />}>
-                  <HasPermission checkPermissions={["AllowGamification"]}>
-                    <Gamification />
-                  </HasPermission>
-                </Suspense>
-              ),
-            },
-            {
               path: "/promotions",
               element: (
                 <Suspense fallback={<PageFallback />}>
                   <HasPermission checkPermissions={[]}>
                     <Promotions />
-                  </HasPermission>
-                </Suspense>
-              ),
-            },
-            {
-              path: "/hero",
-              element: (
-                <Suspense fallback={<PageFallback />}>
-                  <HasPermission checkPermissions={["AllowGamification"]}>
-                    <ProgressMap />
                   </HasPermission>
                 </Suspense>
               ),

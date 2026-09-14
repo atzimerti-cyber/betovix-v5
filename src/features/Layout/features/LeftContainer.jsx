@@ -120,6 +120,12 @@ const LeftContainer = memo(function () {
     );
   };
   const casinoMenu = () => {
+    const visibleCasinoMenus = (casinoMenuItems || []).filter(
+      (menu) => Array.isArray(menu?.items) && menu.items.length > 0
+    );
+
+    if (visibleCasinoMenus.length === 0) return null;
+
     return (
       pathnameNoParams !== "/sportsbook" &&
       pathnameNoParams !== "/sportsbook/tournament" &&
@@ -142,7 +148,7 @@ const LeftContainer = memo(function () {
             category={'casino'}
           />
 
-          {casinoMenuItems.map((casinoMenuItem, index) => {
+          {visibleCasinoMenus.map((casinoMenuItem, index) => {
             if (casinoMenuItem.category) {
               if (fullLeftContainer) {
                 return (
