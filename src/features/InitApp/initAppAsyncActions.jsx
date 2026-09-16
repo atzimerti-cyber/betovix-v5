@@ -560,11 +560,13 @@ export const loadInitData = (isMobile) => {
         dispatch(appActions.setCasinoMinibarItems(casinoMinibarMenu));
       }
 
-      // Main navigation menu. Casino-only sites use the same dynamic
-      // casinoHomeSidebar menu as the reference frontend. Mixed/sports sites
-      // continue to use the configured MainMenuType from the sports menu.
-      const hasCasinoAccess = Boolean(permissions?.AllowToCasino || permissions?.AllowToSlots);
-      const isCasinoOnly = hasCasinoAccess && !permissions?.AllowToSports;
+      // Main navigation menu is permission-driven. Casino and sports menus are
+      // loaded independently so mixed sites can expose both without a special
+      // "casino only" mode.
+      const hasCasinoAccess = Boolean(
+        permissions?.AllowToCasino || permissions?.AllowToSlots
+      );
+      const hasSportsAccess = Boolean(permissions?.AllowToSports);
 
       const normalizeMenuTarget = (item) => {
         const rawTarget = item?.State || item?.Link || "";
@@ -575,67 +577,62 @@ export const loadInitData = (isMobile) => {
 
       const renderDynamicMenuIcon = (icon) => {
         if (!icon) return <NoImageIcon />;
+
         const value = String(icon).trim();
+
+        // Backend menu icons frequently arrive as inline SVG strings containing
+        // repeated internal ids (for example id="img1"). Rendering them directly
+        // into the DOM can make <use> resolve against another menu icon. Isolate
+        // each SVG in an <img> data URI so every icon renders independently.
         if (value.startsWith("<svg")) {
-          return <span dangerouslySetInnerHTML={{ __html: value }} />;
+          const embeddedImage = value.match(
+            /(?:href|xlink:href)=["'](data:image\/[^"']+)["']/i
+          )?.[1];
+          const svgSrc =
+            embeddedImage ||
+            `data:image/svg+xml;charset=utf-8,${encodeURIComponent(value)}`;
+          return <img src={svgSrc} alt="" />;
         }
-        if (/^(https?:)?\/\//.test(value) || value.startsWith("/") || /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(value)) {
+
+        if (
+          /^(https?:)?\/\//.test(value) ||
+          value.startsWith("/") ||
+          /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(value)
+        ) {
           return <img src={value} alt="" />;
         }
+
         return <i className={value} />;
       };
 
-      const mapDynamicMenuItem = (item, extra = {}) => {
-        const page = normalizeMenuTarget(item);
-        const rawIcon = item?.Icon ? String(item.Icon).trim() : "";
-        const imageIcon =
-          rawIcon &&
-          (/^(https?:)?\/\//.test(rawIcon) ||
-            rawIcon.startsWith("/") ||
-            /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(rawIcon))
-            ? rawIcon
-            : null;
-
+      const mapDynamicMenuItem = (item) => {
         const menuItem = {
           id: item.Id,
           label: item.Name,
           icon: renderDynamicMenuIcon(item.Icon),
-          page,
+          page: normalizeMenuTarget(item),
           badge: item.Badge,
           badgeType: item.BadgeType,
           customClass: item.CustomClass,
-          subtitle: item.Subtitle || item.Description || item.ProviderName || item.Provider || null,
-          popularGameBackground: extra?.popularGame ? imageIcon : null,
-          ...extra,
         };
 
         return isMenuItemAllowed(menuItem, permissions) ? menuItem : null;
       };
 
-      let siteMenus = {};
-      const support = getState().layout.tawkToScript;
-
-      if (isCasinoOnly) {
-        const casinoSidebarResponse = await optionalRequest(
-          axiosApi.get(
-            `Legacy/Menu/MyMenu?type=casinoHomeSidebar&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-            { baseURLOverride: config.VITE_WALLET_API_BASE }
-          ),
-          { data: { Contents: {} } }
-        );
-
-        const casinoSidebarContents = casinoSidebarResponse?.data?.Contents || {};
-        const sidebarEntries = [
-          ...(casinoSidebarContents?.Categs || []),
-          ...(casinoSidebarContents?.Items || []),
-        ].sort((a, b) =>
-          Number(a?.Categ?.ViewOrder ?? a?.ViewOrder ?? 0) -
-          Number(b?.Categ?.ViewOrder ?? b?.ViewOrder ?? 0)
+      const mapMenuContents = (contents) => {
+        const mappedGroups = [];
+        const entries = [
+          ...(contents?.Categs || []),
+          ...(contents?.Items || []),
+        ].sort(
+          (a, b) =>
+            Number(a?.Categ?.ViewOrder ?? a?.ViewOrder ?? 0) -
+            Number(b?.Categ?.ViewOrder ?? b?.ViewOrder ?? 0)
         );
 
         const topLevelItems = [];
 
-        sidebarEntries.forEach((entry) => {
+        entries.forEach((entry) => {
           if (!entry?.Categ) {
             const mapped = mapDynamicMenuItem(entry);
             if (mapped) topLevelItems.push(mapped);
@@ -643,9 +640,6 @@ export const loadInitData = (isMobile) => {
           }
 
           const category = entry.Categ;
-          const categoryName = String(category?.Name || "").trim();
-          const popularGames = categoryName.toLowerCase() === "popular games";
-
           const directItems = entry?.Items || [];
           const subCategoryItems = (entry?.SubCategs || []).flatMap((subEntry) => {
             const subCategory = subEntry?.SubCateg;
@@ -657,38 +651,48 @@ export const loadInitData = (isMobile) => {
           const items = [...directItems, ...subCategoryItems]
             .slice()
             .sort((a, b) => Number(a?.ViewOrder || 0) - Number(b?.ViewOrder || 0))
-            .map((item) => mapDynamicMenuItem(item, { popularGame: popularGames }))
+            .map(mapDynamicMenuItem)
             .filter(Boolean);
 
           if (!items.length) return;
 
-          allMenuItems.push({
+          mappedGroups.push({
             category: {
               id: category.Id,
-              label: categoryName,
+              label: String(category?.Name || "").trim(),
               visible: true,
-              staticSection: popularGames,
-              popularGames,
+              staticSection: Boolean(category.CustomClass),
+              customClass: category.CustomClass || "",
             },
             items,
           });
         });
 
         if (topLevelItems.length) {
-          allMenuItems.unshift({ items: topLevelItems });
+          mappedGroups.unshift({ items: topLevelItems });
         }
 
-        // Keep footer/backoffice-driven secondary content available without
-        // using the sports menu for the casino-only sidebar itself.
-        const footerMenuResponse = await optionalRequest(
+        return mappedGroups;
+      };
+
+      let siteMenus = {};
+      const support = getState().layout.tawkToScript;
+
+      if (hasCasinoAccess) {
+        const casinoSidebarResponse = await optionalRequest(
           axiosApi.get(
-            `Legacy/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+            `Legacy/Menu/MyMenu?type=casinoHomeSidebar&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
             { baseURLOverride: config.VITE_WALLET_API_BASE }
           ),
           { data: { Contents: {} } }
         );
-        siteMenus = footerMenuResponse?.data?.Contents || {};
-      } else {
+
+        allMenuItems.push(
+          ...mapMenuContents(casinoSidebarResponse?.data?.Contents || {})
+        );
+      }
+
+      if (hasSportsAccess) {
         const siteMenuResponse = await optionalRequest(
           axiosApi.get(
             `Legacy/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
@@ -696,11 +700,17 @@ export const loadInitData = (isMobile) => {
           ),
           { data: { Contents: {} } }
         );
+
         siteMenus = siteMenuResponse?.data?.Contents || {};
         const mainMenuType = siteSettings?.MainMenuType || "MAIN MENU V2";
-        const mainMenuCategory = (siteMenus?.Categs || []).find(
-          (entry) => entry?.Categ?.Name === mainMenuType && Array.isArray(entry?.Items)
-        ) || (siteMenus?.Categs || []).find((entry) => Array.isArray(entry?.Items) && entry.Items.length);
+        const mainMenuCategory =
+          (siteMenus?.Categs || []).find(
+            (entry) =>
+              entry?.Categ?.Name === mainMenuType && Array.isArray(entry?.Items)
+          ) ||
+          (siteMenus?.Categs || []).find(
+            (entry) => Array.isArray(entry?.Items) && entry.Items.length
+          );
 
         const mainMenuItems = (mainMenuCategory?.Items || [])
           .slice()
@@ -709,7 +719,7 @@ export const loadInitData = (isMobile) => {
             return name !== "sports" && name !== "inplay" && name !== "in play";
           })
           .sort((a, b) => Number(a?.ViewOrder || 0) - Number(b?.ViewOrder || 0))
-          .map((item) => mapDynamicMenuItem(item))
+          .map(mapDynamicMenuItem)
           .filter(Boolean);
 
         if (mainMenuItems.length) {
@@ -719,12 +729,45 @@ export const loadInitData = (isMobile) => {
         allMenuItems.push({
           category: { id: 8, label: "More", visible: false },
           items: [
-            { id: 1, label: "Promotions", icon: <PromotionsIcon />, page: "promotions" },
-            support?.Source && { id: 2, label: "Live Support", icon: <SupportIcon />, page: "support" },
-            permissions?.AllowToSports && { id: 3, label: "My Bets", icon: <PaperIcon />, page: "sportsbook/mybets" },
-            { id: 4, label: "Crypto Rates", icon: <PricesIcon />, page: "crypto" },
+            {
+              id: 1,
+              label: "Promotions",
+              icon: <PromotionsIcon />,
+              page: "promotions",
+            },
+            support?.Source && {
+              id: 2,
+              label: "Live Support",
+              icon: <SupportIcon />,
+              page: "support",
+            },
+            {
+              id: 3,
+              label: "My Bets",
+              icon: <PaperIcon />,
+              page: "sportsbook/mybets",
+            },
+            {
+              id: 4,
+              label: "Crypto Rates",
+              icon: <PricesIcon />,
+              page: "crypto",
+            },
           ].filter(Boolean),
         });
+      }
+
+      // Footer configuration still comes from the sports legacy menu. Sites without
+      // sports access also need it, independently from sidebar styling.
+      if (!siteMenus?.Categs?.length) {
+        const footerMenuResponse = await optionalRequest(
+          axiosApi.get(
+            `Legacy/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+            { baseURLOverride: config.VITE_WALLET_API_BASE }
+          ),
+          { data: { Contents: {} } }
+        );
+        siteMenus = footerMenuResponse?.data?.Contents || {};
       }
 
       //Footer
@@ -916,8 +959,8 @@ export const getSite = (signal) => {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
         //`Legacy/Site/GetSite?domainName=crimsoncoins.net`,
-        `Legacy/Site/GetSite?domainName=naughtyspins.storetube.gr`,
-        //`Legacy/Site/GetSite?domainName=${currentDomain}`,
+        //`Legacy/Site/GetSite?domainName=naughtyspins.storetube.gr`,
+        `Legacy/Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,

@@ -81,25 +81,27 @@ const FilterBar = (props) => {
   };
 
   return (
-    <div className={classes.FilterBar}>
-      <div className={classes.NavigateSection}>
-        <button className={classes.BackBtn} onClick={handleBack}>
-          {/* <button className={classes.BackBtn} onClick={() => navigate(-1)}> */}
-          <Arrow2LeftIcon />
-          {translate(`Back`)}
-        </button>
-      </div>
+    <div className={[classes.FilterBar, props.searchPage ? classes.SearchPageFilterBar : ""].filter(Boolean).join(" ")}>
+      {!props.searchPage && (
+        <div className={classes.NavigateSection}>
+          <button className={classes.BackBtn} onClick={handleBack}>
+            <Arrow2LeftIcon />
+            {translate(`Back`)}
+          </button>
+        </div>
+      )}
       <div className={classes.SearchSection}>
         <Search3
           placeholder={props.placeholder}
           searchStr={props.searchString}
           onChange={(value) => props.onChangeSearch(value)}
+          iconLeft={props.searchPage}
         />
       </div>
 
       {props.noFilters ? null : (
         <div className={classes.FiltersSection}>
-          <div className={classes.DropdownWrapper}>
+          {!props.searchPage && <div className={classes.DropdownWrapper}>
             <div className={classes.DropdownInner}>
               <input
                 id="sort"
@@ -158,13 +160,13 @@ const FilterBar = (props) => {
                 )}
               </AnimatePresence>
             </div>
-          </div>
+          </div>}
 
           <MultiSelect
             id={translate("Providers")}
             menuTitle={translate("Providers")}
             placeholder={translate("Providers")}
-            icon={<Filter2Icon />}
+            icon={props.searchPage ? null : <Filter2Icon />}
             options={providersOptions}
             onClose={(providers) => {
               props.onChangeProviders(providers);

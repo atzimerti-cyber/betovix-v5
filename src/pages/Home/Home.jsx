@@ -22,7 +22,7 @@ const Home = () => {
   const allowSports = permissions.AllowToSports === true;
   const allowCasino =
     permissions.AllowToCasino === true || permissions.AllowToSlots === true;
-  const casinoOnlyHome = siteSettings?.HomeMode?.toLowerCase?.() === "casino";
+  const casinoHomeMode = siteSettings?.HomeMode?.toLowerCase?.() === "casino";
 
   const [showTopEvents, setShowTopEvents] = useState(true);
 
@@ -52,7 +52,7 @@ const Home = () => {
           {!user && <RegisterContainers />}
         </div>
 
-        {!casinoOnlyHome && allowSports && (
+        {!casinoHomeMode && allowSports && (
           <>
             <LiveEvents />
 

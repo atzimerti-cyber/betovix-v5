@@ -45,9 +45,7 @@ const Topbar = () => {
   const progressBar = useMediaQuery({
     query: "(min-width: 576px) and (max-width: 950px)",
   });
-  const hasSportsAccess = Boolean(permissions?.AllowToSports);
   const hasCasinoAccess = Boolean(permissions?.AllowToCasino || permissions?.AllowToSlots);
-  const isCasinoOnly = hasCasinoAccess && !hasSportsAccess;
 
   const fullLeftContainer = useSelector(
     (state) => state.layout.fullLeftContainer
@@ -129,10 +127,10 @@ const Topbar = () => {
   const logoURL = siteSettings?.Logo || config.VITE_SITE_LOGO || null;
 
   return (
-    <div className={`${classes.Topbar} ${isCasinoOnly ? classes.CasinoOnlyTopbar : ""}`} id="topbar">
+    <div className={classes.Topbar} id="topbar">
       <div className={classes.TopbarLeftWrapper} id="topbarLeft">
         <div className={classes.TopbarLeft}>
-          <div className={`${classes.HeaderHamburger} ${isCasinoOnly && isDesktop ? classes.CasinoOnlyHamburger : ""}`} id="HeaderHamburger">
+          <div className={classes.HeaderHamburger} id="HeaderHamburger">
             {!showingLiveEvent && (
               <MainButton
                 color="transparent"
@@ -214,29 +212,30 @@ const Topbar = () => {
               )}
             </MainButton>
           )}
+
+          {isDesktop && hasCasinoAccess && !user && (
+            <div className={classes.HeaderSearch}>
+              <SearchIcon />
+              <input
+                type="search"
+                role="search"
+                autoComplete="off"
+                value={searchString}
+                placeholder={translate("Search by game or provider")}
+                onChange={(event) => {
+                  const value = event.target.value;
+                  dispatch(searchActions.setSearchString(value));
+                  if (value) navigate("/search");
+                }}
+                onFocus={() => {
+                  if (searchString) navigate("/search");
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
 
-      {isDesktop && isCasinoOnly && !user && (
-        <div className={classes.CasinoHeaderSearch}>
-          <SearchIcon />
-          <input
-            type="search"
-            role="search"
-            autoComplete="off"
-            value={searchString}
-            placeholder={translate("Search by game or provider")}
-            onChange={(event) => {
-              const value = event.target.value;
-              dispatch(searchActions.setSearchString(value));
-              if (value) navigate("/search");
-            }}
-            onFocus={() => {
-              if (searchString) navigate("/search");
-            }}
-          />
-        </div>
-      )}
 
       <div className={classes.TopbarCenterWrapper} id="topbarCenter">
         {user && (

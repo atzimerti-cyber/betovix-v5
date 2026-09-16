@@ -472,3 +472,24 @@
   max-width: 80%;
   text-align: center;
 }
+
+
+/* Portrait game cards used by the search page reference layout. */
+.PortraitCard .Card,
+.PortraitCard .ImageContainer {
+  aspect-ratio: 2 / 3;
+  border-radius: 0.5rem;
+}
+
+.PortraitCard .ImageContainer > div {
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+.PortraitCard .BackgroundContainer {
+  display: none;
+}
+
+.PortraitCard:not(.Loading):hover {
+  transform: translateY(-1%);
+}

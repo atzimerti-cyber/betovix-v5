@@ -12,7 +12,6 @@ import useDebounce from "../../hooks/useDebounce";
 import { searchActions } from "../Search/searchSlice";
 import { casinoActions } from "../Casino/casinoSlice";
 import CasinoGames from "./features/CasinoGames";
-import CasinoMenu from "../Casino/features/CasinoMenu";
 import { appActions } from "../../features/InitApp/appSlice";
 
 import { AnimatePresence } from "framer-motion";
@@ -109,7 +108,6 @@ const Search = () => {
     <>
       <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
       <div className={classes.Content}>
-        <CasinoMenu />
         <div className={classes.PageContent}>
           <div className={classes.Search}>
             <FilterBar
@@ -118,7 +116,8 @@ const Search = () => {
                 dispatch(searchActions.setSearchString(value))
               }
               onChangeProviders={(value) => setSelectedProviders(value)}
-              placeholder="Search Casino"
+              placeholder="Search by game or provider"
+              searchPage
             />
 
             {casinoResults ? (
@@ -126,21 +125,21 @@ const Search = () => {
                 selectedProviders.length === 0 ? (
                   <CasinoGames
                     collection={casinoResults}
-                    icon={<CherriesIcon />}
-                    title="Search results"
+                    title={debSearchString ? "Search results" : "Often searched"}
                     loading={loading}
                     searchString={debSearchString}
                     sorting={sorting}
+                    searchPage
                   />
                 ) : (
                   <CasinoGames
                     collection={casinoResults}
-                    icon={<CherriesIcon />}
                     title={selectedProviders.join(", ")}
                     loading={loading}
                     searchString={debSearchString}
                     providers={casinoResults?.providers}
                     sorting={sorting}
+                    searchPage
                   />
                 )
               ) : (

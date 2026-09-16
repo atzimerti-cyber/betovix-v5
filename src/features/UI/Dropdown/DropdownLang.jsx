@@ -4,9 +4,8 @@ import { useSelector, useDispatch } from "react-redux";
 import classes from "./DropdownLang.module.css";
 import useClickOutside from "../../../hooks/useClickOutside";
 import MainButton from "../Buttons/MainButton";
-import CaretDownIcon from "../../../assets/svgs/caret-down.svg?react";
+import ArrowDownIcon from "../../../assets/svgs/arrowdown.svg?react";
 import { getTranslations } from "../../InitApp/initAppAsyncActions";
-import { transform } from "lodash";
 
 const DropdownLang = (props) => {
   const dispatch = useDispatch();
@@ -28,7 +27,7 @@ const DropdownLang = (props) => {
   if (props.openTo === "side") elClasses.push(classes.Side);
   if (dropdownVisible) elClasses.push(classes.Visible);
   if (!fullLeftContainer) elClasses.push(classes.Closed);
-  if (props.casinoSidebar) elClasses.push(classes.CasinoSidebar);
+  if (props.sidebar) elClasses.push(classes.Sidebar);
 
   const onSelectLang = (lang) => {
     dispatch(getTranslations(lang));
@@ -142,7 +141,7 @@ const DropdownLang = (props) => {
               />
             </div>
             <span>{getLangName(lang.id)}</span>
-            <CaretDownIcon />
+            <ArrowDownIcon />
           </>
         )}
         {props.topbar && (

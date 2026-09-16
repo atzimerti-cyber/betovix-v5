@@ -124,17 +124,11 @@ const Layout = () => {
     }
   };
 
-  const isCasinoOnlyLayout =
-    (permissions?.AllowToCasino || permissions?.AllowToSlots) &&
-    !permissions?.AllowToSports;
-  const expandedLeftMenuWidth = isCasinoOnlyLayout ? 260 : 230;
+  const expandedLeftMenuWidth = 240;
 
   let layoutClasses = [classes.Layout];
   if (isMobile) layoutClasses.push("IsMobile");
   if (fullLeftContainer) layoutClasses.push("IsMenuOpen");
-  if (isCasinoOnlyLayout) {
-    layoutClasses.push(classes.CasinoOnlyLayout);
-  }
 
   const ToastCloseButton = ({ closeToast }) => (
     <button

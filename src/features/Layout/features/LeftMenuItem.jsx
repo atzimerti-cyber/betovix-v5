@@ -22,8 +22,10 @@ const LeftMenuItem = (props) => {
   if (props.isCateg == false) elClasses.push(classes.NotCateg);
   if (props.isCateg == false && props.isActive)
     elClasses.push(classes.NotCategActive);
-  if (props.popularGame) elClasses.push(classes.PopularGame);
-  if (props.casinoOnly) elClasses.push(classes.CasinoOnlyItem);
+  const isGameCategory = String(props.categoryClass || "")
+    .split(/\s+/)
+    .includes("game-category");
+  if (isGameCategory) elClasses.push(classes.GameCategoryItem);
 
   const onClick = (e) => {
     e.preventDefault();
@@ -47,10 +49,14 @@ const LeftMenuItem = (props) => {
     if (isMobile) dispatch(layoutActions.setFullLeftContainer(false));
   };
 
-  const itemStyle =
-    props.popularGame && props.item.popularGameBackground
-      ? { "--popular-game-bg": `url(${JSON.stringify(props.item.popularGameBackground)})` }
-      : undefined;
+  const iconSource =
+    isGameCategory && props.item.icon?.type === "img"
+      ? props.item.icon.props?.src
+      : null;
+
+  const itemStyle = iconSource
+    ? { "--game-category-bg": `url(${JSON.stringify(iconSource)})` }
+    : undefined;
 
   return (
     <li className={elClasses.join(" ")} style={itemStyle} onClick={(e) => onClick(e)}>
@@ -72,7 +78,7 @@ const LeftMenuItem = (props) => {
         </div>
 
         <div className={classes.Container}>
-          {props.popularGame && <span className={classes.PlayIndicator}><PlayButtonIcon /></span>}
+          {isGameCategory && <span className={classes.PlayIndicator}><PlayButtonIcon /></span>}
           {props.item.badge && props.item.badge === "free" && (
             <div className={classes.BadgeFree}>{translate("FREE")}</div>
           )}

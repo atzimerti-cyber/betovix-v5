@@ -84,17 +84,17 @@
     }
 }
 
-/* Casino-only home is flush to the content rail like the reference landing page. */
+/* Shared home is flush to the content rail like the reference landing page. */
 @media (min-width: 1024px) {
-  :global(.CasinoOnlyLayout) :local(.PageContent) {
+  .PageContent {
     padding: 0 0 48px;
   }
 
-  :global(.CasinoOnlyLayout) :local(.Home) {
+  .Home {
     gap: 16px;
   }
 
-  :global(.CasinoOnlyLayout) :local(.BannersContent) {
+  .BannersContent {
     border-radius: 0;
   }
 }

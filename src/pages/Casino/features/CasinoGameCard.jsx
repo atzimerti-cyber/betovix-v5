@@ -97,7 +97,7 @@ const CasinoGameCard = (props) => {
 
   return (
     <div
-      className={classes.SlideContainer}
+      className={[classes.SlideContainer, props.portrait ? classes.PortraitCard : ""].filter(Boolean).join(" ")}
       onClick={() => {
         isTouchScreen ? (
           !props.game.isLocked && openGameModal(props.game)

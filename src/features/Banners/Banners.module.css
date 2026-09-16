@@ -67,20 +67,20 @@
   }
 }
 
-/* Taller casino-only desktop hero so the supplied artwork is not vertically cropped. */
+/* Taller shared desktop hero so the supplied artwork is not vertically cropped. */
 @media (min-width: 1024px) {
-  :global(.CasinoOnlyLayout) :local(.ImageContainer) {
+  .ImageContainer {
     border-radius: 0;
   }
 
-  :global(.CasinoOnlyLayout) :local(.BannerBackground),
-  :global(.CasinoOnlyLayout) :local(.BannerBackground.NoUser) {
+  .BannerBackground,
+  .BannerBackground.NoUser {
     aspect-ratio: 2.24 / 1;
     min-height: 0;
     max-height: none;
   }
 
-  :global(.CasinoOnlyLayout) :local(.BannerBackground) img {
+  .BannerBackground img {
     object-fit: cover;
     object-position: center center;
     border-radius: 0;

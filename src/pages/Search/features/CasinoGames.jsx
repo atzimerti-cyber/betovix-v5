@@ -57,6 +57,16 @@ const CasinoGames = (props) => {
   };
 
   const responsiveGrid = () => {
+    if (props.searchPage) {
+      if (isSmallMobile) return 2;
+      if (isMobile) return 3;
+      if (isTablet) return 4;
+      if (isDesktop) return 4;
+      if (isBigDesktop) return 5;
+      if (isVeryBigDesktop) return 6;
+      return 7;
+    }
+
     let repeat = 4;
     if (isSmallMobile) {
       repeat = 2;
@@ -110,7 +120,7 @@ const CasinoGames = (props) => {
   const sitename = config.VITE_SITE_NAME ? config.VITE_SITE_NAME + "/" : "";
 
   return (
-    <div className={classes.CasinoGames}>
+    <div className={[classes.CasinoGames, props.searchPage ? classes.SearchPageGames : ""].filter(Boolean).join(" ")}>
       <div className={classes.Header}>
         {props.icon}
         <p className={classes.Title}>{props.title}</p>
@@ -128,7 +138,7 @@ const CasinoGames = (props) => {
         }}
       >
         {props.collection?.Data.map((game) => {
-          return <CasinoGameCard key={game.Data.Id} game={game} />;
+          return <CasinoGameCard key={game.Data.Id} game={game} portrait={props.searchPage} />;
         })}
 
         {props.loading || props.collection === null || moreLoading
