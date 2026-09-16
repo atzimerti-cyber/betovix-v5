@@ -2,32 +2,33 @@
   position: relative;
   display: block;
   width: 100%;
-  cursor: default;
-}
-.BannerBackground.NoUser {
-  min-height: 260px;
+  overflow: hidden;
+  border-radius: 0 0 14px 14px;
+  cursor: pointer;
+  background: var(--dark-bg-color, #0e0e0e);
 }
 
-.BannerBackground {
+.BannerBackground,
+.BannerBackground.NoUser {
   position: relative;
   width: 100%;
+  aspect-ratio: 2.55 / 1;
+  min-height: 300px;
+  max-height: 640px;
   overflow: hidden;
-  min-height: 260px;
 }
 
 .BannerBackground img {
-  object-fit: contain; 
-  height: 100%;
+  display: block;
   width: 100%;
-  border-radius: 10px;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .EventInfoWrapper {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,3 +47,42 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
+@media (max-width: 1024px) {
+  .BannerBackground,
+  .BannerBackground.NoUser {
+    min-height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ImageContainer {
+    border-radius: 0 0 10px 10px;
+  }
+
+  .BannerBackground,
+  .BannerBackground.NoUser {
+    aspect-ratio: 16 / 7;
+    min-height: 180px;
+    max-height: 360px;
+  }
+}
+
+/* Taller casino-only desktop hero so the supplied artwork is not vertically cropped. */
+@media (min-width: 1024px) {
+  :global(.CasinoOnlyLayout) :local(.ImageContainer) {
+    border-radius: 0;
+  }
+
+  :global(.CasinoOnlyLayout) :local(.BannerBackground),
+  :global(.CasinoOnlyLayout) :local(.BannerBackground.NoUser) {
+    aspect-ratio: 2.24 / 1;
+    min-height: 0;
+    max-height: none;
+  }
+
+  :global(.CasinoOnlyLayout) :local(.BannerBackground) img {
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 0;
+  }
+}

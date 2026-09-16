@@ -11,11 +11,10 @@ import LiveSupportIcon from "../../../assets/svgs/live-support.svg?react";
 import DropdownLang from "../../UI/Dropdown/DropdownLang";
 import CasinoIcon from "../../../assets/svgs/casino.svg?react";
 import PromotionsIcon from "../../../assets/svgs/promotions.svg?react";
-import PromotionsImg from "../../../assets/images/promosyonlar.png";
 import SportsIcon from "../../../assets/svgs/sports.svg?react";
 import HorseIcon from "../../../assets/svgs/horse-head.svg?react";
 import FireIcon from "../../../assets/svgs/fire.svg?react";
-import GiftIcon from "../../../assets/svgs/gift1.svg?react";
+import GiftIcon from "../../../assets/svgs/bonus-bag.svg?react";
 import StaticHorse from "../../../assets/images/static-h.png?react";
 import GifHorse from "../../../assets/images/horse.gif?react";
 import { layoutActions } from "../layoutSlice";
@@ -58,8 +57,13 @@ const LeftContainer = memo(function () {
   const pathnameNoParams = useBasePath();
 
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+  const hasSportsAccess = Boolean(permissions?.AllowToSports);
+  const hasCasinoAccess = Boolean(permissions?.AllowToCasino || permissions?.AllowToSlots);
+  const showPrimaryProductSwitcher = hasSportsAccess && hasCasinoAccess;
+  const isCasinoOnly = hasCasinoAccess && !hasSportsAccess;
 
   let elClasses = [classes.SideMenuScroll];
+  if (isCasinoOnly) elClasses.push(classes.CasinoOnly);
   let elClasses2 = [classes.SideMenuBottomButtons];
   if (!fullLeftContainer) {
     elClasses.push(classes.Closed);
@@ -332,8 +336,10 @@ const LeftContainer = memo(function () {
           <LeftMenuItem
             key={`${categoryId ? `${categoryId}_${item.id}` : `${index}_${item.id}`
               }`}
-            isActive={item.page === pathname}
+            isActive={String(item.page || "").replace(/^\//, "") === pathname}
             item={item}
+            popularGame={Boolean(item.popularGame)}
+            casinoOnly={isCasinoOnly}
             hide={!fullLeftContainer}
             showEmphasis={showEmphasis}
             isCateg={Boolean(categoryId)}
@@ -359,43 +365,37 @@ const LeftContainer = memo(function () {
           />
         )}
 
-        <div
-          className={classes.SideMenuAllButtonsContainer}
-          style={{ marginTop: "0.5rem" }}
-        >
-          <div className={classes.SideMenuButtonContainer}>
-            {casinoOriented === true ? (
-              <>
-                {/* {casinoButton()} */}
-                {permissions.AllowToSlots && !permissions.AllowToSports ? (
-                  null
+        {(showPrimaryProductSwitcher || isMobile) && (
+          <div
+            className={classes.SideMenuAllButtonsContainer}
+            style={{ marginTop: "0.5rem" }}
+          >
+            {showPrimaryProductSwitcher && (
+              <div className={classes.SideMenuButtonContainer}>
+                {casinoOriented === true ? (
+                  <>
+                    {casinoButton()}
+                    {sportsButton()}
+                  </>
                 ) : (
-                  casinoButton()
+                  <>
+                    {sportsButton()}
+                    {casinoButton()}
+                  </>
                 )}
-                {sportsButton()}
-              </>
-            ) : (
-              <>
-                {sportsButton()}
-                {permissions.AllowToSlots && !permissions.AllowToSports ? (
-                  null
-                ) : (
-                  casinoButton()
-                )}
-                {/* {casinoButton()} */}
-              </>
+              </div>
+            )}
+
+            {isMobile && (
+              <CloseButton
+                timesIcon
+                onClick={() =>
+                  dispatch(layoutActions.setFullLeftContainer(false))
+                }
+              />
             )}
           </div>
-
-          {isMobile && (
-            <CloseButton
-              timesIcon
-              onClick={() =>
-                dispatch(layoutActions.setFullLeftContainer(false))
-              }
-            />
-          )}
-        </div>
+        )}
 
         {/* TRACK EVENTS BUTTON */}
         {permissions.AllowToSIS && (
@@ -418,24 +418,17 @@ const LeftContainer = memo(function () {
         )}
 
 
-        <div className={classes.GradPromoWrapper} id="promotionsButton">
-          <button
-            onClick={() => navigate("/promotions")}
-            className={classes.PromotionsButton}
-            style={{ backgroundImage: `url(${PromotionsImg})` }}
-          >
-            <span>{translate("Promotions")}</span>
-          </button>
-        </div>
-
-        <div className={classes.GradBtnWrapper}>
+        <div className={classes.PromoCodeCardWrapper}>
           <button
             onClick={() => navigate("?modal=promo-code")}
-            className={classes.PromoButton}
+            className={classes.PromoCodeCard}
             id="promoCodeButton"
           >
-            <FireIcon />
-            <span>{translate("Promo Code")}</span>
+            <span className={classes.PromoCodeIcon}><GiftIcon /></span>
+            <span className={classes.PromoCodeCopy}>
+              <strong>{translate("Promo Code")}</strong>
+              <small>{translate("Redeem your code here")}</small>
+            </span>
           </button>
         </div>
 
@@ -453,21 +446,31 @@ const LeftContainer = memo(function () {
           </div>
         }
 
-        {casinoOriented === true ? (
-          <>
-            {casinoMenu()}
-            {sportsMenu()}
-          </>
-        ) : (
-          <>
-            {sportsMenu()}
-            {casinoMenu()}
-          </>
+        {!isCasinoOnly && (
+          casinoOriented === true ? (
+            <>
+              {casinoMenu()}
+              {sportsMenu()}
+            </>
+          ) : (
+            <>
+              {sportsMenu()}
+              {casinoMenu()}
+            </>
+          )
         )}
 
         {/* REST OF MENU ITEMS */}
         {menuItems.map((menuItem, index) => {
           if (menuItem.category) {
+            if (fullLeftContainer && menuItem.category.staticSection) {
+              return (
+                <div className={classes.StaticMenuSection} key={menuItem.category.id}>
+                  <div className={classes.StaticMenuSectionTitle}>{translate(menuItem.category.label)}</div>
+                  {getItems(menuItem, menuItem.category.id, menuItem.category.id)}
+                </div>
+              );
+            }
             if (fullLeftContainer) {
               return (
                 <CategoryGroup
@@ -507,14 +510,13 @@ const LeftContainer = memo(function () {
           <div
             id="language"
             className={classes.LangDropdown}
-            style={{ padding: "0.3rem 0.5rem", justifyContent: "flex-start" }}
           >
-            <DropdownLang fullLabel={true} openTo="top" />
+            <DropdownLang fullLabel={true} openTo="top" casinoSidebar={isCasinoOnly} />
           </div>
         )}
 
         {/* TIMEZONE DROPDOWN */}
-        {fullLeftContainer && (
+        {fullLeftContainer && !isCasinoOnly && (
           <div
             id="timezone"
             className={classes.LangDropdown}

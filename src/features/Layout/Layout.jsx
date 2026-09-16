@@ -124,9 +124,17 @@ const Layout = () => {
     }
   };
 
+  const isCasinoOnlyLayout =
+    (permissions?.AllowToCasino || permissions?.AllowToSlots) &&
+    !permissions?.AllowToSports;
+  const expandedLeftMenuWidth = isCasinoOnlyLayout ? 260 : 230;
+
   let layoutClasses = [classes.Layout];
   if (isMobile) layoutClasses.push("IsMobile");
   if (fullLeftContainer) layoutClasses.push("IsMenuOpen");
+  if (isCasinoOnlyLayout) {
+    layoutClasses.push(classes.CasinoOnlyLayout);
+  }
 
   const ToastCloseButton = ({ closeToast }) => (
     <button
@@ -191,8 +199,8 @@ const Layout = () => {
           id="outerContainerLeft"
           className={classes.OuterContainerLeft}
           key={fullLeftContainer ? 1 : 0}
-          initial={{ width: fullLeftContainer ? 60 : 260 }}
-          animate={{ width: fullLeftContainer ? 260 : 60 }}
+          initial={{ width: fullLeftContainer ? 60 : expandedLeftMenuWidth }}
+          animate={{ width: fullLeftContainer ? expandedLeftMenuWidth : 60 }}
           transition={{ duration: isFirstRender ? 0 : 0.2, ease: "easeOut" }}
         >
           <AnimatePresence>

@@ -17,20 +17,25 @@ const initialState = {
 
   permissions: {
     AllowToHistory: false,
-    AllowToSlots: true,
-    AllowToSports: true,
-
+    AllowToSlots: false,
+    AllowToSports: false,
     AllowToRetail: false,
-    AllowToCasino: true,
+    AllowToCasino: false,
     AllowToVerification: false,
+    AllowGamification: false,
+    AllowToPB: false,
+    AllowToSIS: false,
   },
   notLoggedInPermissions: {
-    AllowToCasino: true,
     AllowToHistory: false,
-    AllowToSlots: true,
-    AllowToSports: true,
-    AllowToVerification: false,
+    AllowToSlots: false,
+    AllowToSports: false,
     AllowToRetail: false,
+    AllowToCasino: false,
+    AllowToVerification: false,
+    AllowGamification: false,
+    AllowToPB: false,
+    AllowToSIS: false,
   },
   sitePermissions: null,
   mailToVerify: null,
@@ -90,9 +95,12 @@ export const loginSlice = createSlice({
       state.mailToVerify = action.payload;
     },
     setPermissions(state, action) {
-      const normalized = normalizePermissions(action.payload);
-      state.permissions = normalized;
+      state.permissions = normalizePermissions(action.payload, state.permissions);
+    },
+    setSitePermissions(state, action) {
+      const normalized = normalizePermissions(action.payload, state.notLoggedInPermissions);
       state.sitePermissions = normalized;
+      state.permissions = normalized;
     },
     setTFAtoken(state, action) {
       state.tfaToken = action.payload;

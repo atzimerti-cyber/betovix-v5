@@ -102,7 +102,7 @@ function App() {
               path: "/sportsbook/mybets",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <HasPermission checkPermissions={["AllowToSports"]}>
+                  <HasPermission checkPermissions={["AllowToSports"]} redirect="/casino/lobby">
                     <SportsMyBets />
                   </HasPermission>
                 </Suspense>
@@ -112,7 +112,7 @@ function App() {
               path: "/sportsbook/tournament/:sportid/:categoryid/:tournamentid",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <HasPermission checkPermissions={["AllowToSports"]}>
+                  <HasPermission checkPermissions={["AllowToSports"]} redirect="/casino/lobby">
                     <TournamentPage />
                   </HasPermission>
                 </Suspense>
@@ -122,7 +122,7 @@ function App() {
               path: "/sportsbook/outrights/:sportname/:sportid/:categoryid/:tournamentid/:eventid",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <HasPermission checkPermissions={["AllowToSports"]}>
+                  <HasPermission checkPermissions={["AllowToSports"]} redirect="/casino/lobby">
                     <OutrightsPage />
                   </HasPermission>
                 </Suspense>
@@ -132,7 +132,7 @@ function App() {
               path: "/sportsbook/*",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <HasPermission checkPermissions={["AllowToSports"]}>
+                  <HasPermission checkPermissions={["AllowToSports"]} redirect="/casino/lobby">
                     <SportsBook />
                   </HasPermission>
                 </Suspense>
@@ -142,7 +142,7 @@ function App() {
               path: "/event/:sportname/:sportid/:eventid",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <HasPermission checkPermissions={["AllowToSports"]}>
+                  <HasPermission checkPermissions={["AllowToSports"]} redirect="/casino/lobby">
                     <Event />
                   </HasPermission>
                 </Suspense>
@@ -174,7 +174,7 @@ function App() {
               path: "/searchEvent",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <HasPermission checkPermissions={["AllowToSports"]}>
+                  <HasPermission checkPermissions={["AllowToSports"]} redirect="/casino/lobby">
                     <SearchSports />
                   </HasPermission>
                 </Suspense>
@@ -196,7 +196,7 @@ function App() {
               path: "/leaderboard/*",
               element: (
                 <Suspense fallback={<PageFallback />}>
-                  <HasPermission checkPermissions={[]}>
+                  <HasPermission checkPermissions={["AllowGamification"]}>
                     <Leaderboard />
                   </HasPermission>
                 </Suspense>

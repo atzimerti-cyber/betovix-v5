@@ -54,7 +54,8 @@
   height: 100%;
   width: var(--db-left-menu-width-collapsed);
   flex-shrink: 0;
-  background-color: var(--outer-container-left);
+  background: var(--dark-blue-1);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
   padding-bottom: 1.5rem;
   box-sizing: border-box;
 }
@@ -404,5 +405,39 @@
     right: 0;
     top: calc(var(--db-header-height) + 10px);
     z-index: 10;
+  }
+}
+
+/* Casino-only shell: floating rounded sidebar with breathing room, no outline. */
+@media (min-width: 769px) {
+  .CasinoOnlyLayout .OuterContainerLeft {
+    height: calc(100% - 16px);
+    margin: 8px;
+    padding-bottom: 0;
+    border: 0;
+    border-radius: 22px;
+    background: var(--dark-blue-1);
+    overflow: hidden;
+    box-shadow: none;
+  }
+}
+
+/* Casino-only desktop shell: match the reference spacing and 260px menu rail. */
+@media (min-width: 769px) {
+  .CasinoOnlyLayout .Content {
+    padding-top: 64px;
+  }
+
+  .CasinoOnlyLayout .OuterContainerLeft {
+    width: 260px;
+    height: calc(100% - 16px);
+    margin: 8px;
+    margin-right: 8px;
+    padding-bottom: 0;
+    border: 0;
+    border-radius: 22px;
+    background: var(--dark-blue-1);
+    overflow: hidden;
+    box-shadow: none;
   }
 }

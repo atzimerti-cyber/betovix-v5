@@ -67,9 +67,9 @@ const Login = () => {
   if (loadingVerification) return <div className={classes.AuthLoading}>{translate('Loading')}...</div>;
 
   return (
-    <div className={`${classes.RegisterContainer} ${!promoImage ? classes.NoPromo : ''}`}>
+    <div className={`${classes.RegisterContainer} ${classes.LoginContainer} ${!promoImage ? classes.NoPromo : ''}`}>
       {promoImage ? (
-        <div className={classes.PromoContainer}>
+        <div className={`${classes.PromoContainer} ${classes.LoginPromoContainer}`}>
           <div className={classes.ImageContainer} style={{ backgroundImage: `url(${promoImage})` }} />
           <div className={classes.PromoOverlay} />
           <div className={classes.LoginPromoCopy}>
@@ -79,7 +79,7 @@ const Login = () => {
         </div>
       ) : null}
 
-      <form className={classes.Form} onSubmit={onSubmit}>
+      <form className={`${classes.Form} ${classes.LoginForm}`} onSubmit={onSubmit}>
         <div className={classes.AuthIntro}>
           <div className={classes.Title}>{translate('Log In')}</div>
           <p>{translate('Log in and let the games begin')}</p>
@@ -89,7 +89,7 @@ const Login = () => {
           <MainInput
             type='text'
             value={form.usernameOrEmail}
-            placeholder={translate('Username or Email')}
+            placeholder={translate('Email')}
             onChange={(value) => setForm((current) => ({ ...current, usernameOrEmail: value }))}
           />
         </div>
@@ -118,7 +118,7 @@ const Login = () => {
         </MainButton>
 
         <div className={classes.AuthSwitch}>
-          <span>{translate('You are new player?')}</span>
+          <span>{translate('You are a new player?')}</span>
           <button type='button' onClick={() => changeTab('register')}>{translate('Create Account')}</button>
         </div>
       </form>

@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useState } from "react";
 import { SwiperSlide } from "swiper/react";
 
@@ -9,12 +8,15 @@ import { getBanners } from "./BannersAsync";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { bannersActions } from "./BannersSlice";
+import { useMediaQuery } from "react-responsive";
 
 const Banners = ({ onDataNotFound }) => {
   const dispatch = useDispatch();
 
   const user = useSelector((state) => state.login.user);
   const lang = useSelector((state) => state.app.lang);
+  const mobileWidth = useSelector((state) => state.layout.mobileWidth) || 768;
+  const isMobile = useMediaQuery({ query: `(max-width: ${mobileWidth}px)` });
 
   const [loadedImages, setLoadedImages] = useState([]);
   const banners = useSelector((state) => state.banners.banners);
@@ -25,18 +27,14 @@ const Banners = ({ onDataNotFound }) => {
 
   useEffect(() => {
     const controller = new AbortController();
-    if (window.innerWidth <= 600) {
-      dispatch(getBanners(controller.signal, "mobile"));
-    } else {
-      dispatch(getBanners(controller.signal, "desktop"));
-    }
-    // dispatch(getBanners(controller.signal));
+    setLoadedImages([]);
+    dispatch(getBanners(controller.signal, isMobile ? "mobile" : "desktop"));
 
     return () => {
       controller.abort();
       dispatch(bannersActions.reset());
     };
-  }, [dispatch, lang?.id]);
+  }, [dispatch, isMobile, lang?.id]);
 
   //Remove Component if no favs found
   useEffect(() => {
@@ -55,10 +53,20 @@ const Banners = ({ onDataNotFound }) => {
 
           return (
             <SwiperSlide key={banner.Id}>
-              <Link
-                to={link}
+              <div
                 className={classes.ImageContainer}
                 id="bannerImgContainer"
+                role={link ? "link" : undefined}
+                tabIndex={link ? 0 : undefined}
+                onClick={() => {
+                  if (link) window.location.href = link;
+                }}
+                onKeyDown={(event) => {
+                  if (link && (event.key === "Enter" || event.key === " ")) {
+                    event.preventDefault();
+                    window.location.href = link;
+                  }
+                }}
               >
                 <div
                   className={
@@ -76,17 +84,17 @@ const Banners = ({ onDataNotFound }) => {
                     onLoad={() => updateLoadedImages(index)}
                   />
                 </div>
-              </Link>
+              </div>
             </SwiperSlide>
           );
         })
       ) : (
         <SwiperSlide>
-          <Link to={null}>
+          <div className={classes.ImageContainer}>
             <div className={classes.BannerBackground}>
               <LoaderPlaceholder />
             </div>
-          </Link>
+          </div>
         </SwiperSlide>
       )}
     </BigSwiper>

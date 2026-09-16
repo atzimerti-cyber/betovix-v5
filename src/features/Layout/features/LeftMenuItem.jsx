@@ -5,6 +5,7 @@ import { useMediaQuery } from "react-responsive";
 import classes from "./LeftMenuItem.module.css";
 import { layoutActions } from "../layoutSlice";
 import { translate } from "../../../utils/translations";
+import PlayButtonIcon from "../../../assets/svgs/playbutton.svg?react";
 
 const LeftMenuItem = (props) => {
   const dispatch = useDispatch();
@@ -21,14 +22,20 @@ const LeftMenuItem = (props) => {
   if (props.isCateg == false) elClasses.push(classes.NotCateg);
   if (props.isCateg == false && props.isActive)
     elClasses.push(classes.NotCategActive);
+  if (props.popularGame) elClasses.push(classes.PopularGame);
+  if (props.casinoOnly) elClasses.push(classes.CasinoOnlyItem);
 
   const onClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
     if (props.item.page) {
-      navigate(props.item.page, {
-        state: { label: props.item.label },
-      });
+      if (/^(https?:)?\/\//.test(props.item.page)) {
+        window.location.href = props.item.page;
+      } else {
+        navigate(props.item.page, {
+          state: { label: props.item.label },
+        });
+      }
     } else if (props.item.modal) {
       const searchParams = new URLSearchParams(location.search);
       searchParams.set("modal", props.item.modal);
@@ -40,8 +47,13 @@ const LeftMenuItem = (props) => {
     if (isMobile) dispatch(layoutActions.setFullLeftContainer(false));
   };
 
+  const itemStyle =
+    props.popularGame && props.item.popularGameBackground
+      ? { "--popular-game-bg": `url(${JSON.stringify(props.item.popularGameBackground)})` }
+      : undefined;
+
   return (
-    <li className={elClasses.join(" ")} onClick={(e) => onClick(e)}>
+    <li className={elClasses.join(" ")} style={itemStyle} onClick={(e) => onClick(e)}>
       <a
         data-tooltip-id="left-menu-tooltip"
         data-tooltip-content={translate(props.item.label)}
@@ -50,13 +62,17 @@ const LeftMenuItem = (props) => {
           {props.item.icon && props.item.icon}
         </div>
 
-        {props.item.label ? (
-          <span>{translate(props.item.label)}</span>
-        ) : (
-          <span>{translate(props.item.Name)}</span>
-        )}
+        <div className={classes.ItemText}>
+          {props.item.label ? (
+            <span>{translate(props.item.label)}</span>
+          ) : (
+            <span>{translate(props.item.Name)}</span>
+          )}
+          {props.item.subtitle ? <small>{translate(props.item.subtitle)}</small> : null}
+        </div>
 
         <div className={classes.Container}>
+          {props.popularGame && <span className={classes.PlayIndicator}><PlayButtonIcon /></span>}
           {props.item.badge && props.item.badge === "free" && (
             <div className={classes.BadgeFree}>{translate("FREE")}</div>
           )}

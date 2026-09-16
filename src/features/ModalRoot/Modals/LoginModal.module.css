@@ -1,7 +1,7 @@
 .LoginModal {
   position: relative;
-  width: min(930px, calc(100vw - 28px));
-  max-height: min(760px, calc(100dvh - 32px));
+  width: min(780px, calc(100vw - 28px));
+  max-height: min(650px, calc(100dvh - 32px));
   margin: auto;
   border: 1px solid var(--lightcolor-low-op);
   border-radius: 16px;
@@ -13,13 +13,13 @@
 }
 
 .LoginModal.NoPromo {
-  width: min(560px, calc(100vw - 28px));
+  width: min(430px, calc(100vw - 28px));
 }
 
 .TabContent {
   width: 100%;
   min-height: 0;
-  max-height: min(760px, calc(100dvh - 32px));
+  max-height: min(650px, calc(100dvh - 32px));
   overflow: auto;
   scrollbar-width: thin;
   scrollbar-color: var(--lightcolor-low-op) transparent;
@@ -28,15 +28,15 @@
 .AuthTabs {
   position: absolute;
   z-index: 20;
-  top: 18px;
-  right: 74px;
-  width: min(340px, calc(50% - 92px));
+  top: 16px;
+  right: 60px;
+  width: min(280px, calc(50% - 74px));
 }
 
 .AuthTabsFull {
   left: 50%;
   right: auto;
-  width: min(340px, calc(100% - 128px));
+  width: min(280px, calc(100% - 110px));
   transform: translateX(-50%);
 }
 
@@ -53,13 +53,13 @@
 }
 
 .AuthTabs [role='tab'] {
-  min-height: 42px;
-  height: 42px;
+  min-height: 40px;
+  height: 40px;
   border: 0 !important;
   border-radius: 999px !important;
   background: transparent !important;
   color: var(--placeholder-light) !important;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
   font-weight: 700;
 }
 
@@ -108,35 +108,50 @@
 @media (max-width: 767px) {
   .LoginModal,
   .LoginModal.NoPromo {
-    width: min(520px, calc(100vw - 12px));
-    max-height: 96dvh;
-    border-radius: 12px;
+    width: 100vw;
+    height: 100dvh;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    border: 0;
+    border-radius: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .TabContent {
-    max-height: 96dvh;
+    max-height: none;
+    overflow: visible;
   }
 
   .AuthTabs,
   .AuthTabsFull {
-    left: 16px;
-    right: 58px;
+    left: 24px;
+    right: 24px;
+    top: 264px;
     width: auto;
     transform: none;
-    top: 12px;
+  }
+
+  .LoginModal.NoPromo .AuthTabs,
+  .LoginModal.NoPromo .AuthTabsFull {
+    top: 20px;
+    left: 24px;
+    right: 64px;
   }
 
   .AuthTabs [role='tab'] {
-    min-height: 38px;
-    height: 38px;
+    min-height: 40px;
+    height: 40px;
     font-size: 0.82rem;
   }
 
-
   .CloseButton {
-    top: 16px;
-    right: 16px;
-    width: 28px;
-    height: 28px;
+    top: 18px;
+    right: 18px;
+    width: 30px;
+    height: 30px;
+    background: rgba(25, 25, 28, .78);
   }
 }

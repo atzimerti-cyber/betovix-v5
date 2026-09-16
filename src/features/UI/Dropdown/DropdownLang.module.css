@@ -238,3 +238,113 @@
     margin-bottom: 0;
   }
 }
+
+/* Casino sidebar language selector: one expandable rounded control. */
+.CasinoSidebar {
+  width: 100%;
+  display: block;
+}
+
+.CasinoSidebar > button {
+  position: relative;
+  z-index: 52;
+  width: 100%;
+  min-height: 42px;
+  height: 42px !important;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--button-grad-op-mid);
+  box-shadow: none;
+  color: var(--white);
+  justify-content: flex-start !important;
+  gap: 9px;
+}
+
+.CasinoSidebar > button:hover {
+  background: var(--db-white-hover-light);
+}
+
+.CasinoSidebar > button > .LangItem {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.CasinoSidebar > button > span {
+  flex: 1 1 auto;
+  color: var(--white);
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 800;
+  text-align: left;
+}
+
+.CasinoSidebar > button > svg {
+  flex: 0 0 auto;
+  width: 12px;
+  height: 12px;
+  margin-left: auto;
+  color: var(--placeholder-light);
+}
+
+.CasinoSidebar .DropdownContentMobile {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  transform: none;
+  transform-origin: bottom;
+}
+
+.CasinoSidebar .LangDropdownMenu {
+  width: 100%;
+  max-height: min(50dvh, 320px);
+  margin: 0;
+  padding: 8px 8px 50px;
+  border: 0;
+  border-radius: 22px;
+  background: var(--button-grad-op-mid);
+  box-shadow: var(--db-dropdown-shadow);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.CasinoSidebar .LangDropdownMenu li {
+  width: 100%;
+  margin: 0 0 4px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.CasinoSidebar .LangDropdownMenu li:last-child {
+  margin-bottom: 0;
+}
+
+.CasinoSidebar .LangDropdownMenu li a {
+  min-height: 36px;
+  padding: 6px 10px;
+  gap: 9px;
+  border-radius: 999px;
+  color: var(--white);
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 800;
+}
+
+.CasinoSidebar .LangDropdownMenu li a:hover {
+  background: var(--db-white-hover-light);
+}
+
+.CasinoSidebar .LangDropdownMenu li a:active {
+  background: var(--db-white-hover);
+  color: var(--white);
+}
+
+.CasinoSidebar.Visible > button {
+  background: var(--db-white-hover);
+}
+
+.CasinoSidebar .SelectedLanguage a {
+  background: var(--db-white-hover);
+  box-shadow: inset 0 0 0 1px var(--lightcolor-op1);
+}

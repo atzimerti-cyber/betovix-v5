@@ -36,7 +36,7 @@ const Home = () => {
   }, [dispatch, allowCasino]);
 
   return (
-    <div className={classes.PageContent} style={{ paddingTop: "16px" }}>
+    <div className={classes.PageContent}>
       <div className={classes.Home} id="homePage">
 
         <div

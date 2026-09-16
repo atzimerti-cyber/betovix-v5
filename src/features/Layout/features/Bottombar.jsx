@@ -19,6 +19,7 @@ import useBasePath from "../../../hooks/useBasePath";
 import { formatNumberTo } from "../../../utils/custom";
 import { translate } from "../../../utils/translations";
 import PricesIcon from "../../../assets/svgs/prices.svg?react";
+import { isMenuItemAllowed } from "../../../utils/permissions";
 
 const Bottombar = () => {
   const dispatch = useDispatch();
@@ -375,9 +376,7 @@ const Bottombar = () => {
 
     //   setMenuButtonsIndexes(filteredIndexes);
     // }  else 
-    if (
-      !footerbarMenu && footerbarMenu?.length == 0
-    ) {
+    if (!footerbarMenu?.length) {
       let buttonsObj = {
         menu: 0,
         sports: 1,
@@ -407,6 +406,8 @@ const Bottombar = () => {
     lang.id,
     user?.AccountId,
     initDataLoaded,
+    permissions,
+    footerbarMenu,
   ]);
 
   const handleBtnClick = (i) => {
@@ -432,7 +433,7 @@ const Bottombar = () => {
             <span className={classes.Label}>{translate("Menu")}</span>
           </button>
 
-          {footerbarMenu.map((i) => (
+          {footerbarMenu.filter((i) => isMenuItemAllowed(i, permissions)).map((i) => (
             <button
               key={i.badgeId}
               id={i.badgeId}

@@ -29,6 +29,8 @@ import { addThousandsSeparator } from "../../../utils/custom";
 import NoUserImg from "../../../assets/images/nouserimg.png";
 import NoUserSvg from "../../../assets/images/nouserimg.svg?react";
 import config from "../../../config";
+import SearchIcon from "../../../assets/svgs/search.svg?react";
+import { searchActions } from "../../../pages/Search/searchSlice";
 
 const Topbar = () => {
   const dispatch = useDispatch();
@@ -36,11 +38,16 @@ const Topbar = () => {
   const location = useLocation();
   const lang = useSelector((state) => state.app.lang);
   const siteSettings = useSelector((state) => state.app.siteSettings);
+  const permissions = useSelector((state) => state.login.permissions);
+  const searchString = useSelector((state) => state.search.searchString);
 
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
   const progressBar = useMediaQuery({
     query: "(min-width: 576px) and (max-width: 950px)",
   });
+  const hasSportsAccess = Boolean(permissions?.AllowToSports);
+  const hasCasinoAccess = Boolean(permissions?.AllowToCasino || permissions?.AllowToSlots);
+  const isCasinoOnly = hasCasinoAccess && !hasSportsAccess;
 
   const fullLeftContainer = useSelector(
     (state) => state.layout.fullLeftContainer
@@ -122,10 +129,10 @@ const Topbar = () => {
   const logoURL = siteSettings?.Logo || config.VITE_SITE_LOGO || null;
 
   return (
-    <div className={classes.Topbar} id="topbar">
+    <div className={`${classes.Topbar} ${isCasinoOnly ? classes.CasinoOnlyTopbar : ""}`} id="topbar">
       <div className={classes.TopbarLeftWrapper} id="topbarLeft">
         <div className={classes.TopbarLeft}>
-          <div className={classes.HeaderHamburger} id="HeaderHamburger">
+          <div className={`${classes.HeaderHamburger} ${isCasinoOnly && isDesktop ? classes.CasinoOnlyHamburger : ""}`} id="HeaderHamburger">
             {!showingLiveEvent && (
               <MainButton
                 color="transparent"
@@ -209,6 +216,27 @@ const Topbar = () => {
           )}
         </div>
       </div>
+
+      {isDesktop && isCasinoOnly && !user && (
+        <div className={classes.CasinoHeaderSearch}>
+          <SearchIcon />
+          <input
+            type="search"
+            role="search"
+            autoComplete="off"
+            value={searchString}
+            placeholder={translate("Search by game or provider")}
+            onChange={(event) => {
+              const value = event.target.value;
+              dispatch(searchActions.setSearchString(value));
+              if (value) navigate("/search");
+            }}
+            onFocus={() => {
+              if (searchString) navigate("/search");
+            }}
+          />
+        </div>
+      )}
 
       <div className={classes.TopbarCenterWrapper} id="topbarCenter">
         {user && (
@@ -407,7 +435,7 @@ const Topbar = () => {
                 color="transparent"
                 onClick={() => addParamsToUrl("auth", "login")}
               >
-                {translate("Login")}
+                {translate("Sign In")}
               </MainButton>
               {/* </div>
               <div id="registerButton"> */}
@@ -416,7 +444,7 @@ const Topbar = () => {
                 color="secondary"
                 onClick={() => addParamsToUrl("auth", "register")}
               >
-                {translate("Register")}
+                {translate("Sign Up")}
               </MainButton>
               {/* </div> */}
             </>

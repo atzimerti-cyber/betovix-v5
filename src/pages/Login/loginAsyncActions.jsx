@@ -146,6 +146,19 @@ const loadMainWallet = async ({ siteId, accountId, currencyCode }) => {
   }
 };
 
+const refreshAuthenticatedPermissions = async (dispatch) => {
+  try {
+    const response = await axiosApi.get(
+      `Site/GetSiteSettings?SiteId=${config.VITE_SITE_ID}`,
+      { baseURLOverride: API_BASE },
+    );
+    const permissions = response?.data?.Contents?.Permissions;
+    if (permissions) dispatch(loginActions.setPermissions(permissions));
+  } catch {
+    // Keep the already loaded site permissions if the authenticated refresh fails.
+  }
+};
+
 const syncAuthenticatedBonusState = async (dispatch, langId) => {
   const [activeResult, summaryResult] = await Promise.allSettled([
     axiosApi.get(`bonus/me/active?lang=${langId}&SiteId=${config.VITE_SITE_ID}`, {
@@ -256,6 +269,7 @@ export const login = (loginInfo, navigate, locationPathname, onSuccess) => {
       setTokens(auth.accessToken, auth.refreshToken);
       startTokenRefreshTimer(auth.expiresInSeconds, dispatch);
       await hydrateUserFromAuth(dispatch, getState, auth, usernameOrEmail);
+      await refreshAuthenticatedPermissions(dispatch);
 
       navigate(resolvePostLoginRoute(getState(), locationPathname), { replace: true });
       onSuccess?.();
@@ -320,7 +334,9 @@ export const getUser = () => {
   return async (dispatch, getState) => {
     try {
       if (!getAccessToken()) return null;
-      return await hydrateUserFromAuth(dispatch, getState);
+      const user = await hydrateUserFromAuth(dispatch, getState);
+      if (user) await refreshAuthenticatedPermissions(dispatch);
+      return user;
     } catch {
       dispatch(loginActions.logout());
       return null;

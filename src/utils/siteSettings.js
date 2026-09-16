@@ -30,13 +30,37 @@ export const normalizeSiteSettings = (settings) => {
 };
 
 export const normalizePermissions = (permissions, fallback = {}) => {
-  if (!permissions || typeof permissions !== "object" || Array.isArray(permissions)) {
-    return { ...fallback };
+  let source = permissions;
+
+  if (typeof source === "string") {
+    try {
+      source = JSON.parse(source);
+    } catch {
+      return { ...fallback };
+    }
   }
 
-  return Object.entries(permissions).reduce(
+  if (Array.isArray(source)) {
+    return source.reduce((acc, entry) => {
+      if (typeof entry === "string") {
+        acc[entry] = true;
+        return acc;
+      }
+
+      if (entry && typeof entry === "object") {
+        const key = entry.key ?? entry.name ?? entry.permission ?? entry.Permission;
+        const value = entry.value ?? entry.enabled ?? entry.allowed ?? entry.Value ?? true;
+        if (key) acc[key] = normalizeBooleanLikeValue(value) === true;
+      }
+      return acc;
+    }, { ...fallback });
+  }
+
+  if (!source || typeof source !== "object") return { ...fallback };
+
+  return Object.entries(source).reduce(
     (acc, [key, value]) => {
-      acc[key] = Boolean(normalizeBooleanLikeValue(value));
+      acc[key] = normalizeBooleanLikeValue(value) === true;
       return acc;
     },
     { ...fallback }

@@ -28,6 +28,7 @@ const DropdownLang = (props) => {
   if (props.openTo === "side") elClasses.push(classes.Side);
   if (dropdownVisible) elClasses.push(classes.Visible);
   if (!fullLeftContainer) elClasses.push(classes.Closed);
+  if (props.casinoSidebar) elClasses.push(classes.CasinoSidebar);
 
   const onSelectLang = (lang) => {
     dispatch(getTranslations(lang));
@@ -131,7 +132,7 @@ const DropdownLang = (props) => {
                 )} */}
         {props.fullLabel && (
           <>
-            <div className={classes.LangItem} style={{ marginRight: "0.5rem" }}>
+            <div className={classes.LangItem}>
               <img
                 src={`https://cdnwallet.modulesports.com/assets/images/flags/${lang.id}.svg`}
                 // src={lang.flag}
@@ -140,9 +141,7 @@ const DropdownLang = (props) => {
                 className={classes.Flag}
               />
             </div>
-            <span style={{ color: "white", fontSize: "13px" }}>
-              {getLangName(lang.id)}
-            </span>
+            <span>{getLangName(lang.id)}</span>
             <CaretDownIcon />
           </>
         )}
@@ -195,6 +194,7 @@ const DropdownLang = (props) => {
               return (
                 <li
                   key={availableLang.id}
+                  className={availableLang.id === lang.id ? classes.SelectedLanguage : undefined}
                   onClick={() => onSelectLang(availableLang)}
                 >
                   <a>

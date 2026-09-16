@@ -31,9 +31,30 @@ import SupportIcon from "../../assets/svgs/livesupportbtn.svg?react";
 import { translate } from "../../utils/translations";
 import ScriptHeadInjector from "../../utils/scriptHeadInjector";
 import { normalizePermissions, normalizeSiteSettings } from "../../utils/siteSettings";
+import { isMenuItemAllowed } from "../../utils/permissions";
 
 const isAuthError = (error) => [401, 403].includes(error?.response?.status);
 const isCanceled = (error) => error?.code === "ERR_CANCELED" || error?.name === "CanceledError" || error?.name === "AbortError";
+
+
+const ensureSiteThemeStylesheet = (href) => {
+  if (!href) return;
+
+  const absoluteHref = new URL(href, window.location.origin).href;
+  let link = document.querySelector('link[data-site-theme="true"]');
+
+  if (link && link.href === absoluteHref) return;
+
+  if (!link) {
+    link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.type = "text/css";
+    link.dataset.siteTheme = "true";
+    document.head.appendChild(link);
+  }
+
+  link.href = absoluteHref;
+};
 
 const optionalRequest = async (promise, fallback = null) => {
   try {
@@ -386,12 +407,13 @@ export const loadInitData = (isMobile) => {
           const categoryBadge = category?.Categ?.BadgeType;
 
           if (categoryName && categoryBadge) {
-            casinoWalletMenu.items.push({
+            const menuItem = {
               id: category.Categ.Id,
               label: categoryName,
               icon: casinoIcons[categoryName] || <NoImageIcon />,
               page: `casino/menu?tag=${categoryBadge}`,
-            });
+            };
+            if (isMenuItemAllowed(menuItem, permissions)) casinoWalletMenu.items.push(menuItem);
           }
 
           (category?.Items || []).forEach((item) => {
@@ -401,12 +423,13 @@ export const loadInitData = (isMobile) => {
             if (label === "Favorites" && !user) return;
 
             if (!casinoWalletMenu.items.some((existing) => existing.label === label)) {
-              casinoWalletMenu.items.push({
+              const menuItem = {
                 id: item.Id,
                 label,
                 icon: casinoMenuIcons[label] || casinoIcons[label] || <NoImageIcon />,
                 page,
-              });
+              };
+              if (isMenuItemAllowed(menuItem, permissions)) casinoWalletMenu.items.push(menuItem);
             }
           });
         });
@@ -418,12 +441,13 @@ export const loadInitData = (isMobile) => {
           if (label === "Favorites" && !user) return;
 
           if (!casinoWalletMenu.items.some((existing) => existing.label === label)) {
-            casinoWalletMenu.items.push({
+            const menuItem = {
               id: item.Id,
               label,
               icon: casinoMenuIcons[label] || casinoIcons[label] || <NoImageIcon />,
               page,
-            });
+            };
+            if (isMenuItemAllowed(menuItem, permissions)) casinoWalletMenu.items.push(menuItem);
           }
         });
 
@@ -444,12 +468,13 @@ export const loadInitData = (isMobile) => {
           const page = item?.Link || item?.State;
           if (!item?.Name || !page) return;
 
-          casinoMinibarMenu.items.push({
+          const menuItem = {
             id: item.Id,
             label: item.Name,
             icon: casinoMenuIcons[item.Name] || <NoImageIcon />,
             page,
-          });
+          };
+          if (isMenuItemAllowed(menuItem, permissions)) casinoMinibarMenu.items.push(menuItem);
         });
 
         let footerbarMenu = [];
@@ -458,14 +483,15 @@ export const loadInitData = (isMobile) => {
           if (categoryData.Categ.Name === footerbartype) {
             (categoryData?.Items || []).forEach((item) => {
 
-              footerbarMenu.push({
+              const menuItem = {
                 id: item.Id,
                 label: item.Name,
                 icon: footerbarMenuIcons[item.Name] || <NoImageIcon />,
                 page: item.State,
                 link: item.Link || "#",
                 badgeId: item.Badge,
-              });
+              };
+              if (isMenuItemAllowed(menuItem, permissions)) footerbarMenu.push(menuItem);
             });
           }
         });
@@ -534,94 +560,172 @@ export const loadInitData = (isMobile) => {
         dispatch(appActions.setCasinoMinibarItems(casinoMinibarMenu));
       }
 
-      // Main navigation menu. The migrated frontend reads this from the sports menu
-      // using the site's MainMenuType. Keep the existing Betovix sidebar structure,
-      // but feed it with the same backend menu source.
-      const siteMenuResponse = await optionalRequest(
-        axiosApi.get(
-          `Legacy/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
-          { baseURLOverride: config.VITE_WALLET_API_BASE }
-        ),
-        { data: { Contents: {} } }
-      );
-      const siteMenus = siteMenuResponse?.data?.Contents || {};
-      const mainMenuType = siteSettings?.MainMenuType || "MAIN MENU V2";
-      const mainMenuCategory = (siteMenus?.Categs || []).find(
-        (entry) => entry?.Categ?.Name === mainMenuType && Array.isArray(entry?.Items)
-      ) || (siteMenus?.Categs || []).find((entry) => Array.isArray(entry?.Items) && entry.Items.length);
+      // Main navigation menu. Casino-only sites use the same dynamic
+      // casinoHomeSidebar menu as the reference frontend. Mixed/sports sites
+      // continue to use the configured MainMenuType from the sports menu.
+      const hasCasinoAccess = Boolean(permissions?.AllowToCasino || permissions?.AllowToSlots);
+      const isCasinoOnly = hasCasinoAccess && !permissions?.AllowToSports;
 
-      const mainMenuItems = (mainMenuCategory?.Items || [])
-        .slice()
-        .filter((item) => {
-          // Sports/Inplay already belong to the existing sports navigation in this template.
-          // Do not duplicate them in the generic sidebar menu.
-          const name = String(item?.Name || "").trim().toLowerCase();
-          return name !== "sports" && name !== "inplay" && name !== "in play";
-        })
-        .sort((a, b) => Number(a?.ViewOrder || 0) - Number(b?.ViewOrder || 0))
-        .map((item) => {
-          const rawPage = item?.Link || item?.State;
-          if (!rawPage) return null;
+      const normalizeMenuTarget = (item) => {
+        const rawTarget = item?.State || item?.Link || "";
+        if (!rawTarget) return null;
+        if (/^(https?:)?\/\//.test(rawTarget)) return rawTarget;
+        return rawTarget.startsWith("/") ? rawTarget : `/${rawTarget}`;
+      };
 
-          const isExternal = /^(https?:)?\/\//.test(rawPage);
-          const page = isExternal
-            ? rawPage
-            : rawPage.startsWith("/")
-              ? rawPage
-              : `/${rawPage}`;
+      const renderDynamicMenuIcon = (icon) => {
+        if (!icon) return <NoImageIcon />;
+        const value = String(icon).trim();
+        if (value.startsWith("<svg")) {
+          return <span dangerouslySetInnerHTML={{ __html: value }} />;
+        }
+        if (/^(https?:)?\/\//.test(value) || value.startsWith("/") || /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(value)) {
+          return <img src={value} alt="" />;
+        }
+        return <i className={value} />;
+      };
 
-          return {
-            id: item.Id,
-            label: item.Name,
-            icon: item.Icon ? <img src={item.Icon} alt="" /> : <NoImageIcon />,
-            page,
-            badge: item.Badge,
-          };
-        })
-        .filter(Boolean);
+      const mapDynamicMenuItem = (item, extra = {}) => {
+        const page = normalizeMenuTarget(item);
+        const rawIcon = item?.Icon ? String(item.Icon).trim() : "";
+        const imageIcon =
+          rawIcon &&
+          (/^(https?:)?\/\//.test(rawIcon) ||
+            rawIcon.startsWith("/") ||
+            /\.(png|jpe?g|gif|webp|svg)(\?.*)?$/i.test(rawIcon))
+            ? rawIcon
+            : null;
 
-      if (mainMenuItems.length) {
-        allMenuItems.push({ items: mainMenuItems });
+        const menuItem = {
+          id: item.Id,
+          label: item.Name,
+          icon: renderDynamicMenuIcon(item.Icon),
+          page,
+          badge: item.Badge,
+          badgeType: item.BadgeType,
+          customClass: item.CustomClass,
+          subtitle: item.Subtitle || item.Description || item.ProviderName || item.Provider || null,
+          popularGameBackground: extra?.popularGame ? imageIcon : null,
+          ...extra,
+        };
+
+        return isMenuItemAllowed(menuItem, permissions) ? menuItem : null;
+      };
+
+      let siteMenus = {};
+      const support = getState().layout.tawkToScript;
+
+      if (isCasinoOnly) {
+        const casinoSidebarResponse = await optionalRequest(
+          axiosApi.get(
+            `Legacy/Menu/MyMenu?type=casinoHomeSidebar&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+            { baseURLOverride: config.VITE_WALLET_API_BASE }
+          ),
+          { data: { Contents: {} } }
+        );
+
+        const casinoSidebarContents = casinoSidebarResponse?.data?.Contents || {};
+        const sidebarEntries = [
+          ...(casinoSidebarContents?.Categs || []),
+          ...(casinoSidebarContents?.Items || []),
+        ].sort((a, b) =>
+          Number(a?.Categ?.ViewOrder ?? a?.ViewOrder ?? 0) -
+          Number(b?.Categ?.ViewOrder ?? b?.ViewOrder ?? 0)
+        );
+
+        const topLevelItems = [];
+
+        sidebarEntries.forEach((entry) => {
+          if (!entry?.Categ) {
+            const mapped = mapDynamicMenuItem(entry);
+            if (mapped) topLevelItems.push(mapped);
+            return;
+          }
+
+          const category = entry.Categ;
+          const categoryName = String(category?.Name || "").trim();
+          const popularGames = categoryName.toLowerCase() === "popular games";
+
+          const directItems = entry?.Items || [];
+          const subCategoryItems = (entry?.SubCategs || []).flatMap((subEntry) => {
+            const subCategory = subEntry?.SubCateg;
+            if (!subCategory) return [];
+            if (subEntry?.Items?.length) return subEntry.Items;
+            return [subCategory];
+          });
+
+          const items = [...directItems, ...subCategoryItems]
+            .slice()
+            .sort((a, b) => Number(a?.ViewOrder || 0) - Number(b?.ViewOrder || 0))
+            .map((item) => mapDynamicMenuItem(item, { popularGame: popularGames }))
+            .filter(Boolean);
+
+          if (!items.length) return;
+
+          allMenuItems.push({
+            category: {
+              id: category.Id,
+              label: categoryName,
+              visible: true,
+              staticSection: popularGames,
+              popularGames,
+            },
+            items,
+          });
+        });
+
+        if (topLevelItems.length) {
+          allMenuItems.unshift({ items: topLevelItems });
+        }
+
+        // Keep footer/backoffice-driven secondary content available without
+        // using the sports menu for the casino-only sidebar itself.
+        const footerMenuResponse = await optionalRequest(
+          axiosApi.get(
+            `Legacy/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+            { baseURLOverride: config.VITE_WALLET_API_BASE }
+          ),
+          { data: { Contents: {} } }
+        );
+        siteMenus = footerMenuResponse?.data?.Contents || {};
+      } else {
+        const siteMenuResponse = await optionalRequest(
+          axiosApi.get(
+            `Legacy/Menu/MyMenu?type=sports&lang=${lang.id}&siteid=${config.VITE_SITE_ID}`,
+            { baseURLOverride: config.VITE_WALLET_API_BASE }
+          ),
+          { data: { Contents: {} } }
+        );
+        siteMenus = siteMenuResponse?.data?.Contents || {};
+        const mainMenuType = siteSettings?.MainMenuType || "MAIN MENU V2";
+        const mainMenuCategory = (siteMenus?.Categs || []).find(
+          (entry) => entry?.Categ?.Name === mainMenuType && Array.isArray(entry?.Items)
+        ) || (siteMenus?.Categs || []).find((entry) => Array.isArray(entry?.Items) && entry.Items.length);
+
+        const mainMenuItems = (mainMenuCategory?.Items || [])
+          .slice()
+          .filter((item) => {
+            const name = String(item?.Name || "").trim().toLowerCase();
+            return name !== "sports" && name !== "inplay" && name !== "in play";
+          })
+          .sort((a, b) => Number(a?.ViewOrder || 0) - Number(b?.ViewOrder || 0))
+          .map((item) => mapDynamicMenuItem(item))
+          .filter(Boolean);
+
+        if (mainMenuItems.length) {
+          allMenuItems.push({ items: mainMenuItems });
+        }
+
+        allMenuItems.push({
+          category: { id: 8, label: "More", visible: false },
+          items: [
+            { id: 1, label: "Promotions", icon: <PromotionsIcon />, page: "promotions" },
+            support?.Source && { id: 2, label: "Live Support", icon: <SupportIcon />, page: "support" },
+            permissions?.AllowToSports && { id: 3, label: "My Bets", icon: <PaperIcon />, page: "sportsbook/mybets" },
+            { id: 4, label: "Crypto Rates", icon: <PricesIcon />, page: "crypto" },
+          ].filter(Boolean),
+        });
       }
-
-      const layout = getState().layout;
-      const support = layout.tawkToScript;
-
-      allMenuItems.push({
-        category: { id: 8, label: "More", visible: false },
-        items: [
-          {
-            id: 1,
-            label: "Promotions",
-            icon: <PromotionsIcon />,
-            page: "promotions",
-          },
-          support?.Source && {
-            id: 2,
-            label: "Live Support",
-            icon: <SupportIcon />,
-            page: "support",
-          },
-          permissions?.AllowToSports && {
-            id: 3,
-            label: "My Bets",
-            icon: <PaperIcon />,
-            page: "sportsbook/mybets",
-          },
-          {
-            id: 4,
-            label: "Crypto Rates",
-            icon: <PricesIcon />,
-            page: "crypto",
-          },
-          // {
-          //   id: 5,
-          //   label: "Leaderboard",
-          //   icon: <LeaderIcon />,
-          //   page: "leaderboard",
-          // },
-        ].filter(Boolean),
-      });
 
       //Footer
       const ss = getState().app.siteSettings;
@@ -811,9 +915,9 @@ export const getSite = (signal) => {
     try {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
-        //`Site/GetSite?domainName=crimsoncoins.net`,
-        // `Legacy/Site/GetSite?domainName=betovix.storetube.gr`,
-        `Legacy/Site/GetSite?domainName=${currentDomain}`,
+        //`Legacy/Site/GetSite?domainName=crimsoncoins.net`,
+        `Legacy/Site/GetSite?domainName=naughtyspins.storetube.gr`,
+        //`Legacy/Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,
@@ -823,11 +927,11 @@ export const getSite = (signal) => {
       if (response.status !== 200) throw new Error("Something went wrong");
 
       if (!response.data.Contents.SiteTheme) {
-        response.data.Contents.SiteTheme = "/themes/theme-0.css";
+        response.data.Contents.SiteTheme = window.location.origin + "/themes/theme-20.css";
       }
       if (!response.data.Contents.StatsTheme) {
         response.data.Contents.StatsTheme =
-          window.location.origin + "/themes/theme-0-stats.css";
+          window.location.origin + "/themes/theme-20-stats.css";
       }
 
       // config.VITE_SITE_ID = 45;
@@ -852,12 +956,7 @@ export const getSite = (signal) => {
         );
       }
       // Theme
-      const link = document.createElement("link");
-      link.rel = "stylesheet";
-      link.type = "text/css";
-      //link.href = "/themes/theme-12.css";
-      link.href = response.data.Contents.SiteTheme; /////////////////////
-      document.head.appendChild(link);
+      ensureSiteThemeStylesheet(response.data.Contents.SiteTheme);
 
       // Update all favicon links
       const basePath = window.location.origin;
@@ -971,14 +1070,14 @@ export const getSiteSettings = (signal) => {
       const currentAppState = getState().app;
       const allowedLangs = Array.isArray(site.AllowedLangs)
         ? site.AllowedLangs
-            .map((item) => (typeof item === "string" ? { id: item } : item))
-            .filter((item) => item?.id)
+          .map((item) => (typeof item === "string" ? { id: item } : item))
+          .filter((item) => item?.id)
         : typeof site.AllowedLangs === "string"
           ? site.AllowedLangs
-              .split(",")
-              .map((id) => id.trim())
-              .filter(Boolean)
-              .map((id) => ({ id }))
+            .split(",")
+            .map((id) => id.trim())
+            .filter(Boolean)
+            .map((id) => ({ id }))
           : currentAppState.availableLangs || [];
       const defaultLang = site.DefaultLang
         ? { id: `${site.DefaultLang}` }
@@ -1005,6 +1104,15 @@ export const getSiteSettings = (signal) => {
       if (site.GoogleClientId) config.VITE_GOOGLE_CLIENT_ID = site.GoogleClientId;
       config.VITE_LOGIN_URL = site.LoginUrl || config.VITE_WALLET_API_BASE;
       if (site.Logo) config.VITE_SITE_LOGO = site.Logo;
+
+      // Site settings can override the shell themes returned by GetSite.
+      // Keep the site and statistics theme handling aligned with the reference site.
+      if (site.Theme) {
+        ensureSiteThemeStylesheet(site.Theme);
+      }
+      if (site.StatsTheme) {
+        config.VITE_STATS_THEME = new URL(site.StatsTheme, window.location.origin).href;
+      }
 
       if (site.noReferrer === true) {
         const metaTag = document.createElement("meta");
@@ -1059,7 +1167,7 @@ export const getSiteSettings = (signal) => {
       dispatch(appActions.setRegisterPromoImg(site.RegisterPromoImg || null));
       dispatch(appActions.setRegisterPromoImgMobile(site.RegisterPromoImgMobile || null));
 
-      dispatch(loginActions.setPermissions(permissions));
+      dispatch(loginActions.setSitePermissions(permissions));
       dispatch(appActions.setSiteSettings(site));
       dispatch(appActions.setAvailableLangs(allowedLangs));
       dispatch(appActions.setDefaultLang(defaultLang));

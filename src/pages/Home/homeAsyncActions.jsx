@@ -127,33 +127,9 @@ export const getHomeCasinoSections = (signal) => {
         }
       });
 
-    const newGamesRequest = axiosApi
-      .get(
-        `MyCasino/GetHomeGames?tags=new&count=20&siteid=${config.VITE_SITE_ID}`,
-        {
-          signal,
-          baseURLOverride: config.VITE_CASINO_BASE,
-          timeout: 10000,
-        }
-      )
-      .then((response) => {
-        const items = normalizeSectionsResponse(response?.data);
-        if (items.length > 0) {
-          sections.push({
-            key: "new",
-            sectionType: "tag",
-            title: "New Games",
-            displayOrder: 199,
-            items,
-            renderPage: "home,casino",
-          });
-        }
-      });
-
     const results = await Promise.allSettled([
       collectionsRequest,
       liveGamesRequest,
-      newGamesRequest,
     ]);
 
     results.forEach((result) => {

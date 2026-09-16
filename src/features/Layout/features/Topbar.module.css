@@ -772,3 +772,143 @@
     width: 115px;
   }
 }
+
+.NoUserHeaderRight {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.NoUserHeaderRight > button {
+  min-width: 92px;
+  height: 38px;
+  min-height: 38px;
+  padding: 0 18px;
+  border-radius: 999px;
+  text-transform: none;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.NoUserHeaderRight > button:first-child {
+  border: 1px solid var(--brand-color) !important;
+  background: transparent !important;
+  color: var(--white) !important;
+}
+
+.NoUserHeaderRight > button:last-child {
+  border: 1px solid var(--brand-color) !important;
+  background: var(--brand-color) !important;
+  color: var(--white) !important;
+}
+
+/* Casino-only desktop header, using existing theme variables only. */
+.CasinoOnlyTopbar {
+  background: var(--dark-blue-1);
+  box-shadow: none;
+}
+
+.CasinoOnlyHamburger {
+  display: none !important;
+}
+
+.CasinoHeaderSearch {
+  position: absolute;
+  z-index: 2;
+  left: 232px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 220px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--button-grad-op-mid);
+  box-shadow: none;
+}
+
+.CasinoHeaderSearch > svg {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  opacity: .8;
+}
+
+.CasinoHeaderSearch > svg path {
+  fill: var(--placeholder-light);
+}
+
+.CasinoHeaderSearch input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: var(--white);
+  font-size: .72rem;
+  line-height: 1;
+  font-weight: 600;
+}
+
+.CasinoHeaderSearch input::placeholder {
+  color: var(--placeholder-light);
+  opacity: 1;
+}
+
+.CasinoHeaderSearch:focus-within,
+.CasinoHeaderSearch:hover {
+  background: var(--db-white-hover-light);
+}
+
+/* Casino-only desktop header proportions from the reference. */
+@media (min-width: 1024px) {
+  .CasinoOnlyTopbar {
+    height: 64px;
+    padding-left: 28px;
+    padding-right: 18px;
+  }
+
+  .CasinoOnlyTopbar .TopbarLeft > button {
+    height: 64px;
+    padding: 7px 0;
+  }
+
+  .CasinoOnlyTopbar .SiteLogo,
+  .CasinoOnlyTopbar .SiteLogoNoUser {
+    width: 172px;
+    height: 82%;
+  }
+
+  .CasinoHeaderSearch {
+    left: 264px;
+    width: 248px;
+    height: 44px;
+    padding: 0 14px;
+    gap: 10px;
+    border-radius: 999px;
+  }
+
+  .CasinoHeaderSearch > svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .CasinoHeaderSearch input {
+    font-size: 12px;
+  }
+
+  .CasinoOnlyTopbar .NoUserHeaderRight {
+    gap: 10px;
+  }
+
+  .CasinoOnlyTopbar .NoUserHeaderRight > button {
+    min-width: 94px;
+    height: 40px;
+    min-height: 40px;
+    padding: 0 20px;
+    font-size: 15px;
+  }
+}

@@ -84,6 +84,8 @@ const Register = () => {
   const [phoneCountryMenuOpen, setPhoneCountryMenuOpen] = useState(false);
   const [nationalityMenuOpen, setNationalityMenuOpen] = useState(false);
   const [documentTypeMenuOpen, setDocumentTypeMenuOpen] = useState(false);
+  const [countrySearch, setCountrySearch] = useState('');
+  const [nationalitySearch, setNationalitySearch] = useState('');
 
   const [form, setForm] = useState({
     email: '',
@@ -206,6 +208,22 @@ const Register = () => {
           },
     );
   }, [preferences]);
+
+  const filteredCountries = useMemo(() => {
+    const query = countrySearch.trim().toLowerCase();
+    if (!query) return countries;
+    return countries.filter((country) =>
+      `${country.name} ${country.code} ${country.dialCode}`.toLowerCase().includes(query),
+    );
+  }, [countries, countrySearch]);
+
+  const filteredNationalities = useMemo(() => {
+    const query = nationalitySearch.trim().toLowerCase();
+    if (!query) return countries;
+    return countries.filter((country) =>
+      `${country.name} ${country.code}`.toLowerCase().includes(query),
+    );
+  }, [countries, nationalitySearch]);
 
   const update = (key, value) => setForm((current) => ({ ...current, [key]: value }));
 
@@ -456,7 +474,18 @@ const Register = () => {
                 </button>
                 {countryMenuOpen ? (
                   <div className={classes.CustomSelectMenu}>
-                    {countries.map((country) => (
+                    <div className={classes.SelectSearchWrapper}>
+                      <input
+                        className={classes.SelectSearchInput}
+                        type='search'
+                        value={countrySearch}
+                        placeholder={translate('Search country')}
+                        autoFocus
+                        onChange={(event) => setCountrySearch(event.target.value)}
+                        onClick={(event) => event.stopPropagation()}
+                      />
+                    </div>
+                    {filteredCountries.map((country) => (
                       <button
                         key={country.code}
                         type='button'
@@ -465,12 +494,16 @@ const Register = () => {
                           setForm((current) => ({ ...current, country: country.code }));
                           setCountryMenuOpen(false);
                           setPhoneCountryMenuOpen(false);
+                          setCountrySearch('');
                         }}
                       >
                         <img className={classes.CustomSelectFlag} src={getCountryFlagUrl(country.code)} alt='' aria-hidden='true' />
                         <span>{country.name}</span>
                       </button>
                     ))}
+                    {filteredCountries.length === 0 ? (
+                      <div className={classes.SelectNoResults}>{translate('No results')}</div>
+                    ) : null}
                   </div>
                 ) : null}
               </div>
@@ -548,14 +581,13 @@ const Register = () => {
             </MainButton>
           </div>
         ) : (
-          <div className={classes.AuthStep}>
-            <div className={classes.AuthTwoColumns}>
-              <div className={classes.InputOuter}>
-                <MainInput value={form.firstName} placeholder={translate('First Name')} onChange={(value) => update('firstName', value)} />
-              </div>
-              <div className={classes.InputOuter}>
-                <MainInput value={form.lastName} placeholder={translate('Surname')} onChange={(value) => update('lastName', value)} />
-              </div>
+          <div className={`${classes.AuthStep} ${classes.AuthStepDetails}`}>
+            <div className={classes.InputOuter}>
+              <MainInput value={form.firstName} placeholder={translate('Firstname')} onChange={(value) => update('firstName', value)} />
+            </div>
+
+            <div className={classes.InputOuter}>
+              <MainInput value={form.lastName} placeholder={translate('Lastname')} onChange={(value) => update('lastName', value)} />
             </div>
 
             <div className={classes.NativeField}>
@@ -575,6 +607,7 @@ const Register = () => {
                 className={classes.CustomSelectTrigger}
                 onClick={() => {
                   setNationalityMenuOpen((open) => !open);
+                  setDocumentTypeMenuOpen(false);
                   setCountryMenuOpen(false);
                   setPhoneCountryMenuOpen(false);
                 }}
@@ -585,7 +618,18 @@ const Register = () => {
               </button>
               {nationalityMenuOpen ? (
                 <div className={classes.CustomSelectMenu}>
-                  {countries.map((country) => (
+                  <div className={classes.SelectSearchWrapper}>
+                    <input
+                      className={classes.SelectSearchInput}
+                      type='search'
+                      value={nationalitySearch}
+                      placeholder={translate('Search nationality')}
+                      autoFocus
+                      onChange={(event) => setNationalitySearch(event.target.value)}
+                      onClick={(event) => event.stopPropagation()}
+                    />
+                  </div>
+                  {filteredNationalities.map((country) => (
                     <button
                       key={`nationality-${country.code}`}
                       type='button'
@@ -593,18 +637,22 @@ const Register = () => {
                       onClick={() => {
                         update('nationality', country.code);
                         setNationalityMenuOpen(false);
+                        setNationalitySearch('');
                       }}
                     >
                       <img className={classes.CustomSelectFlag} src={getCountryFlagUrl(country.code)} alt='' aria-hidden='true' />
                       <span>{country.name}</span>
                     </button>
                   ))}
+                  {filteredNationalities.length === 0 ? (
+                    <div className={classes.SelectNoResults}>{translate('No results')}</div>
+                  ) : null}
                 </div>
               ) : null}
             </div>
 
             <div className={`${classes.NativeField} ${classes.CustomSelectField}`}>
-              <label>{translate('Document Type')}</label>
+              <label>{translate('Document ID Type')}</label>
               <button
                 type='button'
                 className={classes.CustomSelectTrigger}
@@ -621,7 +669,7 @@ const Register = () => {
                     ? translate('National Identity')
                     : form.documentType === 'passport'
                       ? translate('Passport')
-                      : translate('Document Type')}
+                      : translate('Document ID Type')}
                 </span>
                 <AngleDownIcon className={classes.CustomSelectArrow} aria-hidden='true' />
               </button>
@@ -664,7 +712,7 @@ const Register = () => {
                 {translate('Back')}
               </button>
               <MainButton color='primary' type='submit' loading={loginLoading} disabled={!step2Valid || loginLoading}>
-                {translate('Create Account')}
+                {translate('Sign Up')}
               </MainButton>
             </div>
           </div>

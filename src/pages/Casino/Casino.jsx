@@ -15,36 +15,50 @@ import GamesByTag from "./subpages/GamesByTag";
 import { casinoActions } from "./casinoSlice";
 import VirtualGames from "./subpages/VirtualGames";
 import TableGames from "./subpages/TableGames";
+import { getCasinoRoutePermission, hasPermission } from "../../utils/permissions";
 
 const Casino = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const params = useParams();
+  const casinoRoute = params["*"] || "";
 
   const lang = useSelector((state) => state.app.lang);
+  const permissions = useSelector((state) => state.login.permissions) || {};
 
   useEffect(() => {
-    if (params["*"] === "") navigate("/casino/lobby");
+    const route = casinoRoute;
+    if (!route) {
+      navigate(hasPermission(permissions, "AllowToSlots") ? "/casino/lobby" : "/casino/live", { replace: true });
+      return;
+    }
 
-    return () => dispatch(casinoActions.reset());
-  }, []);
+    const requiredPermission = getCasinoRoutePermission(`/casino/${route}`);
+    if (requiredPermission && !hasPermission(permissions, requiredPermission)) {
+      if (hasPermission(permissions, "AllowToSlots")) navigate("/casino/lobby", { replace: true });
+      else if (hasPermission(permissions, "AllowToCasino")) navigate("/casino/live", { replace: true });
+      else navigate("/", { replace: true });
+    }
+  }, [navigate, casinoRoute, permissions]);
+
+  useEffect(() => () => dispatch(casinoActions.reset()), [dispatch]);
 
   let page = <Lobby />;
-  if (params["*"].includes("slots")) page = <SlotGames />;
-  else if (params["*"].includes("live")) page = <LiveGames />;
-  else if (params["*"].includes("favorites")) page = <FavoriteGames />;
-  else if (params["*"].includes("providers")) page = <Providers />;
-  else if (params["*"].includes("gameshows")) page = <GameShows />;
-  else if (params["*"].includes("virtualgames")) page = <VirtualGames />;
-  else if (params["*"].includes("tablegames")) page = <TableGames />;
-  else if (params["*"].includes("menu")) page = <GamesByTag />;
+  if (casinoRoute.includes("slots")) page = <SlotGames />;
+  else if (casinoRoute.includes("live")) page = <LiveGames />;
+  else if (casinoRoute.includes("favorites")) page = <FavoriteGames />;
+  else if (casinoRoute.includes("providers")) page = <Providers />;
+  else if (casinoRoute.includes("gameshows")) page = <GameShows />;
+  else if (casinoRoute.includes("virtualgames")) page = <VirtualGames />;
+  else if (casinoRoute.includes("tablegames")) page = <TableGames />;
+  else if (casinoRoute.includes("menu")) page = <GamesByTag />;
 
   return (
     <div className={classes.PageContent}>
       <div className={classes.Casino} id="casinoPage">
         <div className={classes.CasinoHeader} id="casinoMenu">
           <CasinoMenu />
-          {params["*"] === "lobby" && <CasinoLobbySearch />}
+          {casinoRoute === "lobby" && <CasinoLobbySearch />}
         </div>
 
         <div className={classes.Content}>{page}</div>
