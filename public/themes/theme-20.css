@@ -71,7 +71,7 @@
     #ffffff14 110%
   );
   --button-grad-op1: linear-gradient(307deg, #ee77005d 0%, #f9791657 50%);
-  --button-grad-op-mid: linear-gradient(222deg, #2b2b30bf 0%, #ffffff14 50%);
+  --button-grad-op-mid: linear-gradient(90deg, #1d1d21, #27272c);
   --arrow-button: linear-gradient(159deg, #18181b 0%, #2b2b30 88%);
   --arrow-button-disabled: linear-gradient(159deg, #18181b2f 0%, #2b2b302f 88%);
 
@@ -163,7 +163,7 @@
   --db-minibar-height: 0px;
   --db-minibar-height-mobile: 0px;
 
-  --db-topbar-height: 60px;
+  --db-topbar-height: 70px;
   --db-topbar-height-mobile: 50px;
 
   --db-header-height: calc(var(--db-topbar-height) + var(--db-minibar-height));

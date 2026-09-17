@@ -47,9 +47,6 @@ const LeftContainer = memo(function () {
   const fullLeftContainer = useSelector(
     (state) => state.layout.fullLeftContainer
   );
-  const casinoOriented = useSelector(
-    (state) => state.app.siteSettings?.casinoOriented
-  );
   const bonusRequest = useSelector(
     (state) => state.app.siteSettings?.BonusRequest
   );
@@ -283,10 +280,15 @@ const LeftContainer = memo(function () {
           <Tooltip
             id="left-menu-tooltip"
             style={{
-              backgroundColor: "var(--white)",
-              color: "var(--placeholder-light)",
+              backgroundColor: "var(--dark-blue-1)",
+              color: "var(--white)",
+              border: "1px solid var(--lightcolor-low-op)",
+              boxShadow: "var(--db-dropdown-shadow)",
               fontFamily: `'Proxima Nova', sans-serif`,
-              fontSize: "14px",
+              fontSize: "0.8125rem",
+              fontWeight: 700,
+              borderRadius: "0.625rem",
+              padding: "0.5rem 0.75rem",
             }}
           />
         )}
@@ -298,17 +300,8 @@ const LeftContainer = memo(function () {
           >
             {showPrimaryProductSwitcher && (
               <div className={classes.SideMenuButtonContainer}>
-                {casinoOriented === true ? (
-                  <>
-                    {casinoButton()}
-                    {sportsButton()}
-                  </>
-                ) : (
-                  <>
-                    {sportsButton()}
-                    {casinoButton()}
-                  </>
-                )}
+                {sportsButton()}
+                {casinoButton()}
               </div>
             )}
 
@@ -420,14 +413,12 @@ const LeftContainer = memo(function () {
         })}
 
         {/* LANGUAGE DROPDOWN */}
-        {fullLeftContainer && (
-          <div
-            id="language"
-            className={classes.LangDropdown}
-          >
-            <DropdownLang fullLabel={true} openTo="top" sidebar />
-          </div>
-        )}
+        <div
+          id="language"
+          className={classes.LangDropdown}
+        >
+          <DropdownLang fullLabel={fullLeftContainer} openTo="top" sidebar />
+        </div>
 
         {fullLeftContainer && hasCasinoAccess && (support?.Source || app?.AppLink1) && (
           <div className={classes.CasinoFooterActions}>

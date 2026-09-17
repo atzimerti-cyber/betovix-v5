@@ -36,6 +36,7 @@ const normalizeSection = (section) => ({
     section?.displayOrder ?? section?.DisplayOrder ?? section?.viewOrder ?? 9999,
   renderPage: section?.renderPage ?? section?.RenderPage,
   renderType: section?.renderType ?? section?.RenderType,
+  icon: section?.icon ?? section?.Icon ?? section?.iconUrl ?? section?.IconUrl ?? "",
 });
 
 const isHomeSection = (section) => {

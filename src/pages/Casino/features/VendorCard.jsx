@@ -19,7 +19,10 @@ const VendorCard = (props) => {
 
   return (
     <div className={classes.SlideContainer}>
-      <Link to={`/search?provider=${props.vendor.Data.Name}`}>
+      <Link
+        to={`/casino/menu?tag=${encodeURIComponent(props.vendor.Data.Name)}`}
+        state={{ label: props.vendor.Data.Name }}
+      >
         <article className={classes.Card}>
           <div className={classes.ImageContainer} ref={containerRef}>
             {!isLoaded && <LoaderPlaceholder />}

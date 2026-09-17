@@ -7,8 +7,9 @@ import SwiperWithOverlay from "../../../features/UI/MainSwiper/SwiperWithOverlay
 import VendorSwiper from "../../../features/UI/MainSwiper/VendorSwiper";
 import BigSwiper2 from "../../../features/UI/MainSwiper/BigSwiper2";
 import ProvidersIcon from "../../../assets/casinoIcons/providers.svg?react";
+import CasinoIcon from "../../../assets/svgs/casino.svg?react";
 import { translate } from "../../../utils/translations";
-import { normalizeCasinoGame } from "../../../utils/custom";
+import { getCasinoCollectionLayout, normalizeCasinoGame } from "../../../utils/custom";
 
 const Lobby = () => {
   const dispatch = useDispatch();
@@ -59,13 +60,13 @@ const Lobby = () => {
         <React.Fragment key={section.key}>
           <SwiperWithOverlay
             title={translate(section.title || section.name || section.key)}
-            icon={section.icon || ""}
-            thIcon={section.iconUrl || section.Icon || ""}
+            icon={section.icon || section.Icon || section.iconUrl || <CasinoIcon />}
             tag={null}
             items={section.items}
             max={20}
             link={`/casino/menu?tag=${encodeURIComponent(section.key)}`}
             clickOnTitle={false}
+            layout={getCasinoCollectionLayout(section.renderType)}
           />
         </React.Fragment>
       ))}

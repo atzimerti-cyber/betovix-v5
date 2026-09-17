@@ -124,7 +124,6 @@ const Layout = () => {
     }
   };
 
-  const expandedLeftMenuWidth = 240;
 
   let layoutClasses = [classes.Layout];
   if (isMobile) layoutClasses.push("IsMobile");
@@ -193,8 +192,16 @@ const Layout = () => {
           id="outerContainerLeft"
           className={classes.OuterContainerLeft}
           key={fullLeftContainer ? 1 : 0}
-          initial={{ width: fullLeftContainer ? 60 : expandedLeftMenuWidth }}
-          animate={{ width: fullLeftContainer ? expandedLeftMenuWidth : 60 }}
+          initial={{
+            width: fullLeftContainer
+              ? "var(--db-left-menu-width-collapsed)"
+              : "var(--db-left-menu-width)",
+          }}
+          animate={{
+            width: fullLeftContainer
+              ? "var(--db-left-menu-width)"
+              : "var(--db-left-menu-width-collapsed)",
+          }}
           transition={{ duration: isFirstRender ? 0 : 0.2, ease: "easeOut" }}
         >
           <AnimatePresence>

@@ -35,6 +35,13 @@ const SwiperWithOverlay = (props) => {
   const casinoByTags = useSelector((state) => state.casino.casinoByTags);
   const [items, setItems] = useState(props.items); // Add state for items
   const { slidesPerView, slidesPerGroup } = useSlidesResponsive("casino");
+  const layout = props.layout || "portrait";
+  const effectiveSlidesPerView =
+    layout === "landscape"
+      ? Math.max(2, Math.floor(slidesPerView * 0.72))
+      : layout === "compact"
+      ? Math.max(2, Math.floor(slidesPerView * 0.9))
+      : slidesPerView;
 
   const updateLoadedImages = (index) => {
     setLoadedImages((prevData) => [...prevData, index]);
@@ -146,7 +153,7 @@ const SwiperWithOverlay = (props) => {
     items.length > 0 && (
       <MainSwiper
         slidesPerView={
-          props.slidesPerView ? props.slidesPerView : slidesPerView
+          props.slidesPerView ? props.slidesPerView : effectiveSlidesPerView
         }
         slidesPerGroup={slidesPerGroup}
         title={
@@ -190,7 +197,7 @@ const SwiperWithOverlay = (props) => {
                         inModal !== 'WITHBONUS' && !item.isLocked && openGameModal(item)
                       )
                     }}
-                    className={classes.SlideContainer}
+                    className={[classes.SlideContainer, classes[`Layout_${layout}`]].filter(Boolean).join(" ")}
                     style={{
                       minHeight: bonusBalance > 0 ? "213px" : "178px",
                       ...(item.isLocked && { pointerEvents: "none" }),
@@ -199,7 +206,12 @@ const SwiperWithOverlay = (props) => {
                     <>
                       <article
                         className={classes.Card}
-                        style={item.isLocked ? { pointerEvents: "none" } : {}}
+                        style={{
+                          ...(item.isLocked ? { pointerEvents: "none" } : {}),
+                          ...(layout === "framed" && (item.customBackgroundUrl || item.Data?.CustomBackgroundUrl)
+                            ? { backgroundImage: `url(${item.customBackgroundUrl || item.Data?.CustomBackgroundUrl})` }
+                            : {}),
+                        }}
                       >
                         {item.isLocked && (
                           <div className={classes.NotAvailable}>
@@ -209,26 +221,33 @@ const SwiperWithOverlay = (props) => {
                             <p>{translate("Not available in your region")}</p>
                           </div>
                         )}
-                        <div className={classes.ImageContainer}>
+                        <div
+                          className={[
+                            classes.ImageContainer,
+                            !item.Data.ImageUrl3 && !item.Data.ImageUrl && !item.Data.ImageUrl2
+                              ? classes.MissingImage
+                              : "",
+                          ].filter(Boolean).join(" ")}
+                        >
                           <div
                             style={{
-                              backgroundImage:
-                                item.Data.ImageUrl3 !== null &&
-                                `url(${item.Data.ImageUrl3.replace(
-                                  / /g,
-                                  "%20"
-                                )})`,
+                              backgroundImage: item.Data.ImageUrl3
+                                ? `url(${item.Data.ImageUrl3.replace(/ /g, "%20")})`
+                                : item.Data.ImageUrl
+                                ? `url(${item.Data.ImageUrl.replace(/ /g, "%20")})`
+                                : item.Data.ImageUrl2
+                                ? `url(${item.Data.ImageUrl2.replace(/ /g, "%20")})`
+                                : "none",
                               backgroundSize: "100% 100%",
                               backgroundPosition: "center",
                               height: "100%",
                             }}
-                            onLoad={() => updateLoadedImages(index)}
                           ></div>
                         </div>
                         {item.isNew && (
                           <div className={classes.NewLabel}>NEW</div>
                         )}
-                        {!isTouchScreen && !item.isLocked && inModal === 'WITHBONUS' && (
+                        {!isTouchScreen && !item.isLocked && (inModal === 'WITHBONUS' || layout === "framed") && (
                           <div className={classes.OverlayContainer}>
                             <div className={classes.InfoContainer}>
                               <div className={classes.FavContainer}>

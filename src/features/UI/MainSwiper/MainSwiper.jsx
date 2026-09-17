@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { isValidElement, useRef, useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -48,6 +48,28 @@ const MainSwiper = (props) => {
     delay = props.delay;
   }
 
+  const renderTitleIcon = () => {
+    if (!props.icon) return null;
+    if (isValidElement(props.icon)) return props.icon;
+    if (typeof props.icon !== "string") return null;
+
+    const icon = props.icon.trim();
+    if (!icon) return null;
+    if (icon.startsWith("<svg")) {
+      return (
+        <span
+          className={classes.TitleIconMarkup}
+          aria-hidden="true"
+          dangerouslySetInnerHTML={{ __html: icon }}
+        />
+      );
+    }
+    if (/^(https?:)?\/\//.test(icon) || icon.startsWith("/") || icon.startsWith("data:image/")) {
+      return <img className={classes.TitleIconImage} src={icon} alt="" />;
+    }
+    return null;
+  };
+
   return (
     <div className={elClasses.join(" ")}>
       {props.noHeader ? null : (
@@ -57,7 +79,7 @@ const MainSwiper = (props) => {
             style={{ cursor: props.clickOnTitle && "pointer" }}
             onClick={props.clickOnTitle ? props.clickOnTitle : null}
           >
-            {props.icon && props.icon}
+            {renderTitleIcon()}
             {props.thIcon && <i className={`${props.thIcon}`}></i>}
             {props.title && props.title}
             {props.clickOnTitle && (

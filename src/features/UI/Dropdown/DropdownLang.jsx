@@ -6,6 +6,7 @@ import useClickOutside from "../../../hooks/useClickOutside";
 import MainButton from "../Buttons/MainButton";
 import ArrowDownIcon from "../../../assets/svgs/arrowdown.svg?react";
 import { getTranslations } from "../../InitApp/initAppAsyncActions";
+import { layoutActions } from "../../Layout/layoutSlice";
 
 const DropdownLang = (props) => {
   const dispatch = useDispatch();
@@ -120,7 +121,14 @@ const DropdownLang = (props) => {
     <div ref={dropdownRef} className={elClasses.join(" ")}>
       <MainButton
         color="transparent"
-        onClick={() => setDropdownVisible(!dropdownVisible)}
+        onClick={() => {
+          if (props.sidebar && !fullLeftContainer) {
+            dispatch(layoutActions.setFullLeftContainer(true));
+            setDropdownVisible(true);
+            return;
+          }
+          setDropdownVisible(!dropdownVisible);
+        }}
       >
         {/* {fullLeftContainer ? (
                     lang.label
@@ -134,7 +142,6 @@ const DropdownLang = (props) => {
             <div className={classes.LangItem}>
               <img
                 src={`https://cdnwallet.modulesports.com/assets/images/flags/${lang.id}.svg`}
-                // src={lang.flag}
                 loading="lazy"
                 alt={`${lang.id} flag`}
                 className={classes.Flag}
@@ -143,6 +150,16 @@ const DropdownLang = (props) => {
             <span>{getLangName(lang.id)}</span>
             <ArrowDownIcon />
           </>
+        )}
+        {props.sidebar && !props.fullLabel && (
+          <div className={classes.LangItem}>
+            <img
+              src={`https://cdnwallet.modulesports.com/assets/images/flags/${lang.id}.svg`}
+              loading="lazy"
+              alt={`${lang.id} flag`}
+              className={classes.Flag}
+            />
+          </div>
         )}
         {props.topbar && (
           <div className={classes.LangItem}>
@@ -186,7 +203,7 @@ const DropdownLang = (props) => {
         </div>
       )}
 
-      {props.fullLabel && (
+      {(props.fullLabel || props.sidebar) && (
         <div className={classes.DropdownContentMobile}>
           <ul className={classes.LangDropdownMenu}>
             {availableLangs.map((availableLang) => {

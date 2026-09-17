@@ -162,24 +162,33 @@ const FilterBar = (props) => {
             </div>
           </div>}
 
-          <MultiSelect
-            id={translate("Providers")}
-            menuTitle={translate("Providers")}
-            placeholder={translate("Providers")}
-            icon={props.searchPage ? null : <Filter2Icon />}
-            options={providersOptions}
-            onClose={(providers) => {
-              props.onChangeProviders(providers);
-              dispatch(searchActions.setSearchSelectedProviders(providers));
-            }}
-            // max={3}
-            maxMessage={translate("A maximum of three providers is allowed")}
-            selected={
-              checkedProviders && checkedProviders.length > 0
-                ? checkedProviders
-                : null
-            }
-          />
+          {props.searchPage ? (
+            <button
+              type="button"
+              className={[classes.ProvidersButton, props.providersActive ? classes.ActiveProvidersButton : ""].filter(Boolean).join(" ")}
+              onClick={props.onToggleProviders}
+            >
+              {translate("Providers")}
+            </button>
+          ) : (
+            <MultiSelect
+              id={translate("Providers")}
+              menuTitle={translate("Providers")}
+              placeholder={translate("Providers")}
+              icon={<Filter2Icon />}
+              options={providersOptions}
+              onClose={(providers) => {
+                props.onChangeProviders(providers);
+                dispatch(searchActions.setSearchSelectedProviders(providers));
+              }}
+              maxMessage={translate("A maximum of three providers is allowed")}
+              selected={
+                checkedProviders && checkedProviders.length > 0
+                  ? checkedProviders
+                  : null
+              }
+            />
+          )}
         </div>
       )}
     </div>

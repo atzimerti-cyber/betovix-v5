@@ -1,13 +1,38 @@
 .Content {
   box-sizing: border-box;
   width: 100%;
+  min-height: calc(100dvh - var(--db-header-height));
   max-width: none;
   padding: 1rem 1.25rem 2.5rem;
   container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+}
+
+.Content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background-image: var(--search-page-bg, none);
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.Content::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--darkcolor-low-op);
+  pointer-events: none;
 }
 
 .PageContent {
   width: 100%;
+  max-width: 1380px;
+  margin: 0 auto;
   padding: 0;
   container-type: inline-size;
 }
@@ -19,12 +44,14 @@
   width: 100%;
 }
 
-@media (min-width: 768px) {
-  .Content {
-    padding: 1rem 1.5rem 2.5rem;
-  }
+.NoResults {
+  min-height: 12rem;
+  display: grid;
+  place-items: center;
+  color: var(--placeholder-light);
+}
 
-  .PageContent {
-    z-index: 10;
-  }
+@media (min-width: 768px) {
+  .Content { padding: 1rem 1.5rem 2.5rem; }
+  .PageContent { z-index: 10; }
 }

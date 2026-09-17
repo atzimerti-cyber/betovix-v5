@@ -17,12 +17,10 @@ const Home = () => {
 
   const user = useSelector((state) => state.login.user);
   const permissions = useSelector((state) => state.login.permissions) || {};
-  const siteSettings = useSelector((state) => state.app.siteSettings) || {};
 
   const allowSports = permissions.AllowToSports === true;
   const allowCasino =
     permissions.AllowToCasino === true || permissions.AllowToSlots === true;
-  const casinoHomeMode = siteSettings?.HomeMode?.toLowerCase?.() === "casino";
 
   const [showTopEvents, setShowTopEvents] = useState(true);
 
@@ -52,7 +50,7 @@ const Home = () => {
           {!user && <RegisterContainers />}
         </div>
 
-        {!casinoHomeMode && allowSports && (
+        {allowSports && (
           <>
             <LiveEvents />
 

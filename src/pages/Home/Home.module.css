@@ -84,17 +84,30 @@
     }
 }
 
-/* Shared home is flush to the content rail like the reference landing page. */
+/* Desktop landing page uses a centered content rail like the reference. */
 @media (min-width: 1024px) {
   .PageContent {
-    padding: 0 0 48px;
+    width: 100%;
+    max-width: 82rem;
+    margin: 0 auto;
+    padding: 0 1rem 3rem;
+    box-sizing: border-box;
   }
 
   .Home {
-    gap: 16px;
+    width: 100%;
+    gap: 1rem;
   }
 
   .BannersContent {
+    width: 100%;
     border-radius: 0;
+  }
+}
+
+@media (min-width: 1440px) {
+  .PageContent {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
   }
 }

@@ -74,17 +74,17 @@ const LeftMenuItem = (props) => {
           ) : (
             <span>{translate(props.item.Name)}</span>
           )}
-          {props.item.subtitle ? <small>{translate(props.item.subtitle)}</small> : null}
+          {props.item.badge ? <small>{translate(props.item.badge)}</small> : null}
         </div>
 
         <div className={classes.Container}>
           {isGameCategory && <span className={classes.PlayIndicator}><PlayButtonIcon /></span>}
-          {props.item.badge && props.item.badge === "free" && (
+          {/* {props.item.badge && props.item.badge === "free" && (
             <div className={classes.BadgeFree}>{translate("FREE")}</div>
           )}
           {props.item.badge && props.item.badge === "new" && (
             <div className={classes.BadgeNew}>{translate("NEW")}</div>
-          )}
+          )} */}
           {props.isNew === "new" && (
             <div className={classes.BadgeNew}>{translate("NEW")}</div>
           )}

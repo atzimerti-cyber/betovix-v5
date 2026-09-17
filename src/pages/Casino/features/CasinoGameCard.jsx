@@ -27,6 +27,7 @@ const CasinoGameCard = (props) => {
   const user = useSelector((state) => state.login.user);
   const bonusBalance = useSelector((state) => state.layout.bonusBalance);
   const [imageUrl, setImageUrl] = useState(null);
+  const [imageMissing, setImageMissing] = useState(false);
 
   const onToggleFavorite = () => {
     if (!user) {
@@ -88,12 +89,40 @@ const CasinoGameCard = (props) => {
   };
 
   useEffect(() => {
-    const testImg = new Image();
-    testImg.src = props.game.Data.ImageUrl;
+    let cancelled = false;
+    const candidates = [
+      props.game.Data.ImageUrl,
+      props.game.Data.ImageUrl2,
+      props.game.Data.ImageUrl3,
+    ].filter(Boolean);
 
-    testImg.onload = () => setImageUrl(props.game.Data.ImageUrl);
-    testImg.onerror = () => setImageUrl(props.game.Data.ImageUrl2);
-  }, [props.game.Data.ImageUrl, props.game.Data.ImageUrl2]);
+    const tryImage = (index) => {
+      if (cancelled) return;
+      if (index >= candidates.length) {
+        setImageUrl(null);
+        setImageMissing(true);
+        return;
+      }
+
+      const testImg = new Image();
+      testImg.onload = () => {
+        if (!cancelled) {
+          setImageUrl(candidates[index]);
+          setImageMissing(false);
+        }
+      };
+      testImg.onerror = () => tryImage(index + 1);
+      testImg.src = candidates[index];
+    };
+
+    setImageUrl(null);
+    setImageMissing(candidates.length === 0);
+    tryImage(0);
+
+    return () => {
+      cancelled = true;
+    };
+  }, [props.game.Data.ImageUrl, props.game.Data.ImageUrl2, props.game.Data.ImageUrl3]);
 
   return (
     <div
@@ -119,7 +148,7 @@ const CasinoGameCard = (props) => {
             <p>{translate("Not available in your region")}</p>
           </div>
         )}
-        <div className={classes.ImageContainer}>
+        <div className={[classes.ImageContainer, imageMissing ? classes.MissingImage : ""].filter(Boolean).join(" ")}>
           {/* <div
             style={{
               backgroundImage:

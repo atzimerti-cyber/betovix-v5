@@ -426,6 +426,14 @@ export function getFormattedSportName(sportNameInternational) {
   return finalSportName;
 }
 
+export const getCasinoCollectionLayout = (renderType) => {
+  const type = String(renderType || "portrait").trim().toLowerCase();
+  if (["framed", "frame"].includes(type)) return "framed";
+  if (["landscape", "wide", "horizontal"].includes(type)) return "landscape";
+  if (["compact", "square"].includes(type)) return "compact";
+  return "portrait";
+};
+
 export const normalizeCasinoGame = (game) => {
   if (!game) return null;
 
@@ -433,7 +441,12 @@ export const normalizeCasinoGame = (game) => {
   // casino APIs return a flat game object. Keep both shapes usable by the
   // existing Betovix cards and always provide the image fields they expect.
   if (game?.Data) {
+    const customThumbnailUrl =
+      game.customThumbnailUrl || game.CustomThumbnailUrl || game.customThumbnailURL || game.CustomThumbnailURL || "";
+    const customBackgroundUrl =
+      game.customBackgroundUrl || game.CustomBackgroundUrl || game.customBackgroundURL || game.CustomBackgroundURL || "";
     const image =
+      customThumbnailUrl ||
       game.Data.ImageUrl3 ||
       game.Data.ImageUrl ||
       game.thumbnailUrl ||
@@ -447,8 +460,10 @@ export const normalizeCasinoGame = (game) => {
         ImageUrl: game.Data.ImageUrl || image,
         ImageUrl3: game.Data.ImageUrl3 || image,
         Tags: game.Data.Tags || game.Tags || "",
+        CustomBackgroundUrl: customBackgroundUrl || game.Data.CustomBackgroundUrl || "",
       },
-      thumbnailUrl: game.thumbnailUrl || image,
+      thumbnailUrl: customThumbnailUrl || game.thumbnailUrl || image,
+      customBackgroundUrl,
       displayName: game.displayName || game.Data.Name,
       vendorName: game.vendorName || game.Data.VendorName,
       vendorCode: game.vendorCode || game.Data.VendorCode,
@@ -466,7 +481,11 @@ export const normalizeCasinoGame = (game) => {
     metadata = {};
   }
 
-  const image = game.thumbnailUrl || game.backgroundImageUrl || "";
+  const customThumbnailUrl =
+    game.customThumbnailUrl || game.CustomThumbnailUrl || game.customThumbnailURL || game.CustomThumbnailURL || "";
+  const customBackgroundUrl =
+    game.customBackgroundUrl || game.CustomBackgroundUrl || game.customBackgroundURL || game.CustomBackgroundURL || "";
+  const image = customThumbnailUrl || game.thumbnailUrl || game.backgroundImageUrl || "";
   const tags = [game.categoryCode, game.categoryName, ...(game.tagCodes || [])]
     .filter(Boolean)
     .join(",");
@@ -484,12 +503,14 @@ export const normalizeCasinoGame = (game) => {
       VendorName: game.vendorName,
       VendorCode: game.vendorCode,
       Tags: tags,
+      CustomBackgroundUrl: customBackgroundUrl,
     },
     isFav: game.isFav ?? game.isFavorite ?? false,
     isNew: metadata.isNew ?? false,
     isLocked: false,
     allowBonus: game.hasBonusRelevance ?? false,
     thumbnailUrl: image,
+    customBackgroundUrl,
     displayName: game.displayName,
     vendorName: game.vendorName,
     vendorCode: game.vendorCode,

@@ -104,7 +104,7 @@
 }
 
 .HeaderHamburger {
-  display: none;
+  display: inline-block;
 }
 
 .HeaderHamburger button {
@@ -623,7 +623,7 @@
 
 @media (min-width: 769px) {
   .HeaderBalance {
-    font-size: 0.75rem;
+    font-size: 0.6875rem;
     line-height: 1rem;
   }
 
@@ -816,86 +816,77 @@
   color: var(--white) !important;
 }
 
-/* Desktop header matching the shared site reference. */
+
+/* Casino search entry reuses the existing topbar sizing variables. */
 .HeaderSearch {
-  position: relative;
-  z-index: 2;
-  flex: 0 0 clamp(13rem, 18vw, 15.5rem);
-  width: clamp(13rem, 18vw, 15.5rem);
-  height: 2.75rem;
-  display: flex;
+  box-sizing: border-box;
+  display: inline-flex;
+  flex: 0 1 auto;
   align-items: center;
   gap: 0.625rem;
-  padding: 0 0.875rem;
+  width: clamp(11rem, 14vw, 13.5rem);
+  max-width: min(13.5rem, 100%);
+  height: 2.625rem;
+  min-height: 2.625rem;
+  padding: 0 0.75rem;
   border: 1px solid var(--lightcolor-low-op);
-  border-radius: 999px;
+  border-radius: calc(var(--db-topbar-height) / 2);
   background: var(--button-grad-op-mid);
-  box-shadow: inset 0 1px 0 var(--db-white-hover-light);
+  color: var(--placeholder-light);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--db-transition);
 }
 
-.HeaderSearch > svg {
+.HeaderSearch:hover,
+.HeaderSearch:focus-visible {
+  background: var(--db-white-hover-light);
+}
+
+.HeaderSearch svg {
   flex: 0 0 auto;
-  width: 1.1875rem;
-  height: 1.1875rem;
-  opacity: 0.8;
+  width: 1rem;
+  height: 1rem;
 }
 
-.HeaderSearch > svg path {
+.HeaderSearch svg path {
   fill: var(--placeholder-light);
 }
 
-.HeaderSearch input {
-  width: 100%;
+.HeaderSearch span {
   min-width: 0;
-  border: 0;
-  outline: 0;
-  background: transparent;
-  color: var(--white);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--placeholder-light);
   font-size: 0.75rem;
   line-height: 1;
-  font-weight: 600;
+  font-weight: 700;
 }
 
-.HeaderSearch input::placeholder {
-  color: var(--placeholder-light);
-  opacity: 1;
-}
 
-.HeaderSearch:focus-within,
-.HeaderSearch:hover {
-  background: var(--db-white-hover-light);
-  border-color: var(--lightcolor-op1);
-}
-
-@media (min-width: 1024px) {
+@media (min-width: 769px) {
   .Topbar {
-    height: 4rem;
-    padding-left: 1.75rem;
-    padding-right: 1.125rem;
-    background: var(--dark-blue-1);
-    box-shadow: -0.5rem 0 2.34375rem 0 var(--db-white-hover) inset;
+    top: calc(var(--db-minibar-height) + 0.5rem);
+    left: 0.5rem;
+    width: calc(100% - 1rem);
+    height: var(--db-topbar-height);
+    padding-inline: 0.75rem;
+    border-radius: 0.875rem;
+    background: var(--topbar-bg);
+    box-shadow: var(--db-dropdown-shadow);
   }
 
-  .TopbarLeft > button {
-    height: 4rem;
-    padding: 0.4375rem 0;
-  }
-
-  .SiteLogo,
-  .SiteLogoNoUser {
-    width: 10.75rem;
-    height: 82%;
-  }
-
-  .NoUserHeaderRight {
-    gap: 0.625rem;
-  }
-
-  .NoUserHeaderRight > button {
-    min-width: 5.875rem;
+  .HeaderSearch {
+    width: 13rem;
+    max-width: 13rem;
     height: 2.5rem;
     min-height: 2.5rem;
-    padding: 0 1.25rem;
-    font-size: 0.9375rem;
+    padding-inline: 0.75rem;
+  }
+
+  .HeaderSearch span {
+    font-size: 0.75rem;
   }
 }

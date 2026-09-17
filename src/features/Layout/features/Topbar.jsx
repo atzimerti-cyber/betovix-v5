@@ -39,12 +39,12 @@ const Topbar = () => {
   const lang = useSelector((state) => state.app.lang);
   const siteSettings = useSelector((state) => state.app.siteSettings);
   const permissions = useSelector((state) => state.login.permissions);
-  const searchString = useSelector((state) => state.search.searchString);
 
   const isDesktop = useMediaQuery({ query: "(min-width: 1024px)" });
   const progressBar = useMediaQuery({
     query: "(min-width: 576px) and (max-width: 950px)",
   });
+  const hasSportsAccess = Boolean(permissions?.AllowToSports);
   const hasCasinoAccess = Boolean(permissions?.AllowToCasino || permissions?.AllowToSlots);
 
   const fullLeftContainer = useSelector(
@@ -213,25 +213,19 @@ const Topbar = () => {
             </MainButton>
           )}
 
-          {isDesktop && hasCasinoAccess && !user && (
-            <div className={classes.HeaderSearch}>
+          {isDesktop && hasCasinoAccess && !hasSportsAccess && !user && (
+            <button
+              type="button"
+              className={classes.HeaderSearch}
+              onClick={() => {
+                dispatch(searchActions.setSearchString(""));
+                navigate("/search");
+              }}
+              aria-label={translate("Search by game or provider")}
+            >
               <SearchIcon />
-              <input
-                type="search"
-                role="search"
-                autoComplete="off"
-                value={searchString}
-                placeholder={translate("Search by game or provider")}
-                onChange={(event) => {
-                  const value = event.target.value;
-                  dispatch(searchActions.setSearchString(value));
-                  if (value) navigate("/search");
-                }}
-                onFocus={() => {
-                  if (searchString) navigate("/search");
-                }}
-              />
-            </div>
+              <span>{translate("Search by game or provider")}</span>
+            </button>
           )}
         </div>
       </div>

@@ -16,7 +16,9 @@ const Promotions = () => {
 
   const lang = useSelector((state) => state.app.lang);
   const promotions = useSelector((state) => state.promotions.promotions);
-  const promoImg = useSelector((state) => state.app.siteSettings.PromoImg);
+  const promoPageImg = useSelector((state) =>
+    state.app.siteSettings?.PromoPageImg || state.app.siteSettings?.PromoImg
+  );
 
   useEffect(() => {
     const controller = new AbortController();
@@ -42,13 +44,13 @@ const Promotions = () => {
     <div className={classes.PageContent}>
       <div className={classes.PromotionsContainer}>
         <header
-          className={`${classes.PromotionsHeader} ${!promoImg ? classes.NoBanner : ""}`}
+          className={`${classes.PromotionsHeader} ${!promoPageImg ? classes.NoBanner : ""}`}
           id="PromotionsHeader"
         >
-          {promoImg ? (
+          {promoPageImg ? (
             <div
               className={classes.PromoBannerImg}
-              style={{ backgroundImage: `url(${promoImg})` }}
+              style={{ backgroundImage: `url(${promoPageImg})` }}
               aria-hidden="true"
             />
           ) : null}

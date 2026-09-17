@@ -2,8 +2,8 @@ import { useMemo } from "react";
 import { useSelector } from "react-redux";
 
 import SwiperWithOverlay from "../../../features/UI/MainSwiper/SwiperWithOverlay";
-import NewIcon from "../../../assets/svgs/crash-games.svg?react";
-import { normalizeCasinoGame } from "../../../utils/custom";
+import CasinoIcon from "../../../assets/svgs/casino.svg?react";
+import { getCasinoCollectionLayout, normalizeCasinoGame } from "../../../utils/custom";
 
 const CasinoSections = () => {
   const casinoSections = useSelector((state) => state.casino.casinoHome);
@@ -27,23 +27,22 @@ const CasinoSections = () => {
   return sections.map((section) => {
     const games = (section.items || [])
       .map(normalizeCasinoGame)
-      .filter(
-        (game) =>
-          (game?.gameId || game?.Data?.Id) &&
-          (game?.thumbnailUrl || game?.Data?.ImageUrl3 || game?.Data?.ImageUrl)
-      );
+      .filter((game) => game?.gameId || game?.Data?.Id);
 
     if (!games.length) return null;
 
+    const layout = getCasinoCollectionLayout(section?.renderType);
+
     return (
-      <div key={section.key} style={{ minHeight: "180px" }}>
+      <div key={section.key}>
         <SwiperWithOverlay
           title={section.title || section.name || section.key}
-          icon={<NewIcon />}
+          icon={section.icon || section.Icon || <CasinoIcon />}
           items={games}
           max={20}
           link={`/casino/menu?tag=${section.key}`}
           tag={null}
+          layout={layout}
         />
       </div>
     );

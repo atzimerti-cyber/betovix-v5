@@ -231,3 +231,23 @@
 .SearchPageFilterBar .FiltersSection span {
   display: none;
 }
+
+.ProvidersButton {
+  min-width: 7.5rem;
+  min-height: 2.75rem;
+  padding: 0 1rem;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 0.5rem;
+  background: var(--button-grad-op-mid);
+  color: var(--white);
+  font-size: 0.75rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.ProvidersButton:hover,
+.ActiveProvidersButton {
+  border-color: var(--brand-color);
+  background: var(--db-white-hover-light);
+}

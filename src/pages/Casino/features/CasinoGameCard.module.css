@@ -493,3 +493,21 @@
 .PortraitCard:not(.Loading):hover {
   transform: translateY(-1%);
 }
+
+.MissingImage {
+  overflow: hidden;
+  background: var(--button-grad-op-mid);
+}
+
+.MissingImage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 25%, var(--db-white-hover-light) 45%, transparent 65%);
+  transform: translateX(-100%);
+  animation: casinoImageShine 1.8s ease-in-out infinite;
+}
+
+@keyframes casinoImageShine {
+  to { transform: translateX(100%); }
+}

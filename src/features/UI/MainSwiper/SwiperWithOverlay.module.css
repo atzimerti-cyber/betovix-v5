@@ -363,3 +363,70 @@
   max-width: 80%;
   text-align: center;
 }
+
+.MissingImage {
+  overflow: hidden;
+  background: var(--button-grad-op-mid);
+}
+
+.MissingImage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 25%, var(--db-white-hover-light) 45%, transparent 65%);
+  transform: translateX(-100%);
+  animation: swiperImageShine 1.8s ease-in-out infinite;
+}
+
+@keyframes swiperImageShine {
+  to { transform: translateX(100%); }
+}
+
+.Layout_landscape .Card,
+.Layout_landscape .ImageContainer {
+  aspect-ratio: 3 / 2;
+}
+
+.Layout_landscape .BackgroundContainer {
+  min-height: 2.5rem;
+}
+
+.Layout_compact .Card,
+.Layout_compact .ImageContainer {
+  aspect-ratio: 1 / 1;
+}
+
+.Layout_framed .Card {
+  aspect-ratio: 2 / 3;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 7% 7% 12%;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+.Layout_framed .ImageContainer {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  border-radius: inherit;
+  overflow: hidden;
+}
+
+.Layout_framed .ImageContainer > div {
+  border-radius: inherit;
+}
+
+.Layout_framed .OverlayContainer {
+  top: 7%;
+  right: 7%;
+  bottom: 12%;
+  left: 7%;
+  width: auto;
+  height: auto;
+}
+
+.Layout_framed .BackgroundContainer {
+  display: none;
+}
