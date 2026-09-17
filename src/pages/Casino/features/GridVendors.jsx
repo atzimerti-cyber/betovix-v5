@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 import classes from "./GridVendors.module.css";
 import LoaderPlaceholder from "../../../features/UI/Skeletons/LoaderPlaceholder";
@@ -7,37 +7,42 @@ import { translate } from "../../../utils/translations";
 import VendorCard from "./VendorCard";
 
 const GridVendors = (props) => {
-  const dispatch = useDispatch();
-  const lang = useSelector((state) => state.app.lang); // Necessary for rerendering translations
-
+  useSelector((state) => state.app.lang); // rerender translations
   const moreLoading = useSelector((state) => state.casino.moreLoading);
+
+  const vendors = Array.isArray(props.collection)
+    ? [...props.collection].sort((a, b) =>
+        (a?.Data?.Name || "").localeCompare(b?.Data?.Name || "")
+      )
+    : [];
 
   return (
     <div className={classes.VendorGames}>
-      <div className={classes.Header}>
-        {props.icon}
-        <p className={classes.Title}>{translate(props.title)}</p>
-        {props.collection?.length > 0 && (
-          <div className={classes.Total}>{props.collection?.length}</div>
-        )}
-      </div>
+      {(props.title || props.icon) && (
+        <div className={classes.Header}>
+          {props.icon}
+          {props.title && <p className={classes.Title}>{translate(props.title)}</p>}
+          {vendors.length > 0 && <div className={classes.Total}>{vendors.length}</div>}
+        </div>
+      )}
 
       <div className={classes.GameGrid}>
-        {/* {props.collection?.map((vendor, index) => {
-          return <VendorCard key={vendor.Data.Id} vendor={vendor} />;
-        })} */}
-        {[...props.collection]
-          .sort((a, b) => a.Data.Name.localeCompare(b.Data.Name))
-          .map((vendor) => (
-            <VendorCard key={vendor.Data.Id} vendor={vendor} />
-          ))}
+        {props.showAllProviders && (
+          <Link to="/casino/lobby" className={classes.AllProvidersCard}>
+            {translate("All providers")}
+          </Link>
+        )}
+
+        {vendors.map((vendor) => (
+          <VendorCard key={vendor.Data.Id} vendor={vendor} />
+        ))}
 
         {props.loading || props.collection === null || moreLoading
           ? Array.from({ length: 24 }, (_, index) => (
-            <div key={index} className={classes.ImageContainer}>
-              <LoaderPlaceholder />
-            </div>
-          ))
+              <div key={index} className={classes.ImageContainer}>
+                <LoaderPlaceholder />
+              </div>
+            ))
           : null}
       </div>
 

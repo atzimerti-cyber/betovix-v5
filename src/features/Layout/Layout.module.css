@@ -297,6 +297,16 @@
 @media (min-width: 769px) {
   .Content {
     padding-top: var(--db-header-height);
+    background: var(--body-bg);
+  }
+
+  .OuterContainerLeft {
+    padding: 0.5rem 0 0.5rem 0.5rem;
+    background: transparent;
+  }
+
+  .CenterContainer {
+    background: transparent;
   }
 
   .OverlayButtons {
@@ -406,4 +416,3 @@
     z-index: 10;
   }
 }
-

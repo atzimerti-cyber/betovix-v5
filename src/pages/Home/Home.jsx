@@ -7,7 +7,6 @@ import useSlidesResponsive from "../../hooks/useSlidesResponsive";
 import Banners from "../../features/Banners/Banners";
 import LiveEvents from "./features/LiveEvents";
 import TopEvents from "../../features/TopEvents/TopEvents";
-import RegisterContainers from "./features/RegisterContainers";
 import CasinoSections from "./features/CasinoSections";
 import { getHomeCasinoSections } from "./homeAsyncActions";
 
@@ -15,7 +14,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const { isMobile, isTablet } = useSlidesResponsive();
 
-  const user = useSelector((state) => state.login.user);
   const permissions = useSelector((state) => state.login.permissions) || {};
 
   const allowSports = permissions.AllowToSports === true;
@@ -23,6 +21,7 @@ const Home = () => {
     permissions.AllowToCasino === true || permissions.AllowToSlots === true;
 
   const [showTopEvents, setShowTopEvents] = useState(true);
+
 
   useEffect(() => {
     if (!allowCasino) return undefined;
@@ -47,7 +46,6 @@ const Home = () => {
         >
           <Banners />
 
-          {!user && <RegisterContainers />}
         </div>
 
         {allowSports && (

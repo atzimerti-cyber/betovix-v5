@@ -44,7 +44,6 @@ const Topbar = () => {
   const progressBar = useMediaQuery({
     query: "(min-width: 576px) and (max-width: 950px)",
   });
-  const hasSportsAccess = Boolean(permissions?.AllowToSports);
   const hasCasinoAccess = Boolean(permissions?.AllowToCasino || permissions?.AllowToSlots);
 
   const fullLeftContainer = useSelector(
@@ -125,7 +124,6 @@ const Topbar = () => {
   const inCasinoGame = location.pathname.includes("/casino/game/");
 
   const logoURL = siteSettings?.Logo || config.VITE_SITE_LOGO || null;
-
   return (
     <div className={classes.Topbar} id="topbar">
       <div className={classes.TopbarLeftWrapper} id="topbarLeft">
@@ -213,7 +211,7 @@ const Topbar = () => {
             </MainButton>
           )}
 
-          {isDesktop && hasCasinoAccess && !hasSportsAccess && !user && (
+          {isDesktop && hasCasinoAccess && !user && (
             <button
               type="button"
               className={classes.HeaderSearch}

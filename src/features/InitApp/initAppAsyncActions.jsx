@@ -959,8 +959,8 @@ export const getSite = (signal) => {
       const currentDomain = window.location.hostname;
       const response = await axiosApi.get(
         //`Legacy/Site/GetSite?domainName=crimsoncoins.net`,
-        //`Legacy/Site/GetSite?domainName=naughtyspins.storetube.gr`,
-        `Legacy/Site/GetSite?domainName=${currentDomain}`,
+        `Legacy/Site/GetSite?domainName=naughtyspins.storetube.gr`,
+        //`Legacy/Site/GetSite?domainName=${currentDomain}`,
         {
           signal: signal,
           baseURLOverride: config.VITE_WALLET_API_BASE,

@@ -15,7 +15,6 @@ import SportsIcon from "../../../assets/svgs/sports.svg?react";
 import HorseIcon from "../../../assets/svgs/horse-head.svg?react";
 import FireIcon from "../../../assets/svgs/fire.svg?react";
 import GiftIcon from "../../../assets/svgs/bonus-bag.svg?react";
-import PromoGiftIcon from "../../../assets/svgs/gift1.svg?react";
 import StaticHorse from "../../../assets/images/static-h.png?react";
 import GifHorse from "../../../assets/images/horse.gif?react";
 import { layoutActions } from "../layoutSlice";
@@ -339,7 +338,11 @@ const LeftContainer = memo(function () {
 
         <div className={classes.PromoCodeCardWrapper}>
           <button
-            onClick={() => navigate("?modal=promo-code")}
+            onClick={() =>
+              user
+                ? addParamsToUrl("promo-code")
+                : addParamsToUrl("auth", "login")
+            }
             className={classes.PromoCodeCard}
             id="promoCodeButton"
           >
@@ -420,7 +423,7 @@ const LeftContainer = memo(function () {
           <DropdownLang fullLabel={fullLeftContainer} openTo="top" sidebar />
         </div>
 
-        {fullLeftContainer && hasCasinoAccess && (support?.Source || app?.AppLink1) && (
+        {fullLeftContainer && (support?.Source || app?.AppLink1) && (
           <div className={classes.CasinoFooterActions}>
             {support?.Source && (
               <button
