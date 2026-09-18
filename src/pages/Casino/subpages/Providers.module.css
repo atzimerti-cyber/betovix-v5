@@ -1,9 +1,6 @@
 .ProvidersPage {
   width: 100%;
-}
-
-@media (min-width: 768px) {
-  .ProvidersPage {
-    margin-top: -0.5rem;
-  }
+  min-height: calc(100dvh - var(--db-header-height));
+  padding: 0;
+  background: transparent;
 }

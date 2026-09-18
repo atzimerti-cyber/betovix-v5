@@ -82,6 +82,12 @@
   justify-content: space-between;
 }
 
+.CenterContainer > main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
 .OuterContainerRight {
   z-index: 1200;
   height: 100%;
@@ -99,14 +105,16 @@
 }
 
 .FullPage {
-  width: 100%;
+  width: min(100%, 1380px);
   display: flex;
   flex-direction: column;
   -webkit-box-align: center;
   align-items: center;
-  /* min-height: calc(-4em + 100vh); */
   min-height: max-content;
   position: relative;
+  margin: 0 auto;
+  padding: 0.75rem 0.75rem 2rem;
+  box-sizing: border-box;
 }
 :global(.IsMobile.IsMenuOpen) :local(.FullPage) {
   filter: blur(2px);
@@ -414,5 +422,18 @@
     right: 0;
     top: calc(var(--db-header-height) + 10px);
     z-index: 10;
+  }
+}
+
+@media (max-width: 768px) {
+  .FullPage {
+    width: 100%;
+    padding: 0.35rem 0.35rem 1.15rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .FullPage {
+    padding: 0.8rem 1rem 2.4rem;
   }
 }

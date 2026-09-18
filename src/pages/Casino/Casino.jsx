@@ -25,6 +25,7 @@ const Casino = () => {
 
   const lang = useSelector((state) => state.app.lang);
   const permissions = useSelector((state) => state.login.permissions) || {};
+  const searchPageImg = useSelector((state) => state.app.siteSettings?.SearchPageImg);
 
   useEffect(() => {
     const route = casinoRoute;
@@ -53,13 +54,28 @@ const Casino = () => {
   else if (casinoRoute.includes("tablegames")) page = <TableGames />;
   else if (casinoRoute.includes("menu")) page = <GamesByTag />;
 
+  const isProvidersPage = casinoRoute.includes("providers");
+
   return (
-    <div className={classes.PageContent}>
+    <div
+      className={
+        isProvidersPage
+          ? [classes.PageContent, classes.ProvidersPageContent].join(" ")
+          : classes.PageContent
+      }
+      style={
+        isProvidersPage && searchPageImg
+          ? { "--casino-page-bg": `url(${searchPageImg})` }
+          : undefined
+      }
+    >
       <div className={classes.Casino} id="casinoPage">
-        <div className={classes.CasinoHeader} id="casinoMenu">
-          <CasinoMenu />
-          {casinoRoute === "lobby" && <CasinoLobbySearch />}
-        </div>
+        {!isProvidersPage && (
+          <div className={classes.CasinoHeader} id="casinoMenu">
+            <CasinoMenu />
+            {casinoRoute === "lobby" && <CasinoLobbySearch />}
+          </div>
+        )}
 
         <div className={classes.Content}>{page}</div>
       </div>
