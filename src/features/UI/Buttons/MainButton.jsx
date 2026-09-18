@@ -30,8 +30,13 @@ const MainButton = (props) => {
   if (props.noPad) elClasses.push(classes.noPadding);
 
   const onClick = (e) => {
+    // Submit buttons must be allowed to submit their parent form when no
+    // explicit click handler is provided. The previous implementation always
+    // prevented the default action, which blocked Login/Forgot form onSubmit.
+    if (typeof props.onClick !== "function") return;
+
     e.preventDefault();
-    timeoutRef.current = setTimeout(props.onClick, 150);
+    timeoutRef.current = setTimeout(() => props.onClick(e), 150);
   };
 
   useEffect(() => {

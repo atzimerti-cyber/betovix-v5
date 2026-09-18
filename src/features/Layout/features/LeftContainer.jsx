@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { memo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Tooltip } from "react-tooltip";
@@ -28,6 +28,8 @@ import StatsIcon from "../../../assets/svgs/bars.svg?react";
 import TicketIcon from "../../../assets/svgs/betslip.svg?react";
 import LoadIcon from "../../../assets/svgs/loadIcon.svg?react";
 import Timezone from "../../Timezone/Timezone";
+import SidebarFeaturedGames from "./SidebarFeaturedGames";
+import { getSidebarFeaturedGames } from "../../../pages/Casino/sidebarCasinoAsyncActions";
 
 const LeftContainer = memo(function () {
   const dispatch = useDispatch();
@@ -40,6 +42,7 @@ const LeftContainer = memo(function () {
   const menuItems = useSelector((state) => state.app.menuItems);
   const sportsMenuItems = useSelector((state) => state.app.sportsMenuItems);
   const user = useSelector((state) => state.login.user);
+  const sidebarFeaturedGames = useSelector((state) => state.casino.sidebarFeaturedGames);
   const support = useSelector((state) => state.layout.tawkToScript);
   const app = useSelector((state) => state.app.app);
   const searchString = useSelector((state) => state.search.searchString);
@@ -57,11 +60,31 @@ const LeftContainer = memo(function () {
   const hasSportsAccess = Boolean(permissions?.AllowToSports);
   const hasCasinoAccess = Boolean(permissions?.AllowToCasino || permissions?.AllowToSlots);
   const showPrimaryProductSwitcher = hasSportsAccess && hasCasinoAccess;
+  const isDynamicCasinoGameLabel = (value) =>
+    ["popular", "popular games", "latest", "recent", "recently played", "recently_played"].includes(
+      String(value || "").trim().toLowerCase()
+    );
+  const navigationMenuItems = menuItems
+    .filter((menuItem) => !isDynamicCasinoGameLabel(menuItem?.category?.label || menuItem?.label))
+    .map((menuItem) => ({
+      ...menuItem,
+      items: Array.isArray(menuItem?.items)
+        ? menuItem.items.filter((item) => !isDynamicCasinoGameLabel(item?.label || item?.Name || item?.name))
+        : menuItem?.items,
+    }))
+    .filter((menuItem) => !Array.isArray(menuItem?.items) || menuItem.items.length > 0);
   let elClasses = [classes.SideMenuScroll];
   let elClasses2 = [classes.SideMenuBottomButtons];
   if (!fullLeftContainer) {
     elClasses.push(classes.Closed);
   }
+
+  useEffect(() => {
+    if (!hasCasinoAccess) return undefined;
+    const controller = new AbortController();
+    dispatch(getSidebarFeaturedGames(controller.signal, Boolean(user)));
+    return () => controller.abort();
+  }, [dispatch, hasCasinoAccess, user?.UserId, user?.AccountId]);
 
   const addParamsToUrl = (modal, tab) => {
     const searchParams = new URLSearchParams(location.search);
@@ -371,7 +394,7 @@ const LeftContainer = memo(function () {
         {hasSportsAccess && sportsMenu()}
 
         {/* REST OF MENU ITEMS */}
-        {menuItems.map((menuItem, index) => {
+        {navigationMenuItems.map((menuItem, index) => {
           if (menuItem.category) {
             if (fullLeftContainer && menuItem.category.staticSection) {
               return (
@@ -414,6 +437,13 @@ const LeftContainer = memo(function () {
             return getItems(menuItem, index, 0);
           }
         })}
+
+        {hasCasinoAccess && fullLeftContainer && (
+          <SidebarFeaturedGames
+            games={sidebarFeaturedGames}
+            title={user ? "Recently played" : "Popular Games"}
+          />
+        )}
 
         {/* LANGUAGE DROPDOWN */}
         <div

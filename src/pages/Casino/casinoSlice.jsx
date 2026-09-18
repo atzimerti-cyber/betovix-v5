@@ -30,6 +30,7 @@ const initialState = {
   playerStats: [],
   casinoLandMenu: null,
   initialResultsCount: null,
+  sidebarFeaturedGames: [],
 };
 
 const updateFavoriteInCollection = (collection, gameId, value) => {
@@ -153,6 +154,7 @@ export const casinoSlice = createSlice({
     setSelectedGame: (state, action) => { state.selectedGame = action.payload; },
     setPlayerStats: (state, action) => { state.playerStats = action.payload || []; },
     setCasinoLandMenu: (state, action) => { state.casinoLandMenu = action.payload; },
+    setSidebarFeaturedGames: (state, action) => { state.sidebarFeaturedGames = action.payload || []; },
   },
 });
 

@@ -251,3 +251,137 @@
   border-color: var(--brand-color);
   background: var(--db-white-hover-light);
 }
+
+/* Naughty Spins reference search-page bar */
+.SearchPageFilterBar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 7.25rem;
+  align-items: stretch;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0 !important;
+}
+
+.SearchPageFilterBar .SearchSection,
+.SearchPageFilterBar .FiltersSection {
+  margin: 0;
+  padding: 0 !important;
+}
+
+.SearchPageFilterBar .SearchSection {
+  min-width: 0;
+}
+
+.SearchPageFilterBar .SearchSection > div {
+  min-height: 2.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 1.4rem;
+  background: rgba(5, 5, 6, 0.95);
+}
+
+.SearchPageFilterBar .SearchSection > div:hover,
+.SearchPageFilterBar .SearchSection > div:focus-within {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(5, 5, 6, 0.98);
+}
+
+.SearchPageFilterBar .FiltersSection {
+  display: flex;
+  width: 100%;
+}
+
+.SearchPageFilterBar .FiltersSection > * {
+  width: 100%;
+}
+
+.ProvidersButton {
+  width: 100%;
+  min-width: 0;
+  min-height: 2.7rem;
+  padding: 0 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 0.48rem;
+  background: rgba(38, 38, 42, 0.96);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.ProvidersButton:hover,
+.ActiveProvidersButton {
+  border-color: var(--brand-color);
+  background: rgba(48, 48, 52, 0.98);
+}
+
+@media (max-width: 575px) {
+  .SearchPageFilterBar {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* Search page reference sizing - final overrides */
+.SearchPageFilterBar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 5.75rem;
+  align-items: stretch;
+  gap: 0.38rem;
+  width: 100%;
+  padding: 0 !important;
+}
+
+.SearchPageFilterBar .SearchSection,
+.SearchPageFilterBar .FiltersSection {
+  margin: 0;
+  padding: 0 !important;
+}
+
+.SearchPageFilterBar .SearchSection > div {
+  min-height: 2.38rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 1.25rem;
+  background: rgba(5, 5, 6, 0.94);
+}
+
+.SearchPageFilterBar .SearchSection > div:hover,
+.SearchPageFilterBar .SearchSection > div:focus-within {
+  border-color: rgba(255, 255, 255, 0.24);
+  background: rgba(5, 5, 6, 0.98);
+}
+
+.SearchPageFilterBar .SearchSection input {
+  min-height: 2.38rem;
+  padding-top: 0.55rem;
+  padding-bottom: 0.55rem;
+  font-size: 0.75rem;
+}
+
+.SearchPageFilterBar .FiltersSection {
+  display: flex;
+  width: 100%;
+}
+
+.SearchPageFilterBar .FiltersSection > * {
+  width: 100%;
+}
+
+.ProvidersButton {
+  width: 100%;
+  min-width: 0;
+  min-height: 2.38rem;
+  padding: 0 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.36rem;
+  background: rgba(38, 38, 42, 0.95);
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+@media (max-width: 575px) {
+  .SearchPageFilterBar {
+    grid-template-columns: 1fr;
+  }
+}

@@ -62,17 +62,6 @@ export const isMenuItemAllowed = (item, permissions) => {
     return hasPermission(permissions, "AllowToSIS");
   }
 
-  if (
-    page.includes("leaderboard") ||
-    page.includes("gamification") ||
-    page.includes("lootbox") ||
-    label.includes("leaderboard") ||
-    label.includes("lootbox") ||
-    label.includes("vip club")
-  ) {
-    return hasPermission(permissions, "AllowGamification");
-  }
-
   const casinoPermission = getCasinoRoutePermission(combined);
   if (casinoPermission) return hasPermission(permissions, casinoPermission);
 

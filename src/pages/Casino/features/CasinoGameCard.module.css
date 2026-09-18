@@ -477,8 +477,8 @@
 /* Portrait game cards used by the search page reference layout. */
 .PortraitCard .Card,
 .PortraitCard .ImageContainer {
-  aspect-ratio: 2 / 3;
-  border-radius: 0.5rem;
+  aspect-ratio: 4 / 5;
+  border-radius: 0.42rem;
 }
 
 .PortraitCard .ImageContainer > div {

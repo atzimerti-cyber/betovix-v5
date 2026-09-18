@@ -16,8 +16,8 @@ const Promotions = () => {
 
   const lang = useSelector((state) => state.app.lang);
   const promotions = useSelector((state) => state.promotions.promotions);
-  const promoPageImg = useSelector((state) =>
-    state.app.siteSettings?.PromoPageImg || state.app.siteSettings?.PromoImg
+  const promoPageImg = useSelector(
+    (state) => state.app.siteSettings?.PromoPageImg || state.app.siteSettings?.PromoImg
   );
 
   useEffect(() => {
@@ -41,38 +41,65 @@ const Promotions = () => {
   };
 
   return (
-    <div className={classes.PageContent}>
-      <div className={classes.PromotionsContainer}>
-        <header
-          className={`${classes.PromotionsHeader} ${!promoPageImg ? classes.NoBanner : ""}`}
-          id="PromotionsHeader"
-        >
-          {promoPageImg ? (
-            <div
-              className={classes.PromoBannerImg}
-              style={{ backgroundImage: `url(${promoPageImg})` }}
-              aria-hidden="true"
-            />
-          ) : null}
-          <div className={classes.HeaderShade} aria-hidden="true" />
-          <div className={classes.Title}>
-            <div className={classes.TitleIcon}><PromotionsIcon /></div>
-            <div>
-              <span>{translate("Promotions")}</span>
-              <p>
-                {translate(
-                  "Explore exclusive casino and sportsbook promotions and special bonuses to boost your play"
-                )}.
-              </p>
-            </div>
+    <div
+      className={classes.Page}
+      style={
+        promoPageImg
+          ? { "--promo-page-bg": `url(${promoPageImg})` }
+          : undefined
+      }
+    >
+      <div className={classes.PageContent}>
+        <section className={classes.Hero}>
+          <div className={classes.HeroCopy}>
+            <h1>{translate("Welcome & Reload Promotions")}</h1>
+            <p>
+              {translate(
+                "Discover exclusive offers designed to give you more value every time you play."
+              )}
+            </p>
           </div>
-        </header>
+        </section>
 
-        <div className={classes.PromotionsBody} id="PromotionsBody">
-          {promotions?.length ? (
+        <section className={classes.PromotionsBody} id="PromotionsBody">
+          {promotions === null ? (
+            Array.from({ length: 2 }, (_, index) => (
+              <article className={classes.Promo} key={`promo-skeleton-${index}`}>
+                <div className={classes.SectionTitleSkeleton} />
+                <div className={classes.PromoSkeleton} />
+              </article>
+            ))
+          ) : promotions.length ? (
             promotions.map((promo) => (
-              <article className={classes.Promo} key={promo.id || promo.link || promo.title}>
-                <div className={classes.PromoCard} id="PromoCard">
+              <article
+                className={classes.Promo}
+                key={promo.id || promo.link || promo.title}
+              >
+                <div className={classes.SectionTitle}>
+                  <PromotionsIcon />
+                  <span>{translate(`${promo.title || "Promotion"}`)}</span>
+                </div>
+
+                <div
+                  className={`${classes.PromoCard} ${promo.link ? classes.Clickable : ""}`}
+                  onClick={
+                    promo.link
+                      ? () => addParamsToUrl("promotion", promo.link)
+                      : undefined
+                  }
+                  role={promo.link ? "button" : undefined}
+                  tabIndex={promo.link ? 0 : undefined}
+                  onKeyDown={
+                    promo.link
+                      ? (event) => {
+                          if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault();
+                            addParamsToUrl("promotion", promo.link);
+                          }
+                        }
+                      : undefined
+                  }
+                >
                   {promo.image ? (
                     <div
                       className={classes.BgImage}
@@ -84,26 +111,20 @@ const Promotions = () => {
                       <PromotionsIcon />
                     </div>
                   )}
+
                   <div className={classes.CardShade} aria-hidden="true" />
-                  <div className={classes.Content}>
-                    <div className={classes.PromoTop}>
-                      <div className={classes.PromoTitle}>{translate(`${promo.title || "Promotion"}`)}</div>
-                      {promo.content ? (
-                        <div className={classes.PromoText}>{translate(`${promo.content}`)}</div>
-                      ) : null}
+
+                  {promo.link ? (
+                    <div className={classes.Action} onClick={(event) => event.stopPropagation()}>
+                      <MainButton
+                        color="primary"
+                        onClick={() => addParamsToUrl("promotion", promo.link)}
+                        className={classes.LinkButton}
+                      >
+                        {translate("Open details")}
+                      </MainButton>
                     </div>
-                    {promo.link ? (
-                      <div className={classes.PromoBottom}>
-                        <MainButton
-                          color="primary"
-                          onClick={() => addParamsToUrl("promotion", promo.link)}
-                          className={classes.LinkButton}
-                        >
-                          {translate("Read More")}
-                        </MainButton>
-                      </div>
-                    ) : null}
-                  </div>
+                  ) : null}
                 </div>
               </article>
             ))
@@ -113,7 +134,7 @@ const Promotions = () => {
               <span>{translate("No available promotions at this moment.")}</span>
             </div>
           )}
-        </div>
+        </section>
       </div>
     </div>
   );

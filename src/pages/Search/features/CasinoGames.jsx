@@ -142,7 +142,7 @@ const CasinoGames = (props) => {
         })}
 
         {props.loading || props.collection === null || moreLoading
-          ? Array.from({ length: 24 }, (_, index) => (
+          ? Array.from({ length: props.searchPage ? 21 : 24 }, (_, index) => (
               <div key={index} className={classes.ImageContainer}>
                 <LoaderPlaceholder />
               </div>

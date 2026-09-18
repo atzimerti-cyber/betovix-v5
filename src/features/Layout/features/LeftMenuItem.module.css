@@ -278,3 +278,16 @@
 .PlayIndicator svg path {
   fill: currentColor !important;
 }
+
+/* Match the lighter reference navigation labels without changing active logic. */
+.LeftMenuItem a {
+  color: var(--white);
+  opacity: 0.82;
+}
+
+.LeftMenuItem:hover a,
+.LeftMenuItem.Active a,
+.LeftMenuItem.NotCateg:hover a,
+.LeftMenuItem.NotCategActive a {
+  opacity: 1;
+}

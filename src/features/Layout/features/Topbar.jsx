@@ -27,9 +27,18 @@ import MenuItems from "./MenuItems";
 import { addThousandsSeparator } from "../../../utils/custom";
 
 import NoUserImg from "../../../assets/images/nouserimg.png";
-import NoUserSvg from "../../../assets/images/nouserimg.svg?react";
 import config from "../../../config";
 import SearchIcon from "../../../assets/svgs/search.svg?react";
+import StarOutlineIcon from "../../../assets/svgs/star-outline.svg?react";
+import BonusIcon from "../../../assets/svgs/bonus.svg?react";
+import WithdrawIcon from "../../../assets/svgs/withdrawreq.svg?react";
+import HistoryIcon from "../../../assets/svgs/transaction.svg?react";
+import PromoIcon from "../../../assets/svgs/voucher.svg?react";
+import LiveSupportIcon from "../../../assets/svgs/live-support.svg?react";
+import UserIcon from "../../../assets/svgs/user.svg?react";
+import VerifyIcon from "../../../assets/svgs/verify.svg?react";
+import LogoutIcon from "../../../assets/svgs/logout.svg?react";
+import { logout } from "../../../pages/Login/loginAsyncActions";
 import { searchActions } from "../../../pages/Search/searchSlice";
 
 const Topbar = () => {
@@ -70,6 +79,7 @@ const Topbar = () => {
   const [balanceBonusInteger, setBalanceBonusInteger] = useState(0);
   const [balanceDecimal, setBalanceDecimal] = useState("00");
   const [balanceBonusDecimal, setBalanceBonusDecimal] = useState("00");
+  const [balanceDropdownVisible, setBalanceDropdownVisible] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -102,10 +112,10 @@ const Topbar = () => {
   };
 
   const getBalance = () => {
-    let integer = Math.floor(user.Wallet.Balance);
+    let integer = Math.floor(Number(user?.Wallet?.Balance || 0));
     integer = addThousandsSeparator(integer, 0);
 
-    const decimal = ((user.Wallet.Balance % 1) * 100).toFixed(0);
+    const decimal = ((Number(user?.Wallet?.Balance || 0) % 1) * 100).toFixed(0);
 
     setBalanceInteger(integer);
     setBalanceDecimal(decimal.padStart(2, "0"));
@@ -124,6 +134,16 @@ const Topbar = () => {
   const inCasinoGame = location.pathname.includes("/casino/game/");
 
   const logoURL = siteSettings?.Logo || config.VITE_SITE_LOGO || null;
+  const currency = user?.Wallet?.Currency || user?.Wallet?.CurrencyCode || user?.CurrencyCode || "";
+  const siteAssetBase = `${window.location.origin}/${config.VITE_SITE_NAME ? `${config.VITE_SITE_NAME}/` : ""}`;
+  const userAvatarURL =
+    user?.AvatarUrl ||
+    user?.avatarUrl ||
+    user?.ProfileImageUrl ||
+    user?.profileImageUrl ||
+    user?.ImageUrl ||
+    user?.imageUrl ||
+    `${siteAssetBase}logo-small.svg`;
   return (
     <div className={classes.Topbar} id="topbar">
       <div className={classes.TopbarLeftWrapper} id="topbarLeft">
@@ -211,7 +231,18 @@ const Topbar = () => {
             </MainButton>
           )}
 
-          {isDesktop && hasCasinoAccess && !user && (
+          {isDesktop && user && hasCasinoAccess && (
+            <button
+              type="button"
+              className={classes.FavoritesTrigger}
+              onClick={() => navigate("/casino/favorites")}
+              aria-label={translate("Favorites")}
+            >
+              <StarOutlineIcon />
+            </button>
+          )}
+
+          {isDesktop && hasCasinoAccess && (
             <button
               type="button"
               className={classes.HeaderSearch}
@@ -229,76 +260,7 @@ const Topbar = () => {
       </div>
 
 
-      <div className={classes.TopbarCenterWrapper} id="topbarCenter">
-        {user && (
-          <>
-            <MainButton
-              color="secondary"
-              size="small"
-              onClick={() => addParamsToUrl("cashier", "deposit")}
-            >
-              <WalletIcon />
-              <span>{translate("Wallet")}</span>
-            </MainButton>
-            <div className={classes.BalanceContainer}>
-              <div
-                className={
-                  inCasinoGame
-                    ? [classes.HeaderBalanceWrap, classes.IsInPlay].join(" ")
-                    : classes.HeaderBalanceWrap
-                }
-              >
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                  <div
-                    className={classes.HeaderBalance}
-                    style={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                  >
-                    <CoinsIcon />
-                    {balanceInteger}
-                    <span>.{balanceDecimal}</span>
-                  </div>
-                  {balanceBonusInteger && (
-                    <div
-                      className={classes.HeaderBalance}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                      }}
-                    >
-                      <CoinsIcon />
-                      {balanceBonusInteger}
-                      <span>.{balanceBonusDecimal}</span>
-                      <span className={classes.BonusBalanceText}>
-                        ({translate("Bonus")}){" "}
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <div className={classes.InPlay}>(In Play)</div>
-              </div>
-            </div>
-            <div className={classes.BonusButtonContainer}>
-              <MainButton
-                className={classes.BonusButton}
-                color="transparent"
-                onClick={() => addParamsToUrl("bonus")}
-              >
-                <GiftIcon />
-                <div className={classes.BonusButtonColor}>
-                  {translate("Bonus")}
-                </div>
-              </MainButton>
-              {availableBonus > 0 && (
-                <NumberBadge number={availableBonus} floating justifyRight />
-              )}
-            </div>
-          </>
-        )}
-      </div>
+      <div className={classes.TopbarCenterWrapper} id="topbarCenter" />
 
       <div className={classes.TopbarRightWrapper} id="topbarRight">
         <div
@@ -310,113 +272,121 @@ const Topbar = () => {
         >
           {user ? (
             <>
-              {/* <div className={classes.BonusButtonContainer}>
-                <MainButton
-                  className={classes.BonusButton}
-                  color="transparent"
-                  onClick={() => addParamsToUrl("bonus")}
+              <div className={classes.BalanceDropdownWrapper}>
+                <button
+                  type="button"
+                  className={classes.LoggedBalanceButton}
+                  onClick={() => {
+                    dispatch(layoutActions.setUserDropdownVisible(false));
+                    setBalanceDropdownVisible((value) => !value);
+                  }}
                 >
-                  <GiftIcon />
-                  <div className={classes.BonusButtonColor}>
-                    {translate("Bonus")}
+                  <span>{balanceInteger}.{balanceDecimal} {currency}</span>
+                  <span className={classes.Caret}>⌄</span>
+                </button>
+                <Dropdown
+                  show={balanceDropdownVisible}
+                  onClickOutside={() => setBalanceDropdownVisible(false)}
+                >
+                  <div className={classes.BalanceDropdownPanel}>
+                    <div className={classes.BalanceMiniGrid}>
+                      <div>
+                        <span className={classes.BalanceMiniIcon}><CoinsIcon /></span>
+                        <span className={classes.BalanceMiniCopy}>
+                          <small>{translate("Real money")}</small>
+                          <strong>{balanceInteger}.{balanceDecimal} {currency}</strong>
+                        </span>
+                      </div>
+                      <div>
+                        <span className={classes.BalanceMiniIcon}><BonusIcon /></span>
+                        <span className={classes.BalanceMiniCopy}>
+                          <small>{translate("Bonus money")}</small>
+                          <strong>{balanceBonusInteger}.{balanceBonusDecimal} {currency}</strong>
+                        </span>
+                      </div>
+                    </div>
+                    <button type="button" onClick={() => { setBalanceDropdownVisible(false); addParamsToUrl("bonus"); }}>
+                      <GiftIcon /><span>{translate("BONUS HUB")}</span>
+                    </button>
                   </div>
-                </MainButton>
-                {availableBonus > 0 && (
-                  <NumberBadge number={availableBonus} floating justifyRight />
-                )}
-              </div> */}
+                </Dropdown>
+              </div>
+
+              <button
+                type="button"
+                className={classes.CoinsTrigger}
+                onClick={() => {
+                  dispatch(layoutActions.setUserDropdownVisible(false));
+                  setBalanceDropdownVisible((value) => !value);
+                }}
+                aria-label={translate("Balance")}
+              >
+                <CoinsIcon />
+              </button>
 
               <div className={classes.DropDownWrapper}>
-                <div
-                  className={classes.DropDownLabel}
-                  onClick={() =>
-                    dispatch(
-                      layoutActions.setUserDropdownVisible(!userDropdownVisible)
-                    )
-                  }
+                <button
+                  type="button"
+                  className={classes.UserTrigger}
+                  onClick={() => {
+                    setBalanceDropdownVisible(false);
+                    dispatch(layoutActions.setUserDropdownVisible(!userDropdownVisible));
+                  }}
                 >
-                  <MainButton color="transparent">
-                    <div
-                      className={classes.UserImage}
-                      style={
-                        {
-                          // backgroundImage: `url(${
-                          //   user.Avatar ? user.Avatar : NoUserImg
-                          // })`,
-                        }
-                      }
-                    >
-                      <NoUserSvg />
-                    </div>
-
-                    {/* <UserIcon /> */}
-                    <span>{user?.Username}</span>
-                  </MainButton>
-                </div>
-
+                  <span className={classes.UserTriggerAvatar}>
+                    <img src={userAvatarURL} alt="" onError={(event) => { event.currentTarget.src = NoUserImg; }} />
+                  </span>
+                </button>
                 {isDesktop && (
                   <Dropdown
                     show={userDropdownVisible}
-                    onClickOutside={() =>
-                      dispatch(layoutActions.setUserDropdownVisible(false))
-                    }
+                    onClickOutside={() => dispatch(layoutActions.setUserDropdownVisible(false))}
                   >
-                    <ul className={classes.DropdownMenu}>
-                      <MenuItems
-                        onClick={() =>
-                          dispatch(layoutActions.setUserDropdownVisible(false))
-                        }
-                      />
-                    </ul>
+                    <div className={classes.AccountDropdownPanel}>
+                      <div className={classes.AccountSummary}>
+                        <div className={classes.AccountBalanceCard}>
+                          <div><small>{translate("Balance")}</small><strong>{balanceInteger}.{balanceDecimal}{currency}</strong></div>
+                          <div><small>{translate("Coins balance")}</small><strong>{user?.Wallet?.CoinsBalance || user?.CoinsBalance || 0} {translate("coins")}</strong></div>
+                          <div className={classes.MoneyBreakdown}><strong>{balanceInteger}.{balanceDecimal}{currency}</strong><small>{translate("Real money")}</small></div>
+                          <div className={classes.MoneyBreakdown}><strong>{balanceBonusInteger}.{balanceBonusDecimal}{currency}</strong><small>{translate("Bonus money")}</small></div>
+                        </div>
+                        <div className={classes.PlayerLevelCard}>
+                          <span className={classes.LevelAvatar}>{String(user?.Username || "N").charAt(0).toUpperCase()}</span>
+                          <small>{translate("Player level")}</small>
+                          <strong>{user?.LevelName || user?.PlayerLevelName || "-"}</strong>
+                        </div>
+                      </div>
+                      <div className={classes.AccountActions}>
+                        <button className={classes.PrimaryAccountAction} onClick={() => { dispatch(layoutActions.setUserDropdownVisible(false)); addParamsToUrl("cashier", "deposit"); }}><WalletIcon />{translate("Deposit")}</button>
+                        <button onClick={() => { dispatch(layoutActions.setUserDropdownVisible(false)); addParamsToUrl("bonus"); }}><BonusIcon />{translate("My Bonuses")}</button>
+                        <button onClick={() => { dispatch(layoutActions.setUserDropdownVisible(false)); navigate("/profile?tab=overview"); }}><UserIcon />{translate("Profile")}</button>
+                        <button onClick={() => { dispatch(layoutActions.setUserDropdownVisible(false)); addParamsToUrl("cashier", "withdraw"); }}><WithdrawIcon />{translate("Withdraw")}</button>
+                        <button onClick={() => { dispatch(layoutActions.setUserDropdownVisible(false)); addParamsToUrl("transactions"); }}><HistoryIcon />{translate("History")}</button>
+                        <button onClick={() => { dispatch(layoutActions.setUserDropdownVisible(false)); addParamsToUrl("promo-code"); }}><PromoIcon />{translate("Promo Code")}</button>
+                        <button onClick={() => { dispatch(layoutActions.setUserDropdownVisible(false)); navigate("/profile?tab=verification"); }}><VerifyIcon />{translate("Verification")}</button>
+                      </div>
+                      <button className={classes.LogoutAction} onClick={() => dispatch(logout()).finally(() => navigate("/", { replace: true }))}><LogoutIcon />{translate("Log out")}</button>
+                      <div className={classes.AccountSupport}>
+                        <div className={classes.AccountHelp}>
+                          <strong>{translate("Help is needed?")}</strong>
+                          <span>{translate("Contact LiveChat")}</span>
+                        </div>
+                        <button
+                          type="button"
+                          className={classes.AccountSupportButton}
+                          onClick={() => {
+                            dispatch(layoutActions.setUserDropdownVisible(false));
+                            navigate("/support");
+                          }}
+                        >
+                          <LiveSupportIcon />
+                          <span>{translate("Support 24/7")}</span>
+                        </button>
+                      </div>
+                    </div>
                   </Dropdown>
                 )}
               </div>
-
-              <div className={classes.HeaderRightDivider}></div>
-
-              {isDesktop && (
-                <>
-                  <div className={classes.DropDownWrapper}>
-                    <div
-                      className={classes.DropDownLabel}
-                      onClick={() => {
-                        dispatch(
-                          layoutActions.setNotificationDropdownVisible(
-                            !notificationDropdownVisible
-                          )
-                        );
-                      }}
-                    >
-                      <div className={classes.NotificationButtonContainer}>
-                        <button
-                          className={classes.NotificationButton}
-                          color="transparent"
-                        >
-                          <BellIcon />
-                        </button>
-                        {newNotifications && newNotifications.length > 0 && (
-                          <div className={classes.NotificationBadge}>
-                            <span>{newNotifications.length}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {isDesktop && (
-                      <NotificationDropdown
-                        show={notificationDropdownVisible}
-                        onClickOutside={() =>
-                          dispatch(
-                            layoutActions.setNotificationDropdownVisible(false)
-                          )
-                        }
-                      />
-                    )}
-                  </div>
-
-                  <DropdownLang topbar />
-                </>
-              )}
             </>
           ) : (
             <>

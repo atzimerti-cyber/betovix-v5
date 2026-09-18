@@ -1,4 +1,3 @@
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import classes from "./GridVendors.module.css";
@@ -28,9 +27,9 @@ const GridVendors = (props) => {
 
       <div className={classes.GameGrid}>
         {props.showAllProviders && (
-          <Link to="/casino/lobby" className={classes.AllProvidersCard}>
+          <div className={classes.AllProvidersCard}>
             {translate("All providers")}
-          </Link>
+          </div>
         )}
 
         {vendors.map((vendor) => (

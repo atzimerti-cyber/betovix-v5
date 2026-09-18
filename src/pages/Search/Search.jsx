@@ -1,19 +1,16 @@
-
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { AnimatePresence } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+
 import classes from "./Search.module.css";
 import { searchCasino } from "./searchAsyncActions";
 import FilterBar from "../Casino/features/FilterBar";
 import useDebounce from "../../hooks/useDebounce";
-import { searchActions } from "../Search/searchSlice";
+import { searchActions } from "./searchSlice";
 import CasinoGames from "./features/CasinoGames";
 import { appActions } from "../../features/InitApp/appSlice";
-
-import { AnimatePresence } from "framer-motion";
-
 import BarLoading from "../../features/UI/BarLoading/BarLoading";
-import { useNavigate } from "react-router-dom";
-
 import { translate } from "../../utils/translations";
 
 const Search = () => {
@@ -25,10 +22,12 @@ const Search = () => {
   const sorting = useSelector((state) => state.casino.sorting);
   const searchString = useSelector((state) => state.search.searchString);
   const debSearchString = useDebounce(searchString);
-  const [axiosController, setAxiosController] = useState(null);
-
   const barLoading = useSelector((state) => state.app.barLoading);
-  const searchPageImg = useSelector((state) => state.app.siteSettings?.SearchPageImg);
+  const searchPageImg = useSelector(
+    (state) => state.app.siteSettings?.SearchPageImg
+  );
+
+  const [axiosController, setAxiosController] = useState(null);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -42,11 +41,9 @@ const Search = () => {
 
   useEffect(() => {
     if (!axiosController) return;
+
     dispatch(appActions.setBarLoading(true));
-
     dispatch(searchActions.setCasinoResults(null));
-
-    // if (!isMobile) {
     dispatch(
       searchCasino(
         axiosController.signal,
@@ -57,19 +54,26 @@ const Search = () => {
         sorting
       )
     );
-    // }
-  }, [axiosController, debSearchString, sorting]);
+  }, [axiosController, debSearchString, sorting, dispatch]);
 
   useEffect(() => {
-    dispatch(appActions.setBarLoading(false));
-  }, [casinoResults]);
+    if (!loading) dispatch(appActions.setBarLoading(false));
+  }, [loading, dispatch]);
+
+  const hasResults = (casinoResults?.Data?.length || 0) > 0;
+  const showGames = loading || casinoResults === null || hasResults;
 
   return (
     <>
       <AnimatePresence>{barLoading && <BarLoading />}</AnimatePresence>
+
       <div
         className={classes.Content}
-        style={searchPageImg ? { "--search-page-bg": `url(${searchPageImg})` } : undefined}
+        style={
+          searchPageImg
+            ? { "--search-page-bg": `url(${searchPageImg})` }
+            : undefined
+        }
       >
         <div className={classes.PageContent}>
           <div className={classes.Search}>
@@ -83,22 +87,20 @@ const Search = () => {
               onToggleProviders={() => navigate("/casino/providers")}
             />
 
-            {casinoResults ? (
-              casinoResults.Data.length !== 0 ? (
-                <CasinoGames
-                  collection={casinoResults}
-                  title={debSearchString ? "Search results" : "Often searched"}
-                  loading={loading}
-                  searchString={debSearchString}
-                  providers={casinoResults?.providers}
-                  sorting={sorting}
-                  searchPage
-                />
-              ) : (
-                <p className={classes.NoResults}>{translate("No Results")}</p>
-              )
+            {showGames ? (
+              <CasinoGames
+                collection={casinoResults}
+                title={debSearchString ? "Search results" : "Often searched"}
+                loading={loading || casinoResults === null}
+                searchString={debSearchString}
+                providers={casinoResults?.providers}
+                sorting={sorting}
+                searchPage
+              />
             ) : (
-              <p className={classes.NoResults}>{translate("No Results")}</p>
+              <div className={classes.NoResultsPanel}>
+                <p className={classes.NoResults}>{translate("No Results")}</p>
+              </div>
             )}
           </div>
         </div>

@@ -7,7 +7,7 @@
   width: 100%;
   flex-shrink: 0;
   align-items: center;
-  background-color: var(--topbar-bg);
+  background-color: transparent;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
   box-sizing: border-box;
@@ -132,7 +132,7 @@
   color: tomato;
 }
 
-.TopbarLeft>button:not(.HeaderSearch) {
+.TopbarLeft>button:not(.HeaderSearch):not(.FavoritesTrigger) {
   background-color: initial !important;
   padding-left: 0.1rem;
   padding-right: 0.5rem;
@@ -140,7 +140,7 @@
   padding: 5px 0;
 }
 
-.TopbarLeft>button:not(.HeaderSearch)>svg {
+.TopbarLeft>button:not(.HeaderSearch):not(.FavoritesTrigger)>svg {
   height: 28px;
 }
 
@@ -877,8 +877,692 @@
     height: var(--db-topbar-height);
     padding-inline: 1rem;
     border-radius: 0;
-    background: var(--topbar-bg);
-    box-shadow: -8px 0 37.5px 0 hsla(0, 0%, 100%, 0.04) inset;
+    background: transparent;
+    box-shadow: 0 10px 28px var(--darkcolor-low-op);
   }
 
+}
+
+/* Naughty Spins logged-in header */
+.BalanceDropdownWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.LoggedBalanceButton {
+  height: 2.2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0 0.35rem;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--white);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.Caret {
+  opacity: 0.8;
+  font-size: 0.75rem;
+  transform: translateY(-1px);
+}
+
+.CoinsTrigger {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--brand-color);
+  cursor: pointer;
+  box-shadow: 0 0 0 2px var(--lightcolor-low-op);
+}
+
+.CoinsTrigger svg {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.CoinsTrigger svg path {
+  fill: var(--white) !important;
+}
+
+.BalanceDropdownPanel {
+  width: 19.5rem;
+  padding: 0.55rem;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 0.9rem;
+  background: var(--body-bg);
+  box-shadow: var(--db-dropdown-shadow);
+}
+
+.BalanceMiniGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.35rem;
+  margin-bottom: 0.35rem;
+}
+
+.BalanceMiniGrid > div {
+  padding: 0.55rem 0.7rem;
+  border-radius: 0.65rem;
+  background: var(--db-white-hover);
+  display: flex;
+  flex-direction: column;
+}
+
+.BalanceMiniGrid small,
+.AccountBalanceCard small,
+.PlayerLevelCard small {
+  color: var(--placeholder-light);
+  font-size: 0.62rem;
+}
+
+.BalanceMiniGrid strong {
+  margin-top: 0.1rem;
+  font-size: 0.72rem;
+}
+
+.BalanceDropdownPanel > button {
+  width: 100%;
+  min-height: 2.1rem;
+  margin-top: 0.3rem;
+  border: 0;
+  border-radius: 0.55rem;
+  background: var(--brand-color);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0 0.7rem;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+.BalanceDropdownPanel > button svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.UserTrigger {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.UserTriggerAvatar {
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  border-radius: 0.45rem;
+  overflow: hidden;
+  background: var(--db-white-hover);
+}
+
+.UserTriggerAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.AccountDropdownPanel {
+  width: 25.5rem;
+  padding: 0.7rem;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 1.05rem;
+  background: var(--body-bg);
+  box-shadow: var(--db-dropdown-shadow);
+}
+
+.AccountSummary {
+  display: grid;
+  grid-template-columns: 1.45fr 0.9fr;
+  gap: 0.65rem;
+  margin-bottom: 0.65rem;
+}
+
+.AccountBalanceCard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: var(--db-white-hover);
+}
+
+.AccountBalanceCard > div {
+  padding: 0.55rem 0.65rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.AccountBalanceCard > div:nth-child(n + 3) {
+  border-top: 1px solid var(--lightcolor-low-op);
+}
+
+.AccountBalanceCard strong {
+  margin-top: 0.12rem;
+  color: var(--white);
+  font-size: 0.72rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.PlayerLevelCard {
+  border-radius: 0.75rem;
+  background: var(--db-white-hover);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.12rem;
+}
+
+.LevelAvatar {
+  width: 2.25rem;
+  height: 2.25rem;
+  margin-bottom: 0.25rem;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--darkcolor-low-op);
+  border-radius: 50%;
+  color: var(--darkcolor-op1);
+  background: var(--brand-color);
+  font-size: 0.9rem;
+  font-weight: 900;
+  box-shadow: 0 0 0 2px var(--lightcolor-low-op);
+}
+
+.PlayerLevelCard strong {
+  font-size: 0.7rem;
+  color: var(--white);
+}
+
+.AccountActions {
+  overflow: hidden;
+  border-radius: 0.75rem;
+  background: var(--db-white-hover);
+}
+
+.AccountActions button {
+  width: 100%;
+  min-height: 2.55rem;
+  border: 0;
+  border-bottom: 1px solid var(--lightcolor-low-op);
+  background: transparent;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0 0.8rem;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.AccountActions button:last-child {
+  border-bottom: 0;
+}
+
+.AccountActions button:hover {
+  background: var(--db-white-hover-light);
+}
+
+.AccountActions .PrimaryAccountAction {
+  background: var(--brand-color);
+}
+
+.AccountActions button svg,
+.LogoutAction svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.LogoutAction {
+  width: 100%;
+  min-height: 2.3rem;
+  margin-top: 0.7rem;
+  border: 0;
+  border-radius: 0.65rem;
+  background: var(--db-white-hover);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.AccountHelp {
+  padding: 0.7rem 0.2rem 0.1rem;
+  text-align: center;
+  white-space: pre-line;
+  color: var(--white);
+  font-size: 0.65rem;
+  line-height: 1.3;
+}
+
+@media (min-width: 769px) {
+  .Topbar {
+    background: transparent;
+    box-shadow: 0 10px 28px var(--darkcolor-low-op);
+  }
+
+  .HeaderRight {
+    gap: 0.45rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  .LoggedBalanceButton {
+    padding: 0 0.25rem;
+  }
+
+  .AccountDropdownPanel {
+    width: min(25.5rem, calc(100vw - 1rem));
+  }
+}
+
+/* Reference casino header alignment */
+@media (min-width: 769px) {
+  .Topbar {
+    background: transparent !important;
+    box-shadow: 0 6px 18px var(--darkcolor-low-op);
+  }
+
+  .TopbarLeft {
+    gap: 0.5rem;
+  }
+
+  .HeaderRight {
+    gap: 0.4rem;
+    margin-right: 0.85rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .HeaderHamburger {
+    display: none;
+  }
+}
+
+.FavoritesTrigger {
+  box-sizing: border-box;
+  width: 2.5rem;
+  height: 2.5rem;
+  min-width: 2.5rem;
+  padding: 0;
+  display: inline-grid;
+  place-items: center;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 0.7rem;
+  background: var(--db-white-hover);
+  color: var(--placeholder-light);
+  cursor: pointer;
+  transition: var(--db-transition);
+}
+
+.FavoritesTrigger:hover,
+.FavoritesTrigger:focus-visible {
+  background: var(--db-white-hover-light);
+  color: var(--white);
+}
+
+.FavoritesTrigger svg {
+  width: 1.3rem;
+  height: 1.3rem;
+}
+
+.FavoritesTrigger svg path {
+  fill: currentColor !important;
+}
+
+.HeaderSearch {
+  width: 13.75rem;
+  height: 2.5rem;
+  min-height: 2.5rem;
+  border-color: var(--lightcolor-low-op);
+  background: var(--db-white-hover);
+}
+
+.HeaderSearch svg {
+  width: 1.95rem;
+  height: 1.95rem;
+  background: transparent;
+  border: 1px solid var(--lightcolor-low-op);
+}
+
+.HeaderSearch span {
+  font-size: 0.72rem;
+}
+
+.BalanceDropdownWrapper,
+.DropDownWrapper {
+  position: relative;
+}
+
+.BalanceDropdownWrapper > div,
+.DropDownWrapper > div {
+  top: calc(100% + 0.45rem);
+  margin-top: 0;
+}
+
+.LoggedBalanceButton {
+  box-sizing: border-box;
+  min-width: 6.75rem;
+  height: 2.25rem;
+  padding: 0 0.75rem;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--db-white-hover);
+  font-size: 0.76rem;
+  line-height: 1;
+}
+
+.LoggedBalanceButton:hover,
+.LoggedBalanceButton:focus-visible {
+  background: var(--db-white-hover-light);
+}
+
+.Caret {
+  margin-left: 0.05rem;
+  font-size: 0.7rem;
+}
+
+.UserHeaderRight > .CoinsTrigger {
+  box-sizing: border-box;
+  width: 2.1rem !important;
+  min-width: 2.1rem !important;
+  height: 2.1rem !important;
+  min-height: 2.1rem !important;
+  padding: 0 !important;
+  flex: 0 0 2.1rem !important;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 50%;
+  background: var(--brand-color);
+  box-shadow: none;
+}
+
+.UserHeaderRight > .CoinsTrigger:hover,
+.UserHeaderRight > .CoinsTrigger:focus-visible {
+  filter: brightness(1.08);
+}
+
+.CoinsTrigger svg {
+  width: 1.2rem;
+  height: 1.2rem;
+}
+
+.UserTrigger {
+  width: 2.1rem;
+  height: 2.1rem;
+  display: grid;
+  place-items: center;
+}
+
+.UserTriggerAvatar {
+  box-sizing: border-box;
+  width: 2.1rem;
+  height: 2.1rem;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 0.45rem;
+  background: var(--db-white-hover);
+}
+
+.UserTriggerAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.BalanceDropdownPanel {
+  box-sizing: border-box;
+  width: 20rem;
+  padding: 0.55rem;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 0.85rem;
+  background: var(--body-bg);
+  box-shadow: var(--db-dropdown-shadow);
+}
+
+.BalanceMiniGrid {
+  gap: 0.15rem;
+  margin-bottom: 0.35rem;
+}
+
+.BalanceMiniGrid > div {
+  min-height: 2.7rem;
+  padding: 0.45rem 0.6rem;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 0.55rem;
+  background: var(--db-white-hover);
+}
+
+.BalanceMiniIcon {
+  width: 1.45rem;
+  height: 1.45rem;
+  flex: 0 0 1.45rem;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--darkcolor-low-op);
+}
+
+.BalanceMiniIcon svg {
+  width: 0.85rem;
+  height: 0.85rem;
+}
+
+.BalanceMiniIcon svg path {
+  fill: var(--white) !important;
+}
+
+.BalanceMiniCopy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.BalanceMiniCopy small {
+  color: var(--placeholder-light);
+  font-size: 0.62rem;
+  line-height: 1.1;
+}
+
+.BalanceMiniCopy strong {
+  margin-top: 0.12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: var(--white);
+  font-size: 0.7rem;
+  line-height: 1.1;
+}
+
+.BalanceDropdownPanel > button {
+  min-height: 2rem;
+  margin-top: 0.15rem;
+  border-radius: 0.45rem;
+}
+
+.AccountDropdownPanel {
+  box-sizing: border-box;
+  width: 27rem;
+  padding: 0.75rem;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 1.45rem;
+  background: var(--body-bg);
+  box-shadow: var(--db-dropdown-shadow);
+}
+
+.AccountSummary {
+  grid-template-columns: minmax(0, 1.65fr) minmax(8.5rem, 0.9fr);
+  gap: 0.7rem;
+  margin-bottom: 1rem;
+}
+
+.AccountBalanceCard,
+.PlayerLevelCard {
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 0.75rem;
+  background: var(--db-white-hover);
+}
+
+.AccountBalanceCard > div {
+  min-height: 2.45rem;
+  padding: 0.55rem 0.7rem;
+  justify-content: center;
+}
+
+.AccountBalanceCard small,
+.PlayerLevelCard small {
+  color: var(--placeholder-light);
+  font-size: 0.64rem;
+  line-height: 1.1;
+}
+
+.AccountBalanceCard strong {
+  margin-top: 0.18rem;
+  font-size: 0.78rem;
+  line-height: 1.1;
+}
+
+.AccountBalanceCard .MoneyBreakdown strong {
+  margin-top: 0;
+  margin-bottom: 0.12rem;
+}
+
+.LevelAvatar {
+  width: 2.4rem;
+  height: 2.4rem;
+  margin-bottom: 0.35rem;
+  border: 2px solid var(--darkcolor-low-op);
+  box-shadow: 0 0 0 2px var(--lightcolor-low-op);
+}
+
+.PlayerLevelCard strong {
+  margin-top: 0.1rem;
+  font-size: 0.72rem;
+}
+
+.AccountActions {
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 0.75rem;
+  background: var(--db-white-hover);
+}
+
+.AccountActions button {
+  min-height: 3rem;
+  gap: 0.85rem;
+  padding: 0 0.85rem;
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.AccountActions button svg,
+.LogoutAction svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: 0 0 1.1rem;
+}
+
+.AccountActions button:not(.PrimaryAccountAction) svg path,
+.LogoutAction svg path {
+  fill: var(--placeholder-light) !important;
+}
+
+.AccountActions .PrimaryAccountAction svg path {
+  fill: var(--white) !important;
+}
+
+.LogoutAction {
+  min-height: 2.7rem;
+  margin-top: 1.05rem;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 0.7rem;
+  font-size: 0.82rem;
+}
+
+.AccountSupport {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.95rem 0 0.05rem;
+}
+
+.AccountHelp {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--white);
+  font-size: 0.72rem;
+  line-height: 1.15;
+}
+
+.AccountHelp strong {
+  font-weight: 800;
+}
+
+.AccountHelp span {
+  color: var(--white);
+}
+
+.AccountSupportButton {
+  box-sizing: border-box;
+  width: 13.5rem;
+  min-height: 2.65rem;
+  margin-top: 0.85rem;
+  padding: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border: 1px solid var(--lightcolor-low-op);
+  border-radius: 0.75rem;
+  background: var(--button-grad-op-mid);
+  color: var(--white);
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.AccountSupportButton:hover {
+  background: var(--db-white-hover-light);
+}
+
+.AccountSupportButton svg {
+  width: 1.05rem;
+  height: 1.05rem;
+}
+
+.AccountSupportButton svg path {
+  fill: var(--brand-color) !important;
+}
+
+@media (max-width: 1023px) {
+  .AccountDropdownPanel {
+    width: min(27rem, calc(100vw - 1rem));
+  }
 }
